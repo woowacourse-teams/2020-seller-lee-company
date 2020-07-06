@@ -1,0 +1,50 @@
+front/node_modules/**/*
+front/.expo/*
+front/npm-debug.*
+front/*.jks
+front/*.p8
+front/*.p12
+front/*.key
+front/*.mobileprovision
+front/*.orig.*
+front/web-build/
+front/dist/
+
+# macOS
+front/.DS_Store
+back/.DS_Store
+.DS_Store
+
+# back
+back/.gradle
+back/build/
+back/!gradle/wrapper/gradle-wrapper.jar
+back/!**/src/main/**
+back/!**/src/test/**
+
+### STS ###
+back/.apt_generated
+back/.classpath
+back/.factorypath
+back/.project
+back/.settings
+back/.springBeans
+back/.sts4-cache
+
+### IntelliJ IDEA ###
+back/.idea
+back/*.iws
+back/*.iml
+back/*.ipr
+back/out/
+
+### NetBeans ###
+/back/nbproject/private/
+/back/nbbuild/
+/back/dist/
+/back/nbdist/
+/back/.nb-gradle/
+
+### VS Code ###
+.vscode/
+.idea/
