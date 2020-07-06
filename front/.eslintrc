@@ -1,0 +1,14 @@
+{
+  "root": true,
+
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react-hooks"],
+  "extends": ["@react-native-community", "prettier", "prettier/@typescript-eslint", "prettier/react"],
+  "rules": {
+    "@typescript-eslint/no-use-before-define": "off",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}

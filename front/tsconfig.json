@@ -16,6 +16,7 @@
     "outDir": "dist"
   },
   "include": [
+    "./App.tsx",
     "src/**/*"
   ],
   "exclude": [
