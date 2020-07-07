@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "tsc --noEmit && eslint --ext .ts,.tsx ./",
-    "prettier": "npx prettier --write **/*.{ts,tsx} && npx prettier --write *.{ts,tsx}"
+    "prettier": "npx prettier --write './**/*.{js,jsx,ts,tsx,json}' --config ./.prettierrc"
   },
   "dependencies": {
     "expo": "~38.0.8",
