@@ -2,12 +2,6 @@ import React from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import index from "./src/styles/index";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
@@ -17,3 +11,9 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
