@@ -1,10 +1,19 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import index from "./src/styles/index";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default function App() {
   return (
-    <View>
-      <Text>Seller Lee!</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={index.header} />
+      <View style={index.contents} />
+      <View style={index.footer} />
+    </SafeAreaView>
   );
 }

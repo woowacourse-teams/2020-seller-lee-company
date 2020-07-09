@@ -1,3 +1,4 @@
+front/package-lock.json
 front/node_modules/**/*
 front/.expo/*
 front/npm-debug.*
