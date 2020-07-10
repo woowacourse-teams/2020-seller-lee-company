@@ -1,37 +1,75 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ImageProps, StyleSheet, Text, View } from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import moment from "moment";
 
-export default function ArticleCard() {
+type ArticleDetail = {
+  location?: string;
+  tradeType: string;
+};
+
+type ArticleAdditional = {
+  favoriteCount: number;
+  chatCount: number;
+};
+
+export interface Article {
+  title: string;
+  price: number;
+  createdAt: string;
+  detail: ArticleDetail;
+  additional: ArticleAdditional;
+  thumbnail: ImageProps;
+}
+
+export default function ArticleCard({
+  title,
+  price,
+  createdAt,
+  detail,
+  additional,
+  thumbnail,
+}: Article) {
+  let createdTime = moment(createdAt.substr(0, 20), "YYYY-MM-DD HH:mm:ss");
+  let currentTime = moment();
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={require("../../assets/icon.png")} />
+        <Image style={styles.image} source={thumbnail} />
       </View>
       <View style={styles.contentsContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>락앤락 비스프리 반찬통</Text>
+          <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.tradeDetailContainer}>
           <View style={styles.tradeTypeContainer}>
-            <Text style={styles.tradeType}>잠실4동 / 직거래</Text>
+            <Text style={styles.tradeType}>
+              {detail.location ? detail.location + " / " : ""}
+              {detail.tradeType}
+            </Text>
           </View>
           <Text>∙</Text>
           <View style={styles.timeContainer}>
-            <Text style={styles.tradeType}>2초 전</Text>
+            <Text style={styles.tradeType}>
+              {Math.round(
+                moment.duration(currentTime.diff(createdTime)).asMinutes(),
+              )}
+              분 전
+            </Text>
           </View>
         </View>
         <View style={styles.priceContainer}>
-          <Text style={styles.price}>1,500원</Text>
+          <Text style={styles.price}>{price}원</Text>
         </View>
         <View style={styles.additionalContainer}>
           <View style={styles.chatContainer}>
             <MaterialCommunityIcons name="chat-outline" size={14} color="red" />
-            <Text>10</Text>
+            <Text>{additional.chatCount}</Text>
           </View>
           <View style={styles.favoriteContainer}>
             <FontAwesome name="heart" size={14} color="red" />
-            <Text>3</Text>
+            <Text>{additional.favoriteCount}</Text>
           </View>
         </View>
       </View>
@@ -47,12 +85,10 @@ const styles = StyleSheet.create({
     aspectRatio: 13 / 4,
   },
   imageContainer: {
-    // backgroundColor: "red",
     flex: 4.5,
     margin: innerContainerMargin,
   },
   contentsContainer: {
-    // backgroundColor: "yellow",
     flex: 10.5,
     margin: innerContainerMargin,
   },
@@ -60,24 +96,18 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "flex-start",
     justifyContent: "center",
-    // backgroundColor: "blue",
   },
   tradeDetailContainer: {
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: "green",
   },
   tradeTypeContainer: {
     justifyContent: "center",
-    // backgroundColor: "green",
   },
   timeContainer: {
     justifyContent: "center",
-    // backgroundColor: "green",
   },
-  priceContainer: {
-    // backgroundColor: "purple",
-  },
+  priceContainer: {},
   additionalContainer: {
     flex: 1,
     flexDirection: "row",
