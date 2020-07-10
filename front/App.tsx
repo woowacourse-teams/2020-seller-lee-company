@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import CategoryNavigation from "./src/components/CategoryNavigation";
 
 export default function App() {
   return (
-    <View>
-      <Text>Seller Lee!</Text>
-    </View>
+    <NavigationContainer>
+      <CategoryNavigation />
+    </NavigationContainer>
   );
 }
