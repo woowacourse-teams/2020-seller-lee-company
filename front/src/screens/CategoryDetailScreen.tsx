@@ -25,5 +25,4 @@ export default function CategoryDetailScreen() {
       <Text style={styles.text}>CategoryDetail Screen</Text>
     </View>
   );
-  //TODO : Header에 카테고리 제목 나오도록 변경
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { StackScreenProps } from "@react-navigation/stack";
-import { ParamListBase } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { categoryParamList } from "../components/CategoryNavigation";
 
 /**
  *
@@ -21,13 +21,27 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CategoryHomeScreen({
-  navigation,
-}: StackScreenProps<ParamListBase, "Detail">) {
+type CategoryHomeScreenProp = StackNavigationProp<
+  categoryParamList,
+  "CategoryHome"
+>;
+
+type Props = {
+  navigation: CategoryHomeScreenProp;
+};
+
+export default function CategoryHomeScreen({ navigation }: Props) {
+  const selectedCategoryName = "가전 제품";
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Category Screen</Text>
-      <Button title="move" onPress={() => navigation.push("CategoryDetail")} />
+      <Button
+        title="move"
+        onPress={() =>
+          navigation.push("CategoryDetail", { title: selectedCategoryName })
+        }
+      />
     </View>
   );
 }
