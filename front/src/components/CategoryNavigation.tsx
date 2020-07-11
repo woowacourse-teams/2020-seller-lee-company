@@ -1,7 +1,11 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from "@react-navigation/stack";
 import CategoryHomeScreen from "../screens/CategoryHomeScreen";
 import CategoryDetailScreen from "../screens/CategoryDetailScreen";
+import SearchScreen from "../screens/SearchScreen";
 
 /**
  *
@@ -11,6 +15,20 @@ import CategoryDetailScreen from "../screens/CategoryDetailScreen";
 export type categoryParamList = {
   CategoryHome: undefined;
   CategoryDetail: { title: string } | undefined;
+  Search: undefined;
+};
+
+type CategoryHomeScreenProp = StackNavigationProp<
+  categoryParamList,
+  "CategoryHome"
+>;
+type CategoryDetailScreenProp = StackNavigationProp<
+  categoryParamList,
+  "CategoryDetail"
+>;
+
+export type Props = {
+  navigation: CategoryHomeScreenProp | CategoryDetailScreenProp;
 };
 
 const Stack = createStackNavigator<categoryParamList>();
@@ -22,8 +40,12 @@ export default function CategoryNavigation() {
       <Stack.Screen
         name="CategoryDetail"
         component={CategoryDetailScreen}
-        options={({ route }) => ({ title: route.params?.title })}
+        options={({ route }) => ({
+          title: route.params?.title,
+          headerBackTitleVisible: false,
+        })}
       />
+      <Stack.Screen name="Search" component={SearchScreen} />
     </Stack.Navigator>
   );
 }

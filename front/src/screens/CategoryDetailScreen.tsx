@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { HeaderBackButton } from "@react-navigation/stack";
+import { EvilIcons } from "@expo/vector-icons";
+import { Props } from "../components/CategoryNavigation";
 
 /**
  *
@@ -19,7 +22,30 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CategoryDetailScreen() {
+export default function CategoryDetailScreen({ navigation }: Props) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: (props) => (
+        <HeaderBackButton
+          {...props}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 5 },
+      headerRight: () => (
+        <EvilIcons
+          name="search"
+          size={25}
+          color="black"
+          onPress={() => navigation.push("Search")}
+        />
+      ),
+      headerRightContainerStyle: { paddingRight: 15 },
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>CategoryDetail Screen</Text>

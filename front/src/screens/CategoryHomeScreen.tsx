@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { categoryParamList } from "../components/CategoryNavigation";
+import { Props } from "../components/CategoryNavigation";
 
 /**
  *
@@ -20,15 +19,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-
-type CategoryHomeScreenProp = StackNavigationProp<
-  categoryParamList,
-  "CategoryHome"
->;
-
-type Props = {
-  navigation: CategoryHomeScreenProp;
-};
 
 export default function CategoryHomeScreen({ navigation }: Props) {
   const selectedCategoryName = "가전 제품";
