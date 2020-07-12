@@ -1,39 +1,15 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
-import ArticleCard from "./src/components/ArticleCard";
-import { mockArticles } from "./src/data/articleMockData";
-import index from "./src/styles";
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
 
 export default function App() {
-  return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <View style={index.header} />
-      <View style={index.contents}>
-        <View style={styles.container}>
-          {mockArticles.map((mockArticle) => {
-            return (
-              <ArticleCard
-                key={Math.random()}
-                title={mockArticle.title}
-                price={mockArticle.price}
-                createdAt={mockArticle.createdAt}
-                detail={mockArticle.detail}
-                additional={mockArticle.additional}
-                thumbnail={mockArticle.thumbnail}
-              />
-            );
-          })}
-        </View>
-      </View>
-      <View style={index.footer} />
-    </SafeAreaView>
-  );
+  return <SafeAreaView style={styles.safeAreaContainer} />;
 }
 
 const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     backgroundColor: "#ffffff",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   container: {
     flex: 1,

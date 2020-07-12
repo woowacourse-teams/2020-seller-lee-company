@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, ImageProps, StyleSheet, Text, View } from "react-native";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 
 type ArticleDetail = {
@@ -13,7 +13,7 @@ type ArticleAdditional = {
   chatCount: number;
 };
 
-export interface Article {
+export interface ArticleCardProps {
   title: string;
   price: number;
   createdAt: string;
@@ -29,7 +29,7 @@ export default function ArticleCard({
   detail,
   additional,
   thumbnail,
-}: Article) {
+}: ArticleCardProps) {
   let createdTime = moment(createdAt.substr(0, 20), "YYYY-MM-DD HH:mm:ss");
   let currentTime = moment();
 
@@ -64,12 +64,22 @@ export default function ArticleCard({
         </View>
         <View style={styles.additionalContainer}>
           <View style={styles.chatContainer}>
-            <MaterialCommunityIcons name="chat-outline" size={14} color="red" />
-            <Text>{additional.chatCount}</Text>
+            <MaterialCommunityIcons
+              name="chat-outline"
+              size={14}
+              color="black"
+            />
+            <Text style={styles.additionalText}>{additional.chatCount}</Text>
           </View>
           <View style={styles.favoriteContainer}>
-            <FontAwesome name="heart" size={14} color="red" />
-            <Text>{additional.favoriteCount}</Text>
+            <MaterialCommunityIcons
+              name="heart-outline"
+              size={14}
+              color="black"
+            />
+            <Text style={styles.additionalText}>
+              {additional.favoriteCount}
+            </Text>
           </View>
         </View>
       </View>
@@ -143,5 +153,9 @@ const styles = StyleSheet.create({
     margin: 3,
     fontSize: 14,
     fontWeight: "bold",
+  },
+  additionalText: {
+    fontSize: 14,
+    marginLeft: 1,
   },
 });
