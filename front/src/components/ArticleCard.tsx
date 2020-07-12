@@ -30,8 +30,32 @@ export default function ArticleCard({
   additional,
   thumbnail,
 }: ArticleCardProps) {
-  let createdTime = moment(createdAt.substr(0, 20), "YYYY-MM-DD HH:mm:ss");
-  let currentTime = moment();
+  const calculateDiffTime = (time: string) => {
+    const createdTime = moment(time.substr(0, 20), "YYYY-MM-DD HH:mm:ss");
+    const currentTime = moment();
+    const diffTime = currentTime.diff(createdTime);
+
+    const diffSeconds = moment.duration(diffTime).asSeconds();
+    const diffMinutes = moment.duration(diffTime).asMinutes();
+    const diffHours = moment.duration(diffTime).asHours();
+    const diffDays = moment.duration(diffTime).asDays();
+
+    if (diffDays === 1) {
+      return "하루 전";
+    } else if (diffDays > 1) {
+      return Math.ceil(diffDays) + "일 전";
+    } else if (diffHours > 0) {
+      return Math.ceil(diffHours) + "시간 전";
+    } else if (diffMinutes > 0) {
+      return Math.ceil(diffMinutes) + "분 전";
+    } else if (diffSeconds > 4) {
+      return Math.ceil(diffSeconds) + "초 전";
+    } else if (diffSeconds >= 0) {
+      return "방금 전";
+    } else {
+      throw new Error("calculateDiffTimeError createdTime: " + createdTime);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -51,12 +75,7 @@ export default function ArticleCard({
           </View>
           <Text>∙</Text>
           <View style={styles.timeContainer}>
-            <Text style={styles.tradeType}>
-              {Math.round(
-                moment.duration(currentTime.diff(createdTime)).asMinutes(),
-              )}
-              분 전
-            </Text>
+            <Text style={styles.tradeType}>{calculateDiffTime(createdAt)}</Text>
           </View>
         </View>
         <View style={styles.priceContainer}>
