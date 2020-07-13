@@ -1,26 +1,12 @@
+/**
+ * @author begaonnuri, joseph415
+ */
+
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import { Props } from "../components/CategoryNavigation";
-
-/**
- *
- * @author 터틀, 서브웨이
- */
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "green",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "white",
-    fontSize: 30,
-  },
-});
 
 export default function CategoryDetailScreen({ navigation }: Props) {
   useLayoutEffect(() => {
@@ -52,3 +38,16 @@ export default function CategoryDetailScreen({ navigation }: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    color: "white",
+    fontSize: 30,
+  },
+});

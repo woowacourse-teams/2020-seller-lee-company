@@ -1,3 +1,7 @@
+/**
+ * @author begaonnuri, joseph415
+ */
+
 import React from "react";
 import {
   createStackNavigator,
@@ -6,11 +10,6 @@ import {
 import CategoryHomeScreen from "../screens/CategoryHomeScreen";
 import CategoryDetailScreen from "../screens/CategoryDetailScreen";
 import SearchScreen from "../screens/SearchScreen";
-
-/**
- *
- * @author 터틀, 서브웨이
- */
 
 export type categoryParamList = {
   CategoryHome: undefined;
