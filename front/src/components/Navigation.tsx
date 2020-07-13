@@ -1,3 +1,7 @@
+/**
+ * @author begaonnuri, joseph415
+ */
+
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -6,11 +10,6 @@ import CategoryScreen from "../screens/CategoryScreen";
 import WriteScreen from "../screens/WriteScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-
-/**
- *
- * @author 터틀, 서브웨이
- */
 
 const Tab = createBottomTabNavigator();
 

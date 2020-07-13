@@ -1,10 +1,17 @@
+/**
+ * @author begaonnuri, joseph415
+ */
+
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-/**
- *
- * @author 터틀, 서브웨이
- */
+export default function CategoryScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Category Screen</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -18,11 +25,3 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-
-export default function CategoryScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Category Screen</Text>
-    </View>
-  );
-}

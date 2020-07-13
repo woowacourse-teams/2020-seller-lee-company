@@ -1,10 +1,17 @@
+/**
+ * @author begaonnuri, joseph415
+ */
+
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-/**
- *
- * @author 터틀, 서브웨이
- */
+export default function WriteScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Write Screen</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -18,11 +25,3 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-
-export default function WriteScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Write Screen</Text>
-    </View>
-  );
-}
