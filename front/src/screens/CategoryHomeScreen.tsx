@@ -4,10 +4,11 @@
 
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { Props } from "../components/CategoryNavigation";
+import { useNavigation } from "@react-navigation/native";
 
-export default function CategoryHomeScreen({ navigation }: Props) {
+export default function CategoryHomeScreen() {
   const selectedCategoryName = "가전 제품";
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -15,7 +16,7 @@ export default function CategoryHomeScreen({ navigation }: Props) {
       <Button
         title="move"
         onPress={() =>
-          navigation.push("CategoryDetail", { title: selectedCategoryName })
+          navigation.navigate("CategoryDetail", { title: selectedCategoryName })
         }
       />
     </View>
