@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 export default function Navigation() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="홈"
       tabBarOptions={{ activeTintColor: "black" }}
     >
       <Tab.Screen
