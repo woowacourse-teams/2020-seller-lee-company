@@ -10,7 +10,7 @@ import SearchScreen from "../screens/SearchScreen";
 
 export type categoryParamList = {
   CategoryHome: undefined;
-  CategoryDetail: { title: string } | undefined;
+  CategoryDetail: { title: string };
   Search: undefined;
 };
 
