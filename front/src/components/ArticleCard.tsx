@@ -1,3 +1,7 @@
+/**
+ * @author kouz95, jnsorn, lxxjn0
+ */
+
 import React from "react";
 import { Image, ImageProps, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -117,6 +121,12 @@ const styles = StyleSheet.create({
     flex: 4.5,
     margin: innerContainerMargin,
   },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+    borderRadius: 15,
+  },
   contentsContainer: {
     flex: 10.5,
     margin: innerContainerMargin,
@@ -126,6 +136,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "center",
   },
+  title: {
+    margin: 3,
+    fontSize: 14,
+    fontWeight: "bold",
+  },
   tradeDetailContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -133,10 +148,19 @@ const styles = StyleSheet.create({
   tradeTypeContainer: {
     justifyContent: "center",
   },
+  tradeType: {
+    margin: 3,
+    fontSize: 10,
+  },
   timeContainer: {
     justifyContent: "center",
   },
   priceContainer: {},
+  price: {
+    margin: 3,
+    fontSize: 14,
+    fontWeight: "bold",
+  },
   additionalContainer: {
     flex: 1,
     flexDirection: "row",
@@ -148,33 +172,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  additionalText: {
+    fontSize: 14,
+    marginLeft: 1,
+  },
   favoriteContainer: {
     margin: 3,
     alignItems: "center",
     flexDirection: "row",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-    borderRadius: 15,
-  },
-  title: {
-    margin: 3,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  tradeType: {
-    margin: 3,
-    fontSize: 10,
-  },
-  price: {
-    margin: 3,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  additionalText: {
-    fontSize: 14,
-    marginLeft: 1,
   },
 });

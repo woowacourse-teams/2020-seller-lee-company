@@ -1,3 +1,7 @@
+/**
+ * @author kouz95, jnsorn, lxxjn0
+ */
+
 export const mockArticles = [
   {
     title: "락앤락 비스프리 반찬통",
