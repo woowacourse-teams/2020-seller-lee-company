@@ -1,3 +1,7 @@
+/**
+ * @author kouz95, jnsorn, lxxjn0
+ */
+
 import { StyleSheet } from "react-native";
 
 const headerFlex = 1;
