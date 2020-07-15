@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import Navigation from "./src/components/Navigation";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
-    <View>
-      <Text>Seller Lee!</Text>
-    </View>
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
   );
 }
