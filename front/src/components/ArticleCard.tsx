@@ -5,7 +5,7 @@
 import React from "react";
 import { Image, ImageProps, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import moment from "moment";
+import calculateDiffTime from "../calculateDiffTime";
 
 type ArticleDetail = {
   location?: string;
@@ -34,33 +34,6 @@ export default function ArticleCard({
   additional,
   thumbnail,
 }: ArticleCardProps) {
-  const calculateDiffTime = (time: string) => {
-    const createdTime = moment(time.substr(0, 20), "YYYY-MM-DD HH:mm:ss");
-    const currentTime = moment();
-    const diffTime = currentTime.diff(createdTime);
-
-    const diffSeconds = moment.duration(diffTime).asSeconds();
-    const diffMinutes = moment.duration(diffTime).asMinutes();
-    const diffHours = moment.duration(diffTime).asHours();
-    const diffDays = moment.duration(diffTime).asDays();
-
-    if (diffDays === 1) {
-      return "하루 전";
-    } else if (diffDays > 1) {
-      return Math.ceil(diffDays) + "일 전";
-    } else if (diffHours > 0) {
-      return Math.ceil(diffHours) + "시간 전";
-    } else if (diffMinutes > 0) {
-      return Math.ceil(diffMinutes) + "분 전";
-    } else if (diffSeconds > 4) {
-      return Math.ceil(diffSeconds) + "초 전";
-    } else if (diffSeconds >= 0) {
-      return "방금 전";
-    } else {
-      throw new Error("calculateDiffTimeError createdTime: " + createdTime);
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
