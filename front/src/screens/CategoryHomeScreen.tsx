@@ -5,10 +5,17 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { categoryParamList } from "../components/CategoryNavigation";
+
+type CategoryHomeNavigationProp = StackNavigationProp<
+  categoryParamList,
+  "CategoryHome"
+>;
 
 export default function CategoryHomeScreen() {
   const selectedCategoryName = "가전 제품";
-  const navigation = useNavigation();
+  const navigation = useNavigation<CategoryHomeNavigationProp>();
 
   return (
     <View style={styles.container}>

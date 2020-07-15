@@ -4,16 +4,22 @@
 
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { HeaderBackButton } from "@react-navigation/stack";
-import { Props } from "../components/CategoryNavigation";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { categoryParamList } from "../components/CategoryNavigation";
 
-export default function SearchScreen({ navigation }: Props) {
+type SearchNavigationProp = StackNavigationProp<categoryParamList, "Search">;
+
+export default function SearchScreen() {
+  const navigation = useNavigation<SearchNavigationProp>();
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft: (props) => (
+      headerLeft: () => (
         <HeaderBackButton
-          {...props}
+          labelVisible={false}
+          onPress={() => navigation.goBack()}
           backImage={() => (
             <EvilIcons name="chevron-left" size={35} color="black" />
           )}
