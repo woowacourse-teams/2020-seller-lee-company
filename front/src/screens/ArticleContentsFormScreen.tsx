@@ -4,8 +4,12 @@
 
 import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
+import { useRecoilState } from "recoil/dist";
+import { contentsState } from "../articleState";
 
 export default function ArticleContentsFormScreen() {
+  const [contents, setContents] = useRecoilState(contentsState);
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -13,6 +17,8 @@ export default function ArticleContentsFormScreen() {
         placeholder={"내용 입력"}
         keyboardType={"default"}
         maxLength={200}
+        onChangeText={(text) => setContents(text)}
+        value={contents}
       />
     </View>
   );
