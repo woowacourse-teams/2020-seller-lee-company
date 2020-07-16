@@ -16,7 +16,6 @@ export default function ArticleContentsFormScreen() {
         style={styles.form}
         placeholder={"내용 입력"}
         keyboardType={"default"}
-        maxLength={200}
         onChangeText={(text) => setContents(text)}
         value={contents}
       />
