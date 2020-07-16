@@ -5,15 +5,12 @@
 import React, { useLayoutEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import CategoryList from "../components/CategoryList";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
-import { CategoryDetailRouteProp } from "../types";
 
 export default function CategoryChoiceScreen() {
   const navigation = useNavigation();
-  const route = useRoute<CategoryDetailRouteProp>();
-  const { onSelectCategory } = route.params;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,7 +31,7 @@ export default function CategoryChoiceScreen() {
 
   return (
     <View style={styles.container}>
-      <CategoryList onSelectCategory={onSelectCategory} />
+      <CategoryList />
     </View>
   );
 }
@@ -42,6 +39,5 @@ export default function CategoryChoiceScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
   },
 });

@@ -5,18 +5,29 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CategoryItemProps } from "../types";
+import { useRecoilState } from "recoil/dist";
+import { selectedCategoryState } from "../recoil";
+import { useNavigation } from "@react-navigation/native";
 
-export default function CategoryItem({
-  title,
-  onSelectCategory,
-}: CategoryItemProps) {
-  const onClickCategory = (e: any): void => {
-    onSelectCategory(e.target.innerText);
+export default function CategoryItem({ title }: CategoryItemProps) {
+  const navigation = useNavigation();
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
+    selectedCategoryState,
+  );
+
+  const onClickCategory = () => {
+    setSelectedCategory(title);
+    navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <Text onPress={onClickCategory}>{title}</Text>
+      <Text
+        style={selectedCategory === title ? styles.selected : {}}
+        onPress={onClickCategory}
+      >
+        {title}
+      </Text>
     </View>
   );
 }
@@ -24,9 +35,11 @@ export default function CategoryItem({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    padding: 15,
     borderBottomWidth: 0.2,
     borderBottomColor: "#BBB",
+  },
+  selected: {
+    color: "coral",
   },
 });

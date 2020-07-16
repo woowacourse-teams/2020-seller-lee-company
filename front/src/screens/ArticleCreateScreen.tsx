@@ -2,29 +2,24 @@
  * @author begaonnuri
  */
 
-import React, { useState } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useRecoilValue } from "recoil/dist";
+import { selectedCategoryState } from "../recoil";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
-  const [selectedCategory, setSelectedCategory] = useState("카테고리 선택");
-
-  const onSelectCategory = (category: string): void => {
-    setSelectedCategory(category);
-    navigation.goBack();
-  };
+  const selectedCategory = useRecoilValue(selectedCategoryState);
 
   return (
     <View style={styles.container}>
-      <Button
-        title={selectedCategory || ""}
-        onPress={() =>
-          navigation.navigate("CategoryChoiceScreen", {
-            onSelectCategory: onSelectCategory,
-          })
-        }
-      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("CategoryChoiceScreen")}
+      >
+        <Text style={styles.buttonText}>{selectedCategory}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -34,6 +29,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     justifyContent: "center",
-    alignItems: "center",
+  },
+  button: {
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  buttonText: {
+    fontSize: 20,
   },
 });
