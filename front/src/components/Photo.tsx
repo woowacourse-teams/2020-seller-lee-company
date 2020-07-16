@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
@@ -40,32 +40,41 @@ export default function Photo() {
     }
   };
 
+  const removeImage = (uri: string) => {
+    setImages(images.filter((value) => value !== uri));
+  };
+
   return (
-    <View style={style.photoField}>
-      <View style={style.cameraContainer}>
+    <View style={styles.photoField}>
+      <View style={styles.cameraContainer}>
         <TouchableHighlight onPress={pickImage} underlayColor={"#FFFFFF"}>
           <MaterialCommunityIcons name="camera" size={30} color="black" />
         </TouchableHighlight>
-        <View style={style.countContainer}>
-          <Text style={style.count}>{images.length}</Text>
-          <Text style={style.maxCount}>/5</Text>
+        <View style={styles.countContainer}>
+          <Text style={styles.count}>{images.length}</Text>
+          <Text style={styles.maxCount}>/5</Text>
         </View>
       </View>
-      <View style={style.photoContainer}>
+      <View style={styles.photosContainer}>
         <FlatList
           data={images}
           horizontal={true}
           renderItem={(item) => (
-            <Image style={style.photo} source={{ uri: item.item }} />
+            <View style={styles.photoContainer}>
+              <Image style={styles.photo} source={{ uri: item.item }} />
+              <TouchableHighlight onPress={() => removeImage(item.item)}>
+                <AntDesign style={styles.delete} name="closecircle" size={15} />
+              </TouchableHighlight>
+            </View>
           )}
-          contentContainerStyle={style.photos}
+          contentContainerStyle={styles.photos}
         />
       </View>
     </View>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   photoField: {
     flexDirection: "row",
     aspectRatio: 5,
@@ -76,9 +85,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 5,
   },
-  photoContainer: {
-    flex: 7,
-  },
+
   countContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -86,6 +93,12 @@ const style = StyleSheet.create({
   },
   maxCount: { fontSize: 11, color: "grey" },
   count: { fontSize: 11, color: "grey" },
+
+  photosContainer: {
+    flex: 7,
+  },
   photos: { alignItems: "center" },
-  photo: { width: 50, height: 50, margin: 5, borderRadius: 5 },
+  photoContainer: { margin: 5 },
+  photo: { width: 50, height: 50, borderRadius: 5 },
+  delete: { position: "absolute", right: 0, color: "black" },
 });
