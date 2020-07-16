@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import BottomTabNavigation from "./src/components/BottomTabNavigation";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
-    <View>
-      <Text>Seller Lee!</Text>
-    </View>
+    <NavigationContainer>
+      <BottomTabNavigation />
+    </NavigationContainer>
   );
 }

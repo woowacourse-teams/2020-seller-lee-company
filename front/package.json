@@ -10,6 +10,11 @@
     "prettier": "npx prettier --write './**/*.{js,jsx,ts,tsx,json}' --config ./.prettierrc"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.2.0",
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^5.6.1",
+    "@react-navigation/native": "^5.6.1",
+    "@react-navigation/stack": "^5.6.2",
     "expo": "~38.0.8",
     "expo-status-bar": "^1.0.2",
     "moment": "^2.27.0",
