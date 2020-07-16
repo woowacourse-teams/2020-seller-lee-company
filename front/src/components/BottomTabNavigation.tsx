@@ -6,10 +6,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
-import WriteScreen from "../screens/WriteScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
+import ArticleCreateNavigation from "./ArticleCreateNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +47,7 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="글쓰기"
-        component={WriteScreen}
+        component={ArticleCreateNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
