@@ -17,6 +17,8 @@ export default function Photo() {
     console.log(response);
   };
 
+  const MAX_IMAGE_SIZE = 6;
+
   useEffect(() => {
     requestPermission();
   }, []);
@@ -24,6 +26,9 @@ export default function Photo() {
   const [images, setImages] = useState<string[]>([]);
 
   const pickImage = async () => {
+    if (images.length === MAX_IMAGE_SIZE) {
+      return alert("사진은 최대 " + MAX_IMAGE_SIZE + "장만 첨부 가능합니다.");
+    }
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -52,7 +57,7 @@ export default function Photo() {
         </TouchableHighlight>
         <View style={styles.countContainer}>
           <Text style={styles.count}>{images.length}</Text>
-          <Text style={styles.maxCount}>/5</Text>
+          <Text style={styles.maxCount}>/{MAX_IMAGE_SIZE}</Text>
         </View>
       </View>
       <View style={styles.photosContainer}>
