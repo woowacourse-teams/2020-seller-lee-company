@@ -6,14 +6,14 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
-import CategoryScreen from "../screens/CategoryScreen";
 import WriteScreen from "../screens/WriteScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import CategoryNavigation from "./CategoryNavigation";
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function BottomTabNavigation() {
   return (
     <Tab.Navigator
       initialRouteName="홈"
@@ -34,7 +34,7 @@ export default function Navigation() {
       />
       <Tab.Screen
         name="카테고리"
-        component={CategoryScreen}
+        component={CategoryNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
