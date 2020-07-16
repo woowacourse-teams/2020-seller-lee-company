@@ -14,9 +14,15 @@ import {
 import ArticleTitleForm from "../components/ArticleTitleForm";
 import ArticlePriceForm from "../components/ArticlePriceForm";
 import { useNavigation } from "@react-navigation/native";
+import { contentsState, priceState, titleState } from "../articleState";
+import { useRecoilState } from "recoil/dist";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
+  const setPrice = useRecoilState(priceState)[1];
+  const setTitle = useRecoilState(titleState)[1];
+  const [contents, setContents] = useRecoilState(contentsState);
+
   return (
     <TouchableWithoutFeedback
       onPress={() => Keyboard.dismiss()}
@@ -37,7 +43,7 @@ export default function ArticleCreateScreen() {
         </View>
         <View style={styles.contentsFormContainer}>
           <Button
-            title={"내용 입력"}
+            title={contents === "" ? "내용 입력" : contents}
             onPress={() => navigation.navigate("ArticleCreateForm")}
           />
         </View>
@@ -45,7 +51,15 @@ export default function ArticleCreateScreen() {
           <Text>태그 입력</Text>
         </View>
         <View style={styles.createButtonContainer}>
-          <Button title={"완료"} onPress={() => navigation.goBack()} />
+          <Button
+            title={"완료"}
+            onPress={() => {
+              navigation.goBack();
+              setPrice(0);
+              setTitle("");
+              setContents("");
+            }}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>
