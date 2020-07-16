@@ -36,7 +36,10 @@ export default function ArticleCreateScreen() {
           <ArticlePriceForm />
         </View>
         <View style={styles.contentsFormContainer}>
-          <Text>내용 입력</Text>
+          <Button
+            title={"내용 입력"}
+            onPress={() => navigation.navigate("ArticleCreateForm")}
+          />
         </View>
         <View style={styles.tagFormContainer}>
           <Text>태그 입력</Text>
@@ -91,8 +94,8 @@ const styles = StyleSheet.create({
   },
   contentsFormContainer: {
     flex: 8,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     borderColor: "grey",
     borderWidth: 2,
   },

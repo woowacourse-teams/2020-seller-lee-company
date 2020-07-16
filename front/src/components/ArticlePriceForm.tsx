@@ -11,7 +11,7 @@ export default function ArticlePriceForm() {
       style={styles.form}
       placeholder={"가격 입력"}
       keyboardType={"number-pad"}
-      maxLength={5}
+      maxLength={10}
     />
   );
 }
