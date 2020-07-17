@@ -66,10 +66,10 @@ export default function Photo() {
           horizontal={true}
           renderItem={(item) => (
             <View style={styles.photoContainer}>
-              <Image style={styles.photo} source={{ uri: item.item }} />
               <TouchableHighlight onPress={() => removeImage(item.item)}>
                 <AntDesign style={styles.delete} name="closecircle" size={15} />
               </TouchableHighlight>
+              <Image style={styles.photo} source={{ uri: item.item }} />
             </View>
           )}
           contentContainerStyle={styles.photos}
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   photoField: {
     flexDirection: "row",
     aspectRatio: 5,
+    marginTop: 10,
   },
   cameraContainer: {
     flex: 1,
@@ -101,9 +102,15 @@ const styles = StyleSheet.create({
 
   photosContainer: {
     flex: 7,
+    flexDirection: "row",
   },
   photos: { alignItems: "center" },
-  photoContainer: { margin: 5 },
-  photo: { width: 50, height: 50, borderRadius: 5 },
-  delete: { position: "absolute", right: 0, color: "black" },
+  photoContainer: { margin: 5, color: "yellow" },
+  photo: { width: 50, height: 50, borderRadius: 5, zIndex: -1 },
+  delete: {
+    position: "absolute",
+    color: "black",
+    right: -7,
+    top: -7,
+  },
 });
