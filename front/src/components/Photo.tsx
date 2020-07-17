@@ -17,14 +17,17 @@ interface ImageInfo {
 }
 
 export default function Photo() {
-  const MAX_IMAGE_SIZE = 6;
+  const MAX_IMAGE_SIZE = 5;
 
   useEffect(() => {
     requestPermission();
   }, []);
 
   const requestPermission = async () => {
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== "granted") {
+      alert("이 작업을 수행하기 위해 갤러리 접근 권한이 필요합니다.");
+    }
   };
 
   const [images, setImages] = useState<ImageInfo[]>([]);
@@ -33,19 +36,23 @@ export default function Photo() {
     if (images.length === MAX_IMAGE_SIZE) {
       return alert("사진은 최대 " + MAX_IMAGE_SIZE + "장만 첨부 가능합니다.");
     }
+
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
-        aspect: [4, 3],
         quality: 1,
       });
       if (!result.cancelled) {
         setImages(
-          images.concat({ id: images.length.toString(), uri: result.uri }),
+          images.concat({
+            id: images.length.toString(),
+            uri: result.uri,
+          }),
         );
       }
     } catch (E) {
+      alert("사진 불러오기에 실패했습니다.");
       console.log(E);
     }
   };
@@ -61,8 +68,8 @@ export default function Photo() {
           <MaterialCommunityIcons name="camera" size={30} color="black" />
         </TouchableHighlight>
         <View style={styles.countContainer}>
-          <Text style={styles.count}>{images.length}</Text>
-          <Text style={styles.maxCount}>/{MAX_IMAGE_SIZE}</Text>
+          <Text style={styles.countFont}>{images.length}</Text>
+          <Text style={styles.countFont}>/{MAX_IMAGE_SIZE}</Text>
         </View>
       </View>
       <View style={styles.photosContainer}>
@@ -88,7 +95,6 @@ const styles = StyleSheet.create({
   photoField: {
     flexDirection: "row",
     aspectRatio: 5,
-    marginTop: 10,
   },
   cameraContainer: {
     flex: 1,
@@ -102,15 +108,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  maxCount: { fontSize: 11, color: "grey" },
-  count: { fontSize: 11, color: "grey" },
-
+  countFont: { fontSize: 11, color: "grey" },
   photosContainer: {
     flex: 7,
     flexDirection: "row",
   },
   photos: { alignItems: "center" },
-  photoContainer: { margin: 5, color: "yellow" },
+  photoContainer: { margin: 5 },
   photo: { width: 50, height: 50, borderRadius: 5, zIndex: -1 },
   delete: {
     position: "absolute",
