@@ -11,19 +11,23 @@ import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
-export default function Photo() {
-  const requestPermission = async () => {
-    const response = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    console.log(response);
-  };
+interface ImageInfo {
+  id: string;
+  uri: string;
+}
 
+export default function Photo() {
   const MAX_IMAGE_SIZE = 6;
 
   useEffect(() => {
     requestPermission();
   }, []);
 
-  const [images, setImages] = useState<string[]>([]);
+  const requestPermission = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  };
+
+  const [images, setImages] = useState<ImageInfo[]>([]);
 
   const pickImage = async () => {
     if (images.length === MAX_IMAGE_SIZE) {
@@ -37,16 +41,17 @@ export default function Photo() {
         quality: 1,
       });
       if (!result.cancelled) {
-        setImages(images.concat(result.uri));
+        setImages(
+          images.concat({ id: images.length.toString(), uri: result.uri }),
+        );
       }
-      console.log(result);
     } catch (E) {
       console.log(E);
     }
   };
 
-  const removeImage = (uri: string) => {
-    setImages(images.filter((value) => value !== uri));
+  const removeImage = (id: string) => {
+    setImages(images.filter((value) => value.id !== id));
   };
 
   return (
@@ -66,10 +71,10 @@ export default function Photo() {
           horizontal={true}
           renderItem={(item) => (
             <View style={styles.photoContainer}>
-              <TouchableHighlight onPress={() => removeImage(item.item)}>
+              <TouchableHighlight onPress={() => removeImage(item.item.id)}>
                 <AntDesign style={styles.delete} name="closecircle" size={15} />
               </TouchableHighlight>
-              <Image style={styles.photo} source={{ uri: item.item }} />
+              <Image style={styles.photo} source={{ uri: item.item.uri }} />
             </View>
           )}
           contentContainerStyle={styles.photos}
