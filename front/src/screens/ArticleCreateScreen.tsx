@@ -15,12 +15,12 @@ import ArticleTitleForm from "../components/ArticleTitleForm";
 import ArticlePriceForm from "../components/ArticlePriceForm";
 import { useNavigation } from "@react-navigation/native";
 import { contentsState, priceState, titleState } from "../articleState";
-import { useRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
-  const setTitle = useRecoilState(titleState)[1];
-  const setPrice = useRecoilState(priceState)[1];
+  const setTitle = useSetRecoilState(titleState);
+  const setPrice = useSetRecoilState(priceState);
   const [contents, setContents] = useRecoilState(contentsState);
 
   return (
