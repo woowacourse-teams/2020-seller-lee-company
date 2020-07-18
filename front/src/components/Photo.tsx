@@ -1,3 +1,7 @@
+/**
+ * @author jnsorn
+ */
+
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -51,9 +55,9 @@ export default function Photo() {
           }),
         );
       }
-    } catch (E) {
+    } catch (error) {
       alert("사진 불러오기에 실패했습니다.");
-      console.log(E);
+      console.warn(error);
     }
   };
 
@@ -102,20 +106,31 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 5,
   },
-
   countContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-  countFont: { fontSize: 11, color: "grey" },
+  countFont: {
+    fontSize: 11,
+    color: "grey",
+  },
   photosContainer: {
     flex: 7,
     flexDirection: "row",
   },
-  photos: { alignItems: "center" },
-  photoContainer: { margin: 5 },
-  photo: { width: 50, height: 50, borderRadius: 5, zIndex: -1 },
+  photos: {
+    alignItems: "center",
+  },
+  photoContainer: {
+    margin: 5,
+  },
+  photo: {
+    width: 50,
+    height: 50,
+    borderRadius: 5,
+    zIndex: -1,
+  },
   delete: {
     position: "absolute",
     color: "black",
