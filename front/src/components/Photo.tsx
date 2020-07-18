@@ -21,7 +21,7 @@ interface ImageInfo {
 }
 
 export default function Photo() {
-  const MAX_IMAGE_SIZE = 5;
+  const maxImageCount = 5;
 
   useEffect(() => {
     requestPermission();
@@ -37,12 +37,12 @@ export default function Photo() {
   const [images, setImages] = useState<ImageInfo[]>([]);
 
   const pickImage = async () => {
-    if (images.length === MAX_IMAGE_SIZE) {
-      return alert("사진은 최대 " + MAX_IMAGE_SIZE + "장만 첨부 가능합니다.");
+    if (images.length === maxImageCount) {
+      return alert("사진은 최대 " + maxImageCount + "장만 첨부 가능합니다.");
     }
 
     try {
-      let result = await ImagePicker.launchImageLibraryAsync({
+      const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
         quality: 1,
@@ -57,7 +57,7 @@ export default function Photo() {
       }
     } catch (error) {
       alert("사진 불러오기에 실패했습니다.");
-      console.warn(error);
+      console.error(error);
     }
   };
 
@@ -73,19 +73,19 @@ export default function Photo() {
         </TouchableHighlight>
         <View style={styles.countContainer}>
           <Text style={styles.countFont}>{images.length}</Text>
-          <Text style={styles.countFont}>/{MAX_IMAGE_SIZE}</Text>
+          <Text style={styles.countFont}>/{maxImageCount}</Text>
         </View>
       </View>
       <View style={styles.photosContainer}>
         <FlatList
           data={images}
           horizontal={true}
-          renderItem={(item) => (
+          renderItem={({ item }) => (
             <View style={styles.photoContainer}>
-              <TouchableHighlight onPress={() => removeImage(item.item.id)}>
+              <TouchableHighlight onPress={() => removeImage(item.id)}>
                 <AntDesign style={styles.delete} name="closecircle" size={15} />
               </TouchableHighlight>
-              <Image style={styles.photo} source={{ uri: item.item.uri }} />
+              <Image style={styles.photo} source={{ uri: item.uri }} />
             </View>
           )}
           contentContainerStyle={styles.photos}
@@ -97,6 +97,8 @@ export default function Photo() {
 
 const styles = StyleSheet.create({
   photoField: {
+    paddingTop: 10,
+    marginTop: 20,
     flexDirection: "row",
     aspectRatio: 5,
   },
