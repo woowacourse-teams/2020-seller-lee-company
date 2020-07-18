@@ -3,12 +3,13 @@
  */
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import TagComponent from "../components/TagComponent";
 
 export default function WriteScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Write Screen</Text>
+      <TagComponent />
     </View>
   );
 }
@@ -19,9 +20,5 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    color: "white",
-    fontSize: 30,
   },
 });
