@@ -6,9 +6,10 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
-import tagModal from "./tagModal";
+import TagModal from "./TagModal";
+import TagTemplate from "./TagTemplate";
 
-type tag = {
+export type tag = {
   id: number;
   tag: string;
 };
@@ -40,7 +41,7 @@ export default function TopComponent() {
 
   return (
     <View style={styles.container}>
-      {tagModal(isModalOpen, setIsModalOpen)}
+      {TagModal(isModalOpen, setIsModalOpen)}
       <Text style={styles.text}># 피드에 보여질 키워드</Text>
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
@@ -58,7 +59,6 @@ export default function TopComponent() {
                 insertTag();
               }
             }}
-            multiline={false}
             blurOnSubmit={false}
             style={styles.inputBox}
           />
@@ -94,39 +94,11 @@ export default function TopComponent() {
         </View>
       </View>
       <View style={styles.tagContainerWrapper}>
-        {tags.map((tag) => {
-          return tagTemplate(tag, onRemove);
-        })}
+        {tags.map((tag) => TagTemplate(tag, onRemove))}
       </View>
     </View>
   );
 }
-
-const tagTemplate = (tags: tag, onRemove: Function) => {
-  return (
-    <View key={tags.id} style={styles.tagItem}>
-      <View style={styles.tagItemTextWrapper}>
-        <Text style={styles.tagItemText}>{tags.tag}</Text>
-      </View>
-      <View style={styles.deleteTagButtonWrapper}>
-        <TouchableOpacity
-          activeOpacity={0.4}
-          style={styles.deleteButton}
-          onPress={() => {
-            onRemove(tags.id);
-          }}
-        >
-          <Feather
-            name="x"
-            size={13}
-            color="black"
-            style={styles.deleteButtonText}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
 
 export const styles = StyleSheet.create({
   container: {

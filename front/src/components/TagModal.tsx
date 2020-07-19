@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import React from "react";
 
-export default function tagModal(
+export default function TagModal(
   isModalOpen: boolean,
   setIsModalOpen: (value: ((prevState: boolean) => boolean) | boolean) => void,
 ) {
