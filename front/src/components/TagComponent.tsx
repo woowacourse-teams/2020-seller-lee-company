@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
+import tagModal from "../tagModal";
 
 type tag = {
   id: number;
@@ -13,6 +14,7 @@ type tag = {
 };
 
 export default function TopComponent() {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
   const [tags, setTags] = useState<Array<tag>>([]);
 
@@ -21,17 +23,22 @@ export default function TopComponent() {
   };
 
   const insertTag = () => {
-    setTags(
-      tags.concat({
-        id: tags.length,
-        tag: "#" + input.replace(/(\s*)/g, ""),
-      }),
-    );
+    if (tags.length >= 0 && tags.length <= 2) {
+      setTags(
+        tags.concat({
+          id: tags.length,
+          tag: "#" + input.replace(/(\s*)/g, ""),
+        }),
+      );
+    } else {
+      setIsModalOpen(true);
+    }
     setInput("");
   };
 
   return (
     <View style={styles.container}>
+      {tagModal(isModalOpen, setIsModalOpen)}
       <Text style={styles.text}># 피드에 보여질 키워드</Text>
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
