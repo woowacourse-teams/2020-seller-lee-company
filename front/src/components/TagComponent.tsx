@@ -2,15 +2,33 @@
  * @author joseph415
  */
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 
+type tag = {
+  id: number;
+  tag: string;
+};
+
 export default function TopComponent() {
   const [input, setInput] = useState<string>("");
-  const [tags, setTags] = useState<Array<{ id: number; tag: string }>>([]);
-  const inputRef = useRef<TextInput>(null);
+  const [tags, setTags] = useState<Array<tag>>([]);
+
+  const onRemove = (deleteId: number) => {
+    setTags(tags.filter(({ id }) => id !== deleteId));
+  };
+
+  const insertTag = () => {
+    setTags(
+      tags.concat({
+        id: tags.length,
+        tag: "#" + input.replace(/(\s*)/g, ""),
+      }),
+    );
+    setInput("");
+  };
 
   return (
     <View style={styles.container}>
@@ -18,25 +36,21 @@ export default function TopComponent() {
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
           <TextInput
+            placeholder={"#해시태그 (20자 이내)"}
             maxLength={20}
             onChangeText={(text) => {
               setInput(text);
             }}
             value={input}
+            autoFocus={true}
             onSubmitEditing={(event) => {
-              setInput(event.nativeEvent.text);
-              setTags(
-                tags.concat({
-                  id: tags.length,
-                  tag: input,
-                }),
-              );
-              setInput("");
-              if (inputRef.current !== null) {
-                inputRef.current.focus();
+              if (input.replace(/(\s*)/g, "").length !== 0) {
+                setInput(event.nativeEvent.text);
+                insertTag();
               }
             }}
             multiline={false}
+            blurOnSubmit={false}
             style={styles.inputBox}
           />
           <View style={styles.deleteButtonWrapper}>
@@ -57,45 +71,57 @@ export default function TopComponent() {
           </View>
         </View>
         <View style={styles.addWrapper}>
-          <View style={styles.addButtonWrapper}>
-            <TouchableOpacity
-              activeOpacity={0.4}
-              style={styles.addButton}
-              onPress={() => {
-                setTags(
-                  tags.concat({
-                    id: tags.length,
-                    tag: input,
-                  }),
-                );
-                setInput("");
-              }}
-            >
-              <Text style={styles.buttonText}>추가하기</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.4}
+            style={styles.addButton}
+            onPress={() => {
+              if (input.replace(/(\s*)/g, "").length !== 0) {
+                insertTag();
+              }
+            }}
+          >
+            <Text style={styles.buttonText}>추가하기</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.tagContainerWrapper}>
-        {tags.map(({ tag }) => {
-          return tagTemplate(tag);
+        {tags.map((tag) => {
+          return tagTemplate(tag, onRemove);
         })}
       </View>
     </View>
   );
 }
 
-function tagTemplate(tag: string) {
+const tagTemplate = (tags: tag, onRemove: Function) => {
   return (
-    <View style={styles.tagItem}>
-      <Text style={styles.tagItemText}>{{ tag }}</Text>
+    <View key={tags.id} style={styles.tagItem}>
+      <View style={styles.tagItemTextWrapper}>
+        <Text style={styles.tagItemText}>{tags.tag}</Text>
+      </View>
+      <View style={styles.deleteTagButtonWrapper}>
+        <TouchableOpacity
+          activeOpacity={0.4}
+          style={styles.deleteButton}
+          onPress={() => {
+            onRemove(tags.id);
+          }}
+        >
+          <Feather
+            name="x"
+            size={13}
+            color="black"
+            style={styles.deleteButtonText}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+};
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "yellow",
+    backgroundColor: "white",
     width: "100%",
     height: "18%",
     maxWidth: "100%",
@@ -113,28 +139,25 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
     borderColor: "gray",
     borderWidth: 0.3,
+    borderRadius: 5,
   },
   inputWrapper: {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     width: "75%",
-    backgroundColor: "rgb(143,133,222)",
   },
   inputBox: {
     width: "85%",
     height: "80%",
     fontSize: 15,
-    backgroundColor: "rgb(143,233,222)",
   },
   deleteButtonWrapper: {
     alignItems: "center",
     width: "10%",
-    backgroundColor: "#99b898",
   },
   deleteButton: {
     alignItems: "center",
-    backgroundColor: "pink",
   },
   deleteButtonText: {
     fontWeight: "200",
@@ -144,46 +167,44 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "25%",
-    backgroundColor: "#6a2c70",
-  },
-  addButtonWrapper: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "65%",
-    height: "65%",
-    backgroundColor: "#f08a5d",
-    borderRadius: 5,
     borderColor: "gray",
-    borderWidth: 0.3,
+    borderLeftWidth: 0.3,
   },
   buttonText: {
     fontWeight: "200",
     color: "gray",
-  },
-  tagContainerWrapper: {
-    flexDirection: "row",
-    width: "90%",
-    height: "35%",
-    marginLeft: 15,
-    borderColor: "gray",
-    borderWidth: 0.3,
   },
   addButton: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
+  tagContainerWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "90%",
+    height: "35%",
+    marginLeft: 15,
+  },
   tagItem: {
-    justifyContent: "center",
-    alignContent: "center",
-    backgroundColor: "pink",
-  },
-  tagItemText: {
-    fontWeight: "200",
-    fontSize: 17,
-  },
-  tagList: {
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
+    height: "90%",
+    marginRight: 5,
+    borderRadius: 10,
+    backgroundColor: "#eeecda",
+  },
+  tagItemTextWrapper: {
+    marginLeft: 3,
+    marginRight: 2,
+  },
+  tagItemText: {
+    fontWeight: "100",
+    fontSize: 15,
+  },
+  deleteTagButtonWrapper: {
+    marginRight: 3,
+    alignItems: "center",
   },
 });
