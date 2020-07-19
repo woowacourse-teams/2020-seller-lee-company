@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
-import tagModal from "../tagModal";
+import tagModal from "./tagModal";
 
 type tag = {
   id: number;
