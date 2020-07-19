@@ -8,11 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import TagModal from "./TagModal";
 import TagTemplate from "./TagTemplate";
-
-export type tag = {
-  id: number;
-  tag: string;
-};
+import { tag } from "../Types/Types";
 
 export default function TopComponent() {
   const [tagId, setTagId] = useState<number>(0);
@@ -48,9 +44,7 @@ export default function TopComponent() {
           <TextInput
             placeholder={"#해시태그 (20자 이내)"}
             maxLength={20}
-            onChangeText={(text) => {
-              setInput(text);
-            }}
+            onChangeText={setInput}
             value={input}
             autoFocus={true}
             onSubmitEditing={(event) => {
@@ -166,26 +160,5 @@ export const styles = StyleSheet.create({
     width: "90%",
     height: "35%",
     marginLeft: 15,
-  },
-  tagItem: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "90%",
-    marginRight: 5,
-    borderRadius: 10,
-    backgroundColor: "#eeecda",
-  },
-  tagItemTextWrapper: {
-    marginLeft: 3,
-    marginRight: 2,
-  },
-  tagItemText: {
-    fontWeight: "100",
-    fontSize: 15,
-  },
-  deleteTagButtonWrapper: {
-    marginRight: 3,
-    alignItems: "center",
   },
 });

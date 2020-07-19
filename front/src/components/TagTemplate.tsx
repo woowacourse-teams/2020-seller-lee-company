@@ -3,11 +3,11 @@
  * @author joseph415
  */
 
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { styles, tag } from "./TagComponent";
+import { tag } from "../Types/Types";
 
 export default function TagTemplate(tags: tag, onRemove: Function) {
   return (
@@ -34,3 +34,34 @@ export default function TagTemplate(tags: tag, onRemove: Function) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  tagItem: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "90%",
+    marginRight: 5,
+    borderRadius: 10,
+    backgroundColor: "#eeecda",
+  },
+  tagItemTextWrapper: {
+    marginLeft: 3,
+    marginRight: 2,
+  },
+  tagItemText: {
+    fontWeight: "100",
+    fontSize: 15,
+  },
+  deleteTagButtonWrapper: {
+    marginRight: 3,
+    alignItems: "center",
+  },
+  deleteButton: {
+    alignItems: "center",
+  },
+  deleteButtonText: {
+    fontWeight: "200",
+    color: "gray",
+  },
+});
