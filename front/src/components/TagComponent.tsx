@@ -14,6 +14,7 @@ type tag = {
 };
 
 export default function TopComponent() {
+  const [tagId, setTagId] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
   const [tags, setTags] = useState<Array<tag>>([]);
@@ -26,10 +27,11 @@ export default function TopComponent() {
     if (tags.length >= 0 && tags.length <= 2) {
       setTags(
         tags.concat({
-          id: tags.length,
+          id: tagId,
           tag: "#" + input.replace(/(\s*)/g, ""),
         }),
       );
+      setTagId(tagId + 1);
     } else {
       setIsModalOpen(true);
     }
