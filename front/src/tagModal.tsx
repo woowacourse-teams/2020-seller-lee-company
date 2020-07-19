@@ -4,7 +4,6 @@
  */
 
 import {
-  Alert,
   Modal,
   StyleSheet,
   Text,
@@ -23,7 +22,7 @@ export default function tagModal(
       transparent={true}
       visible={isModalOpen}
       onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
+        setIsModalOpen(!isModalOpen);
       }}
     >
       <View style={styles.centeredView}>
