@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { TagModalProps } from "../types/Types";
+import { TagModalProps } from "../types/types";
 
 export default function TagModal({
   isModalOpen,
@@ -22,9 +22,7 @@ export default function TagModal({
       animationType="fade"
       transparent={true}
       visible={isModalOpen}
-      onRequestClose={() => {
-        setIsModalOpen(!isModalOpen);
-      }}
+      onRequestClose={() => setIsModalOpen(false)}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>

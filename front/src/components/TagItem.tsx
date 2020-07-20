@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { TagItemProps } from "../types/Types";
+import { TagItemProps } from "../types/types";
 
 export default function TagItem({ tag, onRemove }: TagItemProps) {
   return (

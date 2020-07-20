@@ -1,3 +1,7 @@
+/**
+ * @author joseph415
+ */
+
 export interface Tag {
   id: number;
   tag: string;
@@ -10,5 +14,7 @@ export interface TagItemProps {
 
 export interface TagModalProps {
   isModalOpen: boolean;
-  setIsModalOpen: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  setIsModalOpen: (
+    valOrUpdater: ((currVal: boolean) => boolean) | boolean,
+  ) => void;
 }

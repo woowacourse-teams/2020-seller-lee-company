@@ -2,19 +2,25 @@
  * @author joseph415
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import TagModal from "./TagModal";
 import TagItem from "./TagItem";
-import { Tag } from "../types/Types";
+import { useRecoilState } from "recoil/dist";
+import {
+  inputState,
+  isModalOpenState,
+  tagIdState,
+  tagsState,
+} from "../states/TagState";
 
-export default function TopComponent() {
-  const [tagId, setTagId] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const [tags, setTags] = useState<Tag[]>([]);
+export default function TagComponent() {
+  const [tagId, setTagId] = useRecoilState(tagIdState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState);
+  const [input, setInput] = useRecoilState(inputState);
+  const [tags, setTags] = useRecoilState(tagsState);
 
   const onRemove = (deleteId: number) => {
     setTags(tags.filter(({ id }) => id !== deleteId));
