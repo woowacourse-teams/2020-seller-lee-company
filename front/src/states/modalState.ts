@@ -4,7 +4,7 @@
 
 import { atom } from "recoil/dist";
 
-export const activationState = atom({
-  key: "activationState",
+export const modalActivationState = atom({
+  key: "modalActivationState",
   default: false,
 });

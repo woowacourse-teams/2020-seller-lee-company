@@ -20,7 +20,7 @@ import {
 import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
 import { useSetRecoilState } from "recoil/dist";
-import { activationState } from "../states/ModalState";
+import { modalActivationState } from "../states/modalState";
 
 interface ImageInfo {
   id: string;
@@ -29,7 +29,7 @@ interface ImageInfo {
 
 export default function Photo() {
   const [images, setImages] = useState<ImageInfo[]>([]);
-  const setModalVisible = useSetRecoilState(activationState);
+  const setModalVisible = useSetRecoilState(modalActivationState);
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const maxImageCount = 5;

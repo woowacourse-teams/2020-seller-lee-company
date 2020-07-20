@@ -5,14 +5,14 @@
 import React from "react";
 import { Modal, View, StyleSheet, Text, Button } from "react-native";
 import { useRecoilState } from "recoil/dist";
-import { activationState } from "../states/ModalState";
+import { modalActivationState } from "../states/modalState";
 
 interface NoticeModalProps {
   message: string;
 }
 
 export default function NoticeModal({ message }: NoticeModalProps) {
-  const [modalVisible, setModalVisible] = useRecoilState(activationState);
+  const [modalVisible, setModalVisible] = useRecoilState(modalActivationState);
 
   return (
     <Modal
@@ -26,10 +26,7 @@ export default function NoticeModal({ message }: NoticeModalProps) {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}> {message} </Text>
-          <Button
-            title={"닫기"}
-            onPress={() => setModalVisible(!modalVisible)}
-          />
+          <Button title={"닫기"} onPress={() => setModalVisible(false)} />
         </View>
       </View>
     </Modal>
