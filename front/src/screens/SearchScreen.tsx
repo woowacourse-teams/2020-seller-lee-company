@@ -4,12 +4,10 @@
 
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { categoryParamList } from "../components/CategoryNavigation";
-
-type SearchNavigationProp = StackNavigationProp<categoryParamList, "Search">;
+import { SearchNavigationProp } from "../types/types";
 
 export default function SearchScreen() {
   const navigation = useNavigation<SearchNavigationProp>();
