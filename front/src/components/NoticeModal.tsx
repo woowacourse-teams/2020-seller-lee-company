@@ -1,37 +1,35 @@
-import React from "react";
-import {
-  Modal,
-  View,
-  TouchableHighlight,
-  StyleSheet,
-  Text,
-} from "react-native";
+/**
+ * @author jnsorn
+ */
 
-export default function NoticeModal(
-  isModalOpen: boolean,
-  setIsModalOpen: (value: ((prevState: boolean) => boolean) | boolean) => void,
-  message: string,
-) {
+import React from "react";
+import { Modal, View, StyleSheet, Text, Button } from "react-native";
+import { useRecoilState } from "recoil/dist";
+import { activationState } from "../states/ModalState";
+
+interface NoticeModalProps {
+  message: string;
+}
+
+export default function NoticeModal({ message }: NoticeModalProps) {
+  const [modalVisible, setModalVisible] = useRecoilState(activationState);
+
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={isModalOpen}
+      visible={modalVisible}
       onRequestClose={() => {
-        setIsModalOpen(!isModalOpen);
+        setModalVisible(false);
       }}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}> {message} </Text>
-          <TouchableHighlight
-            style={styles.closeButton}
-            onPress={() => {
-              setIsModalOpen(!isModalOpen);
-            }}
-          >
-            <Text style={styles.textStyle}>닫기</Text>
-          </TouchableHighlight>
+          <Button
+            title={"닫기"}
+            onPress={() => setModalVisible(!modalVisible)}
+          />
         </View>
       </View>
     </Modal>

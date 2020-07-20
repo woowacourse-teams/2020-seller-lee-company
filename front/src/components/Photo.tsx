@@ -19,6 +19,8 @@ import {
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
+import { useSetRecoilState } from "recoil/dist";
+import { activationState } from "../states/ModalState";
 
 interface ImageInfo {
   id: string;
@@ -27,11 +29,9 @@ interface ImageInfo {
 
 export default function Photo() {
   const [images, setImages] = useState<ImageInfo[]>([]);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>("");
-  const [permissionForCameraRoll, setPermissionForCameraRoll] = useState<
-    boolean
-  >(false);
+  const setModalVisible = useSetRecoilState(activationState);
+  const [modalMessage, setModalMessage] = useState("");
+  const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const maxImageCount = 5;
 
   useEffect(() => {
@@ -94,7 +94,7 @@ export default function Photo() {
 
   return (
     <View style={styles.photoField}>
-      {NoticeModal(modalVisible, setModalVisible, modalMessage)}
+      <NoticeModal message={modalMessage} />
       <View style={styles.cameraContainer}>
         <TouchableHighlight onPress={addImage} underlayColor={"#FFFFFF"}>
           <MaterialCommunityIcons name="camera" size={30} color="black" />
