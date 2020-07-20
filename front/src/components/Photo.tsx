@@ -18,6 +18,7 @@ import {
   MediaTypeOptions,
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
+import NoticeModal from "./NoticeModal";
 
 interface ImageInfo {
   id: string;
@@ -26,6 +27,8 @@ interface ImageInfo {
 
 export default function Photo() {
   const [images, setImages] = useState<ImageInfo[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const maxImageCount = 5;
 
   useEffect(() => {
@@ -35,7 +38,8 @@ export default function Photo() {
   const requestPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status !== PermissionStatus.GRANTED) {
-      alert("이 작업을 수행하기 위해 갤러리 접근 권한이 필요합니다.");
+      setModalVisible(true);
+      setModalMessage("이 작업을 수행하기 위해 갤러리 접근 권한이 필요합니다.");
     }
   };
 
@@ -57,14 +61,17 @@ export default function Photo() {
 
   const addImage = async () => {
     if (images.length === maxImageCount) {
-      return alert("사진은 최대 " + maxImageCount + "장만 첨부 가능합니다.");
+      setModalVisible(true);
+      setModalMessage("사진은 최대 " + maxImageCount + "장만 첨부 가능합니다.");
+      return;
     }
 
     try {
       await pickImage();
     } catch (error) {
-      alert("사진 불러오기에 실패했습니다.");
-      console.error(error);
+      console.warn(error);
+      setModalVisible(true);
+      setModalMessage("사진 불러오기에 실패했습니다.");
     }
   };
 
@@ -74,6 +81,7 @@ export default function Photo() {
 
   return (
     <View style={styles.photoField}>
+      {NoticeModal(modalVisible, setModalVisible, modalMessage)}
       <View style={styles.cameraContainer}>
         <TouchableHighlight onPress={addImage} underlayColor={"#FFFFFF"}>
           <MaterialCommunityIcons name="camera" size={30} color="black" />
