@@ -19,9 +19,7 @@ export default function NoticeModal({ message }: NoticeModalProps) {
       animationType="fade"
       transparent={true}
       visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(false);
-      }}
+      onRequestClose={() => setModalVisible(false)}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>

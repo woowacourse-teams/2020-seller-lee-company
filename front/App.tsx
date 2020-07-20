@@ -6,9 +6,9 @@ import { RecoilRoot } from "recoil/dist";
 export default function App() {
   return (
     <RecoilRoot>
-    <NavigationContainer>
-      <BottomTabNavigation/>
-    </NavigationContainer>
+      <NavigationContainer>
+        <BottomTabNavigation />
+      </NavigationContainer>
     </RecoilRoot>
   );
 }
