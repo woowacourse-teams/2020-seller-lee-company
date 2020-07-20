@@ -27,8 +27,11 @@ interface ImageInfo {
 
 export default function Photo() {
   const [images, setImages] = useState<ImageInfo[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [permissionForCameraRoll, setPermissionForCameraRoll] = useState<
+    boolean
+  >(false);
   const maxImageCount = 5;
 
   useEffect(() => {
@@ -37,9 +40,13 @@ export default function Photo() {
 
   const requestPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
     if (status !== PermissionStatus.GRANTED) {
       setModalVisible(true);
-      setModalMessage("이 작업을 수행하기 위해 갤러리 접근 권한이 필요합니다.");
+      setModalMessage("사진 업로드 위해 갤러리 접근 권한이 필요합니다.");
+      setPermissionForCameraRoll(false);
+    } else {
+      setPermissionForCameraRoll(true);
     }
   };
 
@@ -60,6 +67,12 @@ export default function Photo() {
   };
 
   const addImage = async () => {
+    if (!permissionForCameraRoll) {
+      setModalVisible(true);
+      setModalMessage("설정에서 갤러리 접근 권한을 허용해주세요.");
+      return;
+    }
+
     if (images.length === maxImageCount) {
       setModalVisible(true);
       setModalMessage("사진은 최대 " + maxImageCount + "장만 첨부 가능합니다.");
