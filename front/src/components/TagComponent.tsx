@@ -22,10 +22,6 @@ export default function TagComponent() {
   const [input, setInput] = useRecoilState(inputState);
   const [tags, setTags] = useRecoilState(tagsState);
 
-  const onRemove = (deleteId: number) => {
-    setTags(tags.filter(({ id }) => id !== deleteId));
-  };
-
   const insertTag = () => {
     if (tags.length >= 0 && tags.length <= 2) {
       setTags(
@@ -39,6 +35,10 @@ export default function TagComponent() {
       setIsModalOpen(true);
     }
     setInput("");
+  };
+
+  const onRemove = (deleteId: number) => {
+    setTags(tags.filter(({ id }) => id !== deleteId));
   };
 
   return (
@@ -95,7 +95,7 @@ export default function TagComponent() {
       </View>
       <View style={styles.tagContainerWrapper}>
         {tags.map((tag) => (
-          <TagItem tag={tag} onRemove={onRemove} />
+          <TagItem key={tag.id} tag={tag} onRemove={onRemove} />
         ))}
       </View>
     </View>

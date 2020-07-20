@@ -11,7 +11,7 @@ import { TagItemProps } from "../types/types";
 
 export default function TagItem({ tag, onRemove }: TagItemProps) {
   return (
-    <View key={tag.id} style={styles.tagItem}>
+    <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
         <Text style={styles.tagItemText}>{tag.tag}</Text>
       </View>
