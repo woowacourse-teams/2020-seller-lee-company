@@ -11,11 +11,12 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import { TagModalProps } from "../types/Types";
 
-export default function TagModal(
-  isModalOpen: boolean,
-  setIsModalOpen: (value: ((prevState: boolean) => boolean) | boolean) => void,
-) {
+export default function TagModal({
+  isModalOpen,
+  setIsModalOpen,
+}: TagModalProps) {
   return (
     <Modal
       animationType="fade"
@@ -27,13 +28,11 @@ export default function TagModal(
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>최대 3개의 태크만 가능합니다.</Text>
+          <Text style={styles.modalText}>최대 3개의 태그만 가능합니다.</Text>
 
           <TouchableHighlight
             style={styles.closeButton}
-            onPress={() => {
-              setIsModalOpen(!isModalOpen);
-            }}
+            onPress={() => setIsModalOpen(false)}
           >
             <Text style={styles.textStyle}>닫기</Text>
           </TouchableHighlight>

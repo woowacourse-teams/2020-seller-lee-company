@@ -7,14 +7,14 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import TagModal from "./TagModal";
-import TagTemplate from "./TagTemplate";
-import { tag } from "../Types/Types";
+import TagItem from "./TagItem";
+import { Tag } from "../types/Types";
 
 export default function TopComponent() {
-  const [tagId, setTagId] = useState<number>(0);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [input, setInput] = useState<string>("");
-  const [tags, setTags] = useState<Array<tag>>([]);
+  const [tagId, setTagId] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [tags, setTags] = useState<Tag[]>([]);
 
   const onRemove = (deleteId: number) => {
     setTags(tags.filter(({ id }) => id !== deleteId));
@@ -37,7 +37,7 @@ export default function TopComponent() {
 
   return (
     <View style={styles.container}>
-      {TagModal(isModalOpen, setIsModalOpen)}
+      <TagModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       <Text style={styles.text}># 피드에 보여질 키워드</Text>
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
@@ -88,7 +88,9 @@ export default function TopComponent() {
         </View>
       </View>
       <View style={styles.tagContainerWrapper}>
-        {tags.map((tag) => TagTemplate(tag, onRemove))}
+        {tags.map((tag) => (
+          <TagItem tag={tag} onRemove={onRemove} />
+        ))}
       </View>
     </View>
   );

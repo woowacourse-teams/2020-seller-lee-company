@@ -7,20 +7,20 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { tag } from "../Types/Types";
+import { TagItemProps } from "../types/Types";
 
-export default function TagTemplate(tags: tag, onRemove: Function) {
+export default function TagItem({ tag, onRemove }: TagItemProps) {
   return (
-    <View key={tags.id} style={styles.tagItem}>
+    <View key={tag.id} style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text style={styles.tagItemText}>{tags.tag}</Text>
+        <Text style={styles.tagItemText}>{tag.tag}</Text>
       </View>
       <View style={styles.deleteTagButtonWrapper}>
         <TouchableOpacity
           activeOpacity={0.4}
           style={styles.deleteButton}
           onPress={() => {
-            onRemove(tags.id);
+            onRemove(tag.id);
           }}
         >
           <Feather
