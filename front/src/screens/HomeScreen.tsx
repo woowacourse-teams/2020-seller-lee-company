@@ -7,14 +7,14 @@ import { View, StyleSheet, Text } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <Text style={styles.text}>Home Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
     backgroundColor: "white",
     justifyContent: "center",

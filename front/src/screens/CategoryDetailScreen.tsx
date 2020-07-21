@@ -4,17 +4,13 @@
 
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
-import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
-import { categoryParamList } from "../components/CategoryNavigation";
-
-type CategoryDetailRouteProp = RouteProp<categoryParamList, "CategoryDetail">;
-
-type CategoryDetailNavigationProp = StackNavigationProp<
-  categoryParamList,
-  "CategoryDetail"
->;
+import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  CategoryDetailNavigationProp,
+  CategoryDetailRouteProp,
+} from "../types/types";
 
 export default function CategoryDetailScreen() {
   const navigation = useNavigation<CategoryDetailNavigationProp>();
@@ -26,7 +22,7 @@ export default function CategoryDetailScreen() {
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
-          onPress={() => navigation.goBack()}
+          onPress={navigation.goBack}
           backImage={() => (
             <EvilIcons name="chevron-left" size={35} color="black" />
           )}
@@ -46,14 +42,14 @@ export default function CategoryDetailScreen() {
   }, [navigation, route]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <Text style={styles.text}>CategoryDetail Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
     backgroundColor: "green",
     justifyContent: "center",

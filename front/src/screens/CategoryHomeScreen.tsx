@@ -5,20 +5,14 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { categoryParamList } from "../components/CategoryNavigation";
-
-type CategoryHomeNavigationProp = StackNavigationProp<
-  categoryParamList,
-  "CategoryHome"
->;
+import { CategoryHomeNavigationProp } from "../types/types";
 
 export default function CategoryHomeScreen() {
   const selectedCategoryName = "가전 제품";
   const navigation = useNavigation<CategoryHomeNavigationProp>();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <Text style={styles.text}>Category Screen</Text>
       <Button
         title="move"
@@ -31,7 +25,7 @@ export default function CategoryHomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
     backgroundColor: "yellow",
     justifyContent: "center",
