@@ -6,11 +6,11 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue } from "recoil/dist";
-import { selectedCategoryState } from "../states/categoryState";
+import { categorySelectedItemState } from "../states/categoryState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
-  const selectedCategory = useRecoilValue(selectedCategoryState);
+  const selectedCategory = useRecoilValue(categorySelectedItemState);
 
   return (
     <View style={styles.container}>

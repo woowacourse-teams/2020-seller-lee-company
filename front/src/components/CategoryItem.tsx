@@ -6,13 +6,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CategoryItemProps } from "../types/types";
 import { useRecoilState } from "recoil/dist";
-import { selectedCategoryState } from "../states/categoryState";
+import { categorySelectedItemState } from "../states/categoryState";
 import { useNavigation } from "@react-navigation/native";
 
 export default function CategoryItem({ title }: CategoryItemProps) {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useRecoilState(
-    selectedCategoryState,
+    categorySelectedItemState,
   );
 
   const onClickCategory = () => {
