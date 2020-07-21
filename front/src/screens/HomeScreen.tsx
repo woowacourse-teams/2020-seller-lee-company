@@ -1,14 +1,15 @@
 /**
- * @author begaonnuri, joseph415
+ * @author joseph415
  */
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import FeedArticleCard from "../components/FeedArticleCard";
 
 export default function HomeScreen() {
   return (
     <View style={styles.writeButtonContainer}>
-      <Text style={styles.text}>Home Screen</Text>
+      <FeedArticleCard />
     </View>
   );
 }
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     justifyContent: "center",
-    alignItems: "center",
   },
   text: {
     color: "black",
