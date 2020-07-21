@@ -11,11 +11,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
-import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.ArticleService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,11 +27,16 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
+;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql("/truncate.sql")
 public class AcceptanceTest {
     @LocalServerPort
     public int port;
+
+    @MockBean
+    private ArticleService articleService;
 
     @BeforeEach
     public void setUp() {
@@ -45,24 +54,28 @@ public class AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageArticle() {
         // Given 게시글이 여러개 추가되어 있다.
-        createArticle();
-        createArticle();
+        createArticle(1L);
+        createArticle(2L);
         return Stream.of(
                 dynamicTest("게시글 전체 조회", () -> {
                     // When 게시글 전체 조회 요청을 한다.
-                    List<Article> allArticles = findAllArticles();
+                    List<ArticleResponse> allArticleResponses = findAllArticles();
                     // Then 게시글 목록을 응답받는다.
-                    assertThat(allArticles.size()).isEqualTo(2);
+                    assertThat(allArticleResponses.size()).isEqualTo(2);
                 }));
     }
 
-    private void createArticle() {
+    private void createArticle(Long id) {
+        Mockito.when(articleService.createArticle(id))
+                .thenReturn(id);
     }
 
-    private List<Article> findAllArticles() {
+    private List<ArticleResponse> findAllArticles() {
+        Mockito.when(articleService.showAll())
+                .thenReturn(Arrays.asList(new ArticleResponse(1L), new ArticleResponse(2L)));
         return given().when()
                 .get("/articles")
                 .then()
-                .extract().jsonPath().getList(".", Article.class);
+                .extract().jsonPath().getList(".", ArticleResponse.class);
     }
 }
