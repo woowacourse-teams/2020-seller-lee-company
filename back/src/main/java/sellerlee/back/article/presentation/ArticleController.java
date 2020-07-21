@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class ArticleController {
 
     @GetMapping
     public ResponseEntity<List<ArticleResponse>> showAll() {
-        List<ArticleResponse> responses = articleService.showAll();
+        List<ArticleResponse> responses = ArticleResponse.listOf(articleService.showAll());
         return ResponseEntity.ok(responses);
     }
 }

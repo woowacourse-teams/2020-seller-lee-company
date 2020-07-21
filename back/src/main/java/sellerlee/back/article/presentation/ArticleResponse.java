@@ -1,4 +1,4 @@
-package sellerlee.back.article.application;
+package sellerlee.back.article.presentation;
 
 import sellerlee.back.article.domain.Article;
 

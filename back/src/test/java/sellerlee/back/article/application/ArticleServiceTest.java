@@ -29,7 +29,9 @@ class ArticleServiceTest {
     @DisplayName("showAll()이 모든 ArticleResponse를 반환한다.")
     @Test
     void showAll() {
-        when(articleRepository.findAll()).thenReturn(Arrays.asList(new Article(), new Article()));
+        when(articleRepository.findAll())
+                .thenReturn(Arrays.asList(new Article(), new Article()));
+
         assertThat(articleService.showAll().size()).isEqualTo(2);
     }
 }

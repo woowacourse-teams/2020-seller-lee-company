@@ -11,13 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
-import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
+import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.presentation.ArticleResponse;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static org.mockito.Mockito.when;
 
 ;
 
@@ -66,16 +67,20 @@ public class AcceptanceTest {
     }
 
     private void createArticle(Long id) {
-        Mockito.when(articleService.createArticle(id))
+        when(articleService.createArticle(id))
                 .thenReturn(id);
     }
 
     private List<ArticleResponse> findAllArticles() {
-        Mockito.when(articleService.showAll())
-                .thenReturn(Arrays.asList(new ArticleResponse(1L), new ArticleResponse(2L)));
-        return given().when()
+        when(articleService.showAll())
+                .thenReturn(Arrays.asList(new Article(), new Article()));
+
+        return given()
+                .log().all()
+                .when()
                 .get("/articles")
                 .then()
+                .log().all()
                 .extract().jsonPath().getList(".", ArticleResponse.class);
     }
 }

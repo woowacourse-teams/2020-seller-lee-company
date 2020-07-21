@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
+import sellerlee.back.article.domain.Article;
 
 import java.util.Arrays;
 
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,8 +28,8 @@ class ArticleControllerTest {
     @DisplayName("게시글 전체 조회시 HTTP status는 OK다.")
     @Test
     void showAll() throws Exception {
-        given(articleService.showAll())
-                .willReturn(Arrays.asList(new ArticleResponse(1L), new ArticleResponse(2L)));
+        when(articleService.showAll())
+                .thenReturn(Arrays.asList(new Article(), new Article()));
 
         mockMvc.perform(get(ARTICLE_URI))
                 .andDo(print())

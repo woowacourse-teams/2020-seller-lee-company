@@ -1,6 +1,7 @@
 package sellerlee.back.article.application;
 
 import org.springframework.stereotype.Service;
+import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ArticleService {
         return null;
     }
 
-    public List<ArticleResponse> showAll() {
-        return ArticleResponse.listOf(articleRepository.findAll());
+    public List<Article> showAll() {
+        return articleRepository.findAll();
     }
 }
