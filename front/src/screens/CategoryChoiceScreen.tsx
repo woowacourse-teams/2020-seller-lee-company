@@ -1,19 +1,20 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri
  */
 
 import React, { useLayoutEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View, StyleSheet } from "react-native";
+import CategoryList from "../components/CategoryList";
+import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { SearchNavigationProp } from "../types/types";
 
-export default function SearchScreen() {
-  const navigation = useNavigation<SearchNavigationProp>();
+export default function CategoryChoiceScreen() {
+  const navigation = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      title: "카테고리 선택",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
@@ -25,13 +26,12 @@ export default function SearchScreen() {
       ),
       headerLeftContainerStyle: { paddingLeft: 5 },
       headerBackTitleVisible: false,
-      title: "",
     });
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Search Screen</Text>
+      <CategoryList />
     </View>
   );
 }
@@ -39,12 +39,5 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "black",
-    fontSize: 30,
   },
 });

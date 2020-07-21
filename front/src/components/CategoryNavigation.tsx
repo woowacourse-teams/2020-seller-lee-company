@@ -7,12 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CategoryHomeScreen from "../screens/CategoryHomeScreen";
 import CategoryDetailScreen from "../screens/CategoryDetailScreen";
 import SearchScreen from "../screens/SearchScreen";
-
-export type categoryParamList = {
-  CategoryHome: undefined;
-  CategoryDetail: { title: string };
-  Search: undefined;
-};
+import { categoryParamList } from "../types/types";
 
 const Stack = createStackNavigator<categoryParamList>();
 

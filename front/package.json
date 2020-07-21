@@ -29,7 +29,12 @@
     "react-native-screens": "~2.9.0",
     "recoil": "^0.0.10",
     "react-native-elements": "^2.0.4",
-    "react-native-web": "~0.11.7"
+    "react-native-gesture-handler": "~1.6.0",
+    "react-native-reanimated": "~1.9.0",
+    "react-native-safe-area-context": "~3.0.7",
+    "react-native-screens": "~2.9.0",
+    "react-native-web": "~0.11.7",
+    "recoil": "^0.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

@@ -1,4 +1,5 @@
 front/package-lock.json
+front/yarn.lock
 front/.prettierignore
 front/node_modules/**/*
 front/.expo/*
