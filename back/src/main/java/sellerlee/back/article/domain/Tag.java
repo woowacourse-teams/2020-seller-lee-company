@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.article.domain;
 
 import javax.persistence.Column;

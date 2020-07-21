@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.article.domain;
 
 import sellerlee.back.member.domain.Member;
@@ -25,7 +29,6 @@ public class Article {
     @Column
     @Embedded
     private Tags tags;
-
 
     public Article() {
     }

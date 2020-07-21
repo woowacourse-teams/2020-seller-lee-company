@@ -1,7 +1,5 @@
 /**
- * 게시글 인수 테스트
- *
- * @author jnsorn, kouz95, lxxjn0
+ * @author kouz95
  */
 
 package sellerlee.back.article.acceptance;
@@ -12,32 +10,23 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.jdbc.Sql;
-import sellerlee.back.article.application.ArticleService;
-import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.presentation.ArticleResponse;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static org.mockito.Mockito.when;
+import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
 
-;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql("/truncate.sql")
 public class AcceptanceTest {
     @LocalServerPort
     public int port;
-
-    @MockBean
-    private ArticleService articleService;
 
     @BeforeEach
     public void setUp() {
@@ -55,8 +44,7 @@ public class AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageArticle() {
         // Given 게시글이 여러개 추가되어 있다.
-        createArticle(1L);
-        createArticle(2L);
+        // data.sql 사용
         return Stream.of(
                 dynamicTest("게시글 전체 조회", () -> {
                     // When 게시글 전체 조회 요청을 한다.
@@ -66,19 +54,11 @@ public class AcceptanceTest {
                 }));
     }
 
-    private void createArticle(Long id) {
-        when(articleService.createArticle(id))
-                .thenReturn(id);
-    }
-
     private List<ArticleResponse> findAllArticles() {
-        when(articleService.showAll())
-                .thenReturn(Arrays.asList(new Article(), new Article()));
-
         return given()
                 .log().all()
                 .when()
-                .get("/articles")
+                .get(ARTICLE_URI)
                 .then()
                 .log().all()
                 .extract().jsonPath().getList(".", ArticleResponse.class);

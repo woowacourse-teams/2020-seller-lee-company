@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.article.presentation;
 
 import org.springframework.http.ResponseEntity;
