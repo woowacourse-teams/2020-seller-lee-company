@@ -14,7 +14,6 @@ export default function CategoryChoiceScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "카테고리 선택",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
@@ -30,14 +29,14 @@ export default function CategoryChoiceScreen() {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <CategoryList />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
   },
 });

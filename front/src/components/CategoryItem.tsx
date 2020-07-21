@@ -6,13 +6,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CategoryItemProps } from "../types/types";
 import { useRecoilState } from "recoil/dist";
-import { categorySelectedItemState } from "../states/categoryState";
 import { useNavigation } from "@react-navigation/native";
+import { articleSelectedCategoryState } from "../states/articleState";
 
 export default function CategoryItem({ title }: CategoryItemProps) {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useRecoilState(
-    categorySelectedItemState,
+    articleSelectedCategoryState,
   );
 
   const onClickCategory = () => {
@@ -21,7 +21,7 @@ export default function CategoryItem({ title }: CategoryItemProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <Text
         style={selectedCategory === title ? styles.selected : {}}
         onPress={onClickCategory}
@@ -33,7 +33,7 @@ export default function CategoryItem({ title }: CategoryItemProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     backgroundColor: "#fff",
     padding: 15,
     borderBottomWidth: 0.2,

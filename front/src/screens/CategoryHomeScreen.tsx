@@ -12,7 +12,7 @@ export default function CategoryHomeScreen() {
   const navigation = useNavigation<CategoryHomeNavigationProp>();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <Text style={styles.text}>Category Screen</Text>
       <Button
         title="move"
@@ -25,7 +25,7 @@ export default function CategoryHomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
     backgroundColor: "yellow",
     justifyContent: "center",

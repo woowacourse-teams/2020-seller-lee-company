@@ -30,14 +30,14 @@ export default function SearchScreen() {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <Text style={styles.text}>Search Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
     backgroundColor: "lightblue",
     justifyContent: "center",
