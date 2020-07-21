@@ -1,14 +1,14 @@
 /**
- * @author kouz95
+ * @author begaonnuri, joseph415
  */
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
-import CategoryNavigation from "./CategoryNavigation";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
 
@@ -47,7 +47,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="CreateArticle"
+        name="글쓰기"
         component={ArticleCreateNavigation}
         options={{
           tabBarVisible: false,

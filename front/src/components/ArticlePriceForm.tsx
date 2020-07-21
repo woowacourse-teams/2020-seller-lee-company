@@ -5,10 +5,10 @@
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";
-import { priceState } from "../articleState";
+import { articlePriceState } from "../states/articleState";
 
 export default function ArticlePriceForm() {
-  const [price, setPrice] = useRecoilState(priceState);
+  const [price, setPrice] = useRecoilState(articlePriceState);
 
   return (
     <TextInput
@@ -17,7 +17,7 @@ export default function ArticlePriceForm() {
       keyboardType={"number-pad"}
       maxLength={10}
       onChangeText={(text) => setPrice(Number(text))}
-      value={price === 0 ? undefined : price.toString()}
+      value={price === 0 ? "" : price.toString()}
     />
   );
 }

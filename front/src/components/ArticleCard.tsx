@@ -35,7 +35,7 @@ export default function ArticleCard({
   thumbnail,
 }: ArticleCardProps) {
   return (
-    <View style={styles.container}>
+    <View style={styles.writeButtonContainer}>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={thumbnail} />
       </View>
@@ -86,7 +86,7 @@ export default function ArticleCard({
 const innerContainerMargin = 13;
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flexDirection: "row",
     aspectRatio: 13 / 4,
   },

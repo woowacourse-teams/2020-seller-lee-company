@@ -3,9 +3,8 @@
  */
 
 import React, { useState } from "react";
-import { Button } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { Button, StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,20 +14,18 @@ export default function ArticleCreateOptionsModal() {
 
   return (
     <>
-      <Button
-        buttonStyle={styles.button}
+      <TouchableOpacity
+        style={styles.writeButtonContainer}
         onPress={() => {
           setModalVisible(true);
         }}
-        icon={
-          <MaterialCommunityIcons
-            name="pencil-box-outline"
-            size={24}
-            color={"grey"}
-          />
-        }
-        containerStyle={styles.container}
-      />
+      >
+        <MaterialCommunityIcons
+          name="pencil-box-outline"
+          size={24}
+          color={"grey"}
+        />
+      </TouchableOpacity>
       <View>
         <Modal
           style={styles.contentView}
@@ -39,12 +36,10 @@ export default function ArticleCreateOptionsModal() {
           <View style={styles.content}>
             <Button
               title={"글 쓰기"}
-              titleStyle={styles.buttonTitle}
               onPress={() => {
-                navigation.navigate("CreateArticle");
+                navigation.navigate("글쓰기");
                 setModalVisible(false);
               }}
-              buttonStyle={styles.writeButton}
             />
           </View>
         </Modal>
@@ -54,11 +49,10 @@ export default function ArticleCreateOptionsModal() {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: "white",
-  },
-  container: {
+  writeButtonContainer: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   contentView: {
     justifyContent: "flex-end",
@@ -71,14 +65,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderTopRightRadius: 17,
     borderTopLeftRadius: 17,
-  },
-  buttonTitle: {
-    color: "black",
-  },
-  writeButton: {
-    backgroundColor: "white",
-    borderColor: "grey",
-    borderWidth: 1,
-    borderRadius: 15,
   },
 });

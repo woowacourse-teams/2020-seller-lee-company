@@ -14,21 +14,28 @@ import {
 import ArticleTitleForm from "../components/ArticleTitleForm";
 import ArticlePriceForm from "../components/ArticlePriceForm";
 import { useNavigation } from "@react-navigation/native";
-import { contentsState, priceState, titleState } from "../articleState";
-import { useRecoilState, useSetRecoilState } from "recoil/dist";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil/dist";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  articleContentsState,
+  articlePriceState,
+  articleSelectedCategoryState,
+  articleTitleState,
+} from "../states/articleState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
-  const setTitle = useSetRecoilState(titleState);
-  const setPrice = useSetRecoilState(priceState);
-  const [contents, setContents] = useRecoilState(contentsState);
+  const setTitle = useSetRecoilState(articleTitleState);
+  const setPrice = useSetRecoilState(articlePriceState);
+  const [contents, setContents] = useRecoilState(articleContentsState);
+  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
 
   return (
     <TouchableWithoutFeedback
       onPress={() => Keyboard.dismiss()}
       accessible={false}
     >
-      <View style={styles.container}>
+      <View style={styles.writeButtonContainer}>
         <View style={styles.addImageContainer}>
           <Text>이미지 추가</Text>
         </View>
@@ -36,16 +43,23 @@ export default function ArticleCreateScreen() {
           <ArticleTitleForm />
         </View>
         <View style={styles.selectCategoryContainer}>
-          <Text>카테고리 선택</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("CategoryChoiceScreen")}
+          >
+            <Text style={styles.buttonText}>{selectedCategory}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.priceFormContainer}>
           <ArticlePriceForm />
         </View>
         <View style={styles.contentsFormContainer}>
-          <Button
-            title={contents === "" ? "내용 입력" : contents}
+          <TouchableOpacity
+            style={styles.contentsFormButton}
             onPress={() => navigation.navigate("ArticleCreateForm")}
-          />
+          >
+            <Text>{contents.length === 0 ? "내용 입력" : contents}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.tagFormContainer}>
           <Text>태그 입력</Text>
@@ -67,7 +81,7 @@ export default function ArticleCreateScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  writeButtonContainer: {
     flex: 1,
   },
   topBarContainer: {
@@ -99,6 +113,13 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderWidth: 2,
   },
+  button: {
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  buttonText: {
+    fontSize: 20,
+  },
   priceFormContainer: {
     flex: 2,
     justifyContent: "center",
@@ -108,10 +129,11 @@ const styles = StyleSheet.create({
   },
   contentsFormContainer: {
     flex: 8,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
     borderColor: "grey",
     borderWidth: 2,
+  },
+  contentsFormButton: {
+    height: "100%",
   },
   tagFormContainer: {
     flex: 3,

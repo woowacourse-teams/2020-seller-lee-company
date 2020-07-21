@@ -5,10 +5,10 @@
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";
-import { titleState } from "../articleState";
+import { articleTitleState } from "../states/articleState";
 
 export default function ArticleTitleForm() {
-  const [title, setTitle] = useRecoilState(titleState);
+  const [title, setTitle] = useRecoilState(articleTitleState);
 
   return (
     <TextInput
