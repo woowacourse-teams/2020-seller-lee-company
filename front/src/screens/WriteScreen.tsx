@@ -4,12 +4,12 @@
 
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import TagComponent from "../components/TagComponent";
+import Tag from "../components/Tag";
 
 export default function WriteScreen() {
   return (
     <View style={styles.container}>
-      <TagComponent />
+      <Tag />
     </View>
   );
 }
@@ -19,6 +19,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     justifyContent: "center",
-    alignItems: "center",
   },
 });

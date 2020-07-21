@@ -11,12 +11,12 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { TagModalProps } from "../types/types";
+import { useRecoilState } from "recoil/dist";
+import { isModalOpenState } from "../states/TagState";
 
-export default function TagModal({
-  isModalOpen,
-  setIsModalOpen,
-}: TagModalProps) {
+export default function TagModal() {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState);
+
   return (
     <Modal
       animationType="fade"

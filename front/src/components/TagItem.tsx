@@ -8,19 +8,26 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { TagItemProps } from "../types/types";
+import { useRecoilState } from "recoil/dist";
+import { tagBoxesState } from "../states/TagState";
 
-export default function TagItem({ tag, onRemove }: TagItemProps) {
+export default function TagItem({ tagBox }: TagItemProps) {
+  const [tagBoxes, setTagBoxes] = useRecoilState(tagBoxesState);
+
+  const onRemove = (deleteId: number) =>
+    setTagBoxes(tagBoxes.filter(({ id }) => id !== deleteId));
+
   return (
     <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text style={styles.tagItemText}>{tag.tag}</Text>
+        <Text style={styles.tagItemText}>{tagBox.tag}</Text>
       </View>
       <View style={styles.deleteTagButtonWrapper}>
         <TouchableOpacity
           activeOpacity={0.4}
           style={styles.deleteButton}
           onPress={() => {
-            onRemove(tag.id);
+            onRemove(tagBox.id);
           }}
         >
           <Feather
@@ -40,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    height: "90%",
+    height: "80%",
     marginRight: 5,
     borderRadius: 10,
     backgroundColor: "#eeecda",

@@ -20,7 +20,7 @@ export const inputState = atom({
   default: "",
 });
 
-export const tagsState = atom({
-  key: "tagsState",
+export const tagBoxesState = atom({
+  key: "tagBoxesState",
   default: <Tag[]>[],
 });

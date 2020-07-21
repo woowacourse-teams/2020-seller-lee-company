@@ -8,24 +8,24 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import TagModal from "./TagModal";
 import TagItem from "./TagItem";
-import { useRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import {
   inputState,
   isModalOpenState,
   tagIdState,
-  tagsState,
+  tagBoxesState,
 } from "../states/TagState";
 
-export default function TagComponent() {
+export default function Tag() {
   const [tagId, setTagId] = useRecoilState(tagIdState);
-  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState);
   const [input, setInput] = useRecoilState(inputState);
-  const [tags, setTags] = useRecoilState(tagsState);
+  const [tagBoxes, setTagBoxes] = useRecoilState(tagBoxesState);
+  const setIsModalOpen = useSetRecoilState(isModalOpenState);
 
   const insertTag = () => {
-    if (tags.length >= 0 && tags.length <= 2) {
-      setTags(
-        tags.concat({
+    if (tagBoxes.length >= 0 && tagBoxes.length <= 2) {
+      setTagBoxes(
+        tagBoxes.concat({
           id: tagId,
           tag: "#" + input.replace(/(\s*)/g, ""),
         }),
@@ -37,14 +37,12 @@ export default function TagComponent() {
     setInput("");
   };
 
-  const onRemove = (deleteId: number) => {
-    setTags(tags.filter(({ id }) => id !== deleteId));
-  };
-
   return (
     <View style={styles.container}>
-      <TagModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      <Text style={styles.text}># 피드에 보여질 키워드</Text>
+      <TagModal />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}># 피드에 보여질 키워드</Text>
+      </View>
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
           <TextInput
@@ -94,8 +92,8 @@ export default function TagComponent() {
         </View>
       </View>
       <View style={styles.tagContainerWrapper}>
-        {tags.map((tag) => (
-          <TagItem key={tag.id} tag={tag} onRemove={onRemove} />
+        {tagBoxes.map((tag) => (
+          <TagItem key={tag.id} tagBox={tag} />
         ))}
       </View>
     </View>
@@ -105,21 +103,22 @@ export default function TagComponent() {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    width: "100%",
-    height: "18%",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    aspectRatio: 5 / 1.8,
+    paddingHorizontal: 15,
+    paddingBottom: 2,
+  },
+  textContainer: {
+    flex: 0.8,
+    justifyContent: "center",
   },
   text: {
     fontSize: 20,
-    marginLeft: 15,
     fontWeight: "bold",
   },
   inputContainerWrapper: {
+    flex: 1.7,
     flexDirection: "row",
-    width: "90%",
-    height: "40%",
-    marginLeft: 15,
+    marginVertical: 5,
     borderColor: "gray",
     borderWidth: 0.3,
     borderRadius: 5,
@@ -163,10 +162,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   tagContainerWrapper: {
+    flex: 1.7,
     flexDirection: "row",
     alignItems: "center",
-    width: "90%",
-    height: "35%",
-    marginLeft: 15,
   },
 });

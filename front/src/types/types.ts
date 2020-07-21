@@ -8,13 +8,9 @@ export interface Tag {
 }
 
 export interface TagItemProps {
-  tag: Tag;
-  onRemove: Function;
+  tagBox: Tag;
 }
 
 export interface TagModalProps {
   isModalOpen: boolean;
-  setIsModalOpen: (
-    valOrUpdater: ((currVal: boolean) => boolean) | boolean,
-  ) => void;
 }
