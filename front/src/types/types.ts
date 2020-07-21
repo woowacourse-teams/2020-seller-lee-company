@@ -1,9 +1,9 @@
+/**
+ * @author begaonnuri, joseph415
+ */
+
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-
-/**
- * @author begaonnuri
- */
 
 export type categoryParamList = {
   CategoryHome: undefined;
@@ -33,4 +33,13 @@ export type SearchNavigationProp = StackNavigationProp<
 
 export type CategoryItemProps = {
   title: string;
+};
+
+export type Tag = {
+  id: number;
+  tag: string;
+};
+
+export type TagItemProps = {
+  tagBox: Tag;
 };
