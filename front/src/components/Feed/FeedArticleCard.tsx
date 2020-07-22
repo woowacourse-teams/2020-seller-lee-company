@@ -4,8 +4,10 @@
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { FeedArticle } from "../../types/types";
+import FeedArticleTag from "./FeedArticleTag";
 
-export default function FeedArticleCard() {
+export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   return (
     <View style={styles.articleContainer}>
       <View style={styles.photoContainer}>
@@ -16,21 +18,9 @@ export default function FeedArticleCard() {
           <Text style={styles.temp}>heart and price</Text>
         </View>
         <View style={styles.tagContainer}>
-          <View style={styles.tagItem}>
-            <View style={styles.tagItemTextWrapper}>
-              <Text>#맥북</Text>
-            </View>
-          </View>
-          <View style={styles.tagItem}>
-            <View style={styles.tagItemTextWrapper}>
-              <Text>#에어</Text>
-            </View>
-          </View>
-          <View style={styles.tagItem}>
-            <View style={styles.tagItemTextWrapper}>
-              <Text>#논터치</Text>
-            </View>
-          </View>
+          {feedArticle.tagBoxes.map((tagItem) => (
+            <FeedArticleTag tagBox={tagItem} />
+          ))}
         </View>
       </View>
     </View>
@@ -65,16 +55,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 5,
-  },
-  tagItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: "80%",
-    marginRight: 5,
-    borderRadius: 10,
-    backgroundColor: "#eeecda",
-  },
-  tagItemTextWrapper: {
-    paddingHorizontal: 3,
   },
 });

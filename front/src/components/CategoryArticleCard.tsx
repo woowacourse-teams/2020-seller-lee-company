@@ -17,7 +17,7 @@ type ArticleAdditional = {
   chatCount: number;
 };
 
-export interface ArticleCardProps {
+export interface CategoryArticleCardProps {
   title: string;
   price: number;
   createdAt: string;
@@ -33,7 +33,7 @@ export default function CategoryArticleCard({
   detail,
   additional,
   thumbnail,
-}: ArticleCardProps) {
+}: CategoryArticleCardProps) {
   return (
     <View style={styles.writeButtonContainer}>
       <View style={styles.imageContainer}>

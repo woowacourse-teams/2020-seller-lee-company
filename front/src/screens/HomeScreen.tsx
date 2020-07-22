@@ -4,12 +4,15 @@
 
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import FeedArticleCard from "../components/FeedArticleCard";
+import FeedArticleCard from "../components/Feed/FeedArticleCard";
+import { mockFeedArticles } from "../data/feedArticleMockData";
 
 export default function HomeScreen() {
   return (
     <View style={styles.writeButtonContainer}>
-      <FeedArticleCard />
+      {mockFeedArticles.map((feedArticle) => (
+        <FeedArticleCard key={feedArticle.id} feedArticle={feedArticle} />
+      ))}
     </View>
   );
 }

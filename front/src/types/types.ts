@@ -4,6 +4,7 @@
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageProps } from "react-native";
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -43,3 +44,20 @@ export type Tag = {
 export type TagItemProps = {
   tagBox: Tag;
 };
+
+type Photo = {
+  id: number;
+  location: ImageProps;
+};
+
+export interface FeedArticleCardProps {
+  id: number;
+  price: number;
+  tagBoxes: Tag[];
+  favorite: number;
+  photos: Photo[];
+}
+
+export interface FeedArticle {
+  feedArticle: FeedArticleCardProps;
+}
