@@ -9,29 +9,41 @@ export default function FeedArticleCard() {
   return (
     <View style={styles.articleContainer}>
       <View style={styles.photoContainer}>
-        <Text
-          style={{
-            color: "white",
-          }}
-        >
-          photo
-        </Text>
+        <Text style={styles.temp}>photo</Text>
       </View>
-      <View style={styles.articleDetailsContainer}>
-        <Text
-          style={{
-            color: "white",
-          }}
-        >
-          details
-        </Text>
+      <View style={styles.articleSemiDetailsContainer}>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.temp}>heart and price</Text>
+        </View>
+        <View style={styles.tagContainer}>
+          <View style={styles.tagItem}>
+            <View style={styles.tagItemTextWrapper}>
+              <Text>#맥북</Text>
+            </View>
+          </View>
+          <View style={styles.tagItem}>
+            <View style={styles.tagItemTextWrapper}>
+              <Text>#에어</Text>
+            </View>
+          </View>
+          <View style={styles.tagItem}>
+            <View style={styles.tagItemTextWrapper}>
+              <Text>#논터치</Text>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  temp: {
+    color: "white",
+  },
   articleContainer: {
+    backgroundColor: "black",
+    paddingVertical: 15,
     aspectRatio: 4 / 3,
   },
   photoContainer: {
@@ -40,10 +52,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 3,
   },
-  articleDetailsContainer: {
-    backgroundColor: "black",
-    justifyContent: "center",
-    alignItems: "center",
+  articleSemiDetailsContainer: {
     flex: 1.3,
+  },
+  detailsContainer: {
+    backgroundColor: "blue",
+    flex: 1,
+  },
+  tagContainer: {
+    backgroundColor: "green",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 5,
+  },
+  tagItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: "80%",
+    marginRight: 5,
+    borderRadius: 10,
+    backgroundColor: "#eeecda",
+  },
+  tagItemTextWrapper: {
+    paddingHorizontal: 3,
   },
 });
