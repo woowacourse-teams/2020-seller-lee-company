@@ -5,29 +5,29 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-export type categoryParamList = {
+export type CategoryParamList = {
   CategoryHome: undefined;
   CategoryDetail: { title: string };
   Search: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
-  categoryParamList,
+  CategoryParamList,
   "CategoryHome"
 >;
 
 export type CategoryDetailRouteProp = RouteProp<
-  categoryParamList,
+  CategoryParamList,
   "CategoryDetail"
 >;
 
 export type CategoryDetailNavigationProp = StackNavigationProp<
-  categoryParamList,
+  CategoryParamList,
   "CategoryDetail"
 >;
 
 export type SearchNavigationProp = StackNavigationProp<
-  categoryParamList,
+  CategoryParamList,
   "Search"
 >;
 

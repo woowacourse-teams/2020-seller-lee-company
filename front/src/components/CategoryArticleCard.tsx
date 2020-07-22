@@ -26,7 +26,7 @@ export interface ArticleCardProps {
   thumbnail: ImageProps;
 }
 
-export default function ArticleCard({
+export default function CategoryArticleCard({
   title,
   price,
   createdAt,
