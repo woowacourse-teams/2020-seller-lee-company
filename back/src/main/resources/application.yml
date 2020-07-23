@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: local
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     database: H2
@@ -13,6 +16,8 @@ spring:
       enabled: true
   datasource:
     url: jdbc:h2:mem:testdb;IFEXISTS=FALSE;
+    username: sa
+    password:
     driver-class-name: org.h2.Driver
 
 logging:
