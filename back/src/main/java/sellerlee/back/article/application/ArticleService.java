@@ -19,10 +19,6 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Long createArticle(Long id) {
-        return null;
-    }
-
     @Transactional(readOnly = true)
     public List<Article> showAll() {
         return articleRepository.findAll();
