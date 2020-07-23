@@ -8,7 +8,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -29,9 +29,9 @@ interface ImageInfo {
 
 export default function Photo() {
   const [images, setImages] = useState<ImageInfo[]>([]);
-  const setModalVisible = useSetRecoilState(modalActivationState);
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
+  const setModalVisible = useSetRecoilState(modalActivationState);
   const maxImageCount = 5;
 
   useEffect(() => {
@@ -95,14 +95,14 @@ export default function Photo() {
   return (
     <View style={styles.photoField}>
       <NoticeModal message={modalMessage} />
-      <View style={styles.cameraContainer}>
-        <TouchableHighlight onPress={addImage} underlayColor={"#FFFFFF"}>
-          <MaterialCommunityIcons name="camera" size={30} color="black" />
-        </TouchableHighlight>
-        <View style={styles.countContainer}>
-          <Text style={styles.countFont}>{images.length}</Text>
-          <Text style={styles.countFont}>/{maxImageCount}</Text>
-        </View>
+      <View style={styles.cameraButtonContainer}>
+        <TouchableOpacity style={styles.cameraButton} onPress={addImage}>
+          <MaterialCommunityIcons name="camera" size={25} color="grey" />
+          <View style={styles.countContainer}>
+            <Text style={styles.addedCountFont}>{images.length}</Text>
+            <Text style={styles.countFont}>/{maxImageCount}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.photosContainer}>
         <FlatList
@@ -110,9 +110,9 @@ export default function Photo() {
           horizontal={true}
           renderItem={({ item }) => (
             <View style={styles.photoContainer}>
-              <TouchableHighlight onPress={() => removeImage(item.id)}>
-                <AntDesign style={styles.delete} name="closecircle" size={15} />
-              </TouchableHighlight>
+              <TouchableOpacity onPress={() => removeImage(item.id)}>
+                <AntDesign style={styles.delete} name="closecircle" size={20} />
+              </TouchableOpacity>
               <Image style={styles.photo} source={{ uri: item.uri }} />
             </View>
           )}
@@ -125,46 +125,70 @@ export default function Photo() {
 
 const styles = StyleSheet.create({
   photoField: {
-    paddingTop: 10,
-    marginTop: 20,
-    flexDirection: "row",
-    aspectRatio: 5,
-  },
-  cameraContainer: {
     flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    margin: 6,
+  },
+  cameraButtonContainer: {
+    height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 5,
+    flexGrow: 1,
+    flexShrink: 0,
+    paddingVertical: 10,
+    paddingLeft: 10,
+    paddingRight: 8,
+  },
+  cameraButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    aspectRatio: 1,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "lightgrey",
   },
   countContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
+
   countFont: {
-    fontSize: 11,
+    fontSize: 14,
     color: "grey",
   },
-  photosContainer: {
-    flex: 7,
-    flexDirection: "row",
+  addedCountFont: {
+    fontSize: 14,
+    color: "orange",
   },
-  photos: {
-    alignItems: "center",
+  photosContainer: {
+    flexGrow: 4,
+    flexShrink: 1,
+    flexDirection: "row",
+    zIndex: -1,
   },
   photoContainer: {
-    margin: 5,
-  },
-  photo: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
-    zIndex: -1,
+    aspectRatio: 1,
+    marginVertical: 10,
+    marginHorizontal: 8,
   },
   delete: {
     position: "absolute",
     color: "black",
+    opacity: 0.7,
     right: -7,
     top: -7,
+  },
+  photo: {
+    flex: 1,
+    aspectRatio: 1,
+    borderRadius: 5,
+    zIndex: -1,
+  },
+  photos: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

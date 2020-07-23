@@ -22,6 +22,7 @@ import {
   articleSelectedCategoryState,
   articleTitleState,
 } from "../states/articleState";
+import Photo from "../components/Photo";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
@@ -37,7 +38,7 @@ export default function ArticleCreateScreen() {
     >
       <View style={styles.container}>
         <View style={styles.addImageContainer}>
-          <Text>이미지 추가</Text>
+          <Photo />
         </View>
         <View style={styles.titleFormContainer}>
           <ArticleTitleForm />
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topBarContainer: {
-    flex: 3,
+    flex: 2,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "grey",
@@ -93,21 +94,21 @@ const styles = StyleSheet.create({
     backgroundColor: "grey",
   },
   addImageContainer: {
-    flex: 3,
+    flex: 4.5,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "grey",
     borderWidth: 2,
   },
   titleFormContainer: {
-    flex: 2,
+    flex: 3,
     justifyContent: "center",
     alignItems: "flex-start",
     borderColor: "grey",
     borderWidth: 2,
   },
   selectCategoryContainer: {
-    flex: 2,
+    flex: 3,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "grey",
@@ -121,14 +122,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   priceFormContainer: {
-    flex: 2,
+    flex: 3,
     justifyContent: "center",
     alignItems: "flex-start",
     borderColor: "grey",
     borderWidth: 2,
   },
   contentsFormContainer: {
-    flex: 8,
+    flex: 14,
     borderColor: "grey",
     borderWidth: 2,
   },
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   tagFormContainer: {
-    flex: 3,
+    flex: 4,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "grey",
