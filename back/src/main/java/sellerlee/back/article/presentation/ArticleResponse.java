@@ -5,7 +5,7 @@
 package sellerlee.back.article.presentation;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.Tags;
+import sellerlee.back.article.domain.Tag;
 
 import java.util.List;
 
@@ -18,12 +18,12 @@ public class ArticleResponse {
 
     private String contents;
 
-    private Tags tags;
+    private List<Tag> tags;
 
     private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, String title, String contents, Tags tags) {
+    public ArticleResponse(Long id, String title, String contents, List<Tag> tags) {
         this.id = id;
         this.title = title;
         this.contents = contents;
@@ -31,7 +31,8 @@ public class ArticleResponse {
     }
 
     public static ArticleResponse of(Article article) {
-        return new ArticleResponse(article.getId(), article.getTitle(), article.getContents(), article.getTags());
+        return new ArticleResponse(article.getId(), article.getTitle(), article.getContents(),
+                article.getTags().toList());
     }
 
     public static List<ArticleResponse> listOf(List<Article> articles) {
@@ -52,7 +53,7 @@ public class ArticleResponse {
         return contents;
     }
 
-    public Tags getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 }

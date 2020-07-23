@@ -27,7 +27,7 @@ public class Tags {
         this.tags = new ArrayList<>(tags);
     }
 
-    public List<Tag> getTags() {
+    public List<Tag> toList() {
         return unmodifiableList(tags);
     }
 
