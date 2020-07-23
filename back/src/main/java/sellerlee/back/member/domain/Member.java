@@ -15,4 +15,11 @@ public class Member {
     @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
+
+    protected Member() {
+    }
+
+    public Member(Long id) {
+        this.id = id;
+    }
 }
