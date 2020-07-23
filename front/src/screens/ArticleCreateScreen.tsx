@@ -35,7 +35,7 @@ export default function ArticleCreateScreen() {
       onPress={() => Keyboard.dismiss()}
       accessible={false}
     >
-      <View style={styles.writeButtonContainer}>
+      <View style={styles.container}>
         <View style={styles.addImageContainer}>
           <Text>이미지 추가</Text>
         </View>
@@ -81,7 +81,7 @@ export default function ArticleCreateScreen() {
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     flex: 1,
   },
   topBarContainer: {

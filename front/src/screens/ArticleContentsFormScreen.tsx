@@ -11,7 +11,7 @@ export default function ArticleContentsFormScreen() {
   const [contents, setContents] = useRecoilState(articleContentsState);
 
   return (
-    <View style={styles.writeButtonContainer}>
+    <View style={styles.container}>
       <TextInput
         style={styles.form}
         placeholder={"내용 입력"}
@@ -24,7 +24,7 @@ export default function ArticleContentsFormScreen() {
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     flex: 1,
   },
   form: {

@@ -31,14 +31,14 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type CategoryItemProps = {
+export interface CategoryItemProps {
   title: string;
-};
+}
 
-export type Tag = {
+export interface Tag {
   id: number;
   tag: string;
-};
+}
 
 export type TagItemProps = {
   tagBox: Tag;

@@ -1,16 +1,16 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri
  */
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import HomeScreen from "../screens/HomeScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
+import FeedNavigation from "./FeedNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ export default function BottomTabNavigation() {
     >
       <Tab.Screen
         name="홈"
-        component={HomeScreen}
+        component={FeedNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons

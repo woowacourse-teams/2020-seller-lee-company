@@ -42,14 +42,14 @@ export default function CategoryDetailScreen() {
   }, [navigation, route]);
 
   return (
-    <View style={styles.writeButtonContainer}>
+    <View style={styles.container}>
       <Text style={styles.text}>CategoryDetail Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     flex: 1,
     backgroundColor: "green",
     justifyContent: "center",

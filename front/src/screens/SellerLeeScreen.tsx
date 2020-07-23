@@ -1,27 +1,26 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri
  */
 
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-export default function HomeScreen() {
+export default function SellerLeeScreen() {
   return (
-    <View style={styles.writeButtonContainer}>
-      <Text style={styles.text}>Home Screen</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>SellerLee Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "lightyellow",
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    color: "black",
     fontSize: 30,
   },
 });
