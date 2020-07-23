@@ -17,6 +17,7 @@
     "@react-navigation/stack": "^5.6.2",
     "expo": "~38.0.8",
     "expo-image-picker": "^8.3.0",
+    "expo-permissions": "~9.0.1",
     "expo-status-bar": "^1.0.2",
     "moment": "^2.27.0",
     "react": "~16.11.0",
@@ -27,9 +28,9 @@
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
+    "react-native-swiper": "^1.6.0",
     "react-native-web": "~0.11.7",
-    "recoil": "^0.0.10",
-    "expo-permissions": "~9.0.1"
+    "recoil": "^0.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

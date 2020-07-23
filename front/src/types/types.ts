@@ -45,17 +45,21 @@ export type TagItemProps = {
   tagBox: Tag;
 };
 
-type Photo = {
+export type ImageType = {
   id: number;
   location: ImageProps;
 };
 
+export interface ImageTypeProps {
+  imageTypeProps: ImageType;
+}
+
 export interface FeedArticleCardProps {
   id: number;
-  price: number;
+  price: string;
   tagBoxes: Tag[];
   favorite: number;
-  photos: Photo[];
+  images: ImageType[];
 }
 
 export interface FeedArticle {

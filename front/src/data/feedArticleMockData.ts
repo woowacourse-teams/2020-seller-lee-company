@@ -5,7 +5,7 @@
 export const mockFeedArticles = [
   {
     id: 0,
-    price: 406000,
+    price: "413000",
     tagBoxes: [
       {
         id: 0,
@@ -21,7 +21,7 @@ export const mockFeedArticles = [
       },
     ],
     favorite: 10,
-    photos: [
+    images: [
       { id: 0, location: require("../../assets/samplePhoto1.jpeg") },
       { id: 1, location: require("../../assets/samplePhoto2.jpeg") },
     ],
