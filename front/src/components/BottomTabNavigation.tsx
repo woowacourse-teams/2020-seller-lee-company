@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
+import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
 import FeedNavigation from "./FeedNavigation";
 
@@ -49,13 +50,8 @@ export default function BottomTabNavigation() {
         name="글쓰기"
         component={ArticleCreateNavigation}
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="pencil-box-outline"
-              size={24}
-              color={color}
-            />
-          ),
+          tabBarVisible: false,
+          tabBarButton: () => <ArticleCreateOptionsModal />,
         }}
       />
       <Tab.Screen
