@@ -22,7 +22,6 @@ import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql({"/truncate.sql"})
 public class ArticleAcceptanceTest {
     @LocalServerPort
     int port;
