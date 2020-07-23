@@ -5,6 +5,7 @@
 package sellerlee.back.article.presentation;
 
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.Tags;
 
 import java.util.List;
 
@@ -13,15 +14,24 @@ import static java.util.stream.Collectors.toList;
 public class ArticleResponse {
     private Long id;
 
-    public ArticleResponse() {
+    private String title;
+
+    private String contents;
+
+    private Tags tags;
+
+    private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id) {
+    public ArticleResponse(Long id, String title, String contents, Tags tags) {
         this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.tags = tags;
     }
 
     public static ArticleResponse of(Article article) {
-        return new ArticleResponse(article.getId());
+        return new ArticleResponse(article.getId(), article.getTitle(), article.getContents(), article.getTags());
     }
 
     public static List<ArticleResponse> listOf(List<Article> articles) {
@@ -32,5 +42,17 @@ public class ArticleResponse {
 
     public Long getId() {
         return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public Tags getTags() {
+        return tags;
     }
 }

@@ -15,8 +15,8 @@ public class Article {
     @Column(name = "ARTICLE_ID")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID", insertable = false, updatable = false)
     private Member author;
 
     @Column
@@ -30,10 +30,34 @@ public class Article {
     @Embedded
     private Tags tags;
 
-    public Article() {
+    protected Article() {
+    }
+
+    public Article(Member author, String title, String contents,
+            Tags tags) {
+        this.author = author;
+        this.title = title;
+        this.contents = contents;
+        this.tags = tags;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Member getAuthor() {
+        return author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public Tags getTags() {
+        return tags;
     }
 }
