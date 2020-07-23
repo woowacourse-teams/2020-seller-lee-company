@@ -9,7 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import DemoArticle from "../components/DemoArticle";
 import { mockArticles } from "../data/articleMockData";
 
-export default function HomeScreen() {
+export default function FeedHomeScreen() {
   const navigation = useNavigation();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,9 +33,9 @@ export default function HomeScreen() {
     // fetch init data
   };
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
     setIsRefreshing(true);
-    getInitData();
+    await getInitData();
     setIsRefreshing(false);
   };
 
@@ -43,9 +43,9 @@ export default function HomeScreen() {
     // fetch more data
   };
 
-  const onLoad = () => {
+  const onLoad = async () => {
     setIsLoading(true);
-    getMoreData();
+    await getMoreData();
     setIsLoading(false);
   };
 

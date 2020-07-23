@@ -31,6 +31,6 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type CategoryItemProps = {
+export interface CategoryItemProps {
   title: string;
-};
+}

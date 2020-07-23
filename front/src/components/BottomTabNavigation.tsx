@@ -9,7 +9,7 @@ import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
-import HomeNavigation from "./HomeNavigation";
+import FeedNavigation from "./FeedNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +21,7 @@ export default function BottomTabNavigation() {
     >
       <Tab.Screen
         name="홈"
-        component={HomeNavigation}
+        component={FeedNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
