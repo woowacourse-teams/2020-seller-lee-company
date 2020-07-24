@@ -19,24 +19,28 @@ public class Article {
     @JoinColumn(name = "MEMBER_ID", insertable = false, updatable = false)
     private Member author;
 
-    @Column
     private String title;
 
-    @Column
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    private Long price;
+
     @Lob
     private String contents;
 
-    @Column
     @Embedded
     private Tags tags;
 
     protected Article() {
     }
 
-    public Article(Member author, String title, String contents,
-            Tags tags) {
+    public Article(Member author, String title, Category category, Long price,
+            String contents, Tags tags) {
         this.author = author;
         this.title = title;
+        this.category = category;
+        this.price = price;
         this.contents = contents;
         this.tags = tags;
     }
@@ -51,6 +55,14 @@ public class Article {
 
     public String getTitle() {
         return title;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Long getPrice() {
+        return price;
     }
 
     public String getContents() {

@@ -5,6 +5,7 @@
 package sellerlee.back.article.fixture;
 
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
 
@@ -17,6 +18,8 @@ public class ArticleFixture {
     public static final Article ARTICLE_FIXTURE = new Article(
             new Member(1L),
             "TEST_TITLE",
+            Category.SAMPLE,
+            10_000L,
             "TEST_CONTENTS",
             new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2))
     );
