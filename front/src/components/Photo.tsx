@@ -22,6 +22,8 @@ import NoticeModal from "./NoticeModal";
 import { useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
 
+let imageId = 0;
+
 interface ImageInfo {
   id: string;
   uri: string;
@@ -59,7 +61,7 @@ export default function Photo() {
     if (!result.cancelled) {
       setImages(
         images.concat({
-          id: images.length.toString(),
+          id: (imageId++).toString(),
           uri: result.uri,
         }),
       );
@@ -93,11 +95,11 @@ export default function Photo() {
   };
 
   return (
-    <View style={styles.photoField}>
+    <View style={styles.container}>
       <NoticeModal message={modalMessage} />
       <View style={styles.cameraButtonContainer}>
         <TouchableOpacity style={styles.cameraButton} onPress={addImage}>
-          <MaterialCommunityIcons name="camera" size={25} color="grey" />
+          <MaterialCommunityIcons name="camera" size={28} color="grey" />
           <View style={styles.countContainer}>
             <Text style={styles.addedCountFont}>{images.length}</Text>
             <Text style={styles.countFont}>/{maxImageCount}</Text>
@@ -110,9 +112,11 @@ export default function Photo() {
           horizontal={true}
           renderItem={({ item }) => (
             <View style={styles.photoContainer}>
-              <TouchableOpacity onPress={() => removeImage(item.id)}>
-                <AntDesign style={styles.delete} name="closecircle" size={20} />
-              </TouchableOpacity>
+              <View style={styles.delete}>
+                <TouchableOpacity onPress={() => removeImage(item.id)}>
+                  <AntDesign name="closecircle" size={23} />
+                </TouchableOpacity>
+              </View>
               <Image style={styles.photo} source={{ uri: item.uri }} />
             </View>
           )}
@@ -124,11 +128,10 @@ export default function Photo() {
 }
 
 const styles = StyleSheet.create({
-  photoField: {
+  container: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    margin: 6,
   },
   cameraButtonContainer: {
     height: "100%",
@@ -137,8 +140,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 0,
     paddingVertical: 10,
-    paddingLeft: 10,
-    paddingRight: 8,
+    paddingRight: 10,
   },
   cameraButton: {
     alignItems: "center",
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "lightgrey",
+    borderColor: "#eaeaea",
   },
   countContainer: {
     flexDirection: "row",
@@ -156,36 +158,36 @@ const styles = StyleSheet.create({
   },
 
   countFont: {
-    fontSize: 14,
+    fontSize: 15,
     color: "grey",
   },
   addedCountFont: {
-    fontSize: 14,
+    fontSize: 15,
     color: "orange",
   },
   photosContainer: {
     flexGrow: 4,
     flexShrink: 1,
     flexDirection: "row",
-    zIndex: -1,
   },
   photoContainer: {
     aspectRatio: 1,
+    marginLeft: 5,
+    marginRight: 10,
     marginVertical: 10,
-    marginHorizontal: 8,
   },
   delete: {
     position: "absolute",
     color: "black",
-    opacity: 0.7,
+    opacity: 0.5,
     right: -7,
     top: -7,
+    zIndex: 99999,
   },
   photo: {
     flex: 1,
     aspectRatio: 1,
     borderRadius: 5,
-    zIndex: -1,
   },
   photos: {
     alignItems: "center",
