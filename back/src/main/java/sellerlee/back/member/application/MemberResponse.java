@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-package sellerlee.back.member.presentation;
+package sellerlee.back.member.application;
 
 public class MemberResponse {
     private Long id;

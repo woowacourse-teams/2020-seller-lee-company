@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-package sellerlee.back.article.presentation;
+package sellerlee.back.article.application;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;

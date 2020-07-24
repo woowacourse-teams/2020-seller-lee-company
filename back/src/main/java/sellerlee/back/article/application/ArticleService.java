@@ -6,7 +6,6 @@ package sellerlee.back.article.application;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> showAll() {
-        return articleRepository.findAll();
+    public List<ArticleResponse> showAll() {
+        return ArticleResponse.listOf(articleRepository.findAll());
     }
 }
