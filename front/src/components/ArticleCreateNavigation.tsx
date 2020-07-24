@@ -17,7 +17,7 @@ export default function ArticleCreateNavigation() {
         name="ArticleCreateScreen"
         component={ArticleCreateScreen}
         options={{
-          title: "글 쓰기",
+          title: "글쓰기",
         }}
       />
       <Stack.Screen

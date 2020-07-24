@@ -28,52 +28,68 @@ import Photo from "../components/Photo";
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
   const setTitle = useSetRecoilState(articleTitleState);
-  const setPrice = useSetRecoilState(articlePriceState);
+  const [price, setPrice] = useRecoilState(articlePriceState);
   const [contents, setContents] = useRecoilState(articleContentsState);
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
 
+  const dynamicStyles = StyleSheet.create({
+    priceCurrencyUnit: {
+      fontSize: 18,
+      color: price === 0 ? "lightgrey" : "black",
+    },
+    contentsText: {
+      fontSize: 18,
+      color: contents.length === 0 ? "grey" : "black",
+    },
+  });
+
   return (
     <View style={styles.container}>
-      <View style={styles.addedImageContainer}>
-        <Photo />
-      </View>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.contentsContainer}>
-          <View style={styles.titleFormContainer}>
-            <ArticleTitleForm />
-          </View>
-
-          <View style={styles.selectCategoryContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("CategoryChoiceScreen")}
-            >
-              <Text style={styles.buttonText}>{selectedCategory}</Text>
-              <MaterialCommunityIcons
-                name="chevron-down"
-                size={22}
-                color="black"
-                style={styles.selectCategoryArrowIcon}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.priceFormContainer}>
-            <ArticlePriceForm />
-          </View>
-          <View style={styles.contentsFormContainer}>
-            <TouchableOpacity
-              style={styles.contentsFormButton}
-              onPress={() => navigation.navigate("ArticleContentsFormScreen")}
-            >
-              <Text>{contents.length === 0 ? "내용 입력" : contents}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.tagFormContainer}>
-            <Text>태그 입력</Text>
-          </View>
+      <View style={styles.contentsContainer}>
+        <View style={styles.addedImageContainer}>
+          <Photo />
         </View>
-      </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.touchableWithoutFeedbackContainer}>
+            <View style={styles.titleFormContainer}>
+              <ArticleTitleForm />
+            </View>
+
+            <View style={styles.selectCategoryContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("CategoryChoiceScreen")}
+              >
+                <Text style={styles.buttonText}>{selectedCategory}</Text>
+                <MaterialCommunityIcons
+                  name="chevron-down"
+                  size={22}
+                  color="black"
+                  style={styles.selectCategoryArrowIcon}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.priceFormContainer}>
+              <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
+              <ArticlePriceForm />
+            </View>
+            <View style={styles.contentsFormContainer}>
+              <TouchableOpacity
+                style={styles.contentsFormButton}
+                onPress={() => navigation.navigate("ArticleContentsFormScreen")}
+              >
+                <Text style={dynamicStyles.contentsText}>
+                  {contents.length === 0 ? "내용을 입력해주세요." : contents}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.tagFormContainer}>
+              <Text>태그 입력</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
       <View style={styles.createButtonContainer}>
         <Button
           title={"완료"}
@@ -94,16 +110,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  contentsContainer: {
+    flex: 32.5,
+    paddingHorizontal: 20,
+  },
   addedImageContainer: {
     flex: 4,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 20,
     marginVertical: 10,
   },
-  contentsContainer: {
-    flex: 29.5,
-    paddingHorizontal: 20,
+  touchableWithoutFeedbackContainer: {
+    flex: 28.5,
   },
   titleFormContainer: {
     flex: 3,
@@ -134,19 +152,20 @@ const styles = StyleSheet.create({
   },
   priceFormContainer: {
     flex: 3,
-    justifyContent: "center",
-    alignItems: "flex-start",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
     borderTopColor: "#eaeaea",
     borderTopWidth: 1,
   },
   contentsFormContainer: {
-    backgroundColor: "yellow",
     flex: 14.5,
     borderTopColor: "#eaeaea",
     borderTopWidth: 1,
   },
   contentsFormButton: {
     height: "100%",
+    marginVertical: 15,
   },
   tagFormContainer: {
     flex: 4,
@@ -156,7 +175,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   createButtonContainer: {
-    flex: 2,
+    flex: 3,
     backgroundColor: "grey",
     justifyContent: "center",
     alignItems: "center",
