@@ -4,10 +4,8 @@
 
 package sellerlee.back.acceptance;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -16,10 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
 
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArticleAcceptanceTest {
@@ -58,8 +56,8 @@ public class ArticleAcceptanceTest {
         params.put("category", "가전제품");
         params.put("price","10000");
         params.put("contents", "진짜 시원합니다");
-        params.put("images", "");
-        params.put("tags", "#선풍기");
+      //  params.put("images", "");
+      //  params.put("tags", "#선풍기");
         given().
                 body(params).
                 contentType(MediaType.APPLICATION_JSON_VALUE).

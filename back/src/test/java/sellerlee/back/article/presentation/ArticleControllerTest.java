@@ -37,10 +37,9 @@ public class ArticleControllerTest {
     @DisplayName("게시글 생성 요청을 받은 경우 게시글 생성")
     @Test
     void createArticle() throws Exception {
-        ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", "PC", 10000L,
-                "쌉니다 싸요", "photoURI", "#그램");
+        ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", 10000L,"쌉니다 싸요");
         String request = objectMapper.writeValueAsString(articleCreateRequest);
-        ArticleResponse response = new ArticleResponse(1L);
+        ArticleResponse response = ArticleResponse.of(articleCreateRequest.toArticle());
 
         given(articleService.createArticle(any())).willReturn(response);
 

@@ -4,30 +4,25 @@
 
 package sellerlee.back.article.presentation;
 
+import sellerlee.back.article.domain.Article;
+
 public class ArticleCreateRequest {
     private String title;
-    private String category;
     private Long price;
     private String contents;
-    private String url;
-    private String tags;
 
-    public ArticleCreateRequest(String title, String category, Long price, String contents,
-            String url, String tags) {
+    public ArticleCreateRequest(String title, Long price, String contents) {
         this.title = title;
-        this.category = category;
         this.price = price;
         this.contents = contents;
-        this.url = url;
-        this.tags = tags;
+    }
+
+    public Article toArticle() {
+        return new Article(null, title, price, contents);
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public Long getPrice() {
@@ -36,13 +31,5 @@ public class ArticleCreateRequest {
 
     public String getContents() {
         return contents;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getTags() {
-        return tags;
     }
 }

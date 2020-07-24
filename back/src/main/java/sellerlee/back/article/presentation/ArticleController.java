@@ -26,7 +26,7 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Void> createArticle(@RequestBody ArticleCreateRequest request){
-        ArticleResponse response = articleService.createArticle(request);
+        ArticleResponse response = articleService.createArticle(request.toArticle());
         return ResponseEntity.created(URI.create(ARTICLE_URI+"/"+response.getId())).build();
     }
 }
