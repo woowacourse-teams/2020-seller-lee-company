@@ -9,15 +9,22 @@ import { articlePriceState } from "../states/articleState";
 
 export default function ArticlePriceForm() {
   const [price, setPrice] = useRecoilState(articlePriceState);
+  const removeCommaRegExp = /[^\d]+/g;
+  const insertCommaRegExp = /\B(?=(\d{3})+(?!\d))/g;
 
   return (
     <TextInput
       style={styles.form}
-      placeholder={"₩ 가격"}
+      placeholder={"가격"}
       keyboardType={"number-pad"}
       maxLength={10}
-      onChangeText={(text) => setPrice(Number(text))}
-      value={price === 0 ? "" : price.toString()}
+      onChangeText={(text) => {
+        const priceValue = text.replace(removeCommaRegExp, "");
+        setPrice(Number(priceValue));
+      }}
+      value={
+        price === 0 ? "" : price.toString().replace(insertCommaRegExp, ",")
+      }
     />
   );
 }
