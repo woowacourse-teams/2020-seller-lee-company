@@ -1,1 +1,0 @@
-truncate table article restart identity;

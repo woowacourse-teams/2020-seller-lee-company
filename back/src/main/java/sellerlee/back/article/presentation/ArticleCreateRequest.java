@@ -18,7 +18,7 @@ public class ArticleCreateRequest {
     }
 
     public Article toArticle() {
-        return new Article(null, title, price, contents);
+        return new Article(title, price, contents);
     }
 
     public String getTitle() {

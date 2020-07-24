@@ -40,5 +40,4 @@ public class ArticleResponse {
     public String getContents() {
         return contents;
     }
-
 }

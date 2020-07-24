@@ -20,7 +20,15 @@ public class Article {
     public Article() {
     }
 
+    public Article(String title, Long price, String contents) {
+        this.title = title;
+        this.price = price;
+        this.contents = contents;
+    }
+
     public Article(Long id, String title, Long price, String contents) {
+        this(title,price,contents);
+        this.id = id;
     }
 
     public Long getId() {

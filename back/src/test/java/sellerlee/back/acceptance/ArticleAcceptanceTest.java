@@ -56,8 +56,7 @@ public class ArticleAcceptanceTest {
         params.put("category", "가전제품");
         params.put("price","10000");
         params.put("contents", "진짜 시원합니다");
-      //  params.put("images", "");
-      //  params.put("tags", "#선풍기");
+
         given().
                 body(params).
                 contentType(MediaType.APPLICATION_JSON_VALUE).

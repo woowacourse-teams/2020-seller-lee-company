@@ -5,10 +5,8 @@
 package sellerlee.back.article.application;
 
 import org.springframework.stereotype.Service;
-
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
-import sellerlee.back.article.presentation.ArticleCreateRequest;
 import sellerlee.back.article.presentation.ArticleResponse;
 
 @Service
