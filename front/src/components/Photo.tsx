@@ -121,6 +121,7 @@ export default function Photo() {
             </View>
           )}
           contentContainerStyle={styles.photos}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     </View>

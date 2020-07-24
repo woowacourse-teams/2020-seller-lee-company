@@ -21,5 +21,5 @@ export const articleContentsState = atom({
 
 export const articleSelectedCategoryState = atom({
   key: "articleSelectedCategoryState",
-  default: "카테고리 선택",
+  default: "카테고리",
 });

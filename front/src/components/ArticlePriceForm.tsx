@@ -13,7 +13,7 @@ export default function ArticlePriceForm() {
   return (
     <TextInput
       style={styles.form}
-      placeholder={"가격 입력"}
+      placeholder={"₩ 가격"}
       keyboardType={"number-pad"}
       maxLength={10}
       onChangeText={(text) => setPrice(Number(text))}
@@ -24,7 +24,6 @@ export default function ArticlePriceForm() {
 
 const styles = StyleSheet.create({
   form: {
-    fontSize: 30,
-    paddingLeft: 15,
+    fontSize: 18,
   },
 });
