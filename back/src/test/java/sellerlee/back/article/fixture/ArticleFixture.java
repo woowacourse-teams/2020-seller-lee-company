@@ -18,7 +18,7 @@ public class ArticleFixture {
     public static final Article ARTICLE_FIXTURE = new Article(
             new Member(1L),
             "TEST_TITLE",
-            Category.SAMPLE,
+            Category.TEST,
             10_000L,
             "TEST_CONTENTS",
             new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2))
