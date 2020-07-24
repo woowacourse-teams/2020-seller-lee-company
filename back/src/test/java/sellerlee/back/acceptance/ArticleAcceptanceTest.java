@@ -53,8 +53,8 @@ public class ArticleAcceptanceTest {
     private void createArticle(){
         Map<String, String> params = new HashMap<>();
         params.put("title", "선풍기");
-        params.put("category", "가전제품");
         params.put("price","10000");
+        params.put("category", "디지털/가전");
         params.put("contents", "진짜 시원합니다");
 
         given().
@@ -62,7 +62,7 @@ public class ArticleAcceptanceTest {
                 contentType(MediaType.APPLICATION_JSON_VALUE).
                 accept(MediaType.APPLICATION_JSON_VALUE).
                 when().
-                post("/article").
+                post("/articles").
                 then().
                 log().all().
                 statusCode(HttpStatus.CREATED.value());

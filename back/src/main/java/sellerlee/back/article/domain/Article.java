@@ -4,30 +4,35 @@
 
 package sellerlee.back.article.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Article {
     @Id
     @GeneratedValue
     private Long id;
+
     private String title;
     private Long price;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Lob
     private String contents;
 
-    public Article() {
+    protected Article() {
     }
 
-    public Article(String title, Long price, String contents) {
+    public Article(String title, Long price, Category category, String contents) {
         this.title = title;
         this.price = price;
+        this.category = category;
         this.contents = contents;
     }
 
-    public Article(Long id, String title, Long price, String contents) {
-        this(title,price,contents);
+    public Article(Long id, String title, Long price, Category category, String contents) {
+        this(title,price,category,contents);
         this.id = id;
     }
 
@@ -39,11 +44,15 @@ public class Article {
         return title;
     }
 
-    public String getContents() {
-        return contents;
-    }
-
     public Long getPrice() {
         return price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getContents() {
+        return contents;
     }
 }
