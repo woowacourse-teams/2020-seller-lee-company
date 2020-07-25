@@ -19,6 +19,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "pan"
     }
   }
 }

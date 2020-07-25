@@ -27,7 +27,7 @@ export default function Tag() {
       setTagBoxes(
         tagBoxes.concat({
           id: tagId,
-          tag: "#" + input.replace(/(\s*)/g, ""),
+          tag: "# " + input.replace(/(\s*)/g, ""),
         }),
       );
       setTagId(tagId + 1);
@@ -41,12 +41,12 @@ export default function Tag() {
     <View style={styles.container}>
       <TagModal />
       <View style={styles.textContainer}>
-        <Text style={styles.text}># 피드에 보여질 키워드</Text>
+        <Text style={styles.text}>태그 추가</Text>
       </View>
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
           <TextInput
-            placeholder={"#해시태그 (20자 이내)"}
+            placeholder={"# 해시태그 (20자 이내)"}
             maxLength={20}
             onChangeText={setInput}
             value={input}
@@ -102,26 +102,22 @@ export default function Tag() {
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    // backgroundColor: "yellow",
     aspectRatio: 5 / 1.8,
-    paddingHorizontal: 15,
-    paddingBottom: 2,
   },
   textContainer: {
-    flex: 0.8,
     justifyContent: "center",
   },
   text: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
   },
   inputContainerWrapper: {
-    flex: 1.7,
+    flex: 1.8,
     flexDirection: "row",
-    marginVertical: 5,
     borderColor: "gray",
     borderWidth: 0.3,
     borderRadius: 5,
+    marginVertical: 10,
   },
   inputWrapper: {
     justifyContent: "center",

@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author kouz95 lxxjn0
  */
 
 import React from "react";
@@ -11,11 +11,13 @@ import {
   TouchableWithoutFeedback,
   Button,
   TouchableOpacity,
+  Platform,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import ArticleTitleForm from "../components/ArticleTitleForm";
 import ArticlePriceForm from "../components/ArticlePriceForm";
 import { useNavigation } from "@react-navigation/native";
-import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil/dist";
+import { useSetRecoilState, useRecoilState } from "recoil/dist";
 import {
   articleContentsState,
   articlePriceState,
@@ -24,13 +26,18 @@ import {
 } from "../states/articleState";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Photo from "../components/Photo";
+import Tag from "../components/Tag";
+import { tagBoxesState } from "../states/TagState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
   const setTitle = useSetRecoilState(articleTitleState);
   const [price, setPrice] = useRecoilState(articlePriceState);
   const [contents, setContents] = useRecoilState(articleContentsState);
-  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
+    articleSelectedCategoryState,
+  );
+  const setTagBoxes = useSetRecoilState(tagBoxesState);
 
   const dynamicStyles = StyleSheet.create({
     priceCurrencyUnit: {
@@ -44,7 +51,11 @@ export default function ArticleCreateScreen() {
   });
 
   return (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView
+      enableOnAndroid
+      contentContainerStyle={styles.container}
+      enableAutomaticScroll={Platform.OS === "ios"}
+    >
       <View style={styles.contentsContainer}>
         <View style={styles.addedImageContainer}>
           <Photo />
@@ -60,7 +71,9 @@ export default function ArticleCreateScreen() {
                 style={styles.button}
                 onPress={() => navigation.navigate("CategoryChoiceScreen")}
               >
-                <Text style={styles.buttonText}>{selectedCategory}</Text>
+                <Text style={styles.buttonText}>
+                  {selectedCategory === "" ? "카테고리" : selectedCategory}
+                </Text>
                 <MaterialCommunityIcons
                   name="chevron-down"
                   size={22}
@@ -85,7 +98,9 @@ export default function ArticleCreateScreen() {
               </TouchableOpacity>
             </View>
             <View style={styles.tagFormContainer}>
-              <Text>태그 입력</Text>
+              <View style={styles.tagForm}>
+                <Tag />
+              </View>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -93,15 +108,18 @@ export default function ArticleCreateScreen() {
       <View style={styles.createButtonContainer}>
         <Button
           title={"완료"}
+          color={"white"}
           onPress={() => {
             navigation.goBack();
-            setPrice(0);
             setTitle("");
+            setPrice(0);
             setContents("");
+            setSelectedCategory("");
+            setTagBoxes([]);
           }}
         />
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -159,7 +177,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   contentsFormContainer: {
-    flex: 14.5,
+    flex: 12.5,
     borderTopColor: "#eaeaea",
     borderTopWidth: 1,
   },
@@ -168,15 +186,15 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   tagFormContainer: {
-    flex: 4,
-    justifyContent: "center",
-    alignItems: "center",
     borderTopColor: "#eaeaea",
     borderTopWidth: 1,
   },
+  tagForm: {
+    marginVertical: 15,
+  },
   createButtonContainer: {
     flex: 3,
-    backgroundColor: "grey",
+    backgroundColor: "orange",
     justifyContent: "center",
     alignItems: "center",
     borderTopColor: "#eaeaea",
