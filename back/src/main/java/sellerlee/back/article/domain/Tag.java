@@ -1,12 +1,10 @@
 package sellerlee.back.article.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @Embeddable
 public class Tag {
-    @Column
     private String name;
 
     protected Tag() {
