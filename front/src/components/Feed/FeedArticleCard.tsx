@@ -2,58 +2,88 @@
  * @author joseph415
  */
 
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useRef } from "react";
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { FeedArticle } from "../../types/types";
 import FeedArticleTag from "./FeedArticleTag";
-import { FontAwesome } from "@expo/vector-icons";
 import replacePriceWithCommas from "../../replacePriceWithCommas";
-import Swiper from "react-native-swiper";
-import ActiveDot from "./ActiveDot";
-import Dot from "./Dot";
-import ImageBox from "./ImageBox";
+import Heart from "./Heart";
+import FeedSliderImage from "./FeedSliderImage";
+import { useSetRecoilState } from "recoil/dist";
+import { favoriteState } from "../../states/heartState";
 
 export default function FeedArticleCard({ feedArticle }: FeedArticle) {
+  const setFavorite = useSetRecoilState(favoriteState);
+  setFavorite(feedArticle.favorite);
+
+  const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
+    TouchableWithoutFeedback,
+  );
+
+  const clickValue = useRef(new Animated.Value(1)).current;
+
+  const clickArticle = () => {
+    clickValue.setValue(0.98);
+    Animated.timing(clickValue, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
-    <View style={styles.articleContainer}>
-      <View style={styles.photoContainer}>
-        <Swiper
-          loop={false}
-          dot={Dot()}
-          activeDot={ActiveDot()}
-          paginationStyle={styles.pagination}
-        >
-          {feedArticle.images.map((image) => (
-            <ImageBox key={image.id} imageTypeProps={image} />
-          ))}
-        </Swiper>
-      </View>
-      <View style={styles.articleSemiDetailsContainer}>
-        <View style={styles.detailsContainer}>
-          <View style={styles.detailsHeartContainer}>
-            <FontAwesome name="heart-o" size={28} color="black" />
-            <Text style={styles.text}> x 100</Text>
+    <AnimateTouchableWithoutFeedback
+      onPress={clickArticle}
+      style={{
+        transform: [{ scale: clickValue }],
+      }}
+    >
+      <View style={styles.articleContainer}>
+        <View style={styles.photoContainer}>
+          <FeedSliderImage feedArticle={feedArticle} />
+        </View>
+        <View style={styles.articleSemiDetailsContainer}>
+          <View style={styles.detailsContainer}>
+            <Heart />
+            <View style={styles.detailsPriceContainer}>
+              <Text style={styles.text}>
+                {replacePriceWithCommas(feedArticle.price)}원
+              </Text>
+            </View>
           </View>
-          <View style={styles.detailsPriceContainer}>
-            <Text style={styles.text}>
-              {replacePriceWithCommas(feedArticle.price)}원
-            </Text>
+          <View style={styles.tagContainer}>
+            {feedArticle.tagBoxes.map((tagItem) => (
+              <FeedArticleTag key={tagItem.id} tagBox={tagItem} />
+            ))}
           </View>
         </View>
-        <View style={styles.tagContainer}>
-          {feedArticle.tagBoxes.map((tagItem) => (
-            <FeedArticleTag key={tagItem.id} tagBox={tagItem} />
-          ))}
-        </View>
       </View>
-    </View>
+    </AnimateTouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   articleContainer: {
+    marginHorizontal: 4,
+    backgroundColor: "#FFF",
     paddingVertical: 15,
+    borderRadius: 8,
     aspectRatio: 4 / 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 6,
   },
   photoContainer: {
     paddingHorizontal: 8,
