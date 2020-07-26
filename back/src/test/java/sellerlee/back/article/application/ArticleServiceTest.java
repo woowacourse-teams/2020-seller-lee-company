@@ -14,8 +14,7 @@ import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
-import sellerlee.back.article.presentation.ArticleCreateRequest;
-import sellerlee.back.article.presentation.ArticleResponse;
+import sellerlee.back.member.domain.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,11 +35,11 @@ public class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, Category.PC, "쌉니다 싸요", "#선풍기#굿");
-        Article expectedArticle = new Article(1L, "노트북", 10000L, Category.PC, "쌉니다 싸요", Tags.of("#선풍기#굿"));
+        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#선풍기#굿");
+        Article expectedArticle = new Article(1L, "노트북", 10000L, Category.PC, "쌉니다 싸요", new Member(1L), Tags.of("#선풍기#굿"));
         when(articleRepository.save(any())).thenReturn(expectedArticle);
 
-        ArticleResponse response = articleService.createArticle(request.toArticle());
+        ArticleResponse response = articleService.createArticle(request);
 
         assertThat(response.getId()).isEqualTo(expectedArticle.getId());
     }

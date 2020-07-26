@@ -33,7 +33,7 @@ public class ArticleAcceptanceTest {
         RestAssured.port = port;
     }
 
-    @DisplayName("지하철역을 관리한다")
+    @DisplayName("게시글을 관리한다")
     @TestFactory
     Stream<DynamicTest> manageArticle() {
         /**
@@ -56,16 +56,17 @@ public class ArticleAcceptanceTest {
         params.put("price", "10000");
         params.put("category", "디지털/가전");
         params.put("contents", "진짜 시원합니다");
+        params.put("member", "1");
         params.put("tags", "#선풍기 #시원쓰");
 
-        given().
-                body(params).
-                contentType(MediaType.APPLICATION_JSON_VALUE).
-                accept(MediaType.APPLICATION_JSON_VALUE).
-                when().
-                post("/articles").
-                then().
-                log().all().
-                statusCode(HttpStatus.CREATED.value());
+        given()
+                .body(params)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .post("/articles")
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.CREATED.value());
     }
 }

@@ -4,8 +4,6 @@
 
 package sellerlee.back.article.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 import java.util.Arrays;
 
 public enum Category {
@@ -18,15 +16,10 @@ public enum Category {
         this.category = category;
     }
 
-    @JsonCreator
     public static Category of(String type) {
         return Arrays.stream(values())
                 .filter(v -> v.category.equals(type))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("잘못된 카테고리 : %s.", type)));
-    }
-
-    public String getCategory() {
-        return category;
     }
 }

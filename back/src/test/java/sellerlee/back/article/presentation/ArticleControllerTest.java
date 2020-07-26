@@ -13,8 +13,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
-import sellerlee.back.article.domain.Category;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -38,7 +39,7 @@ public class ArticleControllerTest {
     @DisplayName("게시글 생성 요청을 받은 경우 게시글 생성")
     @Test
     void createArticle() throws Exception {
-        ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", 10000L, Category.PC, "쌉니다 싸요", "#선풍기 #좋아");
+        ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#노트북 #좋아");
         String request = objectMapper.writeValueAsString(articleCreateRequest);
         ArticleResponse response = ArticleResponse.of(articleCreateRequest.toArticle());
 

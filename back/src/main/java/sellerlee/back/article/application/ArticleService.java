@@ -7,7 +7,6 @@ package sellerlee.back.article.application;
 import org.springframework.stereotype.Service;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
-import sellerlee.back.article.presentation.ArticleResponse;
 
 @Service
 public class ArticleService {
@@ -17,8 +16,8 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public ArticleResponse createArticle(Article article) {
-        Article persistArticle = articleRepository.save(article);
+    public ArticleResponse createArticle(ArticleCreateRequest request) {
+        Article persistArticle = articleRepository.save(request.toArticle());
         return ArticleResponse.of(persistArticle);
     }
 }

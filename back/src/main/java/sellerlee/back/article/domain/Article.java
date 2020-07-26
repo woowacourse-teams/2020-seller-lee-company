@@ -4,6 +4,8 @@
 
 package sellerlee.back.article.domain;
 
+import sellerlee.back.member.domain.Member;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,22 +23,26 @@ public class Article {
     @Lob
     private String contents;
 
+    @ManyToOne
+    private Member member;
+
     @Embedded
     private Tags tags;
 
     protected Article() {
     }
 
-    public Article(String title, Long price, Category category, String contents, Tags tags) {
+    public Article(String title, Long price, Category category, String contents, Member member, Tags tags) {
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
+        this.member = member;
         this.tags = tags;
     }
 
-    public Article(Long id, String title, Long price, Category category, String contents, Tags tags) {
-        this(title, price, category, contents, tags);
+    public Article(Long id, String title, Long price, Category category, String contents, Member member, Tags tags) {
+        this(title, price, category, contents, member, tags);
         this.id = id;
     }
 
@@ -58,6 +64,10 @@ public class Article {
 
     public String getContents() {
         return contents;
+    }
+
+    public Member getMember() {
+        return member;
     }
 
     public Tags getTags() {

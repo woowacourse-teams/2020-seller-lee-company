@@ -2,29 +2,32 @@
  * @author jnsorn
  */
 
-package sellerlee.back.article.presentation;
+package sellerlee.back.article.application;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
+import sellerlee.back.member.domain.Member;
 
 public class ArticleCreateRequest {
     private final String title;
     private final Long price;
-    private final Category category;
+    private final String category;
     private final String contents;
-    private final Tags tags;
+    private final Long member;
+    private final String tags;
 
-    public ArticleCreateRequest(String title, Long price, Category category, String contents, String tags) {
+    public ArticleCreateRequest(String title, Long price, String category, String contents, Long memberId, String tags) {
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
-        this.tags = Tags.of(tags);
+        this.member = memberId;
+        this.tags = tags;
     }
 
     public Article toArticle() {
-        return new Article(title, price, category, contents, tags);
+        return new Article(title, price, Category.of(category), contents, new Member(member), Tags.of(tags));
     }
 
     public String getTitle() {
@@ -35,7 +38,7 @@ public class ArticleCreateRequest {
         return price;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -43,7 +46,11 @@ public class ArticleCreateRequest {
         return contents;
     }
 
-    public Tags getTags() {
+    public Long getMember() {
+        return member;
+    }
+
+    public String getTags() {
         return tags;
     }
 }

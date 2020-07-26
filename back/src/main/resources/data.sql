@@ -1,0 +1,1 @@
+insert into member (id, email) values (1, 'test@gmail.com');
