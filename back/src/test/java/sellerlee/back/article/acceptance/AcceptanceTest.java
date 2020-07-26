@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import sellerlee.back.article.presentation.ArticleResponse;
+import sellerlee.back.article.application.ArticleResponse;
 
 import java.util.List;
 import java.util.stream.Stream;

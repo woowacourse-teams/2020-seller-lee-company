@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 
 import static java.util.Collections.singletonList;
@@ -32,7 +33,7 @@ class ArticleControllerTest {
     @Test
     void showAll() throws Exception {
         when(articleService.showAll())
-                .thenReturn(singletonList(ARTICLE_FIXTURE));
+                .thenReturn(singletonList(ArticleResponse.of(ARTICLE_FIXTURE)));
 
         mockMvc.perform(get(ARTICLE_URI))
                 .andDo(print())
