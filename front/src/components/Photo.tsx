@@ -19,20 +19,16 @@ import {
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
-import { useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
+import { articleImagesState } from "../states/articleState";
 
 let imageId = 0;
 
-interface ImageInfo {
-  id: string;
-  uri: string;
-}
-
 export default function Photo() {
-  const [images, setImages] = useState<ImageInfo[]>([]);
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
+  const [images, setImages] = useRecoilState(articleImagesState);
   const setModalVisible = useSetRecoilState(modalActivationState);
   const maxImageCount = 5;
 

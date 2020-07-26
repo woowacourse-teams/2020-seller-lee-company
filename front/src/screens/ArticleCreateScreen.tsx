@@ -2,42 +2,115 @@
  * @author kouz95 lxxjn0
  */
 
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  Keyboard,
-  TouchableWithoutFeedback,
   Button,
+  StyleSheet,
+  TouchableWithoutFeedback,
   TouchableOpacity,
+  Keyboard,
   Platform,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  useSetRecoilState,
+  useResetRecoilState,
+  useRecoilValue,
+} from "recoil/dist";
 import ArticleTitleForm from "../components/ArticleTitleForm";
 import ArticlePriceForm from "../components/ArticlePriceForm";
-import { useNavigation } from "@react-navigation/native";
-import { useSetRecoilState, useRecoilState } from "recoil/dist";
+import ArticleCreateScreenModal from "../components/ArticleCreateScreenModal";
+import Photo from "../components/Photo";
+import Tag from "../components/Tag";
 import {
   articleContentsState,
+  articleImagesState,
+  articleModalActivationState,
   articlePriceState,
   articleSelectedCategoryState,
   articleTitleState,
 } from "../states/articleState";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Photo from "../components/Photo";
-import Tag from "../components/Tag";
 import { tagBoxesState } from "../states/TagState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
-  const setTitle = useSetRecoilState(articleTitleState);
-  const [price, setPrice] = useRecoilState(articlePriceState);
-  const [contents, setContents] = useRecoilState(articleContentsState);
-  const [selectedCategory, setSelectedCategory] = useRecoilState(
+  const images = useRecoilValue(articleImagesState);
+  const title = useRecoilValue(articleTitleState);
+  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
+  const price = useRecoilValue(articlePriceState);
+  const contents = useRecoilValue(articleContentsState);
+  const tagBoxes = useRecoilValue(tagBoxesState);
+
+  const resetImages = useResetRecoilState(articleImagesState);
+  const resetTitle = useResetRecoilState(articleTitleState);
+  const resetSelectedCategory = useResetRecoilState(
     articleSelectedCategoryState,
   );
-  const setTagBoxes = useSetRecoilState(tagBoxesState);
+  const resetPrice = useResetRecoilState(articlePriceState);
+  const resetContents = useResetRecoilState(articleContentsState);
+  const resetTagBoxes = useResetRecoilState(tagBoxesState);
+
+  const setArticleModalState = useSetRecoilState(articleModalActivationState);
+
+  const resetCreateScreen = () => {
+    resetImages();
+    resetTitle();
+    resetPrice();
+    resetContents();
+    resetSelectedCategory();
+    resetTagBoxes();
+  };
+
+  const hasContents = () => {
+    return (
+      images.length !== 0 ||
+      title !== "" ||
+      price !== 0 ||
+      contents !== "" ||
+      selectedCategory !== "" ||
+      tagBoxes.length !== 0
+    );
+  };
+
+  const incompleteCriticalItems = () => {
+    return (
+      images.length === 0 ||
+      title === "" ||
+      price === 0 ||
+      contents === "" ||
+      selectedCategory === "" ||
+      tagBoxes.length === 0
+    );
+  };
+
+  const confirmToLeave = () => {
+    if (hasContents()) {
+      setArticleModalState(true);
+      return;
+    }
+    resetCreateScreen();
+    navigation.goBack();
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={confirmToLeave}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  });
 
   const dynamicStyles = StyleSheet.create({
     priceCurrencyUnit: {
@@ -48,6 +121,14 @@ export default function ArticleCreateScreen() {
       fontSize: 18,
       color: contents.length === 0 ? "grey" : "black",
     },
+    createButtonContainer: {
+      backgroundColor: incompleteCriticalItems() ? "grey" : "orange",
+      flex: 3,
+      justifyContent: "center",
+      alignItems: "center",
+      borderTopColor: "#eaeaea",
+      borderTopWidth: 1,
+    },
   });
 
   return (
@@ -56,6 +137,7 @@ export default function ArticleCreateScreen() {
       contentContainerStyle={styles.container}
       enableAutomaticScroll={Platform.OS === "ios"}
     >
+      <ArticleCreateScreenModal resetCreateScreen={resetCreateScreen} />
       <View style={styles.contentsContainer}>
         <View style={styles.addedImageContainer}>
           <Photo />
@@ -105,17 +187,14 @@ export default function ArticleCreateScreen() {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      <View style={styles.createButtonContainer}>
+      <View style={dynamicStyles.createButtonContainer}>
         <Button
           title={"완료"}
           color={"white"}
+          disabled={incompleteCriticalItems()}
           onPress={() => {
+            resetCreateScreen();
             navigation.goBack();
-            setTitle("");
-            setPrice(0);
-            setContents("");
-            setSelectedCategory("");
-            setTagBoxes([]);
           }}
         />
       </View>
@@ -191,13 +270,5 @@ const styles = StyleSheet.create({
   },
   tagForm: {
     marginVertical: 15,
-  },
-  createButtonContainer: {
-    flex: 3,
-    backgroundColor: "orange",
-    justifyContent: "center",
-    alignItems: "center",
-    borderTopColor: "#eaeaea",
-    borderTopWidth: 1,
   },
 });

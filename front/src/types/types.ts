@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri joseph415 lxxjn0
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -40,6 +40,11 @@ export interface Tag {
   tag: string;
 }
 
-export type TagItemProps = {
+export interface TagItemProps {
   tagBox: Tag;
-};
+}
+
+export interface ImageInfo {
+  id: string;
+  uri: string;
+}
