@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
 import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.domain.Tags;
 import sellerlee.back.article.presentation.ArticleCreateRequest;
 import sellerlee.back.article.presentation.ArticleResponse;
 
@@ -35,8 +36,8 @@ public class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, Category.PC, "쌉니다 싸요");
-        Article expectedArticle = new Article(1L, "노트북", 10000L, Category.PC, "쌉니다 싸요");
+        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, Category.PC, "쌉니다 싸요", "#선풍기#굿");
+        Article expectedArticle = new Article(1L, "노트북", 10000L, Category.PC, "쌉니다 싸요", Tags.of("#선풍기#굿"));
         when(articleRepository.save(any())).thenReturn(expectedArticle);
 
         ArticleResponse response = articleService.createArticle(request.toArticle());

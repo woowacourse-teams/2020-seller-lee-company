@@ -20,13 +20,13 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    public ArticleController(ArticleService articleService){
+    public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
     @PostMapping
-    public ResponseEntity<Void> createArticle(@RequestBody ArticleCreateRequest request){
+    public ResponseEntity<Void> createArticle(@RequestBody ArticleCreateRequest request) {
         ArticleResponse response = articleService.createArticle(request.toArticle());
-        return ResponseEntity.created(URI.create(ARTICLE_URI+"/"+response.getId())).build();
+        return ResponseEntity.created(URI.create(ARTICLE_URI + "/" + response.getId())).build();
     }
 }

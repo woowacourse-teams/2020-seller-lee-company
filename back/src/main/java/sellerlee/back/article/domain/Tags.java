@@ -1,0 +1,45 @@
+package sellerlee.back.article.domain;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+@Embeddable
+public class Tags {
+    public static final String HASHTAG = "#";
+
+    @ElementCollection
+    private List<Tag> tags;
+
+    protected Tags() {
+    }
+
+    public Tags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public static Tags of(String rawTags) {
+        List<Tag> tagNames = Arrays.stream(rawTags.split(HASHTAG))
+                .map(String::trim)
+                .filter(v -> !v.isEmpty())
+                .map(Tag::new)
+                .collect(Collectors.toList());
+        return new Tags(tagNames);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tags tags1 = (Tags) o;
+        return Objects.equals(tags, tags1.tags);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tags);
+    }
+}

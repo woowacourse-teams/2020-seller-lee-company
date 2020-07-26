@@ -24,13 +24,13 @@ public class ArticleAcceptanceTest {
     @LocalServerPort
     int port;
 
+    public static RequestSpecification given() {
+        return RestAssured.given().log().all();
+    }
+
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
-    }
-
-    public static RequestSpecification given() {
-        return RestAssured.given().log().all();
     }
 
     @DisplayName("지하철역을 관리한다")
@@ -50,12 +50,13 @@ public class ArticleAcceptanceTest {
         );
     }
 
-    private void createArticle(){
+    private void createArticle() {
         Map<String, String> params = new HashMap<>();
         params.put("title", "선풍기");
-        params.put("price","10000");
+        params.put("price", "10000");
         params.put("category", "디지털/가전");
         params.put("contents", "진짜 시원합니다");
+        params.put("tags", "#선풍기 #시원쓰");
 
         given().
                 body(params).

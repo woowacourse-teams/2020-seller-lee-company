@@ -21,18 +21,22 @@ public class Article {
     @Lob
     private String contents;
 
+    @Embedded
+    private Tags tags;
+
     protected Article() {
     }
 
-    public Article(String title, Long price, Category category, String contents) {
+    public Article(String title, Long price, Category category, String contents, Tags tags) {
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
+        this.tags = tags;
     }
 
-    public Article(Long id, String title, Long price, Category category, String contents) {
-        this(title,price,category,contents);
+    public Article(Long id, String title, Long price, Category category, String contents, Tags tags) {
+        this(title, price, category, contents, tags);
         this.id = id;
     }
 
@@ -54,5 +58,9 @@ public class Article {
 
     public String getContents() {
         return contents;
+    }
+
+    public Tags getTags() {
+        return tags;
     }
 }
