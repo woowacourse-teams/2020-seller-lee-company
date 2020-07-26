@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sellerlee.back.article.application.ArticleCreateRequest;
-import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 
 import java.net.URI;
@@ -28,7 +27,7 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Void> createArticle(@RequestBody ArticleCreateRequest request) {
-        ArticleResponse response = articleService.createArticle(request);
-        return ResponseEntity.created(URI.create(ARTICLE_URI + "/" + response.getId())).build();
+        Long articleId = articleService.createArticle(request);
+        return ResponseEntity.created(URI.create(ARTICLE_URI + "/" + articleId)).build();
     }
 }

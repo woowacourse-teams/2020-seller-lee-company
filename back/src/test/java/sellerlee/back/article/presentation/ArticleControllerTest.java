@@ -14,7 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import sellerlee.back.article.application.ArticleCreateRequest;
-import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -41,9 +40,8 @@ public class ArticleControllerTest {
     void createArticle() throws Exception {
         ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#노트북 #좋아");
         String request = objectMapper.writeValueAsString(articleCreateRequest);
-        ArticleResponse response = ArticleResponse.of(articleCreateRequest.toArticle());
 
-        given(articleService.createArticle(any())).willReturn(response);
+        given(articleService.createArticle(any())).willReturn(1L);
 
         this.mockMvc.perform(post("/articles")
                 .content(request)
