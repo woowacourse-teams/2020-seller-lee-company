@@ -36,6 +36,16 @@ export type CategoryItemProps = {
   title: string;
 };
 
+export type FeedParamList = {
+  SellerLee: undefined;
+  FeedArticle: undefined;
+};
+
+export type FeedNavigationProp = StackNavigationProp<
+  FeedParamList,
+  "SellerLee"
+>;
+
 export type Tag = {
   id: number;
   tag: string;

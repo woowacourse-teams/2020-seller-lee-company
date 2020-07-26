@@ -10,15 +10,17 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { FeedArticle } from "../../types/types";
+import { FeedArticle, FeedNavigationProp } from "../../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import replacePriceWithCommas from "../../replacePriceWithCommas";
 import Heart from "./Heart";
 import FeedSliderImage from "./FeedSliderImage";
 import { useSetRecoilState } from "recoil/dist";
 import { favoriteState } from "../../states/heartState";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FeedArticleCard({ feedArticle }: FeedArticle) {
+  const navigation = useNavigation<FeedNavigationProp>();
   const setFavorite = useSetRecoilState(favoriteState);
   setFavorite(feedArticle.favorite);
 
@@ -39,7 +41,10 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
 
   return (
     <AnimateTouchableWithoutFeedback
-      onPress={clickArticle}
+      onPress={() => {
+        clickArticle();
+        navigation.navigate("FeedArticle");
+      }}
       style={{
         transform: [{ scale: clickValue }],
       }}

@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector } from "recoil/dist";
+import { atom } from "recoil/dist";
 
 export const isFavoriteState = atom({
   key: "isFavoriteState",

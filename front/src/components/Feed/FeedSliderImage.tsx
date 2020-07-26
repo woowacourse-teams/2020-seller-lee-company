@@ -39,6 +39,7 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
 
   return (
     <Swiper
+      loadMinimal={true}
       loop={false}
       dot={Dot()}
       activeDot={ActiveDot()}

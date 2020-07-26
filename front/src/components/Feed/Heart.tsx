@@ -2,17 +2,11 @@
  * @author joesph415
  */
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useRecoilState } from "recoil/dist";
 import { favoriteState, isFavoriteState } from "../../states/heartState";
-import { FeedArticle } from "../../types/types";
-
-interface HeartProps {
-  isFavoriteProp: boolean;
-  favoriteProp: number;
-}
 
 export default function Heart() {
   const [isFavorite, setIsFavorite] = useRecoilState(isFavoriteState);
@@ -21,15 +15,14 @@ export default function Heart() {
 
   const springValue = useRef(new Animated.Value(1)).current;
 
-  const fulfillHeart = () => {
+  useEffect(() => {
     springValue.setValue(0.33);
     Animated.timing(springValue, {
       toValue: 1,
       duration: 150,
       useNativeDriver: true,
     }).start();
-    checkFavorite();
-  };
+  }, [isFavorite, springValue]);
 
   const checkFavorite = () => {
     if (isFavorite) {
@@ -47,7 +40,7 @@ export default function Heart() {
         name={isFavorite ? "heart" : "hearto"}
         size={23}
         color={isFavorite ? "red" : "black"}
-        onPress={fulfillHeart}
+        onPress={checkFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}
