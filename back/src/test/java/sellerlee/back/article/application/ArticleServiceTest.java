@@ -39,7 +39,7 @@ public class ArticleServiceTest {
         Article expectedArticle = new Article(1L, "노트북", 10000L, Category.PC, "쌉니다 싸요", new Member(1L), Tags.of("#선풍기#굿"));
         when(articleRepository.save(any())).thenReturn(expectedArticle);
 
-        Long actualId = articleService.createArticle(request);
+        Long actualId = articleService.post(request);
 
         assertThat(actualId).isEqualTo(expectedArticle.getId());
     }

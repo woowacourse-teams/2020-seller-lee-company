@@ -16,7 +16,7 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Long createArticle(ArticleCreateRequest request) {
+    public Long post(ArticleCreateRequest request) {
         Article persistArticle = articleRepository.save(request.toArticle());
         return persistArticle.getId();
     }

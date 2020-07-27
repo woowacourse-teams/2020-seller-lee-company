@@ -10,7 +10,7 @@ public enum Category {
     PC("디지털/가전"),
     BOOK("도서");
 
-    private String category;
+    private final String category;
 
     Category(String category) {
         this.category = category;

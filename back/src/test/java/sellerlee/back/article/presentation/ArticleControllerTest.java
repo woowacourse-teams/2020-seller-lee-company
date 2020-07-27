@@ -17,7 +17,7 @@ import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.application.ArticleService;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,8 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ArticleControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private ArticleService articleService;
+
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -41,7 +43,7 @@ public class ArticleControllerTest {
         ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#노트북 #좋아");
         String request = objectMapper.writeValueAsString(articleCreateRequest);
 
-        given(articleService.createArticle(any())).willReturn(1L);
+        when(articleService.post(any())).thenReturn(1L);
 
         this.mockMvc.perform(post("/articles")
                 .content(request)

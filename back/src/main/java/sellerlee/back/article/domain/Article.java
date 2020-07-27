@@ -7,9 +7,9 @@ package sellerlee.back.article.domain;
 import sellerlee.back.member.domain.Member;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 public class Article {
@@ -20,7 +20,7 @@ public class Article {
     @NotBlank(message = "제목을 입력해 주세요.")
     private String title;
 
-    @Size(min=0, message = "0원 이상의 금액을 입력해 주세요.")
+    @Min(value = 0, message = "0원 이상의 금액을 입력해 주세요.")
     private Long price;
 
     @Enumerated(EnumType.STRING)
@@ -39,7 +39,8 @@ public class Article {
     protected Article() {
     }
 
-    public Article(String title, Long price, Category category, String contents, Member member, Tags tags) {
+    public Article(Long id, String title, Long price, Category category, String contents, Member member, Tags tags) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
@@ -48,9 +49,8 @@ public class Article {
         this.tags = tags;
     }
 
-    public Article(Long id, String title, Long price, Category category, String contents, Member member, Tags tags) {
-        this(title, price, category, contents, member, tags);
-        this.id = id;
+    public Article(String title, Long price, Category category, String contents, Member member, Tags tags) {
+        this(null, title, price, category, contents, member, tags);
     }
 
     public Long getId() {

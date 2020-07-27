@@ -19,13 +19,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArticleAcceptanceTest {
     @LocalServerPort
-    int port;
+    private int port;
 
-    public static RequestSpecification given() {
-        return RestAssured.given().log().all();
+    private static RequestSpecification given() {
+        return RestAssured
+                .given()
+                .log()
+                .all();
     }
 
     @BeforeEach
@@ -33,16 +38,16 @@ public class ArticleAcceptanceTest {
         RestAssured.port = port;
     }
 
+    /**
+     Feature: 게시글 관리
+
+     Scenario: 게시글을 관리한다.
+     When 게시글을 등록한다.
+     Then 게시글이 추가 되었다.
+     */
     @DisplayName("게시글을 관리한다")
     @TestFactory
     Stream<DynamicTest> manageArticle() {
-        /**
-         Feature: 게시글 관리
-
-         Scenario: 게시글을 관리한다.
-         When 게시글을 등록한다.
-         Then 게시글이 추가 되었다.
-         */
         return Stream.of(
                 DynamicTest.dynamicTest("게시글 추가", () -> {
                     createArticle();
@@ -64,7 +69,7 @@ public class ArticleAcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .post("/articles")
+                .post(ARTICLE_URI)
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
