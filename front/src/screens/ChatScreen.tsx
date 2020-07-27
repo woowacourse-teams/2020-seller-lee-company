@@ -3,25 +3,26 @@
  */
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import ArticleAuthor from "../components/ArticleAuthor";
 
 export default function ChatScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Chat Screen</Text>
+      <View style={styles.ArticleAuthorContainer}>
+        <ArticleAuthor />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    backgroundColor: "green",
     justifyContent: "center",
-    alignItems: "center",
   },
-  text: {
-    color: "white",
-    fontSize: 30,
+  ArticleAuthorContainer: {
+    marginHorizontal: 10,
   },
 });
