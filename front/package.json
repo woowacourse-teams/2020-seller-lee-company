@@ -15,7 +15,6 @@
     "@react-navigation/bottom-tabs": "^5.6.1",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
-    "@types/recompose": "^0.30.7",
     "expo": "~38.0.8",
     "expo-image-picker": "^8.3.0",
     "expo-permissions": "~9.0.1",

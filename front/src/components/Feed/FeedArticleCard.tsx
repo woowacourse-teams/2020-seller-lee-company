@@ -30,7 +30,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
 
   const clickValue = useRef(new Animated.Value(1)).current;
 
-  const clickArticle = () => {
+  const clickArticleAnimate = () => {
     clickValue.setValue(0.93);
     Animated.timing(clickValue, {
       toValue: 1,
@@ -42,7 +42,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   return (
     <AnimateTouchableWithoutFeedback
       onPress={() => {
-        clickArticle();
+        clickArticleAnimate();
         navigation.navigate("FeedArticle");
       }}
       style={{

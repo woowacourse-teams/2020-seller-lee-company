@@ -15,15 +15,6 @@ export default function Heart() {
 
   const springValue = useRef(new Animated.Value(1)).current;
 
-  useEffect(() => {
-    springValue.setValue(0.33);
-    Animated.timing(springValue, {
-      toValue: 1,
-      duration: 150,
-      useNativeDriver: true,
-    }).start();
-  }, [isFavorite, springValue]);
-
   const checkFavorite = () => {
     if (isFavorite) {
       setIsFavorite(false);
@@ -33,6 +24,19 @@ export default function Heart() {
       setFavorite(favorite + 1);
     }
   };
+
+  useEffect(() => {
+    const fulfillHeartAnimate = () => {
+      springValue.setValue(0.33);
+      Animated.timing(springValue, {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    fulfillHeartAnimate();
+  }, [isFavorite, springValue]);
 
   return (
     <View style={styles.detailsHeartContainer}>
