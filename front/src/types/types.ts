@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author lxxjn0
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -43,3 +43,21 @@ export interface Tag {
 export type TagItemProps = {
   tagBox: Tag;
 };
+
+export interface AuthorAvatar {
+  uri: string;
+}
+
+export interface AuthorAvatarProps {
+  avatar: AuthorAvatar;
+}
+
+export interface AuthorNameProps {
+  name: string;
+}
+
+export type AuthorScore = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export interface AuthorScoreProps {
+  score: AuthorScore;
+}
