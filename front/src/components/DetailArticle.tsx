@@ -5,8 +5,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import DetailTitle from "./DetailTitle";
-import DetailSubTitle from "./DetailSubTitle";
+import CategoryAndTime from "./CategoryAndTime";
 import DetailContents from "./DetailContents";
+import FavoriteCountAndHit from "./FavoriteCountAndHit";
 
 export default function DetailArticle() {
   return (
@@ -14,11 +15,14 @@ export default function DetailArticle() {
       <View style={styles.titleContainer}>
         <DetailTitle />
       </View>
-      <View style={styles.subTitleContainer}>
-        <DetailSubTitle />
+      <View style={styles.subtitleContainer}>
+        <CategoryAndTime category={"디지털/가전"} time={"1분 전"} />
       </View>
       <View style={styles.contentsContainer}>
         <DetailContents />
+      </View>
+      <View style={styles.subtitleContainer}>
+        <FavoriteCountAndHit favoriteCount={5} hit={64} />
       </View>
     </View>
   );
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 1,
     marginTop: 10,
   },
-  subTitleContainer: {
+  subtitleContainer: {
     marginVertical: 15,
   },
   contentsContainer: {
