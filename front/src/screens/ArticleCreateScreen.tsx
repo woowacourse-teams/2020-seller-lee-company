@@ -2,7 +2,7 @@
  * @author kouz95 lxxjn0
  */
 
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Keyboard,
   Platform,
+  BackHandler,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
@@ -96,6 +97,24 @@ export default function ArticleCreateScreen() {
     resetCreateScreen();
     navigation.goBack();
   };
+
+  useEffect(() => {
+    const confirmToBackAction = () => {
+      if (hasContents()) {
+        setArticleModalState(true);
+        return true;
+      }
+      resetCreateScreen();
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      confirmToBackAction,
+    );
+
+    return () => backHandler.remove();
+  }, [hasContents, resetCreateScreen, setArticleModalState]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
