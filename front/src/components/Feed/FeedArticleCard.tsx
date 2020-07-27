@@ -31,7 +31,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   const clickValue = useRef(new Animated.Value(1)).current;
 
   const clickArticle = () => {
-    clickValue.setValue(0.98);
+    clickValue.setValue(0.93);
     Animated.timing(clickValue, {
       toValue: 1,
       duration: 150,
