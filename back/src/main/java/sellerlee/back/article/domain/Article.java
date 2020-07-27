@@ -12,11 +12,11 @@ import javax.persistence.*;
 public class Article {
     @Id
     @GeneratedValue
-    @Column(name = "ARTICLE_ID")
+    @Column(name = "article_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
     private Member author;
 
     private String title;

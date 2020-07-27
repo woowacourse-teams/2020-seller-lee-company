@@ -17,7 +17,7 @@ import static java.util.Collections.unmodifiableList;
 @Embeddable
 public class Tags {
     @ElementCollection
-    @CollectionTable(name = "TAG", joinColumns = @JoinColumn(name = "ARTICLE_ID"))
+    @CollectionTable(name = "tag", joinColumns = @JoinColumn(name = "article_id"))
     private List<Tag> tags;
 
     protected Tags() {
