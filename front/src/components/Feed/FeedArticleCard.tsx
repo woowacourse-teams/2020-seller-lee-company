@@ -19,6 +19,8 @@ import { useSetRecoilState } from "recoil/dist";
 import { favoriteState } from "../../states/heartState";
 import { useNavigation } from "@react-navigation/native";
 
+const ANIMATE_START_VALUE = 0.93;
+
 export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   const navigation = useNavigation<FeedNavigationProp>();
   const setFavorite = useSetRecoilState(favoriteState);
@@ -31,7 +33,8 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   const clickValue = useRef(new Animated.Value(1)).current;
 
   const clickArticleAnimate = () => {
-    clickValue.setValue(0.93);
+    clickValue.setValue(ANIMATE_START_VALUE);
+
     Animated.timing(clickValue, {
       toValue: 1,
       duration: 150,

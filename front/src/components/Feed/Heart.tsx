@@ -15,13 +15,21 @@ export default function Heart() {
 
   const springValue = useRef(new Animated.Value(1)).current;
 
-  const checkFavorite = () => {
-    if (isFavorite) {
+  const determineFavorite = () => {
+    const cancelFavorite = () => {
       setIsFavorite(false);
       setFavorite(favorite - 1);
-    } else {
+    };
+
+    const markFavorite = () => {
       setIsFavorite(true);
       setFavorite(favorite + 1);
+    };
+
+    if (isFavorite) {
+      cancelFavorite();
+    } else {
+      markFavorite();
     }
   };
 
@@ -44,7 +52,7 @@ export default function Heart() {
         name={isFavorite ? "heart" : "hearto"}
         size={23}
         color={isFavorite ? "red" : "black"}
-        onPress={checkFavorite}
+        onPress={determineFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}
