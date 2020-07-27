@@ -7,15 +7,16 @@ package sellerlee.back.article.application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import sellerlee.back.article.domain.ArticleRepository;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
-@DataJpaTest
+@ExtendWith(value = MockitoExtension.class)
 class ArticleServiceTest {
-    @Autowired
+    @Mock
     private ArticleRepository articleRepository;
 
     private ArticleService articleService;
@@ -25,9 +26,10 @@ class ArticleServiceTest {
         articleService = new ArticleService(articleRepository);
     }
 
-    @DisplayName("showAll()이 모든 Article을 반환한다.")
+    @DisplayName("showAll()이 articleRepository의 findAll()을 호출한다.")
     @Test
     void showAll() {
-        assertThat(articleService.showAll().size()).isEqualTo(2);
+        articleService.showAll();
+        verify(articleRepository).findAll();
     }
 }
