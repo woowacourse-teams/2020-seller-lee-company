@@ -6,11 +6,10 @@ import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { articlePriceState } from "../states/articleState";
+import { insertComma, removeComma } from "../replacePriceWithComma";
 
 export default function ArticlePriceForm() {
   const [price, setPrice] = useRecoilState(articlePriceState);
-  const removeCommaRegExp = /[^\d]+/g;
-  const insertCommaRegExp = /\B(?=(\d{3})+(?!\d))/g;
 
   return (
     <TextInput
@@ -18,13 +17,8 @@ export default function ArticlePriceForm() {
       placeholder={"가격"}
       keyboardType={"number-pad"}
       maxLength={10}
-      onChangeText={(text) => {
-        const priceValue = text.replace(removeCommaRegExp, "");
-        setPrice(Number(priceValue));
-      }}
-      value={
-        price === 0 ? "" : price.toString().replace(insertCommaRegExp, ",")
-      }
+      onChangeText={(priceValue) => setPrice(Number(removeComma(priceValue)))}
+      value={price === 0 ? "" : insertComma(price.toString())}
     />
   );
 }
