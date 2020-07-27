@@ -30,7 +30,7 @@ import Photo from "../components/Photo";
 import Tag from "../components/Tag";
 import {
   articleContentsState,
-  articleImagesState,
+  articlePhotosState,
   articleModalActivationState,
   articlePriceState,
   articleSelectedCategoryState,
@@ -40,14 +40,14 @@ import { tagBoxesState } from "../states/TagState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation();
-  const images = useRecoilValue(articleImagesState);
+  const photos = useRecoilValue(articlePhotosState);
   const title = useRecoilValue(articleTitleState);
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
   const price = useRecoilValue(articlePriceState);
   const contents = useRecoilValue(articleContentsState);
   const tagBoxes = useRecoilValue(tagBoxesState);
 
-  const resetImages = useResetRecoilState(articleImagesState);
+  const resetPhotos = useResetRecoilState(articlePhotosState);
   const resetTitle = useResetRecoilState(articleTitleState);
   const resetSelectedCategory = useResetRecoilState(
     articleSelectedCategoryState,
@@ -59,7 +59,7 @@ export default function ArticleCreateScreen() {
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
 
   const resetCreateScreen = () => {
-    resetImages();
+    resetPhotos();
     resetTitle();
     resetPrice();
     resetContents();
@@ -69,7 +69,7 @@ export default function ArticleCreateScreen() {
 
   const hasContents = () => {
     return (
-      images.length !== 0 ||
+      photos.length !== 0 ||
       title !== "" ||
       price !== 0 ||
       contents !== "" ||
@@ -80,7 +80,7 @@ export default function ArticleCreateScreen() {
 
   const incompleteCriticalItems = () => {
     return (
-      images.length === 0 ||
+      photos.length === 0 ||
       title === "" ||
       price === 0 ||
       contents === "" ||
@@ -158,7 +158,7 @@ export default function ArticleCreateScreen() {
     >
       <ArticleCreateScreenModal resetCreateScreen={resetCreateScreen} />
       <View style={styles.contentsContainer}>
-        <View style={styles.addedImageContainer}>
+        <View style={styles.photoContainer}>
           <Photo />
         </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     flex: 32.5,
     paddingHorizontal: 20,
   },
-  addedImageContainer: {
+  photoContainer: {
     flex: 4,
     justifyContent: "center",
     alignItems: "center",

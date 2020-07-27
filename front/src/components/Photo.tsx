@@ -21,16 +21,16 @@ import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
 import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
-import { articleImagesState } from "../states/articleState";
+import { articlePhotosState } from "../states/articleState";
 
-let imageId = 0;
+let photoId = 0;
 
 export default function Photo() {
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
-  const [images, setImages] = useRecoilState(articleImagesState);
+  const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const setModalVisible = useSetRecoilState(modalActivationState);
-  const maxImageCount = 5;
+  const limitPhotoCount = 5;
 
   useEffect(() => {
     requestPermission();
@@ -48,16 +48,16 @@ export default function Photo() {
     }
   };
 
-  const pickImage = async () => {
+  const pickPhoto = async () => {
     const result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
     });
     if (!result.cancelled) {
-      setImages(
-        images.concat({
-          id: (imageId++).toString(),
+      setPhotos(
+        photos.concat({
+          id: (photoId++).toString(),
           uri: result.uri,
         }),
       );
@@ -71,14 +71,16 @@ export default function Photo() {
       return;
     }
 
-    if (images.length === maxImageCount) {
+    if (photos.length === limitPhotoCount) {
       setModalVisible(true);
-      setModalMessage("사진은 최대 " + maxImageCount + "장만 첨부 가능합니다.");
+      setModalMessage(
+        "사진은 최대 " + limitPhotoCount + "장만 첨부 가능합니다.",
+      );
       return;
     }
 
     try {
-      await pickImage();
+      await pickPhoto();
     } catch (error) {
       console.warn(error);
       setModalVisible(true);
@@ -87,7 +89,7 @@ export default function Photo() {
   };
 
   const removeImage = (id: string) => {
-    setImages(images.filter((value) => value.id !== id));
+    setPhotos(photos.filter((value) => value.id !== id));
   };
 
   return (
@@ -96,15 +98,15 @@ export default function Photo() {
       <View style={styles.cameraButtonContainer}>
         <TouchableOpacity style={styles.cameraButton} onPress={addImage}>
           <MaterialCommunityIcons name="camera" size={28} color="grey" />
-          <View style={styles.countContainer}>
-            <Text style={styles.addedCountFont}>{images.length}</Text>
-            <Text style={styles.countFont}>/{maxImageCount}</Text>
+          <View style={styles.photoCountContainer}>
+            <Text style={styles.addedPhotoCount}>{photos.length}</Text>
+            <Text style={styles.limitPhotoCount}>/{limitPhotoCount}</Text>
           </View>
         </TouchableOpacity>
       </View>
-      <View style={styles.photosContainer}>
+      <View style={styles.photoListContainer}>
         <FlatList
-          data={images}
+          data={photos}
           horizontal={true}
           renderItem={({ item }) => (
             <View style={styles.photoContainer}>
@@ -116,7 +118,7 @@ export default function Photo() {
               <Image style={styles.photo} source={{ uri: item.uri }} />
             </View>
           )}
-          contentContainerStyle={styles.photos}
+          contentContainerStyle={styles.photoListContents}
           showsHorizontalScrollIndicator={false}
         />
       </View>
@@ -148,21 +150,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#eaeaea",
   },
-  countContainer: {
+  photoCountContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-
-  countFont: {
-    fontSize: 15,
-    color: "grey",
-  },
-  addedCountFont: {
+  addedPhotoCount: {
     fontSize: 15,
     color: "orange",
   },
-  photosContainer: {
+  limitPhotoCount: {
+    fontSize: 15,
+    color: "grey",
+  },
+  photoListContainer: {
     flexGrow: 4,
     flexShrink: 1,
     flexDirection: "row",
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 5,
   },
-  photos: {
+  photoListContents: {
     alignItems: "center",
     justifyContent: "center",
   },

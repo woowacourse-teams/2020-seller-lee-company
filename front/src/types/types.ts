@@ -44,7 +44,7 @@ export interface TagItemProps {
   tagBox: Tag;
 }
 
-export interface ImageInfo {
+export interface PhotoInfo {
   id: string;
   uri: string;
 }
