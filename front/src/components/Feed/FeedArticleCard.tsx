@@ -13,7 +13,7 @@ import {
 import { FeedArticle, FeedNavigationProp } from "../../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import replacePriceWithCommas from "../../replacePriceWithCommas";
-import Heart from "./Heart";
+import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useSetRecoilState } from "recoil/dist";
 import { favoriteState } from "../../states/heartState";
@@ -58,7 +58,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Heart />
+            <Favorite />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>
                 {replacePriceWithCommas(feedArticle.price)}원

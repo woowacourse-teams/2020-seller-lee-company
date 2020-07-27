@@ -8,14 +8,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRecoilState } from "recoil/dist";
 import { favoriteState, isFavoriteState } from "../../states/heartState";
 
-export default function Heart() {
+export default function Favorite() {
   const [isFavorite, setIsFavorite] = useRecoilState(isFavoriteState);
   const [favorite, setFavorite] = useRecoilState(favoriteState);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
 
-  const determineFavorite = () => {
+  const pressFavorite = () => {
     const cancelFavorite = () => {
       setIsFavorite(false);
       setFavorite(favorite - 1);
@@ -52,7 +52,7 @@ export default function Heart() {
         name={isFavorite ? "heart" : "hearto"}
         size={23}
         color={isFavorite ? "red" : "black"}
-        onPress={determineFavorite}
+        onPress={pressFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}

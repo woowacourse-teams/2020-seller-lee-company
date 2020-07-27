@@ -17,7 +17,7 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
   const [isFavorite, setIsFavorite] = useRecoilState(isFavoriteState);
   const [favorite, setFavorite] = useRecoilState(favoriteState);
 
-  const determineFavorite = () => {
+  const pressFavorite = () => {
     const cancelFavorite = () => {
       setIsFavorite(false);
       setFavorite(favorite - 1);
@@ -39,7 +39,7 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
     const now = Date.now();
     const DOUBLE_PRESS_DELAY = 300;
     if (lastTap && now - lastTap < DOUBLE_PRESS_DELAY) {
-      determineFavorite();
+      pressFavorite();
     } else {
       lastTap = now;
     }
