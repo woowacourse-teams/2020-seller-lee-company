@@ -17,8 +17,8 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
   const [isFavorite, setIsFavorite] = useRecoilState(isFavoriteState);
   const [favorite, setFavorite] = useRecoilState(favoriteState);
 
-  const pressFavorite = () => {
-    const cancelFavorite = () => {
+  const determineFavorite = () => {
+    const unmarkFavorite = () => {
       setIsFavorite(false);
       setFavorite(favorite - 1);
     };
@@ -29,7 +29,7 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
     };
 
     if (isFavorite) {
-      cancelFavorite();
+      unmarkFavorite();
     } else {
       markFavorite();
     }
@@ -39,7 +39,7 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
     const now = Date.now();
     const DOUBLE_PRESS_DELAY = 300;
     if (lastTap && now - lastTap < DOUBLE_PRESS_DELAY) {
-      pressFavorite();
+      determineFavorite();
     } else {
       lastTap = now;
     }
