@@ -1,16 +1,17 @@
 /**
- * @author kouz95
+ * @author jnsorn
  */
 
 package sellerlee.back.article.domain;
 
-import javax.persistence.Column;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
+@Access(AccessType.FIELD)
 @Embeddable
 public class Tag {
-    @Column
     private String name;
 
     protected Tag() {
@@ -30,7 +31,7 @@ public class Tag {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Tag tag = (Tag)o;
+        Tag tag = (Tag) o;
         return Objects.equals(name, tag.name);
     }
 

@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author jnsorn
  */
 
 package sellerlee.back.member.domain;
@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
 
 @Entity
 public class Member {
@@ -17,36 +16,10 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Email
-    private String email;
-
-    private String password;
-
-    private Double score;
-
     protected Member() {
     }
 
-    public Member(Long id, String email, String password, Double score) {
+    public Member(Long id) {
         this.id = id;
-        this.email = email;
-        this.password = password;
-        this.score = score;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Double getScore() {
-        return score;
     }
 }
