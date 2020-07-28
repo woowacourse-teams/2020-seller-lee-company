@@ -4,18 +4,24 @@
 
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import ImageSlider from "../components/ImageSlider";
 
-export default function ImagesViewScreen() {
+import ImagesViewSlider from "../components/ImagesViewSlider";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageSliderParamList } from "../types/types";
+import { RouteProp } from "@react-navigation/native";
+
+interface ImagesViewScreenProps {
+  navigation: StackNavigationProp<ImageSliderParamList>;
+  route: RouteProp<ImageSliderParamList, "ImagesViewScreen">;
+}
+
+export default function ImagesViewScreen({
+  navigation,
+  route,
+}: ImagesViewScreenProps) {
   return (
     <View style={styles.container}>
-      <ImageSlider
-        images={[
-          require("../../assets/favicon.png"),
-          require("../../assets/icon.png"),
-          require("../../assets/splash.png"),
-        ]}
-      />
+      <ImagesViewSlider images={route.params.images} />
     </View>
   );
 }

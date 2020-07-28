@@ -3,20 +3,26 @@
  */
 
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ImageURISource, StyleSheet, View } from "react-native";
 import ImageSlider from "../components/ImageSlider";
 
+interface ImageSliderProps {
+  images: ImageURISource[];
+}
+
 export default function ImageSliderScreen() {
+  const getMockImages = () => {
+    return [
+      require("../../assets/favicon.png"),
+      require("../../assets/icon.png"),
+      require("../../assets/splash.png"),
+    ];
+  };
+
   return (
     <>
       <View style={styles.imageSliderContainer}>
-        <ImageSlider
-          images={[
-            require("../../assets/favicon.png"),
-            require("../../assets/icon.png"),
-            require("../../assets/splash.png"),
-          ]}
-        />
+        <ImageSlider images={getMockImages()} />
       </View>
       <View style={styles.mockContainer} />
     </>

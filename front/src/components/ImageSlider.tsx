@@ -24,8 +24,8 @@ export default function ImageSlider({ images }: ImageSliderProps) {
     <Swiper
       loadMinimal={true}
       loop={false}
-      dot={Dot()}
-      activeDot={ActiveDot()}
+      dot={<Dot />}
+      activeDot={<ActiveDot />}
       paginationStyle={styles.pagination}
       centerContent={true}
     >
@@ -34,7 +34,11 @@ export default function ImageSlider({ images }: ImageSliderProps) {
           activeOpacity={1}
           style={styles.buttonOnImage}
           key={++imageId}
-          onPress={() => navigation.navigate("ImagesViewScreen")}
+          onPress={() =>
+            navigation.navigate("ImagesViewScreen", {
+              images: images,
+            })
+          }
         >
           <ImageBox imageURI={imageURISource} />
         </TouchableOpacity>

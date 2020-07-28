@@ -4,6 +4,7 @@
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageURISource } from "react-native";
 
 export type categoryParamList = {
   CategoryHome: undefined;
@@ -46,5 +47,7 @@ export type TagItemProps = {
 
 export type ImageSliderParamList = {
   ImageSliderScreen: undefined;
-  ImagesViewScreen: undefined;
+  ImagesViewScreen: {
+    images: ImageURISource[];
+  };
 };
