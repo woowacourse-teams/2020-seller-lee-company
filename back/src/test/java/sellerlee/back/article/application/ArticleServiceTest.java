@@ -10,18 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
-import sellerlee.back.article.domain.Category;
-import sellerlee.back.article.domain.Tags;
-import sellerlee.back.member.domain.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE_FIXTURE;
 
-@ExtendWith(MockitoExtension.class)
-public class ArticleServiceTest {
+@ExtendWith(value = MockitoExtension.class)
+class ArticleServiceTest {
     @Mock
     private ArticleRepository articleRepository;
 
@@ -36,11 +34,17 @@ public class ArticleServiceTest {
     @Test
     void createArticle() {
         ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#선풍기#굿");
-        Article expectedArticle = new Article(1L, "노트북", 10000L, Category.PC, "쌉니다 싸요", new Member(1L), Tags.of("#선풍기#굿"));
-        when(articleRepository.save(any())).thenReturn(expectedArticle);
+        when(articleRepository.save(any())).thenReturn(ARTICLE_FIXTURE);
 
         Long actualId = articleService.post(request);
 
-        assertThat(actualId).isEqualTo(expectedArticle.getId());
+        assertThat(actualId).isEqualTo(ARTICLE_FIXTURE.getId());
+    }
+
+    @DisplayName("showAll()이 articleRepository의 findAll()을 호출한다.")
+    @Test
+    void showAll() {
+        articleService.showAll();
+        verify(articleRepository).findAll();
     }
 }

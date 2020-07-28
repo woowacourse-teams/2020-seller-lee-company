@@ -31,9 +31,9 @@ public class Article {
     @Lob
     private String contents;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    private Member author;
 
     @Embedded
     private Tags tags;
@@ -41,18 +41,18 @@ public class Article {
     protected Article() {
     }
 
-    public Article(Long id, String title, Long price, Category category, String contents, Member member, Tags tags) {
+    public Article(Long id, String title, Long price, Category category, String contents, Member author, Tags tags) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
-        this.member = member;
+        this.author = author;
         this.tags = tags;
     }
 
-    public Article(String title, Long price, Category category, String contents, Member member, Tags tags) {
-        this(null, title, price, category, contents, member, tags);
+    public Article(String title, Long price, Category category, String contents, Member author, Tags tags) {
+        this(null, title, price, category, contents, author, tags);
     }
 
     public Long getId() {
@@ -75,8 +75,8 @@ public class Article {
         return contents;
     }
 
-    public Member getMember() {
-        return member;
+    public Member getAuthor() {
+        return author;
     }
 
     public Tags getTags() {

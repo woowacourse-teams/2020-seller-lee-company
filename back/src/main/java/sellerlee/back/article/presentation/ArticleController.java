@@ -5,17 +5,18 @@
 package sellerlee.back.article.presentation;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 
 import java.net.URI;
+import java.util.List;
 
-@RequestMapping(ArticleController.ARTICLE_URI)
+import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
+
 @RestController
+@RequestMapping(ARTICLE_URI)
 public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
 
@@ -31,5 +32,11 @@ public class ArticleController {
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
                 .build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ArticleResponse>> showAll() {
+        List<ArticleResponse> responses = articleService.showAll();
+        return ResponseEntity.ok(responses);
     }
 }

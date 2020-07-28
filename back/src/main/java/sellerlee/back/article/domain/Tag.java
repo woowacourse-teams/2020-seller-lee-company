@@ -1,3 +1,7 @@
+/**
+ * @author jnsorn
+ */
+
 package sellerlee.back.article.domain;
 
 import javax.persistence.Access;
@@ -17,10 +21,16 @@ public class Tag {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Tag tag = (Tag) o;
         return Objects.equals(name, tag.name);
     }

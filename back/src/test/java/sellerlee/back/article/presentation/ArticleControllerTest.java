@@ -13,14 +13,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 
+import static java.util.Collections.singletonList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE_CREATE_REQUEST_FIXTURE;
+import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE_FIXTURE;
 import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
 
 @WebMvcTest(controllers = ArticleController.class)
@@ -38,11 +42,10 @@ public class ArticleControllerTest {
         objectMapper = new ObjectMapper();
     }
 
-    @DisplayName("게시글 생성 요청을 받은 경우 게시글 생성")
+    @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
     void createArticle() throws Exception {
-        ArticleCreateRequest articleCreateRequest = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#노트북 #좋아");
-        String request = objectMapper.writeValueAsString(articleCreateRequest);
+        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
 
         when(articleService.post(any())).thenReturn(1L);
 
@@ -52,5 +55,16 @@ public class ArticleControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @DisplayName("게시글 전체 조회 시 HTTP status는 OK다.")
+    @Test
+    void showAll() throws Exception {
+        when(articleService.showAll())
+                .thenReturn(singletonList(ArticleResponse.of(ARTICLE_FIXTURE)));
+
+        mockMvc.perform(get(ARTICLE_URI))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

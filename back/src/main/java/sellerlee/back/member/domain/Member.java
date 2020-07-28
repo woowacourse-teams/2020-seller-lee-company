@@ -1,3 +1,7 @@
+/**
+ * @author jnsorn
+ */
+
 package sellerlee.back.member.domain;
 
 import javax.persistence.Column;
@@ -11,8 +15,6 @@ public class Member {
     @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-
-    private String email;
 
     protected Member() {
     }

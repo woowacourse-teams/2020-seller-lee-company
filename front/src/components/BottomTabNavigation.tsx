@@ -1,15 +1,16 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri
  */
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import HomeScreen from "../screens/HomeScreen";
-import WriteScreen from "../screens/WriteScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
+import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
+import ArticleCreateNavigation from "./ArticleCreateNavigation";
+import FeedNavigation from "./FeedNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,12 +22,12 @@ export default function BottomTabNavigation() {
     >
       <Tab.Screen
         name="홈"
-        component={HomeScreen}
+        component={FeedNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
-              size={26}
+              size={24}
               color={color}
             />
           ),
@@ -47,15 +48,10 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="글쓰기"
-        component={WriteScreen}
+        component={ArticleCreateNavigation}
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="pencil-box-outline"
-              size={24}
-              color={color}
-            />
-          ),
+          tabBarVisible: false,
+          tabBarButton: () => <ArticleCreateOptionsModal />,
         }}
       />
       <Tab.Screen
