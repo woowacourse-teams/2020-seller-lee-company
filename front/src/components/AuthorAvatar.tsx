@@ -1,3 +1,7 @@
+/**
+ * @author lxxjn0
+ */
+
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { AuthorAvatarType } from "../types/types";
