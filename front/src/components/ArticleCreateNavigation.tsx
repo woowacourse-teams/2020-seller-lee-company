@@ -14,24 +14,24 @@ export default function ArticleCreateNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ArticleCreateHome"
+        name="ArticleCreateScreen"
         component={ArticleCreateScreen}
         options={{
-          title: "글 쓰기",
+          title: "글쓰기",
         }}
       />
       <Stack.Screen
-        name="ArticleCreateForm"
+        name="ArticleContentsFormScreen"
         component={ArticleContentsFormScreen}
         options={{
-          title: "내용 입력",
+          title: "내용",
         }}
       />
       <Stack.Screen
         name="CategoryChoiceScreen"
         component={CategoryChoiceScreen}
         options={{
-          title: "카테고리 선택",
+          title: "카테고리",
         }}
       />
     </Stack.Navigator>

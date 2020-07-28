@@ -35,7 +35,7 @@ export default function ArticleCreateOptionsModal() {
         >
           <View style={styles.content}>
             <Button
-              title={"글 쓰기"}
+              title={"글쓰기"}
               onPress={() => {
                 navigation.navigate("글쓰기");
                 setModalVisible(false);

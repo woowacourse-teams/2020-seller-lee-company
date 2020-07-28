@@ -14,10 +14,11 @@ export default function ArticleContentsFormScreen() {
     <View style={styles.container}>
       <TextInput
         style={styles.form}
-        placeholder={"내용 입력"}
+        placeholder={"내용을 입력해주세요."}
         keyboardType={"default"}
         onChangeText={(text) => setContents(text)}
         value={contents}
+        multiline={true}
       />
     </View>
   );
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   form: {
-    fontSize: 15,
+    fontSize: 18,
     paddingLeft: 15,
     paddingTop: 15,
   },

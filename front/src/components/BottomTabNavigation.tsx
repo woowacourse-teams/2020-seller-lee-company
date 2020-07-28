@@ -27,7 +27,7 @@ export default function BottomTabNavigation() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
-              size={26}
+              size={24}
               color={color}
             />
           ),

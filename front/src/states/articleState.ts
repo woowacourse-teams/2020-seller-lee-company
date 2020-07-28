@@ -3,6 +3,7 @@
  */
 
 import { atom } from "recoil/dist";
+import { PhotoInfo } from "../types/types";
 
 export const articleTitleState = atom({
   key: "articleTitleState",
@@ -14,6 +15,11 @@ export const articlePriceState = atom({
   default: 0,
 });
 
+export const articlePhotosState = atom({
+  key: "articlePhotosState",
+  default: <PhotoInfo[]>[],
+});
+
 export const articleContentsState = atom({
   key: "articleContentsState",
   default: "",
@@ -21,5 +27,10 @@ export const articleContentsState = atom({
 
 export const articleSelectedCategoryState = atom({
   key: "articleSelectedCategoryState",
-  default: "카테고리 선택",
+  default: "",
+});
+
+export const articleModalActivationState = atom({
+  key: "articleModalActivationState",
+  default: false,
 });

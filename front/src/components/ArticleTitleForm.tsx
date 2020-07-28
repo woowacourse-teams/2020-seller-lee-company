@@ -13,7 +13,7 @@ export default function ArticleTitleForm() {
   return (
     <TextInput
       style={styles.form}
-      placeholder={"제목 입력"}
+      placeholder={"제목"}
       keyboardType={"default"}
       maxLength={30}
       onChangeText={(text) => setTitle(text)}
@@ -24,7 +24,6 @@ export default function ArticleTitleForm() {
 
 const styles = StyleSheet.create({
   form: {
-    fontSize: 30,
-    paddingLeft: 15,
+    fontSize: 18,
   },
 });

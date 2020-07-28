@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author lxxjn0
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -35,14 +35,35 @@ export interface CategoryItemProps {
   title: string;
 }
 
+export type ArticleCreateParamList = {
+  ArticleCreateScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
+};
+
+export type ArticleCreateScreenNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
+export type ArticleCreateModalNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
 export interface Tag {
   id: number;
   tag: string;
 }
 
-export type TagItemProps = {
+export interface TagItemProps {
   tagBox: Tag;
-};
+}
+
+export interface PhotoInfo {
+  id: string;
+  uri: string;
+}
 
 export type Category =
   | "디지털/가전"
