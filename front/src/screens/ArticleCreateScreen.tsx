@@ -37,9 +37,10 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagBoxesState } from "../states/TagState";
+import { ArticleCreateScreenNavigationProp } from "../types/types";
 
 export default function ArticleCreateScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const photos = useRecoilValue(articlePhotosState);
   const title = useRecoilValue(articleTitleState);
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);

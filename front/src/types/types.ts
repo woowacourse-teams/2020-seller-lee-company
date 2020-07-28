@@ -35,6 +35,22 @@ export interface CategoryItemProps {
   title: string;
 }
 
+export type ArticleCreateParamList = {
+  ArticleCreateScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
+};
+
+export type ArticleCreateScreenNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
+export type ArticleCreateModalNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
 export interface Tag {
   id: number;
   tag: string;
