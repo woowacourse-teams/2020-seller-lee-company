@@ -2,17 +2,19 @@
  * @author begaonnuri
  */
 
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import DemoArticle from "../components/DemoArticle";
-import { mockArticles } from "../data/articleMockData";
+import axios from "axios";
+import { Article, FeedHomeNavigationProp } from "../types/types";
 
 export default function FeedHomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<FeedHomeNavigationProp>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -29,34 +31,36 @@ export default function FeedHomeScreen() {
     });
   }, [navigation]);
 
-  const getInitData = () => {
-    // fetch init data
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const { data } = await axios.get("http://localhost:8080/articles");
+    setArticles(data);
   };
 
   const onRefresh = async () => {
     setIsRefreshing(true);
-    await getInitData();
+    await getData();
     setIsRefreshing(false);
   };
 
-  const getMoreData = () => {
-    // fetch more data
-  };
-
   const onLoad = async () => {
+    if (articles.length < 3) return;
     setIsLoading(true);
-    await getMoreData();
+    await getData();
     setIsLoading(false);
   };
 
   return (
     <FlatList
-      data={mockArticles}
-      renderItem={({ item }) => <DemoArticle title={item.title} />}
+      data={articles}
+      renderItem={({ item }) => <DemoArticle item={item} />}
       keyExtractor={(item, index) => `${index}`}
       refreshing={isRefreshing}
       onRefresh={onRefresh}
-      onEndReachedThreshold={0}
+      onEndReachedThreshold={0.25}
       onEndReached={onLoad}
       ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
     />
