@@ -6,11 +6,11 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ChatScreen from "../screens/ChatScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
 import FeedNavigation from "./FeedNavigation";
+import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +69,7 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="프로필"
-        component={ProfileScreen}
+        component={LoginScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
