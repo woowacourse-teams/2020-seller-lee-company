@@ -89,3 +89,9 @@ export interface FavoriteCountAndHitProps {
   favoriteCount: number;
   hit: number;
 }
+
+export interface AuthorAvatarType {
+  uri: string;
+}
+
+export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
