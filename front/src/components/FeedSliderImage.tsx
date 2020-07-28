@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import ImageBox from "./ImageBox";
+import PhotoBox from "./PhotoBox";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { FeedArticle } from "../types/types";
 import Swiper from "react-native-swiper";
@@ -20,13 +20,13 @@ export default function FeedSliderImage({ feedArticle }: FeedArticle) {
       paginationStyle={styles.pagination}
       centerContent={true}
     >
-      {feedArticle.images.map((image) => (
+      {feedArticle.photos.map((photoInfo) => (
         <TouchableOpacity
           activeOpacity={1}
           style={styles.imageContainer}
-          key={image.id}
+          key={photoInfo.id}
         >
-          <ImageBox imageTypeProps={image} />
+          <PhotoBox photoInfoProps={photoInfo} />
         </TouchableOpacity>
       ))}
     </Swiper>

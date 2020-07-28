@@ -4,7 +4,6 @@
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ImageProps } from "react-native";
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -44,14 +43,30 @@ export type FeedParamList = {
 
 export type FeedNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
 
+export type ArticleCreateParamList = {
+  ArticleCreateScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
+};
+
+export type ArticleCreateScreenNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
+export type ArticleCreateModalNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
 export interface Tag {
   id: number;
   tag: string;
 }
 
-export type TagItemProps = {
+export interface TagItemProps {
   tagBox: Tag;
-};
+}
 
 export type Category =
   | "디지털/가전"
@@ -78,23 +93,25 @@ export interface FavoriteCountAndHitProps {
   hit: number;
 }
 
-export type ImageType = {
-  id: number;
-  location: ImageProps;
-};
-
-export interface ImageTypeProps {
-  imageTypeProps: ImageType;
+export interface AuthorAvatarType {
+  uri: string;
 }
 
-export interface FeedArticleCardProps {
+export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+interface FeedArticleCardProps {
   id: number;
   price: string;
   tagBoxes: Tag[];
   favorite: number;
-  images: ImageType[];
+  photos: PhotoInfo[];
 }
 
 export interface FeedArticle {
   feedArticle: FeedArticleCardProps;
+}
+
+export interface PhotoInfo {
+  id: number;
+  uri: string;
 }

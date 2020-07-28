@@ -21,9 +21,17 @@ export const mockFeedArticles = [
       },
     ],
     favorite: 10,
-    images: [
-      { id: 0, location: require("../../assets/samplePhoto1.jpeg") },
-      { id: 1, location: require("../../assets/samplePhoto2.jpeg") },
+    photos: [
+      {
+        id: 0,
+        uri:
+          "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+      },
+      {
+        id: 1,
+        uri:
+          "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+      },
     ],
   },
   {
@@ -44,9 +52,17 @@ export const mockFeedArticles = [
       },
     ],
     favorite: 10,
-    images: [
-      { id: 0, location: require("../../assets/samplePhoto1.jpeg") },
-      { id: 1, location: require("../../assets/samplePhoto2.jpeg") },
+    photos: [
+      {
+        id: 0,
+        uri:
+          "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+      },
+      {
+        id: 1,
+        uri:
+          "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+      },
     ],
   },
 ];

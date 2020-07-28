@@ -6,6 +6,7 @@ import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { articlePriceState } from "../states/articleState";
+import { insertComma, removeComma } from "../replacePriceWithComma";
 
 export default function ArticlePriceForm() {
   const [price, setPrice] = useRecoilState(articlePriceState);
@@ -13,18 +14,17 @@ export default function ArticlePriceForm() {
   return (
     <TextInput
       style={styles.form}
-      placeholder={"가격 입력"}
+      placeholder={"가격"}
       keyboardType={"number-pad"}
       maxLength={10}
-      onChangeText={(text) => setPrice(Number(text))}
-      value={price === 0 ? "" : price.toString()}
+      onChangeText={(priceValue) => setPrice(Number(removeComma(priceValue)))}
+      value={price === 0 ? "" : insertComma(price.toString())}
     />
   );
 }
 
 const styles = StyleSheet.create({
   form: {
-    fontSize: 30,
-    paddingLeft: 15,
+    fontSize: 18,
   },
 });

@@ -10,14 +10,27 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { FeedArticle, FeedNavigationProp } from "../types/types";
+import {
+  FeedArticle,
+  FeedNavigationProp,
+  PhotoInfo,
+  Tag,
+} from "../types/types";
 import FeedArticleTag from "./FeedArticleTag";
-import replacePriceWithCommas from "../replacePriceWithCommas";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useNavigation } from "@react-navigation/native";
+import { insertComma } from "../replacePriceWithComma";
 
 const ANIMATE_START_VALUE = 0.93;
+
+interface FeedArticleCardProps {
+  id: number;
+  price: string;
+  tagBoxes: Tag[];
+  favorite: number;
+  photos: PhotoInfo[];
+}
 
 export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   const navigation = useNavigation<FeedNavigationProp>();
@@ -55,7 +68,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
             <Favorite feedArticle={feedArticle} />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>
-                {replacePriceWithCommas(feedArticle.price)}원
+                {insertComma(feedArticle.price)}원
               </Text>
             </View>
           </View>
