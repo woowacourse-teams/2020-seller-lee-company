@@ -4,7 +4,7 @@
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { TagItemProps } from "../../types/types";
+import { TagItemProps } from "../types/types";
 
 export default function FeedArticleTag({ tagBox }: TagItemProps) {
   return (

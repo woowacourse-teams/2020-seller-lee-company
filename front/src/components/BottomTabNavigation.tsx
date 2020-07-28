@@ -10,7 +10,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
-import FeedArticleNavigation from "./Feed/FeedArticleNavigation";
+import FeedArticleNavigation from "./FeedArticleNavigation";
 
 const Tab = createBottomTabNavigator();
 

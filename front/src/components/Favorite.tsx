@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useRecoilState } from "recoil/dist";
-import { favoriteState, isFavoriteState } from "../../states/heartState";
+import { favoriteState, isFavoriteState } from "../states/heartState";
 
 export default function Favorite() {
   const [isFavorite, setIsFavorite] = useRecoilState(isFavoriteState);

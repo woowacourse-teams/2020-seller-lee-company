@@ -10,13 +10,13 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { FeedArticle, FeedNavigationProp } from "../../types/types";
+import { FeedArticle, FeedNavigationProp } from "../types/types";
 import FeedArticleTag from "./FeedArticleTag";
-import replacePriceWithCommas from "../../replacePriceWithCommas";
+import replacePriceWithCommas from "../replacePriceWithCommas";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useSetRecoilState } from "recoil/dist";
-import { favoriteState } from "../../states/heartState";
+import { favoriteState } from "../states/heartState";
 import { useNavigation } from "@react-navigation/native";
 
 const ANIMATE_START_VALUE = 0.93;

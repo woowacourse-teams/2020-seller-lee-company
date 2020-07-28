@@ -4,7 +4,7 @@
 
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import FeedArticleCard from "../components/Feed/FeedArticleCard";
+import FeedArticleCard from "../components/FeedArticleCard";
 import { mockFeedArticles } from "../data/feedArticleMockData";
 
 export default function HomeScreen() {

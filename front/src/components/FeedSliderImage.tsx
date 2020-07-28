@@ -5,10 +5,10 @@
 import React from "react";
 import ImageBox from "./ImageBox";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { FeedArticle } from "../../types/types";
+import { FeedArticle } from "../types/types";
 import Swiper from "react-native-swiper";
 import { useRecoilState } from "recoil/dist";
-import { favoriteState, isFavoriteState } from "../../states/heartState";
+import { favoriteState, isFavoriteState } from "../states/heartState";
 import Dot from "./Dot";
 import ActiveDot from "./ActiveDot";
 
