@@ -1,60 +1,91 @@
 /**
- * @author kouz95
+ * @author jnsorn
  */
 
 package sellerlee.back.article.acceptance;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import sellerlee.back.article.application.ArticleResponse;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE_CREATE_REQUEST_FIXTURE;
 import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
     @LocalServerPort
-    public int port;
+    private int port;
+
+    private ObjectMapper objectMapper;
+
+    private static RequestSpecification given() {
+        return RestAssured
+                .given()
+                .log()
+                .all();
+    }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         RestAssured.port = port;
+        objectMapper = new ObjectMapper();
     }
 
     /**
-     * 게시글 전체 조회 기능
-     * Given 게시글이 여러 개 추가되어 있다.
+     * Feature: 게시글 관리
      * <p>
-     * When 게시글 전체 조회 요청을 한다.
-     * Then 게시글 목록을 응답밥는다.
+     * Scenario: 게시글을 관리한다.
+     * <p>
+     * When 게시글을 등록한다.
+     * Then 게시글이 추가되었다.
+     * <p>
+     * When 전체 게시글을 조회한다.
+     * Then 게시글이 조회된다.
      */
-    @DisplayName("게시글 인수 테스트")
+    @DisplayName("게시글을 관리한다")
     @TestFactory
     Stream<DynamicTest> manageArticle() {
-        // Given 게시글이 여러개 추가되어 있다.
-        // data.sql 사용
         return Stream.of(
+                dynamicTest("게시글 추가", () -> {
+                    createArticle();
+                }),
                 dynamicTest("게시글 전체 조회", () -> {
-                    // When 게시글 전체 조회 요청을 한다.
                     List<ArticleResponse> allArticleResponses = findAllArticles();
-                    // Then 게시글 목록을 응답받는다.
-                    assertThat(allArticleResponses.size()).isEqualTo(2);
-                }));
+                    assertThat(allArticleResponses.size()).isEqualTo(1);
+                })
+        );
+    }
+
+    private void createArticle() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
+
+        given()
+                .body(request)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .post(ARTICLE_URI)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.CREATED.value());
     }
 
     private List<ArticleResponse> findAllArticles() {
         return given()
-                .log().all()
                 .when()
                 .get(ARTICLE_URI)
                 .then()
