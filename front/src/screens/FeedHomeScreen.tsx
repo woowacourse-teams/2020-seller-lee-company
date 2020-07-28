@@ -52,7 +52,14 @@ export default function FeedHomeScreen() {
   return (
     <FlatList
       data={mockFeedArticles}
-      renderItem={({ item }) => <FeedArticleCard feedArticle={item} />}
+      renderItem={({ item }) => (
+        <FeedArticleCard
+          price={item.price}
+          tagBoxes={item.tagBoxes}
+          favorite={item.favorite}
+          photos={item.photos}
+        />
+      )}
       keyExtractor={(item) => `${item.id}`}
       refreshing={isRefreshing}
       onRefresh={onRefresh}

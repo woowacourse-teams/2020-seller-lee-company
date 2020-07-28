@@ -10,12 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import {
-  FeedArticle,
-  FeedNavigationProp,
-  PhotoInfo,
-  Tag,
-} from "../types/types";
+import { FeedNavigationProp, PhotoInfo, Tag } from "../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
@@ -25,14 +20,18 @@ import { insertComma } from "../replacePriceWithComma";
 const ANIMATE_START_VALUE = 0.93;
 
 interface FeedArticleCardProps {
-  id: number;
   price: string;
   tagBoxes: Tag[];
   favorite: number;
   photos: PhotoInfo[];
 }
 
-export default function FeedArticleCard({ feedArticle }: FeedArticle) {
+export default function FeedArticleCard({
+  price,
+  tagBoxes,
+  favorite,
+  photos,
+}: FeedArticleCardProps) {
   const navigation = useNavigation<FeedNavigationProp>();
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
@@ -55,25 +54,23 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedArticle");
+        navigation.navigate("FeedDetail");
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
       <View style={styles.articleContainer}>
         <View style={styles.photoContainer}>
-          <FeedSliderImage feedArticle={feedArticle} />
+          <FeedSliderImage photos={photos} />
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite feedArticle={feedArticle} />
+            <Favorite favoriteCount={favorite} />
             <View style={styles.detailsPriceContainer}>
-              <Text style={styles.text}>
-                {insertComma(feedArticle.price)}원
-              </Text>
+              <Text style={styles.text}>{insertComma(price)}원</Text>
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {feedArticle.tagBoxes.map((tagItem) => (
+            {tagBoxes.map((tagItem) => (
               <FeedArticleTag key={tagItem.id} tagBox={tagItem} />
             ))}
           </View>

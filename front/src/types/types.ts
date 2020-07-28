@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author joseph415
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -38,7 +38,7 @@ export interface CategoryItemProps {
 export type FeedParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedArticle: undefined;
+  FeedDetail: undefined;
 };
 
 export type FeedNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
@@ -98,18 +98,6 @@ export interface AuthorAvatarType {
 }
 
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-
-interface FeedArticleCardProps {
-  id: number;
-  price: string;
-  tagBoxes: Tag[];
-  favorite: number;
-  photos: PhotoInfo[];
-}
-
-export interface FeedArticle {
-  feedArticle: FeedArticleCardProps;
-}
 
 export interface PhotoInfo {
   id: number;

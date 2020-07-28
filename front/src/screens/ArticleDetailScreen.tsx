@@ -6,7 +6,7 @@ import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import DetailArticle from "../components/DetailArticle";
 
-export default function DetailScreen() {
+export default function ArticleDetailScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.image}>
