@@ -25,9 +25,7 @@ export default function TagItem({ tagBox }: TagItemProps) {
         <TouchableOpacity
           activeOpacity={0.4}
           style={styles.deleteButton}
-          onPress={() => {
-            onRemove(tagBox.id);
-          }}
+          onPress={() => onRemove(tagBox.id)}
         >
           <Feather
             name="x"

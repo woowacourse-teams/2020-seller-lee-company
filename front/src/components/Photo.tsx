@@ -57,7 +57,7 @@ export default function Photo() {
     if (!result.cancelled) {
       setPhotos(
         photos.concat({
-          id: (photoId++).toString(),
+          id: photoId++,
           uri: result.uri,
         }),
       );
@@ -88,7 +88,7 @@ export default function Photo() {
     }
   };
 
-  const removeImage = (id: string) => {
+  const removeImage = (id: number) => {
     setPhotos(photos.filter((value) => value.id !== id));
   };
 
