@@ -90,6 +90,7 @@ export interface FavoriteCountAndHitProps {
   hit: number;
 }
 
+<<<<<<< HEAD
 export interface Article {
   id: number;
   authorId: number;
@@ -113,3 +114,10 @@ export type FeedHomeNavigationProp = StackNavigationProp<
   FeedParamList,
   "FeedHome"
 >;
+=======
+export interface AuthorAvatarType {
+  uri: string;
+}
+
+export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+>>>>>>> 54fd93c... feature: [게시글 상세 조회] 판매자 정보 컴포넌트 (#61)
