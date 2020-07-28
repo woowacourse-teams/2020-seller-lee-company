@@ -7,14 +7,14 @@ import { View, StyleSheet, Text } from "react-native";
 
 export default function ProfileScreen() {
   return (
-    <View style={styles.writeButtonContainer}>
+    <View style={styles.container}>
       <Text style={styles.text}>Profile Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     flex: 1,
     backgroundColor: "blue",
     justifyContent: "center",

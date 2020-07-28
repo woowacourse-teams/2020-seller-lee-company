@@ -2,18 +2,26 @@
  * @author joesph415
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { useRecoilState } from "recoil/dist";
-import { favoriteState, isFavoriteState } from "../states/heartState";
+import { FeedArticle } from "../types/types";
 
-export default function Favorite() {
-  const [isFavorite, setIsFavorite] = useRecoilState(isFavoriteState);
-  const [favorite, setFavorite] = useRecoilState(favoriteState);
+export default function Favorite({ feedArticle }: FeedArticle) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(feedArticle.favorite);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
+
+  const fulfillHeartAnimate = () => {
+    springValue.setValue(0.33);
+    Animated.timing(springValue, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const toggleFavorite = () => {
     const unmarkFavorite = () => {
@@ -31,20 +39,8 @@ export default function Favorite() {
     } else {
       markFavorite();
     }
-  };
-
-  useEffect(() => {
-    const fulfillHeartAnimate = () => {
-      springValue.setValue(0.33);
-      Animated.timing(springValue, {
-        toValue: 1,
-        duration: 150,
-        useNativeDriver: true,
-      }).start();
-    };
-
     fulfillHeartAnimate();
-  }, [isFavorite, springValue]);
+  };
 
   return (
     <View style={styles.detailsHeartContainer}>
@@ -57,7 +53,15 @@ export default function Favorite() {
           transform: [{ scale: springValue }],
         }}
       />
-      <Text style={styles.text}> x {favorite}</Text>
+      <Text
+        onPress={() => {
+          // do nothing
+        }}
+        style={styles.text}
+      >
+        {" "}
+        x {favorite}
+      </Text>
     </View>
   );
 }

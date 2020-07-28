@@ -21,7 +21,7 @@ export default function CategoryItem({ title }: CategoryItemProps) {
   };
 
   return (
-    <View style={styles.writeButtonContainer}>
+    <View style={styles.container}>
       <Text
         style={selectedCategory === title ? styles.selected : {}}
         onPress={onClickCategory}
@@ -33,7 +33,7 @@ export default function CategoryItem({ title }: CategoryItemProps) {
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     backgroundColor: "#fff",
     padding: 15,
     borderBottomWidth: 0.2,

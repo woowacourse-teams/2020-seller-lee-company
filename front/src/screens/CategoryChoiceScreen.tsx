@@ -29,14 +29,14 @@ export default function CategoryChoiceScreen() {
   }, [navigation]);
 
   return (
-    <View style={styles.writeButtonContainer}>
+    <View style={styles.container}>
       <CategoryList />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  writeButtonContainer: {
+  container: {
     flex: 1,
   },
 });

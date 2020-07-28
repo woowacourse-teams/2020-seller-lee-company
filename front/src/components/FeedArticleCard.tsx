@@ -15,16 +15,12 @@ import FeedArticleTag from "./FeedArticleTag";
 import replacePriceWithCommas from "../replacePriceWithCommas";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
-import { useSetRecoilState } from "recoil/dist";
-import { favoriteState } from "../states/heartState";
 import { useNavigation } from "@react-navigation/native";
 
 const ANIMATE_START_VALUE = 0.93;
 
 export default function FeedArticleCard({ feedArticle }: FeedArticle) {
   const navigation = useNavigation<FeedNavigationProp>();
-  const setFavorite = useSetRecoilState(favoriteState);
-  setFavorite(feedArticle.favorite);
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
@@ -48,9 +44,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
         clickArticleAnimate();
         navigation.navigate("FeedArticle");
       }}
-      style={{
-        transform: [{ scale: clickValue }],
-      }}
+      style={{ transform: [{ scale: clickValue }] }}
     >
       <View style={styles.articleContainer}>
         <View style={styles.photoContainer}>
@@ -58,7 +52,7 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite />
+            <Favorite feedArticle={feedArticle} />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>
                 {replacePriceWithCommas(feedArticle.price)}원

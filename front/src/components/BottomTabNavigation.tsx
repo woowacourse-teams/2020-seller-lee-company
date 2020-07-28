@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri
  */
 
 import React from "react";
@@ -10,7 +10,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
-import FeedArticleNavigation from "./FeedArticleNavigation";
+import FeedNavigation from "./FeedNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ export default function BottomTabNavigation() {
     >
       <Tab.Screen
         name="홈"
-        component={FeedArticleNavigation}
+        component={FeedNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
