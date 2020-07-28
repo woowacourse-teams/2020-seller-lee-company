@@ -1,9 +1,9 @@
 /**
- * @author kouz95
+ * @author begaonnuri
  */
 
-insert into member (member_id)
-values (1);
+insert into member (member_id, email, password, score)
+values (1, 'turtle@woowabro.com', '1234', 36);
 
 insert into article (article_id, category, contents, price, title, member_id)
 values (1, 'TEST', 'test contents1', 1234, 'test title1', 1);
