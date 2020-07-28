@@ -68,3 +68,27 @@ export interface FavoriteCountAndHitProps {
   favoriteCount: number;
   hit: number;
 }
+
+export interface Article {
+  id: number;
+  authorId: number;
+  title: string;
+  category: string;
+  price: number;
+  contents: string;
+  tags: ArticleTag[];
+}
+
+export interface ArticleTag {
+  name: string;
+}
+
+export type FeedParamList = {
+  FeedHome: undefined;
+  SellerLee: undefined;
+};
+
+export type FeedHomeNavigationProp = StackNavigationProp<
+  FeedParamList,
+  "FeedHome"
+>;
