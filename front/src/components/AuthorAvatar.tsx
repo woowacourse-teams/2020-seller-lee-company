@@ -1,6 +1,10 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { AuthorAvatarProps } from "../types/types";
+import { AuthorAvatarType } from "../types/types";
+
+interface AuthorAvatarProps {
+  avatar: AuthorAvatarType;
+}
 
 export default function AuthorAvatar({ avatar }: AuthorAvatarProps) {
   return (

@@ -1,7 +1,11 @@
 import React from "react";
-import { AuthorScoreProps } from "../types/types";
 import { StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AuthorScoreType } from "../types/types";
+
+interface AuthorScoreProps {
+  score: AuthorScoreType;
+}
 
 export default function AuthorScore({ score }: AuthorScoreProps) {
   const iconName = `numeric-${score}-circle-outline`;
@@ -10,19 +14,16 @@ export default function AuthorScore({ score }: AuthorScoreProps) {
       case 0:
       case 1:
       case 2:
-        return "#dc471a";
       case 3:
+        return "red";
       case 4:
       case 5:
-        return "#e48635";
       case 6:
+        return "orange";
       case 7:
-        return "#4bc831";
       case 8:
       case 9:
-        return "#66d5f8";
-      default:
-        return "white";
+        return "green";
     }
   };
 

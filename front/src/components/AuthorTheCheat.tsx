@@ -9,13 +9,8 @@ export default function AuthorTheCheat() {
 
   const iconName = theCheatState ? "account-check" : "account-check-outline";
   const iconColor = theCheatState ? "green" : "grey";
-  const pressTheCheat = () => {
-    if (theCheatState) {
-      setTheCheatState(false);
-      return;
-    }
-    setTheCheatState(true);
-  };
+  const pressTheCheat = () =>
+    theCheatState ? setTheCheatState(false) : setTheCheatState(true);
 
   return (
     <TouchableOpacity onPress={pressTheCheat} style={styles.container}>

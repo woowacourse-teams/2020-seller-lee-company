@@ -1,6 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { AuthorNameProps } from "../types/types";
+
+interface AuthorNameProps {
+  name: string;
+}
 
 export default function AuthorName({ name }: AuthorNameProps) {
   return (

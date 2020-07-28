@@ -1,24 +1,32 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import AuthorAvatar from "./AuthorAvatar";
-import { mockMembers } from "../data/memberMockData";
 import AuthorName from "./AuthorName";
 import AuthorScore from "./AuthorScore";
 import AuthorTheCheat from "./AuthorTheCheat";
+import { AuthorScoreType, AuthorAvatarType } from "../types/types";
 
-export default function ArticleAuthor() {
-  const mockMember = mockMembers[0];
+interface ArticleAuthorProps {
+  name: string;
+  score: AuthorScoreType;
+  avatar: AuthorAvatarType;
+}
 
+export default function ArticleAuthor({
+  name,
+  score,
+  avatar,
+}: ArticleAuthorProps) {
   return (
     <View style={styles.container}>
       <View style={styles.authorAvatarContainer}>
-        <AuthorAvatar avatar={mockMember.avatar} />
+        <AuthorAvatar avatar={avatar} />
       </View>
       <View style={styles.authorNameContainer}>
-        <AuthorName name={mockMember.name} />
+        <AuthorName name={name} />
       </View>
       <View style={styles.authorScoreContainer}>
-        <AuthorScore score={7} />
+        <AuthorScore score={score} />
       </View>
       <View style={styles.authorTheCheatContainer}>
         <AuthorTheCheat />
