@@ -14,7 +14,7 @@ public class Tags {
     public static final String HASHTAG = "#";
 
     @ElementCollection
-    @CollectionTable(name = "tag", joinColumns = @JoinColumn(name="article_id"))
+    @CollectionTable(name = "tag", joinColumns = @JoinColumn(name = "article_id"))
     private List<Tag> tags;
 
     protected Tags() {

@@ -32,7 +32,7 @@ public class Article {
     private String contents;
 
     @ManyToOne
-    @JoinColumn(name="member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Embedded

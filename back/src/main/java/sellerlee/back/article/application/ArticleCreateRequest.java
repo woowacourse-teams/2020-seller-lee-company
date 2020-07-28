@@ -14,20 +14,20 @@ public class ArticleCreateRequest {
     private final Long price;
     private final String category;
     private final String contents;
-    private final Long member;
+    private final Long authorId;
     private final String tags;
 
-    public ArticleCreateRequest(String title, Long price, String category, String contents, Long memberId, String tags) {
+    public ArticleCreateRequest(String title, Long price, String category, String contents, Long authorId, String tags) {
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
-        this.member = memberId;
+        this.authorId = authorId;
         this.tags = tags;
     }
 
     public Article toArticle() {
-        return new Article(title, price, Category.fromName(category), contents, new Member(member), Tags.of(tags));
+        return new Article(title, price, Category.fromName(category), contents, new Member(authorId), Tags.of(tags));
     }
 
     public String getTitle() {
@@ -46,8 +46,8 @@ public class ArticleCreateRequest {
         return contents;
     }
 
-    public Long getMember() {
-        return member;
+    public Long getAuthorId() {
+        return authorId;
     }
 
     public String getTags() {
