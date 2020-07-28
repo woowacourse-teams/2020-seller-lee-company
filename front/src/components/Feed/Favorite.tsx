@@ -15,8 +15,8 @@ export default function Favorite() {
 
   const springValue = useRef(new Animated.Value(1)).current;
 
-  const pressFavorite = () => {
-    const cancelFavorite = () => {
+  const toggleFavorite = () => {
+    const unmarkFavorite = () => {
       setIsFavorite(false);
       setFavorite(favorite - 1);
     };
@@ -27,7 +27,7 @@ export default function Favorite() {
     };
 
     if (isFavorite) {
-      cancelFavorite();
+      unmarkFavorite();
     } else {
       markFavorite();
     }
@@ -52,7 +52,7 @@ export default function Favorite() {
         name={isFavorite ? "heart" : "hearto"}
         size={23}
         color={isFavorite ? "red" : "black"}
-        onPress={pressFavorite}
+        onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}
