@@ -6,8 +6,8 @@ import React, { useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import DemoArticle from "../components/DemoArticle";
-import { mockArticles } from "../data/articleMockData";
+import { mockFeedArticles } from "../data/feedArticleMockData";
+import FeedArticleCard from "../components/FeedArticleCard";
 
 export default function FeedHomeScreen() {
   const navigation = useNavigation();
@@ -51,9 +51,9 @@ export default function FeedHomeScreen() {
 
   return (
     <FlatList
-      data={mockArticles}
-      renderItem={({ item }) => <DemoArticle title={item.title} />}
-      keyExtractor={(item, index) => `${index}`}
+      data={mockFeedArticles}
+      renderItem={({ item }) => <FeedArticleCard feedArticle={item} />}
+      keyExtractor={(item) => `${item.id}`}
       refreshing={isRefreshing}
       onRefresh={onRefresh}
       onEndReachedThreshold={0}
