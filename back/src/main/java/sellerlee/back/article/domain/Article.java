@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 public class Article {
     @Id
     @GeneratedValue
+    @Column(name = "article_id")
     private Long id;
 
     @NotBlank(message = "제목을 입력해 주세요.")
@@ -31,6 +32,7 @@ public class Article {
     private String contents;
 
     @ManyToOne
+    @JoinColumn(name="member_id")
     private Member member;
 
     @Embedded

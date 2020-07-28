@@ -1,8 +1,11 @@
 package sellerlee.back.article.domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
+@Access(AccessType.FIELD)
 @Embeddable
 public class Tag {
     private String name;

@@ -1,1 +1,1 @@
-insert into member (id, email) values (1, 'test@gmail.com');
+insert into member (member_id, email) values (1, 'test@gmail.com');

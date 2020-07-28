@@ -27,7 +27,7 @@ public class ArticleCreateRequest {
     }
 
     public Article toArticle() {
-        return new Article(title, price, Category.of(category), contents, new Member(member), Tags.of(tags));
+        return new Article(title, price, Category.fromName(category), contents, new Member(member), Tags.of(tags));
     }
 
     public String getTitle() {

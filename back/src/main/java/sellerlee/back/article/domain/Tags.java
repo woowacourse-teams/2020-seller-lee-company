@@ -1,7 +1,9 @@
 package sellerlee.back.article.domain;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Tags {
     public static final String HASHTAG = "#";
 
     @ElementCollection
+    @CollectionTable(name = "tag", joinColumns = @JoinColumn(name="article_id"))
     private List<Tag> tags;
 
     protected Tags() {

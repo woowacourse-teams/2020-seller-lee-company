@@ -10,16 +10,16 @@ public enum Category {
     PC("디지털/가전"),
     BOOK("도서");
 
-    private final String category;
+    private final String name;
 
-    Category(String category) {
-        this.category = category;
+    Category(String name) {
+        this.name = name;
     }
 
-    public static Category of(String type) {
+    public static Category fromName(String category) {
         return Arrays.stream(values())
-                .filter(v -> v.category.equals(type))
+                .filter(v -> v.name.equals(category))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("잘못된 카테고리 : %s.", type)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("잘못된 카테고리 : %s.", category)));
     }
 }

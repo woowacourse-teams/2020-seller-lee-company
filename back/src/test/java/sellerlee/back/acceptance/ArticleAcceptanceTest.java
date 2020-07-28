@@ -59,7 +59,7 @@ public class ArticleAcceptanceTest {
         Map<String, String> params = new HashMap<>();
         params.put("title", "선풍기");
         params.put("price", "10000");
-        params.put("category", "디지털/가전");
+        params.put("category", "PC");
         params.put("contents", "진짜 시원합니다");
         params.put("member", "1");
         params.put("tags", "#선풍기 #시원쓰");
