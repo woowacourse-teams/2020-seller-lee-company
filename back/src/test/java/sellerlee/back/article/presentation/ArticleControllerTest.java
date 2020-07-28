@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
 
 @WebMvcTest(controllers = ArticleController.class)
 public class ArticleControllerTest {
@@ -45,7 +46,7 @@ public class ArticleControllerTest {
 
         when(articleService.post(any())).thenReturn(1L);
 
-        this.mockMvc.perform(post("/articles")
+        this.mockMvc.perform(post(ARTICLE_URI)
                 .content(request)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
