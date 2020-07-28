@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author kouz95
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -42,4 +42,9 @@ export interface Tag {
 
 export type TagItemProps = {
   tagBox: Tag;
+};
+
+export type ImageSliderParamList = {
+  ImageSliderScreen: undefined;
+  ImagesViewScreen: undefined;
 };
