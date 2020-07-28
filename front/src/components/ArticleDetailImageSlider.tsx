@@ -5,18 +5,19 @@
 import React from "react";
 import ImageBox from "./ImageBox";
 import { ImageURISource, StyleSheet, TouchableOpacity } from "react-native";
-import Dot from "./Dot";
+
 import Swiper from "react-native-swiper";
 import ActiveDot from "./ActiveDot";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack/lib/typescript/src/types";
 import { ImageSliderParamList } from "../types/types";
+import Dot from "./Dot";
 
 interface ImageSliderProps {
   images: ImageURISource[];
 }
 
-export default function ImageSlider({ images }: ImageSliderProps) {
+export default function ArticleDetailImageSlider({ images }: ImageSliderProps) {
   const navigation = useNavigation<StackNavigationProp<ImageSliderParamList>>();
   let imageId = 0;
 
@@ -35,12 +36,12 @@ export default function ImageSlider({ images }: ImageSliderProps) {
           style={styles.buttonOnImage}
           key={++imageId}
           onPress={() =>
-            navigation.navigate("ImagesViewScreen", {
+            navigation.navigate("ArticleDetailImageViewScreen", {
               images: images,
             })
           }
         >
-          <ImageBox imageURI={imageURISource} />
+          <ImageBox imageURI={imageURISource} marginBottom={0} />
         </TouchableOpacity>
       ))}
     </Swiper>

@@ -7,11 +7,12 @@ import { Image, ImageURISource, StyleSheet, View } from "react-native";
 
 interface ImageBoxProps {
   imageURI: ImageURISource;
+  marginBottom: number;
 }
 
-export default function ImageBox({ imageURI }: ImageBoxProps) {
+export default function ImageBox({ imageURI, marginBottom }: ImageBoxProps) {
   return (
-    <View style={styles.imageContainer}>
+    <View style={styles.imageContainer || { marginBottom: marginBottom }}>
       <Image source={imageURI} style={styles.image} />
     </View>
   );

@@ -4,13 +4,13 @@
 
 import React from "react";
 import { ImageURISource, StyleSheet, View } from "react-native";
-import ImageSlider from "../components/ImageSlider";
+import ArticleDetailImageSlider from "../components/ArticleDetailImageSlider";
 
 interface ImageSliderProps {
   images: ImageURISource[];
 }
 
-export default function ImageSliderScreen() {
+export default function ArticleDetailScreen() {
   const getMockImages = () => {
     return [
       require("../../assets/favicon.png"),
@@ -22,7 +22,7 @@ export default function ImageSliderScreen() {
   return (
     <>
       <View style={styles.imageSliderContainer}>
-        <ImageSlider images={getMockImages()} />
+        <ArticleDetailImageSlider images={getMockImages()} />
       </View>
       <View style={styles.mockContainer} />
     </>

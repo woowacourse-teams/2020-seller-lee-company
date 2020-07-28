@@ -46,8 +46,8 @@ export type TagItemProps = {
 };
 
 export type ImageSliderParamList = {
-  ImageSliderScreen: undefined;
-  ImagesViewScreen: {
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
     images: ImageURISource[];
   };
 };

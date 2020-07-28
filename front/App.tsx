@@ -5,13 +5,14 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { RecoilRoot } from "recoil/dist";
-import ImageSliderNavigation from "./src/components/ImageSliderNavigation";
+import ArticleDetailImageSliderNavigation
+  from "./src/components/ArticleDetailImageSliderNavigation";
 
 export default function App() {
   return (
     <RecoilRoot>
       <NavigationContainer>
-        <ImageSliderNavigation />
+        <ArticleDetailImageSliderNavigation />
       </NavigationContainer>
     </RecoilRoot>
   );
