@@ -8,7 +8,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,20 +19,18 @@ import {
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
-import { useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
+import { articlePhotosState } from "../states/articleState";
 
-interface ImageInfo {
-  id: string;
-  uri: string;
-}
+let photoId = 0;
 
 export default function Photo() {
-  const [images, setImages] = useState<ImageInfo[]>([]);
-  const setModalVisible = useSetRecoilState(modalActivationState);
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
-  const maxImageCount = 5;
+  const [photos, setPhotos] = useRecoilState(articlePhotosState);
+  const setModalVisible = useSetRecoilState(modalActivationState);
+  const limitPhotoCount = 5;
 
   useEffect(() => {
     requestPermission();
@@ -50,16 +48,16 @@ export default function Photo() {
     }
   };
 
-  const pickImage = async () => {
+  const pickPhoto = async () => {
     const result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
     });
     if (!result.cancelled) {
-      setImages(
-        images.concat({
-          id: images.length.toString(),
+      setPhotos(
+        photos.concat({
+          id: (photoId++).toString(),
           uri: result.uri,
         }),
       );
@@ -73,14 +71,16 @@ export default function Photo() {
       return;
     }
 
-    if (images.length === maxImageCount) {
+    if (photos.length === limitPhotoCount) {
       setModalVisible(true);
-      setModalMessage("사진은 최대 " + maxImageCount + "장만 첨부 가능합니다.");
+      setModalMessage(
+        "사진은 최대 " + limitPhotoCount + "장만 첨부 가능합니다.",
+      );
       return;
     }
 
     try {
-      await pickImage();
+      await pickPhoto();
     } catch (error) {
       console.warn(error);
       setModalVisible(true);
@@ -89,34 +89,37 @@ export default function Photo() {
   };
 
   const removeImage = (id: string) => {
-    setImages(images.filter((value) => value.id !== id));
+    setPhotos(photos.filter((value) => value.id !== id));
   };
 
   return (
-    <View style={styles.photoField}>
+    <View style={styles.container}>
       <NoticeModal message={modalMessage} />
-      <View style={styles.cameraContainer}>
-        <TouchableHighlight onPress={addImage} underlayColor={"#FFFFFF"}>
-          <MaterialCommunityIcons name="camera" size={30} color="black" />
-        </TouchableHighlight>
-        <View style={styles.countContainer}>
-          <Text style={styles.countFont}>{images.length}</Text>
-          <Text style={styles.countFont}>/{maxImageCount}</Text>
-        </View>
+      <View style={styles.cameraButtonContainer}>
+        <TouchableOpacity style={styles.cameraButton} onPress={addImage}>
+          <MaterialCommunityIcons name="camera" size={28} color="grey" />
+          <View style={styles.photoCountContainer}>
+            <Text style={styles.addedPhotoCount}>{photos.length}</Text>
+            <Text style={styles.limitPhotoCount}>/{limitPhotoCount}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
-      <View style={styles.photosContainer}>
+      <View style={styles.photoListContainer}>
         <FlatList
-          data={images}
+          data={photos}
           horizontal={true}
           renderItem={({ item }) => (
             <View style={styles.photoContainer}>
-              <TouchableHighlight onPress={() => removeImage(item.id)}>
-                <AntDesign style={styles.delete} name="closecircle" size={15} />
-              </TouchableHighlight>
+              <View style={styles.delete}>
+                <TouchableOpacity onPress={() => removeImage(item.id)}>
+                  <AntDesign name="closecircle" size={23} />
+                </TouchableOpacity>
+              </View>
               <Image style={styles.photo} source={{ uri: item.uri }} />
             </View>
           )}
-          contentContainerStyle={styles.photos}
+          contentContainerStyle={styles.photoListContents}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     </View>
@@ -124,47 +127,68 @@ export default function Photo() {
 }
 
 const styles = StyleSheet.create({
-  photoField: {
-    paddingTop: 10,
-    marginTop: 20,
-    flexDirection: "row",
-    aspectRatio: 5,
-  },
-  cameraContainer: {
+  container: {
     flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cameraButtonContainer: {
+    height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 5,
+    flexGrow: 1,
+    flexShrink: 0,
+    paddingVertical: 10,
+    paddingRight: 10,
   },
-  countContainer: {
+  cameraButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    aspectRatio: 1,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "#eaeaea",
+  },
+  photoCountContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-  countFont: {
-    fontSize: 11,
+  addedPhotoCount: {
+    fontSize: 15,
+    color: "orange",
+  },
+  limitPhotoCount: {
+    fontSize: 15,
     color: "grey",
   },
-  photosContainer: {
-    flex: 7,
+  photoListContainer: {
+    flexGrow: 4,
+    flexShrink: 1,
     flexDirection: "row",
   },
-  photos: {
-    alignItems: "center",
-  },
   photoContainer: {
-    margin: 5,
-  },
-  photo: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
-    zIndex: -1,
+    aspectRatio: 1,
+    marginLeft: 5,
+    marginRight: 10,
+    marginVertical: 10,
   },
   delete: {
     position: "absolute",
     color: "black",
+    opacity: 0.5,
     right: -7,
     top: -7,
+    zIndex: 99999,
+  },
+  photo: {
+    flex: 1,
+    aspectRatio: 1,
+    borderRadius: 5,
+  },
+  photoListContents: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

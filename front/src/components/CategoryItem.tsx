@@ -4,10 +4,10 @@
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { CategoryItemProps } from "../types/types";
 import { useRecoilState } from "recoil/dist";
 import { useNavigation } from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../states/articleState";
+import { CategoryItemProps } from "../types/types";
 
 export default function CategoryItem({ title }: CategoryItemProps) {
   const navigation = useNavigation();
