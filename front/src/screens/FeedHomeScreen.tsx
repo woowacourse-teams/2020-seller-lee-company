@@ -3,7 +3,7 @@
  */
 
 import React, { useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { mockFeedArticles } from "../data/feedArticleMockData";
@@ -62,7 +62,7 @@ export default function FeedHomeScreen() {
       )}
       keyExtractor={(item) => `${item.id}`}
       refreshing={isRefreshing}
-      contentContainerStyle={{ marginHorizontal: 3 }}
+      contentContainerStyle={styles.feedArticleContainer}
       onRefresh={onRefresh}
       onEndReachedThreshold={0}
       onEndReached={onLoad}
@@ -70,3 +70,9 @@ export default function FeedHomeScreen() {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  feedArticleContainer: {
+    marginHorizontal: 3,
+  },
+});
