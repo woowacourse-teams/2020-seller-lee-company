@@ -35,14 +35,6 @@ export interface CategoryItemProps {
   title: string;
 }
 
-export type FeedParamList = {
-  FeedHome: undefined;
-  SellerLee: undefined;
-  FeedDetail: undefined;
-};
-
-export type FeedNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
-
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
   ArticleContentsFormScreen: undefined;

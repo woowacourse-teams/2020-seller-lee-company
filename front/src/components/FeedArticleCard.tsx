@@ -10,12 +10,14 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { FeedNavigationProp, PhotoInfo, Tag } from "../types/types";
+import { PhotoInfo, Tag } from "../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useNavigation } from "@react-navigation/native";
 import { insertComma } from "../replacePriceWithComma";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ArticleNavigationParamList } from "./ArticleNavigation";
 
 const ANIMATE_START_VALUE = 0.93;
 
@@ -25,6 +27,11 @@ interface FeedArticleCardProps {
   favorite: number;
   photos: PhotoInfo[];
 }
+
+export type FeedNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "FeedHome"
+>;
 
 export default function FeedArticleCard({
   price,
@@ -82,9 +89,10 @@ export default function FeedArticleCard({
 
 const styles = StyleSheet.create({
   articleContainer: {
-    marginHorizontal: 4,
-    backgroundColor: "#FFF",
+    marginVertical: 3,
+    marginLeft: 6,
     paddingVertical: 15,
+    backgroundColor: "#FFF",
     borderRadius: 8,
     aspectRatio: 4 / 3,
     shadowColor: "#000",
@@ -111,11 +119,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     paddingHorizontal: 8,
-  },
-  detailsHeartContainer: {
-    flexDirection: "row",
-    flex: 1,
-    alignItems: "center",
   },
   text: { fontWeight: "bold" },
   detailsPriceContainer: {

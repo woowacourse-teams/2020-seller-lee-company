@@ -1,18 +1,26 @@
 /**
- * @author begaonnuri
+ * @author joseph415
  */
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ChatScreen from "../screens/ChatScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import CategoryNavigation from "./CategoryNavigation";
-import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
-import ArticleCreateNavigation from "./ArticleCreateNavigation";
-import FeedNavigation from "./FeedNavigation";
+import ChatScreen from "../../screens/ChatScreen";
+import ProfileScreen from "../../screens/ProfileScreen";
+import CategoryNavigation from "../CategoryNavigation";
+import ArticleCreateOptionsModal from "../ArticleCreateOptionsModal";
+import ArticleCreateNavigation from "../ArticleCreateNavigation";
+import ArticleNavigation from "../ArticleNavigation";
 
 const Tab = createBottomTabNavigator();
+
+function getTabBarVisibility(route: any) {
+  const routeName = route.state
+    ? route.state.routes[route.state.index].name
+    : "";
+
+  return routeName !== "FeedDetail";
+}
 
 export default function BottomTabNavigation() {
   return (
@@ -22,8 +30,8 @@ export default function BottomTabNavigation() {
     >
       <Tab.Screen
         name="홈"
-        component={FeedNavigation}
-        options={{
+        component={ArticleNavigation}
+        options={({ route }) => ({
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
@@ -31,7 +39,8 @@ export default function BottomTabNavigation() {
               color={color}
             />
           ),
-        }}
+          tabBarVisible: getTabBarVisibility(route),
+        })}
       />
       <Tab.Screen
         name="카테고리"

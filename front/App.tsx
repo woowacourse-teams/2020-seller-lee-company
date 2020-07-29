@@ -1,5 +1,5 @@
 import React from "react";
-import BottomTabNavigation from "./src/components/BottomTabNavigation";
+import BottomTabNavigation from "./src/components/ArticleDetail/BottomTabNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { RecoilRoot } from "recoil/dist";
 

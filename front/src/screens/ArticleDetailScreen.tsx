@@ -1,28 +1,60 @@
 /**
- * @author begaonnuri
+ * @author joseph415
  */
 
 import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import DetailArticle from "../components/DetailArticle";
+import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
+import ArticlePriceAndTradeType from "../components/ArticleDetail/ArticlePriceAndTradeType";
+import ChatButton from "../components/ArticleDetail/ChatButton";
 
-export default function ArticleDetailScreen() {
+export interface ArticleDetailProps {
+  price: number;
+  tradeType: string;
+  tradeLocation: string;
+}
+
+export default function ArticleDetailScreen({
+  price,
+  tradeType,
+  tradeLocation,
+}: ArticleDetailProps) {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.image}>
-        <Text>.</Text>
+    <View style={styles.ArticleDetailContainer}>
+      <ScrollView
+        style={styles.ScrollViewContainer}
+        bounces={false}
+        contentContainerStyle={styles.container}
+      >
+        <View style={styles.image}>
+          <Text>.</Text>
+        </View>
+        <View style={styles.member}>
+          <Text>.</Text>
+        </View>
+        <View style={styles.article}>
+          <DetailArticle />
+        </View>
+      </ScrollView>
+      <View style={styles.bottomTab}>
+        <ArticleDetailFavorite />
+        <ArticlePriceAndTradeType />
+        <View style={styles.chatButtonContainer}>
+          <ChatButton />
+        </View>
       </View>
-      <View style={styles.member}>
-        <Text>.</Text>
-      </View>
-      <View style={styles.article}>
-        <DetailArticle />
-      </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  ArticleDetailContainer: {
+    flex: 1,
+  },
+  ScrollViewContainer: {
+    height: "75%",
+  },
   container: {
     flex: 1,
   },
@@ -37,5 +69,15 @@ const styles = StyleSheet.create({
   article: {
     flex: 4,
     backgroundColor: "white",
+  },
+  bottomTab: {
+    flexDirection: "row",
+    flex: 1,
+    marginHorizontal: 15,
+  },
+  chatButtonContainer: {
+    flex: 1,
+    alignItems: "flex-end",
+    justifyContent: "center",
   },
 });

@@ -62,6 +62,7 @@ export default function FeedHomeScreen() {
       )}
       keyExtractor={(item) => `${item.id}`}
       refreshing={isRefreshing}
+      contentContainerStyle={{ marginHorizontal: 3 }}
       onRefresh={onRefresh}
       onEndReachedThreshold={0}
       onEndReached={onLoad}
