@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: local
+---
+spring:
+  profiles: local
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -11,11 +14,13 @@ spring:
       ddl-auto: create
     properties:
       hibernate.format-sql: true
+
   h2:
     console:
       enabled: true
+
   datasource:
-    url: jdbc:h2:mem:testdb;IFEXISTS=FALSE;
+    url: jdbc:h2:tcp://localhost/${user.dir}/test;IFEXISTS=FALSE;
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -23,3 +28,4 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace
+---
