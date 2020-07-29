@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button, StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
+import theme from "../colors";
 
 export default function ArticleCreateOptionsModal() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,6 +41,7 @@ export default function ArticleCreateOptionsModal() {
                 navigation.navigate("글쓰기");
                 setModalVisible(false);
               }}
+              color={theme.primary}
             />
           </View>
         </Modal>

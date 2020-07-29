@@ -46,9 +46,9 @@ export type ArticleCreateScreenNavigationProp = StackNavigationProp<
   "ArticleCreateScreen"
 >;
 
-export type ArticleCreateModalNavigationProp = StackNavigationProp<
+export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
   ArticleCreateParamList,
-  "ArticleCreateScreen"
+  "ArticleContentsFormScreen"
 >;
 
 export interface Tag {

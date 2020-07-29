@@ -3,6 +3,8 @@
  */
 
 export default {
-  primary: "#1b6ca8",
-  secondary: "#0a97b0",
+  primary: "#07689f",
+  secondary: "#a2d5f2",
+  tertiary: "#fafafa",
+  others: "#ff7e67",
 };

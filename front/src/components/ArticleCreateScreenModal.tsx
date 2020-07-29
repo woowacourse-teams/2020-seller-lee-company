@@ -12,7 +12,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { articleModalActivationState } from "../states/articleState";
-import { ArticleCreateModalNavigationProp } from "../types/types";
+import { ArticleCreateScreenNavigationProp } from "../types/types";
 
 interface ArticleCreateScreenModalProps {
   resetCreateScreen: Function;
@@ -21,7 +21,7 @@ interface ArticleCreateScreenModalProps {
 export default function ArticleCreateScreenModal({
   resetCreateScreen,
 }: ArticleCreateScreenModalProps) {
-  const navigation = useNavigation<ArticleCreateModalNavigationProp>();
+  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const [articleModalState, setArticleModalState] = useRecoilState(
     articleModalActivationState,
   );
