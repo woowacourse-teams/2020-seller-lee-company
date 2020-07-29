@@ -9,17 +9,11 @@ import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavo
 import ArticlePriceAndTradeType from "../components/ArticleDetail/ArticlePriceAndTradeType";
 import ChatButton from "../components/ArticleDetail/ChatButton";
 
-export interface ArticleDetailProps {
-  price: number;
-  tradeType: string;
-  tradeLocation: string;
+export interface ArticleDetailProp {
+  article_id: number;
 }
 
-export default function ArticleDetailScreen({
-  price,
-  tradeType,
-  tradeLocation,
-}: ArticleDetailProps) {
+export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
   return (
     <View style={styles.ArticleDetailContainer}>
       <ScrollView
@@ -38,8 +32,8 @@ export default function ArticleDetailScreen({
         </View>
       </ScrollView>
       <View style={styles.bottomTab}>
-        <ArticleDetailFavorite />
-        <ArticlePriceAndTradeType />
+        <ArticleDetailFavorite article_id={article_id} />
+        <ArticlePriceAndTradeType article_id={article_id} />
         <View style={styles.chatButtonContainer}>
           <ChatButton />
         </View>

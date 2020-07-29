@@ -95,3 +95,7 @@ export interface PhotoInfo {
   id: number;
   uri: string;
 }
+
+export interface ArticleDetailFavoriteProp {
+  article_id: number;
+}

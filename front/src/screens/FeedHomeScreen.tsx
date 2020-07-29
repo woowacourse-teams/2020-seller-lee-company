@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author joseph415
  */
 
 import React, { useLayoutEffect, useState } from "react";
@@ -54,13 +54,14 @@ export default function FeedHomeScreen() {
       data={mockFeedArticles}
       renderItem={({ item }) => (
         <FeedArticleCard
+          article_id={item.article_id}
           price={item.price}
           tagBoxes={item.tagBoxes}
           favorite={item.favorite}
           photos={item.photos}
         />
       )}
-      keyExtractor={(item) => `${item.id}`}
+      keyExtractor={(item) => `${item.article_id}`}
       refreshing={isRefreshing}
       contentContainerStyle={styles.feedArticleContainer}
       onRefresh={onRefresh}

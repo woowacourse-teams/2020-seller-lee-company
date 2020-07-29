@@ -12,7 +12,7 @@ import ChatRoomScreen from "../screens/ChatRoomScreen";
 export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedDetail: undefined;
+  FeedDetail: { article_id: number };
   ChatRoom: undefined;
 };
 

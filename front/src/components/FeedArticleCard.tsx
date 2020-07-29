@@ -22,6 +22,7 @@ import { ArticleNavigationParamList } from "./ArticleNavigation";
 const ANIMATE_START_VALUE = 0.93;
 
 interface FeedArticleCardProps {
+  article_id: number;
   price: string;
   tagBoxes: Tag[];
   favorite: number;
@@ -34,6 +35,7 @@ export type FeedNavigationProp = StackNavigationProp<
 >;
 
 export default function FeedArticleCard({
+  article_id,
   price,
   tagBoxes,
   favorite,
@@ -61,7 +63,9 @@ export default function FeedArticleCard({
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedDetail");
+        navigation.navigate("FeedDetail", {
+          article_id: article_id,
+        });
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
