@@ -4,27 +4,28 @@
 
 package sellerlee.back.article.acceptance;
 
-import io.restassured.RestAssured;
+import static io.restassured.RestAssured.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.article.presentation.ArticleController.*;
+
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+
+import io.restassured.RestAssured;
 import sellerlee.back.article.application.ArticleResponse;
-
-import java.util.List;
-import java.util.stream.Stream;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
     @LocalServerPort
-    public int port;
+    private int port;
 
     @BeforeEach
     public void setUp() {
@@ -59,6 +60,7 @@ public class AcceptanceTest {
                 .get(ARTICLE_URI)
                 .then()
                 .log().all()
-                .extract().jsonPath().getList(".", ArticleResponse.class);
+                .extract()
+                .jsonPath().getList(".", ArticleResponse.class);
     }
 }
