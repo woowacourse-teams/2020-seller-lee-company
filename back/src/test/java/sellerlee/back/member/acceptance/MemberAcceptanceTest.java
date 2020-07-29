@@ -6,6 +6,7 @@ package sellerlee.back.member.acceptance;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.member.fixture.MemberFixture.*;
 
 import java.util.stream.Stream;
 
@@ -16,17 +17,23 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AcceptanceTest {
+public class MemberAcceptanceTest {
     @LocalServerPort
     private int port;
+
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
+        objectMapper = new ObjectMapper();
     }
 
     /**
@@ -49,11 +56,15 @@ public class AcceptanceTest {
         );
     }
 
-    private void login() {
+    private void login() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST_FIXTURE);
+
         given()
+                .body(request)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .log().all()
                 .when()
-                .post()
+                .post("/login")
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.OK.value());

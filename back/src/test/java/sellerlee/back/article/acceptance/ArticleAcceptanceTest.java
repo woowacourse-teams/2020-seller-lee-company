@@ -23,7 +23,7 @@ import io.restassured.RestAssured;
 import sellerlee.back.article.application.ArticleResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AcceptanceTest {
+public class ArticleAcceptanceTest {
     @LocalServerPort
     private int port;
 

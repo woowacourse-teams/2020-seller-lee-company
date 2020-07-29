@@ -3,7 +3,7 @@
  */
 
 insert into member (member_id, email, password, score)
-values (1, 'sellerlee@woowacourse.com', '1234', 4.5),
+values (1, 'sellerlee@gmail.com', '1234', 4.5),
        (2, 'lxxjn0@gmail.com', '0000', 5);
 
 insert into article (article_id, category, contents, price, title, member_id)
