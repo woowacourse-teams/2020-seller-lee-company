@@ -5,11 +5,18 @@
 insert into member (member_id, email, password, score)
 values (1, 'turtle@woowabro.com', '1234', 36);
 
-insert into article (article_id, category, contents, price, title, member_id)
-values (1, 'TEST', 'test contents1', 1234, 'test title1', 1);
-
-insert into article (article_id, category, contents, price, title, member_id)
-values (2, 'TEST', 'test contents2', 5678, 'test title2', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (1, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (2, 'TEST', 'test contents2', 5678, 'test title2', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (3, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (4, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (5, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (6, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (7, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (8, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (9, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (10, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (11, 'TEST', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id) values (12, 'TEST', 'test contents1', 1234, 'test title1', 1);
 
 insert into tag (article_id, name)
 values (1, 'test tag1'),

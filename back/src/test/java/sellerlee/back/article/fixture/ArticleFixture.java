@@ -1,22 +1,21 @@
 /**
- * @author kouz95
+ * @author begaonnuri
  */
 
 package sellerlee.back.article.fixture;
+
+import static sellerlee.back.article.fixture.TagFixture.*;
+
+import java.util.Arrays;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
 
-import java.util.Arrays;
-
-import static sellerlee.back.article.fixture.TagFixture.TAG_FIXTURE;
-import static sellerlee.back.article.fixture.TagFixture.TAG_FIXTURE2;
-
 public class ArticleFixture {
     public static final Article ARTICLE_FIXTURE = new Article(
-            new Member(1L),
+            new Member(1L, "turtle@woowabro.com", "1234", 36.0),
             "TEST_TITLE",
             Category.TEST,
             10_000L,
