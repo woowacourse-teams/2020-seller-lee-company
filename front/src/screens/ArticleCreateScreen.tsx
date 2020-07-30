@@ -157,14 +157,16 @@ export default function ArticleCreateScreen() {
   const postArticle = async () => {
     const tags = tagBoxes.map((tag) => tag.tag);
     const mockAuthorId = 1;
+    const images = photos.map((photo) => photo.uri);
 
     return await axios.post(`${BASE_URL}/articles`, {
       title,
       price,
       category: selectedCategory,
       contents,
-      authorId: mockAuthorId,
       tags,
+      images,
+      authorId: mockAuthorId,
     });
   };
 
