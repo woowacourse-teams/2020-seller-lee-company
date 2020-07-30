@@ -8,17 +8,15 @@ import { StatusBar, StyleSheet, View } from "react-native";
 import ArticleDetailImageViewSlider from "../components/ArticleDetailImageViewSlider";
 import { HeaderBackButton } from "@react-navigation/stack";
 import {
-  ImageSliderNavigationProp,
-  ImageSliderParamList,
+  ArticleDetailImageViewNavigationProp,
+  ArticleDetailImageViewRouteProp,
 } from "../types/types";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function ArticleDetailImageViewScreen() {
-  const navigation = useNavigation<ImageSliderNavigationProp>();
-  const route = useRoute<
-    RouteProp<ImageSliderParamList, "ArticleDetailImageViewScreen">
-  >();
+  const navigation = useNavigation<ArticleDetailImageViewNavigationProp>();
+  const route = useRoute<ArticleDetailImageViewRouteProp>();
 
   const goBackAndSetStatusBarVisible = () => {
     navigation.goBack();
@@ -45,7 +43,7 @@ export default function ArticleDetailImageViewScreen() {
   }, [navigation, route]);
   return (
     <View style={styles.container}>
-      <ArticleDetailImageViewSlider images={route.params.images} />
+      <ArticleDetailImageViewSlider images={route.params.photos} />
     </View>
   );
 }

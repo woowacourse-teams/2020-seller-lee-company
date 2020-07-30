@@ -2,49 +2,95 @@
  * @author joseph415
  */
 
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import DetailArticle from "../components/DetailArticle";
+import React, { useLayoutEffect } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { HeaderBackButton } from "@react-navigation/stack";
+import { EvilIcons } from "@expo/vector-icons";
+import axios from "axios";
+import ArticleDetail from "../components/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetailFavorite";
 import ArticlePriceAndTradeType from "../components/ArticlePriceAndTradeType";
-import ChatButton from "../components/ChatButton";
+import ArticleDetailChatButton from "../components/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetailImageSlider";
+import { ArticleDetailScreenProp, AuthorScoreType } from "../types/types";
+import ArticleAuthor from "../components/ArticleAuthor";
+import theme from "../colors";
 
-export interface ArticleDetailProp {
-  article_id: number;
+interface ArticleDetailScreenProps {
+  articleId: number;
 }
 
-export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
+export default function ArticleDetailScreen({
+  articleId,
+}: ArticleDetailScreenProps) {
+  const BASE_URL = "http://localhost:8080";
+  const navigation = useNavigation<ArticleDetailScreenProp>();
+
   const getMockImages = () => {
     return [
-      require("../../assets/favicon.png"),
-      require("../../assets/icon.png"),
-      require("../../assets/splash.png"),
+      "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+      "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+      "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
     ];
   };
 
+  const articleDetail = async () => {
+    try {
+      return await axios.get(`${BASE_URL}/articles/${articleId}`);
+    } catch (error) {
+      console.log("showArticle error");
+    }
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color={"grey"} />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  });
+
   return (
-    <View style={styles.ArticleDetailContainer}>
+    <View style={styles.container}>
       <ScrollView
-        style={styles.ScrollViewContainer}
+        style={styles.scrollView}
         bounces={false}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.scrollViewContentContainer}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.image}>
-          <ArticleDetailImageSlider images={getMockImages()} />
+        <View style={styles.imageSliderContainer}>
+          <ArticleDetailImageSlider photos={getMockImages()} />
         </View>
-        <View style={styles.member}>
-          <Text>.</Text>
+        <View style={styles.articleAuthorContainer}>
+          <ArticleAuthor
+            name={"스티치"}
+            score={7 as AuthorScoreType}
+            avatar={{
+              uri:
+                "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+            }}
+          />
         </View>
-        <View style={styles.article}>
-          <DetailArticle />
+        <View style={styles.articleDetailContainer}>
+          <ArticleDetail />
         </View>
       </ScrollView>
       <View style={styles.bottomTab}>
-        <ArticleDetailFavorite article_id={article_id} />
-        <ArticlePriceAndTradeType article_id={article_id} />
+        <View style={styles.articleDetailFavoriteContainer}>
+          <ArticleDetailFavorite article_id={articleId} />
+        </View>
+        <ArticlePriceAndTradeType article_id={articleId} />
         <View style={styles.chatButtonContainer}>
-          <ChatButton />
+          <ArticleDetailChatButton />
         </View>
       </View>
     </View>
@@ -52,35 +98,45 @@ export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
 }
 
 const styles = StyleSheet.create({
-  ArticleDetailContainer: {
-    flex: 1,
-  },
-  ScrollViewContainer: {
-    height: "75%",
-  },
   container: {
     flex: 1,
-  },
-  image: {
-    flex: 5,
-    backgroundColor: "lightblue",
-  },
-  member: {
-    flex: 1,
-    backgroundColor: "lightyellow",
-  },
-  article: {
-    flex: 4,
     backgroundColor: "white",
+  },
+  scrollView: {
+    flex: 1,
+    marginHorizontal: 15,
+  },
+  scrollViewContentContainer: {},
+  imageSliderContainer: {
+    aspectRatio: 1,
+    borderRadius: 5,
+  },
+  articleAuthorContainer: {
+    flex: 1,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eaeaea",
+  },
+  articleDetailContainer: {
+    paddingVertical: 10,
   },
   bottomTab: {
     flexDirection: "row",
-    flex: 1,
-    marginHorizontal: 15,
+    aspectRatio: 5,
+    paddingHorizontal: 15,
+    paddingBottom: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#eaeaea",
+    backgroundColor: theme.tertiary,
   },
   chatButtonContainer: {
     flex: 1,
     alignItems: "flex-end",
     justifyContent: "center",
+  },
+  articleDetailFavoriteContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
   },
 });

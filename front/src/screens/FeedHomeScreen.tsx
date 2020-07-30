@@ -7,11 +7,8 @@ import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
-import { Feed, FeedParamList } from "../types/types";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/FeedArticleCard";
-
-type FeedHomeNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
 
 export default function FeedHomeScreen() {
   const BASE_URL = "http://localhost:8080/";
@@ -31,7 +28,7 @@ export default function FeedHomeScreen() {
           name="person"
           size={24}
           color="black"
-          onPress={() => navigation.navigate("SellerLee")}
+          onPress={() => navigation.navigate("FeedDetail", { articleId: 1 })}
         />
       ),
       headerRightContainerStyle: { paddingRight: 15 },
@@ -64,7 +61,7 @@ export default function FeedHomeScreen() {
 
   const getLastArticleId = () => {
     return articles
-      .map((article) => article.article_id)
+      .map((article) => article.articleId)
       .sort((a, b) => b - a)
       .pop();
   };
@@ -87,14 +84,14 @@ export default function FeedHomeScreen() {
       data={articles}
       renderItem={({ item }) => (
         <FeedArticleCard
-          article_id={item.article_id}
+          articleId={item.articleId}
           price={item.price}
           tagBoxes={item.tagBoxes}
           favorite={item.favorite}
           photos={item.photos}
         />
       )}
-      keyExtractor={(item) => `${item.article_id}`}
+      keyExtractor={(item) => `${item.articleId}`}
       refreshing={isRefreshing}
       contentContainerStyle={styles.feedArticleContainer}
       onRefresh={onRefresh}
