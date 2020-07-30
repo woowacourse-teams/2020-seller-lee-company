@@ -10,29 +10,29 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import {
-  FeedArticle,
-  FeedNavigationProp,
-  PhotoInfo,
-  Tag,
-} from "../types/types";
+import { Feed } from "../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useNavigation } from "@react-navigation/native";
 import { insertComma } from "../replacePriceWithComma";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ArticleNavigationParamList } from "./ArticleNavigation";
 
 const ANIMATE_START_VALUE = 0.93;
 
-interface FeedArticleCardProps {
-  id: number;
-  price: string;
-  tagBoxes: Tag[];
-  favorite: number;
-  photos: PhotoInfo[];
-}
+type FeedNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "FeedHome"
+>;
 
-export default function FeedArticleCard({ feedArticle }: FeedArticle) {
+export default function FeedArticleCard({
+  article_id,
+  price,
+  tagBoxes,
+  favorite,
+  photos,
+}: Feed) {
   const navigation = useNavigation<FeedNavigationProp>();
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
@@ -55,25 +55,23 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedArticle");
+        navigation.navigate("FeedDetail", { article_id });
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
       <View style={styles.articleContainer}>
         <View style={styles.photoContainer}>
-          <FeedSliderImage feedArticle={feedArticle} />
+          <FeedSliderImage photos={photos} />
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite feedArticle={feedArticle} />
+            <Favorite favoriteCount={favorite} />
             <View style={styles.detailsPriceContainer}>
-              <Text style={styles.text}>
-                {insertComma(feedArticle.price)}원
-              </Text>
+              <Text style={styles.text}>{insertComma(price)}원</Text>
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {feedArticle.tagBoxes.map((tagItem) => (
+            {tagBoxes.map((tagItem) => (
               <FeedArticleTag key={tagItem.id} tagBox={tagItem} />
             ))}
           </View>
@@ -85,9 +83,10 @@ export default function FeedArticleCard({ feedArticle }: FeedArticle) {
 
 const styles = StyleSheet.create({
   articleContainer: {
-    marginHorizontal: 4,
-    backgroundColor: "#FFF",
+    marginVertical: 3,
+    marginLeft: 6,
     paddingVertical: 15,
+    backgroundColor: "#FFF",
     borderRadius: 8,
     aspectRatio: 4 / 3,
     shadowColor: "#000",
@@ -114,11 +113,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     paddingHorizontal: 8,
-  },
-  detailsHeartContainer: {
-    flexDirection: "row",
-    flex: 1,
-    alignItems: "center",
   },
   text: { fontWeight: "bold" },
   detailsPriceContainer: {
