@@ -29,7 +29,7 @@ interface FeedArticleCardProps {
   photos: PhotoInfo[];
 }
 
-export type FeedNavigationProp = StackNavigationProp<
+type FeedNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "FeedHome"
 >;
@@ -63,9 +63,7 @@ export default function FeedArticleCard({
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedDetail", {
-          article_id: article_id,
-        });
+        navigation.navigate("FeedDetail", { article_id });
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >

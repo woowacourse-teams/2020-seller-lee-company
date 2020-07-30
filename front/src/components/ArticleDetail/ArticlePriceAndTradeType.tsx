@@ -28,7 +28,9 @@ export default function ArticlePriceAndTradeType({
     <View style={styles.priceAndActionType}>
       <Text style={styles.price}>{insertComma(price.toString())}원</Text>
       <Text style={styles.text}>
-        {tradeType === "직거래" ? tradeType + "|" + location : tradeType}
+        {tradeType === "직거래"
+          ? `${tradeType} | ${location}`
+          : `${tradeType}|${tradeType}`}
       </Text>
     </View>
   );

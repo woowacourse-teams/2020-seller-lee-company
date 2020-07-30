@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ArticleNavigationParamList } from "../ArticleNavigation";
 
-export type ChatButtonProp = StackNavigationProp<
+type ChatButtonProp = StackNavigationProp<
   ArticleNavigationParamList,
   "ChatRoom"
 >;

@@ -6,7 +6,7 @@ import React, { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-export interface FavoriteProp {
+interface FavoriteProp {
   favoriteCount: number;
 }
 
