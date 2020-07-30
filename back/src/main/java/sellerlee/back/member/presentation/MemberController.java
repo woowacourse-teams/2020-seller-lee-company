@@ -14,7 +14,6 @@ import sellerlee.back.member.application.MemberService;
 
 @RestController
 public class MemberController {
-
     private final MemberService memberService;
 
     public MemberController(MemberService memberService) {
