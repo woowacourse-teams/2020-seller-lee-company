@@ -81,10 +81,10 @@ class ArticleControllerTest {
     @Test
     void showArticle() throws Exception {
         when(articleViewService.showArticle(1L, 1L))
-                .thenReturn(ArticleResponse.of(ARTICLE1, MEMBER, FAVORITE));
+                .thenReturn(ArticleResponse.of(ARTICLE1, FAVORITE));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
-                .param("MemberId", String.valueOf(MEMBER.getId())))
+                .param("MemberId", String.valueOf(MEMBER1.getId())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

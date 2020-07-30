@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 insert into member (member_id, email, password, score)
 values (1, 'turtle@woowabro.com', '1234', 36),
        (2, 'lxxjn0@gmail.com', '0000', 5.0),

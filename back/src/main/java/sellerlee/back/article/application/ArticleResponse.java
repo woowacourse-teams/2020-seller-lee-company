@@ -25,15 +25,15 @@ public class ArticleResponse {
     private TradeState tradeState;
     private List<String> images;
     private List<Tag> tags;
-    private Member member;
+    private Member author;
     private Favorite favorite;
 
-    public ArticleResponse() {
+    private ArticleResponse() {
     }
 
     public ArticleResponse(Long id, String title, Category category, Long price,
             String contents, TradeType tradeType, TradeState tradeState,
-            List<String> images, List<Tag> tags, Member member,
+            List<String> images, List<Tag> tags, Member author,
             Favorite favorite) {
         this.id = id;
         this.title = title;
@@ -44,11 +44,11 @@ public class ArticleResponse {
         this.tradeState = tradeState;
         this.images = images;
         this.tags = tags;
-        this.member = member;
+        this.author = author;
         this.favorite = favorite;
     }
 
-    public static ArticleResponse of(Article article, Member member, Favorite favorite) {
+    public static ArticleResponse of(Article article, Favorite favorite) {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
@@ -60,8 +60,26 @@ public class ArticleResponse {
                 TradeState.SALING,
                 Arrays.asList("URI1,URI2"),
                 article.getTags().toList(),
-                member,
+                // TODO: 2020/07/30 Article type 없음
+                new Member(1L, "turtle@woowabro.com", "1234", 4.5),
                 favorite
+        );
+    }
+
+    public static ArticleResponse of(Article article) {
+        return new ArticleResponse(
+                article.getId(),
+                article.getTitle(),
+                article.getCategory(),
+                article.getPrice(),
+                article.getContents(),
+                // TODO: 2020/07/30 Article type 없음
+                TradeType.DELEVERY,
+                TradeState.SALING,
+                Arrays.asList("URI1,URI2"),
+                article.getTags().toList(),
+                new Member(1L, "turtle@woowabro.com", "1234", 4.5),
+                null
         );
     }
 
@@ -101,8 +119,8 @@ public class ArticleResponse {
         return tags;
     }
 
-    public Member getMember() {
-        return member;
+    public Member getAuthor() {
+        return author;
     }
 
     public Favorite getFavorite() {
