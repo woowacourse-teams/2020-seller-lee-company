@@ -1,9 +1,10 @@
 /**
- * @author begaonnuri, joseph415
+ * @author kouz95
  */
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageURISource } from "react-native";
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -29,6 +30,11 @@ export type CategoryDetailNavigationProp = StackNavigationProp<
 export type SearchNavigationProp = StackNavigationProp<
   CategoryParamList,
   "Search"
+>;
+
+export type ImageSliderNavigationProp = StackNavigationProp<
+  ImageSliderParamList,
+  "ArticleDetailImageViewScreen"
 >;
 
 export interface CategoryItemProps {
@@ -132,3 +138,10 @@ export interface Article {
 export interface ArticleTag {
   name: string;
 }
+
+export type ImageSliderParamList = {
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
+    images: ImageURISource[];
+  };
+};

@@ -12,8 +12,8 @@ import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import {
   inputState,
   isModalOpenState,
-  tagIdState,
   tagBoxesState,
+  tagIdState,
 } from "../states/TagState";
 
 export default function Tag() {

@@ -13,9 +13,9 @@ import {
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
-  PermissionStatus,
   launchImageLibraryAsync,
   MediaTypeOptions,
+  PermissionStatus,
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
