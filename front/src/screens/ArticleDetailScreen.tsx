@@ -8,12 +8,21 @@ import DetailArticle from "../components/DetailArticle";
 import ArticleDetailFavorite from "../components/ArticleDetailFavorite";
 import ArticlePriceAndTradeType from "../components/ArticlePriceAndTradeType";
 import ChatButton from "../components/ChatButton";
+import ArticleDetailImageSlider from "../components/ArticleDetailImageSlider";
 
 export interface ArticleDetailProp {
   article_id: number;
 }
 
 export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
+  const getMockImages = () => {
+    return [
+      require("../../assets/favicon.png"),
+      require("../../assets/icon.png"),
+      require("../../assets/splash.png"),
+    ];
+  };
+
   return (
     <View style={styles.ArticleDetailContainer}>
       <ScrollView
@@ -22,7 +31,7 @@ export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
         contentContainerStyle={styles.container}
       >
         <View style={styles.image}>
-          <Text>.</Text>
+          <ArticleDetailImageSlider images={getMockImages()} />
         </View>
         <View style={styles.member}>
           <Text>.</Text>

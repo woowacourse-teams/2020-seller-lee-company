@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { PhotoInfo, Tag } from "../types/types";
+import { Feed } from "../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import Favorite from "./Favorite";
 import FeedSliderImage from "./FeedSliderImage";
@@ -20,14 +20,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ArticleNavigationParamList } from "./ArticleNavigation";
 
 const ANIMATE_START_VALUE = 0.93;
-
-interface FeedArticleCardProps {
-  article_id: number;
-  price: string;
-  tagBoxes: Tag[];
-  favorite: number;
-  photos: PhotoInfo[];
-}
 
 type FeedNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
@@ -40,7 +32,7 @@ export default function FeedArticleCard({
   tagBoxes,
   favorite,
   photos,
-}: FeedArticleCardProps) {
+}: Feed) {
   const navigation = useNavigation<FeedNavigationProp>();
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(

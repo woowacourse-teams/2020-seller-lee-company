@@ -2,17 +2,22 @@
  * @author joseph415
  */
 
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { mockFeedArticles } from "../data/feedArticleMockData";
+import axios from "axios";
+import { Feed, FeedParamList } from "../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
 import FeedArticleCard from "../components/FeedArticleCard";
 
+type FeedHomeNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
+
 export default function FeedHomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<FeedHomeNavigationProp>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [articles, setArticles] = useState<Feed[]>([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -29,29 +34,31 @@ export default function FeedHomeScreen() {
     });
   }, [navigation]);
 
-  const getInitData = () => {
-    // fetch init data
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const { data } = await axios.get("http://localhost:8080/articles");
+    setArticles(data);
   };
 
   const onRefresh = async () => {
     setIsRefreshing(true);
-    await getInitData();
+    await getData();
     setIsRefreshing(false);
   };
 
-  const getMoreData = () => {
-    // fetch more data
-  };
-
   const onLoad = async () => {
+    if (articles.length < 3) return;
     setIsLoading(true);
-    await getMoreData();
+    await getData();
     setIsLoading(false);
   };
 
   return (
     <FlatList
-      data={mockFeedArticles}
+      data={articles}
       renderItem={({ item }) => (
         <FeedArticleCard
           article_id={item.article_id}
@@ -65,7 +72,7 @@ export default function FeedHomeScreen() {
       refreshing={isRefreshing}
       contentContainerStyle={styles.feedArticleContainer}
       onRefresh={onRefresh}
-      onEndReachedThreshold={0}
+      onEndReachedThreshold={0.25}
       onEndReached={onLoad}
       ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
     />

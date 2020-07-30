@@ -4,6 +4,7 @@
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageURISource } from "react-native";
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -31,9 +32,20 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
+export type ImageSliderNavigationProp = StackNavigationProp<
+  ImageSliderParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
 export interface CategoryItemProps {
   title: string;
 }
+
+export type FeedParamList = {
+  FeedHome: undefined;
+  SellerLee: undefined;
+  FeedArticle: undefined;
+};
 
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
@@ -50,15 +62,6 @@ export type ArticleCreateModalNavigationProp = StackNavigationProp<
   ArticleCreateParamList,
   "ArticleCreateScreen"
 >;
-
-export interface Tag {
-  id: number;
-  tag: string;
-}
-
-export interface TagItemProps {
-  tagBox: Tag;
-}
 
 export type Category =
   | "디지털/가전"
@@ -99,3 +102,27 @@ export interface PhotoInfo {
 export interface ArticleDetailFavoriteProp {
   article_id: number;
 }
+
+export interface Feed {
+  article_id: number;
+  price: string;
+  tagBoxes: Tag[];
+  favorite: number;
+  photos: PhotoInfo[];
+}
+
+export interface Tag {
+  id: number;
+  tag: string;
+}
+
+export interface TagItemProps {
+  tagBox: Tag;
+}
+
+export type ImageSliderParamList = {
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
+    images: ImageURISource[];
+  };
+};

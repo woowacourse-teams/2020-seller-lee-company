@@ -2,26 +2,26 @@
  * @author kouz95 lxxjn0
  */
 
-import React, { useLayoutEffect, useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {
-  View,
-  Text,
+  BackHandler,
   Button,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   Keyboard,
   Platform,
-  BackHandler,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
-  useSetRecoilState,
-  useResetRecoilState,
   useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
 } from "recoil/dist";
 import ArticleTitleForm from "../components/ArticleTitleForm";
 import ArticlePriceForm from "../components/ArticlePriceForm";
@@ -30,8 +30,8 @@ import Photo from "../components/Photo";
 import Tag from "../components/Tag";
 import {
   articleContentsState,
-  articlePhotosState,
   articleModalActivationState,
+  articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
   articleTitleState,

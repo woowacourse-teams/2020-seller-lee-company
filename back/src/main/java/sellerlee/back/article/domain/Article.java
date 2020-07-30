@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author jnsorn
  */
 
 package sellerlee.back.article.domain;
@@ -15,19 +15,19 @@ public class Article {
     @Column(name = "article_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", insertable = false, updatable = false)
-    private Member author;
-
     private String title;
+
+    private Long price;
 
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    private Long price;
-
     @Lob
     private String contents;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    private Member author;
 
     @Embedded
     private Tags tags;
@@ -35,38 +35,42 @@ public class Article {
     protected Article() {
     }
 
-    public Article(Member author, String title, Category category, Long price,
-            String contents, Tags tags) {
-        this.author = author;
+    public Article(Long id, String title, Long price, Category category, String contents, Member author, Tags tags) {
+        this.id = id;
         this.title = title;
-        this.category = category;
         this.price = price;
+        this.category = category;
         this.contents = contents;
+        this.author = author;
         this.tags = tags;
+    }
+
+    public Article(String title, Long price, Category category, String contents, Member author, Tags tags) {
+        this(null, title, price, category, contents, author, tags);
     }
 
     public Long getId() {
         return id;
     }
 
-    public Member getAuthor() {
-        return author;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
     public Long getPrice() {
         return price;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
     public String getContents() {
         return contents;
+    }
+
+    public Member getAuthor() {
+        return author;
     }
 
     public Tags getTags() {
