@@ -1,7 +1,13 @@
 spring:
   profiles:
     active: local
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace
+
 ---
+
 spring:
   profiles: local
 
@@ -11,7 +17,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate.format-sql: true
 
@@ -24,8 +30,3 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
-
-logging:
-  level:
-    org.hibernate.type.descriptor.sql: trace
----

@@ -7,7 +7,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate.format-sql: true
 
@@ -24,3 +24,6 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace
+
+
+
