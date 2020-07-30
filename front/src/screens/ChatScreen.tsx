@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ArticleAuthor from "../components/ArticleAuthor";
 import { mockMembers } from "../data/memberMockData";
 import { AuthorScoreType } from "../types/types";

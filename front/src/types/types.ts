@@ -1,9 +1,10 @@
 /**
- * @author begaonnuri, joseph415
+ * @author kouz95
  */
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageURISource } from "react-native";
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -31,6 +32,11 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
+export type ImageSliderNavigationProp = StackNavigationProp<
+  ImageSliderParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
 export interface CategoryItemProps {
   title: string;
 }
@@ -41,7 +47,10 @@ export type FeedParamList = {
   FeedArticle: undefined;
 };
 
-export type FeedNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
+export type FeedHomeNavigationProp = StackNavigationProp<
+  FeedParamList,
+  "FeedHome"
+>;
 
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
@@ -115,3 +124,24 @@ export interface PhotoInfo {
   id: number;
   uri: string;
 }
+
+export interface Article {
+  id: number;
+  authorId: number;
+  title: string;
+  category: string;
+  price: number;
+  contents: string;
+  tags: ArticleTag[];
+}
+
+export interface ArticleTag {
+  name: string;
+}
+
+export type ImageSliderParamList = {
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
+    images: ImageURISource[];
+  };
+};

@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { articleContentsState } from "../states/articleState";
 import { useRecoilState } from "recoil/dist";
 

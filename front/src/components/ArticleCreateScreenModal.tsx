@@ -6,10 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
 import {
   Modal,
-  View,
+  StyleSheet,
   Text,
   TouchableHighlight,
-  StyleSheet,
+  View,
 } from "react-native";
 import { articleModalActivationState } from "../states/articleState";
 import { ArticleCreateModalNavigationProp } from "../types/types";

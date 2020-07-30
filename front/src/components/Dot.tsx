@@ -15,9 +15,6 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 4,
-    marginLeft: 3,
-    marginRight: 3,
-    marginTop: 3,
-    marginBottom: 3,
+    margin: 3,
   },
 });
