@@ -12,7 +12,7 @@ import ChatRoomScreen from "../screens/ChatRoomScreen";
 export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedDetail: { article_id: number };
+  ArticleDetail: { articleId: number };
   ChatRoom: undefined;
 };
 
@@ -23,7 +23,7 @@ export default function ArticleNavigation() {
     <Stack.Navigator>
       <Stack.Screen name="FeedHome" component={FeedHomeScreen} />
       <Stack.Screen name="SellerLee" component={SellerLeeScreen} />
-      <Stack.Screen name="FeedDetail" component={ArticleDetailScreen} />
+      <Stack.Screen name="ArticleDetail" component={ArticleDetailScreen} />
       <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />
     </Stack.Navigator>
   );

@@ -19,7 +19,7 @@ export default function TagItem({ tagItem }: TagItemProps) {
   return (
     <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text style={styles.tagItemText}>{tagItem.tag}</Text>
+        <Text style={styles.tagItemText}>{tagItem.name}</Text>
       </View>
       <View style={styles.deleteTagButtonWrapper}>
         <TouchableOpacity

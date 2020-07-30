@@ -36,7 +36,7 @@ export default function Tag() {
       setTags(
         tags.concat({
           id: tagId,
-          tag: hashTag + removeBlank(input),
+          name: hashTag + removeBlank(input),
         }),
       );
       setTagId(tagId + 1);

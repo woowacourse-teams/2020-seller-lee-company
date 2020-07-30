@@ -10,7 +10,7 @@ export default function FeedArticleTag({ tagItem }: TagItemProps) {
   return (
     <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text>{tagItem.tag}</Text>
+        <Text>{tagItem.name}</Text>
       </View>
     </View>
   );

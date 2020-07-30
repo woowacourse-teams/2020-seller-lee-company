@@ -5,6 +5,7 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ImageURISource } from "react-native";
+import { ArticleNavigationParamList } from "../components/ArticleNavigation";
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -40,12 +41,6 @@ export type ImageSliderNavigationProp = StackNavigationProp<
 export interface CategoryItemProps {
   title: string;
 }
-
-export type FeedParamList = {
-  FeedHome: undefined;
-  SellerLee: undefined;
-  FeedArticle: undefined;
-};
 
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
@@ -100,20 +95,20 @@ export interface PhotoInfo {
 }
 
 export interface ArticleDetailFavoriteProp {
-  article_id: number;
+  articleId: number;
 }
 
 export interface Feed {
-  article_id: number;
+  id: number;
   price: number;
+  favoriteCount: number;
   tags: Tag[];
-  favorite: number;
-  photos: PhotoInfo[];
+  photos: ImageURISource[];
 }
 
 export interface Tag {
   id: number;
-  tag: string;
+  name: string;
 }
 
 export interface TagItemProps {
@@ -126,3 +121,36 @@ export type ImageSliderParamList = {
     images: ImageURISource[];
   };
 };
+
+export type ArticleDetailNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ArticleDetail"
+>;
+
+export interface Article {
+  id: number;
+  title: string;
+  category: string;
+  price: number;
+  contents: string;
+  tradeType: string;
+  tradeState: string;
+  photos: ImageURISource[];
+  tags: Tag[];
+  member: Author;
+  favorite: Favorite;
+}
+
+export interface Author {
+  id: number;
+  nickname: string;
+  score: number;
+  avatarUri: string;
+  validated: boolean;
+}
+
+export interface Favorite {
+  id: number;
+  memberId: number;
+  articleId: number;
+}

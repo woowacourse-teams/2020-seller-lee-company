@@ -27,10 +27,10 @@ type FeedNavigationProp = StackNavigationProp<
 >;
 
 export default function FeedArticleCard({
-  article_id,
+  id,
   price,
   tags,
-  favorite,
+  favoriteCount,
   photos,
 }: Feed) {
   const navigation = useNavigation<FeedNavigationProp>();
@@ -55,7 +55,7 @@ export default function FeedArticleCard({
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedDetail", { article_id });
+        navigation.navigate("ArticleDetail", { articleId: id });
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
@@ -65,7 +65,7 @@ export default function FeedArticleCard({
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite favoriteCount={favorite} />
+            <Favorite favoriteCount={favoriteCount} />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>{insertComma(price.toString())}원</Text>
             </View>

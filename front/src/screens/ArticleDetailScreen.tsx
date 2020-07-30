@@ -5,16 +5,15 @@
 import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import DetailArticle from "../components/DetailArticle";
-import ArticleDetailFavorite from "../components/ArticleDetailFavorite";
 import ArticlePriceAndTradeType from "../components/ArticlePriceAndTradeType";
 import ChatButton from "../components/ChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetailImageSlider";
 
-export interface ArticleDetailProp {
-  article_id: number;
+interface ArticleDetailProp {
+  articleId: number;
 }
 
-export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
+export default function ArticleDetailScreen({ articleId }: ArticleDetailProp) {
   const getMockImages = () => {
     return [
       require("../../assets/favicon.png"),
@@ -41,8 +40,8 @@ export default function ArticleDetailScreen({ article_id }: ArticleDetailProp) {
         </View>
       </ScrollView>
       <View style={styles.bottomTab}>
-        <ArticleDetailFavorite article_id={article_id} />
-        <ArticlePriceAndTradeType article_id={article_id} />
+        {/*<ArticleDetailFavorite articleId={articleId}/>*/}
+        <ArticlePriceAndTradeType articleId={articleId} />
         <View style={styles.chatButtonContainer}>
           <ChatButton />
         </View>
