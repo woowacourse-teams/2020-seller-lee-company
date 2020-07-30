@@ -16,7 +16,7 @@ import sellerlee.back.article.domain.ArticleRepository;
 
 @Service
 public class ArticleService {
-    private static final int FIRST_PAGE = 0;
+    public static final int FIRST_PAGE = 0;
 
     private final ArticleRepository articleRepository;
 

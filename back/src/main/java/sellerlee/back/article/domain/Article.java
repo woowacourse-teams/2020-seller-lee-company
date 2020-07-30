@@ -35,8 +35,9 @@ public class Article {
     protected Article() {
     }
 
-    public Article(Member author, String title, Category category, Long price,
-            String contents, Tags tags) {
+    public Article(Long id, Member author, String title,
+            Category category, Long price, String contents, Tags tags) {
+        this.id = id;
         this.author = author;
         this.title = title;
         this.category = category;

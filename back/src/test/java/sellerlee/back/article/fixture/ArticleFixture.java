@@ -4,18 +4,38 @@
 
 package sellerlee.back.article.fixture;
 
+import static sellerlee.back.article.fixture.MemberFixture.*;
 import static sellerlee.back.article.fixture.TagFixture.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
-import sellerlee.back.member.domain.Member;
 
 public class ArticleFixture {
-    public static final Article ARTICLE_FIXTURE = new Article(
-            new Member(1L, "turtle@woowabro.com", "1234", 36.0),
+    public static final Article ARTICLE1 = new Article(
+            1L,
+            MEMBER,
+            "test title1",
+            Category.TEST,
+            1234L,
+            "test contents1",
+            new Tags(Collections.emptyList()));
+
+    public static final Article ARTICLE2 = new Article(
+            2L,
+            MEMBER,
+            "test title1",
+            Category.TEST,
+            1234L,
+            "test contents1",
+            new Tags(Collections.emptyList()));
+
+    public static final Article ARTICLE3 = new Article(
+            1L,
+            MEMBER,
             "TEST_TITLE",
             Category.TEST,
             10_000L,
