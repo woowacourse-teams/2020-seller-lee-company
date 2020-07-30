@@ -1,3 +1,7 @@
+/**
+ * @author joseph415
+ */
+
 package sellerlee.back.favorite.domain;
 
 import javax.persistence.Column;
@@ -36,7 +40,7 @@ public class Favorite {
     }
 
     public Favorite(Article article, Member member) {
-        this(null,article,member);
+        this(null, article, member);
     }
 
     public Long getId() {

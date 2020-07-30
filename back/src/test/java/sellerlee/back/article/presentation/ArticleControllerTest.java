@@ -25,8 +25,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
+import sellerlee.back.article.application.FeedResponse;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest {
@@ -62,7 +62,7 @@ class ArticleControllerTest {
     @Test
     void showArticlePage() throws Exception {
         when(articleService.showArticlePage(LAST_ARTICLE_ID, ARTICLE_SIZE))
-                .thenReturn(ArticleResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1)));
+                .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1)));
 
         mockMvc.perform(get(ARTICLE_URI)
                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))

@@ -25,7 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
-import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.FeedResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
@@ -67,8 +67,8 @@ public class AcceptanceTest {
         return Stream.of(
                 dynamicTest("게시글 추가", this::createArticle),
                 dynamicTest("게시글 페이지 조회", () -> {
-                    List<ArticleResponse> articleResponses = findArticlePage();
-                    assertThat(articleResponses.size()).isEqualTo(2);
+                    List<FeedResponse> feedArticleRespons = findArticlePage();
+                    assertThat(feedArticleRespons.size()).isEqualTo(2);
                 }));
     }
 
@@ -85,7 +85,7 @@ public class AcceptanceTest {
                 .statusCode(HttpStatus.CREATED.value());
     }
 
-    private List<ArticleResponse> findArticlePage() {
+    private List<FeedResponse> findArticlePage() {
         return given()
                 .when()
                 .param("lastArticleId", LAST_ARTICLE_ID)
@@ -93,6 +93,6 @@ public class AcceptanceTest {
                 .get(ARTICLE_URI)
                 .then()
                 .log().all()
-                .extract().jsonPath().getList(".", ArticleResponse.class);
+                .extract().jsonPath().getList(".", FeedResponse.class);
     }
 }

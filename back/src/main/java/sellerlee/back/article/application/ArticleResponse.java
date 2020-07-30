@@ -1,63 +1,53 @@
 /**
- * @author begaonnuri
+ * @author joseph415
  */
 
 package sellerlee.back.article.application;
 
-import static java.util.stream.Collectors.*;
-
 import java.util.List;
 
-import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tag;
+import sellerlee.back.article.domain.TradeState;
+import sellerlee.back.article.domain.TradeType;
+import sellerlee.back.favorite.domain.Favorite;
+import sellerlee.back.member.domain.Member;
 
 public class ArticleResponse {
     private Long id;
-    private Long authorId;
     private String title;
     private Category category;
     private Long price;
     private String contents;
+    private TradeType tradeType;
+    private TradeState tradeState;
+    private List<String> images;
     private List<Tag> tags;
+    private Member member;
+    private Favorite favorite;
 
-    private ArticleResponse() {
+    public ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, Long authorId, String title,
-            Category category, Long price, String contents,
-            List<Tag> tags) {
+    public ArticleResponse(Long id, String title, Category category, Long price,
+            String contents, TradeType tradeType, TradeState tradeState,
+            List<String> images, List<Tag> tags, Member member,
+            Favorite favorite) {
         this.id = id;
-        this.authorId = authorId;
         this.title = title;
         this.category = category;
         this.price = price;
         this.contents = contents;
+        this.tradeType = tradeType;
+        this.tradeState = tradeState;
+        this.images = images;
         this.tags = tags;
-    }
-
-    public static ArticleResponse of(Article article) {
-        return new ArticleResponse(article.getId(),
-                article.getAuthor().getId(),
-                article.getTitle(),
-                article.getCategory(),
-                article.getPrice(),
-                article.getContents(),
-                article.getTags().toList());
-    }
-
-    public static List<ArticleResponse> listOf(List<Article> articles) {
-        return articles.stream()
-                .map(ArticleResponse::of)
-                .collect(toList());
+        this.member = member;
+        this.favorite = favorite;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Long getAuthorId() {
-        return authorId;
     }
 
     public String getTitle() {
@@ -76,7 +66,27 @@ public class ArticleResponse {
         return contents;
     }
 
+    public TradeType getTradeType() {
+        return tradeType;
+    }
+
+    public TradeState getTradeState() {
+        return tradeState;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
     public List<Tag> getTags() {
         return tags;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public Favorite getFavorite() {
+        return favorite;
     }
 }

@@ -1,3 +1,7 @@
+/**
+ * @author joseph415
+ */
+
 package sellerlee.back.favorite.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
