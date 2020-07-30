@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function SellerLeeScreen() {
   return (
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "lightyellow",
     justifyContent: "center",
-    alignItems: "center",
   },
   text: {
     fontSize: 30,

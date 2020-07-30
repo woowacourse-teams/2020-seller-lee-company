@@ -7,7 +7,10 @@ import { StatusBar, StyleSheet, View } from "react-native";
 
 import ArticleDetailImageViewSlider from "../components/ArticleDetailImageViewSlider";
 import { HeaderBackButton } from "@react-navigation/stack";
-import { ImageSliderNavigationProp, ImageSliderParamList } from "../types/types";
+import {
+  ImageSliderNavigationProp,
+  ImageSliderParamList,
+} from "../types/types";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 

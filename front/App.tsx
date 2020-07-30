@@ -5,13 +5,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { RecoilRoot } from "recoil/dist";
-import ImageSliderNavigation from "./src/components/ImageSliderNavigation";
+import BottomTabNavigation from "./src/components/BottomTabNavigation";
 
 export default function App() {
   return (
     <RecoilRoot>
       <NavigationContainer>
-        <ImageSliderNavigation />
+        <BottomTabNavigation />
       </NavigationContainer>
     </RecoilRoot>
   );
