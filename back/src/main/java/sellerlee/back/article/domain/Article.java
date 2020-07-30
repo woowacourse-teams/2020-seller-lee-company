@@ -39,7 +39,7 @@ public class Article {
     private Tags tags;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    @JoinColumn(name = "member_id", updatable = false)
     private Member author;
 
     protected Article() {
@@ -72,7 +72,7 @@ public class Article {
     public Long getPrice() {
         return price;
     }
-
+    
     public Category getCategory() {
         return category;
     }

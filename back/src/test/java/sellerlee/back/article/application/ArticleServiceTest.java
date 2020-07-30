@@ -7,7 +7,7 @@ package sellerlee.back.article.application;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static sellerlee.back.article.acceptance.AcceptanceTest.*;
+import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
 import static sellerlee.back.article.fixture.ArticleFixture.*;
 

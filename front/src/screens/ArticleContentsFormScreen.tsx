@@ -2,13 +2,34 @@
  * @author kouz95
  */
 
-import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
-import { articleContentsState } from "../states/articleState";
+import React, { useLayoutEffect } from "react";
+import { StyleSheet, View, TextInput } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
+import { HeaderBackButton } from "@react-navigation/stack";
+import { EvilIcons } from "@expo/vector-icons";
+import { articleContentsState } from "../states/articleState";
+import { ArticleContentsFormScreenNavigationProp } from "../types/types";
 
 export default function ArticleContentsFormScreen() {
+  const navigation = useNavigation<ArticleContentsFormScreenNavigationProp>();
   const [contents, setContents] = useRecoilState(articleContentsState);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "상품 설명",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color={"grey"} />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  });
 
   return (
     <View style={styles.container}>

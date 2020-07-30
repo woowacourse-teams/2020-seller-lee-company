@@ -1,5 +1,5 @@
 /**
- * @author kouz95, jnsorn, lxxjn0
+ * @author lxxjn0
  */
 
 export const categoryMockArticles = [

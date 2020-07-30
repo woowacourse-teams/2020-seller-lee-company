@@ -6,6 +6,7 @@ import React from "react";
 import { Modal, View, StyleSheet, Text, Button } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
+import theme from "../colors";
 
 interface NoticeModalProps {
   message: string;
@@ -24,7 +25,11 @@ export default function NoticeModal({ message }: NoticeModalProps) {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}> {message} </Text>
-          <Button title={"닫기"} onPress={() => setModalVisible(false)} />
+          <Button
+            title={"닫기"}
+            onPress={() => setModalVisible(false)}
+            color={theme.primary}
+          />
         </View>
       </View>
     </Modal>

@@ -3,8 +3,6 @@
  */
 
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { useRecoilState } from "recoil/dist";
 import {
   Modal,
   StyleSheet,
@@ -12,48 +10,57 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { articleModalActivationState } from "../states/articleState";
-import { ArticleCreateScreenNavigationProp } from "../types/types";
+import { useNavigation } from "@react-navigation/native";
+import { useRecoilState } from "recoil/dist";
+import {
+  memberLoginTrialState,
+  memberLoginVerifyState,
+} from "../states/loginState";
+import { TabHomeNavigationProp } from "../types/types";
 
-interface ArticleCreateScreenModalProps {
-  resetCreateScreen: Function;
+interface LoginVerifyModalProps {
+  resetMemberLoginValue: Function;
 }
 
-export default function ArticleCreateScreenModal({
-  resetCreateScreen,
-}: ArticleCreateScreenModalProps) {
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
-  const [articleModalState, setArticleModalState] = useRecoilState(
-    articleModalActivationState,
+export default function LoginVerifyModal({
+  resetMemberLoginValue,
+}: LoginVerifyModalProps) {
+  const navigation = useNavigation<TabHomeNavigationProp>();
+
+  const [loginTrialState, setLoginTrialState] = useRecoilState(
+    memberLoginTrialState,
   );
+  const [loginVerifyState, setLoginVerifyState] = useRecoilState(
+    memberLoginVerifyState,
+  );
+
+  const onPressCloseButton = () => {
+    setLoginTrialState(false);
+
+    if (loginVerifyState) {
+      resetMemberLoginValue();
+      navigation.navigate("Home");
+    }
+  };
 
   return (
     <Modal
       animationType={"fade"}
       transparent={true}
-      visible={articleModalState}
-      onRequestClose={() => setArticleModalState(false)}
+      visible={loginTrialState}
+      onRequestClose={() => setLoginVerifyState(false)}
     >
       <View style={styles.container}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            페이지를 나가면 작성 중인 내용이 삭제됩니다.{"\n"}
-            페이지를 나가시겠습니까?
+            {loginVerifyState
+              ? "로그인에 성공하였습니다."
+              : "로그인에 실패하였습니다."}
           </Text>
           <View style={styles.buttonContainer}>
             <TouchableHighlight
               style={styles.button}
-              onPress={() => setArticleModalState(false)}
-            >
-              <Text style={styles.buttonText}>돌아가기</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => {
-                resetCreateScreen();
-                setArticleModalState(false);
-                navigation.goBack();
-              }}
+              onPress={onPressCloseButton}
             >
               <Text style={styles.buttonText}>나가기</Text>
             </TouchableHighlight>

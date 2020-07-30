@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil/dist";
 import { useNavigation } from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../states/articleState";
 import { CategoryItemProps } from "../types/types";
+import theme from "../colors";
 
 export default function CategoryItem({ title }: CategoryItemProps) {
   const navigation = useNavigation();
@@ -40,6 +41,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#BBB",
   },
   selected: {
-    color: "coral",
+    color: theme.primary,
   },
 });

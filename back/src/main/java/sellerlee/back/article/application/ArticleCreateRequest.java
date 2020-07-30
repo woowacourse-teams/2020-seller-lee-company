@@ -32,7 +32,7 @@ public class ArticleCreateRequest {
 
     public Article toArticle() {
         return new Article(title, price, Category.fromName(category), contents,
-                Tags.of(tags), new Member(authorId));
+                Tags.of(tags), new Member(authorId, "sellerlee@gmail.com", "0000", 4.5));
     }
 
     public String getTitle() {
