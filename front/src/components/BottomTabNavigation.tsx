@@ -1,8 +1,9 @@
 /**
- * @author begaonnuri
+ * @author lxxjn0
  */
 
 import React from "react";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ChatScreen from "../screens/ChatScreen";
@@ -17,11 +18,11 @@ const Tab = createBottomTabNavigator();
 export default function BottomTabNavigation() {
   return (
     <Tab.Navigator
-      initialRouteName="홈"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: "black" }}
     >
       <Tab.Screen
-        name="홈"
+        name="Home"
         component={FeedNavigation}
         options={{
           tabBarIcon: ({ color }) => (
@@ -34,7 +35,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="카테고리"
+        name="Category"
         component={CategoryNavigation}
         options={{
           tabBarIcon: ({ color }) => (
@@ -47,7 +48,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="글쓰기"
+        name="Posting"
         component={ArticleCreateNavigation}
         options={{
           tabBarVisible: false,
@@ -55,7 +56,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="채팅"
+        name="Chat"
         component={ChatScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -68,7 +69,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="프로필"
+        name="Profile"
         component={LoginScreen}
         options={{
           tabBarIcon: ({ color }) => (

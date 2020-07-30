@@ -5,15 +5,27 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../colors";
+import { useSetRecoilState } from "recoil/dist";
+import { memberLoginTrialState } from "../states/loginState";
 
 interface LoginSubmitProps {
   login: () => Promise<void>;
 }
 
 export default function LoginSubmit({ login }: LoginSubmitProps) {
+  const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
+
+  const onPressSubmitButton = async () => {
+    setLoginTrialState(true);
+    await login();
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.loginButton} onPress={login}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={onPressSubmitButton}
+      >
         <Text style={styles.loginButtonText}>로그인하기</Text>
       </TouchableOpacity>
     </View>

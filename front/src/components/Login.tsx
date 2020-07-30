@@ -15,14 +15,32 @@ import axios from "axios";
 import LoginEmailForm from "./LoginEmailForm";
 import LoginPasswordForm from "./LoginPasswordForm";
 import LoginSubmit from "./LoginSubmit";
-import { useRecoilValue } from "recoil/dist";
-import { memberEmailState, memberPasswordState } from "../states/loginState";
+import {
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil/dist";
+import {
+  memberEmailState,
+  memberLoginVerifyState,
+  memberPasswordState,
+} from "../states/loginState";
+import LoginVerifyModal from "./LoginVerifyModal";
 
 export default function Login() {
   const BASE_URL = "http://localhost:8080";
+  const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
 
   const memberEmail = useRecoilValue(memberEmailState);
   const memberPassword = useRecoilValue(memberPasswordState);
+
+  const resetMemberEmail = useResetRecoilState(memberEmailState);
+  const resetMemberPassword = useResetRecoilState(memberPasswordState);
+
+  const resetMemberLoginValue = () => {
+    resetMemberEmail();
+    resetMemberPassword();
+  };
 
   const login = async () => {
     try {
@@ -31,33 +49,40 @@ export default function Login() {
         password: memberPassword,
       });
 
-      if (response.status === 200 && response.statusText === "OK") {
-        console.log("로그인 성공");
+      if (response.status === 200) {
+        setLoginVerifyState(true);
+        resetMemberLoginValue();
       }
     } catch (error) {
-      console.log("로그인 실패");
+      setLoginVerifyState(false);
     }
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>로그인</Text>
-        <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
-          <View style={styles.LoginFormContainer}>
-            <View style={styles.LoginIdFormContainer}>
-              <LoginEmailForm />
+    <View style={styles.container}>
+      <LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>로그인</Text>
+          <TouchableWithoutFeedback
+            accessible={false}
+            onPress={Keyboard.dismiss}
+          >
+            <View style={styles.LoginFormContainer}>
+              <View style={styles.LoginIdFormContainer}>
+                <LoginEmailForm />
+              </View>
+              <View style={styles.LoginPasswordFormContainer}>
+                <LoginPasswordForm />
+              </View>
             </View>
-            <View style={styles.LoginPasswordFormContainer}>
-              <LoginPasswordForm />
-            </View>
+          </TouchableWithoutFeedback>
+          <View style={styles.LoginSubmitContainer}>
+            <LoginSubmit login={login} />
           </View>
-        </TouchableWithoutFeedback>
-        <View style={styles.LoginSubmitContainer}>
-          <LoginSubmit login={login} />
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 

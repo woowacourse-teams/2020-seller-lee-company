@@ -13,3 +13,13 @@ export const memberPasswordState = atom({
   key: "memberPasswordState",
   default: "",
 });
+
+export const memberLoginTrialState = atom({
+  key: "memberLoginTrialState",
+  default: false,
+});
+
+export const memberLoginVerifyState = atom({
+  key: "memberLoginVerifyState",
+  default: false,
+});

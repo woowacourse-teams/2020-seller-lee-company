@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author lxxjn0
  */
 
 import React, { useState } from "react";
@@ -38,7 +38,7 @@ export default function ArticleCreateOptionsModal() {
             <Button
               title={"글쓰기"}
               onPress={() => {
-                navigation.navigate("글쓰기");
+                navigation.navigate("Posting");
                 setModalVisible(false);
               }}
               color={theme.primary}

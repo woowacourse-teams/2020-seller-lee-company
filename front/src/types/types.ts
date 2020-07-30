@@ -4,6 +4,16 @@
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+
+export type TabParamList = {
+  Home: undefined;
+};
+
+export type TabHomeNavigationProp = BottomTabNavigationProp<
+  TabParamList,
+  "Home"
+>;
 
 export type CategoryParamList = {
   CategoryHome: undefined;
