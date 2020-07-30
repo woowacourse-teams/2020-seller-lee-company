@@ -6,6 +6,7 @@ package sellerlee.back.article.application;
 
 import java.util.List;
 
+import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.TradeState;
@@ -44,6 +45,23 @@ public class ArticleResponse {
         this.tags = tags;
         this.member = member;
         this.favorite = favorite;
+    }
+
+    public static ArticleResponse of(Article article, Member member, Favorite favorite) {
+        return new ArticleResponse(
+                article.getId(),
+                article.getTitle(),
+                article.getCategory(),
+                article.getPrice(),
+                article.getContents(),
+                // TODO: 2020/07/30 Article type 없음
+                null,
+                null,
+                null,
+                article.getTags().toList(),
+                member,
+                favorite
+        );
     }
 
     public Long getId() {

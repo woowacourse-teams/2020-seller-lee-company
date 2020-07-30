@@ -11,6 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.article.acceptance.AcceptanceTest.*;
 import static sellerlee.back.article.fixture.ArticleFixture.*;
+import static sellerlee.back.article.fixture.FavoriteFixture.*;
+import static sellerlee.back.article.fixture.MemberFixture.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 
 import java.util.Arrays;
@@ -25,7 +27,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
+import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 
 @WebMvcTest(controllers = ArticleController.class)
@@ -35,6 +39,8 @@ class ArticleControllerTest {
 
     @MockBean
     private ArticleService articleService;
+    @MockBean
+    private ArticleViewService articleViewService;
 
     private ObjectMapper objectMapper;
 
@@ -67,6 +73,18 @@ class ArticleControllerTest {
         mockMvc.perform(get(ARTICLE_URI)
                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                 .param("size", String.valueOf(ARTICLE_SIZE)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
+    @Test
+    void showArticle() throws Exception {
+        when(articleViewService.showArticle(1L, 1L))
+                .thenReturn(ArticleResponse.of(ARTICLE1, MEMBER, FAVORITE));
+
+        mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
+                .param("MemberId", String.valueOf(MEMBER.getId())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

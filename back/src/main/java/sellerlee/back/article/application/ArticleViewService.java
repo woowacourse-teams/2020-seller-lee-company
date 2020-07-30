@@ -9,4 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArticleViewService {
 
+    public ArticleResponse showArticle(Long id, Long memberId) {
+        return null;
+    }
 }
