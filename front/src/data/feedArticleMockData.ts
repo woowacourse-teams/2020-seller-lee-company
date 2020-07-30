@@ -4,7 +4,7 @@
 
 export const mockFeedArticles = [
   {
-    id: 0,
+    article_id: 0,
     price: "413000",
     tagBoxes: [
       {
@@ -35,7 +35,7 @@ export const mockFeedArticles = [
     ],
   },
   {
-    id: 1,
+    article_id: 1,
     price: "413020",
     tagBoxes: [
       {
