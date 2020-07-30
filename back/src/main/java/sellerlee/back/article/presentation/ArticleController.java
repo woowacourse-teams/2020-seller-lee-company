@@ -56,8 +56,8 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id,
-            @RequestParam Long MemberId) {
-        ArticleResponse articleResponse = articleViewService.showArticle(id, MemberId);
+            @RequestParam Long memberId) {
+        ArticleResponse articleResponse = articleViewService.showArticle(id, memberId);
 
         return ResponseEntity.ok(articleResponse);
     }

@@ -84,7 +84,7 @@ class ArticleControllerTest {
                 .thenReturn(ArticleResponse.of(ARTICLE1, FAVORITE));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
-                .param("MemberId", String.valueOf(MEMBER1.getId())))
+                .param("memberId", String.valueOf(MEMBER1.getId())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -70,6 +71,42 @@ public class ArticleAcceptanceTest {
                     List<FeedResponse> feedArticleRespons = findArticlePage();
                     assertThat(feedArticleRespons.size()).isEqualTo(2);
                 }));
+    }
+
+    /**
+     * 게시글 상세 조회 기능
+     * Given 게시글이 전체 조회되어있다.
+     *
+     * When 게시글을 클릭한다.
+     * Then 게시글 정보와 좋아요 를 응답받는다.
+     */
+    @DisplayName("게시글 상세 조회 기능")
+    @TestFactory
+    Stream<DynamicTest> getArticle() {
+        return Stream.of(
+                dynamicTest("게시글 전체 조회", () -> {
+                    List<FeedResponse> feedArticleResponse = findArticlePage();
+                    assertThat(feedArticleResponse.size()).isEqualTo(2);
+                }),
+                dynamicTest("게시글 상세 조회", () -> {
+                    ArticleResponse articleResponse = getArticleResponse();
+                    assertThat(articleResponse.getId()).isEqualTo(1);
+                })
+
+        );
+    }
+
+    private ArticleResponse getArticleResponse() {
+        String url = ARTICLE_URI + "/1";
+
+        return given()
+                .when()
+                .param("memberId", 1L)
+                .get(url)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract().jsonPath().getObject(".", ArticleResponse.class);
     }
 
     private void createArticle() throws JsonProcessingException {
