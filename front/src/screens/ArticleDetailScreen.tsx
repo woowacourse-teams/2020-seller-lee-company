@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import DetailArticle from "../components/DetailArticle";
 import ArticleDetailFavorite from "../components/ArticleDetailFavorite";
 import ArticlePriceAndTradeType from "../components/ArticlePriceAndTradeType";

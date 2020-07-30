@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.presentation;
@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static sellerlee.back.article.acceptance.AcceptanceTest.*;
+import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.fixture.ArticleFixture.*;
 import static sellerlee.back.article.fixture.FavoriteFixture.*;
 import static sellerlee.back.article.fixture.MemberFixture.*;
@@ -34,13 +34,13 @@ import sellerlee.back.article.application.FeedResponse;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-
     @MockBean
     private ArticleService articleService;
     @MockBean
     private ArticleViewService articleViewService;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     private ObjectMapper objectMapper;
 

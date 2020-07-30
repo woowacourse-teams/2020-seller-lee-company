@@ -1,6 +1,7 @@
 /**
  * @author lxxjn0
  */
+
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
@@ -12,7 +13,7 @@ import {
   View,
 } from "react-native";
 import { articleModalActivationState } from "../states/articleState";
-import { ArticleCreateModalNavigationProp } from "../types/types";
+import { ArticleCreateScreenNavigationProp } from "../types/types";
 
 interface ArticleCreateScreenModalProps {
   resetCreateScreen: Function;
@@ -21,7 +22,7 @@ interface ArticleCreateScreenModalProps {
 export default function ArticleCreateScreenModal({
   resetCreateScreen,
 }: ArticleCreateScreenModalProps) {
-  const navigation = useNavigation<ArticleCreateModalNavigationProp>();
+  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const [articleModalState, setArticleModalState] = useRecoilState(
     articleModalActivationState,
   );
