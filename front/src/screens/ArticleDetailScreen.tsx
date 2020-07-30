@@ -5,9 +5,9 @@
 import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import DetailArticle from "../components/DetailArticle";
-import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import ArticlePriceAndTradeType from "../components/ArticleDetail/ArticlePriceAndTradeType";
-import ChatButton from "../components/ArticleDetail/ChatButton";
+import ArticleDetailFavorite from "../components/ArticleDetailFavorite";
+import ArticlePriceAndTradeType from "../components/ArticlePriceAndTradeType";
+import ChatButton from "../components/ChatButton";
 
 export interface ArticleDetailProp {
   article_id: number;

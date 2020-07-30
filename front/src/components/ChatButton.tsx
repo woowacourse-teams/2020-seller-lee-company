@@ -7,7 +7,7 @@ import { StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ArticleNavigationParamList } from "../ArticleNavigation";
+import { ArticleNavigationParamList } from "./ArticleNavigation";
 
 type ChatButtonProp = StackNavigationProp<
   ArticleNavigationParamList,

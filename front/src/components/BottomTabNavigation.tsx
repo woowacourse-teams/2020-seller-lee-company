@@ -5,12 +5,12 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ChatScreen from "../../screens/ChatScreen";
-import ProfileScreen from "../../screens/ProfileScreen";
-import CategoryNavigation from "../CategoryNavigation";
-import ArticleCreateOptionsModal from "../ArticleCreateOptionsModal";
-import ArticleCreateNavigation from "../ArticleCreateNavigation";
-import ArticleNavigation from "../ArticleNavigation";
+import ChatScreen from "../screens/ChatScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import CategoryNavigation from "./CategoryNavigation";
+import ArticleCreateOptionsModal from "./ArticleCreateOptionsModal";
+import ArticleCreateNavigation from "./ArticleCreateNavigation";
+import ArticleNavigation from "./ArticleNavigation";
 
 const Tab = createBottomTabNavigator();
 
