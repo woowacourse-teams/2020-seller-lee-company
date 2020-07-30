@@ -4,14 +4,13 @@
 
 package sellerlee.back.article.application;
 
-import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.Category;
-import sellerlee.back.article.domain.Tag;
-import sellerlee.back.member.domain.Member;
+import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
+import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.domain.Tag;
 
 public class ArticleResponse {
     private Long id;

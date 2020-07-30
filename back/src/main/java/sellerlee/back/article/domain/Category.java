@@ -20,6 +20,7 @@ public enum Category {
         return Arrays.stream(values())
                 .filter(v -> v.name.equals(category))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("잘못된 카테고리 : %s.", category)));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("잘못된 카테고리 : %s.", category)));
     }
 }

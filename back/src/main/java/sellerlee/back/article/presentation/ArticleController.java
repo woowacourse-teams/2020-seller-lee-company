@@ -1,19 +1,25 @@
 /**
- * @author jnsorn
+ * @author begaonnuri
  */
 
 package sellerlee.back.article.presentation;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import sellerlee.back.article.application.ArticleCreateRequest;
-import sellerlee.back.article.application.ArticleResponse;
-import sellerlee.back.article.application.ArticleService;
+import static sellerlee.back.article.presentation.ArticleController.*;
 
 import java.net.URI;
 import java.util.List;
 
-import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.ArticleService;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -35,8 +41,9 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleResponse>> showAll() {
-        List<ArticleResponse> responses = articleService.showAll();
+    public ResponseEntity<List<ArticleResponse>> showArticlePage(@RequestParam Long lastArticleId,
+            @RequestParam int size) {
+        List<ArticleResponse> responses = articleService.showArticlePage(lastArticleId, size);
         return ResponseEntity.ok(responses);
     }
 }

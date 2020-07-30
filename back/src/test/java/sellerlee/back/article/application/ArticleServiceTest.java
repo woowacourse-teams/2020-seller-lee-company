@@ -1,8 +1,18 @@
 /**
- * @author jnsorn
+ * @author begaonnuri
  */
 
 package sellerlee.back.article.application;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static sellerlee.back.article.acceptance.AcceptanceTest.*;
+import static sellerlee.back.article.application.ArticleService.*;
+import static sellerlee.back.article.fixture.ArticleFixture.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,13 +20,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import sellerlee.back.article.domain.ArticleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE_FIXTURE;
+import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.ArticleRepository;
 
 @ExtendWith(value = MockitoExtension.class)
 class ArticleServiceTest {
@@ -33,18 +42,27 @@ class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요", 1L, "#선풍기#굿");
-        when(articleRepository.save(any())).thenReturn(ARTICLE_FIXTURE);
+        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
+                1L, "#선풍기#굿");
+        when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
         Long actualId = articleService.post(request);
 
-        assertThat(actualId).isEqualTo(ARTICLE_FIXTURE.getId());
+        assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
 
-    @DisplayName("showAll()이 articleRepository의 findAll()을 호출한다.")
+    @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
     @Test
-    void showAll() {
-        articleService.showAll();
-        verify(articleRepository).findAll();
+    void showArticlePages() {
+        PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
+        Page<Article> expectedPage = new PageImpl<>(Arrays.asList(ARTICLE2, ARTICLE1));
+
+        when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID,
+                pageRequest)).thenReturn(expectedPage);
+        List<ArticleResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
+                ARTICLE_SIZE);
+
+        assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
+        assertThat(actualArticles.get(1).getId()).isEqualTo(ARTICLE1.getId());
     }
 }

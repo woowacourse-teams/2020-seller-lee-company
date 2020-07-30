@@ -1,13 +1,17 @@
 /**
- * @author jnsorn
+ * @author kouz95
  */
 
 package sellerlee.back.article.acceptance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.article.fixture.ArticleFixture.*;
+import static sellerlee.back.article.presentation.ArticleController.*;
+
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -16,18 +20,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import sellerlee.back.article.application.ArticleResponse;
-
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE_CREATE_REQUEST_FIXTURE;
-import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
+    public static final Long LAST_ARTICLE_ID = 4L;
+    public static final int ARTICLE_SIZE = 2;
+
     @LocalServerPort
     private int port;
 
@@ -61,14 +65,11 @@ public class AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageArticle() {
         return Stream.of(
-                dynamicTest("게시글 추가", () -> {
-                    createArticle();
-                }),
-                dynamicTest("게시글 전체 조회", () -> {
-                    List<ArticleResponse> allArticleResponses = findAllArticles();
-                    assertThat(allArticleResponses.size()).isEqualTo(1);
-                })
-        );
+                dynamicTest("게시글 추가", this::createArticle),
+                dynamicTest("게시글 페이지 조회", () -> {
+                    List<ArticleResponse> articleResponses = findArticlePage();
+                    assertThat(articleResponses.size()).isEqualTo(2);
+                }));
     }
 
     private void createArticle() throws JsonProcessingException {
@@ -84,9 +85,11 @@ public class AcceptanceTest {
                 .statusCode(HttpStatus.CREATED.value());
     }
 
-    private List<ArticleResponse> findAllArticles() {
+    private List<ArticleResponse> findArticlePage() {
         return given()
                 .when()
+                .param("lastArticleId", LAST_ARTICLE_ID)
+                .param("size", ARTICLE_SIZE)
                 .get(ARTICLE_URI)
                 .then()
                 .log().all()

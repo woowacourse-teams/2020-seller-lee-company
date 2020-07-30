@@ -4,10 +4,11 @@
 
 package sellerlee.back.article.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
-import java.util.Objects;
 
 @Access(AccessType.FIELD)
 @Embeddable
@@ -31,7 +32,7 @@ public class Tag {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Tag tag = (Tag) o;
+        Tag tag = (Tag)o;
         return Objects.equals(name, tag.name);
     }
 

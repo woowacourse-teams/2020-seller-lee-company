@@ -4,9 +4,19 @@
 
 package sellerlee.back.article.domain;
 
-import sellerlee.back.member.domain.Member;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
-import javax.persistence.*;
+import sellerlee.back.member.domain.Member;
 
 @Entity
 public class Article {
@@ -25,28 +35,30 @@ public class Article {
     @Lob
     private String contents;
 
+    @Embedded
+    private Tags tags;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", insertable = false, updatable = false)
     private Member author;
 
-    @Embedded
-    private Tags tags;
-
     protected Article() {
     }
 
-    public Article(Long id, String title, Long price, Category category, String contents, Member author, Tags tags) {
+    public Article(Long id, String title, Long price, Category category, String contents,
+            Tags tags, Member author) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
-        this.author = author;
         this.tags = tags;
+        this.author = author;
     }
 
-    public Article(String title, Long price, Category category, String contents, Member author, Tags tags) {
-        this(null, title, price, category, contents, author, tags);
+    public Article(String title, Long price, Category category, String contents,
+            Tags tags, Member author) {
+        this(null, title, price, category, contents, tags, author);
     }
 
     public Long getId() {
@@ -69,11 +81,11 @@ public class Article {
         return contents;
     }
 
-    public Member getAuthor() {
-        return author;
-    }
-
     public Tags getTags() {
         return tags;
+    }
+
+    public Member getAuthor() {
+        return author;
     }
 }

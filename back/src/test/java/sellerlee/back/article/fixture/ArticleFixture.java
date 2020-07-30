@@ -4,26 +4,44 @@
 
 package sellerlee.back.article.fixture;
 
+import static sellerlee.back.article.fixture.MemberFixture.*;
+import static sellerlee.back.article.fixture.TagFixture.*;
+
+import java.util.Arrays;
+import java.util.Collections;
+
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
-import sellerlee.back.member.domain.Member;
-
-import java.util.Arrays;
-
-import static sellerlee.back.article.fixture.TagFixture.TAG_FIXTURE;
-import static sellerlee.back.article.fixture.TagFixture.TAG_FIXTURE2;
 
 public class ArticleFixture {
-    public static final Article ARTICLE_FIXTURE = new Article(
+    public static final Article ARTICLE1 = new Article(
+            1L,
+            "test title1",
+            1234L,
+            Category.PC,
+            "test contents1",
+            new Tags(Collections.emptyList()),
+            MEMBER);
+
+    public static final Article ARTICLE2 = new Article(
+            2L,
+            "test title1",
+            1234L,
+            Category.PC,
+            "test contents1",
+            new Tags(Collections.emptyList()),
+            MEMBER);
+
+    public static final Article ARTICLE3 = new Article(
+            3L,
             "TEST_TITLE",
             10_000L,
             Category.PC,
             "TEST_CONTENTS",
-            new Member(1L),
-            new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2))
-    );
+            new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
+            MEMBER);
 
     public static final ArticleCreateRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleCreateRequest(
             "TEST_TITLE",
