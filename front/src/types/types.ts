@@ -105,8 +105,8 @@ export interface ArticleDetailFavoriteProp {
 
 export interface Feed {
   article_id: number;
-  price: string;
-  tagBoxes: Tag[];
+  price: number;
+  tags: Tag[];
   favorite: number;
   photos: PhotoInfo[];
 }
@@ -117,7 +117,7 @@ export interface Tag {
 }
 
 export interface TagItemProps {
-  tagBox: Tag;
+  tagItem: Tag;
 }
 
 export type ImageSliderParamList = {

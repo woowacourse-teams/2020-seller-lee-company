@@ -29,7 +29,7 @@ type FeedNavigationProp = StackNavigationProp<
 export default function FeedArticleCard({
   article_id,
   price,
-  tagBoxes,
+  tags,
   favorite,
   photos,
 }: Feed) {
@@ -67,12 +67,12 @@ export default function FeedArticleCard({
           <View style={styles.detailsContainer}>
             <Favorite favoriteCount={favorite} />
             <View style={styles.detailsPriceContainer}>
-              <Text style={styles.text}>{insertComma(price)}원</Text>
+              <Text style={styles.text}>{insertComma(price.toString())}원</Text>
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {tagBoxes.map((tagItem) => (
-              <FeedArticleTag key={tagItem.id} tagBox={tagItem} />
+            {tags.map((tagItem) => (
+              <FeedArticleTag key={tagItem.id} tagItem={tagItem} />
             ))}
           </View>
         </View>

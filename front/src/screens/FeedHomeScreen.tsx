@@ -89,7 +89,7 @@ export default function FeedHomeScreen() {
         <FeedArticleCard
           article_id={item.article_id}
           price={item.price}
-          tagBoxes={item.tagBoxes}
+          tags={item.tags}
           favorite={item.favorite}
           photos={item.photos}
         />
