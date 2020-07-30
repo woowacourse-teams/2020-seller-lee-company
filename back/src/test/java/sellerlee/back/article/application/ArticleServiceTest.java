@@ -5,6 +5,7 @@
 package sellerlee.back.article.application;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.article.acceptance.AcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
@@ -36,6 +37,18 @@ class ArticleServiceTest {
     @BeforeEach
     void setUp() {
         articleService = new ArticleService(articleRepository);
+    }
+
+    @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
+    @Test
+    void createArticle() {
+        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
+                1L, "#선풍기#굿");
+        when(articleRepository.save(any())).thenReturn(ARTICLE1);
+
+        Long actualId = articleService.post(request);
+
+        assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
 
     @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")

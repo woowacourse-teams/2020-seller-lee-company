@@ -24,6 +24,11 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
+    public Long post(ArticleCreateRequest request) {
+        Article persistArticle = articleRepository.save(request.toArticle());
+        return persistArticle.getId();
+    }
+
     @Transactional(readOnly = true)
     public List<ArticleResponse> showArticlePage(Long lastArticleId, int size) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);

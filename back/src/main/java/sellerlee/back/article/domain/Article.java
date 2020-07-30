@@ -1,12 +1,22 @@
 /**
- * @author kouz95
+ * @author jnsorn
  */
 
 package sellerlee.back.article.domain;
 
-import sellerlee.back.member.domain.Member;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
-import javax.persistence.*;
+import sellerlee.back.member.domain.Member;
 
 @Entity
 public class Article {
@@ -15,16 +25,12 @@ public class Article {
     @Column(name = "article_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", insertable = false, updatable = false)
-    private Member author;
-
     private String title;
+
+    private Long price;
 
     @Enumerated(EnumType.STRING)
     private Category category;
-
-    private Long price;
 
     @Lob
     private String contents;
@@ -32,38 +38,43 @@ public class Article {
     @Embedded
     private Tags tags;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    private Member author;
+
     protected Article() {
     }
 
-    public Article(Long id, Member author, String title,
-            Category category, Long price, String contents, Tags tags) {
+    public Article(Long id, String title, Long price, Category category, String contents,
+            Tags tags, Member author) {
         this.id = id;
-        this.author = author;
         this.title = title;
-        this.category = category;
         this.price = price;
+        this.category = category;
         this.contents = contents;
         this.tags = tags;
+        this.author = author;
+    }
+
+    public Article(String title, Long price, Category category, String contents,
+            Tags tags, Member author) {
+        this(null, title, price, category, contents, tags, author);
     }
 
     public Long getId() {
         return id;
     }
 
-    public Member getAuthor() {
-        return author;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
     public Long getPrice() {
         return price;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     public String getContents() {
@@ -72,5 +83,9 @@ public class Article {
 
     public Tags getTags() {
         return tags;
+    }
+
+    public Member getAuthor() {
+        return author;
     }
 }

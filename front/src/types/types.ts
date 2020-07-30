@@ -1,48 +1,67 @@
 /**
- * @author begaonnuri, joseph415
+ * @author joseph415
  */
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ImageURISource } from "react-native";
 
-export type categoryParamList = {
+export type CategoryParamList = {
   CategoryHome: undefined;
   CategoryDetail: { title: string };
   Search: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
-  categoryParamList,
+  CategoryParamList,
   "CategoryHome"
 >;
 
 export type CategoryDetailRouteProp = RouteProp<
-  categoryParamList,
+  CategoryParamList,
   "CategoryDetail"
 >;
 
 export type CategoryDetailNavigationProp = StackNavigationProp<
-  categoryParamList,
+  CategoryParamList,
   "CategoryDetail"
 >;
 
 export type SearchNavigationProp = StackNavigationProp<
-  categoryParamList,
+  CategoryParamList,
   "Search"
+>;
+
+export type ImageSliderNavigationProp = StackNavigationProp<
+  ImageSliderParamList,
+  "ArticleDetailImageViewScreen"
 >;
 
 export interface CategoryItemProps {
   title: string;
 }
 
-export interface Tag {
-  id: number;
-  tag: string;
-}
-
-export type TagItemProps = {
-  tagBox: Tag;
+export type FeedParamList = {
+  FeedHome: undefined;
+  SellerLee: undefined;
+  FeedArticle: undefined;
 };
+
+export type ArticleCreateParamList = {
+  ArticleCreateScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
+};
+
+export type ArticleCreateScreenNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
+
+export type ArticleCreateModalNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
+>;
 
 export type Category =
   | "디지털/가전"
@@ -69,26 +88,41 @@ export interface FavoriteCountAndHitProps {
   hit: number;
 }
 
-export interface Article {
+export interface AuthorAvatarType {
+  uri: string;
+}
+
+export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export interface PhotoInfo {
   id: number;
-  authorId: number;
-  title: string;
-  category: string;
-  price: number;
-  contents: string;
-  tags: ArticleTag[];
+  uri: string;
 }
 
-export interface ArticleTag {
-  name: string;
+export interface ArticleDetailFavoriteProp {
+  article_id: number;
 }
 
-export type FeedParamList = {
-  FeedHome: undefined;
-  SellerLee: undefined;
+export interface Feed {
+  article_id: number;
+  price: string;
+  tagBoxes: Tag[];
+  favorite: number;
+  photos: PhotoInfo[];
+}
+
+export interface Tag {
+  id: number;
+  tag: string;
+}
+
+export interface TagItemProps {
+  tagBox: Tag;
+}
+
+export type ImageSliderParamList = {
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
+    images: ImageURISource[];
+  };
 };
-
-export type FeedHomeNavigationProp = StackNavigationProp<
-  FeedParamList,
-  "FeedHome"
->;
