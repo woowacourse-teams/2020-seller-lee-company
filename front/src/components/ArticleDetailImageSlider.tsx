@@ -9,8 +9,7 @@ import { ImageURISource, StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 import ActiveDot from "./ActiveDot";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack/lib/typescript/src/types";
-import { ImageSliderParamList } from "../types/types";
+import { ImageSliderNavigationProp } from "../types/types";
 import Dot from "./Dot";
 
 interface ImageSliderProps {
@@ -18,9 +17,7 @@ interface ImageSliderProps {
 }
 
 export default function ArticleDetailImageSlider({ images }: ImageSliderProps) {
-  const navigation = useNavigation<StackNavigationProp<ImageSliderParamList>>();
-  let imageId = 0;
-
+  const navigation = useNavigation<ImageSliderNavigationProp>();
   return (
     <Swiper
       loadMinimal={true}
@@ -30,15 +27,13 @@ export default function ArticleDetailImageSlider({ images }: ImageSliderProps) {
       paginationStyle={styles.pagination}
       centerContent={true}
     >
-      {images.map((imageURISource) => (
+      {images.map((imageURISource, index) => (
         <TouchableOpacity
           activeOpacity={1}
           style={styles.buttonOnImage}
-          key={++imageId}
+          key={index}
           onPress={() =>
-            navigation.navigate("ArticleDetailImageViewScreen", {
-              images: images,
-            })
+            navigation.navigate("ArticleDetailImageViewScreen", { images })
           }
         >
           <ImageBox imageURI={imageURISource} marginBottom={0} />

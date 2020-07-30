@@ -32,6 +32,11 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
+export type ImageSliderNavigationProp = StackNavigationProp<
+  ImageSliderParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
 export interface CategoryItemProps {
   title: string;
 }

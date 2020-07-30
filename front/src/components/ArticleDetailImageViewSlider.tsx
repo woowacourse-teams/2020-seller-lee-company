@@ -16,8 +16,6 @@ interface ImageSliderProps {
 export default function ArticleDetailImageViewSlider({
   images,
 }: ImageSliderProps) {
-  let imageId = 0;
-
   return (
     <Swiper
       loadMinimal={true}
@@ -28,8 +26,8 @@ export default function ArticleDetailImageViewSlider({
       centerContent={true}
       style={styles.container}
     >
-      {images.map((imageURISource) => (
-        <ImageBox imageURI={imageURISource} key={++imageId} marginBottom={50} />
+      {images.map((imageURISource, index) => (
+        <ImageBox imageURI={imageURISource} key={index} marginBottom={50} />
       ))}
     </Swiper>
   );

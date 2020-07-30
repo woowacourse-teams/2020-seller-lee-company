@@ -6,13 +6,13 @@ import React, { useLayoutEffect } from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 
 import ArticleDetailImageViewSlider from "../components/ArticleDetailImageViewSlider";
-import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
-import { ImageSliderParamList } from "../types/types";
+import { HeaderBackButton } from "@react-navigation/stack";
+import { ImageSliderNavigationProp, ImageSliderParamList } from "../types/types";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function ArticleDetailImageViewScreen() {
-  const navigation = useNavigation<StackNavigationProp<ImageSliderParamList>>();
+  const navigation = useNavigation<ImageSliderNavigationProp>();
   const route = useRoute<
     RouteProp<ImageSliderParamList, "ArticleDetailImageViewScreen">
   >();
@@ -25,7 +25,7 @@ export default function ArticleDetailImageViewScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "",
-      headerLeft: () => <></>,
+      headerLeft: () => undefined,
       headerRight: () => (
         <HeaderBackButton
           labelVisible={false}

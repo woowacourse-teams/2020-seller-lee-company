@@ -10,7 +10,7 @@ import { ImageSliderParamList } from "../types/types";
 
 const Stack = createStackNavigator<ImageSliderParamList>();
 
-export default function ArticleDetailImageSliderNavigation() {
+export default function ImageSliderNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
