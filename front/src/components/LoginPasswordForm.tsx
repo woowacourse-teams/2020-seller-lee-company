@@ -11,7 +11,6 @@ export default function LoginPasswordForm() {
 
   const dynamicStyles = StyleSheet.create({
     passwordFormContainer: {
-      // backgroundColor: "red",
       flexDirection: "row",
       paddingVertical: 10,
       borderBottomWidth: 2,

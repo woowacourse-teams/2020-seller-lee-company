@@ -42,13 +42,9 @@ public class ArticleAcceptanceTest {
     @DisplayName("게시글 인수 테스트")
     @TestFactory
     Stream<DynamicTest> manageArticle() {
-        // Given 게시글이 여러개 추가되어 있다.
-        // data.sql 사용
         return Stream.of(
                 dynamicTest("게시글 전체 조회", () -> {
-                    // When 게시글 전체 조회 요청을 한다.
                     List<ArticleResponse> allArticleResponses = findAllArticles();
-                    // Then 게시글 목록을 응답받는다.
                     assertThat(allArticleResponses.size()).isEqualTo(2);
                 }));
     }

@@ -8,7 +8,7 @@ public class MemberLoginRequest {
     private String email;
     private String password;
 
-    protected MemberLoginRequest() {
+    private MemberLoginRequest() {
     }
 
     public MemberLoginRequest(String email, String password) {
