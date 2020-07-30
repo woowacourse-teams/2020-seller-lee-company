@@ -1,19 +1,20 @@
 /**
- * @author kouz95
+ * @author begaonnuri
  */
 
 package sellerlee.back.article.application;
+
+import static java.util.stream.Collectors.*;
+
+import java.util.List;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tag;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 public class ArticleResponse {
     private Long id;
+    private Long authorId;
     private String title;
     private Category category;
     private Long price;
@@ -23,9 +24,11 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, String title, Category category, Long price, String contents,
-                           List<Tag> tags) {
+    public ArticleResponse(Long id, Long authorId, String title,
+            Category category, Long price, String contents,
+            List<Tag> tags) {
         this.id = id;
+        this.authorId = authorId;
         this.title = title;
         this.category = category;
         this.price = price;
@@ -35,6 +38,7 @@ public class ArticleResponse {
 
     public static ArticleResponse of(Article article) {
         return new ArticleResponse(article.getId(),
+                article.getAuthor().getId(),
                 article.getTitle(),
                 article.getCategory(),
                 article.getPrice(),
@@ -50,6 +54,10 @@ public class ArticleResponse {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
     }
 
     public String getTitle() {

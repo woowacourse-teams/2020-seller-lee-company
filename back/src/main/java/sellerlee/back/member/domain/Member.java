@@ -32,6 +32,10 @@ public class Member {
         this.score = score;
     }
 
+    public Member(Long id) {
+        this(id, null, null, null);
+    }
+
     public Long getId() {
         return id;
     }

@@ -10,14 +10,18 @@ import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
 
 public class ArticleCreateRequest {
-    private final String title;
-    private final Long price;
-    private final String category;
-    private final String contents;
-    private final Long authorId;
-    private final String tags;
+    private String title;
+    private Long price;
+    private String category;
+    private String contents;
+    private Long authorId;
+    private String tags;
 
-    public ArticleCreateRequest(String title, Long price, String category, String contents, Long authorId, String tags) {
+    private ArticleCreateRequest() {
+    }
+
+    public ArticleCreateRequest(String title, Long price, String category, String contents,
+            Long authorId, String tags) {
         this.title = title;
         this.price = price;
         this.category = category;
@@ -27,7 +31,8 @@ public class ArticleCreateRequest {
     }
 
     public Article toArticle() {
-        return new Article(title, price, Category.fromName(category), contents, new Member(authorId), Tags.of(tags));
+        return new Article(title, price, Category.fromName(category), contents,
+                Tags.of(tags), new Member(authorId));
     }
 
     public String getTitle() {

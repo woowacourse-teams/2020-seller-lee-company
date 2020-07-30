@@ -4,17 +4,18 @@
 
 package sellerlee.back.article.domain;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
+import static java.util.Collections.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.unmodifiableList;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 
 @Embeddable
 public class Tags {
@@ -50,7 +51,7 @@ public class Tags {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Tags tags1 = (Tags) o;
+        Tags tags1 = (Tags)o;
         return Objects.equals(tags, tags1.tags);
     }
 
