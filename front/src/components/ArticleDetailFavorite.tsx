@@ -40,12 +40,12 @@ export default function ArticleDetailFavorite({
 
   const unmarkFavorite = async () => {
     setFavoriteState(false);
-    const deleteRequest = await axios.delete(`/favorite/1/${article_id}`);
+    await axios.delete(`/favorite/1/${article_id}`);
   };
 
   const markFavorite = async () => {
     setFavoriteState(true);
-    const postRequset = await axios.post(`/favorite/1/${article_id}`);
+    await axios.post(`/favorite/1/${article_id}`);
   };
 
   const toggleFavorite = () => {

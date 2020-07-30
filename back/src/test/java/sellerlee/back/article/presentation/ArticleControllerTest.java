@@ -42,6 +42,9 @@ class ArticleControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private MockMvc mockMvc;
+
     private ObjectMapper objectMapper;
 
     @BeforeEach
