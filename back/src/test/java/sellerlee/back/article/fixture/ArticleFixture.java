@@ -48,7 +48,7 @@ public class ArticleFixture {
             10_000L,
             "디지털/가전",
             "TEST_CONTENTS",
-            1L,
-            "#TEST #TEST_TAG"
+             Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+            1L
     );
 }
