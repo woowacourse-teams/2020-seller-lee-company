@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import {
   FeedArticle,
-  FeedNavigationProp,
+  FeedHomeNavigationProp,
   PhotoInfo,
   Tag,
 } from "../types/types";
@@ -33,7 +33,7 @@ interface FeedArticleCardProps {
 }
 
 export default function FeedArticleCard({ feedArticle }: FeedArticle) {
-  const navigation = useNavigation<FeedNavigationProp>();
+  const navigation = useNavigation<FeedHomeNavigationProp>();
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
