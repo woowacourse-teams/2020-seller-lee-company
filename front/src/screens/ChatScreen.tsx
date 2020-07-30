@@ -3,25 +3,34 @@
  */
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import ArticleAuthor from "../components/ArticleAuthor";
+import { mockMembers } from "../data/memberMockData";
+import { AuthorScoreType } from "../types/types";
 
 export default function ChatScreen() {
+  const member = mockMembers[0];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Chat Screen</Text>
+      <View style={styles.ArticleAuthorContainer}>
+        <ArticleAuthor
+          name={member.name}
+          score={member.score as AuthorScoreType}
+          avatar={member.avatar}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    backgroundColor: "green",
     justifyContent: "center",
-    alignItems: "center",
   },
-  text: {
-    color: "white",
-    fontSize: 30,
+  ArticleAuthorContainer: {
+    marginHorizontal: 10,
   },
 });
