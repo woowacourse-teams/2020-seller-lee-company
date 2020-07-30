@@ -51,7 +51,7 @@ public class Tags {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Tags tags1 = (Tags) o;
+        Tags tags1 = (Tags)o;
         return Objects.equals(tags, tags1.tags);
     }
 
