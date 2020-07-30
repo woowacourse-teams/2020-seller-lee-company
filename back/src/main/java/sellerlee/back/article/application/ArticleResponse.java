@@ -24,7 +24,7 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, Long authorId, String title,
+    private ArticleResponse(Long id, Long authorId, String title,
             Category category, Long price, String contents,
             List<Tag> tags) {
         this.id = id;

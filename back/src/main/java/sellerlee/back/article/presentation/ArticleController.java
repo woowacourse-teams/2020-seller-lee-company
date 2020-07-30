@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
+import sellerlee.back.article.application.FeedResponse;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -41,9 +42,9 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleResponse>> showArticlePage(@RequestParam Long lastArticleId,
+    public ResponseEntity<List<FeedResponse>> showArticlePage(@RequestParam Long lastArticleId,
             @RequestParam int size) {
-        List<ArticleResponse> responses = articleService.showArticlePage(lastArticleId, size);
+        List<FeedResponse> responses = articleService.showArticlePage(lastArticleId, size);
         return ResponseEntity.ok(responses);
     }
 }
