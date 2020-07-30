@@ -1,20 +1,23 @@
 /**
- * @author begaonnuri
+ * @author joseph415
  */
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import DemoArticle from "../components/DemoArticle";
 import axios from "axios";
-import { Article, FeedHomeNavigationProp } from "../types/types";
+import { Feed, FeedParamList } from "../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import FeedArticleCard from "../components/FeedArticleCard";
+
+type FeedHomeNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
 
 export default function FeedHomeScreen() {
   const navigation = useNavigation<FeedHomeNavigationProp>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<Feed[]>([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -56,9 +59,18 @@ export default function FeedHomeScreen() {
   return (
     <FlatList
       data={articles}
-      renderItem={({ item }) => <DemoArticle item={item} />}
-      keyExtractor={(item, index) => `${index}`}
+      renderItem={({ item }) => (
+        <FeedArticleCard
+          article_id={item.article_id}
+          price={item.price}
+          tagBoxes={item.tagBoxes}
+          favorite={item.favorite}
+          photos={item.photos}
+        />
+      )}
+      keyExtractor={(item) => `${item.article_id}`}
       refreshing={isRefreshing}
+      contentContainerStyle={styles.feedArticleContainer}
       onRefresh={onRefresh}
       onEndReachedThreshold={0.25}
       onEndReached={onLoad}
@@ -66,3 +78,9 @@ export default function FeedHomeScreen() {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  feedArticleContainer: {
+    marginHorizontal: 3,
+  },
+});

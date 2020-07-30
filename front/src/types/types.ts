@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author joseph415
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -47,11 +47,6 @@ export type FeedParamList = {
   FeedArticle: undefined;
 };
 
-export type FeedHomeNavigationProp = StackNavigationProp<
-  FeedParamList,
-  "FeedHome"
->;
-
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
   ArticleContentsFormScreen: undefined;
@@ -67,15 +62,6 @@ export type ArticleCreateModalNavigationProp = StackNavigationProp<
   ArticleCreateParamList,
   "ArticleCreateScreen"
 >;
-
-export interface Tag {
-  id: number;
-  tag: string;
-}
-
-export interface TagItemProps {
-  tagBox: Tag;
-}
 
 export type Category =
   | "디지털/가전"
@@ -108,35 +94,30 @@ export interface AuthorAvatarType {
 
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-interface FeedArticleCardProps {
+export interface PhotoInfo {
   id: number;
+  uri: string;
+}
+
+export interface ArticleDetailFavoriteProp {
+  article_id: number;
+}
+
+export interface Feed {
+  article_id: number;
   price: string;
   tagBoxes: Tag[];
   favorite: number;
   photos: PhotoInfo[];
 }
 
-export interface FeedArticle {
-  feedArticle: FeedArticleCardProps;
-}
-
-export interface PhotoInfo {
+export interface Tag {
   id: number;
-  uri: string;
+  tag: string;
 }
 
-export interface Article {
-  id: number;
-  authorId: number;
-  title: string;
-  category: string;
-  price: number;
-  contents: string;
-  tags: ArticleTag[];
-}
-
-export interface ArticleTag {
-  name: string;
+export interface TagItemProps {
+  tagBox: Tag;
 }
 
 export type ImageSliderParamList = {
