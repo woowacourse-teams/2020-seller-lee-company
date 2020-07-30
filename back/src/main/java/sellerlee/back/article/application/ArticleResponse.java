@@ -4,6 +4,7 @@
 
 package sellerlee.back.article.application;
 
+import java.util.Arrays;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
@@ -55,9 +56,9 @@ public class ArticleResponse {
                 article.getPrice(),
                 article.getContents(),
                 // TODO: 2020/07/30 Article type 없음
-                null,
-                null,
-                null,
+                TradeType.DELEVERY,
+                TradeState.SALING,
+                Arrays.asList("URI1,URI2"),
                 article.getTags().toList(),
                 member,
                 favorite
