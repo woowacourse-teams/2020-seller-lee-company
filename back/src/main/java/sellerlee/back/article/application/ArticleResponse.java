@@ -31,7 +31,7 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, String title, Category category, Long price,
+    private ArticleResponse(Long id, String title, Category category, Long price,
             String contents, TradeType tradeType, TradeState tradeState,
             List<String> images, List<Tag> tags, Member author,
             Favorite favorite) {
