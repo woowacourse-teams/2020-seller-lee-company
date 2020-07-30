@@ -15,6 +15,8 @@
     "@react-navigation/bottom-tabs": "^5.6.1",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
+    "axios": "^0.19.2",
+    "axios-hooks": "^2.1.0",
     "expo": "~38.0.8",
     "expo-image-picker": "^8.3.0",
     "expo-permissions": "~9.0.1",

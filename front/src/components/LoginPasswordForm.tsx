@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "../colors";
+import { useSetRecoilState } from "recoil/dist";
+import { memberPasswordState } from "../states/loginState";
 
 export default function LoginPasswordForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);
+  const setPasswordState = useSetRecoilState(memberPasswordState);
 
   const dynamicStyles = StyleSheet.create({
     passwordFormContainer: {
@@ -28,6 +31,7 @@ export default function LoginPasswordForm() {
         <TextInput
           onFocus={() => setFocusTextInputState(true)}
           onBlur={() => setFocusTextInputState(false)}
+          onChangeText={setPasswordState}
           style={styles.passwordForm}
           placeholder={"비밀번호"}
           secureTextEntry={true}

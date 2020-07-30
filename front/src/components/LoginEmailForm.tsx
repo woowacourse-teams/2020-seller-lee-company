@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "../colors";
+import { useSetRecoilState } from "recoil/dist";
+import { memberEmailState } from "../states/loginState";
 
-export default function LoginIdForm() {
+export default function LoginEmailForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);
+  const setEmailState = useSetRecoilState(memberEmailState);
 
   const dynamicStyles = StyleSheet.create({
     idFormContainer: {
-      // backgroundColor: "red",
       flexDirection: "row",
       paddingVertical: 10,
       borderBottomWidth: 2,
@@ -28,6 +30,7 @@ export default function LoginIdForm() {
         <TextInput
           onFocus={() => setFocusTextInputState(true)}
           onBlur={() => setFocusTextInputState(false)}
+          onChangeText={setEmailState}
           keyboardType={"email-address"}
           style={styles.idForm}
           placeholder={"아이디 / 이메일 아이디 입력"}

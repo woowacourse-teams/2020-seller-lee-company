@@ -6,10 +6,14 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../colors";
 
-export default function LoginSubmit() {
+interface LoginSubmitProps {
+  login: () => Promise<void>;
+}
+
+export default function LoginSubmit({ login }: LoginSubmitProps) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={login}>
         <Text style={styles.loginButtonText}>로그인하기</Text>
       </TouchableOpacity>
     </View>

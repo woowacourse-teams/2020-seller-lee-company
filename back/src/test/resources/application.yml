@@ -7,9 +7,10 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
-      hibernate.format-sql: true
+      hibernate.format_sql: true
+      use_sql_comments: true
 
   h2:
     console:
@@ -24,6 +25,7 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace
+    org.springframework.web: debug
 
 
 
