@@ -2,6 +2,16 @@ spring:
   profiles:
     active: local
 
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace
+    org.springframework.web: debug
+
+---
+
+spring:
+  profiles: local
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     database: H2
@@ -10,16 +20,15 @@ spring:
     hibernate:
       ddl-auto: create
     properties:
-      hibernate.format-sql: true
+      hibernate.format_sql: true
+      use_sql_comments: true
+
   h2:
     console:
       enabled: true
+
   datasource:
-    url: jdbc:h2:mem:testdb;IFEXISTS=FALSE;
+    url: jdbc:h2:tcp://localhost/${user.dir}/test;IFEXISTS=FALSE;
     username: sa
     password:
     driver-class-name: org.h2.Driver
-
-logging:
-  level:
-    org.hibernate.type.descriptor.sql: trace

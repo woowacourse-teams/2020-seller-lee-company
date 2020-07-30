@@ -22,6 +22,7 @@ import NoticeModal from "./NoticeModal";
 import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
 import { articlePhotosState } from "../states/articleState";
+import theme from "../colors";
 
 let photoId = 0;
 
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
   },
   addedPhotoCount: {
     fontSize: 15,
-    color: "orange",
+    color: theme.primary,
   },
   limitPhotoCount: {
     fontSize: 15,

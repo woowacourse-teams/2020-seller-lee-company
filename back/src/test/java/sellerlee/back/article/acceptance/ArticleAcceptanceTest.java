@@ -28,7 +28,7 @@ import io.restassured.specification.RequestSpecification;
 import sellerlee.back.article.application.ArticleResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AcceptanceTest {
+public class ArticleAcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 4L;
     public static final int ARTICLE_SIZE = 2;
 
@@ -45,7 +45,7 @@ public class AcceptanceTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         RestAssured.port = port;
         objectMapper = new ObjectMapper();
     }

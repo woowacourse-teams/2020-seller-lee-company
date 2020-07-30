@@ -9,6 +9,7 @@ import { Feather } from "@expo/vector-icons";
 import { useRecoilState } from "recoil/dist";
 import { tagBoxesState } from "../states/TagState";
 import { TagItemProps } from "../types/types";
+import theme from "../colors";
 
 export default function TagItem({ tagBox }: TagItemProps) {
   const [tagBoxes, setTagBoxes] = useRecoilState(tagBoxesState);
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     height: "100%",
     marginRight: 5,
     borderRadius: 10,
-    backgroundColor: "#eeecda",
+    backgroundColor: theme.secondary,
   },
   tagItemTextWrapper: {
     marginLeft: 3,
