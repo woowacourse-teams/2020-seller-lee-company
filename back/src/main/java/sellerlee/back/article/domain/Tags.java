@@ -1,21 +1,26 @@
 /**
- * @author kouz95
+ * @author jnsorn
  */
 
 package sellerlee.back.article.domain;
+
+import static java.util.Collections.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static java.util.Collections.unmodifiableList;
 
 @Embeddable
 public class Tags {
+    public static final String HASHTAG = "#";
+
     @ElementCollection
     @CollectionTable(name = "tag", joinColumns = @JoinColumn(name = "article_id"))
     private List<Tag> tags;
@@ -25,6 +30,15 @@ public class Tags {
 
     public Tags(List<Tag> tags) {
         this.tags = new ArrayList<>(tags);
+    }
+
+    public static Tags of(String rawTags) {
+        List<Tag> tagNames = Arrays.stream(rawTags.split(HASHTAG))
+                .map(String::trim)
+                .filter(v -> !v.isEmpty())
+                .map(Tag::new)
+                .collect(Collectors.toList());
+        return new Tags(tagNames);
     }
 
     public List<Tag> toList() {

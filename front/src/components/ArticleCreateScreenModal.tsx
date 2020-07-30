@@ -1,15 +1,16 @@
 /**
  * @author lxxjn0
  */
+
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
 import {
   Modal,
-  View,
+  StyleSheet,
   Text,
   TouchableHighlight,
-  StyleSheet,
+  View,
 } from "react-native";
 import { articleModalActivationState } from "../states/articleState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";

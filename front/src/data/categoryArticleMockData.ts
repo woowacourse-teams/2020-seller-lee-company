@@ -1,8 +1,8 @@
 /**
- * @author kouz95, jnsorn, lxxjn0
+ * @author lxxjn0
  */
 
-export const mockArticles = [
+export const categoryMockArticles = [
   {
     title: "락앤락 비스프리 반찬통",
     price: 1500,
