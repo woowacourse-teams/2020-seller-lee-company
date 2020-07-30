@@ -4,6 +4,7 @@
 
 package sellerlee.back.member.application;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.member.fixture.MemberFixture.*;
 
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import sellerlee.back.member.domain.IllegalMemberLoginException;
 import sellerlee.back.member.domain.MemberRepository;
 
 @ExtendWith(value = MockitoExtension.class)
@@ -37,6 +39,32 @@ class MemberServiceTest {
                 .thenReturn(Optional.of(MEMBER_FIXTURE));
 
         memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE);
+        verify(memberRepository).findMemberByEmail(anyString());
+    }
+
+    @DisplayName("존재하지 않는 이메일이 들어올 경우 예외를 발생시킨다.")
+    @Test
+    void login_InvalidEmail() {
+        when(memberRepository.findMemberByEmail(anyString()))
+                .thenThrow(new IllegalMemberLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
+
+        assertThatThrownBy(() -> memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE))
+                .isInstanceOf(IllegalMemberLoginException.class)
+                .hasMessage("이메일이 일치하는 회원이 존재하지 않습니다.");
+
+        verify(memberRepository).findMemberByEmail(anyString());
+    }
+
+    @DisplayName("일치하지 않는 비밀번호가 들어올 경우 예외를 발생시킨다.")
+    @Test
+    void login_InvalidPassword() {
+        when(memberRepository.findMemberByEmail(anyString()))
+                .thenThrow(new IllegalMemberLoginException("비밀번호가 일치하지 않습니다."));
+
+        assertThatThrownBy(() -> memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE))
+                .isInstanceOf(IllegalMemberLoginException.class)
+                .hasMessage("비밀번호가 일치하지 않습니다.");
+
         verify(memberRepository).findMemberByEmail(anyString());
     }
 }
