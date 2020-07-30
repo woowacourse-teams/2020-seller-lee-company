@@ -5,11 +5,14 @@
 import React, { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { FeedArticle } from "../types/types";
 
-export default function Favorite({ feedArticle }: FeedArticle) {
+interface FavoriteProp {
+  favoriteCount: number;
+}
+
+export default function Favorite({ favoriteCount }: FavoriteProp) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [favorite, setFavorite] = useState(feedArticle.favorite);
+  const [favorite, setFavorite] = useState(favoriteCount);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
