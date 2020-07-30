@@ -8,7 +8,7 @@ import AuthorAvatar from "./AuthorAvatar";
 import AuthorName from "./AuthorName";
 import AuthorScore from "./AuthorScore";
 import AuthorTheCheat from "./AuthorTheCheat";
-import { AuthorScoreType, AuthorAvatarType } from "../types/types";
+import { AuthorAvatarType, AuthorScoreType } from "../types/types";
 
 interface ArticleAuthorProps {
   name: string;
