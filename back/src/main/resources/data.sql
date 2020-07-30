@@ -18,7 +18,7 @@ insert into article (article_id, category, contents, price, title, member_id) va
 insert into article (article_id, category, contents, price, title, member_id) values (12, 'PC', 'test contents1', 1234, 'test title1', 1);
 
 insert into tag (article_id, name)
-values (1, 'test tag1'),
-       (1, 'test tag2'),
-       (2, 'test tag3'),
-       (2, 'test tag4');
+values (2, 'test tag1'),
+       (2, 'test tag2'),
+       (3, 'test tag3'),
+       (3, 'test tag4');
