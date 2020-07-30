@@ -3,7 +3,7 @@ node {
         checkout scm
     }
     stage('build') {
-        sh 'cd back'
-        sh './gradlew clean build'
+        sh 'ls'
+        sh './back/gradlew clean build'
     }
 }
