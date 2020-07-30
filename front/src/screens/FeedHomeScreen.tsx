@@ -3,13 +3,12 @@
  */
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { Feed, FeedParamList } from "../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
-import FeedArticleCard from "../components/FeedArticleCard";
 
 type FeedHomeNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
 
@@ -83,25 +82,26 @@ export default function FeedHomeScreen() {
   };
 
   return (
-    <FlatList
-      data={articles}
-      renderItem={({ item }) => (
-        <FeedArticleCard
-          article_id={item.article_id}
-          price={item.price}
-          tagBoxes={item.tagBoxes}
-          favorite={item.favorite}
-          photos={item.photos}
-        />
-      )}
-      keyExtractor={(item) => `${item.article_id}`}
-      refreshing={isRefreshing}
-      contentContainerStyle={styles.feedArticleContainer}
-      onRefresh={onRefresh}
-      onEndReachedThreshold={0.25}
-      onEndReached={onLoad}
-      ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
-    />
+    <View />
+    // <FlatList
+    //   data={articles}
+    //   renderItem={({ item }) => (
+    //     <FeedArticleCard
+    //       article_id={item.article_id}
+    //       price={item.price}
+    //       tagBoxes={item.tagBoxes}
+    //       favorite={item.favorite}
+    //       photos={item.photos}
+    //     />
+    //   )}
+    //   keyExtractor={(item) => `${item.article_id}`}
+    //   refreshing={isRefreshing}
+    //   contentContainerStyle={styles.feedArticleContainer}
+    //   onRefresh={onRefresh}
+    //   onEndReachedThreshold={0.25}
+    //   onEndReached={onLoad}
+    //   ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
+    // />
   );
 }
 

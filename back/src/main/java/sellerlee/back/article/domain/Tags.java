@@ -32,6 +32,8 @@ public class Tags {
         this.tags = new ArrayList<>(tags);
     }
 
+
+
     public static Tags of(String rawTags) {
         List<Tag> tagNames = Arrays.stream(rawTags.split(HASHTAG))
                 .map(String::trim)

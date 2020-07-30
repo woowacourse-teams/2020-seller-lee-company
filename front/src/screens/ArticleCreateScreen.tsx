@@ -1,5 +1,5 @@
 /**
- * @author kouz95 lxxjn0
+ * @author kouz95
  */
 
 import React, { useEffect, useLayoutEffect } from "react";
@@ -38,8 +38,11 @@ import {
 } from "../states/articleState";
 import { tagBoxesState } from "../states/TagState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";
+import axios from "axios";
 
 export default function ArticleCreateScreen() {
+  const BASE_URL = "http://localhost:8080/";
+
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const photos = useRecoilValue(articlePhotosState);
   const title = useRecoilValue(articleTitleState);
@@ -151,6 +154,31 @@ export default function ArticleCreateScreen() {
     },
   });
 
+  const postArticle = async () => {
+    const tags = tagBoxes.map((tag) => tag.tag);
+    const mockAuthorId = 1;
+
+    return await axios.post(`${BASE_URL}/articles`, {
+      title,
+      price,
+      category: selectedCategory,
+      contents,
+      authorId: mockAuthorId,
+      tags,
+    });
+  };
+
+  const goBackAfterPostAndReset = async () => {
+    postArticle().then((response) => {
+      if (response.status === 201) {
+        resetCreateScreen();
+        navigation.goBack();
+      } else {
+        console.warn("article post 실패");
+      }
+    });
+  };
+
   return (
     <KeyboardAwareScrollView
       enableOnAndroid
@@ -212,10 +240,7 @@ export default function ArticleCreateScreen() {
           title={"완료"}
           color={"white"}
           disabled={incompleteCriticalItems()}
-          onPress={() => {
-            resetCreateScreen();
-            navigation.goBack();
-          }}
+          onPress={goBackAfterPostAndReset}
         />
       </View>
     </KeyboardAwareScrollView>
