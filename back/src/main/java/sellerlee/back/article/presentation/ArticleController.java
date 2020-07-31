@@ -23,6 +23,7 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.article.application.FeedResponse;
 
 @RestController
 @RequestMapping(ARTICLE_URI)

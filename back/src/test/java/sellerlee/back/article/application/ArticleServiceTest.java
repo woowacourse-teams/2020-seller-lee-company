@@ -63,7 +63,7 @@ class ArticleServiceTest {
         List<FeedResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
                 ARTICLE_SIZE);
 
-        assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
-        assertThat(actualArticles.get(1).getId()).isEqualTo(ARTICLE1.getId());
+        assertThat(actualArticles.get(0).getArticleId()).isEqualTo(ARTICLE2.getId());
+        assertThat(actualArticles.get(1).getArticleId()).isEqualTo(ARTICLE1.getId());
     }
 }

@@ -6,11 +6,11 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TagItemProps } from "../types/types";
 
-export default function FeedArticleTag({ tagBox }: TagItemProps) {
+export default function FeedArticleTag({ tagItem }: TagItemProps) {
   return (
     <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text>{tagBox.tag}</Text>
+        <Text>{tagItem.name}</Text>
       </View>
     </View>
   );
