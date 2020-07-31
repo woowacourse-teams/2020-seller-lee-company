@@ -3,17 +3,17 @@
  */
 
 import React from "react";
-import { Image, ImageURISource, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
 interface ImageBoxProps {
-  imageURI: ImageURISource;
+  imageURI: string;
   marginBottom: number;
 }
 
 export default function ImageBox({ imageURI, marginBottom }: ImageBoxProps) {
   return (
     <View style={styles.imageContainer || { marginBottom: marginBottom }}>
-      <Image source={imageURI} style={styles.image} />
+      <Image source={{ uri: imageURI }} style={styles.image} />
     </View>
   );
 }
@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: "100%",
-    height: "100%",
     resizeMode: "contain",
   },
 });

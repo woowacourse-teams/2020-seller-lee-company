@@ -7,19 +7,12 @@ import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
-import { Feed } from "../types/types";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/FeedArticleCard";
-import { ArticleNavigationParamList } from "../components/ArticleNavigation";
-
-type FeedHomeNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "FeedHome"
->;
-
-export const BASE_URL = "http://localhost:8080/";
 
 export default function FeedHomeScreen() {
+  // const BASE_URL = "http://localhost:8080/";
+  const BASE_URL = "http://3.34.248.131:8080/";
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 

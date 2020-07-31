@@ -5,7 +5,7 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 
-export default function DetailTitle() {
+export default function ArticleDetailTitle() {
   return <Text style={styles.title}>LG 모니터 삽니다</Text>;
 }
 

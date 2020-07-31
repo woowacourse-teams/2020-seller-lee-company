@@ -24,7 +24,7 @@ export default function ArticleCreateNavigation() {
         name="ArticleContentsFormScreen"
         component={ArticleContentsFormScreen}
         options={{
-          title: "내용",
+          title: "상품 설명",
         }}
       />
       <Stack.Screen

@@ -38,8 +38,13 @@ import {
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";
+import theme from "../colors";
+import axios from "axios";
 
 export default function ArticleCreateScreen() {
+  const BASE_URL = "http://3.34.248.131:8080/";
+  // const BASE_URL = "http://localhost:8080/";
+
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const photos = useRecoilValue(articlePhotosState);
   const title = useRecoilValue(articleTitleState);
@@ -85,8 +90,7 @@ export default function ArticleCreateScreen() {
       title === "" ||
       price === 0 ||
       contents === "" ||
-      selectedCategory === "" ||
-      tags.length === 0
+      selectedCategory === ""
     );
   };
 
@@ -142,7 +146,7 @@ export default function ArticleCreateScreen() {
       color: contents.length === 0 ? "grey" : "black",
     },
     createButtonContainer: {
-      backgroundColor: incompleteCriticalItems() ? "grey" : "orange",
+      backgroundColor: incompleteCriticalItems() ? "grey" : theme.primary,
       flex: 3,
       justifyContent: "center",
       alignItems: "center",
@@ -150,6 +154,33 @@ export default function ArticleCreateScreen() {
       borderTopWidth: 1,
     },
   });
+
+  const postArticle = async () => {
+    // const tags = tags.map((tag) => tag.tag);
+    const mockAuthorId = 1;
+    const images = photos.map((photo) => photo.uri);
+
+    return await axios.post(`${BASE_URL}/articles`, {
+      title,
+      price,
+      category: selectedCategory,
+      contents,
+      tags,
+      images,
+      authorId: mockAuthorId,
+    });
+  };
+
+  const goBackAfterPostAndReset = async () => {
+    postArticle().then((response) => {
+      if (response.status === 201) {
+        resetCreateScreen();
+        navigation.goBack();
+      } else {
+        console.warn("article post 실패");
+      }
+    });
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -212,10 +243,7 @@ export default function ArticleCreateScreen() {
           title={"완료"}
           color={"white"}
           disabled={incompleteCriticalItems()}
-          onPress={() => {
-            resetCreateScreen();
-            navigation.goBack();
-          }}
+          onPress={goBackAfterPostAndReset}
         />
       </View>
     </KeyboardAwareScrollView>

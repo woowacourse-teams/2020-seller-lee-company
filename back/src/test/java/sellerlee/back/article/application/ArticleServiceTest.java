@@ -7,9 +7,10 @@ package sellerlee.back.article.application;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static sellerlee.back.article.acceptance.AcceptanceTest.*;
+import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
 import static sellerlee.back.article.fixture.ArticleFixture.*;
+import static sellerlee.back.article.fixture.TagFixture.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +44,7 @@ class ArticleServiceTest {
     @Test
     void createArticle() {
         ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
-                1L, "#선풍기#굿");
+            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"), 1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
         Long actualId = articleService.post(request);
@@ -59,7 +60,7 @@ class ArticleServiceTest {
 
         when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID,
                 pageRequest)).thenReturn(expectedPage);
-        List<ArticleResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
+        List<FeedResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
                 ARTICLE_SIZE);
 
         assertThat(actualArticles.get(0).getArticleId()).isEqualTo(ARTICLE2.getId());
