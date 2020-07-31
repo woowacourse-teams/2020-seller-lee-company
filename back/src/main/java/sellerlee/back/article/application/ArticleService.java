@@ -30,10 +30,10 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleResponse> showArticlePage(Long lastArticleId, int size) {
+    public List<FeedResponse> showArticlePage(Long lastArticleId, int size) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
         Page<Article> articlePage = articleRepository.findByIdLessThanOrderByIdDesc(lastArticleId,
                 pageRequest);
-        return ArticleResponse.listOf(articlePage.getContent());
+        return FeedResponse.listOf(articlePage.getContent());
     }
 }

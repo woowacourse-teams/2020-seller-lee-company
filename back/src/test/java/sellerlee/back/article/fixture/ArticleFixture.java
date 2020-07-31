@@ -14,7 +14,6 @@ import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
-import sellerlee.back.member.domain.Member;
 
 public class ArticleFixture {
     public static final Article ARTICLE_FIXTURE = new Article(
@@ -23,7 +22,7 @@ public class ArticleFixture {
             Category.BOOK,
             "TEST_CONTENTS",
             new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
-            new Member(1L, "sellerlee@woowacourse.com", "1234", 4.5)
+            MEMBER2
     );
 
     public static final Article ARTICLE1 = new Article(
@@ -33,7 +32,7 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             new Tags(Collections.emptyList()),
-            MEMBER);
+            MEMBER1);
 
     public static final Article ARTICLE2 = new Article(
             2L,
@@ -42,7 +41,7 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             new Tags(Collections.emptyList()),
-            MEMBER);
+            MEMBER1);
 
     public static final Article ARTICLE3 = new Article(
             3L,
@@ -51,7 +50,7 @@ public class ArticleFixture {
             Category.PC,
             "TEST_CONTENTS",
             new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
-            MEMBER);
+            MEMBER1);
 
     public static final ArticleCreateRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleCreateRequest(
             "TEST_TITLE",

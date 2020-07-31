@@ -59,7 +59,7 @@ class ArticleServiceTest {
 
         when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID,
                 pageRequest)).thenReturn(expectedPage);
-        List<ArticleResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
+        List<FeedResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
                 ARTICLE_SIZE);
 
         assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());

@@ -55,7 +55,7 @@ class LoginAdviceControllerTest {
     @Test
     void handleIllegalMemberLoginException_InvalidPassword() throws Exception {
         String request = objectMapper.writeValueAsString(
-                INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE);
+                INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE);
 
         doThrow(new IllegalMemberLoginException("비밀번호가 일치하지 않습니다."))
                 .when(memberService).login(any());

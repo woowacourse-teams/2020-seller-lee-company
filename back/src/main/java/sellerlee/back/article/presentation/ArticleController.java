@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
+import sellerlee.back.article.application.ArticleViewService;
+import sellerlee.back.article.application.FeedResponse;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -27,9 +30,12 @@ public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
 
     private final ArticleService articleService;
+    private final ArticleViewService articleViewService;
 
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService,
+            ArticleViewService articleViewService) {
         this.articleService = articleService;
+        this.articleViewService = articleViewService;
     }
 
     @PostMapping
@@ -41,9 +47,18 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleResponse>> showArticlePage(@RequestParam Long lastArticleId,
+    public ResponseEntity<List<FeedResponse>> showArticlePage(
+            @RequestParam Long lastArticleId,
             @RequestParam int size) {
-        List<ArticleResponse> responses = articleService.showArticlePage(lastArticleId, size);
+        List<FeedResponse> responses = articleService.showArticlePage(lastArticleId, size);
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id,
+            @RequestParam Long memberId) {
+        ArticleResponse articleResponse = articleViewService.showArticle(id, memberId);
+
+        return ResponseEntity.ok(articleResponse);
     }
 }
