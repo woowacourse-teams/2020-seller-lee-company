@@ -3,9 +3,9 @@
  * @author joseph415
  */
 
-package sellerlee.back.favorite.domain.presentation;
+package sellerlee.back.favorite.presentation;
 
-import static sellerlee.back.favorite.domain.presentation.FavoriteController.*;
+import static sellerlee.back.favorite.presentation.FavoriteController.*;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
