@@ -37,7 +37,7 @@ public class FeedResponse {
                 article.getPrice(),
                 10,
                 article.getTags().toList(),
-                Arrays.asList("uri1", "uri2")
+                article.getImages()
         );
     }
 
