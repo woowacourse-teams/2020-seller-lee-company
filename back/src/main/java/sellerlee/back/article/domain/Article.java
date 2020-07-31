@@ -94,10 +94,6 @@ public class Article {
         return tags;
     }
 
-    public List<String> getPhotos() {
-        return photos;
-    }
-
     public Member getAuthor() {
         return author;
     }

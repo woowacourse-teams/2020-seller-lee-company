@@ -56,14 +56,6 @@ public class ArticleCreateRequest {
         return contents;
     }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
     public Long getAuthorId() {
         return authorId;
     }
