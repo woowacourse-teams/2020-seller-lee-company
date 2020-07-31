@@ -27,7 +27,7 @@ export default function ArticleDetailFavorite({
       setFavoriteState(myFavoriteState);
     };
 
-    getRequest().catch((reason) => Alert.alert(reason));
+    getRequest();
   }, [articleId]);
 
   const fulfillHeartAnimate = () => {
@@ -51,9 +51,9 @@ export default function ArticleDetailFavorite({
 
   const toggleFavorite = () => {
     if (favoriteState) {
-      unmarkFavorite().catch((reason) => Alert.alert(reason));
+      unmarkFavorite();
     } else {
-      markFavorite().catch((reason) => Alert.alert(reason));
+      markFavorite();
     }
     fulfillHeartAnimate();
   };
