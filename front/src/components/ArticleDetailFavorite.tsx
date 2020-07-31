@@ -7,6 +7,7 @@ import { Alert, Animated, StyleSheet, View } from "react-native";
 import axios from "axios";
 import { AntDesign } from "@expo/vector-icons";
 import { ArticleDetailFavoriteProp } from "../types/types";
+import theme from "../colors";
 
 export default function ArticleDetailFavorite({
   article_id,
@@ -58,11 +59,11 @@ export default function ArticleDetailFavorite({
   };
 
   return (
-    <View style={styles.detailsHeartContainer}>
+    <View style={styles.container}>
       <AnimateIcon
         name={favoriteState ? "heart" : "hearto"}
         size={25}
-        color={favoriteState ? "red" : "black"}
+        color={favoriteState ? theme.others : "black"}
         onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],
@@ -73,7 +74,7 @@ export default function ArticleDetailFavorite({
 }
 
 const styles = StyleSheet.create({
-  detailsHeartContainer: {
+  container: {
     flexDirection: "row",
     alignItems: "center",
   },

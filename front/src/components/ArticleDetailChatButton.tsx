@@ -6,16 +6,11 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ArticleNavigationParamList } from "./ArticleNavigation";
+import { ChatRoomNavigationProp } from "../types/types";
+import theme from "../colors";
 
-type ChatButtonProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ChatRoom"
->;
-
-export default function ChatButton() {
-  const navigation = useNavigation<ChatButtonProp>();
+export default function ArticleDetailChatButton() {
+  const navigation = useNavigation<ChatRoomNavigationProp>();
 
   return (
     <TouchableOpacity
@@ -32,7 +27,7 @@ export default function ChatButton() {
 
 const styles = StyleSheet.create({
   addButton: {
-    backgroundColor: "#eeecda",
+    backgroundColor: theme.primary,
     paddingVertical: 15,
     paddingHorizontal: 25,
     marginRight: 5,
@@ -40,6 +35,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color: "#888888",
+    color: theme.tertiary,
   },
 });

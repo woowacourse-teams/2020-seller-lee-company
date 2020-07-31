@@ -4,20 +4,23 @@
 
 import React from "react";
 import ImageBox from "./ImageBox";
-import { ImageURISource, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 import Swiper from "react-native-swiper";
 import ActiveDot from "./ActiveDot";
 import { useNavigation } from "@react-navigation/native";
-import { ImageSliderNavigationProp } from "../types/types";
+import { ArticleDetailScreenProp } from "../types/types";
 import Dot from "./Dot";
 
-interface ImageSliderProps {
-  images: ImageURISource[];
+interface ArticleDetailImageSliderProps {
+  photos: string[];
 }
 
-export default function ArticleDetailImageSlider({ images }: ImageSliderProps) {
-  const navigation = useNavigation<ImageSliderNavigationProp>();
+export default function ArticleDetailImageSlider({
+  photos,
+}: ArticleDetailImageSliderProps) {
+  const navigation = useNavigation<ArticleDetailScreenProp>();
+
   return (
     <Swiper
       loadMinimal={true}
@@ -27,13 +30,15 @@ export default function ArticleDetailImageSlider({ images }: ImageSliderProps) {
       paginationStyle={styles.pagination}
       centerContent={true}
     >
-      {images.map((imageURISource, index) => (
+      {photos.map((imageURISource, index) => (
         <TouchableOpacity
           activeOpacity={1}
           style={styles.buttonOnImage}
           key={index}
           onPress={() =>
-            navigation.navigate("ArticleDetailImageViewScreen", { images })
+            navigation.navigate("ArticleDetailImageViewScreen", {
+              photos: photos,
+            })
           }
         >
           <ImageBox imageURI={imageURISource} marginBottom={0} />

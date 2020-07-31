@@ -7,8 +7,11 @@ import { StyleSheet, Text, View } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { useNavigation } from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../states/articleState";
-import { CategoryItemProps } from "../types/types";
 import theme from "../colors";
+
+interface CategoryItemProps {
+  title: string;
+}
 
 export default function CategoryItem({ title }: CategoryItemProps) {
   const navigation = useNavigation();

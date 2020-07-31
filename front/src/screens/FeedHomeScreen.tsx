@@ -3,14 +3,12 @@
  */
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
-import { Feed, FeedParamList } from "../types/types";
-import { StackNavigationProp } from "@react-navigation/stack";
-
-type FeedHomeNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
+import { Feed, FeedHomeNavigationProp } from "../types/types";
+import FeedArticleCard from "../components/FeedArticleCard";
 
 export default function FeedHomeScreen() {
   // const BASE_URL = "http://localhost:8080/";
@@ -64,7 +62,7 @@ export default function FeedHomeScreen() {
 
   const getLastArticleId = () => {
     return articles
-      .map((article) => article.article_id)
+      .map((article) => article.articleId)
       .sort((a, b) => b - a)
       .pop();
   };
@@ -83,26 +81,25 @@ export default function FeedHomeScreen() {
   };
 
   return (
-    <View />
-    // <FlatList
-    //   data={articles}
-    //   renderItem={({ item }) => (
-    //     <FeedArticleCard
-    //       article_id={item.article_id}
-    //       price={item.price}
-    //       tagBoxes={item.tagBoxes}
-    //       favorite={item.favorite}
-    //       photos={item.photos}
-    //     />
-    //   )}
-    //   keyExtractor={(item) => `${item.article_id}`}
-    //   refreshing={isRefreshing}
-    //   contentContainerStyle={styles.feedArticleContainer}
-    //   onRefresh={onRefresh}
-    //   onEndReachedThreshold={0.25}
-    //   onEndReached={onLoad}
-    //   ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
-    // />
+    <FlatList
+      data={articles}
+      renderItem={({ item }) => (
+        <FeedArticleCard
+          articleId={item.articleId}
+          price={item.price}
+          tagBoxes={item.tagBoxes}
+          favorite={item.favorite}
+          photos={item.photos}
+        />
+      )}
+      keyExtractor={(item) => `${item.articleId}`}
+      refreshing={isRefreshing}
+      contentContainerStyle={styles.feedArticleContainer}
+      onRefresh={onRefresh}
+      onEndReachedThreshold={0.25}
+      onEndReached={onLoad}
+      ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
+    />
   );
 }
 

@@ -4,13 +4,13 @@
 
 import React from "react";
 import ImageBox from "./ImageBox";
-import { ImageURISource, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import ImageViewSliderDot from "./ImageViewSliderDot";
 import Swiper from "react-native-swiper";
 import ActiveDot from "./ActiveDot";
 
 interface ImageSliderProps {
-  images: ImageURISource[];
+  images: string[];
 }
 
 export default function ArticleDetailImageViewSlider({
