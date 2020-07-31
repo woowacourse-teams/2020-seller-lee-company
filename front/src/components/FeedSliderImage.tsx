@@ -4,13 +4,13 @@
 
 import React from "react";
 import PhotoBox from "./PhotoBox";
-import { ImageURISource, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 import Dot from "./Dot";
 import ActiveDot from "./ActiveDot";
 
 export interface FeedSliderImageProp {
-  photos: ImageURISource[];
+  photos: string[];
 }
 
 export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
@@ -29,7 +29,7 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
           style={styles.imageContainer}
           key={index}
         >
-          <PhotoBox photo={photoInfo.uri} />
+          <PhotoBox photo={photoInfo} />
         </TouchableOpacity>
       ))}
     </Swiper>

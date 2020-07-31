@@ -148,7 +148,7 @@ export interface Feed {
   price: number;
   favoriteCount: number;
   tags: Tag[];
-  photos: ImageURISource[];
+  photos: string[];
 }
 
 export interface Tag {
