@@ -72,7 +72,7 @@ public class Article {
     public Long getPrice() {
         return price;
     }
-    
+
     public Category getCategory() {
         return category;
     }
