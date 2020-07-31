@@ -12,7 +12,7 @@ import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import {
   inputState,
   isModalOpenState,
-  tagBoxesState,
+  tagsState,
   tagIdState,
 } from "../states/TagState";
 
@@ -22,7 +22,7 @@ export default function Tag() {
 
   const [tagId, setTagId] = useRecoilState(tagIdState);
   const [input, setInput] = useRecoilState(inputState);
-  const [tagBoxes, setTagBoxes] = useRecoilState(tagBoxesState);
+  const [tags, setTags] = useRecoilState(tagsState);
 
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
 
@@ -32,11 +32,11 @@ export default function Tag() {
   };
 
   const insertTag = () => {
-    if (tagBoxes.length >= 0 && tagBoxes.length <= limitTagSize) {
-      setTagBoxes(
-        tagBoxes.concat({
+    if (tags.length >= 0 && tags.length <= limitTagSize) {
+      setTags(
+        tags.concat({
           id: tagId,
-          tag: hashTag + removeBlank(input),
+          name: hashTag + removeBlank(input),
         }),
       );
       setTagId(tagId + 1);
@@ -101,8 +101,8 @@ export default function Tag() {
         </View>
       </View>
       <View style={styles.tagContainerWrapper}>
-        {tagBoxes.map((tag) => (
-          <TagItem key={tag.id} tagBox={tag} />
+        {tags.map((tag) => (
+          <TagItem key={tag.id} tagItem={tag} />
         ))}
       </View>
     </View>

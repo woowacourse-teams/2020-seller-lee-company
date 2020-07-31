@@ -10,7 +10,7 @@ import { ArticleDetailFavoriteProp } from "../types/types";
 import theme from "../colors";
 
 export default function ArticleDetailFavorite({
-  article_id,
+  articleId,
 }: ArticleDetailFavoriteProp) {
   const [favoriteState, setFavoriteState] = useState(false);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
@@ -21,14 +21,14 @@ export default function ArticleDetailFavorite({
     const getRequest = async () => {
       const {
         data: { myFavoriteState },
-      } = await axios.get(`/favorite/1/${article_id}`, {
+      } = await axios.get(`/favorite/1/${articleId}`, {
         timeout: 1000,
       });
       setFavoriteState(myFavoriteState);
     };
 
-    getRequest().catch((reason) => Alert.alert(reason));
-  }, [article_id]);
+    getRequest();
+  }, [articleId]);
 
   const fulfillHeartAnimate = () => {
     springValue.setValue(0.33);
@@ -41,19 +41,19 @@ export default function ArticleDetailFavorite({
 
   const unmarkFavorite = async () => {
     setFavoriteState(false);
-    await axios.delete(`/favorite/1/${article_id}`);
+    await axios.delete(`/favorite/1/${articleId}`);
   };
 
   const markFavorite = async () => {
     setFavoriteState(true);
-    await axios.post(`/favorite/1/${article_id}`);
+    await axios.post(`/favorite/1/${articleId}`);
   };
 
   const toggleFavorite = () => {
     if (favoriteState) {
-      unmarkFavorite().catch((reason) => Alert.alert(reason));
+      unmarkFavorite();
     } else {
-      markFavorite().catch((reason) => Alert.alert(reason));
+      markFavorite();
     }
     fulfillHeartAnimate();
   };

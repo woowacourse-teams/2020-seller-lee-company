@@ -20,10 +20,10 @@ import { insertComma } from "../replacePriceWithComma";
 const ANIMATE_START_VALUE = 0.93;
 
 export default function FeedArticleCard({
-  articleId,
+  id,
   price,
-  tagBoxes,
-  favorite,
+  tags,
+  favoriteCount,
   photos,
 }: Feed) {
   const navigation = useNavigation<FeedHomeNavigationProp>();
@@ -48,7 +48,7 @@ export default function FeedArticleCard({
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedDetail", { articleId: articleId });
+        navigation.navigate("FeedDetail", { articleId: id });
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
@@ -58,14 +58,14 @@ export default function FeedArticleCard({
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite favoriteCount={favorite} />
+            <Favorite favoriteCount={favoriteCount} />
             <View style={styles.detailsPriceContainer}>
-              <Text style={styles.text}>{insertComma(price)}원</Text>
+              <Text style={styles.text}>{insertComma(price.toString())}원</Text>
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {tagBoxes.map((tagItem) => (
-              <FeedArticleTag key={tagItem.id} tagBox={tagItem} />
+            {tags.map((tagItem) => (
+              <FeedArticleTag key={tagItem.id} tagItem={tagItem} />
             ))}
           </View>
         </View>

@@ -4,16 +4,15 @@
 
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { PhotoInfo } from "../types/types";
 
 export interface PhotoBoxProps {
-  photoInfoProps: PhotoInfo;
+  photo: string | undefined;
 }
 
-export default function PhotoBox({ photoInfoProps }: PhotoBoxProps) {
+export default function PhotoBox({ photo }: PhotoBoxProps) {
   return (
     <View style={styles.imageContainer}>
-      <Image source={{ uri: photoInfoProps.uri }} style={styles.image} />
+      <Image source={{ uri: photo }} style={styles.image} />
     </View>
   );
 }

@@ -9,20 +9,20 @@ import { ArticleDetailFavoriteProp } from "../types/types";
 import axios from "axios";
 
 export default function ArticlePriceAndTradeType({
-  article_id,
+  articleId,
 }: ArticleDetailFavoriteProp) {
-  const member_id = 1;
+  const memberId = 1;
   const [price, setPrice] = useState(706000);
   const [tradeType, setTradeType] = useState("택배");
   const [location, setLocation] = useState("잠실동");
 
   useEffect(() => {
-    axios.get("/favorite/" + member_id + "/" + article_id).then((res) => {
+    axios.get("/favorite/" + memberId + "/" + articleId).then((res) => {
       setPrice(res.data.price);
       setTradeType(res.data.detail.tradeType);
       setLocation(res.data.detail.location);
     });
-  }, [article_id]);
+  }, [articleId]);
 
   return (
     <View style={styles.priceAndActionType}>

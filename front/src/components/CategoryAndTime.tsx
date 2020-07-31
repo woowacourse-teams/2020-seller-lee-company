@@ -12,7 +12,7 @@ export default function CategoryAndTime({
 }: CategoryAndTimeProps) {
   return (
     <Text style={styles.text}>
-      `${category} | ${time}`
+      {category} | {time}
     </Text>
   );
 }

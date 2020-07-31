@@ -5,6 +5,7 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { ImageURISource } from "react-native";
 
 export type TabParamList = {
   Home: undefined;
@@ -82,6 +83,15 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
+export type ImageSliderNavigationProp = StackNavigationProp<
+  ImageSliderParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
+export interface CategoryItemProps {
+  title: string;
+}
+
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
   ArticleContentsFormScreen: undefined;
@@ -97,20 +107,6 @@ export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
   ArticleCreateParamList,
   "ArticleContentsFormScreen"
 >;
-
-export interface Tag {
-  id: number;
-  tag: string;
-}
-
-export interface TagItemProps {
-  tagBox: Tag;
-}
-
-export interface PhotoInfo {
-  id: number;
-  uri: string;
-}
 
 export type Category =
   | "디지털/가전"
@@ -144,22 +140,67 @@ export interface AuthorAvatarType {
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface ArticleDetailFavoriteProp {
-  article_id: number;
+  articleId: number;
 }
 
 export interface Feed {
-  articleId: number;
-  price: string;
-  tagBoxes: Tag[];
-  favorite: number;
-  photos: PhotoInfo[];
+  id: number;
+  price: number;
+  favoriteCount: number;
+  tags: Tag[];
+  photos: string[];
 }
 
 export interface Tag {
   id: number;
-  tag: string;
+  name: string;
 }
 
 export interface TagItemProps {
-  tagBox: Tag;
+  tagItem: Tag;
+}
+
+export interface PhotoInfo {
+  id: number;
+  uri: string;
+}
+
+export type ImageSliderParamList = {
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
+    images: ImageURISource[];
+  };
+};
+
+export type ArticleDetailNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ArticleDetailScreen"
+>;
+
+export interface Article {
+  id: number;
+  title: string;
+  category: string;
+  price: number;
+  contents: string;
+  tradeType: string;
+  tradeState: string;
+  photos: ImageURISource[];
+  tags: Tag[];
+  member: Author;
+  favorite: Favorite;
+}
+
+export interface Author {
+  id: number;
+  nickname: string;
+  score: number;
+  avatarUri: string;
+  validated: boolean;
+}
+
+export interface Favorite {
+  id: number;
+  memberId: number;
+  articleId: number;
 }

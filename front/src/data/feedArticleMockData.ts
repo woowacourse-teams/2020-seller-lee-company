@@ -6,7 +6,7 @@ export const mockFeedArticles = [
   {
     article_id: 0,
     price: "413000",
-    tagBoxes: [
+    tags: [
       {
         id: 0,
         tag: "#모니터",
@@ -37,7 +37,7 @@ export const mockFeedArticles = [
   {
     article_id: 1,
     price: "413020",
-    tagBoxes: [
+    tags: [
       {
         id: 0,
         tag: "#모니2터",

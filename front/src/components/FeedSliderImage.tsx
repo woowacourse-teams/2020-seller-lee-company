@@ -5,13 +5,12 @@
 import React from "react";
 import PhotoBox from "./PhotoBox";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { PhotoInfo } from "../types/types";
 import Swiper from "react-native-swiper";
 import Dot from "./Dot";
 import ActiveDot from "./ActiveDot";
 
 export interface FeedSliderImageProp {
-  photos: PhotoInfo[];
+  photos: string[];
 }
 
 export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
@@ -24,13 +23,13 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
       paginationStyle={styles.pagination}
       centerContent={true}
     >
-      {photos.map((photoInfo) => (
+      {photos.map((photoInfo, index) => (
         <TouchableOpacity
           activeOpacity={1}
           style={styles.imageContainer}
-          key={photoInfo.id}
+          key={index}
         >
-          <PhotoBox photoInfoProps={photoInfo} />
+          <PhotoBox photo={photoInfo} />
         </TouchableOpacity>
       ))}
     </Swiper>
