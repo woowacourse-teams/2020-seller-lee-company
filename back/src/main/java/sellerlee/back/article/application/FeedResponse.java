@@ -1,7 +1,6 @@
 /**
  * @author begaonnuri
  */
-
 package sellerlee.back.article.application;
 
 import static java.util.stream.Collectors.*;
@@ -20,13 +19,14 @@ public class FeedResponse {
     private Long price;
     private String contents;
     private List<Tag> tags;
+    private List<String> images;
 
     private FeedResponse() {
     }
 
     public FeedResponse(Long id, Long authorId, String title,
-            Category category, Long price, String contents,
-            List<Tag> tags) {
+        Category category, Long price, String contents,
+        List<Tag> tags, List<String> images) {
         this.id = id;
         this.authorId = authorId;
         this.title = title;
@@ -34,22 +34,25 @@ public class FeedResponse {
         this.price = price;
         this.contents = contents;
         this.tags = tags;
+        this.images = images;
     }
 
     public static FeedResponse of(Article article) {
         return new FeedResponse(article.getId(),
-                article.getAuthor().getId(),
-                article.getTitle(),
-                article.getCategory(),
-                article.getPrice(),
-                article.getContents(),
-                article.getTags().toList());
+            article.getAuthor().getId(),
+            article.getTitle(),
+            article.getCategory(),
+            article.getPrice(),
+            article.getContents(),
+            article.getTags().toList(),
+            article.getImages()
+        );
     }
 
     public static List<FeedResponse> listOf(List<Article> articles) {
         return articles.stream()
-                .map(FeedResponse::of)
-                .collect(toList());
+            .map(FeedResponse::of)
+            .collect(toList());
     }
 
     public Long getId() {
@@ -78,5 +81,9 @@ public class FeedResponse {
 
     public List<Tag> getTags() {
         return tags;
+    }
+
+    public List<String> getImages() {
+        return images;
     }
 }

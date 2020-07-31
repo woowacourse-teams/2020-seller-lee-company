@@ -68,8 +68,8 @@ public class ArticleAcceptanceTest {
         return Stream.of(
                 dynamicTest("게시글 추가", this::createArticle),
                 dynamicTest("게시글 페이지 조회", () -> {
-                    List<FeedResponse> feedArticleRespons = findArticlePage();
-                    assertThat(feedArticleRespons.size()).isEqualTo(2);
+                    List<FeedResponse> feedArticleResponses = findArticlePage();
+                    assertThat(feedArticleResponses.size()).isEqualTo(1);
                 }));
     }
 
@@ -86,7 +86,7 @@ public class ArticleAcceptanceTest {
         return Stream.of(
                 dynamicTest("게시글 전체 조회", () -> {
                     List<FeedResponse> feedArticleResponse = findArticlePage();
-                    assertThat(feedArticleResponse.size()).isEqualTo(2);
+                    assertThat(feedArticleResponse.size()).isEqualTo(1);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = getArticleResponse();

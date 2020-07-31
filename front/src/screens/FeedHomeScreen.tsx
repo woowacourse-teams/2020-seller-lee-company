@@ -11,7 +11,8 @@ import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/FeedArticleCard";
 
 export default function FeedHomeScreen() {
-  const BASE_URL = "http://localhost:8080/";
+  // const BASE_URL = "http://localhost:8080/";
+  const BASE_URL = "http://3.34.248.131:8080/";
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 
@@ -28,7 +29,7 @@ export default function FeedHomeScreen() {
           name="person"
           size={24}
           color="black"
-          onPress={() => navigation.navigate("FeedDetail", { articleId: 1 })}
+          onPress={() => navigation.navigate("SellerLee")}
         />
       ),
       headerRightContainerStyle: { paddingRight: 15 },

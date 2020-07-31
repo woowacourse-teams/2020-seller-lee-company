@@ -22,7 +22,11 @@ import NoticeModal from "./NoticeModal";
 import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
 import { articlePhotosState } from "../states/articleState";
+import moment from "moment";
+// @ts-ignore
+import { RNS3 } from "react-native-aws3";
 import theme from "../colors";
+import { s3Secret } from "../secret";
 
 let photoId = 0;
 
@@ -56,10 +60,27 @@ export default function Photo() {
       quality: 1,
     });
     if (!result.cancelled) {
+      const file = {
+        uri: result.uri,
+        name: moment.now() + ".jpeg",
+        type: "image/jpeg",
+      };
+
+      const options = {
+        keyPrefix: "images/",
+        bucket: "seller-lee-bucket",
+        region: "ap-northeast-2",
+        accessKey: s3Secret.accessKey,
+        secretKey: s3Secret.secretKey,
+        successActionStatus: 201,
+      };
+
+      const response = await RNS3.put(file, options);
+
       setPhotos(
         photos.concat({
           id: photoId++,
-          uri: result.uri,
+          uri: response.body.postResponse.location,
         }),
       );
     }

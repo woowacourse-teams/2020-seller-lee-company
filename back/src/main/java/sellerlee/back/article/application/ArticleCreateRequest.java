@@ -1,11 +1,14 @@
 /**
- * @author jnsorn
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;
 
+import java.util.List;
+
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
 
@@ -14,25 +17,27 @@ public class ArticleCreateRequest {
     private Long price;
     private String category;
     private String contents;
+    private List<Tag> tags;
+    private List<String> images;
     private Long authorId;
-    private String tags;
 
     private ArticleCreateRequest() {
     }
 
     public ArticleCreateRequest(String title, Long price, String category, String contents,
-            Long authorId, String tags) {
+            List<Tag> tags, List<String> images, Long authorId) {
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
-        this.authorId = authorId;
         this.tags = tags;
+        this.images = images;
+        this.authorId = authorId;
     }
 
     public Article toArticle() {
         return new Article(title, price, Category.fromName(category), contents,
-                Tags.of(tags), new Member(authorId, "sellerlee@gmail.com", "0000", 4.5));
+                new Tags(tags), images, new Member(authorId, "sellerlee@gmail.com", "0000", 4.5));
     }
 
     public String getTitle() {
@@ -51,11 +56,15 @@ public class ArticleCreateRequest {
         return contents;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public String getTags() {
-        return tags;
+    public List<String> getImages() {
+        return images;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
     }
 }
