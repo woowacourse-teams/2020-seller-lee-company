@@ -38,10 +38,11 @@ import {
 } from "../states/articleState";
 import { tagBoxesState } from "../states/TagState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";
+import theme from "../colors";
 import axios from "axios";
 
 export default function ArticleCreateScreen() {
-  const BASE_URL = "http://localhost:8080/";
+  const BASE_URL = "http://3.34.248.131:8080/";
 
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const photos = useRecoilValue(articlePhotosState);
@@ -88,8 +89,7 @@ export default function ArticleCreateScreen() {
       title === "" ||
       price === 0 ||
       contents === "" ||
-      selectedCategory === "" ||
-      tagBoxes.length === 0
+      selectedCategory === ""
     );
   };
 
@@ -145,7 +145,7 @@ export default function ArticleCreateScreen() {
       color: contents.length === 0 ? "grey" : "black",
     },
     createButtonContainer: {
-      backgroundColor: incompleteCriticalItems() ? "grey" : "orange",
+      backgroundColor: incompleteCriticalItems() ? "grey" : theme.primary,
       flex: 3,
       justifyContent: "center",
       alignItems: "center",

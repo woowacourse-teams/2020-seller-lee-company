@@ -1,24 +1,24 @@
-/**
- * @author begaonnuri
- */
-
 insert into member (member_id, email, password, score)
-values (1, 'turtle@woowabro.com', '1234', 36);
+values (1, 'turtle@woowabro.com', '1234', 36),
+       (2, 'lxxjn0@gmail.com', '0000', 5.0),
+       (3, 'sellerlee@gmail.com', '1234', 4.5);
 
-insert into article (article_id, category, contents, price, title, member_id) values (2, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (3, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (4, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (5, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (6, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (7, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (8, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (9, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (10, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (11, 'PC', 'test contents1', 1234, 'test title1', 1);
-insert into article (article_id, category, contents, price, title, member_id) values (12, 'PC', 'test contents1', 1234, 'test title1', 1);
+insert into article (article_id, category, contents, price, title, member_id)
+values (51, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (52, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (53, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (54, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (55, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (56, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (57, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (58, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (59, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (60, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (61, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (62, 'PC', 'test contents1', 1234, 'test title1', 1);
 
 insert into tag (article_id, name)
-values (2, 'test tag1'),
-       (2, 'test tag2'),
-       (3, 'test tag3'),
-       (3, 'test tag4');
+values (51, 'test tag1'),
+       (51, 'test tag2'),
+       (52, 'test tag3'),
+       (52, 'test tag4');

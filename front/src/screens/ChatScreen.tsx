@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri, joseph415
+ * @author begaonnuri
  */
 
 import React from "react";

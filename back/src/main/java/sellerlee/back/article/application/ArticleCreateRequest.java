@@ -1,5 +1,5 @@
 /**
- * @author jnsorn
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;
@@ -37,7 +37,7 @@ public class ArticleCreateRequest {
 
     public Article toArticle() {
         return new Article(title, price, Category.fromName(category), contents,
-                new Tags(tags), images, new Member(authorId));
+                new Tags(tags), images, new Member(authorId, "sellerlee@gmail.com", "0000", 4.5));
     }
 
     public String getTitle() {

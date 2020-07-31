@@ -1,10 +1,20 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { ImageURISource } from "react-native";
+
+export type TabParamList = {
+  Home: undefined;
+};
+
+export type TabHomeNavigationProp = BottomTabNavigationProp<
+  TabParamList,
+  "Home"
+>;
 
 export type CategoryParamList = {
   CategoryHome: undefined;
@@ -58,10 +68,24 @@ export type ArticleCreateScreenNavigationProp = StackNavigationProp<
   "ArticleCreateScreen"
 >;
 
-export type ArticleCreateModalNavigationProp = StackNavigationProp<
+export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
   ArticleCreateParamList,
-  "ArticleCreateScreen"
+  "ArticleContentsFormScreen"
 >;
+
+export interface Tag {
+  id: number;
+  tag: string;
+}
+
+export interface TagItemProps {
+  tagBox: Tag;
+}
+
+export interface PhotoInfo {
+  id: number;
+  uri: string;
+}
 
 export type Category =
   | "디지털/가전"
@@ -93,11 +117,6 @@ export interface AuthorAvatarType {
 }
 
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-
-export interface PhotoInfo {
-  id: number;
-  uri: string;
-}
 
 export interface ArticleDetailFavoriteProp {
   article_id: number;

@@ -25,6 +25,7 @@ import { articlePhotosState } from "../states/articleState";
 import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
+import theme from "../colors";
 
 let photoId = 0;
 
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   },
   addedPhotoCount: {
     fontSize: 15,
-    color: "orange",
+    color: theme.primary,
   },
   limitPhotoCount: {
     fontSize: 15,
