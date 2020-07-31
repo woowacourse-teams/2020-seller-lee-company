@@ -4,7 +4,11 @@
 
 package sellerlee.back.article.domain;
 
+import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,27 +42,32 @@ public class Article {
     @Embedded
     private Tags tags;
 
+    @ElementCollection
+    @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "article_id"))
+    private List<String> images;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", updatable = false)
+    @JoinColumn(name = "member_id")
     private Member author;
 
     protected Article() {
     }
 
     public Article(Long id, String title, Long price, Category category, String contents,
-            Tags tags, Member author) {
+            Tags tags, List<String> images, Member author) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
         this.tags = tags;
+        this.images = images;
         this.author = author;
     }
 
     public Article(String title, Long price, Category category, String contents,
-            Tags tags, Member author) {
-        this(null, title, price, category, contents, tags, author);
+            Tags tags, List<String> images, Member author) {
+        this(null, title, price, category, contents, tags, images, author);
     }
 
     public Long getId() {
@@ -83,6 +92,10 @@ public class Article {
 
     public Tags getTags() {
         return tags;
+    }
+
+    public List<String> getImages() {
+        return images;
     }
 
     public Member getAuthor() {

@@ -4,21 +4,21 @@ values (1, 'turtle@woowabro.com', '1234', 36),
        (3, 'sellerlee@gmail.com', '1234', 4.5);
 
 insert into article (article_id, category, contents, price, title, member_id)
-values (1, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (2, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (3, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (4, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (5, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (6, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (7, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (8, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (9, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (10, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (11, 'PC', 'test contents1', 1234, 'test title1', 1),
-       (12, 'PC', 'test contents1', 1234, 'test title1', 1);
+values (51, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (52, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (53, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (54, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (55, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (56, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (57, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (58, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (59, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (60, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (61, 'PC', 'test contents1', 1234, 'test title1', 1),
+       (62, 'PC', 'test contents1', 1234, 'test title1', 1);
 
 insert into tag (article_id, name)
-values (2, 'test tag1'),
-       (2, 'test tag2'),
-       (3, 'test tag3'),
-       (3, 'test tag4');
+values (51, 'test tag1'),
+       (51, 'test tag2'),
+       (52, 'test tag3'),
+       (52, 'test tag4');

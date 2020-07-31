@@ -12,6 +12,8 @@ front/*.mobileprovision
 front/*.orig.*
 front/web-build/
 front/dist/
+front/src/secret.ts
+
 
 # macOS
 front/.DS_Store

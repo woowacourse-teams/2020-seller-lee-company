@@ -28,7 +28,8 @@ import {
 import LoginVerifyModal from "./LoginVerifyModal";
 
 export default function Login() {
-  const BASE_URL = "http://localhost:8080";
+  // const BASE_URL = "http://localhost:8080";
+  const BASE_URL = "http://3.34.248.131:8080";
   const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
 
   const memberEmail = useRecoilValue(memberEmailState);

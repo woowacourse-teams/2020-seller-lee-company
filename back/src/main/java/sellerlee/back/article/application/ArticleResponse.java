@@ -58,7 +58,7 @@ public class ArticleResponse {
                 // TODO: 2020/07/30 Article type 없음
                 TradeType.DELEVERY,
                 TradeState.SALING,
-                Arrays.asList("URI1,URI2"),
+                article.getImages(),
                 article.getTags().toList(),
                 // TODO: 2020/07/30 Article type 없음
                 new Member(1L, "turtle@woowabro.com", "1234", 4.5),
@@ -76,7 +76,7 @@ public class ArticleResponse {
                 // TODO: 2020/07/30 Article type 없음
                 TradeType.DELEVERY,
                 TradeState.SALING,
-                Arrays.asList("URI1,URI2"),
+                article.getImages(),
                 article.getTags().toList(),
                 new Member(1L, "turtle@woowabro.com", "1234", 4.5),
                 null
