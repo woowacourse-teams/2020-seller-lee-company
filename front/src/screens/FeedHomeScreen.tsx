@@ -13,7 +13,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 type FeedHomeNavigationProp = StackNavigationProp<FeedParamList, "FeedHome">;
 
 export default function FeedHomeScreen() {
-  const BASE_URL = "http://localhost:8080/";
+  // const BASE_URL = "http://localhost:8080/";
+  const BASE_URL = "http://3.34.248.131:8080/";
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 

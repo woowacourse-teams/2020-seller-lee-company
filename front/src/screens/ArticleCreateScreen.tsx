@@ -43,6 +43,7 @@ import axios from "axios";
 
 export default function ArticleCreateScreen() {
   const BASE_URL = "http://3.34.248.131:8080/";
+  // const BASE_URL = "http://localhost:8080/";
 
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const photos = useRecoilValue(articlePhotosState);

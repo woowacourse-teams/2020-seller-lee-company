@@ -26,6 +26,7 @@ import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
 import theme from "../colors";
+import { s3Secret } from "../secret";
 
 let photoId = 0;
 
@@ -69,8 +70,8 @@ export default function Photo() {
         keyPrefix: "images/",
         bucket: "seller-lee-bucket",
         region: "ap-northeast-2",
-        accessKey: "AKIASJ7QSVHYP52JNMEG",
-        secretKey: "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",
+        accessKey: s3Secret.accessKey,
+        secretKey: s3Secret.secretKey,
         successActionStatus: 201,
       };
 
