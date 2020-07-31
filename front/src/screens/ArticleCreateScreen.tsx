@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author kouz95 lxxjn0
  */
 
 import React, { useEffect, useLayoutEffect } from "react";
@@ -36,7 +36,7 @@ import {
   articleSelectedCategoryState,
   articleTitleState,
 } from "../states/articleState";
-import { tagBoxesState } from "../states/TagState";
+import { tagsState } from "../states/TagState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 import axios from "axios";
@@ -51,7 +51,7 @@ export default function ArticleCreateScreen() {
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
   const price = useRecoilValue(articlePriceState);
   const contents = useRecoilValue(articleContentsState);
-  const tagBoxes = useRecoilValue(tagBoxesState);
+  const tags = useRecoilValue(tagsState);
 
   const resetPhotos = useResetRecoilState(articlePhotosState);
   const resetTitle = useResetRecoilState(articleTitleState);
@@ -60,7 +60,7 @@ export default function ArticleCreateScreen() {
   );
   const resetPrice = useResetRecoilState(articlePriceState);
   const resetContents = useResetRecoilState(articleContentsState);
-  const resetTagBoxes = useResetRecoilState(tagBoxesState);
+  const resetTags = useResetRecoilState(tagsState);
 
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
 
@@ -70,7 +70,7 @@ export default function ArticleCreateScreen() {
     resetPrice();
     resetContents();
     resetSelectedCategory();
-    resetTagBoxes();
+    resetTags();
   };
 
   const hasContents = () => {
@@ -80,7 +80,7 @@ export default function ArticleCreateScreen() {
       price !== 0 ||
       contents !== "" ||
       selectedCategory !== "" ||
-      tagBoxes.length !== 0
+      tags.length !== 0
     );
   };
 
@@ -156,7 +156,7 @@ export default function ArticleCreateScreen() {
   });
 
   const postArticle = async () => {
-    const tags = tagBoxes.map((tag) => tag.tag);
+    // const tags = tags.map((tag) => tag.tag);
     const mockAuthorId = 1;
     const images = photos.map((photo) => photo.uri);
 

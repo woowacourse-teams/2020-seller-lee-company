@@ -24,7 +24,8 @@ interface ArticleDetailScreenProps {
 export default function ArticleDetailScreen({
   articleId,
 }: ArticleDetailScreenProps) {
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = "http://3.34.248.131:8080";
+  // const BASE_URL = "http://localhost:8080";
   const navigation = useNavigation<ArticleDetailScreenProp>();
 
   const getMockImages = () => {
@@ -86,9 +87,9 @@ export default function ArticleDetailScreen({
       </ScrollView>
       <View style={styles.bottomTab}>
         <View style={styles.articleDetailFavoriteContainer}>
-          <ArticleDetailFavorite article_id={articleId} />
+          <ArticleDetailFavorite articleId={articleId} />
         </View>
-        <ArticlePriceAndTradeType article_id={articleId} />
+        <ArticlePriceAndTradeType articleId={articleId} />
         <View style={styles.chatButtonContainer}>
           <ArticleDetailChatButton />
         </View>
