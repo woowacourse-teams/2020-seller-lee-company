@@ -6,7 +6,7 @@
     <property name="LOG_CHILD_INFO" value="info"/>
     <property name="LOG_CHILD_WARN" value="warn"/>
     <property name="LOG_CHILD_ERROR" value="error"/>
-    <property name="LOG_BACKUP" value="../log/backup"/>
+    <property name="LOG_BACKUP" value="../logs/backup"/>
     <property name="MAX_HISTORY" value="30"/>
     <property name="LOG_PATTERN"
               value="[%d{yyyy-MM-dd HH:mm:ss}:%-4relative] %green([%thread]) %highlight(%-5level) [%C.%M:%line] - %msg%n"/>

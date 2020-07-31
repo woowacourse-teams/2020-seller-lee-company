@@ -26,6 +26,8 @@ spring:
   h2:
     console:
       enabled: true
+      settings:
+        web-allow-others: true
 
   datasource:
     url: jdbc:h2:mem:testdb;IFEXISTS=FALSE;

@@ -30,7 +30,7 @@ export default function ArticlePriceAndTradeType({
       <Text style={styles.text}>
         {tradeType === "직거래"
           ? `${tradeType} | ${location}`
-          : `${tradeType}|${tradeType}`}
+          : `${tradeType} | ${tradeType}`}
       </Text>
     </View>
   );

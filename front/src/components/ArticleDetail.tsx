@@ -4,22 +4,22 @@
 
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import DetailTitle from "./DetailTitle";
+import ArticleDetailTitle from "./ArticleDetailTitle";
 import CategoryAndTime from "./CategoryAndTime";
-import DetailContents from "./DetailContents";
+import ArticleDetailContents from "./ArticleDetailContents";
 import FavoriteCountAndHit from "./FavoriteCountAndHit";
 
-export default function DetailArticle() {
+export default function ArticleDetail() {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <DetailTitle />
+        <ArticleDetailTitle />
       </View>
       <View style={styles.subtitleContainer}>
         <CategoryAndTime category={"디지털/가전"} time={"1분 전"} />
       </View>
       <View style={styles.contentsContainer}>
-        <DetailContents />
+        <ArticleDetailContents />
       </View>
       <View style={styles.subtitleContainer}>
         <FavoriteCountAndHit favoriteCount={5} hit={64} />
@@ -31,7 +31,6 @@ export default function DetailArticle() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
   },
   titleContainer: {
     paddingHorizontal: 1,

@@ -5,7 +5,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { ImageURISource } from "react-native";
 
 export type TabParamList = {
   Home: undefined;
@@ -14,6 +13,47 @@ export type TabParamList = {
 export type TabHomeNavigationProp = BottomTabNavigationProp<
   TabParamList,
   "Home"
+>;
+
+export type ArticleNavigationParamList = {
+  FeedHome: undefined;
+  SellerLee: undefined;
+  FeedDetail: { articleId: number };
+  ChatRoom: undefined;
+  ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: {
+    photos: string[];
+  };
+};
+
+export type FeedHomeNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "FeedHome"
+>;
+
+export type FeedDetailNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "FeedDetail"
+>;
+
+export type ChatRoomNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ChatRoom"
+>;
+
+export type ArticleDetailScreenProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ArticleDetailScreen"
+>;
+
+export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
+export type ArticleDetailImageViewRouteProp = RouteProp<
+  ArticleNavigationParamList,
+  "ArticleDetailImageViewScreen"
 >;
 
 export type CategoryParamList = {
@@ -27,12 +67,12 @@ export type CategoryHomeNavigationProp = StackNavigationProp<
   "CategoryHome"
 >;
 
-export type CategoryDetailRouteProp = RouteProp<
+export type CategoryDetailNavigationProp = StackNavigationProp<
   CategoryParamList,
   "CategoryDetail"
 >;
 
-export type CategoryDetailNavigationProp = StackNavigationProp<
+export type CategoryDetailRouteProp = RouteProp<
   CategoryParamList,
   "CategoryDetail"
 >;
@@ -41,21 +81,6 @@ export type SearchNavigationProp = StackNavigationProp<
   CategoryParamList,
   "Search"
 >;
-
-export type ImageSliderNavigationProp = StackNavigationProp<
-  ImageSliderParamList,
-  "ArticleDetailImageViewScreen"
->;
-
-export interface CategoryItemProps {
-  title: string;
-}
-
-export type FeedParamList = {
-  FeedHome: undefined;
-  SellerLee: undefined;
-  FeedArticle: undefined;
-};
 
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
@@ -123,7 +148,7 @@ export interface ArticleDetailFavoriteProp {
 }
 
 export interface Feed {
-  article_id: number;
+  articleId: number;
   price: string;
   tagBoxes: Tag[];
   favorite: number;
@@ -138,10 +163,3 @@ export interface Tag {
 export interface TagItemProps {
   tagBox: Tag;
 }
-
-export type ImageSliderParamList = {
-  ArticleDetailScreen: undefined;
-  ArticleDetailImageViewScreen: {
-    images: ImageURISource[];
-  };
-};
