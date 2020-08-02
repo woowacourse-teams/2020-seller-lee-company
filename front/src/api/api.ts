@@ -1,7 +1,10 @@
 import axios from "axios";
 
-// const BASE_URL = "http://3.34.248.131:8080/";
-const BASE_URL = "http://localhost:8080/";
+// const BASE_URL = "http://3.34.248.131:8080";
+const BASE_URL = "http://localhost:8080";
+const prefix = {
+  article: "/articles",
+};
 
 interface ArticlePost {
   title: string;
@@ -13,7 +16,14 @@ interface ArticlePost {
   authorId: number;
 }
 
+interface ArticleGet {
+  lastArticleId: number;
+  size: number;
+}
+
 export const articleAPI = {
-  get: async () => await axios.get(BASE_URL),
-  post: async (data: ArticlePost) => await axios.post(BASE_URL, data),
+  get: async (params: ArticleGet) =>
+    await axios.get(BASE_URL + prefix.article, { params }),
+  post: async (data: ArticlePost) =>
+    await axios.post(BASE_URL + prefix.article, data),
 };
