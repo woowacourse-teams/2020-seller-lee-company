@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/FeedArticleCard";
-import { articleAPI } from "../api/api";
+import { articlesAPI } from "../api/api";
 
 export default function FeedHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
@@ -39,7 +39,7 @@ export default function FeedHomeScreen() {
   }, []);
 
   const initFeed = async () => {
-    const { data } = await articleAPI.get({
+    const { data } = await articlesAPI.get({
       lastArticleId: Number.MAX_SAFE_INTEGER,
       size: PAGE_ARTICLE_UNIT,
     });
@@ -47,7 +47,7 @@ export default function FeedHomeScreen() {
   };
 
   const loadFeed = async () => {
-    const { data } = await articleAPI.get({
+    const { data } = await articlesAPI.get({
       lastArticleId: getLastArticleId(),
       size: PAGE_ARTICLE_UNIT,
     });

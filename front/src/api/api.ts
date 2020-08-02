@@ -1,12 +1,16 @@
+/**
+ * @author kouz95
+ */
+
 import axios from "axios";
 
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
-const prefix = {
+const domain = {
   article: "/articles",
 };
 
-interface ArticlePost {
+interface ArticlesPost {
   title: string;
   price: number;
   category: string;
@@ -16,14 +20,19 @@ interface ArticlePost {
   authorId: number;
 }
 
-interface ArticleGet {
+interface ArticlesGet {
   lastArticleId: number;
   size: number;
 }
 
-export const articleAPI = {
-  get: async (params: ArticleGet) =>
-    await axios.get(BASE_URL + prefix.article, { params }),
-  post: async (data: ArticlePost) =>
-    await axios.post(BASE_URL + prefix.article, data),
+export const articlesAPI = {
+  get: async (params: ArticlesGet) =>
+    await axios.get(BASE_URL + domain.article, { params }),
+  post: async (data: ArticlesPost) =>
+    await axios.post(BASE_URL + domain.article, data),
+};
+
+export const articleDetailAPI = {
+  get: async (articleId: number) =>
+    await axios.get(BASE_URL + domain.article + "/" + articleId),
 };

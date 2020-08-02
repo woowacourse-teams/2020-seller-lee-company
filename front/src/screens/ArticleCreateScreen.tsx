@@ -41,7 +41,7 @@ import { ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 
 import { memberIdState } from "../states/loginState";
-import { articleAPI } from "../api/api";
+import { articlesAPI } from "../api/api";
 import ArticleCreateCategorySelect from "../components/ArticleCreateCategorySelect";
 
 export default function ArticleCreateScreen() {
@@ -158,7 +158,7 @@ export default function ArticleCreateScreen() {
 
   const postArticle = () => {
     const images = photos.map((photo) => photo.uri);
-    return articleAPI.post({
+    return articlesAPI.post({
       title,
       price,
       category: selectedCategory,
