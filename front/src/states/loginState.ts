@@ -4,6 +4,11 @@
 
 import { atom } from "recoil/dist";
 
+export const memberIdState = atom({
+  key: "memberIdState",
+  default: 1,
+});
+
 export const memberEmailState = atom({
   key: "memberEmailState",
   default: "",
