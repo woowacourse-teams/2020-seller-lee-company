@@ -157,14 +157,13 @@ export default function ArticleCreateScreen() {
   });
 
   const postArticle = () => {
-    const images = photos.map((photo) => photo.uri);
     return articlesAPI.post({
       title,
       price,
       category: selectedCategory,
       contents,
       tags: tags.map((tag) => tag.name),
-      images,
+      photos: photos.map((photo) => photo.uri),
       authorId: memberId,
     });
   };

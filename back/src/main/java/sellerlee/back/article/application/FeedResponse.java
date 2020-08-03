@@ -6,7 +6,6 @@ package sellerlee.back.article.application;
 
 import static java.util.stream.Collectors.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
@@ -37,7 +36,7 @@ public class FeedResponse {
                 article.getPrice(),
                 10,
                 article.getTags().toList(),
-                article.getImages()
+                article.getPhotos()
         );
     }
 

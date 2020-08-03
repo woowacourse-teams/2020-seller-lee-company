@@ -3,18 +3,19 @@
  */
 
 import React from "react";
-import ImageBox from "./ImageBox";
+
 import { StyleSheet } from "react-native";
 import ImageViewSliderDot from "./ImageViewSliderDot";
 import Swiper from "react-native-swiper";
 import ActiveDot from "./ActiveDot";
+import ImageBox from "./ImageBox";
 
 interface ImageSliderProps {
-  images: string[];
+  photos: string[];
 }
 
 export default function ArticleDetailImageViewSlider({
-  images,
+  photos,
 }: ImageSliderProps) {
   return (
     <Swiper
@@ -26,7 +27,7 @@ export default function ArticleDetailImageViewSlider({
       centerContent={true}
       style={styles.container}
     >
-      {images.map((imageURISource, index) => (
+      {photos.map((imageURISource, index) => (
         <ImageBox imageURI={imageURISource} key={index} marginBottom={50} />
       ))}
     </Swiper>

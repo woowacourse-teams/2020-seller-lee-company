@@ -8,6 +8,7 @@ import axios from "axios";
 const BASE_URL = "http://localhost:8080";
 const domain = {
   article: "/articles",
+  members: "/members",
 };
 
 interface ArticlesPost {
@@ -16,7 +17,7 @@ interface ArticlesPost {
   category: string;
   contents: string;
   tags: string[];
-  images: string[];
+  photos: string[];
   authorId: number;
 }
 
@@ -35,4 +36,14 @@ export const articlesAPI = {
 export const articleDetailAPI = {
   get: async (articleId: number) =>
     await axios.get(BASE_URL + domain.article + "/" + articleId),
+};
+
+interface MemberLogin {
+  email: string;
+  password: string;
+}
+
+export const memberAPI = {
+  post: async (data: MemberLogin) =>
+    await axios.post(BASE_URL + domain.members, { data }),
 };

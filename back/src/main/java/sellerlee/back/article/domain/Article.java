@@ -43,8 +43,8 @@ public class Article {
     private Tags tags;
 
     @ElementCollection
-    @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "article_id"))
-    private List<String> images;
+    @CollectionTable(name = "photo", joinColumns = @JoinColumn(name = "article_id"))
+    private List<String> photos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -54,20 +54,20 @@ public class Article {
     }
 
     public Article(Long id, String title, Long price, Category category, String contents,
-            Tags tags, List<String> images, Member author) {
+            Tags tags, List<String> photos, Member author) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
         this.tags = tags;
-        this.images = images;
+        this.photos = photos;
         this.author = author;
     }
 
     public Article(String title, Long price, Category category, String contents,
-            Tags tags, List<String> images, Member author) {
-        this(null, title, price, category, contents, tags, images, author);
+            Tags tags, List<String> photos, Member author) {
+        this(null, title, price, category, contents, tags, photos, author);
     }
 
     public Long getId() {
@@ -94,8 +94,8 @@ public class Article {
         return tags;
     }
 
-    public List<String> getImages() {
-        return images;
+    public List<String> getPhotos() {
+        return photos;
     }
 
     public Member getAuthor() {

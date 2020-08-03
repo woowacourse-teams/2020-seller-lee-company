@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import axios from "axios";
+
 import LoginEmailForm from "./LoginEmailForm";
 import LoginPasswordForm from "./LoginPasswordForm";
 import LoginSubmit from "./LoginSubmit";
@@ -26,10 +26,9 @@ import {
   memberPasswordState,
 } from "../states/loginState";
 import LoginVerifyModal from "./LoginVerifyModal";
+import { memberAPI } from "../api/api";
 
 export default function Login() {
-  // const BASE_URL = "http://localhost:8080";
-  const BASE_URL = "http://3.34.248.131:8080";
   const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
 
   const memberEmail = useRecoilValue(memberEmailState);
@@ -45,7 +44,7 @@ export default function Login() {
 
   const login = async () => {
     try {
-      const response = await axios.post(`${BASE_URL}/login`, {
+      const response = await memberAPI.post({
         email: memberEmail,
         password: memberPassword,
       });
