@@ -40,7 +40,7 @@ export default function ArticleDetailImageViewScreen() {
       },
     });
     StatusBar.setHidden(true);
-  }, [navigation, route]);
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <ArticleDetailImageViewSlider photos={route.params.photos} />

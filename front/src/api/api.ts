@@ -10,6 +10,8 @@ const domain = {
   article: "/articles",
   members: "/members",
   login: "/login",
+  chatting: "/chattings",
+  trade: "/trades",
 };
 
 interface ArticlesPost {
@@ -47,4 +49,13 @@ interface MemberLogin {
 export const memberAPI = {
   post: async (data: MemberLogin) =>
     await axios.post(BASE_URL + domain.login, { data }),
+};
+
+export const chattingAPI = {
+  getBuyers: async (articleId: number) =>
+    await axios.get(BASE_URL + domain.chatting, {
+      params: {
+        articleId,
+      },
+    }),
 };
