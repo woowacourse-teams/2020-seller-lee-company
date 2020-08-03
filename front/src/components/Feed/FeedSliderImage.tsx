@@ -29,7 +29,6 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
           style={styles.imageContainer}
           key={index}
         >
-          {console.log(photo)}
           <PhotoBox photoURI={photo} marginBottom={0} />
         </TouchableOpacity>
       ))}

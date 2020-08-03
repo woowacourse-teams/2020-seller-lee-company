@@ -30,7 +30,7 @@ spring:
         web-allow-others: true
 
   datasource:
-    url: jdbc:h2:mem:testdb;IFEXISTS=FALSE;
+    url: jdbc:h2:tcp://localhost/${user.dir}/test;IFEXISTS=FALSE;
     username: sa
     password:
     driver-class-name: org.h2.Driver

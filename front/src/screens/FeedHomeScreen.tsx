@@ -10,6 +10,11 @@ import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
 
+const MAX_LOAD_COUNT = 5;
+const INITIAL_LOAD_COUNT = 0;
+
+let loadFeedCount = 0;
+
 export default function FeedHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
@@ -44,6 +49,7 @@ export default function FeedHomeScreen() {
       size: PAGE_ARTICLE_UNIT,
     });
     setArticles([...data]);
+    loadFeedCount = INITIAL_LOAD_COUNT;
   };
 
   const loadFeed = async () => {
@@ -68,10 +74,16 @@ export default function FeedHomeScreen() {
   };
 
   const onLoad = async () => {
-    if (articles.length < MIN_LOAD_ARTICLE_COUNT) return;
+    if (
+      articles.length < MIN_LOAD_ARTICLE_COUNT ||
+      loadFeedCount > MAX_LOAD_COUNT
+    ) {
+      return;
+    }
     setIsLoading(true);
     await loadFeed();
     setIsLoading(false);
+    loadFeedCount++;
   };
 
   return (
