@@ -1,18 +1,16 @@
 /**
- * @author joseph415
+ * @author kouz95
  */
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import axios from "axios";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/FeedArticleCard";
+import { articlesAPI } from "../api/api";
 
 export default function FeedHomeScreen() {
-  // const BASE_URL = "http://localhost:8080/";
-  const BASE_URL = "http://3.34.248.131:8080/";
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 
@@ -41,21 +39,17 @@ export default function FeedHomeScreen() {
   }, []);
 
   const initFeed = async () => {
-    const { data } = await axios.get(`${BASE_URL}/articles`, {
-      params: {
-        lastArticleId: Number.MAX_SAFE_INTEGER,
-        size: PAGE_ARTICLE_UNIT,
-      },
+    const { data } = await articlesAPI.get({
+      lastArticleId: Number.MAX_SAFE_INTEGER,
+      size: PAGE_ARTICLE_UNIT,
     });
     setArticles([...data]);
   };
 
   const loadFeed = async () => {
-    const { data } = await axios.get(`${BASE_URL}/articles`, {
-      params: {
-        lastArticleId: getLastArticleId(),
-        size: PAGE_ARTICLE_UNIT,
-      },
+    const { data } = await articlesAPI.get({
+      lastArticleId: getLastArticleId(),
+      size: PAGE_ARTICLE_UNIT,
     });
     setArticles(articles.concat(data));
   };
@@ -64,7 +58,7 @@ export default function FeedHomeScreen() {
     return articles
       .map((article) => article.id)
       .sort((a, b) => b - a)
-      .pop();
+      .pop() as number;
   };
 
   const onRefresh = async () => {

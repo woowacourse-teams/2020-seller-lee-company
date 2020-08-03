@@ -19,7 +19,7 @@ import {
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "./NoticeModal";
-import { useRecoilState, useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil/dist";
 import { modalActivationState } from "../states/modalState";
 import { articlePhotosState } from "../states/articleState";
 import moment from "moment";
@@ -27,6 +27,7 @@ import moment from "moment";
 import { RNS3 } from "react-native-aws3";
 import theme from "../colors";
 import { s3Secret } from "../secret";
+import { memberIdState } from "../states/loginState";
 
 let photoId = 0;
 
@@ -35,6 +36,7 @@ export default function Photo() {
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const setModalVisible = useSetRecoilState(modalActivationState);
+  const memberId = useRecoilValue(memberIdState);
   const limitPhotoCount = 5;
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function Photo() {
     if (!result.cancelled) {
       const file = {
         uri: result.uri,
-        name: moment.now() + ".jpeg",
+        name: memberId + "_" + moment.now() + ".jpeg",
         type: "image/jpeg",
       };
 

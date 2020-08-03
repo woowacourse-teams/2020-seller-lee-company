@@ -1,5 +1,5 @@
 /**
- * @author kouz95 lxxjn0
+ * @author kouz95
  */
 
 import React, { useEffect, useLayoutEffect } from "react";
@@ -17,7 +17,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 import {
   useRecoilValue,
   useResetRecoilState,
@@ -39,12 +39,12 @@ import {
 import { tagsState } from "../states/TagState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
-import axios from "axios";
+
+import { memberIdState } from "../states/loginState";
+import { articlesAPI } from "../api/api";
+import ArticleCreateCategorySelect from "../components/ArticleCreateCategorySelect";
 
 export default function ArticleCreateScreen() {
-  const BASE_URL = "http://3.34.248.131:8080/";
-  // const BASE_URL = "http://localhost:8080/";
-
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const photos = useRecoilValue(articlePhotosState);
   const title = useRecoilValue(articleTitleState);
@@ -52,6 +52,7 @@ export default function ArticleCreateScreen() {
   const price = useRecoilValue(articlePriceState);
   const contents = useRecoilValue(articleContentsState);
   const tags = useRecoilValue(tagsState);
+  const memberId = useRecoilValue(memberIdState);
 
   const resetPhotos = useResetRecoilState(articlePhotosState);
   const resetTitle = useResetRecoilState(articleTitleState);
@@ -155,31 +156,26 @@ export default function ArticleCreateScreen() {
     },
   });
 
-  const postArticle = async () => {
-    // const tags = tags.map((tag) => tag.tag);
-    const mockAuthorId = 1;
-    const images = photos.map((photo) => photo.uri);
-
-    return await axios.post(`${BASE_URL}/articles`, {
+  const postArticle = () => {
+    return articlesAPI.post({
       title,
       price,
       category: selectedCategory,
       contents,
-      tags,
-      images,
-      authorId: mockAuthorId,
+      tags: tags.map((tag) => tag.name),
+      photos: photos.map((photo) => photo.uri),
+      authorId: memberId,
     });
   };
 
   const goBackAfterPostAndReset = async () => {
-    postArticle().then((response) => {
-      if (response.status === 201) {
-        resetCreateScreen();
-        navigation.goBack();
-      } else {
-        console.warn("article post 실패");
-      }
-    });
+    const response = await postArticle();
+    if (response.status === 201) {
+      resetCreateScreen();
+      navigation.goBack();
+    } else {
+      console.warn("post article 실패");
+    }
   };
 
   return (
@@ -198,24 +194,9 @@ export default function ArticleCreateScreen() {
             <View style={styles.titleFormContainer}>
               <ArticleTitleForm />
             </View>
-
             <View style={styles.selectCategoryContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("CategoryChoiceScreen")}
-              >
-                <Text style={styles.buttonText}>
-                  {selectedCategory === "" ? "카테고리" : selectedCategory}
-                </Text>
-                <MaterialCommunityIcons
-                  name="chevron-down"
-                  size={22}
-                  color="black"
-                  style={styles.selectCategoryArrowIcon}
-                />
-              </TouchableOpacity>
+              <ArticleCreateCategorySelect />
             </View>
-
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
               <ArticlePriceForm />
@@ -280,20 +261,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderTopColor: "#eaeaea",
     borderTopWidth: 1,
-  },
-  button: {
-    flex: 1,
-    flexDirection: "row",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  buttonText: {
-    fontSize: 18,
-    textAlign: "left",
-  },
-  selectCategoryArrowIcon: {
-    alignItems: "center",
   },
   priceFormContainer: {
     flex: 3,
