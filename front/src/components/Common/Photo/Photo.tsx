@@ -55,7 +55,7 @@ export default function Photo() {
     const result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
-      quality: 1,
+      quality: 0.3,
     });
     if (!result.cancelled) {
       const file = {
