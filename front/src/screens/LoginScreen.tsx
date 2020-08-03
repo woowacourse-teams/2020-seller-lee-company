@@ -4,7 +4,7 @@
 
 import React from "react";
 import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
-import Login from "../components/Login";
+import Login from "../components/Login/Login";
 
 export default function LoginScreen() {
   return (

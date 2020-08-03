@@ -4,7 +4,7 @@
 
 import React, { useLayoutEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import CategoryList from "../components/CategoryList";
+import CategoryList from "../components/Category/CategoryList";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
