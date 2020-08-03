@@ -7,7 +7,7 @@ import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
-import FeedArticleCard from "../components/FeedArticleCard";
+import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
 
 export default function FeedHomeScreen() {

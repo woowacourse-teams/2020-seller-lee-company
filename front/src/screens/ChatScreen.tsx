@@ -4,7 +4,7 @@
 
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import ArticleAuthor from "../components/ArticleAuthor";
+import ArticleAuthor from "../components/Article/ArticleAuthor";
 import { mockMembers } from "../data/memberMockData";
 import { AuthorScoreType } from "../types/types";
 
