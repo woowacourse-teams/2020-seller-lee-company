@@ -4,8 +4,8 @@
 
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { insertComma } from "../replacePriceWithComma";
-import { ArticleDetailFavoriteProp } from "../types/types";
+import { insertComma } from "../../replacePriceWithComma";
+import { ArticleDetailFavoriteProp } from "../../types/types";
 import axios from "axios";
 
 export default function ArticlePriceAndTradeType({
