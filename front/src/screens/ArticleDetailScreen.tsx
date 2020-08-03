@@ -7,7 +7,6 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
-import axios from "axios";
 import ArticleDetail from "../components/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetailFavorite";
 import ArticlePriceAndTradeType from "../components/ArticlePriceAndTradeType";
@@ -16,6 +15,7 @@ import ArticleDetailImageSlider from "../components/ArticleDetailImageSlider";
 import { ArticleDetailScreenProp, AuthorScoreType } from "../types/types";
 import ArticleAuthor from "../components/ArticleAuthor";
 import theme from "../colors";
+import { articleDetailAPI } from "../api/api";
 
 interface ArticleDetailScreenProps {
   articleId: number;
@@ -24,8 +24,6 @@ interface ArticleDetailScreenProps {
 export default function ArticleDetailScreen({
   articleId,
 }: ArticleDetailScreenProps) {
-  const BASE_URL = "http://3.34.248.131:8080";
-  // const BASE_URL = "http://localhost:8080";
   const navigation = useNavigation<ArticleDetailScreenProp>();
 
   const getMockImages = () => {
@@ -38,7 +36,7 @@ export default function ArticleDetailScreen({
 
   const articleDetail = async () => {
     try {
-      return await axios.get(`${BASE_URL}/articles/${articleId}`);
+      return await articleDetailAPI.get(articleId);
     } catch (error) {
       console.log("showArticle error");
     }

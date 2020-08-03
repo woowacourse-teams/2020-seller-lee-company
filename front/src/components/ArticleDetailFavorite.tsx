@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, Animated, StyleSheet, View } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
 import axios from "axios";
 import { AntDesign } from "@expo/vector-icons";
 import { ArticleDetailFavoriteProp } from "../types/types";

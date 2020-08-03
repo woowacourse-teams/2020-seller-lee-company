@@ -4,7 +4,6 @@
 
 package sellerlee.back.article.application;
 
-import java.util.Arrays;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
@@ -23,7 +22,7 @@ public class ArticleResponse {
     private String contents;
     private TradeType tradeType;
     private TradeState tradeState;
-    private List<String> images;
+    private List<String> photos;
     private List<Tag> tags;
     private Member author;
     private Favorite favorite;
@@ -33,7 +32,7 @@ public class ArticleResponse {
 
     private ArticleResponse(Long id, String title, Category category, Long price,
             String contents, TradeType tradeType, TradeState tradeState,
-            List<String> images, List<Tag> tags, Member author,
+            List<String> photos, List<Tag> tags, Member author,
             Favorite favorite) {
         this.id = id;
         this.title = title;
@@ -42,7 +41,7 @@ public class ArticleResponse {
         this.contents = contents;
         this.tradeType = tradeType;
         this.tradeState = tradeState;
-        this.images = images;
+        this.photos = photos;
         this.tags = tags;
         this.author = author;
         this.favorite = favorite;
@@ -58,7 +57,7 @@ public class ArticleResponse {
                 // TODO: 2020/07/30 Article type 없음
                 TradeType.DELEVERY,
                 TradeState.SALING,
-                article.getImages(),
+                article.getPhotos(),
                 article.getTags().toList(),
                 // TODO: 2020/07/30 Article type 없음
                 new Member(1L, "turtle@woowabro.com", "1234", 4.5),
@@ -76,7 +75,7 @@ public class ArticleResponse {
                 // TODO: 2020/07/30 Article type 없음
                 TradeType.DELEVERY,
                 TradeState.SALING,
-                article.getImages(),
+                article.getPhotos(),
                 article.getTags().toList(),
                 new Member(1L, "turtle@woowabro.com", "1234", 4.5),
                 null
@@ -111,8 +110,8 @@ public class ArticleResponse {
         return tradeState;
     }
 
-    public List<String> getImages() {
-        return images;
+    public List<String> getPhotos() {
+        return photos;
     }
 
     public List<Tag> getTags() {

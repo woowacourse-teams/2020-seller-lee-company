@@ -23,13 +23,14 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
       paginationStyle={styles.pagination}
       centerContent={true}
     >
-      {photos.map((photoInfo, index) => (
+      {photos.map((photo, index) => (
         <TouchableOpacity
           activeOpacity={1}
           style={styles.imageContainer}
           key={index}
         >
-          <PhotoBox photo={photoInfo} />
+          {console.log(photo)}
+          <PhotoBox photo={photo} />
         </TouchableOpacity>
       ))}
     </Swiper>

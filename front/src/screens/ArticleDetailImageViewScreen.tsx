@@ -43,7 +43,7 @@ export default function ArticleDetailImageViewScreen() {
   }, [navigation, route]);
   return (
     <View style={styles.container}>
-      <ArticleDetailImageViewSlider images={route.params.photos} />
+      <ArticleDetailImageViewSlider photos={route.params.photos} />
     </View>
   );
 }
