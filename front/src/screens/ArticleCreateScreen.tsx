@@ -10,7 +10,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
@@ -23,11 +22,11 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from "recoil/dist";
-import ArticleTitleForm from "../components/ArticleTitleForm";
-import ArticlePriceForm from "../components/ArticlePriceForm";
-import ArticleCreateScreenModal from "../components/ArticleCreateScreenModal";
-import Photo from "../components/Photo";
-import Tag from "../components/Tag";
+import ArticleTitleForm from "../components/Article/ArticleTitleForm";
+import ArticlePriceForm from "../components/Article/ArticlePriceForm";
+import ArticleCreateScreenModal from "../components/Article/ArticleCreateScreenModal";
+import Photo from "../components/Common/Photo/Photo";
+import Tag from "../components/Common/Info/Tag/Tag";
 import {
   articleContentsState,
   articleModalActivationState,
@@ -42,15 +41,16 @@ import theme from "../colors";
 
 import { memberIdState } from "../states/loginState";
 import { articlesAPI } from "../api/api";
-import ArticleCreateCategorySelect from "../components/ArticleCreateCategorySelect";
+import ArticleCreateCategorySelect from "../components/Article/ArticleCreateCategorySelect";
+import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
-  const photos = useRecoilValue(articlePhotosState);
   const title = useRecoilValue(articleTitleState);
+  const contents = useRecoilValue(articleContentsState);
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
   const price = useRecoilValue(articlePriceState);
-  const contents = useRecoilValue(articleContentsState);
+  const photos = useRecoilValue(articlePhotosState);
   const tags = useRecoilValue(tagsState);
   const memberId = useRecoilValue(memberIdState);
 
@@ -142,10 +142,6 @@ export default function ArticleCreateScreen() {
       fontSize: 18,
       color: price === 0 ? "lightgrey" : "black",
     },
-    contentsText: {
-      fontSize: 18,
-      color: contents.length === 0 ? "grey" : "black",
-    },
     createButtonContainer: {
       backgroundColor: incompleteCriticalItems() ? "grey" : theme.primary,
       flex: 3,
@@ -202,14 +198,7 @@ export default function ArticleCreateScreen() {
               <ArticlePriceForm />
             </View>
             <View style={styles.contentsFormContainer}>
-              <TouchableOpacity
-                style={styles.contentsFormButton}
-                onPress={() => navigation.navigate("ArticleContentsFormScreen")}
-              >
-                <Text style={dynamicStyles.contentsText}>
-                  {contents.length === 0 ? "내용을 입력해주세요." : contents}
-                </Text>
-              </TouchableOpacity>
+              <ArticleContentsForm />
             </View>
             <View style={styles.tagFormContainer}>
               <View style={styles.tagForm}>
@@ -274,10 +263,6 @@ const styles = StyleSheet.create({
     flex: 12.5,
     borderTopColor: "#eaeaea",
     borderTopWidth: 1,
-  },
-  contentsFormButton: {
-    height: "100%",
-    marginVertical: 15,
   },
   tagFormContainer: {
     borderTopColor: "#eaeaea",
