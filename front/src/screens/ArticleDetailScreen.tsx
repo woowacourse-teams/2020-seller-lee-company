@@ -2,9 +2,9 @@
  * @author joseph415
  */
 
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, ScrollView, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
@@ -12,19 +12,19 @@ import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavo
 import ArticlePriceAndTradeType from "../components/Article/ArticlePriceAndTradeType";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
-import { ArticleDetailScreenProp, AuthorScoreType } from "../types/types";
+import {
+  AuthorScoreType,
+  ArticleDetailNavigationProp,
+  ArticleDetailRouteProp,
+} from "../types/types";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
 import theme from "../colors";
 import { articleDetailAPI } from "../api/api";
 
-interface ArticleDetailScreenProps {
-  articleId: number;
-}
-
-export default function ArticleDetailScreen({
-  articleId,
-}: ArticleDetailScreenProps) {
-  const navigation = useNavigation<ArticleDetailScreenProp>();
+export default function ArticleDetailScreen() {
+  const navigation = useNavigation<ArticleDetailNavigationProp>();
+  const route = useRoute<ArticleDetailRouteProp>();
+  const [articleId, setArticleId] = useState(0);
 
   const getMockImages = () => {
     return [
@@ -42,6 +42,10 @@ export default function ArticleDetailScreen({
     }
   };
 
+  useEffect(() => {
+    setArticleId(route.params.articleId);
+  }, [route]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "",
@@ -58,7 +62,9 @@ export default function ArticleDetailScreen({
       headerRight: () => (
         <Button
           title="수정"
-          onPress={() => navigation.navigate("ArticleEditScreen")}
+          onPress={() =>
+            navigation.navigate("ArticleEditScreen", { articleId })
+          }
         />
       ),
       headerRightContainerStyle: { paddingRight: 15 },

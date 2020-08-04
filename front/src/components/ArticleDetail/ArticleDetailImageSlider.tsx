@@ -9,7 +9,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 import ActiveDot from "../Common/Dot/ActiveDot";
 import { useNavigation } from "@react-navigation/native";
-import { ArticleDetailScreenProp } from "../../types/types";
+import { ArticleDetailNavigationProp } from "../../types/types";
 import Dot from "../Common/Dot/Dot";
 
 interface ArticleDetailImageSliderProps {
@@ -19,7 +19,7 @@ interface ArticleDetailImageSliderProps {
 export default function ArticleDetailImageSlider({
   photos,
 }: ArticleDetailImageSliderProps) {
-  const navigation = useNavigation<ArticleDetailScreenProp>();
+  const navigation = useNavigation<ArticleDetailNavigationProp>();
 
   return (
     <Swiper

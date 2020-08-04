@@ -35,7 +35,11 @@ export const articlesAPI = {
 
 export const articleDetailAPI = {
   get: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.article + "/" + articleId),
+    await axios.get(BASE_URL + domain.article + "/" + articleId, {
+      params: {
+        memberId: 1,
+      },
+    }),
 };
 
 interface MemberLogin {

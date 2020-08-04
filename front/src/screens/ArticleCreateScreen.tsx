@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   BackHandler,
   Button,
@@ -36,7 +36,7 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { ArticleCreateScreenNavigationProp } from "../types/types";
+import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 
 import { memberIdState } from "../states/loginState";
@@ -44,8 +44,16 @@ import { articlesAPI } from "../api/api";
 import ArticleCreateCategorySelect from "../components/Article/ArticleCreateCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 
-export default function ArticleCreateScreen() {
+interface ArticleCreateScreenProps {
+  editArticle?: Article;
+}
+
+export default function ArticleCreateScreen({
+  editArticle,
+}: ArticleCreateScreenProps) {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+  const [article, setArticle] = useState<Article>();
+
   const title = useRecoilValue(articleTitleState);
   const contents = useRecoilValue(articleContentsState);
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
@@ -64,6 +72,40 @@ export default function ArticleCreateScreen() {
   const resetTags = useResetRecoilState(tagsState);
 
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={confirmToLeave}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  });
+
+  useEffect(() => {
+    setArticle(editArticle);
+    backHandler.remove();
+  }, [editArticle]);
+
+  const confirmToBackAction = () => {
+    if (hasContents()) {
+      setArticleModalState(true);
+      return true;
+    }
+    resetCreateScreen();
+    return false;
+  };
+
+  const backHandler = BackHandler.addEventListener(
+    "hardwareBackPress",
+    confirmToBackAction,
+  );
 
   const resetCreateScreen = () => {
     resetPhotos();
@@ -103,39 +145,6 @@ export default function ArticleCreateScreen() {
     resetCreateScreen();
     navigation.goBack();
   };
-
-  useEffect(() => {
-    const confirmToBackAction = () => {
-      if (hasContents()) {
-        setArticleModalState(true);
-        return true;
-      }
-      resetCreateScreen();
-      return false;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      confirmToBackAction,
-    );
-
-    return () => backHandler.remove();
-  }, [hasContents, resetCreateScreen, setArticleModalState]);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={confirmToLeave}
-          backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
-          )}
-        />
-      ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
-    });
-  });
 
   const dynamicStyles = StyleSheet.create({
     priceCurrencyUnit: {

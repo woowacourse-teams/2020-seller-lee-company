@@ -20,9 +20,9 @@ export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
   FeedDetail: { articleId: number };
-  ArticleEditScreen: undefined;
+  ArticleEditScreen: { articleId: number };
   ChatRoom: undefined;
-  ArticleDetailScreen: undefined;
+  ArticleDetailScreen: { articleId: number };
   ArticleDetailImageViewScreen: {
     photos: string[];
   };
@@ -43,7 +43,12 @@ export type ChatRoomNavigationProp = StackNavigationProp<
   "ChatRoom"
 >;
 
-export type ArticleDetailScreenProp = StackNavigationProp<
+export type ArticleDetailNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ArticleDetailScreen"
+>;
+
+export type ArticleDetailRouteProp = RouteProp<
   ArticleNavigationParamList,
   "ArticleDetailScreen"
 >;
@@ -109,6 +114,11 @@ export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
   "ArticleContentsFormScreen"
 >;
 
+export type ArticleEditScreenRouteProp = RouteProp<
+  ArticleNavigationParamList,
+  "ArticleEditScreen"
+>;
+
 export type Category =
   | "디지털/가전"
   | "가구/인테리어"
@@ -172,11 +182,6 @@ export type ImageSliderParamList = {
     images: ImageURISource[];
   };
 };
-
-export type ArticleDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ArticleDetailScreen"
->;
 
 export interface Article {
   id: number;
