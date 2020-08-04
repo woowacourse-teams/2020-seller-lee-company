@@ -1,4 +1,4 @@
-package sellerlee.back.chatting.acceptance;
+package sellerlee.back.chatroom.acceptance;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +13,10 @@ import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.chatting.presentation.ChattingController.CHATTING_URI;
+import static sellerlee.back.chatroom.presentation.ChatRoomController.CHAT_ROOM_URI;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ChattingAcceptanceTest {
+public class ChatRoomAcceptanceTest {
     @LocalServerPort
     private int port;
 
@@ -41,14 +41,14 @@ public class ChattingAcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageArticle() {
         return Stream.of(
-                dynamicTest("채팅방을 만든다", this::createChatting));
+                dynamicTest("채팅방을 만든다", this::createChatRoom));
     }
 
-    private void createChatting() {
+    private void createChatRoom() {
         given()
                 .log().all()
                 .when()
-                .post(CHATTING_URI)
+                .post(CHAT_ROOM_URI)
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
