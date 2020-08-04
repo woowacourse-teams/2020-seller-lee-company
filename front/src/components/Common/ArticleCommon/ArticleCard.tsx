@@ -22,7 +22,9 @@ export default function ArticleCard({
 }: ArticleCardProps) {
   return (
     <View style={styles.container}>
-      <ArticleCardImage thumbnail={thumbnail} />
+      <View style={styles.articleCardImageContainer}>
+        <ArticleCardImage thumbnail={thumbnail} />
+      </View>
       <View style={styles.contentsContainer}>
         <ArticleCardTitle title={title} />
         <ArticleCardTradeDetails
@@ -40,15 +42,20 @@ export default function ArticleCard({
   );
 }
 
-export const innerContainerMargin = 13;
+export const innerContainerMargin = 10;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     aspectRatio: 13 / 4,
+    justifyContent: "center",
   },
   contentsContainer: {
-    flex: 10.5,
+    flex: 1,
     margin: innerContainerMargin,
+  },
+  articleCardImageContainer: {
+    aspectRatio: 1,
+    justifyContent: "center",
   },
 });

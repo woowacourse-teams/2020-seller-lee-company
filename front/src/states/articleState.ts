@@ -3,7 +3,7 @@
  */
 
 import { atom } from "recoil/dist";
-import { PhotoInfo } from "../types/types";
+import { ArticleCard, PhotoInfo } from "../types/types";
 
 export const articleTitleState = atom({
   key: "articleTitleState",
@@ -33,4 +33,9 @@ export const articleSelectedCategoryState = atom({
 export const articleModalActivationState = atom({
   key: "articleModalActivationState",
   default: false,
+});
+
+export const tradeArticleState = atom({
+  key: "tradeArticleState",
+  default: <ArticleCard[]>[],
 });

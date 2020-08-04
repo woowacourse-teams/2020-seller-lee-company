@@ -165,13 +165,6 @@ export interface PhotoInfo {
   uri: string;
 }
 
-export type ImageSliderParamList = {
-  ArticleDetailScreen: undefined;
-  ArticleDetailImageViewScreen: {
-    images: ImageURISource[];
-  };
-};
-
 export interface Article {
   id: number;
   title: string;
@@ -184,6 +177,15 @@ export interface Article {
   tags: Tag[];
   member: Author;
   favorite: Favorite;
+}
+
+export interface ArticleCard {
+  title: string;
+  price: number;
+  tradeType: string;
+  tradeLocation: string;
+  thumbnail: string;
+  createdTime: string;
 }
 
 export interface Author {

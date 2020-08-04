@@ -1,14 +1,9 @@
 import moment from "moment";
 
-export default function calculateDiffTime(createdAt: string) {
-  const timeFormat = "YYYY-MM-DD HH:mm:ss";
-
-  const createdTime = moment(
-    createdAt.substr(0, timeFormat.length),
-    timeFormat,
-  );
+export default function calculateDiffTime(createdTime: string) {
+  const createdAt = moment(createdTime, moment.ISO_8601);
   const currentTime = moment();
-  const diffTime = currentTime.diff(createdTime);
+  const diffTime = currentTime.diff(createdAt);
 
   const diffSeconds = moment.duration(diffTime).asSeconds();
   const diffMinutes = moment.duration(diffTime).asMinutes();

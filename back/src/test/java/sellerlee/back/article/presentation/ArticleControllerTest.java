@@ -10,10 +10,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
-import static sellerlee.back.article.fixture.FavoriteFixture.*;
-import static sellerlee.back.article.fixture.MemberFixture.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Arrays;
 
@@ -27,7 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.ArticleDetailResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
@@ -52,7 +51,7 @@ class ArticleControllerTest {
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
     void createArticle() throws Exception {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
+        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
 
         when(articleService.post(any())).thenReturn(1L);
 
@@ -80,8 +79,8 @@ class ArticleControllerTest {
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
-        when(articleViewService.showArticle(1L, 1L))
-                .thenReturn(ArticleResponse.of(ARTICLE1, FAVORITE));
+        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1))
+                .thenReturn(ArticleDetailResponse.of(ARTICLE1, true, 1));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
                 .param("memberId", String.valueOf(MEMBER1.getId())))

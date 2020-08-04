@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const MAX_LIMIT_TITLE_LENGTH = 47;
 

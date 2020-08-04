@@ -7,8 +7,9 @@ import axios from "axios";
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
 const domain = {
-  article: "/articles",
+  articles: "/articles",
   members: "/members",
+  trades: "/trades",
   login: "/login",
 };
 
@@ -29,14 +30,14 @@ interface ArticlesGet {
 
 export const articlesAPI = {
   get: async (params: ArticlesGet) =>
-    await axios.get(BASE_URL + domain.article, { params }),
+    await axios.get(BASE_URL + domain.articles, { params }),
   post: async (data: ArticlesPost) =>
-    await axios.post(BASE_URL + domain.article, data),
+    await axios.post(BASE_URL + domain.articles, data),
 };
 
 export const articleDetailAPI = {
   get: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.article + "/" + articleId),
+    await axios.get(BASE_URL + domain.articles + "/" + articleId),
 };
 
 interface MemberLogin {
@@ -47,4 +48,8 @@ interface MemberLogin {
 export const memberAPI = {
   post: async (data: MemberLogin) =>
     await axios.post(BASE_URL + domain.login, { data }),
+};
+
+export const tradeAPI = {
+  get: async () => await axios.get(BASE_URL + domain.trades),
 };

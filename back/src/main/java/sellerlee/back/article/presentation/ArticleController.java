@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sellerlee.back.article.application.ArticleCreateRequest;
-import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.ArticleDetailResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.member.domain.Member;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -56,10 +56,16 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id,
-            @RequestParam Long memberId) {
-        ArticleResponse articleResponse = articleViewService.showArticle(id, memberId);
+    public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long id) {
+        Member member = new Member(
+                51L,
+                "turtle@woowabro.com",
+                "1234",
+                "testNickname",
+                "testUri",
+                4.5);
+        ArticleDetailResponse articleDetailResponse = articleViewService.showArticle(id, member);
 
-        return ResponseEntity.ok(articleResponse);
+        return ResponseEntity.ok(articleDetailResponse);
     }
 }
