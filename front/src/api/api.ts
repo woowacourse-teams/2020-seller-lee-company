@@ -10,7 +10,7 @@ const domain = {
   article: "/articles",
   members: "/members",
   login: "/login",
-  chatting: "/chattings",
+  chatRoom: "/chat-rooms",
   trade: "/trades",
 };
 
@@ -51,9 +51,9 @@ export const memberAPI = {
     await axios.post(BASE_URL + domain.login, { data }),
 };
 
-export const chattingAPI = {
+export const chatRoomAPI = {
   getBuyers: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.chatting, {
+    await axios.get(BASE_URL + domain.chatRoom, {
       params: {
         articleId,
       },

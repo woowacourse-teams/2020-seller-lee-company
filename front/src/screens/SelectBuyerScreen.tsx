@@ -3,12 +3,12 @@
  */
 
 import React, { useLayoutEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
-import { chattingAPI } from "../api/api";
+import { chatRoomAPI } from "../api/api";
 import BuyerCard from "../components/SelectBuyer/BuyerCard";
 import { Buyer } from "../types/types";
 
@@ -34,7 +34,7 @@ export default function SelectBuyerScreen() {
 
   useLayoutEffect(() => {
     const loadBuyers = async (articleId: number) => {
-      const { data } = await chattingAPI.getBuyers(articleId);
+      const { data } = await chatRoomAPI.getBuyers(articleId);
       setBuyers(data);
     };
     loadBuyers(route.params.articleId);
@@ -49,8 +49,12 @@ export default function SelectBuyerScreen() {
         />
       </View>
       <View style={styles.buyerListContainer}>
-        {buyers.map((buyer) => (
-          <BuyerCard avatar={buyer.avatar} nickname={buyer.nickname} />
+        {buyers.map((buyer, index) => (
+          <BuyerCard
+            key={index}
+            avatar={buyer.avatar}
+            nickname={buyer.nickname}
+          />
         ))}
       </View>
     </View>
@@ -62,10 +66,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   articleInfoContainer: {
+    backgroundColor: "rgba(255,255,255,0.5)",
     flex: 1,
     flexDirection: "row",
+    justifyContent: "center",
+    borderTopColor: "lightgrey",
+    borderBottomColor: "lightgrey",
+    borderTopWidth: 0.7,
+    borderBottomWidth: 0.7,
   },
   buyerListContainer: {
-    flex: 1,
+    flex: 5,
   },
 });
