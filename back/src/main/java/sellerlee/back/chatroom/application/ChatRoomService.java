@@ -20,6 +20,8 @@ public class ChatRoomService {
     }
 
     public List<ChatRoomResponse> showChatRoomsOf(Long articleId) {
-        return null;
+        List<ChatRoom> responses = chatRoomRepository.findChatRoomsByArticleId(
+                articleId);
+        return ChatRoomResponse.listOf(responses);
     }
 }

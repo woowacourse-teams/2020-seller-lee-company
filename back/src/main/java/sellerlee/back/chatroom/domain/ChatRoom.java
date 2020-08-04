@@ -3,21 +3,21 @@ package sellerlee.back.chatroom.domain;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.member.domain.Member;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class ChatRoom {
     @Id
     @GeneratedValue
+    @Column(name = "chat_room_id")
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "article_id")
     private Article article;
 
     @OneToOne
+    @JoinColumn(name = "member_id")
     private Member buyer;
 
     protected ChatRoom() {

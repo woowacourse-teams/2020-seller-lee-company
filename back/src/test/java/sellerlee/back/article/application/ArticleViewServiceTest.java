@@ -45,17 +45,19 @@ class ArticleViewServiceTest {
     @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체를 가져온다")
     @Test
     void showArticle() {
-        when(articleRepository.findById(1L)).thenReturn(Optional.of(ARTICLE1));
-        when(memberRepository.findById(2L)).thenReturn(Optional.of(MEMBER2));
+        when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
+        when(memberRepository.findById(MEMBER2.getId())).thenReturn(Optional.of(MEMBER2));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any())).thenReturn(
                 Optional.of(FAVORITE));
 
-        ArticleResponse articleResponse = articleViewService.showArticle(1L, 2L);
+        ArticleResponse articleResponse = articleViewService.showArticle(ARTICLE1.getId(),
+                MEMBER2.getId());
 
-        assertThat(articleResponse.getId()).isEqualTo(1L);
-        assertThat(articleResponse.getAuthor().getEmail()).isEqualTo("turtle@woowabro.com");
+        assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
+        assertThat(articleResponse.getAuthor().getEmail()).isEqualTo(
+                ARTICLE1.getAuthor().getEmail());
         assertThat(articleResponse.getFavorite().getId()).isEqualTo(1L);
-        assertThat(articleResponse.getFavorite().getMember().getId()).isEqualTo(2L);
+        assertThat(articleResponse.getFavorite().getMember().getId()).isEqualTo(MEMBER2.getId());
         assertThat(articleResponse.getFavorite().getMember().getEmail()).isEqualTo(
                 "lxxjn0@gmail.com");
     }

@@ -27,23 +27,23 @@ public class ArticleFixture {
             MEMBER2
     );
     public static final Article ARTICLE1 = new Article(
-        1L,
-        "test title1",
-        1234L,
-        Category.PC,
-        "test contents1",
-        new Tags(Collections.emptyList()),
-        Arrays.asList("testUri1", "testUri2"),
-        MEMBER1);
+            51L,
+            "test title1",
+            1234L,
+            Category.PC,
+            "test contents1",
+            new Tags(Collections.emptyList()),
+            Arrays.asList("testUri1", "testUri2"),
+            MEMBER1);
     public static final Article ARTICLE2 = new Article(
-        2L,
-        "test title1",
-        1234L,
-        Category.PC,
-        "test contents1",
-        new Tags(Collections.emptyList()),
-        Arrays.asList("testUri1", "testUri2"),
-        MEMBER1);
+            52L,
+            "test title1",
+            1234L,
+            Category.PC,
+            "test contents1",
+            new Tags(Collections.emptyList()),
+            Arrays.asList("testUri1", "testUri2"),
+            MEMBER1);
     public static final Article ARTICLE3 = new Article(
         3L,
         "TEST_TITLE",
@@ -60,6 +60,6 @@ public class ArticleFixture {
         "TEST_CONTENTS",
         Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
         Arrays.asList("testUri1", "testUri2"),
-        1L
+            MEMBER1.getId()
     );
 }
