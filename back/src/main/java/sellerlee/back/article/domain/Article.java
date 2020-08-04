@@ -4,23 +4,10 @@
 
 package sellerlee.back.article.domain;
 
-import java.util.List;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-
 import sellerlee.back.member.domain.Member;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Article {
@@ -68,6 +55,10 @@ public class Article {
     public Article(String title, Long price, Category category, String contents,
             Tags tags, List<String> photos, Member author) {
         this(null, title, price, category, contents, tags, photos, author);
+    }
+
+    public Article(Long id) {
+        this(id, null, null, null, null, null, null, null);
     }
 
     public Long getId() {

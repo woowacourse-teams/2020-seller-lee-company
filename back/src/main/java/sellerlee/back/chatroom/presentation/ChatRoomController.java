@@ -1,11 +1,9 @@
 package sellerlee.back.chatroom.presentation;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import sellerlee.back.chatting.application.ChatRoomService;
+import org.springframework.web.bind.annotation.*;
+import sellerlee.back.chatroom.application.ChatRoomCreateRequest;
+import sellerlee.back.chatroom.application.ChatRoomService;
 
 import java.net.URI;
 
@@ -23,10 +21,8 @@ public class ChatRoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createChatRoom(
-            @RequestParam Long articleId,
-            @RequestParam Long buyerId) {
-        Long chatRoomId = chatRoomService.create(articleId, buyerId);
+    public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateRequest request) {
+        Long chatRoomId = chatRoomService.createChatRoom(request);
         return ResponseEntity.created(URI.create(CHAT_ROOM_URI + "/" + chatRoomId)).build();
     }
 }

@@ -39,6 +39,10 @@ public class Member {
         this(null, email, password, score);
     }
 
+    public Member(Long id) {
+        this(id, null, null, null);
+    }
+
     public boolean verify(String password) {
         return this.password.equals(password);
     }

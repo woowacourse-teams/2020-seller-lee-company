@@ -54,4 +54,3 @@ public class ChatRoomAcceptanceTest {
                 .statusCode(HttpStatus.CREATED.value());
     }
 }
-
