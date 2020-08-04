@@ -13,4 +13,8 @@ public enum TradeType {
     TradeType(String tradeType) {
         this.tradeType = tradeType;
     }
+
+    public String getTradeType() {
+        return tradeType;
+    }
 }

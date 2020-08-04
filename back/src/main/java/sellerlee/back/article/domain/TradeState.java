@@ -14,4 +14,8 @@ public enum TradeState {
     TradeState(String tradeState) {
         this.tradeState = tradeState;
     }
+
+    public String getTradeState() {
+        return tradeState;
+    }
 }

@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import sellerlee.back.member.domain.Member;
 
 @Entity
-public class Article {
+public class Article extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "article_id")

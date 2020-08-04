@@ -7,10 +7,8 @@ package sellerlee.back.article.domain;
 import static java.util.Collections.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -30,7 +28,7 @@ public class Tags {
         this.tags = new ArrayList<>(tags);
     }
 
-    public List<Tag> toList() {
+    public List<Tag> getTags() {
         return unmodifiableList(tags);
     }
 
@@ -40,8 +38,8 @@ public class Tags {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Tags tags1 = (Tags)o;
-        return Objects.equals(tags, tags1.tags);
+        Tags that = (Tags)o;
+        return Objects.equals(tags, that.tags);
     }
 
     @Override

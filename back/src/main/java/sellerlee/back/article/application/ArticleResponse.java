@@ -4,81 +4,61 @@
 
 package sellerlee.back.article.application;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.Category;
-import sellerlee.back.article.domain.Tag;
-import sellerlee.back.article.domain.TradeState;
-import sellerlee.back.article.domain.TradeType;
-import sellerlee.back.favorite.domain.Favorite;
-import sellerlee.back.member.domain.Member;
+import sellerlee.back.member.application.MemberResponse;
 
 public class ArticleResponse {
     private Long id;
     private String title;
-    private Category category;
-    private Long price;
+    private String category;
     private String contents;
-    private TradeType tradeType;
-    private TradeState tradeState;
+    private Long price;
+    private String tradeType;
+    private String tradeLocation;
+    private String tradeState;
     private List<String> photos;
-    private List<Tag> tags;
-    private Member author;
-    private Favorite favorite;
+    private MemberResponse author;
+    private Boolean favoriteState;
+    private LocalDateTime createdTime;
 
     private ArticleResponse() {
     }
 
-    private ArticleResponse(Long id, String title, Category category, Long price,
-            String contents, TradeType tradeType, TradeState tradeState,
-            List<String> photos, List<Tag> tags, Member author,
-            Favorite favorite) {
+    public ArticleResponse(Long id, String title, String category, String contents,
+            Long price, String tradeType, String tradeLocation, String tradeState,
+            List<String> photos, MemberResponse author, Boolean favoriteState,
+            LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
         this.category = category;
-        this.price = price;
         this.contents = contents;
+        this.price = price;
         this.tradeType = tradeType;
+        this.tradeLocation = tradeLocation;
         this.tradeState = tradeState;
         this.photos = photos;
-        this.tags = tags;
         this.author = author;
-        this.favorite = favorite;
-    }
-
-    public static ArticleResponse of(Article article, Favorite favorite) {
-        return new ArticleResponse(
-                article.getId(),
-                article.getTitle(),
-                article.getCategory(),
-                article.getPrice(),
-                article.getContents(),
-                // TODO: 2020/07/30 Article type 없음
-                TradeType.DELEVERY,
-                TradeState.SALING,
-                article.getPhotos(),
-                article.getTags().toList(),
-                // TODO: 2020/07/30 Article type 없음
-                new Member(1L, "turtle@woowabro.com", "1234", 4.5),
-                favorite
-        );
+        this.favoriteState = favoriteState;
+        this.createdTime = createdTime;
     }
 
     public static ArticleResponse of(Article article) {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
-                article.getCategory(),
-                article.getPrice(),
+                article.getCategory().getCategory(),
                 article.getContents(),
-                // TODO: 2020/07/30 Article type 없음
-                TradeType.DELEVERY,
-                TradeState.SALING,
-                article.getPhotos(),
-                article.getTags().toList(),
-                new Member(1L, "turtle@woowabro.com", "1234", 4.5),
-                null
+                article.getPrice(),
+                article.getTradeType().getTradeType(),
+                article.getTradeLocation(),
+                article.getTradeState().getTradeState(),
+                article.getPhotos().getPhotos(),
+                MemberResponse.of(article.getAuthor()),
+                false, // TODO: 2020/08/04 고치세-ㅁ
+                article.getCreatedTime()
         );
     }
 
@@ -90,23 +70,27 @@ public class ArticleResponse {
         return title;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
-    }
-
-    public Long getPrice() {
-        return price;
     }
 
     public String getContents() {
         return contents;
     }
 
-    public TradeType getTradeType() {
+    public Long getPrice() {
+        return price;
+    }
+
+    public String getTradeType() {
         return tradeType;
     }
 
-    public TradeState getTradeState() {
+    public String getTradeLocation() {
+        return tradeLocation;
+    }
+
+    public String getTradeState() {
         return tradeState;
     }
 
@@ -114,15 +98,15 @@ public class ArticleResponse {
         return photos;
     }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public Member getAuthor() {
+    public MemberResponse getAuthor() {
         return author;
     }
 
-    public Favorite getFavorite() {
-        return favorite;
+    public Boolean getFavoriteState() {
+        return favoriteState;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 }

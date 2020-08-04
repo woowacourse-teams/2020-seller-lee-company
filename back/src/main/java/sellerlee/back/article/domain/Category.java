@@ -10,17 +10,21 @@ public enum Category {
     PC("디지털/가전"),
     BOOK("도서");
 
-    private final String name;
+    private final String category;
 
-    Category(String name) {
-        this.name = name;
+    Category(String category) {
+        this.category = category;
     }
 
     public static Category fromName(String category) {
         return Arrays.stream(values())
-                .filter(v -> v.name.equals(category))
+                .filter(v -> v.category.equals(category))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(
-                        String.format("잘못된 카테고리 : %s.", category)));
+                .orElseThrow(() ->
+                        new IllegalArgumentException(String.format("잘못된 카테고리 : %s.", category)));
+    }
+
+    public String getCategory() {
+        return category;
     }
 }
