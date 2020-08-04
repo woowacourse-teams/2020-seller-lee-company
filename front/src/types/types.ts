@@ -108,6 +108,15 @@ export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
   "ArticleContentsFormScreen"
 >;
 
+export type ProfileParamList = {
+  PurchaseScreen: undefined;
+};
+
+export type PurchaseScreenNavigationProp = StackNavigationProp<
+  ProfileParamList,
+  "PurchaseScreen"
+>;
+
 export type Category =
   | "디지털/가전"
   | "가구/인테리어"
