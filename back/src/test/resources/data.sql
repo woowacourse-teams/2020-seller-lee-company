@@ -22,3 +22,4 @@ values (51, 'test tag1'),
        (51, 'test tag2'),
        (52, 'test tag3'),
        (52, 'test tag4');
+

@@ -39,8 +39,8 @@ public class Member {
         this.score = score;
     }
 
-    public Member(String email, String password, String avatar, String nickname, Double score) {
-        this(null, email, password, avatar, nickname, score);
+    public Member(Long id) {
+        this(id, null, null, null, null, null);
     }
 
     public boolean verify(String password) {

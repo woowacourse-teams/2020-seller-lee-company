@@ -10,10 +10,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
-import static sellerlee.back.article.fixture.FavoriteFixture.*;
-import static sellerlee.back.article.fixture.MemberFixture.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Arrays;
 
@@ -80,8 +79,8 @@ class ArticleControllerTest {
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
-        when(articleViewService.showArticle(1L, 1L))
-                .thenReturn(ArticleResponse.of(ARTICLE1, FAVORITE));
+        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1.getId()))
+                .thenReturn(ArticleResponse.of(ARTICLE1, true));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
                 .param("memberId", String.valueOf(MEMBER1.getId())))

@@ -45,7 +45,7 @@ public class ArticleResponse {
         this.createdTime = createdTime;
     }
 
-    public static ArticleResponse of(Article article) {
+    public static ArticleResponse of(Article article, boolean favoriteState) {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
@@ -57,7 +57,7 @@ public class ArticleResponse {
                 article.getTradeState().getTradeState(),
                 article.getPhotos().getPhotos(),
                 MemberResponse.of(article.getAuthor()),
-                false, // TODO: 2020/08/04 고치세-ㅁ
+                favoriteState,
                 article.getCreatedTime()
         );
     }

@@ -7,6 +7,7 @@ package sellerlee.back.article.domain;
 import static java.util.Collections.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +27,10 @@ public class Tags {
 
     public Tags(List<Tag> tags) {
         this.tags = new ArrayList<>(tags);
+    }
+
+    public static Tags of(Tag... tags) {
+        return new Tags(Arrays.asList(tags));
     }
 
     public List<Tag> getTags() {

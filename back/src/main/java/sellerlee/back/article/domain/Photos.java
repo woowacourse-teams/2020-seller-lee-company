@@ -1,5 +1,6 @@
 package sellerlee.back.article.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -18,6 +19,10 @@ public class Photos {
 
     public Photos(List<String> photos) {
         this.photos = photos;
+    }
+
+    public static Photos of(String... photos) {
+        return new Photos(Arrays.asList(photos));
     }
 
     public List<String> getPhotos() {

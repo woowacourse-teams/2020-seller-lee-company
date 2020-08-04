@@ -31,16 +31,16 @@ public class ArticleViewService {
     }
 
     @Transactional(readOnly = true)
-    public ArticleResponse showArticle(Long id, Long memberId) {
-        Article article = articleRepository.findById(id)
+    public ArticleResponse showArticle(Long articleId, Long memberId) {
+        Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        Optional<Favorite> optionalFavorite = favoriteRepository.findFavoriteByArticleAndMember(
-                article, member);
 
-        return optionalFavorite.map(favorite -> ArticleResponse.of(article, favorite))
-                .orElseGet(() -> ArticleResponse.of(article));
+        Optional<Favorite> favorite =
+                favoriteRepository.findFavoriteByArticleAndMember(article, member);
+
+        return ArticleResponse.of(article, favorite.isPresent());
     }
-
 }

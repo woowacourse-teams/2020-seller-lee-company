@@ -7,8 +7,8 @@ package sellerlee.back.article.application;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.article.fixture.ArticleFixture.*;
-import static sellerlee.back.article.fixture.FavoriteFixture.*;
-import static sellerlee.back.article.fixture.MemberFixture.*;
+import static sellerlee.back.fixture.FavoriteFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Optional;
 

@@ -23,7 +23,6 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.FeedResponse;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -55,10 +54,10 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id,
+    @GetMapping("/{articleId}")
+    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long articleId,
             @RequestParam Long memberId) {
-        ArticleResponse articleResponse = articleViewService.showArticle(id, memberId);
+        ArticleResponse articleResponse = articleViewService.showArticle(articleId, memberId);
 
         return ResponseEntity.ok(articleResponse);
     }

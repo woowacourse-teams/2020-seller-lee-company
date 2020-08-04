@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
 import static sellerlee.back.article.fixture.ArticleFixture.*;
-import static sellerlee.back.article.fixture.TagFixture.*;
+import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +44,8 @@ class ArticleServiceTest {
     @Test
     void createArticle() {
         ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
-            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"), 1L);
+                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"),
+                1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
         Long actualId = articleService.post(request);

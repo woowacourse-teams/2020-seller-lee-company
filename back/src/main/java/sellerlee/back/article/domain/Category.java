@@ -16,7 +16,7 @@ public enum Category {
         this.category = category;
     }
 
-    public static Category fromName(String category) {
+    public static Category fromString(String category) {
         return Arrays.stream(values())
                 .filter(v -> v.category.equals(category))
                 .findFirst()
