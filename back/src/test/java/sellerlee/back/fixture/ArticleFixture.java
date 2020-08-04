@@ -1,28 +1,30 @@
 /**
  * @author kouz95
  */
-package sellerlee.back.article.fixture;
-
-import static sellerlee.back.article.fixture.MemberFixture.*;
-import static sellerlee.back.article.fixture.TagFixture.*;
-
-import java.util.Arrays;
-import java.util.Collections;
+package sellerlee.back.fixture;
 
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import static sellerlee.back.fixture.MemberFixture.MEMBER1;
+import static sellerlee.back.fixture.MemberFixture.MEMBER2;
+import static sellerlee.back.fixture.TagFixture.TAG_FIXTURE;
+import static sellerlee.back.fixture.TagFixture.TAG_FIXTURE2;
+
 public class ArticleFixture {
     public static final Article ARTICLE_FIXTURE = new Article(
-        "TEST_TITLE",
-        10_000L,
-        Category.BOOK,
-        "TEST_CONTENTS",
-        new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
-        Arrays.asList("testUri1", "testUri2"),
-        MEMBER2
+            "TEST_TITLE",
+            10_000L,
+            Category.BOOK,
+            "TEST_CONTENTS",
+            new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
+            Arrays.asList("testUri1", "testUri2"),
+            MEMBER2
     );
     public static final Article ARTICLE1 = new Article(
         1L,

@@ -4,15 +4,11 @@
 
 package sellerlee.back.article.application;
 
-import java.util.List;
-
-import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.Category;
-import sellerlee.back.article.domain.Tag;
-import sellerlee.back.article.domain.TradeState;
-import sellerlee.back.article.domain.TradeType;
+import sellerlee.back.article.domain.*;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.member.domain.Member;
+
+import java.util.List;
 
 public class ArticleResponse {
     private Long id;
@@ -60,7 +56,7 @@ public class ArticleResponse {
                 article.getPhotos(),
                 article.getTags().toList(),
                 // TODO: 2020/07/30 Article type 없음
-                new Member(1L, "turtle@woowabro.com", "1234", 4.5),
+                new Member(1L, "turtle@woowabro.com", "1234", "nickname", "avartar", 4.5),
                 favorite
         );
     }
@@ -77,7 +73,7 @@ public class ArticleResponse {
                 TradeState.SALING,
                 article.getPhotos(),
                 article.getTags().toList(),
-                new Member(1L, "turtle@woowabro.com", "1234", 4.5),
+                new Member(1L, "turtle@woowabro.com", "1234", "nickname", "avatarUri", 4.5),
                 null
         );
     }

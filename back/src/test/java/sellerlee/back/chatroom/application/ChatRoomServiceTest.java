@@ -12,8 +12,8 @@ import sellerlee.back.chatroom.domain.ChatRoomRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static sellerlee.back.article.fixture.ArticleFixture.ARTICLE1;
-import static sellerlee.back.article.fixture.MemberFixture.MEMBER1;
+import static sellerlee.back.fixture.ArticleFixture.ARTICLE1;
+import static sellerlee.back.fixture.MemberFixture.MEMBER1;
 
 @ExtendWith(value = MockitoExtension.class)
 class ChatRoomServiceTest {

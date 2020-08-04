@@ -4,19 +4,7 @@
 
 package sellerlee.back.article.presentation;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
-import static sellerlee.back.article.fixture.FavoriteFixture.*;
-import static sellerlee.back.article.fixture.MemberFixture.*;
-import static sellerlee.back.article.presentation.ArticleController.*;
-
-import java.util.Arrays;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,12 +13,25 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
+
+import java.util.Arrays;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.ARTICLE_SIZE;
+import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.LAST_ARTICLE_ID;
+import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.FavoriteFixture.FAVORITE;
+import static sellerlee.back.fixture.MemberFixture.MEMBER1;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest {

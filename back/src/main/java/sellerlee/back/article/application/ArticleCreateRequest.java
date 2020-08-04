@@ -4,13 +4,13 @@
 
 package sellerlee.back.article.application;
 
-import java.util.List;
-
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
+
+import java.util.List;
 
 public class ArticleCreateRequest {
     private String title;
@@ -36,8 +36,8 @@ public class ArticleCreateRequest {
     }
 
     public Article toArticle() {
-        return new Article(title, price, Category.fromName(category), contents,
-                new Tags(tags), photos, new Member(authorId, "sellerlee@gmail.com", "0000", 4.5));
+        return new Article(title, price, Category.fromName(category), contents, new Tags(tags),
+                photos, new Member(authorId));
     }
 
     public String getTitle() {

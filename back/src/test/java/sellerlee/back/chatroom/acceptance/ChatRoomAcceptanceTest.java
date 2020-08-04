@@ -8,10 +8,13 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import sellerlee.back.chatroom.application.ChatRoomResponse;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static sellerlee.back.chatroom.presentation.ChatRoomController.CHAT_ROOM_URI;
 
@@ -41,7 +44,24 @@ public class ChatRoomAcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageArticle() {
         return Stream.of(
-                dynamicTest("채팅방을 만든다", this::createChatRoom));
+                dynamicTest("채팅방을 만든다", this::createChatRoom),
+                dynamicTest("한 게시글에 생성된 채팅방들을 조회한다", () -> {
+                    List<ChatRoomResponse> responses = showAllChatRoomsOfArticle();
+                    assertThat(responses.size()).isEqualTo(1);
+                })
+        );
+    }
+
+    private List<ChatRoomResponse> showAllChatRoomsOfArticle() {
+        return given()
+                .log().all()
+                .when()
+                .param("articleId", 1L)
+                .get(CHAT_ROOM_URI)
+                .then()
+                .log().all()
+                .extract().jsonPath().getList(".", ChatRoomResponse.class);
+
     }
 
     private void createChatRoom() {

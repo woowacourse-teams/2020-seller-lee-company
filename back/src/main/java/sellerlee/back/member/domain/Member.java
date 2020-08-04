@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Member {
@@ -17,30 +16,39 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @NotNull
     private String email;
 
-    @NotNull
     private String password;
+
+    private String nickname;
+
+    private String avatar;
 
     private Double score;
 
     protected Member() {
     }
 
-    public Member(Long id, String email, String password, Double score) {
+    public Member(Long id, String email, String password, String nickname, String avatar,
+            Double score) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+        this.avatar = avatar;
         this.score = score;
     }
 
-    public Member(String email, String password, Double score) {
-        this(null, email, password, score);
+    public Member(String email, String password, String nickname, String avatar, Double score) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.avatar = avatar;
+        this.score = score;
     }
 
     public Member(Long id) {
-        this(id, null, null, null);
+        this(id, null, null, null, null, null);
     }
 
     public boolean verify(String password) {
@@ -57,6 +65,14 @@ public class Member {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
     public Double getScore() {

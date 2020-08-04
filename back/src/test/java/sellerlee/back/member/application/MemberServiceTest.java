@@ -4,21 +4,20 @@
 
 package sellerlee.back.member.application;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static sellerlee.back.member.fixture.MemberFixture.*;
-
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import sellerlee.back.member.domain.IllegalMemberLoginException;
 import sellerlee.back.member.domain.MemberRepository;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 @ExtendWith(value = MockitoExtension.class)
 class MemberServiceTest {
@@ -36,7 +35,7 @@ class MemberServiceTest {
     @Test
     void login() {
         when(memberRepository.findMemberByEmail(anyString()))
-                .thenReturn(Optional.of(MEMBER_FIXTURE));
+                .thenReturn(Optional.of(MEMBER1));
 
         memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE);
         verify(memberRepository).findMemberByEmail(anyString());

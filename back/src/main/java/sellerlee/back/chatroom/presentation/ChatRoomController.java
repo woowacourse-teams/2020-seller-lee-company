@@ -3,9 +3,11 @@ package sellerlee.back.chatroom.presentation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sellerlee.back.chatroom.application.ChatRoomCreateRequest;
+import sellerlee.back.chatroom.application.ChatRoomResponse;
 import sellerlee.back.chatroom.application.ChatRoomService;
 
 import java.net.URI;
+import java.util.List;
 
 import static sellerlee.back.chatroom.presentation.ChatRoomController.CHAT_ROOM_URI;
 
@@ -24,5 +26,13 @@ public class ChatRoomController {
     public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateRequest request) {
         Long chatRoomId = chatRoomService.createChatRoom(request);
         return ResponseEntity.created(URI.create(CHAT_ROOM_URI + "/" + chatRoomId)).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ChatRoomResponse>> showAllChatRoomOfArticle(
+            @RequestParam Long articleId) {
+        List<ChatRoomResponse> responses = chatRoomService
+                .showChatRoomsOf(articleId);
+        return ResponseEntity.ok(responses);
     }
 }
