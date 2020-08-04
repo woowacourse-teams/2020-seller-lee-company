@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

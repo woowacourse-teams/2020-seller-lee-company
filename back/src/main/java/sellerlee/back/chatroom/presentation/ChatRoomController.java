@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.chatroom.presentation;
 
 import org.springframework.http.ResponseEntity;
