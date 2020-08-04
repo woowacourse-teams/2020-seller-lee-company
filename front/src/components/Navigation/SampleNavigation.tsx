@@ -16,10 +16,10 @@ export default function SampleNavigation() {
         name="SelectBuyerScreen"
         component={SelectBuyerScreen}
         initialParams={{
-          articleId: 99,
+          articleId: 51,
           title: "맥북",
           photo:
-            "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
+            "https://seller-lee-bucket.s3.ap-northeast-2.amazonaws.com/images/1_1596288314232.jpeg",
         }}
       />
     </Stack.Navigator>
