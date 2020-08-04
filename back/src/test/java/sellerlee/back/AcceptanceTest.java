@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
