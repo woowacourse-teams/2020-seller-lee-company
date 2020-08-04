@@ -4,15 +4,18 @@
 
 import React from "react";
 
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Buyer } from "../../types/types";
 
 export default function BuyerCard({ avatar, nickname }: Buyer) {
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: avatar }}/>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => Alert.alert("구매자 평가 화면으로 이동")}
+    >
+      <Image style={styles.image} source={{ uri: avatar }} />
       <Text style={styles.nickname}>{nickname}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
