@@ -20,6 +20,7 @@ export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
   FeedDetail: { articleId: number };
+  ArticleEditScreen: undefined;
   ChatRoom: undefined;
   ArticleDetailScreen: undefined;
   ArticleDetailImageViewScreen: {

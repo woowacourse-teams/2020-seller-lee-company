@@ -10,6 +10,7 @@ import ChatRoomScreen from "../../screens/ChatRoomScreen";
 import { ArticleNavigationParamList } from "../../types/types";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
+import ArticleEditScreen from "../../screens/ArticleEditScreen";
 
 const Stack = createStackNavigator<ArticleNavigationParamList>();
 
@@ -28,6 +29,7 @@ export default function ArticleNavigation() {
         name="ArticleDetailImageViewScreen"
         component={ArticleDetailImageViewScreen}
       />
+      <Stack.Screen name="ArticleEditScreen" component={ArticleEditScreen} />
     </Stack.Navigator>
   );
 }

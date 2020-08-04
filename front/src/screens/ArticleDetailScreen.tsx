@@ -3,7 +3,7 @@
  */
 
 import React, { useLayoutEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Button, ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
@@ -55,6 +55,13 @@ export default function ArticleDetailScreen({
         />
       ),
       headerLeftContainerStyle: { paddingLeft: 10 },
+      headerRight: () => (
+        <Button
+          title="수정"
+          onPress={() => navigation.navigate("ArticleEditScreen")}
+        />
+      ),
+      headerRightContainerStyle: { paddingRight: 15 },
     });
   });
 
