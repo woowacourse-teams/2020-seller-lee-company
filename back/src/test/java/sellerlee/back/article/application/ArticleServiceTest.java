@@ -9,7 +9,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
@@ -43,8 +43,15 @@ class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
-                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"),
+        ArticleCreateRequest request = new ArticleCreateRequest(
+                "노트북",
+                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+                "디지털/가전",
+                "쌉니다 싸요",
+                10000L,
+                "택배",
+                null,
+                Arrays.asList("testUri1", "testUri2"),
                 1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 

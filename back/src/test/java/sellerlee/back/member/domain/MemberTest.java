@@ -10,7 +10,7 @@ class MemberTest {
     @Test
     void verify() {
         // given
-        Member member = new Member("lxxjn0@gmail.com", "1234", 4.5);
+        Member member = new Member("lxxjn0@gmail.com", "1234", "uri", "스티치", 4.5);
 
         // when
         String password = "1234";

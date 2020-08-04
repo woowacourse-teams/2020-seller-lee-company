@@ -6,7 +6,7 @@ package sellerlee.back.article.application;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
@@ -45,18 +45,13 @@ class ArticleViewServiceTest {
     @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체를 가져온다")
     @Test
     void showArticle() {
-        when(articleRepository.findById(1L)).thenReturn(Optional.of(ARTICLE1));
-        when(memberRepository.findById(2L)).thenReturn(Optional.of(MEMBER2));
+        when(articleRepository.findById(51L)).thenReturn(Optional.of(ARTICLE1));
+        when(memberRepository.findById(52L)).thenReturn(Optional.of(MEMBER2));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any())).thenReturn(
                 Optional.of(FAVORITE));
 
-        ArticleResponse articleResponse = articleViewService.showArticle(1L, 2L);
+        ArticleResponse articleResponse = articleViewService.showArticle(51L, 52L);
 
-        assertThat(articleResponse.getId()).isEqualTo(1L);
-        assertThat(articleResponse.getAuthor().getEmail()).isEqualTo("turtle@woowabro.com");
-        assertThat(articleResponse.getFavorite().getId()).isEqualTo(1L);
-        assertThat(articleResponse.getFavorite().getMember().getId()).isEqualTo(2L);
-        assertThat(articleResponse.getFavorite().getMember().getEmail()).isEqualTo(
-                "lxxjn0@gmail.com");
+        assertThat(articleResponse.getId()).isEqualTo(51L);
     }
 }

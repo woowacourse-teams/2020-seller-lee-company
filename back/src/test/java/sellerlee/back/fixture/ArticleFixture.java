@@ -55,13 +55,15 @@ public class ArticleFixture {
             TradeState.SALING,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
-    
+
     public static final ArticleCreateRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleCreateRequest(
             "TEST_TITLE",
-            10_000L,
+            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
             "디지털/가전",
             "TEST_CONTENTS",
-            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+            10_000L,
+            "직거래",
+            "잠실동",
             Arrays.asList("testUri1", "testUri2"),
             MEMBER1.getId()
     );
