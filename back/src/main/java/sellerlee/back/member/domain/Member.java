@@ -48,6 +48,10 @@ public class Member {
         this(id, null, null, null, null, null);
     }
 
+    public Member(Long id) {
+        this(id, null, null, null);
+    }
+
     public boolean verify(String password) {
         return this.password.equals(password);
     }
