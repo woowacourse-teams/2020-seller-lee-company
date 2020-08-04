@@ -1,14 +1,10 @@
 /**
- * @author jnsorn
+ * @author joseph415 lxxjn0
  */
 
 package sellerlee.back.article.domain;
 
-import java.util.List;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,7 +27,8 @@ public class Article {
 
     private String title;
 
-    private Long price;
+    @Embedded
+    private Tags tags;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -39,12 +36,18 @@ public class Article {
     @Lob
     private String contents;
 
-    @Embedded
-    private Tags tags;
+    private Long price;
 
-    @ElementCollection
-    @CollectionTable(name = "photo", joinColumns = @JoinColumn(name = "article_id"))
-    private List<String> photos;
+    @Enumerated(EnumType.STRING)
+    private TradeType tradeType;
+
+    private String tradeLocation;
+
+    @Enumerated(EnumType.STRING)
+    private TradeState tradeState;
+
+    @Embedded
+    private Photos photos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -53,21 +56,27 @@ public class Article {
     protected Article() {
     }
 
-    public Article(Long id, String title, Long price, Category category, String contents,
-            Tags tags, List<String> photos, Member author) {
+    public Article(Long id, String title, Tags tags, Category category, String contents,
+            Long price, TradeType tradeType, String tradeLocation,
+            TradeState tradeState, Photos photos, Member author) {
         this.id = id;
         this.title = title;
-        this.price = price;
+        this.tags = tags;
         this.category = category;
         this.contents = contents;
-        this.tags = tags;
+        this.price = price;
+        this.tradeType = tradeType;
+        this.tradeLocation = tradeLocation;
+        this.tradeState = tradeState;
         this.photos = photos;
         this.author = author;
     }
 
-    public Article(String title, Long price, Category category, String contents,
-            Tags tags, List<String> photos, Member author) {
-        this(null, title, price, category, contents, tags, photos, author);
+    public Article(String title, Tags tags, Category category, String contents,
+            Long price, TradeType tradeType, String tradeLocation,
+            TradeState tradeState, Photos photos, Member author) {
+        this(null, title, tags, category, contents, price, tradeType, tradeLocation, tradeState,
+                photos, author);
     }
 
     public Long getId() {
@@ -78,8 +87,8 @@ public class Article {
         return title;
     }
 
-    public Long getPrice() {
-        return price;
+    public Tags getTags() {
+        return tags;
     }
 
     public Category getCategory() {
@@ -90,11 +99,23 @@ public class Article {
         return contents;
     }
 
-    public Tags getTags() {
-        return tags;
+    public Long getPrice() {
+        return price;
     }
 
-    public List<String> getPhotos() {
+    public TradeType getTradeType() {
+        return tradeType;
+    }
+
+    public String getTradeLocation() {
+        return tradeLocation;
+    }
+
+    public TradeState getTradeState() {
+        return tradeState;
+    }
+
+    public Photos getPhotos() {
         return photos;
     }
 
