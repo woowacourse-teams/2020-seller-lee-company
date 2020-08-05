@@ -10,7 +10,9 @@ import ChatRoomScreen from "../../screens/ChatRoomScreen";
 import { ArticleNavigationParamList } from "../../types/types";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
-import ArticleFormNavigation from "./ArticleFormNavigation";
+import ArticleFormScreen from "../../screens/ArticleFormScreen";
+import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
+import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
 
 const Stack = createStackNavigator<ArticleNavigationParamList>();
 
@@ -28,9 +30,14 @@ export default function ArticleNavigation() {
         name="ArticleDetailImageViewScreen"
         component={ArticleDetailImageViewScreen}
       />
+      <Stack.Screen name="ArticleFormScreen" component={ArticleFormScreen} />
       <Stack.Screen
-        name="ArticleCreateNavigation"
-        component={ArticleFormNavigation}
+        name="ArticleContentsFormScreen"
+        component={ArticleContentsFormScreen}
+      />
+      <Stack.Screen
+        name="CategoryChoiceScreen"
+        component={CategoryChoiceScreen}
       />
     </Stack.Navigator>
   );

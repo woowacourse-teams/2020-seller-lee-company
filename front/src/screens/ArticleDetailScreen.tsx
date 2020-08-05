@@ -18,21 +18,15 @@ import theme from "../colors";
 import { articleDetailAPI } from "../api/api";
 import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
-  articleContentsState,
   articleIsEditingState,
-  articleSelectedCategoryState,
   articleSelectedIdState,
   articleSelectedState,
 } from "../states/articleState";
-import { tagsState } from "../states/TagState";
 
 export default function ArticleDetailScreen() {
   const navigation = useNavigation<ArticleDetailNavigationProp>();
   const articleId = useRecoilValue(articleSelectedIdState);
   const setArticleSelected = useSetRecoilState(articleSelectedState);
-  const setSelectedCategory = useSetRecoilState(articleSelectedCategoryState);
-  const setArticleContents = useSetRecoilState(articleContentsState);
-  const setTags = useSetRecoilState(tagsState);
   const setIsEditing = useSetRecoilState(articleIsEditingState);
 
   const mockImages = [
@@ -48,10 +42,6 @@ export default function ArticleDetailScreen() {
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
     setArticleSelected(data);
-    setSelectedCategory(data.category);
-    setArticleContents(data.contents);
-    setTags(data.tags);
-    setIsEditing(true);
   };
 
   useLayoutEffect(() => {
@@ -70,7 +60,10 @@ export default function ArticleDetailScreen() {
       headerRight: () => (
         <Button
           title="수정"
-          onPress={() => navigation.navigate("ArticleCreateNavigation")}
+          onPress={() => {
+            navigation.navigate("ArticleFormScreen");
+            setIsEditing(true);
+          }}
         />
       ),
       headerRightContainerStyle: { paddingRight: 15 },

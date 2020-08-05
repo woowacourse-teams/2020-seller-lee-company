@@ -4,6 +4,7 @@
 
 import { atom } from "recoil/dist";
 import { PhotoInfo } from "../types/types";
+import { defaultArticle } from "../data/defaultArticle";
 
 export const articleTitleState = atom({
   key: "articleTitleState",
@@ -42,13 +43,7 @@ export const articleSelectedIdState = atom({
 
 export const articleSelectedState = atom({
   key: "articleSelectedState",
-  default: {
-    title: undefined,
-    photos: undefined,
-    category: "",
-    price: 0,
-    contents: undefined,
-  },
+  default: defaultArticle,
 });
 
 export const articleIsEditingState = atom({

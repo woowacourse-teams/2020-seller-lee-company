@@ -2,12 +2,11 @@
  * @author kouz95
  */
 
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   BackHandler,
   Button,
   Keyboard,
-  Platform,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -17,11 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons } from "@expo/vector-icons";
-import {
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from "recoil/dist";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import ArticleTitleForm from "../components/Article/ArticleTitleForm";
 import ArticlePriceForm from "../components/Article/ArticlePriceForm";
 import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
@@ -29,68 +24,37 @@ import Photo from "../components/Common/Photo/Photo";
 import Tag from "../components/Common/Info/Tag/Tag";
 import {
   articleContentsState,
+  articleIsEditingState,
   articleModalActivationState,
-  articlePhotosState,
-  articlePriceState,
   articleSelectedCategoryState,
   articleSelectedState,
-  articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { ArticleCreateScreenNavigationProp } from "../types/types";
+import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 
-import { memberIdState } from "../states/loginState";
 import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
+import { defaultArticle } from "../data/defaultArticle";
 
 export default function ArticleFormScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+  const [article, setArticle] = useState<Article>(defaultArticle);
   const editingArticle = useRecoilValue(articleSelectedState);
-
-  const title = useRecoilValue(articleTitleState);
-  const contents = useRecoilValue(articleContentsState);
-  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
-  const price = useRecoilValue(articlePriceState);
-  const photos = useRecoilValue(articlePhotosState);
-  const tags = useRecoilValue(tagsState);
-  const memberId = useRecoilValue(memberIdState);
-
-  const resetPhotos = useResetRecoilState(articlePhotosState);
-  const resetTitle = useResetRecoilState(articleTitleState);
-  const resetSelectedCategory = useResetRecoilState(
-    articleSelectedCategoryState,
-  );
-  const resetPrice = useResetRecoilState(articlePriceState);
-  const resetContents = useResetRecoilState(articleContentsState);
-  const resetTags = useResetRecoilState(tagsState);
-
+  const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
+  const setSelectedCategory = useSetRecoilState(articleSelectedCategoryState);
+  const setArticleContents = useSetRecoilState(articleContentsState);
+  const setTags = useSetRecoilState(tagsState);
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={confirmToLeave}
-          backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
-          )}
-        />
-      ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
-    });
-  });
-
-  useEffect(() => backHandler.remove());
+  const [originArticle, setOriginArticle] = useState<Article>();
 
   const confirmToBackAction = () => {
-    if (hasContents()) {
+    if (isDirty()) {
       setArticleModalState(true);
       return true;
     }
-    resetCreateScreen();
+    resetForm();
     return false;
   };
 
@@ -99,49 +63,42 @@ export default function ArticleFormScreen() {
     confirmToBackAction,
   );
 
-  const resetCreateScreen = () => {
-    resetPhotos();
-    resetTitle();
-    resetPrice();
-    resetContents();
-    resetSelectedCategory();
-    resetTags();
-  };
+  const resetForm = () => setIsEditing(false);
 
-  const hasContents = () => {
+  const isDirty = () => {
     return (
-      photos.length !== 0 ||
-      title !== "" ||
-      price !== 0 ||
-      contents !== "" ||
-      selectedCategory !== "" ||
-      tags.length !== 0
+      article.photos.length !== originArticle?.photos.length ||
+      article.title !== originArticle.title ||
+      article.price !== originArticle.price ||
+      article.contents !== originArticle.contents ||
+      article.category !== originArticle.category ||
+      article.tags.length !== originArticle.tags.length
     );
   };
 
   const incompleteCriticalItems = () => {
     return (
-      photos.length === 0 ||
-      title === "" ||
-      price === 0 ||
-      contents === "" ||
-      selectedCategory === ""
+      article?.photos.length === 0 ||
+      article?.title === "" ||
+      article?.price === 0 ||
+      article?.contents === "" ||
+      article?.category === ""
     );
   };
 
   const confirmToLeave = () => {
-    if (hasContents()) {
+    if (isDirty()) {
       setArticleModalState(true);
       return;
     }
-    resetCreateScreen();
+    resetForm();
     navigation.goBack();
   };
 
   const dynamicStyles = StyleSheet.create({
     priceCurrencyUnit: {
       fontSize: 18,
-      color: price === 0 ? "lightgrey" : "black",
+      color: article.price === 0 ? "lightgrey" : "black",
     },
     createButtonContainer: {
       backgroundColor: incompleteCriticalItems() ? "grey" : theme.primary,
@@ -155,48 +112,82 @@ export default function ArticleFormScreen() {
 
   const postArticle = () => {
     return articlesAPI.post({
-      title,
-      price,
-      category: selectedCategory,
-      contents,
-      tags: tags.map((tag) => tag.name),
-      photos: photos.map((photo) => photo.uri),
-      authorId: memberId,
+      title: article.title,
+      price: article.price,
+      category: article.category,
+      contents: article.contents,
+      tags: article.tags.map((tag) => tag.name),
+      photos: article.photos.map((photo) => photo.uri),
+      authorId: article.member.id,
     });
   };
 
   const goBackAfterPostAndReset = async () => {
     const response = await postArticle();
     if (response.status === 201) {
-      resetCreateScreen();
+      resetForm();
       navigation.goBack();
     } else {
       console.warn("post article 실패");
     }
   };
 
+  const setForm = (article: Article) => {
+    setArticle(article);
+    setSelectedCategory(article.category);
+    setArticleContents(article.contents);
+    setTags(article.tags);
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing ? "수정하기" : "글쓰기",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={confirmToLeave}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  });
+
+  useEffect(() => {
+    if (isEditing) {
+      setForm(editingArticle);
+      setOriginArticle(editingArticle);
+    } else {
+      setForm(defaultArticle);
+      setOriginArticle(defaultArticle);
+    }
+  }, [isEditing]);
+
+  useEffect(() => backHandler.remove(), []);
+
   return (
     <KeyboardAwareScrollView
       enableOnAndroid
       contentContainerStyle={styles.container}
-      enableAutomaticScroll={Platform.OS === "ios"}
     >
-      <ArticleFormScreenModal resetCreateScreen={resetCreateScreen} />
+      <ArticleFormScreenModal resetCreateScreen={resetForm} />
       <View style={styles.contentsContainer}>
         <View style={styles.photoContainer}>
-          <Photo editPhoto={editingArticle.photos} />
+          {isEditing ? <Photo editPhoto={editingArticle.photos} /> : <Photo />}
         </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.touchableWithoutFeedbackContainer}>
             <View style={styles.titleFormContainer}>
-              <ArticleTitleForm editTitle={editingArticle.title} />
+              <ArticleTitleForm editTitle={article.title} />
             </View>
             <View style={styles.selectCategoryContainer}>
-              <ArticleFormCategorySelect />
+              <ArticleFormCategorySelect isEditing={isEditing} />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
-              <ArticlePriceForm editPrice={editingArticle.price} />
+              <ArticlePriceForm editPrice={article.price} />
             </View>
             <View style={styles.contentsFormContainer}>
               <ArticleContentsForm />

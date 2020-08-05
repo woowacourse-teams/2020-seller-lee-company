@@ -10,7 +10,7 @@ interface ArticleTitleFormProp {
 }
 
 export default function ArticleTitleForm({ editTitle }: ArticleTitleFormProp) {
-  const [title, setTitle] = useState<string>();
+  const [title, setTitle] = useState<string | undefined>("");
 
   useEffect(() => setTitle(editTitle), [editTitle]);
 

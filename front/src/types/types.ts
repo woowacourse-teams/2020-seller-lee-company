@@ -24,7 +24,9 @@ export type ArticleNavigationParamList = {
   ArticleDetailImageViewScreen: {
     photos: string[];
   };
-  ArticleCreateNavigation: undefined;
+  ArticleFormScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<

@@ -6,18 +6,30 @@ import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
 import { ArticleCreateScreenNavigationProp } from "../../types/types";
 
-export default function ArticleFormCategorySelect() {
+interface ArticleFormCategorySelectProp {
+  isEditing: boolean;
+}
+
+export default function ArticleFormCategorySelect({
+  isEditing,
+}: ArticleFormCategorySelectProp) {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
+
+  const renderCategory = () => {
+    if (isEditing) {
+      return selectedCategory;
+    } else {
+      return selectedCategory === "" ? "카테고리" : selectedCategory;
+    }
+  };
 
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={() => navigation.navigate("CategoryChoiceScreen")}
     >
-      <Text style={styles.buttonText}>
-        {selectedCategory === "" ? "카테고리" : selectedCategory}
-      </Text>
+      <Text style={styles.buttonText}>{renderCategory()}</Text>
       <MaterialCommunityIcons
         name="chevron-down"
         size={22}

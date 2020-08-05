@@ -14,6 +14,7 @@ export default function CategoryChoiceScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      title: "카테고리",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
