@@ -26,8 +26,11 @@ import {
   articleContentsState,
   articleIsEditingState,
   articleModalActivationState,
+  articlePhotosState,
+  articlePriceState,
   articleSelectedCategoryState,
   articleSelectedState,
+  articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
 import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
@@ -37,15 +40,23 @@ import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 import { defaultArticle } from "../data/defaultArticle";
+import { memberIdState } from "../states/loginState";
 
 export default function ArticleFormScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const [article, setArticle] = useState<Article>(defaultArticle);
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
-  const setSelectedCategory = useSetRecoilState(articleSelectedCategoryState);
-  const setArticleContents = useSetRecoilState(articleContentsState);
-  const setTags = useSetRecoilState(tagsState);
+
+  const memberId = useRecoilValue(memberIdState);
+  const photos = useRecoilValue(articlePhotosState);
+  const title = useRecoilValue(articleTitleState);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
+    articleSelectedCategoryState,
+  );
+  const [price, setPrice] = useRecoilState(articlePriceState);
+  const [contents, setContents] = useRecoilState(articleContentsState);
+  const [tags, setTags] = useRecoilState(tagsState);
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
   const [originArticle, setOriginArticle] = useState<Article>();
 
@@ -78,11 +89,11 @@ export default function ArticleFormScreen() {
 
   const incompleteCriticalItems = () => {
     return (
-      article?.photos.length === 0 ||
-      article?.title === "" ||
-      article?.price === 0 ||
-      article?.contents === "" ||
-      article?.category === ""
+      photos.length === 0 ||
+      title === "" ||
+      price === 0 ||
+      contents === "" ||
+      selectedCategory === ""
     );
   };
 
@@ -98,7 +109,7 @@ export default function ArticleFormScreen() {
   const dynamicStyles = StyleSheet.create({
     priceCurrencyUnit: {
       fontSize: 18,
-      color: article.price === 0 ? "lightgrey" : "black",
+      color: price === 0 ? "lightgrey" : "black",
     },
     createButtonContainer: {
       backgroundColor: incompleteCriticalItems() ? "grey" : theme.primary,
@@ -112,17 +123,24 @@ export default function ArticleFormScreen() {
 
   const postArticle = () => {
     return articlesAPI.post({
-      title: article.title,
-      price: article.price,
-      category: article.category,
-      contents: article.contents,
-      tags: article.tags.map((tag) => tag.name),
-      photos: article.photos.map((photo) => photo.uri),
-      authorId: article.member.id,
+      title: title,
+      price: price,
+      category: selectedCategory,
+      contents: contents,
+      tags: tags.map((tag) => tag.name),
+      photos: photos.map((photo) => photo.uri),
+      authorId: memberId,
     });
   };
 
   const goBackAfterPostAndReset = async () => {
+    console.log(title);
+    console.log(price);
+    console.log(selectedCategory);
+    console.log(contents);
+    console.log(tags);
+    console.log(photos);
+    console.log(memberId);
     const response = await postArticle();
     if (response.status === 201) {
       resetForm();
@@ -135,7 +153,8 @@ export default function ArticleFormScreen() {
   const setForm = (article: Article) => {
     setArticle(article);
     setSelectedCategory(article.category);
-    setArticleContents(article.contents);
+    setPrice(article.price);
+    setContents(article.contents);
     setTags(article.tags);
   };
 
@@ -175,19 +194,19 @@ export default function ArticleFormScreen() {
       <ArticleFormScreenModal resetCreateScreen={resetForm} />
       <View style={styles.contentsContainer}>
         <View style={styles.photoContainer}>
-          {isEditing ? <Photo editPhoto={editingArticle.photos} /> : <Photo />}
+          <Photo editPhoto={article.photos} />
         </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.touchableWithoutFeedbackContainer}>
             <View style={styles.titleFormContainer}>
-              <ArticleTitleForm editTitle={article.title} />
+              <ArticleTitleForm />
             </View>
             <View style={styles.selectCategoryContainer}>
               <ArticleFormCategorySelect isEditing={isEditing} />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
-              <ArticlePriceForm editPrice={article.price} />
+              <ArticlePriceForm />
             </View>
             <View style={styles.contentsFormContainer}>
               <ArticleContentsForm />

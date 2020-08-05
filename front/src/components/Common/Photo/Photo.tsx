@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
-  ImageURISource,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -33,7 +32,7 @@ import { memberIdState } from "../../../states/loginState";
 let photoId = 0;
 
 interface PhotoProp {
-  editPhoto?: ImageURISource[];
+  editPhoto?: string[];
 }
 
 export default function Photo({ editPhoto }: PhotoProp) {
@@ -50,7 +49,12 @@ export default function Photo({ editPhoto }: PhotoProp) {
 
   useEffect(
     function updatePhoto() {
-      // setPhotos(editPhoto);
+      setPhotos(
+        editPhoto!.map((photo, index) => {
+          return { id: index, uri: photo };
+        }),
+      );
+      console.log(photos);
     },
     [editPhoto],
   );

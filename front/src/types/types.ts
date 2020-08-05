@@ -177,7 +177,7 @@ export interface Article {
   contents: string;
   tradeType: string;
   tradeState: string;
-  photos: ImageURISource[];
+  photos: string[];
   tags: Tag[];
   member: Author;
   favorite: Favorite;

@@ -2,18 +2,14 @@
  * @author kouz95
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { insertComma, removeComma } from "../../replacePriceWithComma";
+import { useRecoilState } from "recoil/dist";
+import { articlePriceState } from "../../states/articleState";
 
-interface ArticlePriceFormProp {
-  editPrice: number;
-}
-
-export default function ArticlePriceForm({ editPrice }: ArticlePriceFormProp) {
-  const [price, setPrice] = useState(0);
-
-  useEffect(() => setPrice(editPrice), [editPrice]);
+export default function ArticlePriceForm() {
+  const [price, setPrice] = useRecoilState(articlePriceState);
 
   return (
     <TextInput

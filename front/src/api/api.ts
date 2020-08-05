@@ -29,15 +29,8 @@ interface ArticlesGet {
 export const articlesAPI = {
   get: async (params: ArticlesGet) =>
     await axios.get(BASE_URL + domain.article, { params }),
-  post: async (data: {
-    contents: string;
-    price: number;
-    title: string;
-    category: string;
-    authorId: number;
-    photos: (string | undefined)[];
-    tags: string[];
-  }) => await axios.post(BASE_URL + domain.article, data),
+  post: async (data: ArticlesPost) =>
+    await axios.post(BASE_URL + domain.article, data),
 };
 
 export const articleDetailAPI = {

@@ -2,17 +2,13 @@
  * @author kouz95
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, TextInput } from "react-native";
+import { useRecoilState } from "recoil/dist";
+import { articleTitleState } from "../../states/articleState";
 
-interface ArticleTitleFormProp {
-  editTitle?: string;
-}
-
-export default function ArticleTitleForm({ editTitle }: ArticleTitleFormProp) {
-  const [title, setTitle] = useState<string | undefined>("");
-
-  useEffect(() => setTitle(editTitle), [editTitle]);
+export default function ArticleTitleForm() {
+  const [title, setTitle] = useRecoilState(articleTitleState);
 
   return (
     <TextInput
