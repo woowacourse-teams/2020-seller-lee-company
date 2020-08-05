@@ -26,3 +26,7 @@ values (51, 'test tag1'),
        (51, 'test tag2'),
        (52, 'test tag3'),
        (52, 'test tag4');
+
+insert into chat_room(chat_room_id, article_id, member_id)
+values (51, 51, 51),
+       (52, 51, 52)
