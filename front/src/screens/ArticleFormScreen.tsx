@@ -24,7 +24,7 @@ import {
 } from "recoil/dist";
 import ArticleTitleForm from "../components/Article/ArticleTitleForm";
 import ArticlePriceForm from "../components/Article/ArticlePriceForm";
-import ArticleCreateScreenModal from "../components/Article/ArticleCreateScreenModal";
+import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
 import Photo from "../components/Common/Photo/Photo";
 import Tag from "../components/Common/Info/Tag/Tag";
 import {
@@ -42,10 +42,10 @@ import theme from "../colors";
 
 import { memberIdState } from "../states/loginState";
 import { articlesAPI } from "../api/api";
-import ArticleCreateCategorySelect from "../components/Article/ArticleCreateCategorySelect";
+import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 
-export default function ArticleCreateScreen() {
+export default function ArticleFormScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const editingArticle = useRecoilValue(articleSelectedState);
 
@@ -181,7 +181,7 @@ export default function ArticleCreateScreen() {
       contentContainerStyle={styles.container}
       enableAutomaticScroll={Platform.OS === "ios"}
     >
-      <ArticleCreateScreenModal resetCreateScreen={resetCreateScreen} />
+      <ArticleFormScreenModal resetCreateScreen={resetCreateScreen} />
       <View style={styles.contentsContainer}>
         <View style={styles.photoContainer}>
           <Photo editPhoto={editingArticle.photos} />
@@ -192,7 +192,7 @@ export default function ArticleCreateScreen() {
               <ArticleTitleForm editTitle={editingArticle.title} />
             </View>
             <View style={styles.selectCategoryContainer}>
-              <ArticleCreateCategorySelect />
+              <ArticleFormCategorySelect />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>

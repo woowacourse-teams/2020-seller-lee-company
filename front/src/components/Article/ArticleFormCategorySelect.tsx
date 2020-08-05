@@ -6,7 +6,7 @@ import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
 import { ArticleCreateScreenNavigationProp } from "../../types/types";
 
-export default function ArticleCreateCategorySelect() {
+export default function ArticleFormCategorySelect() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
 

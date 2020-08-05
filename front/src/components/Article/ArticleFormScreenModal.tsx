@@ -19,7 +19,7 @@ interface ArticleCreateScreenModalProps {
   resetCreateScreen: Function;
 }
 
-export default function ArticleCreateScreenModal({
+export default function ArticleFormScreenModal({
   resetCreateScreen,
 }: ArticleCreateScreenModalProps) {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();

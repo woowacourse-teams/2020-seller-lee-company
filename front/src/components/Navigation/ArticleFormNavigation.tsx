@@ -4,18 +4,18 @@
 
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ArticleCreateScreen from "../../screens/ArticleCreateScreen";
+import ArticleFormScreen from "../../screens/ArticleFormScreen";
 import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
 import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
 
 const Stack = createStackNavigator();
 
-export default function ArticleCreateNavigation() {
+export default function ArticleFormNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="ArticleCreateScreen"
-        component={ArticleCreateScreen}
+        component={ArticleFormScreen}
         options={{
           title: "글쓰기",
         }}

@@ -9,7 +9,7 @@ import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../colors";
 
-export default function ArticleCreateOptionsModal() {
+export default function ArticleFormOptionsModal() {
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
 

@@ -8,8 +8,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ChatScreen from "../../screens/ChatScreen";
 import CategoryNavigation from "./CategoryNavigation";
-import ArticleCreateOptionsModal from "../Article/ArticleCreateOptionsModal";
-import ArticleCreateNavigation from "./ArticleCreateNavigation";
+import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
+import ArticleFormNavigation from "./ArticleFormNavigation";
 import LoginScreen from "../../screens/LoginScreen";
 import ArticleNavigation from "./ArticleNavigation";
 
@@ -58,10 +58,10 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="Posting"
-        component={ArticleCreateNavigation}
+        component={ArticleFormNavigation}
         options={{
           tabBarVisible: false,
-          tabBarButton: () => <ArticleCreateOptionsModal />,
+          tabBarButton: () => <ArticleFormOptionsModal />,
         }}
       />
       <Tab.Screen

@@ -10,7 +10,7 @@ import ChatRoomScreen from "../../screens/ChatRoomScreen";
 import { ArticleNavigationParamList } from "../../types/types";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
-import ArticleCreateNavigation from "./ArticleCreateNavigation";
+import ArticleFormNavigation from "./ArticleFormNavigation";
 
 const Stack = createStackNavigator<ArticleNavigationParamList>();
 
@@ -30,7 +30,7 @@ export default function ArticleNavigation() {
       />
       <Stack.Screen
         name="ArticleCreateNavigation"
-        component={ArticleCreateNavigation}
+        component={ArticleFormNavigation}
       />
     </Stack.Navigator>
   );
