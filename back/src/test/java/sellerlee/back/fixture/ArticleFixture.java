@@ -24,9 +24,9 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             1234L,
-            TradeType.DELEVERY,
+            TradeType.DELIVERY,
             null,
-            TradeState.SALING,
+            TradeState.ON_SALE,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
 
@@ -37,9 +37,9 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             1234L,
-            TradeType.DELEVERY,
+            TradeType.DELIVERY,
             null,
-            TradeState.SALING,
+            TradeState.ON_SALE,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
 
@@ -50,9 +50,9 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             1234L,
-            TradeType.DELEVERY,
+            TradeType.DELIVERY,
             null,
-            TradeState.SALING,
+            TradeState.ON_SALE,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
 
@@ -65,6 +65,5 @@ public class ArticleFixture {
             "직거래",
             "잠실동",
             Arrays.asList("testUri1", "testUri2"),
-            MEMBER1.getId()
-    );
+            MEMBER1.getId());
 }

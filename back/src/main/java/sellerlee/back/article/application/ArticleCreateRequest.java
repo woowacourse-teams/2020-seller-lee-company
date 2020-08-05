@@ -52,7 +52,7 @@ public class ArticleCreateRequest {
                 price,
                 TradeType.fromString(tradeType),
                 tradeLocation,
-                TradeState.SALING,
+                TradeState.ON_SALE,
                 new Photos(photos),
                 new Member(authorId));
     }

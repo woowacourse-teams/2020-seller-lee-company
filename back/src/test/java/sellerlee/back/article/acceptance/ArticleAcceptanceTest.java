@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -72,26 +73,14 @@ public class ArticleAcceptanceTest {
                 dynamicTest("게시글 추가", this::createArticle),
                 dynamicTest("게시글 페이지 조회", () -> {
                     List<FeedResponse> feedArticleResponses = findArticlePage();
-                    assertThat(feedArticleResponses.size()).isEqualTo(1);
+                    assertThat(feedArticleResponses.size()).isEqualTo(1L);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = getArticleResponse();
-                    assertThat(articleResponse.getId()).isEqualTo(1);
+                    assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
+                    assertThat(articleResponse.getFavoriteState()).isTrue();
                 })
         );
-    }
-
-    private ArticleResponse getArticleResponse() {
-        String url = ARTICLE_URI + "/1";
-
-        return given()
-                .when()
-                .param("memberId", 51L)
-                .get(url)
-                .then()
-                .log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract().jsonPath().getObject(".", ArticleResponse.class);
     }
 
     private void createArticle() throws JsonProcessingException {
@@ -116,5 +105,18 @@ public class ArticleAcceptanceTest {
                 .then()
                 .log().all()
                 .extract().jsonPath().getList(".", FeedResponse.class);
+    }
+
+    private ArticleResponse getArticleResponse() {
+        String url = ARTICLE_URI + "/" + ARTICLE1.getId();
+
+        return given()
+                .when()
+                .param("memberId", MEMBER1.getId())
+                .get(url)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract().jsonPath().getObject(".", ArticleResponse.class);
     }
 }

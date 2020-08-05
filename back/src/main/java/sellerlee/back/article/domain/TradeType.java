@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 public enum TradeType {
     DIRECT_TRANSACTION("직거래"),
-    DELEVERY("택배");
+    DELIVERY("택배");
 
     private final String tradeType;
 
