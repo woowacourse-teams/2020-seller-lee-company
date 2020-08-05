@@ -2,13 +2,17 @@
  * @author kouz95
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { useRecoilState } from "recoil/dist";
-import { articleTitleState } from "../../states/articleState";
 
-export default function ArticleTitleForm() {
-  const [title, setTitle] = useRecoilState(articleTitleState);
+interface ArticleTitleFormProp {
+  editTitle?: string;
+}
+
+export default function ArticleTitleForm({ editTitle }: ArticleTitleFormProp) {
+  const [title, setTitle] = useState<string>();
+
+  useEffect(() => setTitle(editTitle), [editTitle]);
 
   return (
     <TextInput
@@ -16,7 +20,7 @@ export default function ArticleTitleForm() {
       placeholder={"제목"}
       keyboardType={"default"}
       maxLength={30}
-      onChangeText={(text) => setTitle(text)}
+      onChangeText={setTitle}
       value={title}
     />
   );

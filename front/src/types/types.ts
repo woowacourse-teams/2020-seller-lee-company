@@ -19,23 +19,17 @@ export type TabHomeNavigationProp = BottomTabNavigationProp<
 export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedDetail: { articleId: number };
-  ArticleEditScreen: { articleId: number };
   ChatRoom: undefined;
-  ArticleDetailScreen: { articleId: number };
+  ArticleDetailScreen: undefined;
   ArticleDetailImageViewScreen: {
     photos: string[];
   };
+  ArticleCreateNavigation: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "FeedHome"
->;
-
-export type FeedDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "FeedDetail"
 >;
 
 export type ChatRoomNavigationProp = StackNavigationProp<
@@ -44,11 +38,6 @@ export type ChatRoomNavigationProp = StackNavigationProp<
 >;
 
 export type ArticleDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ArticleDetailScreen"
->;
-
-export type ArticleDetailRouteProp = RouteProp<
   ArticleNavigationParamList,
   "ArticleDetailScreen"
 >;
@@ -112,11 +101,6 @@ export type ArticleCreateScreenNavigationProp = StackNavigationProp<
 export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
   ArticleCreateParamList,
   "ArticleContentsFormScreen"
->;
-
-export type ArticleEditScreenRouteProp = RouteProp<
-  ArticleNavigationParamList,
-  "ArticleEditScreen"
 >;
 
 export type Category =

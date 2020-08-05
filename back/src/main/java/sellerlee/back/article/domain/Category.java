@@ -23,4 +23,8 @@ public enum Category {
                 .orElseThrow(() -> new IllegalArgumentException(
                         String.format("잘못된 카테고리 : %s.", category)));
     }
+
+    public String getName() {
+        return name;
+    }
 }

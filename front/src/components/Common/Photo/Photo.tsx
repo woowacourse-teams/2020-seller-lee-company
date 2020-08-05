@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
+  ImageURISource,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -31,7 +32,11 @@ import { memberIdState } from "../../../states/loginState";
 
 let photoId = 0;
 
-export default function Photo() {
+interface PhotoProp {
+  editPhoto?: ImageURISource[];
+}
+
+export default function Photo({ editPhoto }: PhotoProp) {
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
@@ -39,9 +44,16 @@ export default function Photo() {
   const memberId = useRecoilValue(memberIdState);
   const limitPhotoCount = 5;
 
-  useEffect(() => {
+  useEffect(function checkPermission() {
     requestPermission();
   }, []);
+
+  useEffect(
+    function updatePhoto() {
+      // setPhotos(editPhoto);
+    },
+    [editPhoto],
+  );
 
   const requestPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);

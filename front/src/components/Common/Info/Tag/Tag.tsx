@@ -17,8 +17,8 @@ import {
 } from "../../../../states/TagState";
 
 export default function Tag() {
-  const limitTagSize = 2;
-  const hashTag = "#";
+  const HASH_TAG = "#";
+  const LIMIT_TAG_SIZE = 2;
 
   const [tagId, setTagId] = useRecoilState(tagIdState);
   const [input, setInput] = useRecoilState(inputState);
@@ -32,11 +32,11 @@ export default function Tag() {
   };
 
   const insertTag = () => {
-    if (tags.length >= 0 && tags.length <= limitTagSize) {
+    if (tags.length >= 0 && tags.length <= LIMIT_TAG_SIZE) {
       setTags(
         tags.concat({
           id: tagId,
-          name: hashTag + removeBlank(input),
+          name: HASH_TAG + removeBlank(input),
         }),
       );
       setTagId(tagId + 1);

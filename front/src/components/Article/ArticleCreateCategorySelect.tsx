@@ -7,8 +7,8 @@ import { useRecoilValue } from "recoil";
 import { ArticleCreateScreenNavigationProp } from "../../types/types";
 
 export default function ArticleCreateCategorySelect() {
-  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
 
   return (
     <TouchableOpacity

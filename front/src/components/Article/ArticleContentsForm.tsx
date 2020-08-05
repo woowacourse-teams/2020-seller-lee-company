@@ -7,7 +7,6 @@ import { ArticleCreateScreenNavigationProp } from "../../types/types";
 
 export default function ArticleContentsForm() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
-
   const contents = useRecoilValue(articleContentsState);
 
   const dynamicStyles = StyleSheet.create({

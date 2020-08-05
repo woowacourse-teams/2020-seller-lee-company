@@ -34,3 +34,24 @@ export const articleModalActivationState = atom({
   key: "articleModalActivationState",
   default: false,
 });
+
+export const articleSelectedIdState = atom({
+  key: "articleSelectedIdState",
+  default: 0,
+});
+
+export const articleSelectedState = atom({
+  key: "articleSelectedState",
+  default: {
+    title: undefined,
+    photos: undefined,
+    category: "",
+    price: 0,
+    contents: undefined,
+  },
+});
+
+export const articleIsEditingState = atom({
+  key: "articleIsEditingState",
+  default: false,
+});

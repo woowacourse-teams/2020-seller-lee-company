@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {
   BackHandler,
   Button,
@@ -33,10 +33,11 @@ import {
   articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
+  articleSelectedState,
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
+import { ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 
 import { memberIdState } from "../states/loginState";
@@ -44,15 +45,9 @@ import { articlesAPI } from "../api/api";
 import ArticleCreateCategorySelect from "../components/Article/ArticleCreateCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 
-interface ArticleCreateScreenProps {
-  editArticle?: Article;
-}
-
-export default function ArticleCreateScreen({
-  editArticle,
-}: ArticleCreateScreenProps) {
+export default function ArticleCreateScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
-  const [article, setArticle] = useState<Article>();
+  const editingArticle = useRecoilValue(articleSelectedState);
 
   const title = useRecoilValue(articleTitleState);
   const contents = useRecoilValue(articleContentsState);
@@ -88,10 +83,7 @@ export default function ArticleCreateScreen({
     });
   });
 
-  useEffect(() => {
-    setArticle(editArticle);
-    backHandler.remove();
-  }, [editArticle]);
+  useEffect(() => backHandler.remove());
 
   const confirmToBackAction = () => {
     if (hasContents()) {
@@ -192,19 +184,19 @@ export default function ArticleCreateScreen({
       <ArticleCreateScreenModal resetCreateScreen={resetCreateScreen} />
       <View style={styles.contentsContainer}>
         <View style={styles.photoContainer}>
-          <Photo />
+          <Photo editPhoto={editingArticle.photos} />
         </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.touchableWithoutFeedbackContainer}>
             <View style={styles.titleFormContainer}>
-              <ArticleTitleForm />
+              <ArticleTitleForm editTitle={editingArticle.title} />
             </View>
             <View style={styles.selectCategoryContainer}>
               <ArticleCreateCategorySelect />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
-              <ArticlePriceForm />
+              <ArticlePriceForm editPrice={editingArticle.price} />
             </View>
             <View style={styles.contentsFormContainer}>
               <ArticleContentsForm />

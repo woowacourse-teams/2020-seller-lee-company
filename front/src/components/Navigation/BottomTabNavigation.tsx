@@ -20,7 +20,7 @@ function getTabBarVisibility(route: any) {
     ? route.state.routes[route.state.index].name
     : "";
 
-  return routeName !== "FeedDetail";
+  return routeName !== "ArticleDetailScreen";
 }
 
 export default function BottomTabNavigation() {
