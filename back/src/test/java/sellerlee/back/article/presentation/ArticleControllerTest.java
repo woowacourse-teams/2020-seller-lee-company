@@ -79,8 +79,8 @@ class ArticleControllerTest {
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
-        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1.getId()))
-                .thenReturn(ArticleResponse.of(ARTICLE1, true));
+        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1))
+                .thenReturn(ArticleResponse.of(ARTICLE1, true, 1));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
                 .param("memberId", String.valueOf(MEMBER1.getId())))

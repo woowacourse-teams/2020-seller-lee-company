@@ -9,14 +9,11 @@ import ImageViewSliderDot from "../Common/Dot/ImageViewSliderDot";
 import Swiper from "react-native-swiper";
 import ActiveDot from "../Common/Dot/ActiveDot";
 import PhotoBox from "../Common/Photo/PhotoBox";
+import { useRecoilValue } from "recoil/dist";
+import { articleSelectedState } from "../../states/articleState";
 
-interface ImageSliderProps {
-  photos: string[];
-}
-
-export default function ArticleDetailImageViewSlider({
-  photos,
-}: ImageSliderProps) {
+export default function ArticleDetailImageViewSlider() {
+  const { photos } = useRecoilValue(articleSelectedState);
   return (
     <Swiper
       loadMinimal={true}

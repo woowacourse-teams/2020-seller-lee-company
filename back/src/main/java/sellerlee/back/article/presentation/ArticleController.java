@@ -23,6 +23,7 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.member.domain.Member;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -54,10 +55,16 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long articleId,
-            @RequestParam Long memberId) {
-        ArticleResponse articleResponse = articleViewService.showArticle(articleId, memberId);
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id) {
+        Member member = new Member(
+                51L,
+                "turtle@woowabro.com",
+                "1234",
+                "testNickname",
+                "testUri",
+                4.5);
+        ArticleResponse articleResponse = articleViewService.showArticle(id, member);
 
         return ResponseEntity.ok(articleResponse);
     }

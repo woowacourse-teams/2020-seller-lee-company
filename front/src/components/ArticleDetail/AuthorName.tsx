@@ -6,13 +6,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 interface AuthorNameProps {
-  name: string;
+  nickname: string;
 }
 
-export default function AuthorName({ name }: AuthorNameProps) {
+export default function AuthorName({ nickname }: AuthorNameProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{nickname}</Text>
     </View>
   );
 }

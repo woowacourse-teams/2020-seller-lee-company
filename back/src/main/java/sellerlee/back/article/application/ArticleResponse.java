@@ -21,15 +21,16 @@ public class ArticleResponse {
     private String tradeState;
     private List<String> photos;
     private MemberResponse author;
-    private Boolean favoriteState;
+    private boolean favoriteState;
+    private long favoriteCount;
     private LocalDateTime createdTime;
 
     private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, String title, String category, String contents,
+    private ArticleResponse(Long id, String title, String category, String contents,
             Long price, String tradeType, String tradeLocation, String tradeState,
-            List<String> photos, MemberResponse author, Boolean favoriteState,
+            List<String> photos, MemberResponse author, boolean favoriteState, long favoriteCount,
             LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
@@ -42,10 +43,11 @@ public class ArticleResponse {
         this.photos = photos;
         this.author = author;
         this.favoriteState = favoriteState;
+        this.favoriteCount = favoriteCount;
         this.createdTime = createdTime;
     }
 
-    public static ArticleResponse of(Article article, boolean favoriteState) {
+    public static ArticleResponse of(Article article, boolean favoriteState, long favoriteCount) {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
@@ -58,6 +60,7 @@ public class ArticleResponse {
                 article.getPhotos().getPhotos(),
                 MemberResponse.of(article.getAuthor()),
                 favoriteState,
+                favoriteCount,
                 article.getCreatedTime()
         );
     }
@@ -102,8 +105,12 @@ public class ArticleResponse {
         return author;
     }
 
-    public Boolean getFavoriteState() {
+    public boolean getFavoriteState() {
         return favoriteState;
+    }
+
+    public long getFavoriteCount() {
+        return favoriteCount;
     }
 
     public LocalDateTime getCreatedTime() {
