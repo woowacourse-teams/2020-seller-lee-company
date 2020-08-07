@@ -58,7 +58,7 @@ export default function FeedHomeScreen() {
 
   const getLastArticleId = () => {
     return articles
-      .map((article) => article.id)
+      .map((article) => article.articleId)
       .sort((a, b) => b - a)
       .pop() as number;
   };
@@ -87,14 +87,14 @@ export default function FeedHomeScreen() {
       data={articles}
       renderItem={({ item }) => (
         <FeedArticleCard
-          id={item.id}
+          articleId={item.articleId}
           price={item.price}
           tags={item.tags}
           favoriteCount={item.favoriteCount}
           photos={item.photos}
         />
       )}
-      keyExtractor={(item) => `${item.id}`}
+      keyExtractor={(item) => `${item.articleId}`}
       refreshing={isRefreshing}
       contentContainerStyle={styles.feedArticleContainer}
       onRefresh={onRefresh}

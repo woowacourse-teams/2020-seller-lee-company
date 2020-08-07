@@ -120,7 +120,7 @@ export interface FavoriteCountAndHitProps {
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface Feed {
-  id: number;
+  articleId: number;
   price: number;
   favoriteCount: number;
   tags: Tag[];

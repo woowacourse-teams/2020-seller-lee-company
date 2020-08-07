@@ -7,12 +7,13 @@ import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 interface FavoriteProp {
-  favoriteCount: number;
+  count: number;
 }
 
-export default function Favorite({ favoriteCount }: FavoriteProp) {
+export default function Favorite({ count }: FavoriteProp) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [favorite, setFavorite] = useState(favoriteCount);
+  const [favoriteCount, setFavoriteCount] = useState(count);
+  const [id, setId] = useState(0);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
@@ -26,15 +27,15 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
     }).start();
   };
 
-  const toggleFavorite = () => {
+  const toggleAndFetchFavorite = async () => {
     const unmarkFavorite = () => {
       setIsFavorite(false);
-      setFavorite(favorite - 1);
+      setFavoriteCount(favoriteCount - 1);
     };
 
     const markFavorite = () => {
       setIsFavorite(true);
-      setFavorite(favorite + 1);
+      setFavoriteCount(favoriteCount + 1);
     };
 
     if (isFavorite) {
@@ -51,7 +52,7 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
         name={isFavorite ? "heart" : "hearto"}
         size={23}
         color={isFavorite ? "red" : "black"}
-        onPress={toggleFavorite}
+        onPress={toggleAndFetchFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}
@@ -63,7 +64,7 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
         style={styles.text}
       >
         {" "}
-        x {favorite}
+        x {favoriteCount}
       </Text>
     </View>
   );
