@@ -64,8 +64,8 @@ export default function FeedArticleCard({
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {tags.map((tagItem) => (
-              <FeedArticleTag key={tagItem.id} tagItem={tagItem} />
+            {tags.map((tagItem, index) => (
+              <FeedArticleTag key={index} tagItem={tagItem} />
             ))}
           </View>
         </View>

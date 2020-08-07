@@ -18,6 +18,7 @@ export default function FeedHomeScreen() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Feed[]>([]);
+  const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -52,6 +53,7 @@ export default function FeedHomeScreen() {
       size: PAGE_ARTICLE_UNIT,
     });
     setArticles(articles.concat(data));
+    return data;
   };
 
   const getLastArticleId = () => {
@@ -64,13 +66,19 @@ export default function FeedHomeScreen() {
   const onRefresh = async () => {
     setIsRefreshing(true);
     await initFeed();
+    setHasAdditionalArticle(true);
     setIsRefreshing(false);
   };
 
   const onLoad = async () => {
-    if (articles.length < MIN_LOAD_ARTICLE_COUNT) return;
+    if (articles.length < MIN_LOAD_ARTICLE_COUNT || !hasAdditionalArticle) {
+      return;
+    }
     setIsLoading(true);
-    await loadFeed();
+    const data = await loadFeed();
+    if (data.length() === 0) {
+      setHasAdditionalArticle(false);
+    }
     setIsLoading(false);
   };
 
