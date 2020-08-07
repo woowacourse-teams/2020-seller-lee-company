@@ -52,7 +52,7 @@ public class ArticleResponse {
                 article.getContents(),
                 // TODO: 2020/07/30 Article type 없음
                 TradeType.DELEVERY,
-                TradeState.SALING,
+                TradeState.ON_SALE,
                 article.getPhotos(),
                 article.getTags().toList(),
                 // TODO: 2020/07/30 Article type 없음
@@ -70,7 +70,7 @@ public class ArticleResponse {
                 article.getContents(),
                 // TODO: 2020/07/30 Article type 없음
                 TradeType.DELEVERY,
-                TradeState.SALING,
+                TradeState.ON_SALE,
                 article.getPhotos(),
                 article.getTags().toList(),
                 new Member(1L, "turtle@woowabro.com", "1234", "nickname", "avatarUri", 4.5),

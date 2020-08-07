@@ -22,7 +22,9 @@ import static sellerlee.back.fixture.ArticleFixture.ARTICLE_CREATE_REQUEST_FIXTU
 public class AcceptanceTest {
     private static final int ID_INDEX_OF_LOCATION = 2;
     private static final String DELIMITER = "/";
+
     protected ObjectMapper objectMapper;
+
     @LocalServerPort
     private int port;
 
