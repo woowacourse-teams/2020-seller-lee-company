@@ -32,13 +32,26 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
      */
     @TestFactory
     Stream<DynamicTest> manageChatRoom() throws JsonProcessingException {
+        // Given
         Long articleId = extractId(createArticle());
 
+        // 찜 등록
+        Long favoriteId = extractId(createFavorite(articleId, MEMBER1.getId()));
+
         return Stream.of(
-            dynamicTest("찜 등록", () -> {
-                extractId(createFavorite(articleId, MEMBER1.getId()));
-            })
+                dynamicTest("찜 삭제", () -> {
+                    deleteFavorite(favoriteId);
+                })
         );
+    }
+
+    private void deleteFavorite(Long favoriteId) {
+        given()
+                .when()
+                .delete(FAVORITE_URI + "/{favoriteId}", favoriteId)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value());
     }
 
     private String createFavorite(Long articleId, Long memberId) throws JsonProcessingException {
