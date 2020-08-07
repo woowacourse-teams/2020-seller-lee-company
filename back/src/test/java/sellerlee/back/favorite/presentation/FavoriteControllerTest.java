@@ -14,7 +14,9 @@ import sellerlee.back.favorite.application.FavoriteCreateRequest;
 import sellerlee.back.favorite.application.FavoriteService;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -48,5 +50,17 @@ class FavoriteControllerTest {
                 .andDo(print())
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(status().isCreated());
+    }
+
+    @DisplayName("찜 취소를 요청 하면 Status OK를 반환한다.")
+    @Test
+    void deleteFavorite() throws Exception {
+        Long favoriteId = 1L;
+
+        mockMvc.perform(delete(FAVORITE_URI + "/{favoriteId}", favoriteId))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        verify(favoriteService).cancel(favoriteId);
     }
 }
