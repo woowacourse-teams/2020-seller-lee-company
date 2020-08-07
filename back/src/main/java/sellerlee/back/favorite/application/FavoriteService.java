@@ -16,4 +16,8 @@ public class FavoriteService {
         Favorite favorite = favoriteRepository.save(request.toFavorite());
         return favorite.getId();
     }
+
+    public void cancel(Long favoriteId) {
+        favoriteRepository.deleteById(favoriteId);
+    }
 }
