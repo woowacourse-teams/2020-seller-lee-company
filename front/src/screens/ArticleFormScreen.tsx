@@ -49,8 +49,8 @@ export default function ArticleFormScreen() {
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
 
   const memberId = useRecoilValue(memberIdState);
-  const photos = useRecoilValue(articlePhotosState);
-  const title = useRecoilValue(articleTitleState);
+  const [photos, setPhotos] = useRecoilState(articlePhotosState);
+  const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
   );
@@ -121,6 +121,22 @@ export default function ArticleFormScreen() {
     },
   });
 
+  const onSubmit = async () => {
+    const data = {
+      title: title,
+      price: price,
+      category: selectedCategory,
+      contents: contents,
+      tags: tags.map((tag) => tag.name),
+      photos: photos,
+      authorId: memberId,
+    };
+
+    isEditing ? await articlesAPI.put(data) : await articlesAPI.post(data);
+    resetForm();
+    navigation.goBack();
+  };
+
   const postArticle = () => {
     return articlesAPI.post({
       title: title,
@@ -128,19 +144,12 @@ export default function ArticleFormScreen() {
       category: selectedCategory,
       contents: contents,
       tags: tags.map((tag) => tag.name),
-      photos: photos.map((photo) => photo.uri),
+      photos: photos,
       authorId: memberId,
     });
   };
 
   const goBackAfterPostAndReset = async () => {
-    console.log(title);
-    console.log(price);
-    console.log(selectedCategory);
-    console.log(contents);
-    console.log(tags);
-    console.log(photos);
-    console.log(memberId);
     const response = await postArticle();
     if (response.status === 201) {
       resetForm();
@@ -152,6 +161,8 @@ export default function ArticleFormScreen() {
 
   const setForm = (article: Article) => {
     setArticle(article);
+    setPhotos(article.photos);
+    setTitle(article.title);
     setSelectedCategory(article.category);
     setPrice(article.price);
     setContents(article.contents);
@@ -194,7 +205,7 @@ export default function ArticleFormScreen() {
       <ArticleFormScreenModal resetCreateScreen={resetForm} />
       <View style={styles.contentsContainer}>
         <View style={styles.photoContainer}>
-          <Photo editPhoto={article.photos} />
+          <Photo />
         </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.touchableWithoutFeedbackContainer}>
@@ -224,7 +235,7 @@ export default function ArticleFormScreen() {
           title={"완료"}
           color={"white"}
           disabled={incompleteCriticalItems()}
-          onPress={goBackAfterPostAndReset}
+          onPress={onSubmit}
         />
       </View>
     </KeyboardAwareScrollView>

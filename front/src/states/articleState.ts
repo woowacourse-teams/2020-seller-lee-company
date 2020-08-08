@@ -3,7 +3,6 @@
  */
 
 import { atom } from "recoil/dist";
-import { PhotoInfo } from "../types/types";
 import { defaultArticle } from "../data/defaultArticle";
 
 export const articleTitleState = atom({
@@ -18,7 +17,7 @@ export const articlePriceState = atom({
 
 export const articlePhotosState = atom({
   key: "articlePhotosState",
-  default: <PhotoInfo[]>[],
+  default: <string[]>[],
 });
 
 export const articleContentsState = atom({

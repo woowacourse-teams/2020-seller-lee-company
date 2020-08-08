@@ -19,7 +19,7 @@ import {
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "../Modal/NoticeModal";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil/dist";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { modalActivationState } from "../../../states/modalState";
 import { articlePhotosState } from "../../../states/articleState";
 import moment from "moment";
@@ -29,35 +29,19 @@ import theme from "../../../colors";
 import { s3Secret } from "../../../secret";
 import { memberIdState } from "../../../states/loginState";
 
-let photoId = 0;
+export default function Photo() {
+  const LIMIT_PHOTO_COUNT = 5;
 
-interface PhotoProp {
-  editPhoto?: string[];
-}
-
-export default function Photo({ editPhoto }: PhotoProp) {
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
+  "";
   const setModalVisible = useSetRecoilState(modalActivationState);
   const memberId = useRecoilValue(memberIdState);
-  const limitPhotoCount = 5;
 
-  useEffect(function checkPermission() {
+  useEffect(() => {
     requestPermission();
   }, []);
-
-  useEffect(
-    function updatePhoto() {
-      setPhotos(
-        editPhoto!.map((photo, index) => {
-          return { id: index, uri: photo };
-        }),
-      );
-      console.log(photos);
-    },
-    [editPhoto],
-  );
 
   const requestPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -95,12 +79,7 @@ export default function Photo({ editPhoto }: PhotoProp) {
 
       const response = await RNS3.put(file, options);
 
-      setPhotos(
-        photos.concat({
-          id: photoId++,
-          uri: response.body.postResponse.location,
-        }),
-      );
+      setPhotos(photos.concat(response.body.postResponse.location));
     }
   };
 
@@ -111,10 +90,10 @@ export default function Photo({ editPhoto }: PhotoProp) {
       return;
     }
 
-    if (photos.length === limitPhotoCount) {
+    if (photos.length === LIMIT_PHOTO_COUNT) {
       setModalVisible(true);
       setModalMessage(
-        "사진은 최대 " + limitPhotoCount + "장만 첨부 가능합니다.",
+        "사진은 최대 " + LIMIT_PHOTO_COUNT + "장만 첨부 가능합니다.",
       );
       return;
     }
@@ -128,8 +107,8 @@ export default function Photo({ editPhoto }: PhotoProp) {
     }
   };
 
-  const removeImage = (id: number) => {
-    setPhotos(photos.filter((value) => value.id !== id));
+  const removeImage = (selectedPhoto: string) => {
+    setPhotos(photos.filter((photo) => photo !== selectedPhoto));
   };
 
   return (
@@ -140,7 +119,7 @@ export default function Photo({ editPhoto }: PhotoProp) {
           <MaterialCommunityIcons name="camera" size={28} color="grey" />
           <View style={styles.photoCountContainer}>
             <Text style={styles.addedPhotoCount}>{photos.length}</Text>
-            <Text style={styles.limitPhotoCount}>/{limitPhotoCount}</Text>
+            <Text style={styles.limitPhotoCount}>/{LIMIT_PHOTO_COUNT}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -151,11 +130,11 @@ export default function Photo({ editPhoto }: PhotoProp) {
           renderItem={({ item }) => (
             <View style={styles.photoContainer}>
               <View style={styles.delete}>
-                <TouchableOpacity onPress={() => removeImage(item.id)}>
+                <TouchableOpacity onPress={() => removeImage(item)}>
                   <AntDesign name="closecircle" size={23} />
                 </TouchableOpacity>
               </View>
-              <Image style={styles.photo} source={{ uri: item.uri }} />
+              <Image style={styles.photo} source={{ uri: item }} />
             </View>
           )}
           contentContainerStyle={styles.photoListContents}

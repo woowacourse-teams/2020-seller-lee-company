@@ -157,11 +157,6 @@ export interface TagItemProps {
   tagItem: Tag;
 }
 
-export interface PhotoInfo {
-  id: number;
-  uri: string;
-}
-
 export type ImageSliderParamList = {
   ArticleDetailScreen: undefined;
   ArticleDetailImageViewScreen: {
