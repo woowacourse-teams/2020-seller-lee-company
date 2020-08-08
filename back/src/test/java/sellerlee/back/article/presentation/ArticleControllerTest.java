@@ -62,7 +62,7 @@ class ArticleControllerTest {
     @DisplayName("게시글 페이지 조회 시 HTTP status는 OK다.")
     @Test
     void showArticlePage() throws Exception {
-        when(articleViewService.showArticlePage(LAST_ARTICLE_ID, ARTICLE_SIZE))
+        when(articleViewService.showArticlePage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
                 .thenReturn(
                         FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1), Arrays.asList(5, 5),
                                 Arrays.asList(false, true)));
