@@ -13,7 +13,11 @@ import BuyerCard from "../components/SelectBuyer/BuyerCard";
 import { Buyer } from "../types/types";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRecoilValue } from "recoil";
-import { articleIdState, articlePhotosState, articleTitleState } from "../states/articleState";
+import {
+  articleIdState,
+  articlePhotosState,
+  articleTitleState,
+} from "../states/articleState";
 
 type SampleNavigationParamList = {
   SelectBuyerScreen: {
