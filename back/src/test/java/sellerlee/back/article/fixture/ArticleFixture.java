@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author begaonnuri
  */
 package sellerlee.back.article.fixture;
 
@@ -9,7 +9,7 @@ import static sellerlee.back.article.fixture.TagFixture.*;
 import java.util.Arrays;
 import java.util.Collections;
 
-import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleRequest;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tags;
@@ -51,7 +51,7 @@ public class ArticleFixture {
         new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
         Arrays.asList("testUri1", "testUri2"),
         MEMBER1);
-    public static final ArticleCreateRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleCreateRequest(
+    public static final ArticleRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleRequest(
         "TEST_TITLE",
         10_000L,
         "디지털/가전",

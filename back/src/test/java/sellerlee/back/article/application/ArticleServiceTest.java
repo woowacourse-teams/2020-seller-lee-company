@@ -13,7 +13,9 @@ import static sellerlee.back.article.fixture.ArticleFixture.*;
 import static sellerlee.back.article.fixture.TagFixture.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,8 +45,9 @@ class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleCreateRequest request = new ArticleCreateRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
-            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"), 1L);
+        ArticleRequest request = new ArticleRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
+                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"),
+                1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
         Long actualId = articleService.post(request);
@@ -52,7 +55,7 @@ class ArticleServiceTest {
         assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
 
-    @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
+    @DisplayName("마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
     @Test
     void showArticlePages() {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
@@ -65,5 +68,19 @@ class ArticleServiceTest {
 
         assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
         assertThat(actualArticles.get(1).getId()).isEqualTo(ARTICLE1.getId());
+    }
+
+    @DisplayName("게시글 수정 메소드 호출 시 게시글 수정")
+    @Test
+    void update() {
+        Long articleId = 1L;
+        ArticleRequest request = new ArticleRequest("update", 1L, "디지털/가전",
+                "update", Collections.emptyList(), Collections.emptyList(), 1L);
+
+        when(articleRepository.findById(articleId)).thenReturn(Optional.of(ARTICLE1));
+        articleService.update(articleId, request);
+
+        assertThat(ARTICLE1.getTitle()).isEqualTo(request.getTitle());
+        assertThat(ARTICLE1.getContents()).isEqualTo(request.getContents());
     }
 }

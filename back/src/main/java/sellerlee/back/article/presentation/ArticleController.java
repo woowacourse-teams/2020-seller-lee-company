@@ -13,16 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleRequest;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
-import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.FeedResponse;
 
 @RestController
@@ -40,7 +40,7 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> post(@RequestBody ArticleCreateRequest request) {
+    public ResponseEntity<Void> post(@RequestBody ArticleRequest request) {
         Long articleId = articleService.post(request);
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
@@ -61,5 +61,11 @@ public class ArticleController {
         ArticleResponse articleResponse = articleViewService.showArticle(id, memberId);
 
         return ResponseEntity.ok(articleResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest request){
+        articleService.update(id, request);
+        return ResponseEntity.ok().build();
     }
 }

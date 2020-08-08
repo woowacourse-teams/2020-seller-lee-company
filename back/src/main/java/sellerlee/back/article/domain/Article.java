@@ -1,5 +1,5 @@
 /**
- * @author jnsorn
+ * @author begaonnuri
  */
 
 package sellerlee.back.article.domain;
@@ -68,6 +68,15 @@ public class Article {
     public Article(String title, Long price, Category category, String contents,
             Tags tags, List<String> photos, Member author) {
         this(null, title, price, category, contents, tags, photos, author);
+    }
+
+    public void update(Article article) {
+        this.title = article.title;
+        this.price = article.price;
+        this.category = article.category;
+        this.contents = article.contents;
+        this.tags = article.tags;
+        this.photos = article.photos;
     }
 
     public Long getId() {

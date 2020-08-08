@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author begaonnuri
  */
 
 package sellerlee.back.article.application;
@@ -12,7 +12,7 @@ import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
 
-public class ArticleCreateRequest {
+public class ArticleRequest {
     private String title;
     private Long price;
     private String category;
@@ -21,10 +21,10 @@ public class ArticleCreateRequest {
     private List<String> photos;
     private Long authorId;
 
-    private ArticleCreateRequest() {
+    private ArticleRequest() {
     }
 
-    public ArticleCreateRequest(String title, Long price, String category, String contents,
+    public ArticleRequest(String title, Long price, String category, String contents,
             List<Tag> tags, List<String> photos, Long authorId) {
         this.title = title;
         this.price = price;

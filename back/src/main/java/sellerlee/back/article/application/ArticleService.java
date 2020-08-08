@@ -24,7 +24,7 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Long post(ArticleCreateRequest request) {
+    public Long post(ArticleRequest request) {
         Article persistArticle = articleRepository.save(request.toArticle());
         return persistArticle.getId();
     }
@@ -35,5 +35,12 @@ public class ArticleService {
         Page<Article> articlePage = articleRepository.findByIdLessThanOrderByIdDesc(lastArticleId,
                 pageRequest);
         return FeedResponse.listOf(articlePage.getContent());
+    }
+
+    @Transactional
+    public void update(Long id, ArticleRequest request) {
+        Article persistedArticle = articleRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+        persistedArticle.update(request.toArticle());
     }
 }
