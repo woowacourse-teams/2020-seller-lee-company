@@ -31,13 +31,13 @@ export const articlesAPI = {
     await axios.get(BASE_URL + domain.article, { params }),
   post: async (data: ArticlesPost) =>
     await axios.post(BASE_URL + domain.article, data),
-  put: async (data: ArticlesPost) =>
-    await axios.put(BASE_URL + domain.article, data),
+  put: async (articleId: number, data: ArticlesPost) =>
+    await axios.put(`${BASE_URL}${domain.article}/${articleId}`, data),
 };
 
 export const articleDetailAPI = {
   get: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.article + "/" + articleId, {
+    await axios.get(`${BASE_URL}${domain.article}/${articleId}`, {
       params: {
         memberId: 1,
       },

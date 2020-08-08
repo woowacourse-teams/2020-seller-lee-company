@@ -132,31 +132,11 @@ export default function ArticleFormScreen() {
       authorId: memberId,
     };
 
-    isEditing ? await articlesAPI.put(data) : await articlesAPI.post(data);
+    isEditing
+      ? await articlesAPI.put(article.id, data)
+      : await articlesAPI.post(data);
     resetForm();
     navigation.goBack();
-  };
-
-  const postArticle = () => {
-    return articlesAPI.post({
-      title: title,
-      price: price,
-      category: selectedCategory,
-      contents: contents,
-      tags: tags.map((tag) => tag.name),
-      photos: photos,
-      authorId: memberId,
-    });
-  };
-
-  const goBackAfterPostAndReset = async () => {
-    const response = await postArticle();
-    if (response.status === 201) {
-      resetForm();
-      navigation.goBack();
-    } else {
-      console.warn("post article 실패");
-    }
   };
 
   const setForm = (article: Article) => {
