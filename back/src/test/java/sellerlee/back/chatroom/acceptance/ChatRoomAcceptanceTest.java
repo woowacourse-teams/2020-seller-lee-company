@@ -58,7 +58,6 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
         given()
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
                 .when()
                 .post(CHAT_ROOM_URI)
                 .then()

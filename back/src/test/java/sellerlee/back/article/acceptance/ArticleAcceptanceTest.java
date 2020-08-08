@@ -59,7 +59,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                     assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
-                    ArticleResponse articleResponse = getArticleDetailOf(articleId);
+                    ArticleResponse articleResponse = findArticleDetailOf(articleId);
                     assertThat(articleResponse.getId()).isEqualTo(articleId);
                 }));
     }
@@ -75,7 +75,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 .extract().jsonPath().getList(".", FeedResponse.class);
     }
 
-    private ArticleResponse getArticleDetailOf(Long articleId) {
+    private ArticleResponse findArticleDetailOf(Long articleId) {
         String url = ARTICLE_URI + "/" + articleId;
 
         return given()

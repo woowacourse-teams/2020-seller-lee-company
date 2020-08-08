@@ -5,7 +5,6 @@
 package sellerlee.back.member.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +29,8 @@ class MemberControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
     private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        objectMapper = new ObjectMapper();
-    }
 
     @DisplayName("로그인시 이메일에 해당하는 회원이 존재하고, 패스워드가 일치하면 HttpStatus는 OK이다.")
     @Test

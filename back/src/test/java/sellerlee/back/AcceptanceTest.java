@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,7 @@ public class AcceptanceTest {
     private static final int ID_INDEX_OF_LOCATION = 2;
     private static final String DELIMITER = "/";
 
+    @Autowired
     protected ObjectMapper objectMapper;
 
     @LocalServerPort
@@ -36,7 +38,6 @@ public class AcceptanceTest {
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
-        objectMapper = new ObjectMapper();
     }
 
     protected Long extractId(String location) {
