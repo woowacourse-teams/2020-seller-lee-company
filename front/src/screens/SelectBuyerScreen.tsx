@@ -4,7 +4,7 @@
 
 import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
@@ -12,6 +12,8 @@ import { chatRoomAPI } from "../api/api";
 import BuyerCard from "../components/SelectBuyer/BuyerCard";
 import { Buyer } from "../types/types";
 import { EvilIcons } from "@expo/vector-icons";
+import { useRecoilValue } from "recoil";
+import { articleIdState, articlePhotosState, articleTitleState } from "../states/articleState";
 
 type SampleNavigationParamList = {
   SelectBuyerScreen: {
@@ -21,17 +23,15 @@ type SampleNavigationParamList = {
   };
 };
 
-type SelectBuyerScreenRouteProp = RouteProp<
-  SampleNavigationParamList,
-  "SelectBuyerScreen"
->;
-
 export default function SelectBuyerScreen() {
   const navigation = useNavigation<
     StackNavigationProp<SampleNavigationParamList, "SelectBuyerScreen">
   >();
-  const route = useRoute<SelectBuyerScreenRouteProp>();
   const [buyers, setBuyers] = useState<Buyer[]>([]);
+  // articleState 사용 (conflict 해결시 반영)
+  const articleId = useRecoilValue(articleIdState);
+  const title = useRecoilValue(articleTitleState);
+  const photo = useRecoilValue(articlePhotosState)[0];
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -51,16 +51,13 @@ export default function SelectBuyerScreen() {
       const { data } = await chatRoomAPI.getBuyers(articleId);
       setBuyers(data);
     };
-    loadBuyers(route.params.articleId);
-  }, [navigation, route]);
+    loadBuyers(articleId);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.articleInfoContainer}>
-        <SelectBuyerArticleInfo
-          title={route.params.title}
-          photo={route.params.photo}
-        />
+        <SelectBuyerArticleInfo title={title} photo={photo.uri} />
       </View>
       <View style={styles.buyerListContainer}>
         {buyers.map((buyer, index) => (

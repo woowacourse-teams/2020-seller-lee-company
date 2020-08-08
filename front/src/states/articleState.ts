@@ -34,3 +34,8 @@ export const articleModalActivationState = atom({
   key: "articleModalActivationState",
   default: false,
 });
+
+export const articleIdState = atom({
+  key: "articleIdState",
+  default: 0,
+});
