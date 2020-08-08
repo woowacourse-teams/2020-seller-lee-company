@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ChatScreen from "../../screens/ChatScreen";
 import CategoryNavigation from "./CategoryNavigation";
-import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
-import ArticleFormNavigation from "./ArticleFormNavigation";
 import ArticleNavigation from "./ArticleNavigation";
-import SampleNavigation from "./SampleNavigation";
+import ArticleFormNavigation from "./ArticleFormNavigation";
+import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
+import ProfileNavigation from "./ProfileNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ function getTabBarVisibility(route: any) {
     ? route.state.routes[route.state.index].name
     : "";
 
-  return routeName !== "ArticleDetailScreen";
+  return routeName !== "FeedDetail";
 }
 
 export default function BottomTabNavigation() {
@@ -74,7 +74,7 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={SampleNavigation}
+        component={ProfileNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
