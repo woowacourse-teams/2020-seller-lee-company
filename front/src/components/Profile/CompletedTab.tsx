@@ -1,24 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View } from "react-native";
-import { Article } from "../../types/types";
-import { articlesAPI } from "../../api/api";
+import { useRecoilValue } from "recoil/dist";
+import { articleSalesHistoryState } from "../../states/articleState";
 
 export default function CompletedTab() {
-  const COMPLETED = "COMPLETED";
-
-  const [articles, setArticles] = useState<Article[]>();
-
-  useEffect(() => {
-    getCompletedArticles();
-  }, []);
-
-  const getCompletedArticles = async () => {
-    const { data } = await articlesAPI.getByTradeState({
-      tradeState: COMPLETED,
-    });
-    console.log(data);
-    setArticles(data);
-  };
+  const article = useRecoilValue(articleSalesHistoryState);
 
   return <View />;
 }
