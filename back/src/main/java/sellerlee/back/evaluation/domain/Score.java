@@ -1,10 +1,23 @@
+/**
+ * @author jnsorn
+ */
+
 package sellerlee.back.evaluation.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
+
+@Access(AccessType.FIELD)
+@Embeddable
 public class Score {
     private Integer questionId;
     private Integer score;
+
+    protected Score() {
+    }
 
     public Score(Integer questionId, Integer score) {
         this.questionId = questionId;

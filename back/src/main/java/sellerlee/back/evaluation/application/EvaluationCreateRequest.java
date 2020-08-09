@@ -1,8 +1,12 @@
+/**
+ * @author jnsorn
+ */
+
 package sellerlee.back.evaluation.application;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import sellerlee.back.evaluation.domain.Evaluation;
 import sellerlee.back.evaluation.domain.Score;
 
 public class EvaluationCreateRequest {
@@ -17,5 +21,9 @@ public class EvaluationCreateRequest {
 
     public List<Score> getScores() {
         return scores;
+    }
+
+    public Evaluation toEvaluation() {
+        return new Evaluation(scores);
     }
 }
