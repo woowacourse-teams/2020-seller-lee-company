@@ -62,7 +62,7 @@ export const memberAPI = {
 
 export const chatRoomAPI = {
   getBuyers: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.chatRoom, {
+    await axios.get(`${BASE_URL}${domain.chatRoom}`, {
       params: {
         articleId,
       },
