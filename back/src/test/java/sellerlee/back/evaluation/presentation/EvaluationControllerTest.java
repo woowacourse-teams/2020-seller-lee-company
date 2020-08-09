@@ -1,9 +1,11 @@
 package sellerlee.back.evaluation.presentation;
 
+import static sellerlee.back.evaluation.presentation.EvaluationController.*;
 import static sellerlee.back.fixture.EvaluationFixture.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,10 +34,10 @@ public class EvaluationControllerTest {
     @Test
     void createEvaluation() throws Exception {
         String request = objectMapper.writeValueAsString(EVALUATION_CREATE_REQUEST);
-        Mockito.when(evaluationService.createEvaluation()).thenReturn(1L);
+        Mockito.when(evaluationService.createEvaluation(ArgumentMatchers.any())).thenReturn(1L);
 
         this.mockMvc.perform(
-                MockMvcRequestBuilders.post("/evaluations")
+                MockMvcRequestBuilders.post(EVALUATION_URI)
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
