@@ -4,10 +4,9 @@
 
 package sellerlee.back;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
+import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +15,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
-import static sellerlee.back.fixture.ArticleFixture.ARTICLE_CREATE_REQUEST_FIXTURE;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {

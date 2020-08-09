@@ -4,24 +4,24 @@
 
 package sellerlee.back.chatroom.application;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import sellerlee.back.chatroom.domain.ChatRoom;
 import sellerlee.back.chatroom.domain.ChatRoomRepository;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static sellerlee.back.fixture.ArticleFixture.ARTICLE1;
-import static sellerlee.back.fixture.MemberFixture.MEMBER1;
-import static sellerlee.back.fixture.MemberFixture.MEMBER2;
 
 @ExtendWith(value = MockitoExtension.class)
 class ChatRoomServiceTest {

@@ -4,18 +4,19 @@
 
 package sellerlee.back.member.acceptance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.fixture.MemberFixture.*;
+
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
-
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.fixture.MemberFixture.MEMBER_LOGIN_REQUEST_FIXTURE;
 
 public class MemberAcceptanceTest extends AcceptanceTest {
     /**

@@ -4,13 +4,13 @@
 
 package sellerlee.back.article.application;
 
+import java.util.List;
+
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.member.domain.Member;
-
-import java.util.List;
 
 public class ArticleCreateRequest {
     private String title;
@@ -54,6 +54,14 @@ public class ArticleCreateRequest {
 
     public String getContents() {
         return contents;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
     }
 
     public Long getAuthorId() {

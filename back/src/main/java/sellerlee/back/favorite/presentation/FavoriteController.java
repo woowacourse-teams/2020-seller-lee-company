@@ -14,5 +14,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(FAVORITE_URL)
 public class FavoriteController {
     public static final String FAVORITE_URL = "/favorites";
-
 }

@@ -4,8 +4,19 @@
 
 package sellerlee.back.article.presentation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
+import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.FavoriteFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
+
+import java.util.Arrays;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +24,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-
-import java.util.Arrays;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.ARTICLE_SIZE;
-import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.LAST_ARTICLE_ID;
-import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
-import static sellerlee.back.fixture.ArticleFixture.*;
-import static sellerlee.back.fixture.FavoriteFixture.FAVORITE;
-import static sellerlee.back.fixture.MemberFixture.MEMBER1;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest {
@@ -44,14 +42,7 @@ class ArticleControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private MockMvc mockMvc;
-
     private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        objectMapper = new ObjectMapper();
-    }
 
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test

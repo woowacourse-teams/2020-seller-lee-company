@@ -4,11 +4,15 @@
 
 package sellerlee.back.article.application;
 
-import sellerlee.back.article.domain.*;
+import java.util.List;
+
+import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.domain.Tag;
+import sellerlee.back.article.domain.TradeState;
+import sellerlee.back.article.domain.TradeType;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.member.domain.Member;
-
-import java.util.List;
 
 public class ArticleResponse {
     private Long id;

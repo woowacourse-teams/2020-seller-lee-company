@@ -4,22 +4,23 @@
 
 package sellerlee.back.chatroom.acceptance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import sellerlee.back.AcceptanceTest;
-import sellerlee.back.chatroom.application.ChatRoomCreateRequest;
-import sellerlee.back.chatroom.application.ChatRoomResponse;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.chatroom.presentation.ChatRoomController.CHAT_ROOM_URI;
-import static sellerlee.back.fixture.MemberFixture.MEMBER2;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import sellerlee.back.AcceptanceTest;
+import sellerlee.back.chatroom.application.ChatRoomCreateRequest;
+import sellerlee.back.chatroom.application.ChatRoomResponse;
 
 public class ChatRoomAcceptanceTest extends AcceptanceTest {
 

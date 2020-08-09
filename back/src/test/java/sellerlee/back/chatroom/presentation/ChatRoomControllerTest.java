@@ -4,7 +4,17 @@
 
 package sellerlee.back.chatroom.presentation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
+
+import java.util.Collections;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +22,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.chatroom.application.ChatRoomCreateRequest;
 import sellerlee.back.chatroom.application.ChatRoomResponse;
 import sellerlee.back.chatroom.application.ChatRoomService;
-
-import java.util.Collections;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static sellerlee.back.chatroom.presentation.ChatRoomController.CHAT_ROOM_URI;
-import static sellerlee.back.fixture.ArticleFixture.ARTICLE1;
-import static sellerlee.back.fixture.MemberFixture.MEMBER1;
 
 @WebMvcTest(controllers = ChatRoomController.class)
 class ChatRoomControllerTest {

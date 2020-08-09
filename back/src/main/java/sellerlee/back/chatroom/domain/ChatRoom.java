@@ -4,10 +4,16 @@
 
 package sellerlee.back.chatroom.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.member.domain.Member;
-
-import javax.persistence.*;
 
 @Entity
 public class ChatRoom {

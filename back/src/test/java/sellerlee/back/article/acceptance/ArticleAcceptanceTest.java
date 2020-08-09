@@ -4,22 +4,23 @@
 
 package sellerlee.back.article.acceptance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
-import org.springframework.http.HttpStatus;
-import sellerlee.back.AcceptanceTest;
-import sellerlee.back.article.application.ArticleResponse;
-import sellerlee.back.article.application.FeedResponse;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.article.presentation.ArticleController.ARTICLE_URI;
-import static sellerlee.back.fixture.MemberFixture.MEMBER1;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+import org.springframework.http.HttpStatus;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import sellerlee.back.AcceptanceTest;
+import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.FeedResponse;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 4L;

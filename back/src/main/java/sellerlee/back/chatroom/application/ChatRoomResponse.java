@@ -4,11 +4,11 @@
 
 package sellerlee.back.chatroom.application;
 
-import sellerlee.back.chatroom.domain.ChatRoom;
+import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
+import sellerlee.back.chatroom.domain.ChatRoom;
 
 public class ChatRoomResponse {
     private String avatar;

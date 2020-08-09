@@ -4,11 +4,12 @@
 
 package sellerlee.back.chatroom.application;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import sellerlee.back.chatroom.domain.ChatRoom;
 import sellerlee.back.chatroom.domain.ChatRoomRepository;
-
-import java.util.List;
 
 @Service
 public class ChatRoomService {
