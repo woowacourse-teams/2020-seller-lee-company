@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.presentation;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
@@ -13,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,10 +65,10 @@ public class ArticleController {
         return ResponseEntity.ok(articleResponse);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateArticle(@PathVariable Long id,
-            @RequestBody ArticleRequest request) {
-        articleService.update(id, request);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/trade-state")
+    public ResponseEntity<List<ArticleResponse>> showArticlesByTradeState(
+            @RequestParam String tradeState) {
+        List<ArticleResponse> responses = articleViewService.showArticlesByTradeState(tradeState);
+        return ResponseEntity.ok(responses);
     }
 }
