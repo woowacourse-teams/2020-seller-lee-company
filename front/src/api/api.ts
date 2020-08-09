@@ -25,9 +25,15 @@ interface ArticlesGet {
   size: number;
 }
 
+interface ArticlesGetByTradeState {
+  tradeState: string;
+}
+
 export const articlesAPI = {
   get: async (params: ArticlesGet) =>
     await axios.get(`${BASE_URL}${domain.article}`, { params }),
+  getByTradeState: async (params: ArticlesGetByTradeState) =>
+    await axios.get(`${BASE_URL}${domain.article}/trade-state`, { params }),
   post: async (data: ArticlesPost) =>
     await axios.post(`${BASE_URL}${domain.article}`, data),
   put: async (articleId: number, data: ArticlesPost) =>

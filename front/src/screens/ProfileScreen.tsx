@@ -10,7 +10,7 @@ export default function ProfileScreen() {
       <Text style={styles.text}>Profile Screen</Text>
       <Button
         title={"판매 내역"}
-        onPress={() => navigation.navigate("SalesDetailsScreen")}
+        onPress={() => navigation.navigate("SalesHistoryScreen")}
       />
     </View>
   );
