@@ -20,17 +20,20 @@ spring:
     hibernate:
       ddl-auto: validate
     properties:
-      hibernate.format_sql: true
       use_sql_comments: true
+      hibernate:
+        default_schema: public
+        format_sql: true
 
   h2:
     console:
       enabled: true
-      settings:
-        web-allow-others: true
 
   datasource:
     url: jdbc:h2:tcp://localhost/${user.dir}/test;IFEXISTS=FALSE;
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
+  flyway:
+    schemas: public

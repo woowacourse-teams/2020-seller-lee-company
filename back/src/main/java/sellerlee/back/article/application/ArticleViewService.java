@@ -42,5 +42,4 @@ public class ArticleViewService {
         return optionalFavorite.map(favorite -> ArticleResponse.of(article, favorite))
                 .orElseGet(() -> ArticleResponse.of(article));
     }
-
 }
