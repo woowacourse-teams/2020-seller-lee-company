@@ -1,5 +1,5 @@
 /**
- * @author lxxjn0
+ * @author kouz95
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -192,4 +192,9 @@ export interface Favorite {
   id: number;
   memberId: number;
   articleId: number;
+}
+
+export interface Buyer {
+  avatar: string;
+  nickname: string;
 }

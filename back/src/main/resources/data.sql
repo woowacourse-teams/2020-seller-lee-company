@@ -65,3 +65,7 @@ values (51,
         'https://avatars3.githubusercontent.com/u/52931057?s=400&u=e1a3a103fc54a423fd56ab6fafce748d360f3336&v=4'),
        (53,
         'https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4');
+
+insert into chat_room(chat_room_id, article_id, member_id)
+values (51, 51, 51),
+       (52, 51, 52)

@@ -4,7 +4,7 @@ import sellerlee.back.member.application.MemberLoginRequest;
 import sellerlee.back.member.domain.Member;
 
 public class MemberFixture {
-    private static final String MEMBER_EMAIL = "sellerlee@gmail.com";
+    private static final String MEMBER_EMAIL = "lxxjn0@woowabro.com";
     private static final String MEMBER_PASSWORD = "1234";
     private static final String MEMBER_NICKNAME = "testNickname";
     private static final String MEMBER_AVATAR = "testUri";

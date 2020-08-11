@@ -79,6 +79,10 @@ public class Article extends BaseTimeEntity {
                 photos, author);
     }
 
+    public Article(Long id) {
+        this(id, null, null, null, null, null, null, null, null, null, null);
+    }
+
     public Long getId() {
         return id;
     }

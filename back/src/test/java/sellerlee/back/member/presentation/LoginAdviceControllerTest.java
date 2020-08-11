@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +26,8 @@ class LoginAdviceControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
     private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        objectMapper = new ObjectMapper();
-    }
 
     @DisplayName("이메일에 해당하는 회원이 없을 경우 HttpStatus는 BadRequest이다.")
     @Test

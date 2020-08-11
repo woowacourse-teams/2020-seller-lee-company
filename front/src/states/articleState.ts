@@ -45,3 +45,8 @@ export const articleSelectedState = atom({
   key: "articleSelectedState",
   default: defaultArticle,
 });
+
+export const articleIdState = atom({
+  key: "articleIdState",
+  default: 0,
+});

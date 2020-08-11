@@ -8,30 +8,15 @@ spring:
   profiles: test
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    database: H2
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate.format_sql: true
       use_sql_comments: true
-
-  h2:
-    console:
-      enabled: true
-
-  datasource:
-    url: jdbc:h2:tcp://localhost/${user.dir}/../test;IFEXISTS=FALSE;
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
 
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace
     org.springframework.web: debug
-
-
-

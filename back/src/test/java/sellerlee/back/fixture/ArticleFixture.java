@@ -7,6 +7,7 @@ import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.domain.Article;
