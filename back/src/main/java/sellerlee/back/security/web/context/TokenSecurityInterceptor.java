@@ -1,0 +1,36 @@
+package sellerlee.back.security.web.context;
+
+import static sellerlee.back.security.web.LoginMemberMethodArgumentResolver.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import sellerlee.back.security.oauth2.authentication.AuthorizationExtractor;
+import sellerlee.back.security.oauth2.token.JwtTokenProvider;
+import sellerlee.back.security.web.AuthenticationException;
+import sellerlee.back.security.web.AuthorizationType;
+
+@Component
+public class TokenSecurityInterceptor implements HandlerInterceptor {
+    private JwtTokenProvider jwtTokenProvider;
+
+    public TokenSecurityInterceptor(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+            Object handler) throws Exception {
+        String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
+        if (!jwtTokenProvider.validateToken(credentials)) {
+            throw new AuthenticationException("인증이 만료되었습니다.");
+        }
+
+        String email = jwtTokenProvider.getPayload(credentials);
+        request.setAttribute(MEMBER_EMAIL_ATTRIBUTE, email);
+        return true;
+    }
+}

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.member.application.MemberService;
 import sellerlee.back.member.domain.IllegalMemberLoginException;
 
-@WebMvcTest(controllers = {MemberController.class, LoginAdviceController.class})
+@WebMvcTest(controllers = {AuthController.class, LoginAdviceController.class})
 class LoginAdviceControllerTest {
     @MockBean
     private MemberService memberService;

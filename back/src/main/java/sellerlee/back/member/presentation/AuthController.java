@@ -13,10 +13,10 @@ import sellerlee.back.member.application.MemberLoginRequest;
 import sellerlee.back.member.application.MemberService;
 
 @RestController
-public class MemberController {
+public class AuthController {
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+    public AuthController(MemberService memberService) {
         this.memberService = memberService;
     }
 

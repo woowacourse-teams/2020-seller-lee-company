@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.member.application.MemberService;
 
-@WebMvcTest(controllers = MemberController.class)
-class MemberControllerTest {
+@WebMvcTest(controllers = AuthController.class)
+class AuthControllerTest {
     @MockBean
     private MemberService memberService;
 
