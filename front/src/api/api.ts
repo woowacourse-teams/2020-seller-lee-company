@@ -9,7 +9,7 @@ const domain = {
   trades: "/trades",
   login: "/login",
   chatRoom: "/chat-rooms",
-  trade: "/trades",
+  evaluation: "/evaluations",
   favorites: "/favorites",
 };
 
@@ -96,4 +96,13 @@ export const favoriteAPI = {
 
 export const tradeAPI = {
   get: async () => await axios.get(BASE_URL + domain.trades),
+};
+
+interface evaluation {
+  questionAndAnswer: Map<number, number>;
+}
+
+export const evaluationAPI = {
+  post: async (data: evaluation) =>
+    await axios.post(BASE_URL + domain.evaluation, { data }),
 };
