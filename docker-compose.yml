@@ -1,0 +1,17 @@
+version: "3"
+services:
+  seller_lee_database:
+    container_name: seller_lee_database
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: sl_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+
+  seller_lee_application:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - seller_lee_database
