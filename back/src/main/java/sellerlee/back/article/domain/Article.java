@@ -1,5 +1,5 @@
 /**
- * @author joseph415 lxxjn0
+ * @author joseph415
  */
 
 package sellerlee.back.article.domain;
@@ -39,11 +39,6 @@ public class Article extends BaseTimeEntity {
     private Long price;
 
     @Enumerated(EnumType.STRING)
-    private TradeType tradeType;
-
-    private String tradeLocation;
-
-    @Enumerated(EnumType.STRING)
     private TradeState tradeState;
 
     @Embedded
@@ -57,30 +52,25 @@ public class Article extends BaseTimeEntity {
     }
 
     public Article(Long id, String title, Tags tags, Category category, String contents,
-            Long price, TradeType tradeType, String tradeLocation,
-            TradeState tradeState, Photos photos, Member author) {
+            Long price, TradeState tradeState, Photos photos, Member author) {
         this.id = id;
         this.title = title;
         this.tags = tags;
         this.category = category;
         this.contents = contents;
         this.price = price;
-        this.tradeType = tradeType;
-        this.tradeLocation = tradeLocation;
         this.tradeState = tradeState;
         this.photos = photos;
         this.author = author;
     }
 
     public Article(String title, Tags tags, Category category, String contents,
-            Long price, TradeType tradeType, String tradeLocation,
-            TradeState tradeState, Photos photos, Member author) {
-        this(null, title, tags, category, contents, price, tradeType, tradeLocation, tradeState,
-                photos, author);
+            Long price, TradeState tradeState, Photos photos, Member author) {
+        this(null, title, tags, category, contents, price, tradeState, photos, author);
     }
 
     public Article(Long id) {
-        this(id, null, null, null, null, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null, null, null);
     }
 
     public Long getId() {
@@ -105,14 +95,6 @@ public class Article extends BaseTimeEntity {
 
     public Long getPrice() {
         return price;
-    }
-
-    public TradeType getTradeType() {
-        return tradeType;
-    }
-
-    public String getTradeLocation() {
-        return tradeLocation;
     }
 
     public TradeState getTradeState() {

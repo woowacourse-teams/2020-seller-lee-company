@@ -49,8 +49,6 @@ class ArticleServiceTest {
                 "디지털/가전",
                 "쌉니다 싸요",
                 10000L,
-                "택배",
-                null,
                 Arrays.asList("testUri1", "testUri2"),
                 1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);

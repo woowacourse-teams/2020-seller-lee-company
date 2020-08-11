@@ -7,7 +7,6 @@ import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.domain.Article;
@@ -15,7 +14,6 @@ import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Photos;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.article.domain.TradeState;
-import sellerlee.back.article.domain.TradeType;
 
 public class ArticleFixture {
     public static final Article ARTICLE1 = new Article(
@@ -25,8 +23,6 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             1234L,
-            TradeType.DELIVERY,
-            null,
             TradeState.ON_SALE,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
@@ -38,8 +34,6 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             1234L,
-            TradeType.DELIVERY,
-            null,
             TradeState.ON_SALE,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
@@ -51,8 +45,6 @@ public class ArticleFixture {
             Category.PC,
             "test contents1",
             1234L,
-            TradeType.DELIVERY,
-            null,
             TradeState.ON_SALE,
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
@@ -63,8 +55,6 @@ public class ArticleFixture {
             "디지털/가전",
             "TEST_CONTENTS",
             10_000L,
-            "직거래",
-            "잠실동",
             Arrays.asList("testUri1", "testUri2"),
             MEMBER1.getId());
 }

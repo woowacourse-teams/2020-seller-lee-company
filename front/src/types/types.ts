@@ -76,15 +76,6 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type ImageSliderNavigationProp = StackNavigationProp<
-  ImageSliderParamList,
-  "ArticleDetailImageViewScreen"
->;
-
-export interface CategoryItemProps {
-  title: string;
-}
-
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
   ArticleContentsFormScreen: undefined;
@@ -128,10 +119,6 @@ export interface FavoriteCountAndHitProps {
 
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-export interface ArticleDetailFavoriteProp {
-  articleId: number;
-}
-
 export interface Feed {
   id: number;
   price: number;
@@ -172,7 +159,6 @@ export interface Article {
   category: string;
   price: number;
   contents: string;
-  tradeType: string;
   tradeState: string;
   photos: ImageURISource[];
   tags: Tag[];

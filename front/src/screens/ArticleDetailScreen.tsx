@@ -9,7 +9,7 @@ import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import ArticlePriceAndTradeType from "../components/Article/ArticlePriceAndTradeType";
+import ArticlePrice from "../components/Article/ArticlePrice";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
@@ -27,14 +27,14 @@ export default function ArticleDetailScreen() {
   const articleId = useRecoilValue(articleSelectedIdState);
   const setArticleSelected = useSetRecoilState(articleSelectedState);
 
-  useEffect(() => {
-    getArticle();
-  }, [articleId]);
-
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
     setArticleSelected(data);
   };
+
+  useEffect(() => {
+    getArticle();
+  }, [articleId]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,7 +74,7 @@ export default function ArticleDetailScreen() {
         <View style={styles.articleDetailFavoriteContainer}>
           <ArticleDetailFavorite />
         </View>
-        <ArticlePriceAndTradeType />
+        <ArticlePrice />
         <View style={styles.chatButtonContainer}>
           <ArticleDetailChatButton />
         </View>

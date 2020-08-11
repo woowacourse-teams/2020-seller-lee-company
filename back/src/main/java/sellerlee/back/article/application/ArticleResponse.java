@@ -16,8 +16,6 @@ public class ArticleResponse {
     private String category;
     private String contents;
     private Long price;
-    private String tradeType;
-    private String tradeLocation;
     private String tradeState;
     private List<String> photos;
     private MemberResponse author;
@@ -29,16 +27,13 @@ public class ArticleResponse {
     }
 
     private ArticleResponse(Long id, String title, String category, String contents,
-            Long price, String tradeType, String tradeLocation, String tradeState,
-            List<String> photos, MemberResponse author, boolean favoriteState, long favoriteCount,
+            Long price, String tradeState, List<String> photos, MemberResponse author, boolean favoriteState, long favoriteCount,
             LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.contents = contents;
         this.price = price;
-        this.tradeType = tradeType;
-        this.tradeLocation = tradeLocation;
         this.tradeState = tradeState;
         this.photos = photos;
         this.author = author;
@@ -54,8 +49,6 @@ public class ArticleResponse {
                 article.getCategory().getCategory(),
                 article.getContents(),
                 article.getPrice(),
-                article.getTradeType().getTradeType(),
-                article.getTradeLocation(),
                 article.getTradeState().getTradeState(),
                 article.getPhotos().getPhotos(),
                 MemberResponse.of(article.getAuthor()),
@@ -83,14 +76,6 @@ public class ArticleResponse {
 
     public Long getPrice() {
         return price;
-    }
-
-    public String getTradeType() {
-        return tradeType;
-    }
-
-    public String getTradeLocation() {
-        return tradeLocation;
     }
 
     public String getTradeState() {
