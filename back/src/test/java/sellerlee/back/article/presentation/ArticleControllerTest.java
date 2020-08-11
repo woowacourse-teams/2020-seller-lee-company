@@ -84,7 +84,7 @@ class ArticleControllerTest {
     void showArticlesByTradeState() throws Exception {
         String tradeState = "ON_SALE";
 
-        when(articleViewService.showArticlesByTradeState(tradeState)).thenReturn(anyList());
+        when(articleViewService.showByTradeState(tradeState)).thenReturn(anyList());
 
         mockMvc.perform(get(ARTICLE_URI + "/trade-state")
                 .param("tradeState", tradeState))

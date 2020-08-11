@@ -66,9 +66,8 @@ public class ArticleController {
     }
 
     @GetMapping("/trade-state")
-    public ResponseEntity<List<ArticleResponse>> showArticlesByTradeState(
-            @RequestParam String tradeState) {
-        List<ArticleResponse> responses = articleViewService.showArticlesByTradeState(tradeState);
+    public ResponseEntity<List<ArticleResponse>> showByTradeState(@RequestParam String tradeState){
+        List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
         return ResponseEntity.ok(responses);
     }
 }

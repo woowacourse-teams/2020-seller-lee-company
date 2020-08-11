@@ -39,7 +39,7 @@ public class ArticleViewService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleResponse> showArticlesByTradeState(String state) {
+    public List<ArticleResponse> showByTradeState(String state) {
         TradeState tradeState = TradeState.valueOf(state);
         List<Article> articles = articleRepository.findByTradeState(tradeState);
         return articles.stream()

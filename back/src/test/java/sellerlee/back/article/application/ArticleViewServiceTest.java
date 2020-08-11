@@ -57,7 +57,7 @@ class ArticleViewServiceTest {
                 Arrays.asList(ARTICLE1, ARTICLE2)
         );
 
-        List<ArticleResponse> responses = articleViewService.showArticlesByTradeState(tradeState);
+        List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
 
         assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
         assertThat(responses.get(1).getId()).isEqualTo(ARTICLE2.getId());
