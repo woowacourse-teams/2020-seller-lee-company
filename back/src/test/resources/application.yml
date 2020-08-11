@@ -2,6 +2,17 @@ spring:
   profiles:
     active: test
 
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace
+    org.springframework.web: debug
+
+security:
+  jwt:
+    token:
+      secret-key: sellerleecompanystitchturtlesubwayttoringkouz
+      expire-length: 3600000
+
 ---
 
 spring:
@@ -27,11 +38,3 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
-
-logging:
-  level:
-    org.hibernate.type.descriptor.sql: trace
-    org.springframework.web: debug
-
-
-

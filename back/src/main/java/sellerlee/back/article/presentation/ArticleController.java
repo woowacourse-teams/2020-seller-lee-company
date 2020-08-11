@@ -48,8 +48,7 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FeedResponse>> showArticlePage(
-            @RequestParam Long lastArticleId,
+    public ResponseEntity<List<FeedResponse>> showArticlePage(@RequestParam Long lastArticleId,
             @RequestParam int size) {
         List<FeedResponse> responses = articleService.showArticlePage(lastArticleId, size);
         return ResponseEntity.ok(responses);
