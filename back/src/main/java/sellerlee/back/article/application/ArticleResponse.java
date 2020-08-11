@@ -17,7 +17,7 @@ import sellerlee.back.member.domain.Member;
 public class ArticleResponse {
     private Long id;
     private String title;
-    private String category;
+    private String categoryName;
     private Long price;
     private String contents;
     private TradeType tradeType;
@@ -30,13 +30,13 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    private ArticleResponse(Long id, String title, Category category, Long price,
+    private ArticleResponse(Long id, String title, Category categoryName, Long price,
             String contents, TradeType tradeType, TradeState tradeState,
             List<String> photos, List<Tag> tags, Member author,
             Favorite favorite) {
         this.id = id;
         this.title = title;
-        this.category = category.getName();
+        this.categoryName = categoryName.getName();
         this.price = price;
         this.contents = contents;
         this.tradeType = tradeType;
@@ -90,8 +90,8 @@ public class ArticleResponse {
         return title;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public Long getPrice() {

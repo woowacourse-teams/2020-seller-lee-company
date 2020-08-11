@@ -5,6 +5,7 @@
 package sellerlee.back.article.application;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +30,7 @@ public class ArticleService {
         return persistArticle.getId();
     }
 
-    @Transactional(readOnly = true)
-    public List<FeedResponse> showArticlePage(Long lastArticleId, int size) {
+    public List<FeedResponse> showPage(Long lastArticleId, int size) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
         Page<Article> articlePage = articleRepository.findByIdLessThanOrderByIdDesc(lastArticleId,
                 pageRequest);
@@ -39,8 +39,8 @@ public class ArticleService {
 
     @Transactional
     public void update(Long id, ArticleRequest request) {
-        Article persistedArticle = articleRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
-        persistedArticle.update(request.toArticle());
+        Article article = articleRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        article.update(request.toArticle());
     }
 }

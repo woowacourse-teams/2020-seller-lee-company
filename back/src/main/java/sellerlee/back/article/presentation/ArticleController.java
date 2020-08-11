@@ -51,7 +51,7 @@ public class ArticleController {
     public ResponseEntity<List<FeedResponse>> showArticlePage(
             @RequestParam Long lastArticleId,
             @RequestParam int size) {
-        List<FeedResponse> responses = articleService.showArticlePage(lastArticleId, size);
+        List<FeedResponse> responses = articleService.showPage(lastArticleId, size);
         return ResponseEntity.ok(responses);
     }
 
@@ -66,6 +66,6 @@ public class ArticleController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest request){
         articleService.update(id, request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

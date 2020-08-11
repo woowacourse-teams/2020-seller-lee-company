@@ -67,7 +67,7 @@ class ArticleControllerTest {
     @DisplayName("게시글 페이지 조회 시 HTTP status는 OK다.")
     @Test
     void showArticlePage() throws Exception {
-        when(articleService.showArticlePage(LAST_ARTICLE_ID, ARTICLE_SIZE))
+        when(articleService.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1)));
 
         mockMvc.perform(get(ARTICLE_URI)

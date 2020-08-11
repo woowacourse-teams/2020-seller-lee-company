@@ -71,12 +71,12 @@ public class Article {
     }
 
     public void update(Article article) {
-        this.title = article.title;
-        this.price = article.price;
-        this.category = article.category;
-        this.contents = article.contents;
-        this.tags = article.tags;
-        this.photos = article.photos;
+        title = article.title;
+        price = article.price;
+        category = article.category;
+        contents = article.contents;
+        tags = article.tags;
+        photos = article.photos;
     }
 
     public Long getId() {
