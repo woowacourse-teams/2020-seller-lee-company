@@ -35,8 +35,8 @@ public class FeedResponse {
                 article.getId(),
                 article.getPrice(),
                 10,
-                article.getTags().toList(),
-                article.getPhotos()
+                article.getTags().getTags(),
+                article.getPhotos().getPhotos()
         );
     }
 

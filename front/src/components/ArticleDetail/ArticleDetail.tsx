@@ -16,13 +16,13 @@ export default function ArticleDetail() {
         <ArticleDetailTitle />
       </View>
       <View style={styles.subtitleContainer}>
-        <CategoryAndTime category={"디지털/가전"} time={"1분 전"} />
+        <CategoryAndTime />
       </View>
       <View style={styles.contentsContainer}>
         <ArticleDetailContents />
       </View>
       <View style={styles.subtitleContainer}>
-        <FavoriteCountAndHit favoriteCount={5} hit={64} />
+        <FavoriteCountAndHit />
       </View>
     </View>
   );

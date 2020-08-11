@@ -4,9 +4,13 @@
 
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { useRecoilValue } from "recoil/dist";
+import { articleSelectedState } from "../../states/articleState";
 
 export default function ArticleDetailTitle() {
-  return <Text style={styles.title}>LG 모니터 삽니다</Text>;
+  const { title } = useRecoilValue(articleSelectedState);
+
+  return <Text style={styles.title}>{title}</Text>;
 }
 
 const styles = StyleSheet.create({

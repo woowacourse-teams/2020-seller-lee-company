@@ -4,10 +4,9 @@
 
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { AuthorAvatarType } from "../../types/types";
 
 interface AuthorAvatarProps {
-  avatar: AuthorAvatarType;
+  avatar: string;
 }
 
 export default function AuthorAvatar({ avatar }: AuthorAvatarProps) {
@@ -16,7 +15,7 @@ export default function AuthorAvatar({ avatar }: AuthorAvatarProps) {
       <Image
         style={styles.avatar}
         source={{
-          uri: avatar.uri,
+          uri: avatar ? avatar : "",
         }}
       />
     </View>

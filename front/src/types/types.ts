@@ -19,22 +19,15 @@ export type TabHomeNavigationProp = BottomTabNavigationProp<
 export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedDetail: { articleId: number };
+  FeedDetail: undefined;
   ChatRoom: undefined;
   ArticleDetailScreen: undefined;
-  ArticleDetailImageViewScreen: {
-    photos: string[];
-  };
+  ArticleDetailImageViewScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "FeedHome"
->;
-
-export type FeedDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "FeedDetail"
 >;
 
 export type ChatRoomNavigationProp = StackNavigationProp<
@@ -131,10 +124,6 @@ export interface CategoryAndTimeProps {
 export interface FavoriteCountAndHitProps {
   favoriteCount: number;
   hit: number;
-}
-
-export interface AuthorAvatarType {
-  uri: string;
 }
 
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;

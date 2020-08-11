@@ -6,7 +6,7 @@ package sellerlee.back.member.acceptance;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static sellerlee.back.member.fixture.MemberFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.stream.Stream;
 

@@ -6,7 +6,7 @@ package sellerlee.back.member.application;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static sellerlee.back.member.fixture.MemberFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Optional;
 
@@ -36,7 +36,7 @@ class MemberServiceTest {
     @Test
     void login() {
         when(memberRepository.findMemberByEmail(anyString()))
-                .thenReturn(Optional.of(MEMBER_FIXTURE));
+                .thenReturn(Optional.of(MEMBER1));
 
         memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE);
         verify(memberRepository).findMemberByEmail(anyString());

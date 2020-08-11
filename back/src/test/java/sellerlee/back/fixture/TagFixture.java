@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-package sellerlee.back.article.fixture;
+package sellerlee.back.fixture;
 
 import sellerlee.back.article.domain.Tag;
 

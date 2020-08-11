@@ -1,13 +1,14 @@
 /**
- * @author kouz95
+ * @author lxxjn0
  */
 
 package sellerlee.back.article.acceptance;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -61,6 +62,9 @@ public class ArticleAcceptanceTest {
      * <p>
      * When 전체 게시글을 조회한다.
      * Then 게시글이 조회된다.
+     * <p>
+     * When 게시글을 클릭한다.
+     * Then 게시글 정보와 좋아요 를 응답받는다.
      */
     @DisplayName("게시글을 관리한다")
     @TestFactory
@@ -70,43 +74,13 @@ public class ArticleAcceptanceTest {
                 dynamicTest("게시글 페이지 조회", () -> {
                     List<FeedResponse> feedArticleResponses = findArticlePage();
                     assertThat(feedArticleResponses.size()).isEqualTo(1);
-                }));
-    }
-
-    /**
-     * 게시글 상세 조회 기능
-     * Given 게시글이 전체 조회되어있다.
-     *
-     * When 게시글을 클릭한다.
-     * Then 게시글 정보와 좋아요 를 응답받는다.
-     */
-    @DisplayName("게시글 상세 조회 기능")
-    @TestFactory
-    Stream<DynamicTest> getArticle() {
-        return Stream.of(
-                dynamicTest("게시글 전체 조회", () -> {
-                    List<FeedResponse> feedArticleResponse = findArticlePage();
-                    assertThat(feedArticleResponse.size()).isEqualTo(1);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = getArticleResponse();
-                    assertThat(articleResponse.getId()).isEqualTo(1);
+                    assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
+                    assertThat(articleResponse.getFavoriteState()).isTrue();
                 })
-
         );
-    }
-
-    private ArticleResponse getArticleResponse() {
-        String url = ARTICLE_URI + "/1";
-
-        return given()
-                .when()
-                .param("memberId", 1L)
-                .get(url)
-                .then()
-                .log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract().jsonPath().getObject(".", ArticleResponse.class);
     }
 
     private void createArticle() throws JsonProcessingException {
@@ -131,5 +105,18 @@ public class ArticleAcceptanceTest {
                 .then()
                 .log().all()
                 .extract().jsonPath().getList(".", FeedResponse.class);
+    }
+
+    private ArticleResponse getArticleResponse() {
+        String url = ARTICLE_URI + "/" + ARTICLE1.getId();
+
+        return given()
+                .when()
+                .param("memberId", MEMBER1.getId())
+                .get(url)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract().jsonPath().getObject(".", ArticleResponse.class);
     }
 }

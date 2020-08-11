@@ -13,7 +13,7 @@ interface PhotoBoxProps {
 export default function PhotoBox({ photoURI, marginBottom }: PhotoBoxProps) {
   return (
     <View style={styles.imageContainer || { marginBottom: marginBottom }}>
-      <Image source={{ uri: photoURI }} style={styles.image} />
+      <Image source={{ uri: photoURI ? photoURI : "" }} style={styles.image} />
     </View>
   );
 }
@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
 });
