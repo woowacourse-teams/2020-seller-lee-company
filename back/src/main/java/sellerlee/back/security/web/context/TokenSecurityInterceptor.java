@@ -5,6 +5,7 @@ import static sellerlee.back.security.web.LoginMemberMethodArgumentResolver.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -15,7 +16,7 @@ import sellerlee.back.security.web.AuthorizationType;
 
 @Component
 public class TokenSecurityInterceptor implements HandlerInterceptor {
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public TokenSecurityInterceptor(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -25,8 +26,12 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
+        if (StringUtils.isBlank(credentials)) {
+            throw new AuthenticationException("토큰이 존재하지 않습니다.");
+        }
+
         if (!jwtTokenProvider.validateToken(credentials)) {
-            throw new AuthenticationException("인증이 만료되었습니다.");
+            throw new AuthenticationException("토큰이 유효하지 않습니다.");
         }
 
         String email = jwtTokenProvider.getPayload(credentials);

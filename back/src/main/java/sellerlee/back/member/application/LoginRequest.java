@@ -4,14 +4,14 @@
 
 package sellerlee.back.member.application;
 
-public class MemberLoginRequest {
+public class LoginRequest {
     private String email;
     private String password;
 
-    private MemberLoginRequest() {
+    private LoginRequest() {
     }
 
-    public MemberLoginRequest(String email, String password) {
+    public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

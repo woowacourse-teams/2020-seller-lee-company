@@ -4,12 +4,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import sellerlee.back.member.domain.IllegalMemberLoginException;
+import sellerlee.back.member.domain.IllegalLoginException;
 
 @ControllerAdvice
 public class LoginAdviceController {
-    @ExceptionHandler(IllegalMemberLoginException.class)
-    public ResponseEntity<String> handleIllegalMemberLoginException(IllegalMemberLoginException e) {
+    @ExceptionHandler(IllegalLoginException.class)
+    public ResponseEntity<String> handleIllegalMemberLoginException(IllegalLoginException e) {
         return ResponseEntity
                 .badRequest()
                 .body(e.getMessage());
