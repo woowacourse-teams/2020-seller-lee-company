@@ -20,31 +20,27 @@ public class Member {
 
     private String password;
 
-    private String nickname;
-
     private String avatar;
+
+    private String nickname;
 
     private Double score;
 
     protected Member() {
     }
 
-    public Member(Long id, String email, String password, String nickname, String avatar,
+    public Member(Long id, String email, String password, String avatar, String nickname,
             Double score) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.nickname = nickname;
         this.avatar = avatar;
+        this.nickname = nickname;
         this.score = score;
     }
 
-    public Member(String email, String password, String nickname, String avatar, Double score) {
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-        this.avatar = avatar;
-        this.score = score;
+    public Member(String email, String password, String avatar, String nickname, Double score) {
+        this(null, email, password, avatar, nickname, score);
     }
 
     public Member(Long id) {
@@ -67,12 +63,12 @@ public class Member {
         return password;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
     public String getAvatar() {
         return avatar;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     public Double getScore() {

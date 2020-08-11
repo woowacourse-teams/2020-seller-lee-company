@@ -12,52 +12,59 @@ import java.util.Collections;
 import sellerlee.back.article.application.ArticleCreateRequest;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.domain.Photos;
 import sellerlee.back.article.domain.Tags;
+import sellerlee.back.article.domain.TradeState;
+import sellerlee.back.article.domain.TradeType;
 
 public class ArticleFixture {
-    public static final Article ARTICLE_FIXTURE = new Article(
-            "TEST_TITLE",
-            10_000L,
-            Category.BOOK,
-            "TEST_CONTENTS",
-            new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
-            Arrays.asList("testUri1", "testUri2"),
-            MEMBER2
-    );
     public static final Article ARTICLE1 = new Article(
             51L,
             "test title1",
-            1234L,
+            Tags.of(TAG_FIXTURE),
             Category.PC,
             "test contents1",
-            new Tags(Collections.emptyList()),
-            Arrays.asList("testUri1", "testUri2"),
+            1234L,
+            TradeType.DELIVERY,
+            null,
+            TradeState.ON_SALE,
+            Photos.of("testUri1", "testUri2"),
             MEMBER1);
+
     public static final Article ARTICLE2 = new Article(
             52L,
             "test title1",
-            1234L,
+            Tags.of(TAG_FIXTURE),
             Category.PC,
             "test contents1",
-            new Tags(Collections.emptyList()),
-            Arrays.asList("testUri1", "testUri2"),
+            1234L,
+            TradeType.DELIVERY,
+            null,
+            TradeState.ON_SALE,
+            Photos.of("testUri1", "testUri2"),
             MEMBER1);
+
     public static final Article ARTICLE3 = new Article(
-            3L,
-            "TEST_TITLE",
-            10_000L,
+            53L,
+            "test title1",
+            Tags.of(TAG_FIXTURE),
             Category.PC,
-            "TEST_CONTENTS",
-            new Tags(Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2)),
-            Arrays.asList("testUri1", "testUri2"),
+            "test contents1",
+            1234L,
+            TradeType.DELIVERY,
+            null,
+            TradeState.ON_SALE,
+            Photos.of("testUri1", "testUri2"),
             MEMBER1);
+
     public static final ArticleCreateRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleCreateRequest(
             "TEST_TITLE",
-            10_000L,
+            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
             "디지털/가전",
             "TEST_CONTENTS",
-            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+            10_000L,
+            "직거래",
+            "잠실동",
             Arrays.asList("testUri1", "testUri2"),
-            MEMBER1.getId()
-    );
+            MEMBER1.getId());
 }

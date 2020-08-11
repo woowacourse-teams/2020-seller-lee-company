@@ -21,13 +21,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import sellerlee.back.article.domain.ArticleRepository;
 import sellerlee.back.favorite.domain.FavoriteRepository;
-import sellerlee.back.member.domain.MemberRepository;
 
 @ExtendWith(value = MockitoExtension.class)
 class ArticleViewServiceTest {
-    @Mock
-    private MemberRepository memberRepository;
-
     @Mock
     private FavoriteRepository favoriteRepository;
 
@@ -38,27 +34,19 @@ class ArticleViewServiceTest {
 
     @BeforeEach
     void setUp() {
-        articleViewService = new ArticleViewService(articleRepository, memberRepository,
-                favoriteRepository);
+        articleViewService = new ArticleViewService(articleRepository, favoriteRepository);
     }
 
     @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체를 가져온다")
     @Test
     void showArticle() {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
-        when(memberRepository.findById(MEMBER2.getId())).thenReturn(Optional.of(MEMBER2));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any())).thenReturn(
                 Optional.of(FAVORITE));
 
-        ArticleResponse articleResponse = articleViewService.showArticle(ARTICLE1.getId(),
-                MEMBER2.getId());
+        ArticleResponse articleResponse = articleViewService.showArticle(ARTICLE1.getId(), MEMBER1);
 
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
-        assertThat(articleResponse.getAuthor().getEmail()).isEqualTo(
-                ARTICLE1.getAuthor().getEmail());
-        assertThat(articleResponse.getFavorite().getId()).isEqualTo(1L);
-        assertThat(articleResponse.getFavorite().getMember().getId()).isEqualTo(MEMBER2.getId());
-        assertThat(articleResponse.getFavorite().getMember().getEmail()).isEqualTo(
-                "lxxjn0@gmail.com");
+        assertThat(articleResponse.getAuthor().getNickname()).isEqualTo(MEMBER1.getNickname());
     }
 }

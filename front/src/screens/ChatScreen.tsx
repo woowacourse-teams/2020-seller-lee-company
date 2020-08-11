@@ -5,20 +5,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
-import { mockMembers } from "../data/memberMockData";
-import { AuthorScoreType } from "../types/types";
 
 export default function ChatScreen() {
-  const member = mockMembers[0];
-
   return (
     <View style={styles.container}>
       <View style={styles.ArticleAuthorContainer}>
-        <ArticleAuthor
-          name={member.name}
-          score={member.score as AuthorScoreType}
-          avatar={member.avatar}
-        />
+        <ArticleAuthor />
       </View>
     </View>
   );

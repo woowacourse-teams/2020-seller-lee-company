@@ -7,6 +7,7 @@ package sellerlee.back.article.acceptance;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
@@ -62,6 +63,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = findArticleDetailOf(articleId);
                     assertThat(articleResponse.getId()).isEqualTo(articleId);
+                    assertThat(articleResponse.getFavoriteState()).isFalse();
                 }));
     }
 
