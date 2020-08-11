@@ -30,13 +30,26 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.member.domain.MemberRepository;
+import sellerlee.back.security.oauth2.token.JwtTokenProvider;
+import sellerlee.back.security.web.context.TokenSecurityInterceptor;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest {
     @MockBean
     private ArticleService articleService;
+
     @MockBean
     private ArticleViewService articleViewService;
+
+    @MockBean
+    private MemberRepository memberRepository;
+
+    @MockBean
+    private JwtTokenProvider jwtTokenProvider;
+
+    @MockBean
+    private TokenSecurityInterceptor tokenSecurityInterceptor;
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,12 +66,12 @@ class ArticleControllerTest {
     void createArticle() throws Exception {
         String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
 
-        when(articleService.post(any())).thenReturn(1L);
+        when(articleService.post(any())).thenReturn(51L);
 
         this.mockMvc.perform(post(ARTICLE_URI)
-                .content(request)
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(request))
                 .andDo(print())
                 .andExpect(status().isCreated());
     }

@@ -28,6 +28,7 @@ import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.member.application.TokenResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArticleAcceptanceTest {
@@ -87,6 +88,7 @@ public class ArticleAcceptanceTest {
         String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
 
         given()
+                .auth().oauth2(login().getAccessToken())
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
@@ -96,8 +98,9 @@ public class ArticleAcceptanceTest {
                 .statusCode(HttpStatus.CREATED.value());
     }
 
-    private List<FeedResponse> findArticlePage() {
+    private List<FeedResponse> findArticlePage() throws JsonProcessingException {
         return given()
+                .auth().oauth2(login().getAccessToken())
                 .when()
                 .param("lastArticleId", LAST_ARTICLE_ID)
                 .param("size", ARTICLE_SIZE)
@@ -107,10 +110,11 @@ public class ArticleAcceptanceTest {
                 .extract().jsonPath().getList(".", FeedResponse.class);
     }
 
-    private ArticleResponse getArticleResponse() {
+    private ArticleResponse getArticleResponse() throws JsonProcessingException {
         String url = ARTICLE_URI + "/" + ARTICLE1.getId();
 
         return given()
+                .auth().oauth2(login().getAccessToken())
                 .when()
                 .param("memberId", MEMBER1.getId())
                 .get(url)
@@ -118,5 +122,20 @@ public class ArticleAcceptanceTest {
                 .log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract().jsonPath().getObject(".", ArticleResponse.class);
+    }
+
+    private TokenResponse login() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST_FIXTURE);
+
+        return given()
+                .body(request)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .log().all()
+                .when()
+                .post("/login")
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract().as(TokenResponse.class);
     }
 }

@@ -45,7 +45,7 @@ class ArticleServiceTest {
     void createArticle() {
         ArticleCreateRequest request = new ArticleCreateRequest(
                 "노트북",
-                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+                Arrays.asList(TAG_FIXTURE1, TAG_FIXTURE2),
                 "디지털/가전",
                 "쌉니다 싸요",
                 10000L,

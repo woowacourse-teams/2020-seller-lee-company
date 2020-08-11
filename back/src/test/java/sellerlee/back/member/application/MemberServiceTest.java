@@ -17,19 +17,22 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import sellerlee.back.member.domain.IllegalMemberLoginException;
+import sellerlee.back.member.domain.IllegalLoginException;
 import sellerlee.back.member.domain.MemberRepository;
+import sellerlee.back.security.oauth2.token.JwtTokenProvider;
 
 @ExtendWith(value = MockitoExtension.class)
 class MemberServiceTest {
     @Mock
     private MemberRepository memberRepository;
+    @Mock
+    private JwtTokenProvider jwtTokenProvider;
 
     private MemberService memberService;
 
     @BeforeEach
     void setUp() {
-        memberService = new MemberService(memberRepository);
+        memberService = new MemberService(memberRepository, jwtTokenProvider);
     }
 
     @DisplayName("이메일로 회원을 찾고 비밀번호가 일치하는지 여부를 확인한다.")
@@ -37,6 +40,8 @@ class MemberServiceTest {
     void login() {
         when(memberRepository.findMemberByEmail(anyString()))
                 .thenReturn(Optional.of(MEMBER1));
+        when(jwtTokenProvider.createToken(anyString()))
+                .thenReturn("token");
 
         memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE);
         verify(memberRepository).findMemberByEmail(anyString());
@@ -46,10 +51,10 @@ class MemberServiceTest {
     @Test
     void login_InvalidEmail() {
         when(memberRepository.findMemberByEmail(anyString()))
-                .thenThrow(new IllegalMemberLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
+                .thenThrow(new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
 
         assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE))
-                .isInstanceOf(IllegalMemberLoginException.class)
+                .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("이메일이 일치하는 회원이 존재하지 않습니다.");
 
         verify(memberRepository).findMemberByEmail(anyString());
@@ -59,10 +64,10 @@ class MemberServiceTest {
     @Test
     void login_InvalidPassword() {
         when(memberRepository.findMemberByEmail(anyString()))
-                .thenThrow(new IllegalMemberLoginException("비밀번호가 일치하지 않습니다."));
+                .thenThrow(new IllegalLoginException("비밀번호가 일치하지 않습니다."));
 
         assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE))
-                .isInstanceOf(IllegalMemberLoginException.class)
+                .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("비밀번호가 일치하지 않습니다.");
 
         verify(memberRepository).findMemberByEmail(anyString());

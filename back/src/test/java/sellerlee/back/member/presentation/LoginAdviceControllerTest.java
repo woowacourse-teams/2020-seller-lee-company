@@ -17,12 +17,24 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.member.application.MemberService;
-import sellerlee.back.member.domain.IllegalMemberLoginException;
+import sellerlee.back.member.domain.IllegalLoginException;
+import sellerlee.back.member.domain.MemberRepository;
+import sellerlee.back.security.oauth2.token.JwtTokenProvider;
+import sellerlee.back.security.web.context.TokenSecurityInterceptor;
 
 @WebMvcTest(controllers = {AuthController.class, LoginAdviceController.class})
 class LoginAdviceControllerTest {
     @MockBean
     private MemberService memberService;
+
+    @MockBean
+    private MemberRepository memberRepository;
+
+    @MockBean
+    private JwtTokenProvider jwtTokenProvider;
+
+    @MockBean
+    private TokenSecurityInterceptor tokenSecurityInterceptor;
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,7 +52,7 @@ class LoginAdviceControllerTest {
         String request = objectMapper.writeValueAsString(
                 INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE);
 
-        doThrow(new IllegalMemberLoginException("이메일이 일치하는 회원이 존재하지 않습니다."))
+        doThrow(new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."))
                 .when(memberService).login(any());
 
         mockMvc.perform(post("/login")
@@ -57,7 +69,7 @@ class LoginAdviceControllerTest {
         String request = objectMapper.writeValueAsString(
                 INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE);
 
-        doThrow(new IllegalMemberLoginException("비밀번호가 일치하지 않습니다."))
+        doThrow(new IllegalLoginException("비밀번호가 일치하지 않습니다."))
                 .when(memberService).login(any());
 
         mockMvc.perform(post("/login")

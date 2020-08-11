@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
+import sellerlee.back.member.application.TokenResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MemberAcceptanceTest {
@@ -37,29 +38,29 @@ public class MemberAcceptanceTest {
     }
 
     /**
-     * 회원 로그인 기능
+     * Feature: 회원 관리
+     * <p>
+     * Scenario: 회원을 관리한다.
+     * <p>
      * Given 회원이 등록되어 있다.
-     *
+     * <p>
      * When 로그인 요청을 한다.
      * Then 회원 정보 존재 여부를 응답받는다.
      */
     @DisplayName("회원 인수 테스트")
     @TestFactory
     Stream<DynamicTest> manageMember() {
-        // Given 회원이 등록되어 있다.
-        // data.sql 사용
         return Stream.of(
                 dynamicTest("회원 로그인", () -> {
-                    // When 로그인 요청을 한다.
                     login();
                 })
         );
     }
 
-    private void login() throws JsonProcessingException {
+    private TokenResponse login() throws JsonProcessingException {
         String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST_FIXTURE);
 
-        given()
+        return given()
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .log().all()
@@ -67,6 +68,7 @@ public class MemberAcceptanceTest {
                 .post("/login")
                 .then()
                 .log().all()
-                .statusCode(HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value())
+                .extract().as(TokenResponse.class);
     }
 }
