@@ -27,14 +27,14 @@ export default function ArticleDetailScreen() {
   const articleId = useRecoilValue(articleSelectedIdState);
   const setArticleSelected = useSetRecoilState(articleSelectedState);
 
-  useEffect(() => {
-    getArticle();
-  }, [articleId]);
-
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
     setArticleSelected(data);
   };
+
+  useEffect(() => {
+    getArticle();
+  }, [articleId]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,8 +74,7 @@ export default function ArticleDetailScreen() {
         <View style={styles.articleDetailFavoriteContainer}>
           <ArticleDetailFavorite />
         </View>
-        <ArticlePriceAndTradeType />
-        <ArticlePrice articleId={articleId} />
+        <ArticlePrice />
         <View style={styles.chatButtonContainer}>
           <ArticleDetailChatButton />
         </View>

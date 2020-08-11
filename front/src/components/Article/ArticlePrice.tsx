@@ -9,9 +9,7 @@ import { useRecoilValue } from "recoil/dist";
 import { articleSelectedState } from "../../states/articleState";
 
 export default function ArticlePriceAndTradeType() {
-  const { price } = useRecoilValue(
-    articleSelectedState,
-  );
+  const { price } = useRecoilValue(articleSelectedState);
 
   return (
     <View style={styles.priceAndActionType}>
