@@ -1,0 +1,21 @@
+export const defaultArticle = {
+  id: 0,
+  title: "",
+  category: "",
+  contents: "",
+  price: 0,
+  tradeType: "",
+  tradeLocation: "",
+  tradeState: "",
+  photos: [],
+  author: {
+    nickname: "",
+    avatar: "",
+    score: 0,
+    validated: false,
+  },
+  favoriteState: false,
+  favoriteCount: 0,
+  hit: 11,
+  createdTime: "",
+};

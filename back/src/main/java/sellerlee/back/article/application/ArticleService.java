@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
@@ -25,11 +24,10 @@ public class ArticleService {
     }
 
     public Long post(ArticleCreateRequest request) {
-        Article persistArticle = articleRepository.save(request.toArticle());
-        return persistArticle.getId();
+        Article article = articleRepository.save(request.toArticle());
+        return article.getId();
     }
 
-    @Transactional(readOnly = true)
     public List<FeedResponse> showArticlePage(Long lastArticleId, int size) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
         Page<Article> articlePage = articleRepository.findByIdLessThanOrderByIdDesc(lastArticleId,
