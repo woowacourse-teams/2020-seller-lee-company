@@ -183,7 +183,6 @@ export interface Article {
   category: string;
   price: number;
   contents: string;
-  tradeType: string;
   tradeState: string;
   photos: ImageURISource[];
   tags: Tag[];

@@ -10,7 +10,6 @@ import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.TradeState;
-import sellerlee.back.article.domain.TradeType;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.member.domain.Member;
 
@@ -20,7 +19,6 @@ public class ArticleResponse {
     private Category category;
     private Long price;
     private String contents;
-    private TradeType tradeType;
     private TradeState tradeState;
     private List<String> photos;
     private List<Tag> tags;
@@ -31,7 +29,7 @@ public class ArticleResponse {
     }
 
     private ArticleResponse(Long id, String title, Category category, Long price,
-            String contents, TradeType tradeType, TradeState tradeState,
+            String contents, TradeState tradeState,
             List<String> photos, List<Tag> tags, Member author,
             Favorite favorite) {
         this.id = id;
@@ -39,7 +37,6 @@ public class ArticleResponse {
         this.category = category;
         this.price = price;
         this.contents = contents;
-        this.tradeType = tradeType;
         this.tradeState = tradeState;
         this.photos = photos;
         this.tags = tags;
@@ -54,12 +51,9 @@ public class ArticleResponse {
                 article.getCategory(),
                 article.getPrice(),
                 article.getContents(),
-                // TODO: 2020/07/30 Article type 없음
-                TradeType.DELEVERY,
-                TradeState.SALING,
+                TradeState.ON_SALE,
                 article.getPhotos(),
                 article.getTags().toList(),
-                // TODO: 2020/07/30 Article type 없음
                 new Member(1L, "turtle@woowabro.com", "1234", 4.5),
                 favorite
         );
@@ -72,9 +66,7 @@ public class ArticleResponse {
                 article.getCategory(),
                 article.getPrice(),
                 article.getContents(),
-                // TODO: 2020/07/30 Article type 없음
-                TradeType.DELEVERY,
-                TradeState.SALING,
+                TradeState.ON_SALE,
                 article.getPhotos(),
                 article.getTags().toList(),
                 new Member(1L, "turtle@woowabro.com", "1234", 4.5),
@@ -100,10 +92,6 @@ public class ArticleResponse {
 
     public String getContents() {
         return contents;
-    }
-
-    public TradeType getTradeType() {
-        return tradeType;
     }
 
     public TradeState getTradeState() {

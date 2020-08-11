@@ -3,12 +3,25 @@
  */
 
 import React from "react";
-import { Text, View } from "react-native";
+import { FlatList } from "react-native";
+import { categoryMockArticles } from "../data/categoryArticleMockData";
+import CategoryArticleCard from "../components/Category/CategoryArticleCard";
 
 export default function ChatRoomScreen() {
   return (
-    <View>
-      <Text>.</Text>
-    </View>
+    <FlatList
+      data={categoryMockArticles}
+      renderItem={({ item }) => {
+        return (
+          <CategoryArticleCard
+            title={item.title}
+            price={item.price}
+            createdAt={item.createdAt}
+            additional={item.additional}
+            thumbnail={item.thumbnail}
+          />
+        );
+      }}
+    />
   );
 }

@@ -9,7 +9,7 @@ import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import ArticlePriceAndTradeType from "../components/Article/ArticlePriceAndTradeType";
+import ArticlePrice from "../components/Article/ArticlePrice";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
 import { ArticleDetailScreenProp, AuthorScoreType } from "../types/types";
@@ -87,7 +87,7 @@ export default function ArticleDetailScreen({
         <View style={styles.articleDetailFavoriteContainer}>
           <ArticleDetailFavorite articleId={articleId} />
         </View>
-        <ArticlePriceAndTradeType articleId={articleId} />
+        <ArticlePrice articleId={articleId} />
         <View style={styles.chatButtonContainer}>
           <ArticleDetailChatButton />
         </View>
