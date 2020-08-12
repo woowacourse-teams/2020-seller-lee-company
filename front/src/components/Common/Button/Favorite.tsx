@@ -13,7 +13,6 @@ interface FavoriteProp {
 export default function Favorite({ count }: FavoriteProp) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(count);
-  const [id, setId] = useState(0);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
@@ -27,7 +26,7 @@ export default function Favorite({ count }: FavoriteProp) {
     }).start();
   };
 
-  const toggleAndFetchFavorite = async () => {
+  const toggleFavorite = () => {
     const unmarkFavorite = () => {
       setIsFavorite(false);
       setFavoriteCount(favoriteCount - 1);
@@ -52,7 +51,7 @@ export default function Favorite({ count }: FavoriteProp) {
         name={isFavorite ? "heart" : "hearto"}
         size={23}
         color={isFavorite ? "red" : "black"}
-        onPress={toggleAndFetchFavorite}
+        onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}
@@ -72,9 +71,11 @@ export default function Favorite({ count }: FavoriteProp) {
 
 const styles = StyleSheet.create({
   detailsHeartContainer: {
-    flexDirection: "row",
     flex: 1,
+    flexDirection: "row",
     alignItems: "center",
   },
-  text: { fontWeight: "bold" },
+  text: {
+    fontWeight: "bold",
+  },
 });

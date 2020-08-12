@@ -1,5 +1,7 @@
 package sellerlee.back.favorite.application;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.favorite.domain.FavoriteRepository;
@@ -12,8 +14,10 @@ public class FavoriteService {
         this.favoriteRepository = favoriteRepository;
     }
 
+    @Transactional
     public Long create(FavoriteCreateRequest request) {
         Favorite favorite = favoriteRepository.save(request.toFavorite());
+        favorite.create();
         return favorite.getId();
     }
 

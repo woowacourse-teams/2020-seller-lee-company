@@ -13,11 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.data.domain.AbstractAggregateRoot;
+
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.favorite.application.FavoriteCreatedEvent;
 import sellerlee.back.member.domain.Member;
 
 @Entity
-public class Favorite {
+public class Favorite extends AbstractAggregateRoot<Favorite> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favorite_id")
@@ -42,6 +45,10 @@ public class Favorite {
 
     public Favorite(Article article, Member member) {
         this(null, article, member);
+    }
+
+    public void create() {
+        this.registerEvent(new FavoriteCreatedEvent(this));
     }
 
     public Long getId() {
