@@ -1,7 +1,3 @@
-/**
- * @author begaonnuri
- */
-
 package sellerlee.back.article.application;
 
 import java.util.List;
@@ -19,7 +15,7 @@ public class ArticleRequest {
     private Long price;
     private String category;
     private String contents;
-    private List<Tag> tags;
+    private List<String> tags;
     private List<String> photos;
     private Long authorId;
 
@@ -27,7 +23,7 @@ public class ArticleRequest {
     }
 
     public ArticleRequest(String title, Long price, String category, String contents,
-            List<Tag> tags, List<String> photos, Long authorId) {
+            List<String> tags, List<String> photos, Long authorId) {
         this.title = title;
         this.price = price;
         this.category = category;
@@ -38,10 +34,15 @@ public class ArticleRequest {
     }
 
     public Article toArticle() {
-        return new Article(title, new Tags(tags), Category.fromString(category), contents, price,
+        return new Article(
+                title,
+                Tags.of(tags),
+                Category.fromString(category),
+                contents,
+                price,
                 TradeState.ON_SALE,
                 new Photos(photos),
-                new Member(authorId, "sellerlee@gmail.com", "0000", "avatar", "nickname", 4.5));
+                new Member(authorId));
     }
 
     public String getTitle() {
@@ -60,7 +61,7 @@ public class ArticleRequest {
         return contents;
     }
 
-    public List<Tag> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 

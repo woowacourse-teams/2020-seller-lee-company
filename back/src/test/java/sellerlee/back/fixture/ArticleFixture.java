@@ -19,7 +19,7 @@ public class ArticleFixture {
     public static final Article ARTICLE1 = new Article(
             51L,
             "test title1",
-            Tags.of(TAG_FIXTURE),
+            new Tags(Collections.singletonList(TAG_FIXTURE)),
             Category.PC,
             "test contents1",
             1234L,
@@ -30,7 +30,7 @@ public class ArticleFixture {
     public static final Article ARTICLE2 = new Article(
             52L,
             "test title1",
-            Tags.of(TAG_FIXTURE),
+            new Tags(Collections.singletonList(TAG_FIXTURE)),
             Category.PC,
             "test contents1",
             1234L,
@@ -41,7 +41,7 @@ public class ArticleFixture {
     public static final Article ARTICLE3 = new Article(
             53L,
             "test title1",
-            Tags.of(TAG_FIXTURE),
+            new Tags(Collections.singletonList(TAG_FIXTURE)),
             Category.PC,
             "test contents1",
             1234L,
