@@ -17,7 +17,7 @@ import ArticleTitleForm from "../components/Article/ArticleTitleForm";
 import ArticlePriceForm from "../components/Article/ArticlePriceForm";
 import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
 import Photo from "../components/Common/Photo/Photo";
-import Tag from "../components/Common/Info/Tag/Tag";
+import Tag from "../components/Common/Tag/Tag";
 import {
   articleContentsState,
   articleIsEditingState,
@@ -118,12 +118,12 @@ export default function ArticleFormScreen() {
 
   const onSubmit = async () => {
     const data = {
-      title: title,
-      price: price,
+      title,
+      price,
       category: selectedCategory,
-      contents: contents,
-      tags: tags,
-      photos: photos,
+      contents,
+      tags,
+      photos,
       authorId: memberId,
     };
 

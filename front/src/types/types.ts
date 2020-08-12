@@ -34,7 +34,7 @@ export type ChatRoomNavigationProp = StackNavigationProp<
   "ChatRoom"
 >;
 
-export type ArticleDetailNavigationProp = StackNavigationProp<
+export type ArticleDetailScreenProp = StackNavigationProp<
   ArticleNavigationParamList,
   "ArticleDetailScreen"
 >;
@@ -164,10 +164,9 @@ export interface Article {
   id: number;
   title: string;
   categoryName: string;
-  contents: string;
   price: number;
+  contents: string;
   tradeType: string;
-  tradeLocation: string;
   tradeState: string;
   tags: string[];
   photos: string[];

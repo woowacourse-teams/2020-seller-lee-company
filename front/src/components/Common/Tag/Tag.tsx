@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
-import TagModal from "../../Modal/TagModal";
+import TagModal from "../Modal/TagModal";
 import TagItem from "./TagItem";
 import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import {
@@ -10,7 +10,7 @@ import {
   isModalOpenState,
   tagIdState,
   tagsState,
-} from "../../../../states/TagState";
+} from "../../../states/TagState";
 
 export default function Tag() {
   const HASH_TAG = "#";

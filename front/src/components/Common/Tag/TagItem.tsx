@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { useRecoilState } from "recoil/dist";
-import { tagsState } from "../../../../states/TagState";
-import theme from "../../../../colors";
+import { tagsState } from "../../../states/TagState";
+import theme from "../../../colors";
 
 interface TagItemProps {
   tag: string;
