@@ -3,10 +3,9 @@
  */
 
 import { atom } from "recoil/dist";
+import { Score } from "../types/types";
 
-let questionAndAnswer = new Map<number, number>();
-
-export const questionAndAnswerState = atom({
-  key: "QuestionAndAnswerState",
-  default: questionAndAnswer,
+export const scoresState = atom({
+  key: "scoresState",
+  default: <Score[]>[],
 });

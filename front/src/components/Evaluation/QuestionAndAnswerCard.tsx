@@ -5,8 +5,10 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import StarRating from "react-native-star-rating";
-import { questionAndAnswerState } from "../../states/evaluationState";
-import { useSetRecoilState } from "recoil/dist";
+import { useRecoilState } from "recoil/dist";
+import theme from "../../colors";
+import { scoresState } from "../../states/evaluationState";
+import { useIsFocused } from "@react-navigation/native";
 
 interface Question {
   questionId: number;
@@ -18,16 +20,40 @@ export default function QuestionAndAnswerCard({
   question,
 }: Question) {
   const [answer, setAnswer] = useState(0);
-  const setQuestionAndAnswer = useSetRecoilState(questionAndAnswerState);
-  const onStarRatingPress = (rating: number) => {
-    setAnswer(rating);
-  };
+  const [scores, setScores] = useRecoilState(scoresState);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    setQuestionAndAnswer((questionAndAnswer) =>
-      questionAndAnswer.set(questionId, answer),
-    );
-  }, [answer]);
+    setAnswer(0);
+  }, [isFocused]);
+
+  const setData = (rating: number) => {
+    setScores((scores) => {
+      if (
+        scores.filter((score) => score.questionId === questionId).length > 0
+      ) {
+        const index = scores.findIndex(
+          (score) => score.questionId === questionId,
+        );
+        console.log("들어옴");
+        // console.log("score: " + scores[index].score);
+        // console.log("answer: " + answer);
+        scores[index].score = answer;
+        return scores;
+      }
+      return [...scores].concat({
+        questionId: questionId,
+        score: rating,
+      });
+    });
+  };
+
+  const onStarRatingPress = async (rating: number) => {
+    setAnswer(rating);
+    console.log("rating: " + rating);
+    setData(rating);
+    console.log("최종: " + JSON.stringify(scores));
+  };
 
   return (
     <View style={styles.container}>
@@ -38,7 +64,9 @@ export default function QuestionAndAnswerCard({
         <StarRating
           maxStars={5}
           rating={answer}
-          selectedStar={(rating) => onStarRatingPress(rating)}
+          fullStarColor={theme.primary}
+          emptyStarColor={theme.primary}
+          selectedStar={onStarRatingPress}
         />
       </View>
     </View>
@@ -46,8 +74,8 @@ export default function QuestionAndAnswerCard({
 }
 
 const styles = StyleSheet.create({
-  container: { alignItems: "flex-start" },
-  questionContainer: {},
-  questionText: {},
+  container: { alignItems: "flex-start", margin: 10 },
+  questionContainer: { margin: 5 },
+  questionText: { fontSize: 20 },
   answerContainer: { alignItems: "center" },
 });

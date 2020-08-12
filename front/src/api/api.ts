@@ -98,11 +98,11 @@ export const tradeAPI = {
   get: async () => await axios.get(BASE_URL + domain.trades),
 };
 
-interface evaluation {
-  questionAndAnswer: Map<number, number>;
+interface ScoresPost {
+  scores: Score[];
 }
 
 export const evaluationAPI = {
-  post: async (data: evaluation) =>
-    await axios.post(BASE_URL + domain.evaluation, { data }),
+  post: async (data: ScoresPost) =>
+    await axios.post(BASE_URL + domain.evaluation, data),
 };

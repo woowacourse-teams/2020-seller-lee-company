@@ -1,33 +1,24 @@
-/**
- * @author jnsorn
- */
-
 import React, { useLayoutEffect } from "react";
 import { Button, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
-import { QUESTION_SIZE, questions } from "../data";
+import { questions } from "../data";
 import QuestionAndAnswerCard from "../components/Evaluation/QuestionAndAnswerCard";
 import theme from "../colors";
-import { useRecoilState, useResetRecoilState } from "recoil/dist";
-import { questionAndAnswerState } from "../states/evaluationState";
+import { useRecoilValue, useResetRecoilState } from "recoil/dist";
+import { scoresState } from "../states/evaluationState";
 import { evaluationAPI } from "../api/api";
+import { articlePhotosState, articleTitleState } from "../states/articleState";
 
 export default function EvaluationScreen() {
   const navigation = useNavigation();
-  const [questionAndAnswer, setQuestionAndAnswer] = useRecoilState(
-    questionAndAnswerState,
-  );
-  const resetQuestionAndAnswer = useResetRecoilState(questionAndAnswerState);
-  //const title = useRecoilValue(articleTitleState);
-  //const photo = useRecoilValue(articlePhotosState)[0];
-  const title = "맥북";
-  const photo = {
-    uri:
-      "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp16touch-space-select-201911_GEO_KR?wid=1808&hei=1686&fmt=jpeg&qlt=80&.v=1573165435305",
-  };
+  const scores = useRecoilValue(scoresState);
+  const resetScoresState = useResetRecoilState(scoresState);
+  const title = useRecoilValue(articleTitleState);
+  const photo = useRecoilValue(articlePhotosState)[0];
+
   const QUESTION_ID_INDEX = 0;
   const QUESTION_INDEX = 1;
 
@@ -37,7 +28,10 @@ export default function EvaluationScreen() {
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            navigation.goBack();
+            resetAnswer();
+          }}
           backImage={() => (
             <EvilIcons name="chevron-left" size={35} color="black" />
           )}
@@ -48,15 +42,8 @@ export default function EvaluationScreen() {
     });
   }, [navigation]);
 
-  const incompleteAnswer = () => {
-    return questionAndAnswer.size !== QUESTION_SIZE;
-  };
-
   const goBackAndReset = async () => {
-    const response = await evaluationAPI.post({
-      questionAndAnswer: questionAndAnswer,
-    });
-
+    const response = await evaluationAPI.post({ scores });
     if (response.status === 201) {
       resetAnswer();
       navigation.goBack();
@@ -66,13 +53,13 @@ export default function EvaluationScreen() {
   };
 
   const resetAnswer = () => {
-    resetQuestionAndAnswer();
+    resetScoresState();
   };
 
   const dynamicStyles = StyleSheet.create({
     createButtonContainer: {
-      backgroundColor: incompleteAnswer() ? "grey" : theme.primary,
-      flex: 3,
+      backgroundColor: theme.primary,
+      flex: 1,
       justifyContent: "center",
       alignItems: "center",
       borderTopColor: "#eaeaea",
@@ -88,18 +75,14 @@ export default function EvaluationScreen() {
       <View style={styles.QAndAListContainer}>
         {[...questions.entries()].map((value) => (
           <QuestionAndAnswerCard
+            key={value[QUESTION_ID_INDEX]}
             questionId={value[QUESTION_ID_INDEX]}
             question={value[QUESTION_INDEX]}
           />
         ))}
       </View>
       <View style={dynamicStyles.createButtonContainer}>
-        <Button
-          title={"완료"}
-          color={"white"}
-          disabled={incompleteAnswer()}
-          onPress={goBackAndReset}
-        />
+        <Button title={"완료"} color={"white"} onPress={goBackAndReset} />
       </View>
     </View>
   );
@@ -111,7 +94,7 @@ const styles = StyleSheet.create({
   },
   articleInfoContainer: {
     backgroundColor: "rgba(255,255,255,0.5)",
-    flex: 1,
+    flex: 2,
     flexDirection: "row",
     justifyContent: "center",
     borderTopColor: "lightgrey",
@@ -120,6 +103,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.7,
   },
   QAndAListContainer: {
-    flex: 5,
+    flex: 9,
   },
 });
