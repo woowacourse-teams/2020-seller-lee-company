@@ -40,6 +40,10 @@ public class ArticleFavoriteCount {
         favoriteCount++;
     }
 
+    public void decrease() {
+        favoriteCount--;
+    }
+
     public Long getId() {
         return id;
     }

@@ -4,6 +4,7 @@
 
 package sellerlee.back.favorite.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.favorite.application.FavoriteCanceledEvent;
 import sellerlee.back.favorite.application.FavoriteCreatedEvent;
 import sellerlee.back.member.domain.Member;
 
@@ -47,8 +49,9 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
         this(null, article, member);
     }
 
-    public void create() {
+    public Favorite create() {
         this.registerEvent(new FavoriteCreatedEvent(this));
+        return this;
     }
 
     public Long getId() {
@@ -61,5 +64,10 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
 
     public Member getMember() {
         return member;
+    }
+
+    public Favorite cancel() {
+        this.registerEvent(new FavoriteCanceledEvent(this));
+        return this;
     }
 }

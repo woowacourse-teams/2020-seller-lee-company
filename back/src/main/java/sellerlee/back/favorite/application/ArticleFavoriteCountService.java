@@ -28,6 +28,13 @@ public class ArticleFavoriteCountService {
 
         ifPresentOrElse(articleFavoriteCount,
                 ArticleFavoriteCount::increase,
-                () -> articleFavoriteCountRepository.save(new ArticleFavoriteCount(article, 0L)));
+                () -> articleFavoriteCountRepository.save(new ArticleFavoriteCount(article, 1L)));
+    }
+
+    @Transactional
+    public void cancel(Article article) {
+        Optional<ArticleFavoriteCount> articleFavoriteCount =
+                articleFavoriteCountRepository.findByArticle(article);
+        articleFavoriteCount.ifPresent(ArticleFavoriteCount::decrease);
     }
 }

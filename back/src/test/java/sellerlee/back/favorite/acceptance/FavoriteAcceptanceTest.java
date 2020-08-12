@@ -7,7 +7,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import sellerlee.back.AcceptanceTest;
-import sellerlee.back.favorite.application.FavoriteCreateRequest;
+import sellerlee.back.favorite.application.FavoriteRequest;
 
 import java.util.stream.Stream;
 
@@ -34,28 +34,16 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     Stream<DynamicTest> manageChatRoom() throws JsonProcessingException {
         // Given
         Long articleId = extractId(createArticle());
-
-        // 찜 등록
-        Long favoriteId = extractId(createFavorite(articleId, MEMBER1.getId()));
+        // 로그인 추가
 
         return Stream.of(
-                dynamicTest("찜 삭제", () -> {
-                    deleteFavorite(favoriteId);
-                })
+                dynamicTest("찜 생성", () -> createFavorite(articleId)),
+                dynamicTest("찜 삭제", () -> deleteFavorite(articleId))
         );
     }
 
-    private void deleteFavorite(Long favoriteId) {
-        given()
-                .when()
-                .delete(FAVORITE_URI + "/{favoriteId}", favoriteId)
-                .then()
-                .log().all()
-                .statusCode(HttpStatus.OK.value());
-    }
-
-    private String createFavorite(Long articleId, Long memberId) throws JsonProcessingException {
-        FavoriteCreateRequest request = new FavoriteCreateRequest(articleId, memberId);
+    private String createFavorite(Long articleId) throws JsonProcessingException {
+        FavoriteRequest request = new FavoriteRequest(articleId);
 
         return given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -67,5 +55,18 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                 .statusCode(HttpStatus.CREATED.value())
                 .extract()
                 .header(HttpHeaders.LOCATION);
+    }
+
+    private void deleteFavorite(Long articleId) throws JsonProcessingException {
+        FavoriteRequest request = new FavoriteRequest(articleId);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(objectMapper.writeValueAsString(request))
+                .when()
+                .delete(FAVORITE_URI)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

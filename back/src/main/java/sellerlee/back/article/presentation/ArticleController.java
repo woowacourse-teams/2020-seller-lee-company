@@ -55,8 +55,8 @@ public class ArticleController {
                 51L,
                 "turtle@woowabro.com",
                 "1234",
-                "testNickname",
                 "testUri",
+                "testNickname",
                 4.5);
         List<FeedResponse> responses = articleViewService.showFeedPage(lastArticleId, size, loginMember);
         return ResponseEntity.ok(responses);

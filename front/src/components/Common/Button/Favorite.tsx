@@ -5,13 +5,16 @@
 import React, { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { favoriteAPI } from "../../../api/api";
 
 interface FavoriteProp {
+  articleId: number;
+  state: boolean;
   count: number;
 }
 
-export default function Favorite({ count }: FavoriteProp) {
-  const [isFavorite, setIsFavorite] = useState(false);
+export default function Favorite({ articleId, state, count }: FavoriteProp) {
+  const [favoriteState, setFavoriteState] = useState(state);
   const [favoriteCount, setFavoriteCount] = useState(count);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
@@ -26,21 +29,23 @@ export default function Favorite({ count }: FavoriteProp) {
     }).start();
   };
 
-  const toggleFavorite = () => {
-    const unmarkFavorite = () => {
-      setIsFavorite(false);
+  const toggleFavorite = async () => {
+    const unmarkFavorite = async () => {
+      await favoriteAPI.delete({ articleId });
+      setFavoriteState(false);
       setFavoriteCount(favoriteCount - 1);
     };
 
-    const markFavorite = () => {
-      setIsFavorite(true);
+    const markFavorite = async () => {
+      await favoriteAPI.post({ articleId });
+      setFavoriteState(true);
       setFavoriteCount(favoriteCount + 1);
     };
 
-    if (isFavorite) {
-      unmarkFavorite();
+    if (favoriteState) {
+      await unmarkFavorite();
     } else {
-      markFavorite();
+      await markFavorite();
     }
     fulfillHeartAnimate();
   };
@@ -48,9 +53,9 @@ export default function Favorite({ count }: FavoriteProp) {
   return (
     <View style={styles.detailsHeartContainer}>
       <AnimateIcon
-        name={isFavorite ? "heart" : "hearto"}
+        name={favoriteState ? "heart" : "hearto"}
         size={23}
-        color={isFavorite ? "red" : "black"}
+        color={favoriteState ? "red" : "black"}
         onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],

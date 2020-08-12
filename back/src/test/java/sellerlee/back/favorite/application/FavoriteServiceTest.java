@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.favorite.domain.FavoriteRepository;
+import sellerlee.back.member.domain.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,15 +34,13 @@ class FavoriteServiceTest {
     void create() {
         when(favoriteRepository.save(any())).thenReturn(new Favorite(1L, ARTICLE1, MEMBER1));
         assertThat(favoriteService.create(
-                new FavoriteCreateRequest(ARTICLE1.getId(), MEMBER1.getId()))).isEqualTo(1L);
+                new FavoriteRequest(ARTICLE1.getId()), MEMBER1)).isEqualTo(1L);
     }
 
     @DisplayName("cancel 요청시 repository에 delete를 요청한다.")
     @Test
     void cancel() {
-        Long favoriteId = 1L;
-
-        favoriteService.cancel(favoriteId);
-        verify(favoriteRepository).deleteById(1L);
+        favoriteService.cancel(new FavoriteRequest(ARTICLE1.getId()), MEMBER1);
+        verify(favoriteRepository).deleteByMemberIdAndArticleId(ARTICLE1.getId(), MEMBER1.getId());
     }
 }

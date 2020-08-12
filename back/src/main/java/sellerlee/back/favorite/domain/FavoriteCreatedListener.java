@@ -7,10 +7,10 @@ import sellerlee.back.favorite.application.ArticleFavoriteCountService;
 import sellerlee.back.favorite.application.FavoriteCreatedEvent;
 
 @Component
-public class FavoriteListener implements ApplicationListener<FavoriteCreatedEvent> {
+public class FavoriteCreatedListener implements ApplicationListener<FavoriteCreatedEvent> {
     private final ArticleFavoriteCountService articleFavoriteCountService;
 
-    public FavoriteListener(ArticleFavoriteCountService articleFavoriteCountService) {
+    public FavoriteCreatedListener(ArticleFavoriteCountService articleFavoriteCountService) {
         this.articleFavoriteCountService = articleFavoriteCountService;
     }
 

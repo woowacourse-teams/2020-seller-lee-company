@@ -123,6 +123,7 @@ export interface Feed {
   articleId: number;
   price: number;
   favoriteCount: number;
+  favoriteState: boolean;
   tags: Tag[];
   photos: string[];
 }

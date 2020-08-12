@@ -49,7 +49,7 @@ interface MemberLogin {
 
 export const memberAPI = {
   post: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, { data }),
+    await axios.post(BASE_URL + domain.login, data),
 };
 
 export const chatRoomAPI = {
@@ -63,12 +63,15 @@ export const chatRoomAPI = {
 
 interface FavoriteCreate {
   articleId: number;
-  memberId: number;
+}
+
+interface FavoriteDelete {
+  articleId: number;
 }
 
 export const favoriteAPI = {
   post: async (data: FavoriteCreate) =>
-    await axios.post(BASE_URL + domain.favorite, { data }),
-  delete: async (favoriteId: number) =>
-    await axios.delete(BASE_URL + domain.favorite + "/" + favoriteId),
+    await axios.post(BASE_URL + domain.favorite, data),
+  delete: async (data: FavoriteDelete) =>
+    await axios.delete(BASE_URL + domain.favorite, { data }),
 };

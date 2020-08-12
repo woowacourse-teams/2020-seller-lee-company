@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import sellerlee.back.favorite.application.FavoriteCreateRequest;
+import sellerlee.back.favorite.application.FavoriteRequest;
 import sellerlee.back.favorite.application.FavoriteService;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -40,9 +40,9 @@ class FavoriteControllerTest {
     @DisplayName("찜 추가를 요청 하면 Status Created를 반환하고 Location이 존재한다.")
     @Test
     void create() throws Exception {
-        when(favoriteService.create(any())).thenReturn(1L);
+        when(favoriteService.create(any(), any())).thenReturn(1L);
 
-        String request = objectMapper.writeValueAsString(new FavoriteCreateRequest(1L, 1L));
+        String request = objectMapper.writeValueAsString(new FavoriteRequest(1L));
 
         mockMvc.perform(post(FAVORITE_URI)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -55,12 +55,15 @@ class FavoriteControllerTest {
     @DisplayName("찜 취소를 요청 하면 Status OK를 반환한다.")
     @Test
     void deleteFavorite() throws Exception {
-        Long favoriteId = 1L;
 
-        mockMvc.perform(delete(FAVORITE_URI + "/{favoriteId}", favoriteId))
+        String request = objectMapper.writeValueAsString(new FavoriteRequest(1L));
+
+        mockMvc.perform(delete(FAVORITE_URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(request))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
-        verify(favoriteService).cancel(favoriteId);
+        verify(favoriteService).cancel(any(), any());
     }
 }
