@@ -1,19 +1,23 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.favorite.acceptance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static sellerlee.back.favorite.presentation.FavoriteController.*;
+
+import java.util.stream.Stream;
+
 import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
 import sellerlee.back.favorite.application.FavoriteRequest;
-
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static sellerlee.back.favorite.presentation.FavoriteController.FAVORITE_URI;
-import static sellerlee.back.fixture.MemberFixture.MEMBER1;
 
 public class FavoriteAcceptanceTest extends AcceptanceTest {
     /**

@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;
@@ -27,7 +27,8 @@ public class ArticleResponse {
     }
 
     private ArticleResponse(Long id, String title, String category, String contents,
-            Long price, String tradeState, List<String> photos, MemberResponse author, boolean favoriteState, long favoriteCount,
+            Long price, String tradeState, List<String> photos, MemberResponse author,
+            boolean favoriteState, long favoriteCount,
             LocalDateTime createdTime) {
         this.id = id;
         this.title = title;

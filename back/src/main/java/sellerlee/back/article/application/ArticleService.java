@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;

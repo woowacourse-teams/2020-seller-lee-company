@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.favorite.application;
 
 import static org.springframework.data.util.Optionals.*;

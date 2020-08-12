@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author kouz95
  */
 
 package sellerlee.back.favorite.domain;

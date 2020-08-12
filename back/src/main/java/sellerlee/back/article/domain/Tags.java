@@ -1,5 +1,5 @@
 /**
- * @author jnsorn
+ * @author kouz95
  */
 
 package sellerlee.back.article.domain;

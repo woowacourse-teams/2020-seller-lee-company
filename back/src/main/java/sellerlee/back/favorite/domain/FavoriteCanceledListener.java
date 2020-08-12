@@ -1,12 +1,14 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.favorite.domain;
 
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import sellerlee.back.favorite.application.ArticleFavoriteCountService;
 import sellerlee.back.favorite.application.FavoriteCanceledEvent;
-import sellerlee.back.favorite.application.FavoriteCreatedEvent;
 
 @Component
 public class FavoriteCanceledListener implements ApplicationListener<FavoriteCanceledEvent> {

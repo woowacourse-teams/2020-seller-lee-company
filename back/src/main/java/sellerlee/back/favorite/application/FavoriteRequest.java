@@ -1,8 +1,8 @@
-package sellerlee.back.favorite.application;
+/**
+ * @author kouz95
+ */
 
-import sellerlee.back.article.domain.Article;
-import sellerlee.back.favorite.domain.Favorite;
-import sellerlee.back.member.domain.Member;
+package sellerlee.back.favorite.application;
 
 public class FavoriteRequest {
     private Long articleId;

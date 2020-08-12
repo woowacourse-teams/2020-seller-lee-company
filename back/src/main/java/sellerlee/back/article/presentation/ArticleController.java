@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.presentation;
@@ -58,7 +58,8 @@ public class ArticleController {
                 "testUri",
                 "testNickname",
                 4.5);
-        List<FeedResponse> responses = articleViewService.showFeedPage(lastArticleId, size, loginMember);
+        List<FeedResponse> responses = articleViewService.showFeedPage(lastArticleId, size,
+                loginMember);
         return ResponseEntity.ok(responses);
     }
 

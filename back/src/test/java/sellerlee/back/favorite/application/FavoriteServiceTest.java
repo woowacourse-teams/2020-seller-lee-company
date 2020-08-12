@@ -1,4 +1,14 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.favorite.application;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,16 +16,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.favorite.domain.FavoriteRepository;
-import sellerlee.back.member.domain.Member;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static sellerlee.back.fixture.ArticleFixture.ARTICLE1;
-import static sellerlee.back.fixture.MemberFixture.MEMBER1;
 
 @ExtendWith(value = MockitoExtension.class)
 class FavoriteServiceTest {

@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.favorite.application;
 
 import org.springframework.context.ApplicationEvent;
@@ -9,7 +13,7 @@ public class FavoriteCanceledEvent extends ApplicationEvent {
 
     public FavoriteCanceledEvent(Object source) {
         super(source);
-        favorite = (Favorite) source;
+        favorite = (Favorite)source;
     }
 
     public Favorite getFavorite() {

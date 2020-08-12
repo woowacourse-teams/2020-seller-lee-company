@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.favorite.domain;
 
 import org.springframework.context.ApplicationListener;
