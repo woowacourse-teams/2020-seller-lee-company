@@ -43,7 +43,7 @@ class MemberServiceTest {
         when(jwtTokenProvider.createToken(anyString()))
                 .thenReturn("token");
 
-        memberService.login(MEMBER_LOGIN_REQUEST_FIXTURE);
+        memberService.login(MEMBER_LOGIN_REQUEST);
         verify(memberRepository).findMemberByEmail(anyString());
     }
 
@@ -53,7 +53,7 @@ class MemberServiceTest {
         when(memberRepository.findMemberByEmail(anyString()))
                 .thenThrow(new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
 
-        assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE))
+        assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("이메일이 일치하는 회원이 존재하지 않습니다.");
 
@@ -66,7 +66,7 @@ class MemberServiceTest {
         when(memberRepository.findMemberByEmail(anyString()))
                 .thenThrow(new IllegalLoginException("비밀번호가 일치하지 않습니다."));
 
-        assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE))
+        assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("비밀번호가 일치하지 않습니다.");
 

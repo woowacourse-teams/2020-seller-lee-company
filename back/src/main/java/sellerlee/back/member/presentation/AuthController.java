@@ -16,13 +16,16 @@ import sellerlee.back.security.web.AuthorizationType;
 
 @RestController
 public class AuthController {
+    public static final String MEMBER_URL = "/members";
+    public static final String LOGIN_URL = "/login";
+
     private final MemberService memberService;
 
     public AuthController(MemberService memberService) {
         this.memberService = memberService;
     }
 
-    @PostMapping("/login")
+    @PostMapping(LOGIN_URL)
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
         String token = memberService.login(request);
 

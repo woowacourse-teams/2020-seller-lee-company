@@ -57,7 +57,7 @@ class AuthControllerTest {
     @DisplayName("로그인시 이메일에 해당하는 회원이 존재하고, 패스워드가 일치하면 HttpStatus는 OK이다.")
     @Test
     void login() throws Exception {
-        String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST_FIXTURE);
+        String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST);
 
         when(memberService.login(any())).thenReturn(TEST_TOKEN_SECRET_KEY);
 

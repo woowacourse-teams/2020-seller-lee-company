@@ -4,43 +4,29 @@
 
 package sellerlee.back.member.acceptance;
 
-import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.fixture.MemberFixture.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.RestAssured;
-import sellerlee.back.member.application.TokenResponse;
+import sellerlee.back.AcceptanceTest;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MemberAcceptanceTest {
-    @LocalServerPort
-    private int port;
-
-    private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
-        objectMapper = new ObjectMapper();
-    }
-
+public class MemberAcceptanceTest extends AcceptanceTest {
     /**
      * Feature: 회원 관리
      * <p>
      * Scenario: 회원을 관리한다.
+     * <p>
+     * When 회원가입 요청을 한다
+     * Then 회원 생성 여부를 응답받는다.
      * <p>
      * Given 회원이 등록되어 있다.
      * <p>
@@ -51,24 +37,24 @@ public class MemberAcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageMember() {
         return Stream.of(
-                dynamicTest("회원 로그인", () -> {
-                    login();
-                })
+                dynamicTest("회원 가입", this::join),
+                dynamicTest("회원 로그인", this::login)
         );
     }
 
-    private TokenResponse login() throws JsonProcessingException {
-        String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST_FIXTURE);
+    private void join() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(MEMBER_CREATE_REQUEST);
 
-        return given()
+        // @formatter:off
+        given()
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .log().all()
-                .when()
-                .post("/login")
-                .then()
+        .when()
+                .post(MEMBER_URL)
+        .then()
                 .log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract().as(TokenResponse.class);
+                .statusCode(HttpStatus.CREATED.value());
+        // @formatter:on
     }
 }
