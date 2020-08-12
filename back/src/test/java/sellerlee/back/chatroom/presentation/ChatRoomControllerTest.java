@@ -8,6 +8,8 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -28,6 +30,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -57,7 +60,7 @@ class ChatRoomControllerTest {
                 .build();
     }
 
-    @DisplayName("ChatRoom에 post요청시 Status Code는 Created이다.")
+    @DisplayName("ChatRoom에 POST 요청시 Status Code는 Created이다.")
     @Test
     void createChatRoom() throws Exception {
         ChatRoomCreateRequest createRequest = new ChatRoomCreateRequest(ARTICLE1.getId(),
@@ -72,12 +75,13 @@ class ChatRoomControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(document("chat-rooms/post",
-                        requestHeaders(
-                                headerWithName("Authorization").description("회원의 토큰")
-                        ),
-                        requestParameters(
-                                parameterWithName("articleId").description("게시글의 ID"),
-                                parameterWithName("buyerId").description("구매자(채팅 생성자)의 ID")
+                        preprocessRequest(prettyPrint()),
+                        // requestHeaders(
+                        //         headerWithName("Authorization").description("회원의 토큰")
+                        // ),
+                        requestFields(
+                                fieldWithPath("articleId").type(JsonFieldType.NUMBER).description("게시글의 ID"),
+                                fieldWithPath("buyerId").type(JsonFieldType.NUMBER).description("구매자(채팅 생성자)의 ID")
                         ),
                         responseHeaders(
                                 headerWithName("Location").description("생성된 채팅방의 ID가 담긴 URI")
@@ -96,9 +100,10 @@ class ChatRoomControllerTest {
                 .param("articleId", "1"))
                 .andExpect(status().isOk())
                 .andDo(document("chat-rooms/",
-                        requestHeaders(
-                                headerWithName("Authorization").description("회원의 토큰")
-                        ),
+                        preprocessResponse(prettyPrint()),
+                        // requestHeaders(
+                        //         headerWithName("Authorization").description("회원의 토큰")
+                        // ),
                         requestParameters(
                                 parameterWithName("articleId").description("게시글의 ID")
                         )

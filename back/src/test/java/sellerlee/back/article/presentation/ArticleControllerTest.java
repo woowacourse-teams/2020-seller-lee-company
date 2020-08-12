@@ -3,6 +3,7 @@ package sellerlee.back.article.presentation;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -25,6 +26,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -72,9 +74,10 @@ class ArticleControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(document("articles/post",
-                        requestHeaders(
-                                headerWithName("Authorization").description("회원의 토큰")
-                        ),
+                        preprocessRequest(prettyPrint()),
+                        // requestHeaders(
+                        //         headerWithName("Authorization").description("회원의 토큰")
+                        // ),
                         requestFields(
                                 fieldWithPath("title").type(JsonFieldType.STRING)
                                         .description("게시글의 제목"),
@@ -110,9 +113,11 @@ class ArticleControllerTest {
                 .param("size", String.valueOf(ARTICLE_SIZE)))
                 .andExpect(status().isOk())
                 .andDo(document("articles/getPage",
-                        requestHeaders(
-                                headerWithName("Authorization").description("회원의 토큰")
-                        ),
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        // requestHeaders(
+                        //         headerWithName("Authorization").description("회원의 토큰")
+                        // ),
                         requestParameters(
                                 parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
                                 parameterWithName("size").description("가져올 페이지의 크기(게시물 수)")
@@ -126,15 +131,18 @@ class ArticleControllerTest {
         when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1))
                 .thenReturn(ArticleResponse.of(ARTICLE1, true, 1));
 
-        mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
-                // Request Header에 토큰을 넣는 방식으로 문서화 했음
-                // 이 부분이 지워질 때 아래 문서화 부분은 건드리지 않아도 됨
-                .param("memberId", String.valueOf(MEMBER1.getId())))
+        // URI Path variable을 가져와야 해서 RestDocumentationRequestBuilders.get()을 사용했음
+        mockMvc.perform(
+                RestDocumentationRequestBuilders.get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
+                        .param("memberId", String.valueOf(MEMBER1.getId())))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("articles/get",
-                        requestHeaders(
-                                headerWithName("Authorization").description("회원의 토큰")
+                        // requestHeaders(
+                        //         headerWithName("Authorization").description("회원의 토큰")
+                        // ),
+                        requestParameters(
+                                parameterWithName("memberId").description("회원의 ID")
                         ),
                         pathParameters(
                                 parameterWithName("id").description("게시글의 ID")
