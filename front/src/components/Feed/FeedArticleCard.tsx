@@ -16,6 +16,8 @@ import Favorite from "../Common/Button/Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useNavigation } from "@react-navigation/native";
 import { insertComma } from "../../replacePriceWithComma";
+import { useSetRecoilState } from "recoil/dist";
+import { articleSelectedIdState } from "../../states/articleState";
 
 const ANIMATE_START_VALUE = 0.93;
 
@@ -27,6 +29,7 @@ export default function FeedArticleCard({
   photos,
 }: Feed) {
   const navigation = useNavigation<FeedHomeNavigationProp>();
+  const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
@@ -48,7 +51,8 @@ export default function FeedArticleCard({
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedDetail", { articleId: id });
+        setArticleSelectedId(id);
+        navigation.navigate("FeedDetail");
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >

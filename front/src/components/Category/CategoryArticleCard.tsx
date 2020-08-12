@@ -7,11 +7,6 @@ import { Image, ImageProps, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import calculateDiffTime from "../../calculateDiffTime";
 
-type ArticleDetail = {
-  location?: string;
-  tradeType: string;
-};
-
 type ArticleAdditional = {
   favoriteCount: number;
   chatCount: number;
@@ -21,7 +16,6 @@ export interface CategoryArticleCardProps {
   title: string;
   price: number;
   createdAt: string;
-  detail: ArticleDetail;
   additional: ArticleAdditional;
   thumbnail: ImageProps;
 }
@@ -30,7 +24,6 @@ export default function CategoryArticleCard({
   title,
   price,
   createdAt,
-  detail,
   additional,
   thumbnail,
 }: CategoryArticleCardProps) {
@@ -43,21 +36,14 @@ export default function CategoryArticleCard({
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={styles.tradeDetailContainer}>
-          <View style={styles.tradeTypeContainer}>
-            <Text style={styles.tradeType}>
-              {detail.location ? detail.location + " / " : ""}
-              {detail.tradeType}
+        <View style={styles.createTimeContainer}>
+          <View style={styles.timeContainer}>
+            <Text style={styles.createdTime}>
+              {calculateDiffTime(createdAt)}
             </Text>
           </View>
-          <Text>∙</Text>
-          <View style={styles.timeContainer}>
-            <Text style={styles.tradeType}>{calculateDiffTime(createdAt)}</Text>
-          </View>
         </View>
-        <View style={styles.priceContainer}>
-          <Text style={styles.price}>{price}원</Text>
-        </View>
+        <Text style={styles.price}>{price}원</Text>
         <View style={styles.additionalContainer}>
           <View style={styles.chatContainer}>
             <MaterialCommunityIcons
@@ -114,21 +100,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
   },
-  tradeDetailContainer: {
+  createTimeContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
-  tradeTypeContainer: {
-    justifyContent: "center",
-  },
-  tradeType: {
+  createdTime: {
     margin: 3,
     fontSize: 10,
   },
   timeContainer: {
     justifyContent: "center",
   },
-  priceContainer: {},
   price: {
     margin: 3,
     fontSize: 14,

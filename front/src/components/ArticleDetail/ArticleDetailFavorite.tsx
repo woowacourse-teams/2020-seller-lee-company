@@ -2,33 +2,19 @@
  * @author joseph415
  */
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import axios from "axios";
 import { AntDesign } from "@expo/vector-icons";
-import { ArticleDetailFavoriteProp } from "../../types/types";
 import theme from "../../colors";
+import { useRecoilState } from "recoil/dist";
+import { articleSelectedState } from "../../states/articleState";
 
-export default function ArticleDetailFavorite({
-  articleId,
-}: ArticleDetailFavoriteProp) {
-  const [favoriteState, setFavoriteState] = useState(false);
+export default function ArticleDetailFavorite() {
+  const [article, setArticle] = useRecoilState(articleSelectedState);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    const getRequest = async () => {
-      const {
-        data: { myFavoriteState },
-      } = await axios.get(`/favorite/1/${articleId}`, {
-        timeout: 1000,
-      });
-      setFavoriteState(myFavoriteState);
-    };
-
-    getRequest();
-  }, [articleId]);
 
   const fulfillHeartAnimate = () => {
     springValue.setValue(0.33);
@@ -40,17 +26,17 @@ export default function ArticleDetailFavorite({
   };
 
   const unmarkFavorite = async () => {
-    setFavoriteState(false);
-    await axios.delete(`/favorite/1/${articleId}`);
+    setArticle({ ...article, favoriteState: false });
+    await axios.delete(`/favorite/1`);
   };
 
   const markFavorite = async () => {
-    setFavoriteState(true);
-    await axios.post(`/favorite/1/${articleId}`);
+    setArticle({ ...article, favoriteState: true });
+    await axios.post(`/favorite/1`);
   };
 
   const toggleFavorite = () => {
-    if (favoriteState) {
+    if (article.favoriteState) {
       unmarkFavorite();
     } else {
       markFavorite();
@@ -61,9 +47,9 @@ export default function ArticleDetailFavorite({
   return (
     <View style={styles.container}>
       <AnimateIcon
-        name={favoriteState ? "heart" : "hearto"}
+        name={article.favoriteState ? "heart" : "hearto"}
         size={25}
-        color={favoriteState ? theme.others : "black"}
+        color={article.favoriteState ? theme.others : "black"}
         onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],

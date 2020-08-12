@@ -2,45 +2,39 @@
  * @author joseph415
  */
 
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import ArticlePriceAndTradeType from "../components/Article/ArticlePriceAndTradeType";
+import ArticlePrice from "../components/Article/ArticlePrice";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
-import { ArticleDetailScreenProp, AuthorScoreType } from "../types/types";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
 import theme from "../colors";
 import { articleDetailAPI } from "../api/api";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import {
+  articleSelectedIdState,
+  articleSelectedState,
+} from "../states/articleState";
+import { ArticleDetailNavigationProp } from "../types/types";
 
-interface ArticleDetailScreenProps {
-  articleId: number;
-}
+export default function ArticleDetailScreen() {
+  const navigation = useNavigation<ArticleDetailNavigationProp>();
+  const articleId = useRecoilValue(articleSelectedIdState);
+  const setArticleSelected = useSetRecoilState(articleSelectedState);
 
-export default function ArticleDetailScreen({
-  articleId,
-}: ArticleDetailScreenProps) {
-  const navigation = useNavigation<ArticleDetailScreenProp>();
-
-  const getMockImages = () => {
-    return [
-      "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-      "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-      "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-    ];
+  const getArticle = async () => {
+    const { data } = await articleDetailAPI.get(articleId);
+    setArticleSelected(data);
   };
 
-  const articleDetail = async () => {
-    try {
-      return await articleDetailAPI.get(articleId);
-    } catch (error) {
-      console.log("showArticle error");
-    }
-  };
+  useEffect(() => {
+    getArticle();
+  }, [articleId]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,17 +61,10 @@ export default function ArticleDetailScreen({
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.imageSliderContainer}>
-          <ArticleDetailImageSlider photos={getMockImages()} />
+          <ArticleDetailImageSlider />
         </View>
         <View style={styles.articleAuthorContainer}>
-          <ArticleAuthor
-            name={"스티치"}
-            score={7 as AuthorScoreType}
-            avatar={{
-              uri:
-                "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-            }}
-          />
+          <ArticleAuthor />
         </View>
         <View style={styles.articleDetailContainer}>
           <ArticleDetail />
@@ -85,9 +72,9 @@ export default function ArticleDetailScreen({
       </ScrollView>
       <View style={styles.bottomTab}>
         <View style={styles.articleDetailFavoriteContainer}>
-          <ArticleDetailFavorite articleId={articleId} />
+          <ArticleDetailFavorite />
         </View>
-        <ArticlePriceAndTradeType articleId={articleId} />
+        <ArticlePrice />
         <View style={styles.chatButtonContainer}>
           <ArticleDetailChatButton />
         </View>

@@ -1,5 +1,5 @@
 /**
- * @author lxxjn0
+ * @author kouz95
  */
 
 import { RouteProp } from "@react-navigation/native";
@@ -19,22 +19,15 @@ export type TabHomeNavigationProp = BottomTabNavigationProp<
 export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedDetail: { articleId: number };
+  FeedDetail: undefined;
   ChatRoom: undefined;
   ArticleDetailScreen: undefined;
-  ArticleDetailImageViewScreen: {
-    photos: string[];
-  };
+  ArticleDetailImageViewScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "FeedHome"
->;
-
-export type FeedDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "FeedDetail"
 >;
 
 export type ChatRoomNavigationProp = StackNavigationProp<
@@ -83,15 +76,6 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type ImageSliderNavigationProp = StackNavigationProp<
-  ImageSliderParamList,
-  "ArticleDetailImageViewScreen"
->;
-
-export interface CategoryItemProps {
-  title: string;
-}
-
 export type ArticleCreateParamList = {
   ArticleCreateScreen: undefined;
   ArticleContentsFormScreen: undefined;
@@ -133,15 +117,7 @@ export interface FavoriteCountAndHitProps {
   hit: number;
 }
 
-export interface AuthorAvatarType {
-  uri: string;
-}
-
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-
-export interface ArticleDetailFavoriteProp {
-  articleId: number;
-}
 
 export interface Feed {
   id: number;
@@ -183,7 +159,6 @@ export interface Article {
   category: string;
   price: number;
   contents: string;
-  tradeType: string;
   tradeState: string;
   photos: ImageURISource[];
   tags: Tag[];
@@ -203,4 +178,9 @@ export interface Favorite {
   id: number;
   memberId: number;
   articleId: number;
+}
+
+export interface Buyer {
+  avatar: string;
+  nickname: string;
 }
