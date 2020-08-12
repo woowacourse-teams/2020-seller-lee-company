@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.presentation;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -75,6 +71,7 @@ class ChatRoomControllerTest {
                 .andExpect(status().isCreated())
                 .andDo(document("chat-rooms/post",
                         preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         // requestHeaders(
                         //         headerWithName("Authorization").description("회원의 토큰")
                         // ),
@@ -101,6 +98,7 @@ class ChatRoomControllerTest {
                 .param("articleId", "1"))
                 .andExpect(status().isOk())
                 .andDo(document("chat-rooms/",
+                        preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         // requestHeaders(
                         //         headerWithName("Authorization").description("회원의 토큰")

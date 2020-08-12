@@ -2,6 +2,7 @@ package sellerlee.back.member.presentation;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -64,6 +65,8 @@ class LoginAdviceControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andDo(document("login/advice/email",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         requestFields(
                                 fieldWithPath("email").type(JsonFieldType.STRING)
                                         .description("사용자가 입력한 이메일"),
@@ -88,6 +91,8 @@ class LoginAdviceControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andDo(document("login/advice/password",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         requestFields(
                                 fieldWithPath("email").description("사용자가 입력한 이메일"),
                                 fieldWithPath("password").description("사용자가 입력한 비밀번호")

@@ -82,12 +82,16 @@ class ArticleControllerTest {
                                         .description("게시글의 제목"),
                                 fieldWithPath("category").type(JsonFieldType.STRING)
                                         .description("게시글의 카테고리"),
-                                fieldWithPath("contents").type(JsonFieldType.NUMBER)
+                                fieldWithPath("contents").type(JsonFieldType.STRING)
                                         .description("게시글의 내용"),
                                 fieldWithPath("price").type(JsonFieldType.NUMBER)
                                         .description("게시글의 가격"),
-                                fieldWithPath("tradeState").type(JsonFieldType.STRING)
-                                        .description("게시글의 판매 상태"),
+                                // fieldWithPath("tradeState").type(JsonFieldType.STRING)
+                                //         .description("게시글의 판매 상태"),
+                                fieldWithPath("tradeType").type(JsonFieldType.STRING)
+                                        .description("게시글의 거래 유형"),
+                                fieldWithPath("tradeLocation").type(JsonFieldType.STRING)
+                                        .description("게시글의 거래 지역"),
                                 fieldWithPath("tags").type(JsonFieldType.ARRAY)
                                         .description("태그의 리스트"),
                                 fieldWithPath("photos").type(JsonFieldType.ARRAY)
@@ -120,6 +124,18 @@ class ArticleControllerTest {
                         requestParameters(
                                 parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
                                 parameterWithName("size").description("가져올 페이지의 크기(게시물 수)")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].id").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 ID"),
+                                fieldWithPath("[].price").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 가격"),
+                                fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 찜 개수"),
+                                fieldWithPath("[].tags").type(JsonFieldType.ARRAY)
+                                        .description("태그의 리스트"),
+                                fieldWithPath("[].photos").type(JsonFieldType.ARRAY)
+                                        .description("사진의 리스트")
                         )
                 ));
     }
@@ -132,11 +148,14 @@ class ArticleControllerTest {
 
         // URI Path variable을 가져와야 해서 RestDocumentationRequestBuilders.get()을 사용했음
         mockMvc.perform(
-                RestDocumentationRequestBuilders.get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
+                RestDocumentationRequestBuilders
+                        .get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
                         .param("memberId", String.valueOf(MEMBER1.getId())))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("articles/get",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         // requestHeaders(
                         //         headerWithName("Authorization").description("회원의 토큰")
                         // ),
@@ -145,6 +164,38 @@ class ArticleControllerTest {
                         ),
                         pathParameters(
                                 parameterWithName("id").description("게시글의 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 ID"),
+                                fieldWithPath("title").type(JsonFieldType.STRING)
+                                        .description("게시글의 제목"),
+                                fieldWithPath("category").type(JsonFieldType.STRING)
+                                        .description("게시글의 카테고리"),
+                                fieldWithPath("contents").type(JsonFieldType.STRING)
+                                        .description("게시글의 내용"),
+                                fieldWithPath("price").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 가격"),
+                                fieldWithPath("tradeType").type(JsonFieldType.STRING)
+                                        .description("게시글의 거래 유형"),
+                                fieldWithPath("tradeLocation").type(JsonFieldType.STRING)
+                                        .description("게시글의 거래 지역"),
+                                fieldWithPath("tradeState").type(JsonFieldType.STRING)
+                                        .description("게시글의 판매 상태"),
+                                fieldWithPath("photos").type(JsonFieldType.ARRAY)
+                                        .description("사진의 리스트"),
+                                fieldWithPath("author.avatar").type(JsonFieldType.STRING)
+                                        .description("게시글 작성자의 프로필 사진"),
+                                fieldWithPath("author.nickname").type(JsonFieldType.STRING)
+                                        .description("게시글 작성자의 닉네임"),
+                                fieldWithPath("author.score").type(JsonFieldType.NUMBER)
+                                        .description("게시글 작성자의 점수"),
+                                fieldWithPath("favoriteState").type(JsonFieldType.BOOLEAN)
+                                        .description("작성자의 게시글 찜 여부"),
+                                fieldWithPath("favoriteCount").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 찜 개수"),
+                                fieldWithPath("createdTime").type(JsonFieldType.STRING)
+                                        .description("게시글 생성 시간")
                         )
                 ));
     }
