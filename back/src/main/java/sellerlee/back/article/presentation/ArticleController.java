@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author lxxjn0
  */
 
 package sellerlee.back.article.presentation;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sellerlee.back.article.application.ArticleCreateRequest;
-import sellerlee.back.article.application.ArticleDetailResponse;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
@@ -56,7 +56,7 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long id) {
+    public ResponseEntity<ArticleResponse> show(@PathVariable Long id) {
         Member member = new Member(
                 51L,
                 "turtle@woowabro.com",
@@ -64,8 +64,8 @@ public class ArticleController {
                 "testNickname",
                 "testUri",
                 4.5);
-        ArticleDetailResponse articleDetailResponse = articleViewService.showArticle(id, member);
+        ArticleResponse articleResponse = articleViewService.show(id, member);
 
-        return ResponseEntity.ok(articleDetailResponse);
+        return ResponseEntity.ok(articleResponse);
     }
 }

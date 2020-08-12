@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 import React from "react";
@@ -15,7 +15,7 @@ export default function ArticleCard({
   price,
   tradeType,
   location,
-  createdAt,
+  createdTime,
   favoriteCount,
   chatCount,
   thumbnail,
@@ -30,7 +30,7 @@ export default function ArticleCard({
         <ArticleCardTradeDetails
           location={location}
           tradeType={tradeType}
-          createdAt={createdAt}
+          createdTime={createdTime}
         />
         <ArticleCardAdditional
           price={price}

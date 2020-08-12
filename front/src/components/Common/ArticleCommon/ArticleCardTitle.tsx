@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 import React from "react";
@@ -7,17 +7,23 @@ import { StyleSheet, Text, View } from "react-native";
 
 const MAX_LIMIT_TITLE_LENGTH = 47;
 
-interface IArticleCardTitle {
+interface ArticleCardTitleProps {
   title: string;
 }
 
-export default function ArticleCardTitle({ title }: IArticleCardTitle) {
+export default function ArticleCardTitle({ title }: ArticleCardTitleProps) {
+  const isOverLengthTitle = () => {
+    return title.length > MAX_LIMIT_TITLE_LENGTH;
+  };
+
+  const reduceOverLengthTitle = () => {
+    return title.substring(0, MAX_LIMIT_TITLE_LENGTH - 3) + "...";
+  };
+
   return (
     <View style={styles.titleContainer}>
       <Text style={styles.title}>
-        {title.length > MAX_LIMIT_TITLE_LENGTH
-          ? title.substring(0, MAX_LIMIT_TITLE_LENGTH - 3) + "..."
-          : title}
+        {isOverLengthTitle() ? reduceOverLengthTitle() : title}
       </Text>
     </View>
   );

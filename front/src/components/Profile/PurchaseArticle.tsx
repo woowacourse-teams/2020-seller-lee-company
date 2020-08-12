@@ -12,7 +12,7 @@ interface PurchaseArticleProps {
   price: number;
   tradeType: string;
   location?: string;
-  createdAt: string;
+  createdTime: string;
   favoriteCount: number;
   chatCount: number;
   thumbnail: string;
@@ -22,7 +22,7 @@ export default function PurchaseArticle({
   title,
   price,
   tradeType,
-  createdAt,
+  createdTime,
   favoriteCount,
   chatCount,
   thumbnail,
@@ -34,7 +34,7 @@ export default function PurchaseArticle({
           title={title}
           price={price}
           tradeType={tradeType}
-          createdAt={createdAt}
+          createdTime={createdTime}
           favoriteCount={favoriteCount}
           chatCount={chatCount}
           thumbnail={thumbnail}

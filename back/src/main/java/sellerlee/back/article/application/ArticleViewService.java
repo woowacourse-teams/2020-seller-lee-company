@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 package sellerlee.back.article.application;
@@ -25,7 +25,7 @@ public class ArticleViewService {
         this.favoriteRepository = favoriteRepository;
     }
 
-    public ArticleDetailResponse showArticle(Long articleId, Member member) {
+    public ArticleResponse show(Long articleId, Member member) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 
@@ -34,6 +34,6 @@ public class ArticleViewService {
 
         long favoriteCount = favoriteRepository.countAllByMember(member);
 
-        return ArticleDetailResponse.of(article, favorite.isPresent(), favoriteCount);
+        return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }
 }

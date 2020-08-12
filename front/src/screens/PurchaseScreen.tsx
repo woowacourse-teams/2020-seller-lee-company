@@ -15,7 +15,7 @@ import { tradeArticleState } from "../states/articleState";
 
 export default function PurchaseScreen() {
   const navigation = useNavigation<PurchaseScreenNavigationProp>();
-  const [articles, setArticles] = useRecoilState(tradeArticleState);
+  const [tradeArticles, setTradeArticles] = useRecoilState(tradeArticleState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,13 +36,13 @@ export default function PurchaseScreen() {
   });
 
   useEffect(() => {
-    setArticle();
+    getArticles();
   }, []);
 
-  const setArticle = async () => {
+  const getArticles = async () => {
     try {
       const { data } = await tradeAPI.get();
-      setArticles(data);
+      setTradeArticles(data);
     } catch (error) {
       console.log("tradeArticle error");
     }
@@ -51,13 +51,13 @@ export default function PurchaseScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={articles}
+        data={tradeArticles}
         renderItem={({ item }) => (
           <PurchaseArticle
             title={item.title}
             price={item.price}
             tradeType={item.tradeType}
-            createdAt={item.createdTime}
+            createdTime={item.createdTime}
             favoriteCount={7}
             chatCount={2}
             thumbnail={item.thumbnail}

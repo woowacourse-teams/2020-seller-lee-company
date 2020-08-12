@@ -1,15 +1,15 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 
-interface IArticleCardImage {
+interface ArticleCardImageProps {
   thumbnail: string;
 }
 
-export default function ArticleCardImage({ thumbnail }: IArticleCardImage) {
+export default function ArticleCardImage({ thumbnail }: ArticleCardImageProps) {
   return (
     <View style={styles.imageContainer}>
       <Image style={styles.image} source={{ uri: thumbnail }} />

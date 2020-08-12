@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author lxxjn0
  */
 
 package sellerlee.back.article.presentation;
@@ -26,7 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import sellerlee.back.article.application.ArticleDetailResponse;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
@@ -79,8 +79,8 @@ class ArticleControllerTest {
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
-        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1))
-                .thenReturn(ArticleDetailResponse.of(ARTICLE1, true, 1));
+        when(articleViewService.show(ARTICLE1.getId(), MEMBER1))
+                .thenReturn(ArticleResponse.of(ARTICLE1, true, 1));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
                 .param("memberId", String.valueOf(MEMBER1.getId())))

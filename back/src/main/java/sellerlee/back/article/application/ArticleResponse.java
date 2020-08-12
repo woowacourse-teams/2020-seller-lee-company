@@ -1,49 +1,85 @@
+/**
+ * @author lxxjn0
+ */
+
 package sellerlee.back.article.application;
 
-import static java.util.stream.Collectors.*;
-
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.trade.application.AuthorResponse;
 
 public class ArticleResponse {
+    private Long id;
     private String title;
+    private String category;
+    private String contents;
     private Long price;
     private String tradeType;
     private String tradeLocation;
-    private String thumbnail;
-    private String createdTime;
+    private String tradeState;
+    private List<String> photos;
+    private AuthorResponse author;
+    private boolean favoriteState;
+    private long favoriteCount;
+    private LocalDateTime createdTime;
 
-    private ArticleResponse(String title, Long price, String tradeType, String tradeLocation,
-            String thumbnail, String createdTime) {
+    private ArticleResponse() {
+    }
+
+    private ArticleResponse(Long id, String title, String category, String contents,
+            Long price, String tradeType, String tradeLocation, String tradeState,
+            List<String> photos, AuthorResponse author, boolean favoriteState, long favoriteCount,
+            LocalDateTime createdTime) {
+        this.id = id;
         this.title = title;
+        this.category = category;
+        this.contents = contents;
         this.price = price;
         this.tradeType = tradeType;
         this.tradeLocation = tradeLocation;
-        this.thumbnail = thumbnail;
+        this.tradeState = tradeState;
+        this.photos = photos;
+        this.author = author;
+        this.favoriteState = favoriteState;
+        this.favoriteCount = favoriteCount;
         this.createdTime = createdTime;
     }
 
-    public static ArticleResponse of(Article article) {
+    public static ArticleResponse of(Article article, boolean favoriteState,
+            long favoriteCount) {
         return new ArticleResponse(
+                article.getId(),
                 article.getTitle(),
+                article.getCategory().getCategory(),
+                article.getContents(),
                 article.getPrice(),
                 article.getTradeType().getTradeType(),
                 article.getTradeLocation(),
-                article.getPhotos().pickThumbnail(),
-                article.getCreatedTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                article.getTradeState().getTradeState(),
+                article.getPhotos().getPhotos(),
+                AuthorResponse.of(article.getAuthor()),
+                favoriteState,
+                favoriteCount,
+                article.getCreatedTime()
         );
     }
 
-    public static List<ArticleResponse> listOf(List<Article> articles) {
-        return articles.stream()
-                .map(ArticleResponse::of)
-                .collect(toList());
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getContents() {
+        return contents;
     }
 
     public Long getPrice() {
@@ -58,11 +94,27 @@ public class ArticleResponse {
         return tradeLocation;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getTradeState() {
+        return tradeState;
     }
 
-    public String getCreatedTime() {
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public AuthorResponse getAuthor() {
+        return author;
+    }
+
+    public boolean getFavoriteState() {
+        return favoriteState;
+    }
+
+    public long getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 }

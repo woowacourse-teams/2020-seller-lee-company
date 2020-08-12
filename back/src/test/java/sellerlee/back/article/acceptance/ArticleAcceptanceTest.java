@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author lxxjn0
  */
 
 package sellerlee.back.article.acceptance;
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
-import sellerlee.back.article.application.ArticleDetailResponse;
+import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -76,9 +76,9 @@ public class ArticleAcceptanceTest {
                     assertThat(feedArticleResponses.size()).isEqualTo(1L);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
-                    ArticleDetailResponse articleDetailResponse = getArticleResponse();
-                    assertThat(articleDetailResponse.getId()).isEqualTo(ARTICLE1.getId());
-                    assertThat(articleDetailResponse.getFavoriteState()).isTrue();
+                    ArticleResponse articleResponse = getArticleResponse();
+                    assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
+                    assertThat(articleResponse.getFavoriteState()).isTrue();
                 })
         );
     }
@@ -107,7 +107,7 @@ public class ArticleAcceptanceTest {
                 .extract().jsonPath().getList(".", FeedResponse.class);
     }
 
-    private ArticleDetailResponse getArticleResponse() {
+    private ArticleResponse getArticleResponse() {
         String url = ARTICLE_URI + "/" + ARTICLE1.getId();
 
         return given()
@@ -117,6 +117,6 @@ public class ArticleAcceptanceTest {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.OK.value())
-                .extract().jsonPath().getObject(".", ArticleDetailResponse.class);
+                .extract().jsonPath().getObject(".", ArticleResponse.class);
     }
 }

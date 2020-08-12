@@ -1,3 +1,7 @@
+/**
+ * @author lxxjn0
+ */
+
 package sellerlee.back.trade.presentation;
 
 import static org.mockito.Mockito.*;
@@ -16,14 +20,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.trade.application.TradeService;
 
 @WebMvcTest(controllers = TradeController.class)
 class TradeControllerTest {
     @MockBean
     private TradeService tradeService;
-    
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -31,7 +35,8 @@ class TradeControllerTest {
     @Test
     void showAll() throws Exception {
         when(tradeService.showAll(any()))
-                .thenReturn(ArticleResponse.listOf(Arrays.asList(ARTICLE1, ARTICLE2, ARTICLE3)));
+                .thenReturn(
+                        ArticleCardResponse.listOf(Arrays.asList(ARTICLE1, ARTICLE2, ARTICLE3)));
 
         this.mockMvc.perform(get(ORDER_URI))
                 .andDo(print())

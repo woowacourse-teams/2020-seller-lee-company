@@ -1,22 +1,22 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import calculateDiffTime from "../../../calculateDiffTime";
 
-interface IArticleCardTradeDetails {
+interface ArticleCardTradeDetailsProps {
   location?: string;
   tradeType: string;
-  createdAt: string;
+  createdTime: string;
 }
 
 export default function ArticleCardTradeDetails({
   location,
   tradeType,
-  createdAt,
-}: IArticleCardTradeDetails) {
+  createdTime,
+}: ArticleCardTradeDetailsProps) {
   return (
     <View style={styles.tradeDetailContainer}>
       <View style={styles.tradeTypeContainer}>
@@ -27,7 +27,7 @@ export default function ArticleCardTradeDetails({
       </View>
       <Text>∙</Text>
       <View style={styles.timeContainer}>
-        <Text style={styles.tradeType}>{calculateDiffTime(createdAt)}</Text>
+        <Text style={styles.tradeType}>{calculateDiffTime(createdTime)}</Text>
       </View>
     </View>
   );

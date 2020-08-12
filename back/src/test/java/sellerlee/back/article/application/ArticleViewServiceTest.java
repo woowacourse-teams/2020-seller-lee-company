@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 package sellerlee.back.article.application;
@@ -44,11 +44,11 @@ class ArticleViewServiceTest {
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any())).thenReturn(
                 Optional.of(FAVORITE));
 
-        ArticleDetailResponse articleDetailResponse = articleViewService.showArticle(
+        ArticleResponse articleResponse = articleViewService.show(
                 ARTICLE1.getId(), MEMBER1);
 
-        assertThat(articleDetailResponse.getId()).isEqualTo(ARTICLE1.getId());
-        assertThat(articleDetailResponse.getAuthor().getNickname()).isEqualTo(
+        assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
+        assertThat(articleResponse.getAuthor().getNickname()).isEqualTo(
                 MEMBER1.getNickname());
     }
 }

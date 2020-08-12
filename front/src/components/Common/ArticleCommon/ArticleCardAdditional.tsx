@@ -1,12 +1,12 @@
 /**
- * @author joseph415
+ * @author lxxjn0
  */
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-interface IArticleCardAdditional {
+interface ArticleCardAdditionalProps {
   price: number;
   chatCount: number;
   favoriteCount: number;
@@ -16,7 +16,7 @@ export default function ArticleCardAdditional({
   price,
   chatCount,
   favoriteCount,
-}: IArticleCardAdditional) {
+}: ArticleCardAdditionalProps) {
   return (
     <View style={styles.pieceAndAdditionalContainer}>
       <Text style={styles.price}>{price}원</Text>

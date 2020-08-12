@@ -1,3 +1,7 @@
+/**
+ * @author lxxjn0
+ */
+
 package sellerlee.back.trade.domain;
 
 import javax.persistence.Entity;
@@ -5,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.common.domain.BaseTimeEntity;
@@ -16,7 +21,7 @@ public class Trade extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "article_id")
     private Article article;
 
@@ -24,13 +29,18 @@ public class Trade extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member buyer;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member seller;
+
     protected Trade() {
     }
 
-    public Trade(Long id, Article article, Member buyer) {
+    public Trade(Long id, Article article, Member buyer, Member seller) {
         this.id = id;
         this.article = article;
         this.buyer = buyer;
+        this.seller = seller;
     }
 
     public Long getId() {
@@ -43,5 +53,9 @@ public class Trade extends BaseTimeEntity {
 
     public Member getBuyer() {
         return buyer;
+    }
+
+    public Member getSeller() {
+        return seller;
     }
 }

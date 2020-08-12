@@ -1,3 +1,7 @@
+/**
+ * @author lxxjn0
+ */
+
 package sellerlee.back.trade.application;
 
 import static org.assertj.core.api.Assertions.*;
@@ -16,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import sellerlee.back.article.application.ArticleResponse;
+import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.trade.domain.TradeRepository;
 
@@ -36,14 +40,14 @@ class TradeServiceTest {
     @Test
     void showAll() {
         List<Article> articles = Lists.newArrayList(ARTICLE1, ARTICLE2, ARTICLE3);
-        List<ArticleResponse> articleResponses = Lists.newArrayList(
-                ArticleResponse.listOf(articles));
+        List<ArticleCardResponse> articleCardRespons = Lists.newArrayList(
+                ArticleCardResponse.listOf(articles));
 
         when(tradeRepository.findAllByBuyer(MEMBER1))
                 .thenReturn(Lists.newArrayList(TRADE1, TRADE2, TRADE3));
-        List<ArticleResponse> expected = tradeService.showAll(MEMBER1);
+        List<ArticleCardResponse> expected = tradeService.showAll(MEMBER1);
 
-        assertThat(articleResponses.get(0).getTitle()).isEqualTo(expected.get(0).getTitle());
-        assertThat(articleResponses.get(1).getTitle()).isEqualTo(expected.get(1).getTitle());
+        assertThat(articleCardRespons.get(0).getTitle()).isEqualTo(expected.get(0).getTitle());
+        assertThat(articleCardRespons.get(1).getTitle()).isEqualTo(expected.get(1).getTitle());
     }
 }
