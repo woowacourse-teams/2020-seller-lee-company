@@ -48,10 +48,9 @@ class ArticleControllerTest {
     private ArticleViewService articleViewService;
 
     @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
     private ObjectMapper objectMapper;
+
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp(WebApplicationContext context, RestDocumentationContextProvider restDocumentation) {

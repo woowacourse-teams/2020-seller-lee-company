@@ -44,13 +44,12 @@ import sellerlee.back.chatroom.application.ChatRoomService;
 @WebMvcTest(controllers = ChatRoomController.class)
 class ChatRoomControllerTest {
     @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     @MockBean
     private ChatRoomService chatRoomService;
+
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp(WebApplicationContext context, RestDocumentationContextProvider restDocumentation) {
@@ -80,8 +79,10 @@ class ChatRoomControllerTest {
                         //         headerWithName("Authorization").description("회원의 토큰")
                         // ),
                         requestFields(
-                                fieldWithPath("articleId").type(JsonFieldType.NUMBER).description("게시글의 ID"),
-                                fieldWithPath("buyerId").type(JsonFieldType.NUMBER).description("구매자(채팅 생성자)의 ID")
+                                fieldWithPath("articleId").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 ID"),
+                                fieldWithPath("buyerId").type(JsonFieldType.NUMBER)
+                                        .description("구매자(채팅 생성자)의 ID")
                         ),
                         responseHeaders(
                                 headerWithName("Location").description("생성된 채팅방의 ID가 담긴 URI")
