@@ -33,7 +33,7 @@ public class Tags {
         return new Tags(Arrays.asList(tags));
     }
 
-    public List<Tag> getTags() {
+    public List<Tag> toList() {
         return unmodifiableList(tags);
     }
 
