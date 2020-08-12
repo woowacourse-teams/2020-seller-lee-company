@@ -1,5 +1,7 @@
 package sellerlee.back.security.config;
 
+import static sellerlee.back.member.presentation.AuthController.*;
+
 import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +32,7 @@ public class AuthorizationConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenSecurityInterceptor)
-                .addPathPatterns("/*")
-                .excludePathPatterns("/login", "/members");
+                .addPathPatterns("/**")
+                .excludePathPatterns(LOGIN_URL, MEMBER_URL);
     }
 }

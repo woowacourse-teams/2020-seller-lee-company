@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
-import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -97,19 +96,18 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private ArticleResponse show() {
-        String url = ARTICLE_URI + "/" + ARTICLE1.getId();
-
         // @formatter:off
         return
                 given()
                         .auth().oauth2(token.getAccessToken())
                 .when()
-                        .param("memberId", MEMBER1.getId())
-                        .get(url)
+                        .pathParam("id", ARTICLE1.getId())
+                        .get(ARTICLE_URI + "/{id}")
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.OK.value())
-                        .extract().jsonPath().getObject(".", ArticleResponse.class);
+                        .extract()
+                        .jsonPath().getObject(".", ArticleResponse.class);
         // @formatter:on
     }
 }

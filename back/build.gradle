@@ -22,6 +22,8 @@ dependencies {
     implementation 'com.h2database:h2'
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    // apache
+    implementation 'org.apache.commons:commons-lang3:3.10'
     // rest assured
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
 

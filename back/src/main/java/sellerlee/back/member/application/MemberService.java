@@ -7,6 +7,7 @@ package sellerlee.back.member.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sellerlee.back.member.domain.IllegalJoinException;
 import sellerlee.back.member.domain.IllegalLoginException;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.member.domain.MemberRepository;
@@ -22,7 +23,17 @@ public class MemberService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
+    public Long join(MemberRequest request) {
+        boolean existSameMember = memberRepository.existsByEmail(request.getEmail());
+
+        if (existSameMember) {
+            throw new IllegalJoinException("이미 회원가입이 되어있는 이메일입니다.");
+        }
+
+        return memberRepository.save(request.toMember()).getId();
+    }
+
     public String login(LoginRequest request) {
         Member findMember = memberRepository.findMemberByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));

@@ -10,6 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import sellerlee.back.member.domain.IllegalLoginException;
 import sellerlee.back.member.domain.MemberRepository;
 import sellerlee.back.security.core.LoginMember;
 
@@ -37,7 +38,8 @@ public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentR
             return new AuthenticationException("인증된 사용자가 존재하지 않습니다.");
         }
         try {
-            return memberRepository.findMemberByEmail(email);
+            return memberRepository.findMemberByEmail(email)
+                    .orElseThrow(() -> new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
         } catch (Exception e) {
             throw new AuthenticationException("비정상적인 로그인입니다.");
         }

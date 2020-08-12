@@ -44,7 +44,7 @@ class ArticleViewServiceTest {
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any())).thenReturn(
                 Optional.of(FAVORITE));
 
-        ArticleResponse articleResponse = articleViewService.showArticle(ARTICLE1.getId(), MEMBER1);
+        ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
         assertThat(articleResponse.getAuthor().getNickname()).isEqualTo(MEMBER1.getNickname());

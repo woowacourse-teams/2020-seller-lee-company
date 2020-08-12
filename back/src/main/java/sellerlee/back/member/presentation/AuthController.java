@@ -4,12 +4,15 @@
 
 package sellerlee.back.member.presentation;
 
+import java.net.URI;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import sellerlee.back.member.application.LoginRequest;
+import sellerlee.back.member.application.MemberRequest;
 import sellerlee.back.member.application.MemberService;
 import sellerlee.back.member.application.TokenResponse;
 import sellerlee.back.security.web.AuthorizationType;
@@ -23,6 +26,15 @@ public class AuthController {
 
     public AuthController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    @PostMapping(MEMBER_URL)
+    public ResponseEntity<Void> join(@RequestBody MemberRequest request) {
+        Long memberId = memberService.join(request);
+
+        return ResponseEntity
+                .created(URI.create(MEMBER_URL + "/" + memberId))
+                .build();
     }
 
     @PostMapping(LOGIN_URL)

@@ -1,10 +1,15 @@
 package sellerlee.back.member.application;
 
+import sellerlee.back.member.domain.Member;
+
 public class MemberRequest {
-    private final String email;
-    private final String password;
-    private final String avatar;
-    private final String nickname;
+    private String email;
+    private String password;
+    private String avatar;
+    private String nickname;
+
+    private MemberRequest() {
+    }
 
     public MemberRequest(String email, String password, String avatar, String nickname) {
         this.email = email;
@@ -27,5 +32,9 @@ public class MemberRequest {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public Member toMember() {
+        return new Member(email, password, avatar, nickname);
     }
 }

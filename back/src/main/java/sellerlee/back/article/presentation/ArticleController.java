@@ -24,6 +24,7 @@ import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.member.domain.Member;
+import sellerlee.back.security.core.LoginMember;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -39,6 +40,7 @@ public class ArticleController {
         this.articleViewService = articleViewService;
     }
 
+    // TODO: 2020/08/12 request의 authorId를 @LoginMember로 대체하기
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody ArticleCreateRequest request) {
         Long articleId = articleService.post(request);
@@ -51,20 +53,16 @@ public class ArticleController {
     public ResponseEntity<List<FeedResponse>> showArticlePage(@RequestParam Long lastArticleId,
             @RequestParam int size) {
         List<FeedResponse> responses = articleService.showArticlePage(lastArticleId, size);
-        return ResponseEntity.ok(responses);
+        return ResponseEntity
+                .ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id) {
-        Member member = new Member(
-                51L,
-                "turtle@woowabro.com",
-                "1234",
-                "testNickname",
-                "testUri",
-                4.5);
-        ArticleResponse articleResponse = articleViewService.showArticle(id, member);
+    public ResponseEntity<ArticleResponse> show(@PathVariable Long id,
+            @LoginMember Member loginMember) {
+        ArticleResponse articleResponse = articleViewService.show(id, loginMember);
 
-        return ResponseEntity.ok(articleResponse);
+        return ResponseEntity
+                .ok(articleResponse);
     }
 }

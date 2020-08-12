@@ -8,66 +8,61 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.fixture.MemberFixture.*;
+import static sellerlee.back.member.presentation.AuthController.*;
+import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
+import static sellerlee.back.security.web.AuthorizationType.*;
 import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import sellerlee.back.ControllerTest;
 import sellerlee.back.member.application.MemberService;
-import sellerlee.back.member.domain.MemberRepository;
-import sellerlee.back.security.oauth2.token.JwtTokenProvider;
-import sellerlee.back.security.web.AuthorizationType;
-import sellerlee.back.security.web.context.TokenSecurityInterceptor;
 
 @WebMvcTest(controllers = AuthController.class)
-class AuthControllerTest {
-
+class AuthControllerTest extends ControllerTest {
     @MockBean
     private MemberService memberService;
 
-    @MockBean
-    private MemberRepository memberRepository;
+    @DisplayName("이메일, 비밀번호, 프로필 사진, 닉네임을 보내면 회원을 생성하고 HttpStatus는 Created이다.")
+    @Test
+    void join() throws Exception {
+        String request = objectMapper.writeValueAsString(MEMBER_CREATE_REQUEST);
 
-    @MockBean
-    private JwtTokenProvider jwtTokenProvider;
+        when(memberService.join(any())).thenReturn(56L);
 
-    @MockBean
-    private TokenSecurityInterceptor tokenSecurityInterceptor;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        objectMapper = new ObjectMapper();
+        // @formatter:off
+        mockMvc.perform(
+                    post(MEMBER_URL)
+                        .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(request))
+                    .andExpect(status().isCreated());
+        // @formatter:on
     }
 
     @DisplayName("로그인시 이메일에 해당하는 회원이 존재하고, 패스워드가 일치하면 HttpStatus는 OK이다.")
     @Test
     void login() throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST);
-
         when(memberService.login(any())).thenReturn(TEST_TOKEN_SECRET_KEY);
 
-        mockMvc.perform(post("/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(request))
-                .andDo(print())
-                .andExpect(jsonPath("$.accessToken", is(TEST_TOKEN_SECRET_KEY)))
-                .andExpect(jsonPath("$.tokenType", is(AuthorizationType.BEARER.toLowerCase())))
-                .andExpect(status().isOk());
+        // @formatter:off
+        mockMvc.perform(
+                    post(LOGIN_URL)
+                        .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(request))
+                    .andExpect(jsonPath("$.accessToken", is(TEST_TOKEN_SECRET_KEY)))
+                    .andExpect(jsonPath("$.tokenType", is(BEARER.toLowerCase())))
+                    .andExpect(status().isOk());
+        // @formatter:on
     }
 }

@@ -35,6 +35,16 @@ class MemberServiceTest {
         memberService = new MemberService(memberRepository, jwtTokenProvider);
     }
 
+    @DisplayName("이메일로 이미 존재하는 회원인지 확인한 후 계정을 생성한다.")
+    @Test
+    void join() {
+        when(memberRepository.existsByEmail(anyString())).thenReturn(false);
+        when(memberRepository.save(any())).thenReturn(MEMBER_CREATE_REQUEST.toMember());
+
+        memberService.join(MEMBER_CREATE_REQUEST);
+        verify(memberRepository).save(any());
+    }
+
     @DisplayName("이메일로 회원을 찾고 비밀번호가 일치하는지 여부를 확인한다.")
     @Test
     void login() {

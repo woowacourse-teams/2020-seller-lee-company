@@ -20,7 +20,8 @@ import sellerlee.back.article.domain.TradeType;
 
 public class ArticleFixture {
 
-    public static final Article ARTICLE1 = new Article(
+    public static final Article
+            ARTICLE1 = new Article(
             51L,
             "title1",
             Tags.of(TAG_FIXTURE1, TAG_FIXTURE2),

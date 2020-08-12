@@ -26,6 +26,7 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
+
         if (StringUtils.isBlank(credentials)) {
             throw new AuthenticationException("토큰이 존재하지 않습니다.");
         }

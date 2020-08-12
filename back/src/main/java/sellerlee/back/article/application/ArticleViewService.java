@@ -27,14 +27,14 @@ public class ArticleViewService {
     }
 
     @Transactional(readOnly = true)
-    public ArticleResponse showArticle(Long articleId, Member member) {
+    public ArticleResponse show(Long articleId, Member loginMember) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 
         Optional<Favorite> favorite =
-                favoriteRepository.findFavoriteByArticleAndMember(article, member);
+                favoriteRepository.findFavoriteByArticleAndMember(article, loginMember);
 
-        long favoriteCount = favoriteRepository.countAllByMember(member);
+        long favoriteCount = favoriteRepository.countAllByArticle(article);
 
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }

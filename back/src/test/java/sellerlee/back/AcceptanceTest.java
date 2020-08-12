@@ -25,8 +25,8 @@ import sellerlee.back.member.application.TokenResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
+    protected static final String DELIMITER = "/";
     private static final int ID_INDEX_OF_LOCATION = 2;
-    private static final String DELIMITER = "/";
 
     @Autowired
     protected ObjectMapper objectMapper;
@@ -72,9 +72,9 @@ public class AcceptanceTest {
                         .body(request)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .log().all()
-                        .when()
+                .when()
                         .post(LOGIN_URL)
-                        .then()
+                .then()
                         .log().all()
                         .statusCode(HttpStatus.OK.value())
                         .extract().as(TokenResponse.class);
