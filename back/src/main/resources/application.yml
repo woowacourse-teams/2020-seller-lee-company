@@ -1,6 +1,26 @@
 spring:
   profiles:
-    active: local
+    active: develop
+
+  datasource:
+    username: root
+    password: root
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      use_sql_comments: true
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+
 
 logging:
   level:
@@ -10,27 +30,15 @@ logging:
 ---
 
 spring:
-  profiles: local
-
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    database: H2
-    generate-ddl: true
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate.format_sql: true
-      use_sql_comments: true
-
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
+  profiles: develop
 
   datasource:
-    url: jdbc:h2:tcp://localhost/${user.dir}/test;IFEXISTS=FALSE;
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://seller_lee_database:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true
+
+---
+
+spring:
+  profiles: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true

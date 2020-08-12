@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author kouz95
  */
 
 package sellerlee.back.article.domain;
@@ -11,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -21,7 +22,7 @@ import sellerlee.back.member.domain.Member;
 @Entity
 public class Article extends BaseTimeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Long id;
 

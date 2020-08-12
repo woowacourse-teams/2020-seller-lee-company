@@ -40,7 +40,7 @@ public class MemberFixture {
     public static final Member MEMBER2 =
             new Member(
                     52L,
-                    "lxxjn0@gmail.com",
+                    MEMBER_EMAIL,
                     MEMBER_PASSWORD,
                     MEMBER_NICKNAME,
                     MEMBER_AVATAR,
