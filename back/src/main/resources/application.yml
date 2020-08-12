@@ -2,18 +2,7 @@ spring:
   profiles:
     active: local
 
-logging:
-  level:
-    org.hibernate.type.descriptor.sql: trace
-    org.springframework.web: debug
-
----
-
-spring:
-  profiles: local
-
   datasource:
-    url: jdbc:mysql://seller_lee_database:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
 
@@ -31,3 +20,25 @@ spring:
   flyway:
     baseline-on-migrate: true
     baseline-version: 0
+
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace
+    org.springframework.web: debug
+
+---
+
+spring:
+  profiles: develop
+
+  datasource:
+    url: jdbc:mysql://seller_lee_database:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true
+
+---
+
+spring:
+  profiles: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true
