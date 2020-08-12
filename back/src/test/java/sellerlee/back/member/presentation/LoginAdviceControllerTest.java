@@ -9,11 +9,13 @@ import static sellerlee.back.fixture.MemberFixture.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.member.application.MemberService;
@@ -36,13 +38,16 @@ class LoginAdviceControllerTest {
     @MockBean
     private TokenSecurityInterceptor tokenSecurityInterceptor;
 
-    @Autowired
     private MockMvc mockMvc;
 
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    void setUp() {
+    void setUp(WebApplicationContext webApplicationContext) {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
+                .alwaysDo(print())
+                .build();
         objectMapper = new ObjectMapper();
     }
 
@@ -59,7 +64,6 @@ class LoginAdviceControllerTest {
                 .content(request)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isBadRequest());
     }
 
@@ -76,7 +80,6 @@ class LoginAdviceControllerTest {
                 .content(request)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isBadRequest());
     }
 }
