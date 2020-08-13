@@ -87,4 +87,12 @@ class ArticleServiceTest {
         assertThat(ARTICLE1.getTitle()).isEqualTo(request.getTitle());
         assertThat(ARTICLE1.getContents()).isEqualTo(request.getContents());
     }
+
+    @DisplayName("게시글 삭제 메서드 호출 시 게시글 삭제")
+    @Test
+    void deleteArticle() {
+        articleService.deleteById(ARTICLE1.getId());
+
+        verify(articleRepository).deleteById(ARTICLE1.getId());
+    }
 }

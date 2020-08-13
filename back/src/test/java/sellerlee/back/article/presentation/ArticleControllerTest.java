@@ -79,6 +79,16 @@ class ArticleControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @DisplayName("게시글 삭제 시 HTTP status는 noContent다.")
+    @Test
+    void deleteArticle() throws Exception {
+        mockMvc.perform(delete(ARTICLE_URI + "/" + ARTICLE1.getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(articleService).deleteById(ARTICLE1.getId());
+    }
+
     // @DisplayName("게시글 판매 상태로 게시글 조회 시 HTTP STATUS OK와 판매 상태에 해당하는 게시글 반환")
     // @Test
     // void showArticlesByTradeState() throws Exception {

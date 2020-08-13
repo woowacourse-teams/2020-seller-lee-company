@@ -4,10 +4,10 @@ import { useRecoilState } from "recoil/dist";
 import { articleDetailModalState } from "../../../states/modalState";
 import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
-import { ArticleDetailScreenProp } from "../../../types/types";
+import { ArticleDetailNavigationProp } from "../../../types/types";
 
 export default function ArticleDeleteModal() {
-  const navigation = useNavigation<ArticleDetailScreenProp>();
+  const navigation = useNavigation<ArticleDetailNavigationProp>();
   const [modalVisible, setModalVisible] = useRecoilState(
     articleDetailModalState,
   );

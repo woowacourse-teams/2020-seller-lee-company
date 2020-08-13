@@ -43,4 +43,8 @@ public class ArticleService {
                 .orElseThrow(NoSuchElementException::new);
         article.update(request.toArticle());
     }
+
+    public void deleteById(Long id) {
+        articleRepository.deleteById(id);
+    }
 }
