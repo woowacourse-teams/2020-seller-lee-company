@@ -1,26 +1,42 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Button, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
-import { questions } from "../data";
+import { QUESTION_SIZE, questions } from "../data";
 import QuestionAndAnswerCard from "../components/Evaluation/QuestionAndAnswerCard";
 import theme from "../colors";
-import { useRecoilValue, useResetRecoilState } from "recoil/dist";
+import { useRecoilState, useResetRecoilState } from "recoil/dist";
 import { scoresState } from "../states/evaluationState";
 import { evaluationAPI } from "../api/api";
-import { articlePhotosState, articleTitleState } from "../states/articleState";
 
 export default function EvaluationScreen() {
   const navigation = useNavigation();
-  const scores = useRecoilValue(scoresState);
+  const [scores, setScores] = useRecoilState(scoresState);
   const resetScoresState = useResetRecoilState(scoresState);
-  const title = useRecoilValue(articleTitleState);
-  const photo = useRecoilValue(articlePhotosState)[0];
+  /* 실제 코드 */
+  //const title = useRecoilValue(articleTitleState);
+  //const photo = useRecoilValue(articlePhotosState)[0];
+
+  /* 테스트 용(title,photo 없으면 에러터져서 임의로 넣어놓음) */
+  const title = "맥북";
+  const photo = {
+    uri:
+      "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp16touch-space-select-201911_GEO_KR?wid=1808&hei=1686&fmt=jpeg&qlt=80&.v=1573165435305",
+  };
 
   const QUESTION_ID_INDEX = 0;
   const QUESTION_INDEX = 1;
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    resetScores();
+  }, [isFocused]);
+
+  useEffect(() => {
+    incompleteAnswer();
+  }, [scores.length]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,10 +44,7 @@ export default function EvaluationScreen() {
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
-          onPress={() => {
-            navigation.goBack();
-            resetAnswer();
-          }}
+          onPress={() => goBackAndReset()}
           backImage={() => (
             <EvilIcons name="chevron-left" size={35} color="black" />
           )}
@@ -42,23 +55,32 @@ export default function EvaluationScreen() {
     });
   }, [navigation]);
 
-  const goBackAndReset = async () => {
+  const incompleteAnswer = () => {
+    console.log("scores.length" + scores.length);
+    return scores.length !== QUESTION_SIZE;
+  };
+
+  const goBackAndReset = () => {
+    resetScores();
+    navigation.goBack();
+  };
+
+  const resetScores = () => {
+    resetScoresState();
+  };
+
+  const postEvaluation = async () => {
     const response = await evaluationAPI.post({ scores });
     if (response.status === 201) {
-      resetAnswer();
-      navigation.goBack();
+      goBackAndReset();
     } else {
       console.warn("평가 생성 실패");
     }
   };
 
-  const resetAnswer = () => {
-    resetScoresState();
-  };
-
   const dynamicStyles = StyleSheet.create({
     createButtonContainer: {
-      backgroundColor: theme.primary,
+      backgroundColor: incompleteAnswer() ? "grey" : theme.primary,
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
@@ -82,7 +104,12 @@ export default function EvaluationScreen() {
         ))}
       </View>
       <View style={dynamicStyles.createButtonContainer}>
-        <Button title={"완료"} color={"white"} onPress={goBackAndReset} />
+        <Button
+          title={"완료"}
+          color={"white"}
+          disabled={incompleteAnswer()}
+          onPress={postEvaluation}
+        />
       </View>
     </View>
   );

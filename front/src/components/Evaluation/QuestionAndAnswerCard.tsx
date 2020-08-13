@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import StarRating from "react-native-star-rating";
@@ -21,6 +17,7 @@ export default function QuestionAndAnswerCard({
 }: Question) {
   const [answer, setAnswer] = useState(0);
   const [scores, setScores] = useRecoilState(scoresState);
+
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -28,31 +25,23 @@ export default function QuestionAndAnswerCard({
   }, [isFocused]);
 
   const setData = (rating: number) => {
-    setScores((scores) => {
-      if (
-        scores.filter((score) => score.questionId === questionId).length > 0
-      ) {
-        const index = scores.findIndex(
-          (score) => score.questionId === questionId,
-        );
-        console.log("들어옴");
-        // console.log("score: " + scores[index].score);
-        // console.log("answer: " + answer);
-        scores[index].score = answer;
-        return scores;
-      }
-      return [...scores].concat({
-        questionId: questionId,
-        score: rating,
-      });
+    if (scores.some((score) => score.questionId === questionId)) {
+      const index = scores.findIndex(
+        (score) => score.questionId === questionId,
+      );
+      const copy = [...scores];
+      copy[index] = { ...copy[index], score: rating };
+      return copy;
+    }
+    return [...scores].concat({
+      questionId: questionId,
+      score: rating,
     });
   };
 
   const onStarRatingPress = async (rating: number) => {
     setAnswer(rating);
-    console.log("rating: " + rating);
-    setData(rating);
-    console.log("최종: " + JSON.stringify(scores));
+    setScores(setData(rating));
   };
 
   return (
