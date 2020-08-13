@@ -1,9 +1,4 @@
-/**
- * @author joseph415
- */
-
 import { atom } from "recoil/dist";
-import { Tag } from "../types/types";
 
 export const tagIdState = atom({
   key: "tagIdState",
@@ -22,5 +17,5 @@ export const inputState = atom({
 
 export const tagsState = atom({
   key: "tagsState",
-  default: <Tag[]>[],
+  default: <string[]>[],
 });

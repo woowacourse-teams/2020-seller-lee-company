@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React, { useRef } from "react";
 import {
   Animated,
@@ -52,7 +48,7 @@ export default function FeedArticleCard({
       onPress={() => {
         clickArticleAnimate();
         setArticleSelectedId(id);
-        navigation.navigate("FeedDetail");
+        navigation.navigate("ArticleDetailScreen");
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
@@ -68,8 +64,8 @@ export default function FeedArticleCard({
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {tags.map((tagItem, index) => (
-              <FeedArticleTag key={index} tagItem={tagItem} />
+            {tags.map((tag, index) => (
+              <FeedArticleTag key={index} tag={tag} />
             ))}
           </View>
         </View>

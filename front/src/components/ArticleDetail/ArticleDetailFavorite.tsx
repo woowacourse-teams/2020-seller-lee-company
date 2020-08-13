@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React, { useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import axios from "axios";

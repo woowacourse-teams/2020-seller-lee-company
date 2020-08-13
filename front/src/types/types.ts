@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
@@ -19,10 +15,13 @@ export type TabHomeNavigationProp = BottomTabNavigationProp<
 export type ArticleNavigationParamList = {
   FeedHome: undefined;
   SellerLee: undefined;
-  FeedDetail: undefined;
   ChatRoom: undefined;
   ArticleDetailScreen: undefined;
+  ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
+  ArticleFormScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
@@ -35,17 +34,17 @@ export type ChatRoomNavigationProp = StackNavigationProp<
   "ChatRoom"
 >;
 
-export type ArticleDetailScreenProp = StackNavigationProp<
+export type ArticleDetailNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "ArticleDetailScreen"
 >;
 
-export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
+export type ArticleDetailImageSliderNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
-  "ArticleDetailImageViewScreen"
+  "ArticleDetailImageSlider"
 >;
 
-export type ArticleDetailImageViewRouteProp = RouteProp<
+export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "ArticleDetailImageViewScreen"
 >;
@@ -76,19 +75,19 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type ArticleCreateParamList = {
-  ArticleCreateScreen: undefined;
+export type ArticleFormParamList = {
+  ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
 };
 
-export type ArticleCreateScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
-  "ArticleCreateScreen"
+export type ArticleFormScreenNavigationProp = StackNavigationProp<
+  ArticleFormParamList,
+  "ArticleFormScreen"
 >;
 
 export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
+  ArticleFormParamList,
   "ArticleContentsFormScreen"
 >;
 
@@ -119,26 +118,39 @@ export interface FavoriteCountAndHitProps {
 
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
+export interface ArticleDetailFavoriteProp {
+  articleId: number;
+}
+
 export interface Feed {
   id: number;
   price: number;
   favoriteCount: number;
-  tags: Tag[];
+  tags: string[];
   photos: string[];
 }
 
 export interface Tag {
   id: number;
-  name: string;
+  tag: string;
 }
 
-export interface TagItemProps {
-  tagItem: Tag;
+export interface CategoryAndTimeProps {
+  category: Category;
+  time: string;
 }
 
-export interface PhotoInfo {
+export interface FavoriteCountAndHitProps {
+  favoriteCount: number;
+  hit: number;
+}
+
+export interface Feed {
   id: number;
-  uri: string;
+  price: number;
+  favoriteCount: number;
+  tags: string[];
+  photos: string[];
 }
 
 export type ImageSliderParamList = {
@@ -148,36 +160,30 @@ export type ImageSliderParamList = {
   };
 };
 
-export type ArticleDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ArticleDetailScreen"
->;
-
 export interface Article {
   id: number;
   title: string;
-  category: string;
-  price: number;
+  categoryName: string;
   contents: string;
+  price: number;
+  tradeType: string;
+  tradeLocation: string;
   tradeState: string;
-  photos: ImageURISource[];
-  tags: Tag[];
-  member: Author;
-  favorite: Favorite;
+  tags: string[];
+  photos: string[];
+  author: Author;
+  favoriteState: boolean;
+  favoriteCount: number;
+  hit: number;
+  createdTime: string;
 }
 
 export interface Author {
   id: number;
   nickname: string;
   score: number;
-  avatarUri: string;
+  avatar: string;
   validated: boolean;
-}
-
-export interface Favorite {
-  id: number;
-  memberId: number;
-  articleId: number;
 }
 
 export interface Buyer {

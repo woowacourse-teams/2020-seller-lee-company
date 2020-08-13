@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";

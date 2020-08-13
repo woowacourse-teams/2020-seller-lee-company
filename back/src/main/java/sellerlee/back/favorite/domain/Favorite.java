@@ -18,18 +18,16 @@ import sellerlee.back.member.domain.Member;
 
 @Entity
 public class Favorite {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
+    Article article;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    Member member;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favorite_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    Article article;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    Member member;
 
     protected Favorite() {
     }

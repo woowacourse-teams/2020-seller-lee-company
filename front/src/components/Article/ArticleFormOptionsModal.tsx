@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -9,7 +5,7 @@ import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../colors";
 
-export default function ArticleCreateOptionsModal() {
+export default function ArticleFormOptionsModal() {
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
 

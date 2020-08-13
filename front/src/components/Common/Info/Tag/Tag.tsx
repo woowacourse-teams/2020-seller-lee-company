@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -12,13 +8,13 @@ import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import {
   inputState,
   isModalOpenState,
-  tagsState,
   tagIdState,
+  tagsState,
 } from "../../../../states/TagState";
 
 export default function Tag() {
-  const limitTagSize = 2;
-  const hashTag = "#";
+  const HASH_TAG = "#";
+  const LIMIT_TAG_SIZE = 2;
 
   const [tagId, setTagId] = useRecoilState(tagIdState);
   const [input, setInput] = useRecoilState(inputState);
@@ -32,13 +28,8 @@ export default function Tag() {
   };
 
   const insertTag = () => {
-    if (tags.length >= 0 && tags.length <= limitTagSize) {
-      setTags(
-        tags.concat({
-          id: tagId,
-          name: hashTag + removeBlank(input),
-        }),
-      );
+    if (tags.length >= 0 && tags.length <= LIMIT_TAG_SIZE) {
+      setTags(tags.concat(HASH_TAG + removeBlank(input)));
       setTagId(tagId + 1);
     } else {
       setIsModalOpen(true);
@@ -101,8 +92,8 @@ export default function Tag() {
         </View>
       </View>
       <View style={styles.tagContainerWrapper}>
-        {tags.map((tag) => (
-          <TagItem key={tag.id} tagItem={tag} />
+        {tags.map((tag, index) => (
+          <TagItem key={index} tag={tag} />
         ))}
       </View>
     </View>

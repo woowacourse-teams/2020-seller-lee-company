@@ -1,11 +1,6 @@
-/**
- * @author kouz95
- */
-
 import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
 import { chatRoomAPI } from "../api/api";
@@ -61,7 +56,7 @@ export default function SelectBuyerScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.articleInfoContainer}>
-        <SelectBuyerArticleInfo title={title} photo={photo.uri} />
+        <SelectBuyerArticleInfo title={title} photo={photo} />
       </View>
       <View style={styles.buyerListContainer}>
         {buyers.map((buyer, index) => (

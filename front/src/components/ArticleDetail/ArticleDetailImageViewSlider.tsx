@@ -1,9 +1,4 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
-
 import { StyleSheet } from "react-native";
 import ImageViewSliderDot from "../Common/Dot/ImageViewSliderDot";
 import Swiper from "react-native-swiper";

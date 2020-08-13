@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";

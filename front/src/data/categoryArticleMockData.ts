@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 export const categoryMockArticles = [
   {
     title: "락앤락 비스프리 반찬통",

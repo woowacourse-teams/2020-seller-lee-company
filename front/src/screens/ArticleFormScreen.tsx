@@ -1,13 +1,8 @@
-/**
- * @author kouz95
- */
-
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   BackHandler,
   Button,
   Keyboard,
-  Platform,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -17,71 +12,73 @@ import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons } from "@expo/vector-icons";
-import {
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from "recoil/dist";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import ArticleTitleForm from "../components/Article/ArticleTitleForm";
 import ArticlePriceForm from "../components/Article/ArticlePriceForm";
-import ArticleCreateScreenModal from "../components/Article/ArticleCreateScreenModal";
+import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
 import Photo from "../components/Common/Photo/Photo";
 import Tag from "../components/Common/Info/Tag/Tag";
 import {
   articleContentsState,
+  articleIsEditingState,
   articleModalActivationState,
   articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
+  articleSelectedState,
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { ArticleCreateScreenNavigationProp } from "../types/types";
+import { Article, ArticleFormScreenNavigationProp } from "../types/types";
 import theme from "../colors";
-
-import { memberIdState } from "../states/loginState";
 import { articlesAPI } from "../api/api";
-import ArticleCreateCategorySelect from "../components/Article/ArticleCreateCategorySelect";
+import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
+import { defaultArticle } from "../data/defaultArticle";
+import { memberIdState } from "../states/loginState";
 
-export default function ArticleCreateScreen() {
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
-  const title = useRecoilValue(articleTitleState);
-  const contents = useRecoilValue(articleContentsState);
-  const selectedCategory = useRecoilValue(articleSelectedCategoryState);
-  const price = useRecoilValue(articlePriceState);
-  const photos = useRecoilValue(articlePhotosState);
-  const tags = useRecoilValue(tagsState);
+export default function ArticleFormScreen() {
+  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const [article, setArticle] = useState<Article>(defaultArticle);
+  const editingArticle = useRecoilValue(articleSelectedState);
+  const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
+
   const memberId = useRecoilValue(memberIdState);
-
-  const resetPhotos = useResetRecoilState(articlePhotosState);
-  const resetTitle = useResetRecoilState(articleTitleState);
-  const resetSelectedCategory = useResetRecoilState(
+  const [photos, setPhotos] = useRecoilState(articlePhotosState);
+  const [title, setTitle] = useRecoilState(articleTitleState);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
   );
-  const resetPrice = useResetRecoilState(articlePriceState);
-  const resetContents = useResetRecoilState(articleContentsState);
-  const resetTags = useResetRecoilState(tagsState);
-
+  const [price, setPrice] = useRecoilState(articlePriceState);
+  const [contents, setContents] = useRecoilState(articleContentsState);
+  const [tags, setTags] = useRecoilState(tagsState);
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
+  const [originArticle, setOriginArticle] = useState<Article>();
 
-  const resetCreateScreen = () => {
-    resetPhotos();
-    resetTitle();
-    resetPrice();
-    resetContents();
-    resetSelectedCategory();
-    resetTags();
+  const confirmToBackAction = () => {
+    if (isDirty()) {
+      setArticleModalState(true);
+      return true;
+    }
+    resetForm();
+    return false;
   };
 
-  const hasContents = () => {
+  const backHandler = BackHandler.addEventListener(
+    "hardwareBackPress",
+    confirmToBackAction,
+  );
+
+  const resetForm = () => setIsEditing(false);
+
+  const isDirty = () => {
     return (
-      photos.length !== 0 ||
-      title !== "" ||
-      price !== 0 ||
-      contents !== "" ||
-      selectedCategory !== "" ||
-      tags.length !== 0
+      article.photos.length !== originArticle?.photos.length ||
+      article.title !== originArticle.title ||
+      article.price !== originArticle.price ||
+      article.contents !== originArticle.contents ||
+      article.categoryName !== originArticle.categoryName ||
+      article.tags.length !== originArticle.tags.length
     );
   };
 
@@ -96,46 +93,13 @@ export default function ArticleCreateScreen() {
   };
 
   const confirmToLeave = () => {
-    if (hasContents()) {
+    if (isDirty()) {
       setArticleModalState(true);
       return;
     }
-    resetCreateScreen();
+    resetForm();
     navigation.goBack();
   };
-
-  useEffect(() => {
-    const confirmToBackAction = () => {
-      if (hasContents()) {
-        setArticleModalState(true);
-        return true;
-      }
-      resetCreateScreen();
-      return false;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      confirmToBackAction,
-    );
-
-    return () => backHandler.remove();
-  }, [hasContents, resetCreateScreen, setArticleModalState]);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={confirmToLeave}
-          backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
-          )}
-        />
-      ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
-    });
-  });
 
   const dynamicStyles = StyleSheet.create({
     priceCurrencyUnit: {
@@ -152,35 +116,68 @@ export default function ArticleCreateScreen() {
     },
   });
 
-  const postArticle = () => {
-    return articlesAPI.post({
-      title,
-      price,
+  const onSubmit = async () => {
+    const data = {
+      title: title,
+      price: price,
       category: selectedCategory,
-      contents,
-      tags: tags.map((tag) => tag.name),
-      photos: photos.map((photo) => photo.uri),
+      contents: contents,
+      tags: tags,
+      photos: photos,
       authorId: memberId,
-    });
+    };
+
+    isEditing
+      ? await articlesAPI.put(article.id, data)
+      : await articlesAPI.post(data);
+    resetForm();
+    navigation.goBack();
   };
 
-  const goBackAfterPostAndReset = async () => {
-    const response = await postArticle();
-    if (response.status === 201) {
-      resetCreateScreen();
-      navigation.goBack();
-    } else {
-      console.warn("post article 실패");
-    }
+  const setForm = (article: Article) => {
+    setArticle(article);
+    setPhotos(article.photos);
+    setTitle(article.title);
+    setSelectedCategory(article.categoryName);
+    setPrice(article.price);
+    setContents(article.contents);
+    setTags(article.tags);
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing ? "수정하기" : "글쓰기",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={confirmToLeave}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  });
+
+  useEffect(() => {
+    if (isEditing) {
+      setForm(editingArticle);
+      setOriginArticle(editingArticle);
+    } else {
+      setForm(defaultArticle);
+      setOriginArticle(defaultArticle);
+    }
+  }, [isEditing]);
+
+  useEffect(() => backHandler.remove(), []);
 
   return (
     <KeyboardAwareScrollView
       enableOnAndroid
       contentContainerStyle={styles.container}
-      enableAutomaticScroll={Platform.OS === "ios"}
     >
-      <ArticleCreateScreenModal resetCreateScreen={resetCreateScreen} />
+      <ArticleFormScreenModal resetCreateScreen={resetForm} />
       <View style={styles.contentsContainer}>
         <View style={styles.photoContainer}>
           <Photo />
@@ -191,7 +188,7 @@ export default function ArticleCreateScreen() {
               <ArticleTitleForm />
             </View>
             <View style={styles.selectCategoryContainer}>
-              <ArticleCreateCategorySelect />
+              <ArticleFormCategorySelect isEditing={isEditing} />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
@@ -213,7 +210,7 @@ export default function ArticleCreateScreen() {
           title={"완료"}
           color={"white"}
           disabled={incompleteCriticalItems()}
-          onPress={goBackAfterPostAndReset}
+          onPress={onSubmit}
         />
       </View>
     </KeyboardAwareScrollView>

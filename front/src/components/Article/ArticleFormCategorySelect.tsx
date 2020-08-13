@@ -4,20 +4,32 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
-import { ArticleCreateScreenNavigationProp } from "../../types/types";
+import { ArticleFormScreenNavigationProp } from "../../types/types";
 
-export default function ArticleCreateCategorySelect() {
+interface ArticleFormCategorySelectProp {
+  isEditing: boolean;
+}
+
+export default function ArticleFormCategorySelect({
+  isEditing,
+}: ArticleFormCategorySelectProp) {
+  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+
+  const renderCategory = () => {
+    if (isEditing) {
+      return selectedCategory;
+    } else {
+      return selectedCategory === "" ? "카테고리" : selectedCategory;
+    }
+  };
 
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={() => navigation.navigate("CategoryChoiceScreen")}
     >
-      <Text style={styles.buttonText}>
-        {selectedCategory === "" ? "카테고리" : selectedCategory}
-      </Text>
+      <Text style={styles.buttonText}>{renderCategory()}</Text>
       <MaterialCommunityIcons
         name="chevron-down"
         size={22}

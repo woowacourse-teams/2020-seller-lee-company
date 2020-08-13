@@ -4,7 +4,6 @@
 
 package sellerlee.back.article.presentation;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -12,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
-import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Arrays;
@@ -35,6 +33,7 @@ import sellerlee.back.article.application.FeedResponse;
 class ArticleControllerTest {
     @MockBean
     private ArticleService articleService;
+
     @MockBean
     private ArticleViewService articleViewService;
 
@@ -61,8 +60,8 @@ class ArticleControllerTest {
 
     @DisplayName("게시글 페이지 조회 시 HTTP status는 OK다.")
     @Test
-    void showArticlePage() throws Exception {
-        when(articleService.showArticlePage(LAST_ARTICLE_ID, ARTICLE_SIZE))
+    void showPage() throws Exception {
+        when(articleService.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1)));
 
         mockMvc.perform(get(ARTICLE_URI)

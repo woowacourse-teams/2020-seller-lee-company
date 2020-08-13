@@ -8,7 +8,7 @@ import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
 
-import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleRequest;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Photos;
@@ -49,12 +49,12 @@ public class ArticleFixture {
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
 
-    public static final ArticleCreateRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleCreateRequest(
+    public static final ArticleRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleRequest(
             "TEST_TITLE",
-            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+            10_000L,
             "디지털/가전",
             "TEST_CONTENTS",
-            10_000L,
+            Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
             Arrays.asList("testUri1", "testUri2"),
             MEMBER1.getId());
 }

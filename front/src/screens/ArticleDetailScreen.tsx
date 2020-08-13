@@ -1,14 +1,11 @@
-/**
- * @author joseph415
- */
-
 import React, { useEffect, useLayoutEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Button, ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
+import { ArticleDetailNavigationProp } from "../types/types";
 import ArticlePrice from "../components/Article/ArticlePrice";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
@@ -17,18 +14,20 @@ import theme from "../colors";
 import { articleDetailAPI } from "../api/api";
 import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
+  articleIsEditingState,
   articleSelectedIdState,
   articleSelectedState,
 } from "../states/articleState";
-import { ArticleDetailNavigationProp } from "../types/types";
 
 export default function ArticleDetailScreen() {
   const navigation = useNavigation<ArticleDetailNavigationProp>();
   const articleId = useRecoilValue(articleSelectedIdState);
   const setArticleSelected = useSetRecoilState(articleSelectedState);
+  const setIsEditing = useSetRecoilState(articleIsEditingState);
 
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
+    console.log(data);
     setArticleSelected(data);
   };
 
@@ -49,6 +48,16 @@ export default function ArticleDetailScreen() {
         />
       ),
       headerLeftContainerStyle: { paddingLeft: 10 },
+      headerRight: () => (
+        <Button
+          title="수정"
+          onPress={() => {
+            navigation.navigate("ArticleFormScreen");
+            setIsEditing(true);
+          }}
+        />
+      ),
+      headerRightContainerStyle: { paddingRight: 15 },
     });
   });
 

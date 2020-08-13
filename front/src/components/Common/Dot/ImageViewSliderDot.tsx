@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
 import { StyleSheet, View } from "react-native";
 

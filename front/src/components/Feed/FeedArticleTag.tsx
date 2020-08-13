@@ -1,16 +1,15 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { TagItemProps } from "../../types/types";
 
-export default function FeedArticleTag({ tagItem }: TagItemProps) {
+interface FeedArticleTagProps {
+  tag: string;
+}
+
+export default function FeedArticleTag({ tag }: FeedArticleTagProps) {
   return (
     <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text>{tagItem.name}</Text>
+        <Text>{tag}</Text>
       </View>
     </View>
   );

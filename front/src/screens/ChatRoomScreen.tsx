@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { FlatList } from "react-native";
 import { categoryMockArticles } from "../data/categoryArticleMockData";

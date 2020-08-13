@@ -74,6 +74,15 @@ public class Article extends BaseTimeEntity {
         this(id, null, null, null, null, null, null, null, null);
     }
 
+    public void update(Article article) {
+        title = article.title;
+        price = article.price;
+        category = article.category;
+        contents = article.contents;
+        tags = article.tags;
+        photos = article.photos;
+    }
+
     public Long getId() {
         return id;
     }

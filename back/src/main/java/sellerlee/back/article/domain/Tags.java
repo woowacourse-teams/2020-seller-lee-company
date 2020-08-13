@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -31,6 +32,12 @@ public class Tags {
 
     public static Tags of(Tag... tags) {
         return new Tags(Arrays.asList(tags));
+    }
+
+    public List<String> toStringList() {
+        return tags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList());
     }
 
     public List<Tag> getTags() {

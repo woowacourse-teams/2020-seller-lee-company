@@ -1,11 +1,10 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
@@ -13,7 +12,9 @@ import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,12 +44,12 @@ class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleCreateRequest request = new ArticleCreateRequest(
+        ArticleRequest request = new ArticleRequest(
                 "노트북",
-                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+                10000L,
                 "디지털/가전",
                 "쌉니다 싸요",
-                10000L,
+                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
                 Arrays.asList("testUri1", "testUri2"),
                 1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
@@ -66,10 +67,24 @@ class ArticleServiceTest {
 
         when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID,
                 pageRequest)).thenReturn(expectedPage);
-        List<FeedResponse> actualArticles = articleService.showArticlePage(LAST_ARTICLE_ID,
+        List<FeedResponse> actualArticles = articleService.showPage(LAST_ARTICLE_ID,
                 ARTICLE_SIZE);
 
         assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
         assertThat(actualArticles.get(1).getId()).isEqualTo(ARTICLE1.getId());
+    }
+
+    @DisplayName("게시글 수정 메소드 호출 시 게시글 수정")
+    @Test
+    void update() {
+        Long articleId = 1L;
+        ArticleRequest request = new ArticleRequest("update", 1L, "디지털/가전",
+                "update", Collections.emptyList(), Collections.emptyList(), 1L);
+
+        when(articleRepository.findById(articleId)).thenReturn(Optional.of(ARTICLE1));
+        articleService.update(articleId, request);
+
+        assertThat(ARTICLE1.getTitle()).isEqualTo(request.getTitle());
+        assertThat(ARTICLE1.getContents()).isEqualTo(request.getContents());
     }
 }

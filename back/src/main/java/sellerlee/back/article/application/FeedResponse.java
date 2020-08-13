@@ -15,14 +15,14 @@ public class FeedResponse {
     private Long id;
     private Long price;
     private int favoriteCount;
-    private List<Tag> tags;
+    private List<String> tags;
     private List<String> photos;
 
     private FeedResponse() {
     }
 
     private FeedResponse(Long id, Long price, int favoriteCount,
-            List<Tag> tags, List<String> photos) {
+            List<String> tags, List<String> photos) {
         this.id = id;
         this.price = price;
         this.favoriteCount = favoriteCount;
@@ -35,7 +35,7 @@ public class FeedResponse {
                 article.getId(),
                 article.getPrice(),
                 10,
-                article.getTags().getTags(),
+                article.getTags().toStringList(),
                 article.getPhotos().getPhotos()
         );
     }
@@ -58,7 +58,7 @@ public class FeedResponse {
         return favoriteCount;
     }
 
-    public List<Tag> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 

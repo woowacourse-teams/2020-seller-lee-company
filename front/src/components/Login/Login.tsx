@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React from "react";
 import {
   Keyboard,

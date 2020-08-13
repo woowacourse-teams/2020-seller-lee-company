@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import axios from "axios";
 
 // const BASE_URL = "http://3.34.248.131:8080";
@@ -31,14 +27,21 @@ interface ArticlesGet {
 
 export const articlesAPI = {
   get: async (params: ArticlesGet) =>
-    await axios.get(BASE_URL + domain.article, { params }),
+    await axios.get(`${BASE_URL}${domain.article}`, { params }),
   post: async (data: ArticlesPost) =>
-    await axios.post(BASE_URL + domain.article, data),
+    await axios.post(`${BASE_URL}${domain.article}`, data),
+  put: async (articleId: number, data: ArticlesPost) =>
+    await axios.put(`${BASE_URL}${domain.article}/${articleId}`, data),
 };
 
 export const articleDetailAPI = {
   get: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.article + "/" + articleId),
+    await axios.get(`${BASE_URL}${domain.article}/${articleId}`, {
+      // 해당 부분은 Member가 구현되면 수정되어야함.
+      params: {
+        memberId: 1,
+      },
+    }),
 };
 
 interface MemberLogin {
@@ -48,7 +51,7 @@ interface MemberLogin {
 
 export const memberAPI = {
   post: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, { data }),
+    await axios.post(`${BASE_URL}${domain.login}`, { data }),
 };
 
 export const chatRoomAPI = {

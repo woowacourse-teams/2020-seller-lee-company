@@ -13,4 +13,5 @@ public class SellerLeeApplication {
     public static void main(String[] args) {
         SpringApplication.run(SellerLeeApplication.class, args);
     }
+
 }

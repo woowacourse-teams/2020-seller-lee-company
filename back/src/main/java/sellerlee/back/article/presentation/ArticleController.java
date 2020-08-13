@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.presentation;
@@ -13,12 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import sellerlee.back.article.application.ArticleCreateRequest;
+import sellerlee.back.article.application.ArticleRequest;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
@@ -40,7 +41,7 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> post(@RequestBody ArticleCreateRequest request) {
+    public ResponseEntity<Void> post(@RequestBody ArticleRequest request) {
         Long articleId = articleService.post(request);
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
@@ -48,10 +49,10 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FeedResponse>> showArticlePage(
+    public ResponseEntity<List<FeedResponse>> showPage(
             @RequestParam Long lastArticleId,
             @RequestParam int size) {
-        List<FeedResponse> responses = articleService.showArticlePage(lastArticleId, size);
+        List<FeedResponse> responses = articleService.showPage(lastArticleId, size);
         return ResponseEntity.ok(responses);
     }
 
@@ -67,5 +68,12 @@ public class ArticleController {
         ArticleResponse articleResponse = articleViewService.showArticle(id, member);
 
         return ResponseEntity.ok(articleResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateArticle(@PathVariable Long id,
+            @RequestBody ArticleRequest request) {
+        articleService.update(id, request);
+        return ResponseEntity.noContent().build();
     }
 }
