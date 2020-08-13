@@ -17,6 +17,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import sellerlee.back.evaluation.domain.Evaluation;
 import sellerlee.back.evaluation.domain.EvaluationRepository;
+import sellerlee.back.member.domain.Member;
+import sellerlee.back.trade.domain.Trade;
 
 @ExtendWith(value = MockitoExtension.class)
 public class EvaluationServiceTest {
@@ -31,7 +33,7 @@ public class EvaluationServiceTest {
 
     @Test
     void createEvaluation() {
-        Evaluation expected = new Evaluation(1L, EVALUATION_CREATE_REQUEST.getScores());
+        Evaluation expected = new Evaluation(1L, EVALUATION_CREATE_REQUEST.getScores(), new Trade(), new Member(1L));
         Mockito.when(evaluationRepository.save(any())).thenReturn(expected);
 
         Long actualId = evaluationService.createEvaluation(EVALUATION_CREATE_REQUEST);

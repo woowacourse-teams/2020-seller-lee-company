@@ -13,6 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import sellerlee.back.member.domain.Member;
+import sellerlee.back.trade.domain.Trade;
 
 @Entity
 public class Evaluation {
@@ -25,16 +32,26 @@ public class Evaluation {
     @CollectionTable(name = "score", joinColumns = @JoinColumn(name = "evaluation_id"))
     private List<Score> scores;
 
+    @JoinColumn(name = "trade_id")
+    @ManyToOne
+    private Trade trade;
+
+    @JoinColumn(name = "member_id")
+    @OneToOne
+    private Member target;
+
     protected Evaluation() {
     }
 
-    public Evaluation(Long id, List<Score> scores) {
+    public Evaluation(Long id, List<Score> scores, Trade trade, Member target) {
         this.id = id;
         this.scores = scores;
+        this.trade = trade;
+        this.target = target;
     }
 
     public Evaluation(List<Score> scores) {
-        this(null, scores);
+        this(null, scores, null, null);
     }
 
     public Long getId() {

@@ -21,9 +21,9 @@ import sellerlee.back.AcceptanceTest;
 
 public class EvaluationAcceptanceTest extends AcceptanceTest {
     /**
-     * Feature: 평과 관리
+     * Feature: 평가 관리
      * <p>
-     * Scenario: 평과를 관리한다.
+     * Scenario: 평가를 관리한다.
      * <p>
      * When 평가를 한다.
      * Then 평가가 추가된다.
