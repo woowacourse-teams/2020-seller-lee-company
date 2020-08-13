@@ -1,5 +1,7 @@
 package sellerlee.back.article.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -50,6 +52,21 @@ public class Article extends BaseTimeEntity {
 
     public Article(Long id, String title, Tags tags, Category category, String contents,
             Long price, TradeState tradeState, Photos photos, Member author) {
+        this.id = id;
+        this.title = title;
+        this.tags = tags;
+        this.category = category;
+        this.contents = contents;
+        this.price = price;
+        this.tradeState = tradeState;
+        this.photos = photos;
+        this.author = author;
+    }
+
+    public Article(LocalDateTime createdTime, LocalDateTime modifiedTime,
+            Long id, String title, Tags tags, Category category, String contents, Long price,
+            TradeState tradeState, Photos photos, Member author) {
+        super(createdTime, modifiedTime);
         this.id = id;
         this.title = title;
         this.tags = tags;

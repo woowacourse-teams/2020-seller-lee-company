@@ -49,7 +49,7 @@ class ArticleServiceTest {
                 10000L,
                 "디지털/가전",
                 "쌉니다 싸요",
-                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+                Arrays.asList(TAG_FIXTURE.getName(), TAG_FIXTURE2.getName()),
                 Arrays.asList("testUri1", "testUri2"),
                 1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
