@@ -1,0 +1,4 @@
+[submodule "seller-lee-secret"]
+	path = seller-lee-secret
+	url = https://github.com/seller-lee/seller-lee-secret
+	branch = master

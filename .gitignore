@@ -53,3 +53,4 @@ back/out/
 ### VS Code ###
 .vscode/
 .idea/
+/back/src/main/resources/application-db.yml
