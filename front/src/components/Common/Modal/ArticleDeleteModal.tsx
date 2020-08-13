@@ -1,18 +1,16 @@
-/**
- * @author jnsorn
- */
-
 import React from "react";
 import { Modal, View, StyleSheet, Text, Button } from "react-native";
 import { useRecoilState } from "recoil/dist";
-import { modalActivationState } from "../../../states/modalState";
+import { articleDetailModalState } from "../../../states/modalState";
 import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
 import { ArticleDetailScreenProp } from "../../../types/types";
 
 export default function ArticleDeleteModal() {
   const navigation = useNavigation<ArticleDetailScreenProp>();
-  const [modalVisible, setModalVisible] = useRecoilState(modalActivationState);
+  const [modalVisible, setModalVisible] = useRecoilState(
+    articleDetailModalState,
+  );
 
   return (
     <Modal
