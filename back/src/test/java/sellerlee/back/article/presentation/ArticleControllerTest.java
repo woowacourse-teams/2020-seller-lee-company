@@ -88,10 +88,6 @@ class ArticleControllerTest {
                                         .description("게시글의 가격"),
                                 // fieldWithPath("tradeState").type(JsonFieldType.STRING)
                                 //         .description("게시글의 판매 상태"),
-                                fieldWithPath("tradeType").type(JsonFieldType.STRING)
-                                        .description("게시글의 거래 유형"),
-                                fieldWithPath("tradeLocation").type(JsonFieldType.STRING)
-                                        .description("게시글의 거래 지역"),
                                 fieldWithPath("tags").type(JsonFieldType.ARRAY)
                                         .description("태그의 리스트"),
                                 fieldWithPath("photos").type(JsonFieldType.ARRAY)
@@ -143,15 +139,12 @@ class ArticleControllerTest {
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
-        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1))
+        when(articleViewService.showArticle(anyLong(), any()))
                 .thenReturn(ArticleResponse.of(ARTICLE1, true, 1));
 
         // URI Path variable을 가져와야 해서 RestDocumentationRequestBuilders.get()을 사용했음
         mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
-                        .param("memberId", String.valueOf(MEMBER1.getId())))
-                .andDo(print())
+                RestDocumentationRequestBuilders.get(ARTICLE_URI + "/{id}", ARTICLE1.getId()))
                 .andExpect(status().isOk())
                 .andDo(document("articles/get",
                         preprocessRequest(prettyPrint()),
@@ -159,9 +152,6 @@ class ArticleControllerTest {
                         // requestHeaders(
                         //         headerWithName("Authorization").description("회원의 토큰")
                         // ),
-                        requestParameters(
-                                parameterWithName("memberId").description("회원의 ID")
-                        ),
                         pathParameters(
                                 parameterWithName("id").description("게시글의 ID")
                         ),
@@ -170,20 +160,18 @@ class ArticleControllerTest {
                                         .description("게시글의 ID"),
                                 fieldWithPath("title").type(JsonFieldType.STRING)
                                         .description("게시글의 제목"),
-                                fieldWithPath("category").type(JsonFieldType.STRING)
+                                fieldWithPath("categoryName").type(JsonFieldType.STRING)
                                         .description("게시글의 카테고리"),
                                 fieldWithPath("contents").type(JsonFieldType.STRING)
                                         .description("게시글의 내용"),
                                 fieldWithPath("price").type(JsonFieldType.NUMBER)
                                         .description("게시글의 가격"),
-                                fieldWithPath("tradeType").type(JsonFieldType.STRING)
-                                        .description("게시글의 거래 유형"),
-                                fieldWithPath("tradeLocation").type(JsonFieldType.STRING)
-                                        .description("게시글의 거래 지역"),
                                 fieldWithPath("tradeState").type(JsonFieldType.STRING)
                                         .description("게시글의 판매 상태"),
+                                fieldWithPath("tags").type(JsonFieldType.ARRAY)
+                                        .description("게시글 태그의 리스트"),
                                 fieldWithPath("photos").type(JsonFieldType.ARRAY)
-                                        .description("사진의 리스트"),
+                                        .description("게시글 사진의 리스트"),
                                 fieldWithPath("author.avatar").type(JsonFieldType.STRING)
                                         .description("게시글 작성자의 프로필 사진"),
                                 fieldWithPath("author.nickname").type(JsonFieldType.STRING)

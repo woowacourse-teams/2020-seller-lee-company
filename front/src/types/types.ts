@@ -34,7 +34,7 @@ export type ChatRoomNavigationProp = StackNavigationProp<
   "ChatRoom"
 >;
 
-export type ArticleDetailScreenProp = StackNavigationProp<
+export type ArticleDetailNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
   "ArticleDetailScreen"
 >;
