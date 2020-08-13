@@ -166,6 +166,38 @@ export type ArticleDetailNavigationProp = StackNavigationProp<
   "ArticleDetailScreen"
 >;
 
+export type AppStackNavigationParamList = {
+  TeaserScreen: undefined;
+  AuthScreen: undefined;
+  LoginScreen: undefined;
+};
+
+export type TeaserScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "LoginScreen"
+>;
+
+export type LoginScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "LoginScreen"
+>;
+
+export type AuthScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "AuthScreen"
+>;
+
+export type ProfileParamList = {
+  LoginScreen: undefined;
+  AuthScreen: undefined;
+  JoinScreen: undefined;
+};
+
+export type JoinScreenNavigationProp = StackNavigationProp<
+  ProfileParamList,
+  "JoinScreen"
+>;
+
 export interface Article {
   id: number;
   title: string;

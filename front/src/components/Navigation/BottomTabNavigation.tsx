@@ -10,8 +10,8 @@ import ChatScreen from "../../screens/ChatScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleCreateOptionsModal from "../Article/ArticleCreateOptionsModal";
 import ArticleCreateNavigation from "./ArticleCreateNavigation";
-import LoginScreen from "../../screens/LoginScreen";
 import ArticleNavigation from "./ArticleNavigation";
+import ProfileNavigation from "./ProfileNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -79,7 +79,7 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={LoginScreen}
+        component={ProfileNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons

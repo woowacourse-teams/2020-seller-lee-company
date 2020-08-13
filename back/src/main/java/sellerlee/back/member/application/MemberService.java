@@ -35,7 +35,7 @@ public class MemberService {
     }
 
     public String login(LoginRequest request) {
-        Member findMember = memberRepository.findMemberByEmail(request.getEmail())
+        Member findMember = memberRepository.findOptionalMemberByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
 
         if (!findMember.verify(request.getPassword())) {

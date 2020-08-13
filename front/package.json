@@ -10,6 +10,7 @@
     "prettier": "npx prettier --write './**/*.{js,jsx,ts,tsx,json}' --config ./.prettierrc"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.1.0",
     "@expo/vector-icons": "^10.2.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.6.1",

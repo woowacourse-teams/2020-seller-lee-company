@@ -7,4 +7,5 @@ export default {
   secondary: "#a2d5f2",
   tertiary: "#fafafa",
   others: "#ff7e67",
+  border: "#eaeaea",
 };

@@ -48,38 +48,38 @@ class MemberServiceTest {
     @DisplayName("이메일로 회원을 찾고 비밀번호가 일치하는지 여부를 확인한다.")
     @Test
     void login() {
-        when(memberRepository.findMemberByEmail(anyString()))
+        when(memberRepository.findOptionalMemberByEmail(anyString()))
                 .thenReturn(Optional.of(MEMBER1));
         when(jwtTokenProvider.createToken(anyString()))
                 .thenReturn("token");
 
         memberService.login(MEMBER_LOGIN_REQUEST);
-        verify(memberRepository).findMemberByEmail(anyString());
+        verify(memberRepository).findOptionalMemberByEmail(anyString());
     }
 
     @DisplayName("존재하지 않는 이메일이 들어올 경우 예외를 발생시킨다.")
     @Test
     void login_InvalidEmail() {
-        when(memberRepository.findMemberByEmail(anyString()))
+        when(memberRepository.findOptionalMemberByEmail(anyString()))
                 .thenThrow(new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
 
         assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("이메일이 일치하는 회원이 존재하지 않습니다.");
 
-        verify(memberRepository).findMemberByEmail(anyString());
+        verify(memberRepository).findOptionalMemberByEmail(anyString());
     }
 
     @DisplayName("일치하지 않는 비밀번호가 들어올 경우 예외를 발생시킨다.")
     @Test
     void login_InvalidPassword() {
-        when(memberRepository.findMemberByEmail(anyString()))
+        when(memberRepository.findOptionalMemberByEmail(anyString()))
                 .thenThrow(new IllegalLoginException("비밀번호가 일치하지 않습니다."));
 
         assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("비밀번호가 일치하지 않습니다.");
 
-        verify(memberRepository).findMemberByEmail(anyString());
+        verify(memberRepository).findOptionalMemberByEmail(anyString());
     }
 }

@@ -27,6 +27,7 @@ import {
 } from "../../states/loginState";
 import LoginVerifyModal from "../Common/Modal/LoginVerifyModal";
 import { memberAPI } from "../../api/api";
+import AccountManagement from "../Member/AccountManagement";
 
 export default function Login() {
   const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
@@ -61,9 +62,12 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.contentContainer}>
-          <Text style={styles.title}>로그인</Text>
+          <Text style={styles.title}> 셀러리에 로그인하기</Text>
           <TouchableWithoutFeedback
             accessible={false}
             onPress={Keyboard.dismiss}
@@ -80,6 +84,9 @@ export default function Login() {
           <View style={styles.LoginSubmitContainer}>
             <LoginSubmit login={login} />
           </View>
+          <View style={styles.accountManagementContainer}>
+            <AccountManagement />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -91,18 +98,22 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 20,
   },
+  scrollView: {
+    flex: 1,
+    paddingTop: 40,
+  },
   contentContainer: {
     flex: 1,
-    paddingTop: 150,
-    paddingBottom: 20,
+    justifyContent: "center",
+    paddingBottom: 40,
   },
   title: {
-    fontSize: 48,
-    fontWeight: "bold",
+    marginVertical: 10,
+    fontSize: 22,
   },
   LoginFormContainer: {
     justifyContent: "center",
-    marginVertical: 80,
+    marginVertical: 20,
   },
   LoginIdFormContainer: {
     justifyContent: "center",
@@ -112,5 +123,9 @@ const styles = StyleSheet.create({
   },
   LoginSubmitContainer: {
     justifyContent: "center",
+  },
+  accountManagementContainer: {
+    justifyContent: "center",
+    marginVertical: 20,
   },
 });

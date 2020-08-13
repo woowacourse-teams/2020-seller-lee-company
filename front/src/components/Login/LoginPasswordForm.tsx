@@ -42,17 +42,15 @@ export default function LoginPasswordForm() {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 5,
+    aspectRatio: 6,
     justifyContent: "center",
   },
   lockIcon: {
     marginHorizontal: 5,
-    paddingVertical: 5,
   },
   passwordForm: {
     flex: 1,
     fontSize: 18,
     marginHorizontal: 5,
-    paddingVertical: 5,
   },
 });

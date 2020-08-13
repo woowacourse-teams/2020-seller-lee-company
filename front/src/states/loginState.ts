@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import { atom } from "recoil/dist";
 
 export const memberIdState = atom({
@@ -26,5 +22,10 @@ export const memberLoginTrialState = atom({
 
 export const memberLoginVerifyState = atom({
   key: "memberLoginVerifyState",
+  default: false,
+});
+
+export const enterAuthScreenState = atom({
+  key: "enterAuthScreenState",
   default: false,
 });

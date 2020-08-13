@@ -42,18 +42,16 @@ export default function LoginEmailForm() {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 5,
+    aspectRatio: 6,
     justifyContent: "center",
   },
 
   accountIcon: {
     marginHorizontal: 5,
-    paddingVertical: 5,
   },
   idForm: {
     flex: 1,
     fontSize: 18,
     marginHorizontal: 5,
-    paddingVertical: 5,
   },
 });
