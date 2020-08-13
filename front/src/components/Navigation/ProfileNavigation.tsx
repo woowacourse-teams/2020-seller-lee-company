@@ -2,12 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import SalesHistoryScreen from "../../screens/SalesHistoryScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
-
-type ProfileNavigationParamList = {
-  ProfileScreen: undefined;
-  SalesHistoryScreen: undefined;
-  PurchaseScreen: undefined;
-};
+import { ProfileNavigationParamList } from "../../types/types";
 
 const Stack = createStackNavigator<ProfileNavigationParamList>();
 

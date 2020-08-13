@@ -48,6 +48,11 @@ export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
   "ArticleDetailImageViewScreen"
 >;
 
+export type ArticleDetailImageViewRouteProp = RouteProp<
+  ArticleNavigationParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
 export type CategoryParamList = {
   CategoryHome: undefined;
   CategoryDetail: { title: string };
@@ -74,19 +79,19 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type ArticleCreateParamList = {
-  ArticleCreateScreen: undefined;
+export type ArticleFormParamList = {
+  ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
 };
 
-export type ArticleCreateScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
-  "ArticleCreateScreen"
+export type ArticleFormScreenNavigationProp = StackNavigationProp<
+  ArticleFormParamList,
+  "ArticleFormScreen"
 >;
 
 export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
+  ArticleFormParamList,
   "ArticleContentsFormScreen"
 >;
 
@@ -206,16 +211,17 @@ export interface Buyer {
   nickname: string;
 }
 
-export type MyPageParamList = {
-  MyPage: undefined;
-  SalesDetails: undefined;
+
+export type ProfileNavigationParamList = {
+  ProfileScreen: undefined;
+  SalesHistoryScreen: undefined;
   ArticleDetailScreen: undefined;
   Evaluation: undefined;
 };
 
-export type MyPageNavigationProps = StackNavigationProp<
-  MyPageParamList,
-  "SalesDetails"
+export type ProfileScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "ProfileScreen"
 >;
 
 export interface Score {
