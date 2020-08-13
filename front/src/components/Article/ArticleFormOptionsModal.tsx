@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button, StyleSheet, TouchableOpacity, View } from "react-native";

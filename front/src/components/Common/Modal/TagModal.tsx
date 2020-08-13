@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useRecoilState } from "recoil/dist";

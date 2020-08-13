@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React, { useEffect, useLayoutEffect } from "react";
 import { Button, ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -9,10 +5,10 @@ import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import ArticlePriceAndTradeType from "../components/Article/ArticlePriceAndTradeType";
+import { ArticleDetailNavigationProp } from "../types/types";
+import ArticlePrice from "../components/Article/ArticlePrice";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
-import { AuthorScoreType, ArticleDetailNavigationProp } from "../types/types";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
 import theme from "../colors";
 import { articleDetailAPI } from "../api/api";
@@ -29,20 +25,15 @@ export default function ArticleDetailScreen() {
   const setArticleSelected = useSetRecoilState(articleSelectedState);
   const setIsEditing = useSetRecoilState(articleIsEditingState);
 
-  const mockImages = [
-    "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-    "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-    "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-  ];
+  const getArticle = async () => {
+    const { data } = await articleDetailAPI.get(articleId);
+    console.log(data);
+    setArticleSelected(data);
+  };
 
   useEffect(() => {
     getArticle();
   }, [articleId]);
-
-  const getArticle = async () => {
-    const { data } = await articleDetailAPI.get(articleId);
-    setArticleSelected(data);
-  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -79,17 +70,10 @@ export default function ArticleDetailScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.imageSliderContainer}>
-          <ArticleDetailImageSlider photos={mockImages} />
+          <ArticleDetailImageSlider />
         </View>
         <View style={styles.articleAuthorContainer}>
-          <ArticleAuthor
-            name={"스티치"}
-            score={7 as AuthorScoreType}
-            avatar={{
-              uri:
-                "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
-            }}
-          />
+          <ArticleAuthor />
         </View>
         <View style={styles.articleDetailContainer}>
           <ArticleDetail />
@@ -97,9 +81,9 @@ export default function ArticleDetailScreen() {
       </ScrollView>
       <View style={styles.bottomTab}>
         <View style={styles.articleDetailFavoriteContainer}>
-          <ArticleDetailFavorite articleId={articleId} />
+          <ArticleDetailFavorite />
         </View>
-        <ArticlePriceAndTradeType articleId={articleId} />
+        <ArticlePrice />
         <View style={styles.chatButtonContainer}>
           <ArticleDetailChatButton />
         </View>

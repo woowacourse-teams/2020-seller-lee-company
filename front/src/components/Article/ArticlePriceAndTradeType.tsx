@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { insertComma } from "../../replacePriceWithComma";

@@ -30,7 +30,17 @@ public class Tags {
         this.tags = new ArrayList<>(tags);
     }
 
-    public List<Tag> toList() {
+    public static Tags of(Tag... tags) {
+        return new Tags(Arrays.asList(tags));
+    }
+
+    public List<String> toStringList() {
+        return tags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList());
+    }
+
+    public List<Tag> getTags() {
         return unmodifiableList(tags);
     }
 
@@ -40,8 +50,8 @@ public class Tags {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Tags tags1 = (Tags)o;
-        return Objects.equals(tags, tags1.tags);
+        Tags that = (Tags)o;
+        return Objects.equals(tags, that.tags);
     }
 
     @Override

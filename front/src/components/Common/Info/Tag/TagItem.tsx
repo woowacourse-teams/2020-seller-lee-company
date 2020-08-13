@@ -1,32 +1,31 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { useRecoilState } from "recoil/dist";
 import { tagsState } from "../../../../states/TagState";
-import { TagItemProps } from "../../../../types/types";
 import theme from "../../../../colors";
 
-export default function TagItem({ tagItem }: TagItemProps) {
+interface TagItemProps {
+  tag: string;
+}
+
+export default function TagItem({ tag }: TagItemProps) {
   const [tags, setTags] = useRecoilState(tagsState);
 
-  const onRemove = (deleteId: number) =>
-    setTags(tags.filter(({ id }) => id !== deleteId));
+  const onRemove = (deleteTag: string) =>
+    setTags(tags.filter((tag) => tag !== deleteTag));
 
   return (
     <View style={styles.tagItem}>
       <View style={styles.tagItemTextWrapper}>
-        <Text style={styles.tagItemText}>{tagItem.name}</Text>
+        <Text style={styles.tagItemText}>{tag}</Text>
       </View>
       <View style={styles.deleteTagButtonWrapper}>
         <TouchableOpacity
           activeOpacity={0.4}
           style={styles.deleteButton}
-          onPress={() => onRemove(tagItem.id)}
+          onPress={() => onRemove(tag)}
         >
           <Feather
             name="x"

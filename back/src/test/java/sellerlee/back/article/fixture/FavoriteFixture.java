@@ -4,8 +4,8 @@
 
 package sellerlee.back.article.fixture;
 
-import static sellerlee.back.article.fixture.ArticleFixture.*;
 import static sellerlee.back.article.fixture.MemberFixture.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
 
 import sellerlee.back.favorite.domain.Favorite;
 

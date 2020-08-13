@@ -1,17 +1,12 @@
-/**
- * @author lxxjn0
- */
-
 import React from "react";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ChatScreen from "../../screens/ChatScreen";
 import CategoryNavigation from "./CategoryNavigation";
 import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
 import ArticleFormNavigation from "./ArticleFormNavigation";
-import LoginScreen from "../../screens/LoginScreen";
 import ArticleNavigation from "./ArticleNavigation";
+import SampleNavigation from "./SampleNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -79,7 +74,7 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={LoginScreen}
+        component={SampleNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons

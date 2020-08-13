@@ -8,8 +8,10 @@ import java.util.List;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.domain.Photos;
 import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
+import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.member.domain.Member;
 
 public class ArticleRequest {
@@ -36,8 +38,10 @@ public class ArticleRequest {
     }
 
     public Article toArticle() {
-        return new Article(title, price, Category.fromName(category), contents,
-                new Tags(tags), photos, new Member(authorId, "sellerlee@gmail.com", "0000", 4.5));
+        return new Article(title, new Tags(tags), Category.fromString(category), contents, price,
+                TradeState.ON_SALE,
+                new Photos(photos),
+                new Member(authorId, "sellerlee@gmail.com", "0000", "avatar", "nickname", 4.5));
     }
 
     public String getTitle() {

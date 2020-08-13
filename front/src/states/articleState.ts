@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import { atom } from "recoil/dist";
 import { defaultArticle } from "../data/defaultArticle";
 
@@ -48,4 +44,9 @@ export const articleSelectedState = atom({
 export const articleIsEditingState = atom({
   key: "articleIsEditingState",
   default: false,
+});
+
+export const articleIdState = atom({
+  key: "articleIdState",
+  default: 0,
 });

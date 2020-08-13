@@ -1,12 +1,8 @@
-/**
- * @author lxxjn0
- */
-
 import { atom } from "recoil/dist";
 
 export const memberIdState = atom({
   key: "memberIdState",
-  default: 1,
+  default: 51,
 });
 
 export const memberEmailState = atom({

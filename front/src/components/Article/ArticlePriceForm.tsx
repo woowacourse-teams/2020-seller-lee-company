@@ -1,12 +1,8 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { insertComma, removeComma } from "../../replacePriceWithComma";
 import { useRecoilState } from "recoil/dist";
 import { articlePriceState } from "../../states/articleState";
+import { insertComma, removeComma } from "../../replacePriceWithComma";
 
 export default function ArticlePriceForm() {
   const [price, setPrice] = useRecoilState(articlePriceState);

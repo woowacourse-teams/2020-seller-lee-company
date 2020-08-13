@@ -1,7 +1,3 @@
-/**
- * @author begaonnuri, joseph415
- */
-
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { HeaderBackButton } from "@react-navigation/stack";

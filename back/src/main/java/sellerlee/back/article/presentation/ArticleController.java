@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.presentation;
@@ -24,6 +24,7 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.member.domain.Member;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
@@ -48,7 +49,7 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FeedResponse>> showArticlePage(
+    public ResponseEntity<List<FeedResponse>> showPage(
             @RequestParam Long lastArticleId,
             @RequestParam int size) {
         List<FeedResponse> responses = articleService.showPage(lastArticleId, size);
@@ -56,15 +57,22 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id,
-            @RequestParam Long memberId) {
-        ArticleResponse articleResponse = articleViewService.showArticle(id, memberId);
+    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id) {
+        Member member = new Member(
+                51L,
+                "turtle@woowabro.com",
+                "1234",
+                "testNickname",
+                "testUri",
+                4.5);
+        ArticleResponse articleResponse = articleViewService.showArticle(id, member);
 
         return ResponseEntity.ok(articleResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest request){
+    public ResponseEntity<Void> updateArticle(@PathVariable Long id,
+            @RequestBody ArticleRequest request) {
         articleService.update(id, request);
         return ResponseEntity.noContent().build();
     }

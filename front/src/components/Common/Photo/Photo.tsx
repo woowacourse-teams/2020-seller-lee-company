@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -92,9 +88,7 @@ export default function Photo() {
 
     if (photos.length === LIMIT_PHOTO_COUNT) {
       setModalVisible(true);
-      setModalMessage(
-        "사진은 최대 " + LIMIT_PHOTO_COUNT + "장만 첨부 가능합니다.",
-      );
+      setModalMessage(`사진은 최대 ${LIMIT_PHOTO_COUNT}장만 첨부 가능합니다.`);
       return;
     }
 

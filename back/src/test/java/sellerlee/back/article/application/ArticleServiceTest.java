@@ -1,16 +1,15 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.application.ArticleService.*;
-import static sellerlee.back.article.fixture.ArticleFixture.*;
-import static sellerlee.back.article.fixture.TagFixture.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.TagFixture.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,8 +44,13 @@ class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
-        ArticleRequest request = new ArticleRequest("노트북", 10000L, "디지털/가전", "쌉니다 싸요",
-                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2), Arrays.asList("testUri1", "testUri2"),
+        ArticleRequest request = new ArticleRequest(
+                "노트북",
+                10000L,
+                "디지털/가전",
+                "쌉니다 싸요",
+                Arrays.asList(TAG_FIXTURE, TAG_FIXTURE2),
+                Arrays.asList("testUri1", "testUri2"),
                 1L);
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
@@ -55,7 +59,7 @@ class ArticleServiceTest {
         assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
 
-    @DisplayName("마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
+    @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
     @Test
     void showArticlePages() {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);

@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import axios from "axios";
 
 // const BASE_URL = "http://3.34.248.131:8080";
@@ -9,6 +5,9 @@ const BASE_URL = "http://localhost:8080";
 const domain = {
   article: "/articles",
   members: "/members",
+  login: "/login",
+  chatRoom: "/chat-rooms",
+  trade: "/trades",
 };
 
 interface ArticlesPost {
@@ -52,5 +51,14 @@ interface MemberLogin {
 
 export const memberAPI = {
   post: async (data: MemberLogin) =>
-    await axios.post(`${BASE_URL}${domain.members}`, { data }),
+    await axios.post(`${BASE_URL}${domain.login}`, { data }),
+};
+
+export const chatRoomAPI = {
+  getBuyers: async (articleId: number) =>
+    await axios.get(BASE_URL + domain.chatRoom, {
+      params: {
+        articleId,
+      },
+    }),
 };

@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   BackHandler,
@@ -33,9 +29,8 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
+import { Article, ArticleFormScreenNavigationProp } from "../types/types";
 import theme from "../colors";
-
 import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
@@ -43,7 +38,7 @@ import { defaultArticle } from "../data/defaultArticle";
 import { memberIdState } from "../states/loginState";
 
 export default function ArticleFormScreen() {
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
   const [article, setArticle] = useState<Article>(defaultArticle);
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
@@ -82,7 +77,7 @@ export default function ArticleFormScreen() {
       article.title !== originArticle.title ||
       article.price !== originArticle.price ||
       article.contents !== originArticle.contents ||
-      article.category !== originArticle.category ||
+      article.categoryName !== originArticle.categoryName ||
       article.tags.length !== originArticle.tags.length
     );
   };
@@ -127,7 +122,7 @@ export default function ArticleFormScreen() {
       price: price,
       category: selectedCategory,
       contents: contents,
-      tags: tags.map((tag) => tag.name),
+      tags: tags,
       photos: photos,
       authorId: memberId,
     };
@@ -143,7 +138,7 @@ export default function ArticleFormScreen() {
     setArticle(article);
     setPhotos(article.photos);
     setTitle(article.title);
-    setSelectedCategory(article.category);
+    setSelectedCategory(article.categoryName);
     setPrice(article.price);
     setContents(article.contents);
     setTags(article.tags);

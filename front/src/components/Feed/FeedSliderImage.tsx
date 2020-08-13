@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
@@ -29,7 +25,6 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
           style={styles.imageContainer}
           key={index}
         >
-          {console.log(photo)}
           <PhotoBox photoURI={photo} marginBottom={0} />
         </TouchableOpacity>
       ))}

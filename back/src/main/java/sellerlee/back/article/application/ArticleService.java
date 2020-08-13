@@ -1,5 +1,5 @@
 /**
- * @author begaonnuri
+ * @author kouz95
  */
 
 package sellerlee.back.article.application;
@@ -26,8 +26,8 @@ public class ArticleService {
     }
 
     public Long post(ArticleRequest request) {
-        Article persistArticle = articleRepository.save(request.toArticle());
-        return persistArticle.getId();
+        Article article = articleRepository.save(request.toArticle());
+        return article.getId();
     }
 
     public List<FeedResponse> showPage(Long lastArticleId, int size) {

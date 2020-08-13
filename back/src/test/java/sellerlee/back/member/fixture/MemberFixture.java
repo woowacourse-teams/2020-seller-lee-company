@@ -7,10 +7,14 @@ public class MemberFixture {
     private static final String MEMBER_EMAIL = "sellerlee@gmail.com";
     private static final String MEMBER_PASSWORD = "1234";
     private static final double MEMBER_SCORE = 4.5;
+    private static final String MEMBER_AVATAR = "avatar";
+    private static final String MEMBER_NICKNAME = "nickname";
 
     public static final Member MEMBER_FIXTURE = new Member(
             MEMBER_EMAIL,
             MEMBER_PASSWORD,
+            MEMBER_AVATAR,
+            MEMBER_NICKNAME,
             MEMBER_SCORE
     );
 
