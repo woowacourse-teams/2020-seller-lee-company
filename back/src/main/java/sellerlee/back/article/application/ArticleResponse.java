@@ -51,7 +51,7 @@ public class ArticleResponse {
                 article.getContents(),
                 article.getPrice(),
                 article.getTradeState().getTradeState(),
-                article.getPhotos().getPhotos(),
+                article.getPhotos().toList(),
                 MemberResponse.of(article.getAuthor()),
                 favoriteState,
                 favoriteCount,

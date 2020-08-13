@@ -12,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
-import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Arrays;
@@ -62,10 +61,9 @@ class ArticleControllerTest {
     @DisplayName("게시글 페이지 조회 시 HTTP status는 OK다.")
     @Test
     void showArticlePage() throws Exception {
-        when(articleViewService.showArticlePage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
-                .thenReturn(
-                        FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1), Arrays.asList(5, 5),
-                                Arrays.asList(false, true)));
+        when(articleViewService.showFeedPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
+                .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
+                        Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
         mockMvc.perform(get(ARTICLE_URI)
                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
@@ -77,7 +75,7 @@ class ArticleControllerTest {
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
-        when(articleViewService.showArticle(ARTICLE1.getId(), MEMBER1))
+        when(articleViewService.show(ARTICLE1.getId(), MEMBER1))
                 .thenReturn(ArticleResponse.of(ARTICLE1, true, 1));
 
         mockMvc.perform(get(ARTICLE_URI + "/{id}", ARTICLE1.getId())

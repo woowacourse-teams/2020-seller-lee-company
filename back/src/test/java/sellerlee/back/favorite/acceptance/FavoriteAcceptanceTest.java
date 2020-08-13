@@ -10,6 +10,7 @@ import static sellerlee.back.favorite.presentation.FavoriteController.*;
 import java.util.stream.Stream;
 
 import org.apache.http.HttpHeaders;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,9 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
      * When 찜 삭제를 한다.
      * Then 찜이 삭제 된다.
      */
+    @DisplayName("찜 관리")
     @TestFactory
-    Stream<DynamicTest> manageChatRoom() throws JsonProcessingException {
+    Stream<DynamicTest> manageFavorite() throws JsonProcessingException {
         // Given
         Long articleId = extractId(createArticle());
         // 로그인 추가

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: develop
+    active: local
 
   datasource:
     username: root

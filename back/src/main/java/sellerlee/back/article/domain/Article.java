@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import sellerlee.back.common.BaseTimeEntity;
 import sellerlee.back.member.domain.Member;
 
 @Entity

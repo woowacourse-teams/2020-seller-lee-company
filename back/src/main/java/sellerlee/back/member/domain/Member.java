@@ -1,5 +1,5 @@
 /**
- * @author jnsorn
+ * @author kouz95
  */
 
 package sellerlee.back.member.domain;
@@ -46,10 +46,6 @@ public class Member {
 
     public Member(Long id) {
         this(id, null, null, null, null, null);
-    }
-
-    public Member(Long id) {
-        this(id, null, null, null);
     }
 
     public boolean verify(String password) {

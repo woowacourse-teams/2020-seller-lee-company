@@ -27,6 +27,7 @@ export default function FeedArticleCard({
   tags,
   favoriteCount,
   photos,
+  favoriteState,
 }: Feed) {
   const navigation = useNavigation<FeedHomeNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
@@ -62,7 +63,11 @@ export default function FeedArticleCard({
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite favoriteCount={favoriteCount} />
+            <Favorite
+              articleId={id}
+              state={favoriteState}
+              count={favoriteCount}
+            />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>{insertComma(price.toString())}원</Text>
             </View>

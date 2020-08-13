@@ -1,4 +1,8 @@
-package sellerlee.back.article.domain;
+/**
+ * @author kouz95
+ */
+
+package sellerlee.back.common;
 
 import java.time.LocalDateTime;
 

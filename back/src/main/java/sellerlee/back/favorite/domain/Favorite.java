@@ -29,11 +29,11 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
-    Article article;
+    private Article article;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    Member member;
+    private Member member;
 
     protected Favorite() {
     }
