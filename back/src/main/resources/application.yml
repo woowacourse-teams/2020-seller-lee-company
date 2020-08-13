@@ -1,10 +1,8 @@
 spring:
   profiles:
     active: local
-
-  datasource:
-    username: root
-    password: root
+    include: >
+      db
 
   jpa:
     generate-ddl: true
@@ -26,19 +24,3 @@ logging:
   level:
     org.hibernate.type.descriptor.sql: trace
     org.springframework.web: debug
-
----
-
-spring:
-  profiles: develop
-
-  datasource:
-    url: jdbc:mysql://seller_lee_database:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true
-
----
-
-spring:
-  profiles: local
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/sl_db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true

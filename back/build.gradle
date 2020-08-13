@@ -52,3 +52,10 @@ bootJar {
         into 'static/docs'
     }
 }
+
+processResources.dependsOn 'copyDatabaseSecret'
+
+task copyDatabaseSecret(type: Copy) {
+    from '../seller-lee-secret/application-db.yml'
+    into 'src/main/resources'
+}
