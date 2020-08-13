@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 package sellerlee.back.article.application;
 
 import static org.assertj.core.api.Assertions.*;
@@ -10,6 +6,8 @@ import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import sellerlee.back.article.domain.ArticleRepository;
+import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.favorite.domain.FavoriteRepository;
 
 @ExtendWith(value = MockitoExtension.class)
@@ -49,4 +48,18 @@ class ArticleViewServiceTest {
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
         assertThat(articleResponse.getAuthor().getNickname()).isEqualTo(MEMBER1.getNickname());
     }
+
+    // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
+    // @Test
+    // void showArticlesByTradeState() {
+    //     String tradeState = "ON_SALE";
+    //     when(articleRepository.findByTradeState(TradeState.valueOf(tradeState))).thenReturn(
+    //             Arrays.asList(ARTICLE1, ARTICLE2)
+    //     );
+    //
+    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
+    //
+    //     assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
+    //     assertThat(responses.get(1).getId()).isEqualTo(ARTICLE2.getId());
+    // }
 }

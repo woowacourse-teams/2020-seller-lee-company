@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.presentation;
 
 import static org.mockito.Mockito.*;
@@ -58,7 +54,7 @@ class ArticleControllerTest {
                 .andExpect(status().isCreated());
     }
 
-    @DisplayName("게시글 페이지 조회 시 HTTP status는 OK다.")
+    @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
         when(articleService.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE))
@@ -82,4 +78,17 @@ class ArticleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    // @DisplayName("게시글 판매 상태로 게시글 조회 시 HTTP STATUS OK와 판매 상태에 해당하는 게시글 반환")
+    // @Test
+    // void showArticlesByTradeState() throws Exception {
+    //     String tradeState = "ON_SALE";
+    //
+    //     when(articleViewService.showByTradeState(tradeState)).thenReturn(anyList());
+    //
+    //     mockMvc.perform(get(ARTICLE_URI + "/trade-state")
+    //             .param("tradeState", tradeState))
+    //             .andDo(print())
+    //             .andExpect(status().isOk());
+    // }
 }

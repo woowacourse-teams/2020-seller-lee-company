@@ -1,16 +1,15 @@
-/**
- * @author joseph415
- */
-
 package sellerlee.back.article.application;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
+import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.favorite.domain.FavoriteRepository;
 import sellerlee.back.member.domain.Member;
@@ -38,4 +37,13 @@ public class ArticleViewService {
 
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }
+
+    // @Transactional(readOnly = true)
+    // public List<ArticleResponse> showByTradeState(String state) {
+    //     TradeState tradeState = TradeState.valueOf(state);
+    //     List<Article> articles = articleRepository.findByTradeState(tradeState);
+    //     return articles.stream()
+    //             .map(ArticleResponse::of)
+    //             .collect(Collectors.toList());
+    // }
 }

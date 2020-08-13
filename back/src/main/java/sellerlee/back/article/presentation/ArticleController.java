@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.presentation;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
@@ -13,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,10 +65,13 @@ public class ArticleController {
         return ResponseEntity.ok(articleResponse);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateArticle(@PathVariable Long id,
-            @RequestBody ArticleRequest request) {
-        articleService.update(id, request);
-        return ResponseEntity.noContent().build();
-    }
+    /**
+     * MemberResponse.of의 인자로 Favorite도 받도록 변경되어서 일단 주석처리했음
+     * 코즈 PR이 머지되면 수정할 예정
+     */
+    // @GetMapping("/trade-state")
+    // public ResponseEntity<List<ArticleResponse>> showByTradeState(@RequestParam String tradeState){
+    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
+    //     return ResponseEntity.ok(responses);
+    // }
 }
