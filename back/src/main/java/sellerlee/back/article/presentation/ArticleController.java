@@ -65,9 +65,13 @@ public class ArticleController {
         return ResponseEntity.ok(articleResponse);
     }
 
-    @GetMapping("/trade-state")
-    public ResponseEntity<List<ArticleResponse>> showByTradeState(@RequestParam String tradeState){
-        List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
-        return ResponseEntity.ok(responses);
-    }
+    /**
+     * MemberResponse.of의 인자로 Favorite도 받도록 변경되어서 일단 주석처리했음
+     * 코즈 PR이 머지되면 수정할 예정
+     */
+    // @GetMapping("/trade-state")
+    // public ResponseEntity<List<ArticleResponse>> showByTradeState(@RequestParam String tradeState){
+    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
+    //     return ResponseEntity.ok(responses);
+    // }
 }

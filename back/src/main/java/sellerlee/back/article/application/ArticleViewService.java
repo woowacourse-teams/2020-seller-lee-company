@@ -38,12 +38,12 @@ public class ArticleViewService {
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }
 
-    @Transactional(readOnly = true)
-    public List<ArticleResponse> showByTradeState(String state) {
-        TradeState tradeState = TradeState.valueOf(state);
-        List<Article> articles = articleRepository.findByTradeState(tradeState);
-        return articles.stream()
-                .map(ArticleResponse::of)
-                .collect(Collectors.toList());
-    }
+    // @Transactional(readOnly = true)
+    // public List<ArticleResponse> showByTradeState(String state) {
+    //     TradeState tradeState = TradeState.valueOf(state);
+    //     List<Article> articles = articleRepository.findByTradeState(tradeState);
+    //     return articles.stream()
+    //             .map(ArticleResponse::of)
+    //             .collect(Collectors.toList());
+    // }
 }
