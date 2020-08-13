@@ -38,6 +38,8 @@ export const articlesAPI = {
     await axios.post(`${BASE_URL}${domain.article}`, data),
   put: async (articleId: number, data: ArticlesPost) =>
     await axios.put(`${BASE_URL}${domain.article}/${articleId}`, data),
+  delete: async (articleId: number) =>
+    await axios.delete(`${BASE_URL}${domain.article}/${articleId}`),
 };
 
 export const articleDetailAPI = {
