@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +28,12 @@ import sellerlee.back.favorite.application.FavoriteService;
 class FavoriteControllerTest {
     @MockBean
     private FavoriteService favoriteService;
+
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
     private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        objectMapper = new ObjectMapper();
-    }
 
     @DisplayName("찜 추가를 요청 하면 Status Created를 반환하고 Location이 존재한다.")
     @Test
