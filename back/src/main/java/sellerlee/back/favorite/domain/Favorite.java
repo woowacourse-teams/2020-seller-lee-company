@@ -53,6 +53,11 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
         return this;
     }
 
+    public Favorite remove() {
+        this.registerEvent(new FavoriteRemovedEvent(this));
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
@@ -63,10 +68,5 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
 
     public Member getMember() {
         return member;
-    }
-
-    public Favorite remove() {
-        this.registerEvent(new FavoriteRemovedEvent(this));
-        return this;
     }
 }
