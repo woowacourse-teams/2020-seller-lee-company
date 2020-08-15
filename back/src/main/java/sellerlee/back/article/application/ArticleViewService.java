@@ -58,8 +58,8 @@ public class ArticleViewService {
         List<Article> articles = articleRepository
                 .findByIdLessThanOrderByIdDesc(lastArticleId, pageRequest)
                 .getContent();
-        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(
-                loginMember, articles).stream()
+        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(loginMember, articles)
+                .stream()
                 .map(Favorite::getArticle)
                 .collect(toList());
         Map<Article, Long> articleAndCount = articleFavoriteCountRepository

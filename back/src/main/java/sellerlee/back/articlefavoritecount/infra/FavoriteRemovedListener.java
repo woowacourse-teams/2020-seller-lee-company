@@ -20,6 +20,6 @@ public class FavoriteRemovedListener implements ApplicationListener<FavoriteRemo
 
     @Override
     public void onApplicationEvent(FavoriteRemovedEvent event) {
-        articleFavoriteCountService.remove(event.getFavorite().getArticle());
+        articleFavoriteCountService.decrease(event.getFavorite().getArticle());
     }
 }

@@ -20,25 +20,23 @@ import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository
 public class ArticleFavoriteCountService {
     private final ArticleFavoriteCountRepository articleFavoriteCountRepository;
 
-    public ArticleFavoriteCountService(
-            ArticleFavoriteCountRepository articleFavoriteCountRepository) {
+    public ArticleFavoriteCountService(ArticleFavoriteCountRepository articleFavoriteCountRepository) {
         this.articleFavoriteCountRepository = articleFavoriteCountRepository;
     }
 
     @Transactional
     public void increase(Article article) {
-        Optional<ArticleFavoriteCount> articleFavoriteCount =
+        Optional<ArticleFavoriteCount> persist =
                 articleFavoriteCountRepository.findByArticle(article);
 
-        ifPresentOrElse(articleFavoriteCount,
+        ifPresentOrElse(persist,
                 ArticleFavoriteCount::increase,
                 () -> articleFavoriteCountRepository.save(new ArticleFavoriteCount(article, 1L)));
     }
 
     @Transactional
-    public void remove(Article article) {
-        Optional<ArticleFavoriteCount> articleFavoriteCount =
-                articleFavoriteCountRepository.findByArticle(article);
-        articleFavoriteCount.ifPresent(ArticleFavoriteCount::decrease);
+    public void decrease(Article article) {
+        Optional<ArticleFavoriteCount> persist = articleFavoriteCountRepository.findByArticle(article);
+        persist.ifPresent(ArticleFavoriteCount::decrease);
     }
 }
