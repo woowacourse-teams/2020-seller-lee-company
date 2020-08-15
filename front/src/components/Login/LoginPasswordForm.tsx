@@ -3,11 +3,11 @@ import { StyleSheet, TextInput, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
-import { memberPasswordState } from "../../states/loginState";
+import { loginPasswordState } from "../../states/loginState";
 
 export default function LoginPasswordForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);
-  const setPasswordState = useSetRecoilState(memberPasswordState);
+  const setPasswordState = useSetRecoilState(loginPasswordState);
 
   const dynamicStyles = StyleSheet.create({
     passwordFormContainer: {
@@ -23,7 +23,7 @@ export default function LoginPasswordForm() {
       <View style={dynamicStyles.passwordFormContainer}>
         <MaterialCommunityIcons
           name="lock-outline"
-          size={32}
+          size={28}
           color="lightgrey"
           style={styles.lockIcon}
         />
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   passwordForm: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     marginHorizontal: 5,
   },
 });

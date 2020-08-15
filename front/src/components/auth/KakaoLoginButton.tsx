@@ -1,9 +1,13 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { DeviceStorage } from "../../auth/DeviceStorage";
 
 export default function KakaoLoginButton() {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => DeviceStorage.getToken().then((data) => console.log(data))}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={require("../../../assets/KakaoTalk_logo.png")}

@@ -16,7 +16,7 @@ import {
   memberLoginTrialState,
   memberLoginVerifyState,
 } from "../../../states/loginState";
-import { TabHomeNavigationProp } from "../../../types/types";
+import { LoginScreenNavigationProp } from "../../../types/types";
 
 interface LoginVerifyModalProps {
   resetMemberLoginValue: Function;
@@ -25,7 +25,7 @@ interface LoginVerifyModalProps {
 export default function LoginVerifyModal({
   resetMemberLoginValue,
 }: LoginVerifyModalProps) {
-  const navigation = useNavigation<TabHomeNavigationProp>();
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const [loginTrialState, setLoginTrialState] = useRecoilState(
     memberLoginTrialState,
@@ -39,7 +39,8 @@ export default function LoginVerifyModal({
 
     if (loginVerifyState) {
       resetMemberLoginValue();
-      navigation.navigate("Home");
+      // TODO LoginScreen을 Home으로 변경해야 함
+      navigation.navigate("BottomTabNavigation");
     }
   };
 

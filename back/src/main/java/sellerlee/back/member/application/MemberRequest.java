@@ -29,6 +29,6 @@ public class MemberRequest {
     }
 
     public Member toMember() {
-        return new Member(nickname, avatar, password);
+        return new Member(nickname, password, avatar);
     }
 }

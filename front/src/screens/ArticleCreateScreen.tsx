@@ -39,7 +39,7 @@ import { tagsState } from "../states/TagState";
 import { ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 
-import { memberIdState } from "../states/loginState";
+import { loginIdState } from "../states/loginState";
 import { articlesAPI } from "../api/api";
 import ArticleCreateCategorySelect from "../components/Article/ArticleCreateCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
@@ -52,7 +52,7 @@ export default function ArticleCreateScreen() {
   const price = useRecoilValue(articlePriceState);
   const photos = useRecoilValue(articlePhotosState);
   const tags = useRecoilValue(tagsState);
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(loginIdState);
 
   const resetPhotos = useResetRecoilState(articlePhotosState);
   const resetTitle = useResetRecoilState(articleTitleState);

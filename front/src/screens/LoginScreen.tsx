@@ -13,13 +13,26 @@ import {
 import Login from "../components/Login/Login";
 import { useNavigation } from "@react-navigation/native";
 import { LoginScreenNavigationProp } from "../types/types";
+import { HeaderBackButton } from "@react-navigation/stack";
+import { EvilIcons } from "@expo/vector-icons";
 
 export default function LoginScreen() {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: false,
+      headerTitle: "",
+      headerTransparent: true,
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={24} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 15 },
     });
   });
 

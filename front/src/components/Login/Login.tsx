@@ -11,52 +11,23 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-
-import LoginEmailForm from "./LoginEmailForm";
+import LoginNicknameForm from "./LoginNicknameForm";
 import LoginPasswordForm from "./LoginPasswordForm";
 import LoginSubmit from "./LoginSubmit";
+import { useResetRecoilState } from "recoil/dist";
 import {
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from "recoil/dist";
-import {
-  memberEmailState,
-  memberLoginVerifyState,
-  memberPasswordState,
+  loginNicknameState,
+  loginPasswordState,
 } from "../../states/loginState";
 import LoginVerifyModal from "../Common/Modal/LoginVerifyModal";
-import { memberAPI } from "../../api/api";
-import AccountManagement from "../Member/AccountManagement";
 
 export default function Login() {
-  const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
-
-  const memberEmail = useRecoilValue(memberEmailState);
-  const memberPassword = useRecoilValue(memberPasswordState);
-
-  const resetMemberEmail = useResetRecoilState(memberEmailState);
-  const resetMemberPassword = useResetRecoilState(memberPasswordState);
+  const resetMemberEmail = useResetRecoilState(loginNicknameState);
+  const resetMemberPassword = useResetRecoilState(loginPasswordState);
 
   const resetMemberLoginValue = () => {
     resetMemberEmail();
     resetMemberPassword();
-  };
-
-  const login = async () => {
-    try {
-      const response = await memberAPI.post({
-        email: memberEmail,
-        password: memberPassword,
-      });
-
-      if (response.status === 200) {
-        setLoginVerifyState(true);
-        resetMemberLoginValue();
-      }
-    } catch (error) {
-      setLoginVerifyState(false);
-    }
   };
 
   return (
@@ -67,25 +38,22 @@ export default function Login() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
-          <Text style={styles.title}> 셀러리에 로그인하기</Text>
+          <Text style={styles.title}>닉네임으로 로그인</Text>
           <TouchableWithoutFeedback
             accessible={false}
             onPress={Keyboard.dismiss}
           >
             <View style={styles.LoginFormContainer}>
-              <View style={styles.LoginIdFormContainer}>
-                <LoginEmailForm />
+              <View style={styles.LoginTextFormContainer}>
+                <LoginNicknameForm />
               </View>
-              <View style={styles.LoginPasswordFormContainer}>
+              <View style={styles.LoginTextFormContainer}>
                 <LoginPasswordForm />
               </View>
             </View>
           </TouchableWithoutFeedback>
           <View style={styles.LoginSubmitContainer}>
-            <LoginSubmit login={login} />
-          </View>
-          <View style={styles.accountManagementContainer}>
-            <AccountManagement />
+            <LoginSubmit resetLoginForm={resetMemberLoginValue} />
           </View>
         </View>
       </ScrollView>
@@ -108,24 +76,20 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   title: {
-    marginVertical: 10,
-    fontSize: 22,
+    marginVertical: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   LoginFormContainer: {
     justifyContent: "center",
-    marginVertical: 20,
+    marginVertical: 30,
   },
-  LoginIdFormContainer: {
+  LoginTextFormContainer: {
     justifyContent: "center",
-  },
-  LoginPasswordFormContainer: {
-    justifyContent: "center",
+    marginVertical: 5,
   },
   LoginSubmitContainer: {
     justifyContent: "center",
-  },
-  accountManagementContainer: {
-    justifyContent: "center",
-    marginVertical: 20,
+    marginVertical: 5,
   },
 });

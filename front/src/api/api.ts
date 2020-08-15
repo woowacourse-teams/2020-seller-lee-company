@@ -1,8 +1,5 @@
-/**
- * @author kouz95
- */
-
 import axios from "axios";
+import { DeviceStorage } from "../auth/DeviceStorage";
 
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
@@ -28,23 +25,50 @@ interface ArticlesGet {
 }
 
 export const articlesAPI = {
-  get: async (params: ArticlesGet) =>
-    await axios.get(BASE_URL + domain.article, { params }),
-  post: async (data: ArticlesPost) =>
-    await axios.post(BASE_URL + domain.article, data),
+  get: async (params: ArticlesGet) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(BASE_URL + domain.article, {
+      params,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  post: async (data: ArticlesPost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(BASE_URL + domain.article, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 export const articleDetailAPI = {
-  get: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.article + "/" + articleId),
+  get: async (articleId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(BASE_URL + domain.article + "/" + articleId, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 interface MemberLogin {
-  email: string;
+  nickname: string;
   password: string;
 }
 
+interface MemberJoin {
+  nickname: string;
+  password: string;
+  avatar: string;
+}
+
 export const memberAPI = {
-  post: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, { data }),
+  login: async (data: MemberLogin) =>
+    await axios.post(BASE_URL + domain.login, data),
+  join: async (data: MemberJoin) =>
+    await axios.post(BASE_URL + domain.members, data),
 };

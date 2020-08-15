@@ -4,14 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AuthScreenNavigationProp } from "../types/types";
-import EmailLoginButton from "../components/auth/EmailLoginButton";
+import NicknameLoginButton from "../components/auth/NicknameLoginButton";
 import KakaoLoginButton from "../components/auth/KakaoLoginButton";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 import JoinButton from "../components/auth/JoinButton";
+import { AppLoading } from "expo";
 
 export default function AuthScreen() {
   const navigation = useNavigation<AuthScreenNavigationProp>();
-  const [fontsLoaded] = useFonts({
+  let [fontsLoaded] = useFonts({
     Inter_900Black,
   });
 
@@ -37,35 +38,39 @@ export default function AuthScreen() {
       fontSize: 36,
       fontWeight: "bold",
       textAlign: "center",
-      fontFamily: `Inter_900Black`,
+      fontFamily: "Inter_900Black",
       color: "white",
     },
   });
 
-  return (
-    <ImageBackground
-      source={require("../../assets/auth_background_2.jpg")}
-      style={styles.container}
-      imageStyle={styles.image}
-    >
-      <View style={styles.contentContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={dynamicStyles.titleText}>Seller.Lee</Text>
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <ImageBackground
+        source={require("../../assets/auth_background_2.jpg")}
+        style={styles.container}
+        imageStyle={styles.image}
+      >
+        <View style={styles.contentContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={dynamicStyles.titleText}>Seller.Lee</Text>
+          </View>
+          <View style={styles.authButtonsContainer}>
+            <View style={styles.emailLoginButtonContainer}>
+              <NicknameLoginButton />
+            </View>
+            <View style={styles.kakaoLoginButtonContainer}>
+              <KakaoLoginButton />
+            </View>
+            <View style={styles.joinButtonContainer}>
+              <JoinButton />
+            </View>
+          </View>
         </View>
-        <View style={styles.authButtonsContainer}>
-          <View style={styles.emailLoginButtonContainer}>
-            <EmailLoginButton />
-          </View>
-          <View style={styles.kakaoLoginButtonContainer}>
-            <KakaoLoginButton />
-          </View>
-          <View style={styles.joinButtonContainer}>
-            <JoinButton />
-          </View>
-        </View>
-      </View>
-    </ImageBackground>
-  );
+      </ImageBackground>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

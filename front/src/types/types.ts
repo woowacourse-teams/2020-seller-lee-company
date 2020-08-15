@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
@@ -170,6 +166,8 @@ export type AppStackNavigationParamList = {
   TeaserScreen: undefined;
   AuthScreen: undefined;
   LoginScreen: undefined;
+  JoinScreen: undefined;
+  BottomTabNavigation: undefined;
 };
 
 export type TeaserScreenNavigationProp = StackNavigationProp<
@@ -182,20 +180,14 @@ export type LoginScreenNavigationProp = StackNavigationProp<
   "LoginScreen"
 >;
 
+export type JoinScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "JoinScreen"
+>;
+
 export type AuthScreenNavigationProp = StackNavigationProp<
   AppStackNavigationParamList,
   "AuthScreen"
->;
-
-export type ProfileParamList = {
-  LoginScreen: undefined;
-  AuthScreen: undefined;
-  JoinScreen: undefined;
-};
-
-export type JoinScreenNavigationProp = StackNavigationProp<
-  ProfileParamList,
-  "JoinScreen"
 >;
 
 export interface Article {

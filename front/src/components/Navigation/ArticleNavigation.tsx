@@ -16,7 +16,13 @@ const Stack = createStackNavigator<ArticleNavigationParamList>();
 export default function ArticleNavigation() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="FeedHome" component={FeedHomeScreen} />
+      <Stack.Screen
+        name="FeedHome"
+        component={FeedHomeScreen}
+        options={{
+          headerLeft: () => null,
+        }}
+      />
       <Stack.Screen name="SellerLee" component={SellerLeeScreen} />
       <Stack.Screen name="FeedDetail" component={ArticleDetailScreen} />
       <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />

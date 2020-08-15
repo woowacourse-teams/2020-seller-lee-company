@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 export const insertComma = (price: string) => {
   const insertCommaRegExp = /\B(?=(\d{3})+(?!\d))/g;
   return price.replace(insertCommaRegExp, ",");

@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -19,15 +15,15 @@ import {
 } from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import NoticeModal from "../Modal/NoticeModal";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil/dist";
-import { modalActivationState } from "../../../states/modalState";
-import { articlePhotosState } from "../../../states/articleState";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
-import theme from "../../../colors";
 import { s3Secret } from "../../../secret";
-import { memberIdState } from "../../../states/loginState";
+import { modalActivationState } from "../../../states/modalState";
+import { articlePhotosState } from "../../../states/articleState";
+import { loginIdState } from "../../../states/loginState";
+import theme from "../../../colors";
 
 let photoId = 0;
 
@@ -36,7 +32,7 @@ export default function Photo() {
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const setModalVisible = useSetRecoilState(modalActivationState);
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(loginIdState);
   const limitPhotoCount = 5;
 
   useEffect(() => {
