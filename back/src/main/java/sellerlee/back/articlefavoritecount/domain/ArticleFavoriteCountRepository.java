@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-package sellerlee.back.favorite.domain;
+package sellerlee.back.articlefavoritecount.domain;
 
 import java.util.List;
 import java.util.Optional;

@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-package sellerlee.back.favorite.domain;
+package sellerlee.back.articlefavoritecount.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

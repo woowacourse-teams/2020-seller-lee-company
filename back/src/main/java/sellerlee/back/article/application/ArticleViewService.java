@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
-import sellerlee.back.favorite.domain.ArticleFavoriteCount;
-import sellerlee.back.favorite.domain.ArticleFavoriteCountRepository;
+import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
+import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.favorite.domain.FavoriteRepository;
 import sellerlee.back.member.domain.Member;

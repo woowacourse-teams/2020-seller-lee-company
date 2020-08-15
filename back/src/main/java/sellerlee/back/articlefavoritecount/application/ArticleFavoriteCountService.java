@@ -2,7 +2,7 @@
  * @author kouz95
  */
 
-package sellerlee.back.favorite.application;
+package sellerlee.back.articlefavoritecount.application;
 
 import static org.springframework.data.util.Optionals.*;
 
@@ -13,8 +13,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.favorite.domain.ArticleFavoriteCount;
-import sellerlee.back.favorite.domain.ArticleFavoriteCountRepository;
+import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
+import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 
 @Service
 public class ArticleFavoriteCountService {
