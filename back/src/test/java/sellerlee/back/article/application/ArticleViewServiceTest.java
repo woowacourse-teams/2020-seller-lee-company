@@ -4,6 +4,8 @@
 
 package sellerlee.back.article.application;
 
+import static java.util.Arrays.*;
+import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
@@ -57,8 +59,8 @@ class ArticleViewServiceTest {
     @Test
     void showArticle() {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
-        when(favoriteRepository.findFavoriteByArticleAndMember(any(), any())).thenReturn(
-                Optional.of(FAVORITE));
+        when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
+                .thenReturn(Optional.of(FAVORITE));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
@@ -69,21 +71,21 @@ class ArticleViewServiceTest {
     @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
     @Test
     void showArticlePages() {
-        List<Article> articles = Arrays.asList(ARTICLE2, ARTICLE1);
-        List<Long> favoriteCounts = Arrays.asList(1L, 2L);
+        List<Article> articles = asList(ARTICLE2, ARTICLE1);
+        List<Long> favoriteCounts = asList(1L, 2L);
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
         Page<Article> expectedPage = new PageImpl<>(articles);
 
-        when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID,
-                pageRequest)).thenReturn(expectedPage);
-        when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles)).thenReturn(
-                Arrays.asList(new ArticleFavoriteCount(1L, articles.get(0), favoriteCounts.get(0)),
-                        new ArticleFavoriteCount(2L,
-                                articles.get(1), favoriteCounts.get(1))));
-        when(favoriteRepository.findAllByMemberAndArticleIn(MEMBER1, articles)).thenReturn(
-                Collections.singletonList(new Favorite(1L, articles.get(0), MEMBER1)));
-        List<FeedResponse> actualArticles = articleViewService.showFeedPage(LAST_ARTICLE_ID,
-                ARTICLE_SIZE, MEMBER1);
+        when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID, pageRequest))
+                .thenReturn(expectedPage);
+        when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles))
+                .thenReturn(asList(
+                        new ArticleFavoriteCount(1L, articles.get(0), favoriteCounts.get(0)),
+                        new ArticleFavoriteCount(2L, articles.get(1), favoriteCounts.get(1))));
+        when(favoriteRepository.findAllByMemberAndArticleIn(MEMBER1, articles))
+                .thenReturn(singletonList(new Favorite(1L, articles.get(0), MEMBER1)));
+        List<FeedResponse> actualArticles = articleViewService
+                .showFeedPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1);
 
         assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
         assertThat(actualArticles.get(0).getFavoriteCount()).isEqualTo(favoriteCounts.get(0));
