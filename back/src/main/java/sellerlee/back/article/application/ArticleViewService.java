@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.application;
 
 import static java.util.stream.Collectors.*;
@@ -58,7 +54,8 @@ public class ArticleViewService {
         List<Article> articles = articleRepository
                 .findByIdLessThanOrderByIdDesc(lastArticleId, pageRequest)
                 .getContent();
-        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(loginMember, articles)
+        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(loginMember,
+                articles)
                 .stream()
                 .map(Favorite::getArticle)
                 .collect(toList());
@@ -76,4 +73,13 @@ public class ArticleViewService {
 
         return FeedResponse.listOf(articles, favoriteCounts, favoriteStates);
     }
+
+    // @Transactional(readOnly = true)
+    // public List<ArticleResponse> showByTradeState(String state) {
+    //     TradeState tradeState = TradeState.valueOf(state);
+    //     List<Article> articles = articleRepository.findByTradeState(tradeState);
+    //     return articles.stream()
+    //             .map(ArticleResponse::of)
+    //             .collect(Collectors.toList());
+    // }
 }

@@ -1,5 +1,5 @@
 /**
- * @author kouz95
+ * @author jnsorn
  */
 
 package sellerlee.back.article.acceptance;
@@ -63,6 +63,9 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                     ArticleResponse articleResponse = findArticleDetailOf(articleId);
                     assertThat(articleResponse.getId()).isEqualTo(articleId);
                     assertThat(articleResponse.getFavoriteState()).isFalse();
+                }),
+                dynamicTest("게시글 삭제", () -> {
+                    deleteArticle(articleId);
                 }));
     }
 
@@ -88,5 +91,16 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 .log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract().jsonPath().getObject(".", ArticleResponse.class);
+    }
+
+    private void deleteArticle(Long articleId) {
+        String url = ARTICLE_URI + "/" + articleId;
+
+        given()
+                .when()
+                .delete(url)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

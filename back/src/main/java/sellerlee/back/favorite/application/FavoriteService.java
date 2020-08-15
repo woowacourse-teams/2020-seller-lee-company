@@ -33,6 +33,7 @@ public class FavoriteService {
     public void remove(FavoriteRequest request, Member loginMember) {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
         favoriteRepository.save(favorite.remove());
-        favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(), request.getArticleId());
+        favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(),
+                request.getArticleId());
     }
 }

@@ -1,10 +1,9 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.application;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
@@ -17,8 +16,19 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Long post(ArticleCreateRequest request) {
+    public Long post(ArticleRequest request) {
         Article article = articleRepository.save(request.toArticle());
         return article.getId();
+    }
+
+    @Transactional
+    public void update(Long id, ArticleRequest request) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        article.update(request.toArticle());
+    }
+
+    public void deleteById(Long id) {
+        articleRepository.deleteById(id);
     }
 }

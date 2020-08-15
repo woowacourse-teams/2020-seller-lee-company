@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.application;
 
 import java.time.LocalDateTime;
@@ -13,10 +9,11 @@ import sellerlee.back.member.application.MemberResponse;
 public class ArticleResponse {
     private Long id;
     private String title;
-    private String category;
+    private String categoryName;
     private String contents;
     private Long price;
     private String tradeState;
+    private List<String> tags;
     private List<String> photos;
     private MemberResponse author;
     private boolean favoriteState;
@@ -26,16 +23,17 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    private ArticleResponse(Long id, String title, String category, String contents,
-            Long price, String tradeState, List<String> photos, MemberResponse author,
-            boolean favoriteState, long favoriteCount,
+    public ArticleResponse(Long id, String title, String categoryName, String contents,
+            Long price, String tradeState, List<String> tags, List<String> photos,
+            MemberResponse author, boolean favoriteState, long favoriteCount,
             LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
-        this.category = category;
+        this.categoryName = categoryName;
         this.contents = contents;
         this.price = price;
         this.tradeState = tradeState;
+        this.tags = tags;
         this.photos = photos;
         this.author = author;
         this.favoriteState = favoriteState;
@@ -51,6 +49,7 @@ public class ArticleResponse {
                 article.getContents(),
                 article.getPrice(),
                 article.getTradeState().getTradeState(),
+                article.getTags().getNames(),
                 article.getPhotos().toList(),
                 MemberResponse.of(article.getAuthor()),
                 favoriteState,
@@ -67,8 +66,8 @@ public class ArticleResponse {
         return title;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public String getContents() {
@@ -81,6 +80,10 @@ public class ArticleResponse {
 
     public String getTradeState() {
         return tradeState;
+    }
+
+    public List<String> getTags() {
+        return tags;
     }
 
     public List<String> getPhotos() {

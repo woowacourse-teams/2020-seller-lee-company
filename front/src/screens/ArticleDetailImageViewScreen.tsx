@@ -1,10 +1,5 @@
-/**
- * @author kouz95
- */
-
 import React, { useLayoutEffect } from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
-
 import ArticleDetailImageViewSlider from "../components/ArticleDetail/ArticleDetailImageViewSlider";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { ArticleDetailImageViewNavigationProp } from "../types/types";

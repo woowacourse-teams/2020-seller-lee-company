@@ -26,7 +26,8 @@ class ArticleFavoriteCountServiceTest {
 
     @BeforeEach
     void setUp() {
-        articleFavoriteCountService = new ArticleFavoriteCountService(articleFavoriteCountRepository);
+        articleFavoriteCountService = new ArticleFavoriteCountService(
+                articleFavoriteCountRepository);
     }
 
     @DisplayName("어떤 게시물에 찜이 존재할때, 찜 증가 요청을 하면 찜 개수가 증가한다.")

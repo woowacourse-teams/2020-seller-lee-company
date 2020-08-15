@@ -1,28 +1,23 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.application;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.Tag;
 
 public class FeedResponse {
     private Long id;
     private Long price;
     private Long favoriteCount;
     private Boolean favoriteState;
-    private List<Tag> tags;
+    private List<String> tags;
     private List<String> photos;
 
     private FeedResponse() {
     }
 
     private FeedResponse(Long id, Long price, Long favoriteCount, Boolean favoriteState,
-            List<Tag> tags, List<String> photos) {
+            List<String> tags, List<String> photos) {
         this.id = id;
         this.price = price;
         this.favoriteCount = favoriteCount;
@@ -37,7 +32,7 @@ public class FeedResponse {
                 article.getPrice(),
                 favoriteCount,
                 favoriteState,
-                article.getTags().toList(),
+                article.getTags().getNames(),
                 article.getPhotos().toList()
         );
     }
@@ -68,7 +63,7 @@ public class FeedResponse {
         return favoriteState;
     }
 
-    public List<Tag> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 

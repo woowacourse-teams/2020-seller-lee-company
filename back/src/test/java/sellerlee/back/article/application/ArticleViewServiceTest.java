@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.application;
 
 import static java.util.Arrays.*;
@@ -14,8 +10,6 @@ import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,4 +88,18 @@ class ArticleViewServiceTest {
         assertThat(actualArticles.get(1).getFavoriteCount()).isEqualTo(favoriteCounts.get(1));
         assertThat(actualArticles.get(1).getFavoriteState()).isFalse();
     }
+
+    // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
+    // @Test
+    // void showArticlesByTradeState() {
+    //     String tradeState = "ON_SALE";
+    //     when(articleRepository.findByTradeState(TradeState.valueOf(tradeState))).thenReturn(
+    //             Arrays.asList(ARTICLE1, ARTICLE2)
+    //     );
+    //
+    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
+    //
+    //     assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
+    //     assertThat(responses.get(1).getId()).isEqualTo(ARTICLE2.getId());
+    // }
 }

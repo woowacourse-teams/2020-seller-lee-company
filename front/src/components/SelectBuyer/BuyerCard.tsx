@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
 
 import { Alert, Image, StyleSheet, Text, TouchableOpacity } from "react-native";

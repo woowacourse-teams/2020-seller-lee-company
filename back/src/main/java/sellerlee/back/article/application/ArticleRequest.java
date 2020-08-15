@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.application;
 
 import java.util.List;
@@ -9,30 +5,29 @@ import java.util.List;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Photos;
-import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.member.domain.Member;
 
-public class ArticleCreateRequest {
+public class ArticleRequest {
     private String title;
-    private List<Tag> tags;
+    private Long price;
     private String category;
     private String contents;
-    private Long price;
+    private List<String> tags;
     private List<String> photos;
     private Long authorId;
 
-    private ArticleCreateRequest() {
+    private ArticleRequest() {
     }
 
-    public ArticleCreateRequest(String title, List<Tag> tags, String category,
-            String contents, Long price, List<String> photos, Long authorId) {
+    public ArticleRequest(String title, Long price, String category, String contents,
+            List<String> tags, List<String> photos, Long authorId) {
         this.title = title;
-        this.tags = tags;
+        this.price = price;
         this.category = category;
         this.contents = contents;
-        this.price = price;
+        this.tags = tags;
         this.photos = photos;
         this.authorId = authorId;
     }
@@ -40,7 +35,7 @@ public class ArticleCreateRequest {
     public Article toArticle() {
         return new Article(
                 title,
-                new Tags(tags),
+                Tags.of(tags),
                 Category.fromString(category),
                 contents,
                 price,
@@ -53,8 +48,8 @@ public class ArticleCreateRequest {
         return title;
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public Long getPrice() {
+        return price;
     }
 
     public String getCategory() {
@@ -65,8 +60,8 @@ public class ArticleCreateRequest {
         return contents;
     }
 
-    public Long getPrice() {
-        return price;
+    public List<String> getTags() {
+        return tags;
     }
 
     public List<String> getPhotos() {

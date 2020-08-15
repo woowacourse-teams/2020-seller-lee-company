@@ -1,14 +1,16 @@
 export const defaultArticle = {
   id: 0,
   title: "",
-  category: "",
+  categoryName: "",
   contents: "",
   price: 0,
   tradeType: "",
   tradeLocation: "",
   tradeState: "",
+  tags: [],
   photos: [],
   author: {
+    id: 0,
     nickname: "",
     avatar: "",
     score: 0,

@@ -1,10 +1,6 @@
-/**
- * @author kouz95
- */
-
 import { atom } from "recoil/dist";
-import { PhotoInfo } from "../types/types";
 import { defaultArticle } from "../data/defaultArticle";
+import { Article } from "../types/types";
 
 export const articleTitleState = atom({
   key: "articleTitleState",
@@ -18,7 +14,7 @@ export const articlePriceState = atom({
 
 export const articlePhotosState = atom({
   key: "articlePhotosState",
-  default: <PhotoInfo[]>[],
+  default: <string[]>[],
 });
 
 export const articleContentsState = atom({
@@ -46,7 +42,17 @@ export const articleSelectedState = atom({
   default: defaultArticle,
 });
 
+export const articleIsEditingState = atom({
+  key: "articleIsEditingState",
+  default: false,
+});
+
 export const articleIdState = atom({
   key: "articleIdState",
   default: 0,
+});
+
+export const articleSalesHistoryState = atom({
+  key: "articleSalesHistoryState",
+  default: <Article[]>[],
 });

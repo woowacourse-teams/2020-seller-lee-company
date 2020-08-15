@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.favorite.application.FavoriteRemovedEvent;
 import sellerlee.back.favorite.application.FavoriteCreatedEvent;
+import sellerlee.back.favorite.application.FavoriteRemovedEvent;
 import sellerlee.back.member.domain.Member;
 
 @Entity

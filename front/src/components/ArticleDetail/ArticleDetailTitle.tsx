@@ -1,7 +1,3 @@
-/**
- * @author begaonnuri
- */
-
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { useRecoilValue } from "recoil/dist";

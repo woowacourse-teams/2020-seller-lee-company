@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React, { useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";

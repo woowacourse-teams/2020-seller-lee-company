@@ -1,9 +1,5 @@
-/**
- * @author kouz95
- */
-
 import React, { useLayoutEffect } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
 import { HeaderBackButton } from "@react-navigation/stack";

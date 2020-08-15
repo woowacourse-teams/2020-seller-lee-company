@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";
@@ -16,7 +12,7 @@ export default function ArticleTitleForm() {
       placeholder={"제목"}
       keyboardType={"default"}
       maxLength={30}
-      onChangeText={(text) => setTitle(text)}
+      onChangeText={setTitle}
       value={title}
     />
   );

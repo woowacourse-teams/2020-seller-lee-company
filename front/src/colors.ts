@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 export default {
   primary: "#07689f",
   secondary: "#a2d5f2",
