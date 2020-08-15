@@ -1,23 +1,19 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.application;
 
 public class LoginRequest {
-    private String email;
+    private String nickname;
     private String password;
 
     private LoginRequest() {
     }
 
-    public LoginRequest(String email, String password) {
-        this.email = email;
+    public LoginRequest(String nickname, String password) {
+        this.nickname = nickname;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getPassword() {

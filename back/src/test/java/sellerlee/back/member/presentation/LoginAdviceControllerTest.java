@@ -21,12 +21,12 @@ class LoginAdviceControllerTest extends ControllerTest {
     @MockBean
     private MemberService memberService;
 
-    @DisplayName("이메일에 해당하는 회원이 없을 경우 HttpStatus는 BadRequest이다.")
+    @DisplayName("닉네임에 해당하는 회원이 없을 경우 HttpStatus는 BadRequest이다.")
     @Test
     void handleIllegalMemberLoginException_InvalidEmail() throws Exception {
         String request = objectMapper.writeValueAsString(INVALID_EMAIL_MEMBER_LOGIN_REQUEST);
 
-        doThrow(new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."))
+        doThrow(new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."))
                 .when(memberService).login(any());
 
         // @formatter:off

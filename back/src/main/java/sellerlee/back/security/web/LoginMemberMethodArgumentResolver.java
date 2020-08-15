@@ -16,7 +16,7 @@ import sellerlee.back.security.core.LoginMember;
 
 @Component
 public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    public static final String MEMBER_EMAIL_ATTRIBUTE = "loginEmail";
+    public static final String MEMBER_NICKNAME_ATTRIBUTE = "authorizedNickname";
 
     private final MemberRepository memberRepository;
 
@@ -32,14 +32,14 @@ public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        String email = (String)webRequest.getAttribute(MEMBER_EMAIL_ATTRIBUTE, SCOPE_REQUEST);
+        String nickname = (String)webRequest.getAttribute(MEMBER_NICKNAME_ATTRIBUTE, SCOPE_REQUEST);
 
-        if (StringUtils.isBlank(email)) {
+        if (StringUtils.isBlank(nickname)) {
             return new AuthenticationException("인증된 사용자가 존재하지 않습니다.");
         }
         try {
-            return memberRepository.findOptionalMemberByEmail(email)
-                    .orElseThrow(() -> new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
+            return memberRepository.findOptionalMemberByNickname(nickname)
+                    .orElseThrow(() -> new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
         } catch (Exception e) {
             throw new AuthenticationException("비정상적인 로그인입니다.");
         }

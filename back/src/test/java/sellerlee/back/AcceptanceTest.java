@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
@@ -52,15 +48,18 @@ public class AcceptanceTest {
     protected String createArticle() throws JsonProcessingException {
         String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
 
-        return given()
-                .body(request)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        // @formatter:off
+        return
+                given()
+                        .body(request)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .post(ARTICLE_URI)
+                        .post(ARTICLE_URI)
                 .then()
-                .log().all()
-                .statusCode(HttpStatus.CREATED.value())
-                .extract().header(HttpHeaders.LOCATION);
+                        .log().all()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .extract().header(HttpHeaders.LOCATION);
+        // @formatter:on
     }
 
     protected TokenResponse login() throws JsonProcessingException {

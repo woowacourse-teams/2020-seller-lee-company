@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.application;
 
 import static org.assertj.core.api.Assertions.*;
@@ -35,51 +31,51 @@ class MemberServiceTest {
         memberService = new MemberService(memberRepository, jwtTokenProvider);
     }
 
-    @DisplayName("이메일로 이미 존재하는 회원인지 확인한 후 계정을 생성한다.")
+    @DisplayName("닉네임으로 이미 존재하는 회원인지 확인한 후 계정을 생성한다.")
     @Test
     void join() {
-        when(memberRepository.existsByEmail(anyString())).thenReturn(false);
+        when(memberRepository.existsByNickname(anyString())).thenReturn(false);
         when(memberRepository.save(any())).thenReturn(MEMBER_CREATE_REQUEST.toMember());
 
         memberService.join(MEMBER_CREATE_REQUEST);
         verify(memberRepository).save(any());
     }
 
-    @DisplayName("이메일로 회원을 찾고 비밀번호가 일치하는지 여부를 확인한다.")
+    @DisplayName("닉네임으로 회원을 찾고 비밀번호가 일치하는지 여부를 확인한다.")
     @Test
     void login() {
-        when(memberRepository.findOptionalMemberByEmail(anyString()))
+        when(memberRepository.findOptionalMemberByNickname(anyString()))
                 .thenReturn(Optional.of(MEMBER1));
         when(jwtTokenProvider.createToken(anyString()))
                 .thenReturn("token");
 
         memberService.login(MEMBER_LOGIN_REQUEST);
-        verify(memberRepository).findOptionalMemberByEmail(anyString());
+        verify(memberRepository).findOptionalMemberByNickname(anyString());
     }
 
-    @DisplayName("존재하지 않는 이메일이 들어올 경우 예외를 발생시킨다.")
+    @DisplayName("존재하지 않는 닉네임이 들어올 경우 예외를 발생시킨다.")
     @Test
     void login_InvalidEmail() {
-        when(memberRepository.findOptionalMemberByEmail(anyString()))
-                .thenThrow(new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
+        when(memberRepository.findOptionalMemberByNickname(anyString()))
+                .thenThrow(new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
 
         assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
-                .hasMessage("이메일이 일치하는 회원이 존재하지 않습니다.");
+                .hasMessage("닉네임이 일치하는 회원이 존재하지 않습니다.");
 
-        verify(memberRepository).findOptionalMemberByEmail(anyString());
+        verify(memberRepository).findOptionalMemberByNickname(anyString());
     }
 
     @DisplayName("일치하지 않는 비밀번호가 들어올 경우 예외를 발생시킨다.")
     @Test
     void login_InvalidPassword() {
-        when(memberRepository.findOptionalMemberByEmail(anyString()))
-                .thenThrow(new IllegalLoginException("비밀번호가 일치하지 않습니다."));
+        when(memberRepository.findOptionalMemberByNickname(anyString()))
+                .thenReturn(Optional.of(MEMBER1));
 
         assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
                 .hasMessage("비밀번호가 일치하지 않습니다.");
 
-        verify(memberRepository).findOptionalMemberByEmail(anyString());
+        verify(memberRepository).findOptionalMemberByNickname(anyString());
     }
 }

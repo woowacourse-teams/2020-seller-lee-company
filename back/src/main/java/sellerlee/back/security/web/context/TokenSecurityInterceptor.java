@@ -35,8 +35,8 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
             throw new AuthenticationException("토큰이 유효하지 않습니다.");
         }
 
-        String email = jwtTokenProvider.getPayload(credentials);
-        request.setAttribute(MEMBER_EMAIL_ATTRIBUTE, email);
+        String nickname = jwtTokenProvider.getPayload(credentials);
+        request.setAttribute(MEMBER_NICKNAME_ATTRIBUTE, nickname);
         return true;
     }
 }

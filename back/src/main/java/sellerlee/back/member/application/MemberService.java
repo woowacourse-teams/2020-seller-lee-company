@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.application;
 
 import org.springframework.stereotype.Service;
@@ -25,23 +21,23 @@ public class MemberService {
 
     @Transactional
     public Long join(MemberRequest request) {
-        boolean existSameMember = memberRepository.existsByEmail(request.getEmail());
+        boolean existMember = memberRepository.existsByNickname(request.getNickname());
 
-        if (existSameMember) {
-            throw new IllegalJoinException("이미 회원가입이 되어있는 이메일입니다.");
+        if (existMember) {
+            throw new IllegalJoinException("이미 회원가입이 되어있는 닉네임입니다.");
         }
 
         return memberRepository.save(request.toMember()).getId();
     }
 
     public String login(LoginRequest request) {
-        Member findMember = memberRepository.findOptionalMemberByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
+        Member findMember = memberRepository.findOptionalMemberByNickname(request.getNickname())
+                .orElseThrow(() -> new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
 
         if (!findMember.verify(request.getPassword())) {
             throw new IllegalLoginException("비밀번호가 일치하지 않습니다.");
         }
 
-        return jwtTokenProvider.createToken(request.getEmail());
+        return jwtTokenProvider.createToken(request.getNickname());
     }
 }

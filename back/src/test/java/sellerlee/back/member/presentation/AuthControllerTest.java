@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.presentation;
 
 import static org.hamcrest.Matchers.*;
@@ -29,7 +25,7 @@ class AuthControllerTest extends ControllerTest {
     @MockBean
     private MemberService memberService;
 
-    @DisplayName("이메일, 비밀번호, 프로필 사진, 닉네임을 보내면 회원을 생성하고 HttpStatus는 Created이다.")
+    @DisplayName("닉네임, 비밀번호, 프로필 사진을 보내면 회원을 생성하고 HttpStatus는 Created이다.")
     @Test
     void join() throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_CREATE_REQUEST);
@@ -47,7 +43,7 @@ class AuthControllerTest extends ControllerTest {
         // @formatter:on
     }
 
-    @DisplayName("로그인시 이메일에 해당하는 회원이 존재하고, 패스워드가 일치하면 HttpStatus는 OK이다.")
+    @DisplayName("로그인시 닉네임에 해당하는 회원이 존재하고, 패스워드가 일치하면 HttpStatus는 OK이다.")
     @Test
     void login() throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST);

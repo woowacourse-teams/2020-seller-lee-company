@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.member.application;
 
 import sellerlee.back.member.domain.Member;
