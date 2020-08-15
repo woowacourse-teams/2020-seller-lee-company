@@ -8,18 +8,18 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import sellerlee.back.favorite.application.ArticleFavoriteCountService;
-import sellerlee.back.favorite.application.FavoriteCanceledEvent;
+import sellerlee.back.favorite.application.FavoriteRemovedEvent;
 
 @Component
-public class FavoriteCanceledListener implements ApplicationListener<FavoriteCanceledEvent> {
+public class FavoriteRemovedListener implements ApplicationListener<FavoriteRemovedEvent> {
     private final ArticleFavoriteCountService articleFavoriteCountService;
 
-    public FavoriteCanceledListener(ArticleFavoriteCountService articleFavoriteCountService) {
+    public FavoriteRemovedListener(ArticleFavoriteCountService articleFavoriteCountService) {
         this.articleFavoriteCountService = articleFavoriteCountService;
     }
 
     @Override
-    public void onApplicationEvent(FavoriteCanceledEvent event) {
-        articleFavoriteCountService.cancel(event.getFavorite().getArticle());
+    public void onApplicationEvent(FavoriteRemovedEvent event) {
+        articleFavoriteCountService.remove(event.getFavorite().getArticle());
     }
 }

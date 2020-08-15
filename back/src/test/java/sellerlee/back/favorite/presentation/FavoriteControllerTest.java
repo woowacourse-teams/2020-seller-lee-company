@@ -66,6 +66,6 @@ class FavoriteControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        verify(favoriteService).cancel(any(), any());
+        verify(favoriteService).remove(any(), any());
     }
 }

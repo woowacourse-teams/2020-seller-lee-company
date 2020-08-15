@@ -36,7 +36,7 @@ public class ArticleFavoriteCountService {
     }
 
     @Transactional
-    public void cancel(Article article) {
+    public void remove(Article article) {
         Optional<ArticleFavoriteCount> articleFavoriteCount =
                 articleFavoriteCountRepository.findByArticle(article);
         articleFavoriteCount.ifPresent(ArticleFavoriteCount::decrease);

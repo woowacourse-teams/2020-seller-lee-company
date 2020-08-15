@@ -44,7 +44,7 @@ public class FavoriteController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> cancel(@RequestBody FavoriteRequest request) {
+    public ResponseEntity<Void> remove(@RequestBody FavoriteRequest request) {
         Member loginMember = new Member(
                 51L,
                 "turtle@woowabro.com",
@@ -52,7 +52,7 @@ public class FavoriteController {
                 "testUri",
                 "testNickname",
                 4.5);
-        favoriteService.cancel(request, loginMember);
+        favoriteService.remove(request, loginMember);
         return ResponseEntity.noContent().build();
     }
 }

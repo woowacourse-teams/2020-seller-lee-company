@@ -8,10 +8,10 @@ import org.springframework.context.ApplicationEvent;
 
 import sellerlee.back.favorite.domain.Favorite;
 
-public class FavoriteCanceledEvent extends ApplicationEvent {
+public class FavoriteRemovedEvent extends ApplicationEvent {
     private final Favorite favorite;
 
-    public FavoriteCanceledEvent(Object source) {
+    public FavoriteRemovedEvent(Object source) {
         super(source);
         favorite = (Favorite)source;
     }

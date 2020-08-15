@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.favorite.application.FavoriteCanceledEvent;
+import sellerlee.back.favorite.application.FavoriteRemovedEvent;
 import sellerlee.back.favorite.application.FavoriteCreatedEvent;
 import sellerlee.back.member.domain.Member;
 
@@ -65,8 +65,8 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
         return member;
     }
 
-    public Favorite cancel() {
-        this.registerEvent(new FavoriteCanceledEvent(this));
+    public Favorite remove() {
+        this.registerEvent(new FavoriteRemovedEvent(this));
         return this;
     }
 }

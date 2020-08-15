@@ -23,17 +23,16 @@ public class FavoriteService {
 
     @Transactional
     public Long create(FavoriteRequest request, Member loginMember) {
-        Favorite favorite = favoriteRepository
-                .save(new Favorite(new Article(request.getArticleId()), loginMember).create());
+        Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
+        Favorite saved = favoriteRepository.save(favorite.create());
 
-        return favorite.getId();
+        return saved.getId();
     }
 
     @Transactional
-    public void cancel(FavoriteRequest request, Member loginMember) {
-        favoriteRepository.save(
-                new Favorite(new Article(request.getArticleId()), loginMember).cancel());
-        favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(),
-                request.getArticleId());
+    public void remove(FavoriteRequest request, Member loginMember) {
+        Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
+        favoriteRepository.save(favorite.remove());
+        favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(), request.getArticleId());
     }
 }
