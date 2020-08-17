@@ -79,6 +79,7 @@ export const chatRoomAPI = {
     }),
 };
 
+
 interface FavoriteCreate {
   articleId: number;
 }
@@ -98,11 +99,10 @@ export const tradeAPI = {
   get: async () => await axios.get(BASE_URL + domain.trades),
 };
 
-interface ScoresPost {
+interface EvaluationPost {
   scores: Score[];
 }
-
 export const evaluationAPI = {
-  post: async (data: ScoresPost) =>
-    await axios.post(BASE_URL + domain.evaluation, data),
+  post: async (data: EvaluationPost) =>
+    await axios.post(`${BASE_URL}${domain.evaluation}`, data),
 };

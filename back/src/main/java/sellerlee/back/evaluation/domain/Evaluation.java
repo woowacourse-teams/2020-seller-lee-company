@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 package sellerlee.back.evaluation.domain;
 
 import java.util.List;
@@ -11,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +21,7 @@ import sellerlee.back.trade.domain.Trade;
 @Entity
 public class Evaluation {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "evaluation_id")
     private Long id;
 
@@ -50,8 +47,8 @@ public class Evaluation {
         this.target = target;
     }
 
-    public Evaluation(List<Score> scores) {
-        this(null, scores, null, null);
+    public Evaluation(List<Score> scores, Trade trade, Member target) {
+        this(null, scores, trade, target);
     }
 
     public Long getId() {

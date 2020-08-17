@@ -56,7 +56,6 @@ export default function EvaluationScreen() {
   }, [navigation]);
 
   const incompleteAnswer = () => {
-    console.log("scores.length" + scores.length);
     return scores.length !== QUESTION_SIZE;
   };
 
