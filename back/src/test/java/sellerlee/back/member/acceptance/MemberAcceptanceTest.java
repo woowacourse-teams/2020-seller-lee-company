@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.acceptance;
 
 import static org.junit.jupiter.api.DynamicTest.*;

@@ -1,5 +1,7 @@
 package sellerlee.back.member.application;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import sellerlee.back.member.domain.Member;
 
 public class MemberRequest {
@@ -30,5 +32,9 @@ public class MemberRequest {
 
     public Member toMember() {
         return new Member(nickname, password, avatar);
+    }
+
+    public Member toEntityWithPasswordEncode(PasswordEncoder passwordEncoder) {
+        return new Member(nickname, passwordEncoder.encode(password), avatar);
     }
 }

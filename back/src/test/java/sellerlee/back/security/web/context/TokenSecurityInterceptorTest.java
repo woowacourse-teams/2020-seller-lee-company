@@ -23,14 +23,14 @@ public class TokenSecurityInterceptorTest {
     public static final String TEST_AUTHORIZATION_HEADER =
             String.join(TOKEN_DELIMITER, BEARER.toLowerCase(), TEST_TOKEN_SECRET_KEY);
 
-    private MockHttpServletRequest request;
-    private MockHttpServletResponse response;
+    @Autowired
+    private TokenSecurityInterceptor interceptor;
 
     @MockBean
     private JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    private TokenSecurityInterceptor interceptor;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
 
     @BeforeEach
     void setUp() {

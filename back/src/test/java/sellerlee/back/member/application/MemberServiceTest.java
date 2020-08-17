@@ -12,8 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import sellerlee.back.member.domain.IllegalLoginException;
+import sellerlee.back.member.domain.Member;
 import sellerlee.back.member.domain.MemberRepository;
 import sellerlee.back.security.oauth2.token.JwtTokenProvider;
 
@@ -21,21 +23,29 @@ import sellerlee.back.security.oauth2.token.JwtTokenProvider;
 class MemberServiceTest {
     @Mock
     private MemberRepository memberRepository;
+
     @Mock
     private JwtTokenProvider jwtTokenProvider;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     private MemberService memberService;
 
     @BeforeEach
     void setUp() {
-        memberService = new MemberService(memberRepository, jwtTokenProvider);
+        memberService = new MemberService(memberRepository, jwtTokenProvider, passwordEncoder);
     }
 
     @DisplayName("닉네임으로 이미 존재하는 회원인지 확인한 후 계정을 생성한다.")
     @Test
     void join() {
         when(memberRepository.existsByNickname(anyString())).thenReturn(false);
-        when(memberRepository.save(any())).thenReturn(MEMBER_CREATE_REQUEST.toMember());
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+        when(memberRepository.save(any())).thenReturn(
+                new Member("seller lee",
+                        "encodedPassword",
+                        "https://avatars2.githubusercontent.com/u/67987529?s=200&v=4"));
 
         memberService.join(MEMBER_CREATE_REQUEST);
         verify(memberRepository).save(any());
@@ -46,10 +56,11 @@ class MemberServiceTest {
     void login() {
         when(memberRepository.findOptionalMemberByNickname(anyString()))
                 .thenReturn(Optional.of(MEMBER1));
+        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
         when(jwtTokenProvider.createToken(anyString()))
                 .thenReturn("token");
 
-        memberService.login(MEMBER_LOGIN_REQUEST);
+        assertThat(memberService.login(MEMBER_LOGIN_REQUEST)).isEqualTo("token");
         verify(memberRepository).findOptionalMemberByNickname(anyString());
     }
 
@@ -57,7 +68,7 @@ class MemberServiceTest {
     @Test
     void login_InvalidEmail() {
         when(memberRepository.findOptionalMemberByNickname(anyString()))
-                .thenThrow(new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
+                .thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)
@@ -71,6 +82,7 @@ class MemberServiceTest {
     void login_InvalidPassword() {
         when(memberRepository.findOptionalMemberByNickname(anyString()))
                 .thenReturn(Optional.of(MEMBER1));
+        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
 
         assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalLoginException.class)

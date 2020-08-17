@@ -58,7 +58,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = show();
                     assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
-                    assertThat(articleResponse.getFavoriteState()).isTrue();
+                    assertThat(articleResponse.getFavoriteState()).isFalse();
                 })
         );
     }

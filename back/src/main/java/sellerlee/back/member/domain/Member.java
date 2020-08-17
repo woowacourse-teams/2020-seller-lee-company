@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Entity
 public class Member {
     @Id
@@ -47,8 +49,8 @@ public class Member {
         this(id, null, null, null, null);
     }
 
-    public boolean verify(String password) {
-        return this.password.equals(password);
+    public boolean verify(PasswordEncoder passwordEncoder, String password) {
+        return passwordEncoder.matches(password, this.password);
     }
 
     public Long getId() {
