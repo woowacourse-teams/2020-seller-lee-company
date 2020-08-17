@@ -127,6 +127,7 @@ export interface Feed {
   price: number;
   favoriteCount: number;
   tags: string[];
+  favoriteState: boolean;
   photos: string[];
 }
 

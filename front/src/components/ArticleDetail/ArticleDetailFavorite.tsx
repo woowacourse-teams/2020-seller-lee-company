@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
-import axios from "axios";
 import { AntDesign } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useRecoilState } from "recoil/dist";
 import { articleSelectedState } from "../../states/articleState";
+import { favoriteAPI } from "../../api/api";
 
 export default function ArticleDetailFavorite() {
   const [article, setArticle] = useRecoilState(articleSelectedState);
@@ -23,12 +23,12 @@ export default function ArticleDetailFavorite() {
 
   const unmarkFavorite = async () => {
     setArticle({ ...article, favoriteState: false });
-    await axios.delete(`/favorite/1`);
+    await favoriteAPI.delete({ articleId: article.id });
   };
 
   const markFavorite = async () => {
     setArticle({ ...article, favoriteState: true });
-    await axios.post(`/favorite/1`);
+    await favoriteAPI.post({ articleId: article.id });
   };
 
   const toggleFavorite = () => {

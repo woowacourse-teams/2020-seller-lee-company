@@ -8,6 +8,7 @@ const domain = {
   login: "/login",
   chatRoom: "/chat-rooms",
   trade: "/trades",
+  favorite: "/favorites",
 };
 
 interface ArticlesPost {
@@ -69,4 +70,19 @@ export const chatRoomAPI = {
         articleId,
       },
     }),
+};
+
+interface FavoriteCreate {
+  articleId: number;
+}
+
+interface FavoriteDelete {
+  articleId: number;
+}
+
+export const favoriteAPI = {
+  post: async (data: FavoriteCreate) =>
+    await axios.post(BASE_URL + domain.favorite, data),
+  delete: async (data: FavoriteDelete) =>
+    await axios.delete(BASE_URL + domain.favorite, { data }),
 };

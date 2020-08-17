@@ -5,7 +5,6 @@ import java.util.List;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.Photos;
-import sellerlee.back.article.domain.Tag;
 import sellerlee.back.article.domain.Tags;
 import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.member.domain.Member;

@@ -48,20 +48,28 @@ public class ArticleController {
     public ResponseEntity<List<FeedResponse>> showPage(
             @RequestParam Long lastArticleId,
             @RequestParam int size) {
-        List<FeedResponse> responses = articleService.showPage(lastArticleId, size);
+        Member loginMember = new Member(
+                51L,
+                "turtle@woowabro.com",
+                "1234",
+                "testUri",
+                "testNickname",
+                4.5);
+        List<FeedResponse> responses = articleViewService.showFeedPage(lastArticleId, size,
+                loginMember);
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id) {
-        Member member = new Member(
+        Member loginMember = new Member(
                 51L,
                 "turtle@woowabro.com",
                 "1234",
                 "testNickname",
                 "testUri",
                 4.5);
-        ArticleResponse articleResponse = articleViewService.showArticle(id, member);
+        ArticleResponse articleResponse = articleViewService.show(id, loginMember);
 
         return ResponseEntity.ok(articleResponse);
     }

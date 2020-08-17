@@ -1,5 +1,5 @@
 /**
- * @author joseph415
+ * @author kouz95
  */
 
 package sellerlee.back.fixture;
@@ -10,5 +10,5 @@ import static sellerlee.back.fixture.MemberFixture.*;
 import sellerlee.back.favorite.domain.Favorite;
 
 public class FavoriteFixture {
-    public static final Favorite FAVORITE = new Favorite(1L, ARTICLE1, MEMBER1);
+    public static final Favorite FAVORITE = new Favorite(1L, ARTICLE1, MEMBER2);
 }

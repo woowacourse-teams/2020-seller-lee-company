@@ -88,6 +88,7 @@ export default function FeedHomeScreen() {
           tags={item.tags}
           favoriteCount={item.favoriteCount}
           photos={item.photos}
+          favoriteState={item.favoriteState}
         />
       )}
       keyExtractor={(item) => `${item.id}`}

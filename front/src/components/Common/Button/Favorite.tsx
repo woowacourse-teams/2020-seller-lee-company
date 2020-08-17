@@ -1,14 +1,17 @@
 import React, { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { favoriteAPI } from "../../../api/api";
 
 interface FavoriteProp {
-  favoriteCount: number;
+  articleId: number;
+  state: boolean;
+  count: number;
 }
 
-export default function Favorite({ favoriteCount }: FavoriteProp) {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [favorite, setFavorite] = useState(favoriteCount);
+export default function Favorite({ articleId, state, count }: FavoriteProp) {
+  const [favoriteState, setFavoriteState] = useState(state);
+  const [favoriteCount, setFavoriteCount] = useState(count);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
   const springValue = useRef(new Animated.Value(1)).current;
@@ -22,21 +25,23 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
     }).start();
   };
 
-  const toggleFavorite = () => {
-    const unmarkFavorite = () => {
-      setIsFavorite(false);
-      setFavorite(favorite - 1);
+  const toggleFavorite = async () => {
+    const unmarkFavorite = async () => {
+      await favoriteAPI.delete({ articleId });
+      setFavoriteState(false);
+      setFavoriteCount(favoriteCount - 1);
     };
 
-    const markFavorite = () => {
-      setIsFavorite(true);
-      setFavorite(favorite + 1);
+    const markFavorite = async () => {
+      await favoriteAPI.post({ articleId });
+      setFavoriteState(true);
+      setFavoriteCount(favoriteCount + 1);
     };
 
-    if (isFavorite) {
-      unmarkFavorite();
+    if (favoriteState) {
+      await unmarkFavorite();
     } else {
-      markFavorite();
+      await markFavorite();
     }
     fulfillHeartAnimate();
   };
@@ -44,9 +49,9 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
   return (
     <View style={styles.detailsHeartContainer}>
       <AnimateIcon
-        name={isFavorite ? "heart" : "hearto"}
+        name={favoriteState ? "heart" : "hearto"}
         size={23}
-        color={isFavorite ? "red" : "black"}
+        color={favoriteState ? "red" : "black"}
         onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],
@@ -59,7 +64,7 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
         style={styles.text}
       >
         {" "}
-        x {favorite}
+        x {favoriteCount}
       </Text>
     </View>
   );
@@ -67,9 +72,11 @@ export default function Favorite({ favoriteCount }: FavoriteProp) {
 
 const styles = StyleSheet.create({
   detailsHeartContainer: {
-    flexDirection: "row",
     flex: 1,
+    flexDirection: "row",
     alignItems: "center",
   },
-  text: { fontWeight: "bold" },
+  text: {
+    fontWeight: "bold",
+  },
 });

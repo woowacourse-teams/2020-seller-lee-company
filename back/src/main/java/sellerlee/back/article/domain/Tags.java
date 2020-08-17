@@ -1,5 +1,5 @@
 /**
- * @author jnsorn
+ * @author kouz95
  */
 
 package sellerlee.back.article.domain;
@@ -35,13 +35,13 @@ public class Tags {
                 .collect(Collectors.toList()));
     }
 
-    public List<String> toStringList() {
+    public List<String> getNames() {
         return tags.stream()
                 .map(Tag::getName)
                 .collect(Collectors.toList());
     }
 
-    public List<Tag> getTags() {
+    public List<Tag> toList() {
         return unmodifiableList(tags);
     }
 
