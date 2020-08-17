@@ -17,16 +17,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'com.h2database:h2'
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     implementation 'org.flywaydb:flyway-core'
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
+    testImplementation 'com.h2database:h2'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    compile 'com.h2database:h2'
+
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 test {

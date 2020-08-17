@@ -7,6 +7,5 @@ create table if not exists article_favorite_count
     article_id                bigint null,
     favorite_count            bigint null,
     foreign key (article_id) references article (article_id) on update CASCADE
-)
-    engine = InnoDB;
+);
 

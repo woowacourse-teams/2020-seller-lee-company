@@ -4,7 +4,7 @@ services:
     container_name: seller_lee_database
     build:
       context: .
-      dockerfile: Dockerfile-mysql
+      dockerfile: Dockerfile-mariadb
     ports:
       - 3306:3306
 
