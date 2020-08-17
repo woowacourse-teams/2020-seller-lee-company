@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.acceptance;
 
 import static org.assertj.core.api.Assertions.*;
@@ -56,23 +52,29 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
         String request = objectMapper.writeValueAsString(new ChatRoomCreateRequest(articleId,
                 MEMBER2.getId()));
 
+        // @formatter:off
         given()
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
+        .when()
                 .post(CHAT_ROOM_URI)
-                .then()
+        .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
+        // @formatter:on
     }
 
     private List<ChatRoomResponse> showAllChatRoomsOfArticle(Long articleId) {
-        return given()
+        // @formatter:off
+        return
+                given()
                 .when()
-                .param("articleId", articleId)
-                .get(CHAT_ROOM_URI)
+                        .param("articleId", articleId)
+                        .get(CHAT_ROOM_URI)
                 .then()
-                .log().all()
-                .extract().jsonPath().getList(".", ChatRoomResponse.class);
+                        .log().all()
+                        .extract()
+                        .jsonPath().getList(".", ChatRoomResponse.class);
+        // @formatter:on
     }
 }

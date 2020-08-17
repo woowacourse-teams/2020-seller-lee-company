@@ -25,6 +25,7 @@ public class ArticleService {
     public void update(Long id, ArticleRequest request) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
+
         article.update(request.toArticle());
     }
 

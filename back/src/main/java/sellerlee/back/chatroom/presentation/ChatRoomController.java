@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.presentation;
 
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
@@ -35,7 +31,10 @@ public class ChatRoomController {
     @PostMapping
     public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateRequest request) {
         Long chatRoomId = chatRoomService.createChatRoom(request);
-        return ResponseEntity.created(URI.create(CHAT_ROOM_URI + "/" + chatRoomId)).build();
+
+        return ResponseEntity
+                .created(URI.create(CHAT_ROOM_URI + "/" + chatRoomId))
+                .build();
     }
 
     @GetMapping
@@ -43,6 +42,8 @@ public class ChatRoomController {
             @RequestParam Long articleId) {
         List<ChatRoomResponse> responses = chatRoomService
                 .showChatRoomsOf(articleId);
-        return ResponseEntity.ok(responses);
+        
+        return ResponseEntity
+                .ok(responses);
     }
 }

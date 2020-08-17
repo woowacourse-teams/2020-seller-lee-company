@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.articlefavoritecount.application;
 
 import static org.springframework.data.util.Optionals.*;
@@ -31,10 +27,12 @@ public class ArticleFavoriteCountService {
         Optional<ArticleFavoriteCount> persist =
                 articleFavoriteCountRepository.findByArticle(article);
 
-        ifPresentOrElse(persist,
+        ifPresentOrElse(
+                persist,
                 ArticleFavoriteCount::increase,
-                () -> articleFavoriteCountRepository.save(
-                        new ArticleFavoriteCountFactory(article).createFirstCount()));
+                () -> articleFavoriteCountRepository
+                        .save(new ArticleFavoriteCountFactory(article).createFirstCount())
+        );
     }
 
     @Transactional

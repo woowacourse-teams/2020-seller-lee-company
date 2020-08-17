@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.member.domain;
 
 import javax.persistence.Column;

@@ -59,7 +59,8 @@ class ArticleViewServiceTest {
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
-        assertThat(articleResponse.getAuthor().getNickname()).isEqualTo(MEMBER1.getNickname());
+        assertThat(articleResponse.getAuthor().getNickname())
+                .isEqualTo(MEMBER1.getNickname());
     }
 
     @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")

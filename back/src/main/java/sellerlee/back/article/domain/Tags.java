@@ -1,10 +1,4 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.domain;
-
-import static java.util.Collections.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +29,14 @@ public class Tags {
                 .collect(Collectors.toList()));
     }
 
-    public List<String> getNames() {
+    public List<String> getTagNames() {
         return tags.stream()
                 .map(Tag::getName)
                 .collect(Collectors.toList());
     }
 
-    public List<Tag> toList() {
-        return unmodifiableList(tags);
+    public List<Tag> getTags() {
+        return tags;
     }
 
     @Override

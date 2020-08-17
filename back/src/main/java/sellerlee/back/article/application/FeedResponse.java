@@ -32,7 +32,7 @@ public class FeedResponse {
                 article.getPrice(),
                 favoriteCount,
                 favoriteState,
-                article.getTags().getNames(),
+                article.getTags().getTagNames(),
                 article.getPhotos().toList()
         );
     }

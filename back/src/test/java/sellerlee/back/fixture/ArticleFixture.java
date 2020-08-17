@@ -1,6 +1,3 @@
-/**
- * @author kouz95
- */
 package sellerlee.back.fixture;
 
 import static sellerlee.back.fixture.MemberFixture.*;
@@ -23,7 +20,7 @@ public class ArticleFixture {
             LocalDateTime.now(),
             51L,
             "test title1",
-            new Tags(Collections.singletonList(TAG_FIXTURE)),
+            new Tags(Collections.singletonList(TAG_FIXTURE1)),
             Category.PC,
             "test contents1",
             1234L,
@@ -36,7 +33,7 @@ public class ArticleFixture {
             LocalDateTime.now(),
             52L,
             "test title1",
-            new Tags(Collections.singletonList(TAG_FIXTURE)),
+            new Tags(Collections.singletonList(TAG_FIXTURE1)),
             Category.PC,
             "test contents1",
             1234L,
@@ -49,7 +46,7 @@ public class ArticleFixture {
             LocalDateTime.now(),
             53L,
             "test title1",
-            new Tags(Collections.singletonList(TAG_FIXTURE)),
+            new Tags(Collections.singletonList(TAG_FIXTURE1)),
             Category.PC,
             "test contents1",
             1234L,
@@ -57,12 +54,12 @@ public class ArticleFixture {
             Photos.of("testUri1", "testUri2"),
             MEMBER1);
 
-    public static final ArticleRequest ARTICLE_CREATE_REQUEST_FIXTURE = new ArticleRequest(
+    public static final ArticleRequest ARTICLE_CREATE_REQUEST = new ArticleRequest(
             "TEST_TITLE",
             10_000L,
             "디지털/가전",
             "TEST_CONTENTS",
-            Arrays.asList(TAG_FIXTURE.getName(), TAG_FIXTURE2.getName()),
+            Arrays.asList(TAG_FIXTURE1.getName(), TAG_FIXTURE2.getName()),
             Arrays.asList("testUri1", "testUri2"),
             MEMBER1.getId());
 }

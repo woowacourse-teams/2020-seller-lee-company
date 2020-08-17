@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.fixture;
 
 import static sellerlee.back.fixture.ArticleFixture.*;

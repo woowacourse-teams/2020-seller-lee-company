@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.application;
 
 import sellerlee.back.chatroom.domain.ChatRoom;

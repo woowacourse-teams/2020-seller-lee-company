@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.application;
 
 import static org.assertj.core.api.Assertions.*;
@@ -48,7 +44,7 @@ class MemberServiceTest {
         when(memberRepository.findMemberByEmail(anyString()))
                 .thenThrow(new IllegalMemberLoginException("이메일이 일치하는 회원이 존재하지 않습니다."));
 
-        assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE))
+        assertThatThrownBy(() -> memberService.login(INVALID_EMAIL_MEMBER_LOGIN_REQUEST))
                 .isInstanceOf(IllegalMemberLoginException.class)
                 .hasMessage("이메일이 일치하는 회원이 존재하지 않습니다.");
 
@@ -61,7 +57,7 @@ class MemberServiceTest {
         when(memberRepository.findMemberByEmail(anyString()))
                 .thenThrow(new IllegalMemberLoginException("비밀번호가 일치하지 않습니다."));
 
-        assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE))
+        assertThatThrownBy(() -> memberService.login(INVALID_PASSWORD_MEMBER_LOGIN))
                 .isInstanceOf(IllegalMemberLoginException.class)
                 .hasMessage("비밀번호가 일치하지 않습니다.");
 

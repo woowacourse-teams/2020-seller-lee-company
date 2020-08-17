@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.common.config;
 
 import org.springframework.context.annotation.Configuration;

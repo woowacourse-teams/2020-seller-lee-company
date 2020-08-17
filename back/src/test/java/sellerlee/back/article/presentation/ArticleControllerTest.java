@@ -64,7 +64,7 @@ class ArticleControllerTest {
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
     void createArticle() throws Exception {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
+        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
 
         when(articleService.post(any())).thenReturn(1L);
 

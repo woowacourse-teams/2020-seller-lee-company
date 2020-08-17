@@ -1,12 +1,7 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.article.domain;
 
 import static java.util.Collections.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +13,8 @@ import javax.persistence.JoinColumn;
 
 @Embeddable
 public class Photos {
+    private static final int THUMBNAIL_INDEX = 0;
+
     @ElementCollection
     @CollectionTable(name = "photo", joinColumns = @JoinColumn(name = "article_id"))
     private List<String> photos;
@@ -26,11 +23,18 @@ public class Photos {
     }
 
     public Photos(List<String> photos) {
-        this.photos = new ArrayList<>(photos);
+        this.photos = photos;
     }
 
     public static Photos of(String... photos) {
         return new Photos(Arrays.asList(photos));
+    }
+
+    public String pickThumbnail() {
+        if (photos.isEmpty()) {
+            return "";
+        }
+        return photos.get(THUMBNAIL_INDEX);
     }
 
     public List<String> toList() {

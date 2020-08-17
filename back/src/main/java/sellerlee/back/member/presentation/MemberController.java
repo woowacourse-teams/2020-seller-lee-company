@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.presentation;
 
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 package sellerlee.back.article.acceptance;
 
 import static org.assertj.core.api.Assertions.*;
@@ -37,14 +33,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      * When 전체 게시글을 조회한다.
      * Then 게시글이 조회된다.
      * <p>
-     * 게시글 상세 조회 기능
-     * <p>
-     * Given 게시글이 전체 조회되어있다.
-     * <p>
      * When 게시글을 클릭한다.
-     * Then 게시글 정보와 좋아요 를 응답받는다.
+     * Then 게시글 정보와 좋아요를 응답받는다.
+     * <p>
+     * When 게시글을 삭제한다.
+     * Then 게시글이 삭제된다.
      */
-
     @DisplayName("게시글을 관리한다")
     @TestFactory
     Stream<DynamicTest> manageArticle() throws JsonProcessingException {
@@ -70,37 +64,46 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private List<FeedResponse> findArticleInFeed(Long articleId) {
-        return given()
+        // @formatter:off
+        return
+                given()
                 .when()
-                .param("lastArticleId", articleId)
-                .param("size", ARTICLE_SIZE)
-                .get(ARTICLE_URI)
+                        .param("lastArticleId", articleId)
+                        .param("size", ARTICLE_SIZE)
+                        .get(ARTICLE_URI)
                 .then()
-                .log().all()
-                .extract().jsonPath().getList(".", FeedResponse.class);
+                        .log().all()
+                        .extract().jsonPath().getList(".", FeedResponse.class);
+        // @formatter:on
     }
 
     private ArticleResponse findArticleDetailOf(Long articleId) {
         String url = ARTICLE_URI + "/" + articleId;
 
-        return given()
+        // @formatter:off
+        return
+                given()
                 .when()
-                .param("memberId", MEMBER1.getId())
-                .get(url)
+                        .param("memberId", MEMBER1.getId())
+                        .get(url)
                 .then()
-                .log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract().jsonPath().getObject(".", ArticleResponse.class);
+                        .log().all()
+                        .statusCode(HttpStatus.OK.value())
+                        .extract()
+                        .jsonPath().getObject(".", ArticleResponse.class);
+        // @formatter:on
     }
 
     private void deleteArticle(Long articleId) {
         String url = ARTICLE_URI + "/" + articleId;
 
+        // @formatter:off
         given()
-                .when()
+        .when()
                 .delete(url)
-                .then()
+        .then()
                 .log().all()
                 .statusCode(HttpStatus.NO_CONTENT.value());
+        // @formatter:on
     }
 }
