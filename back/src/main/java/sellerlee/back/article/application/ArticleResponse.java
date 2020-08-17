@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.member.application.MemberResponse;
 
 public class ArticleResponse {
     private Long id;
@@ -15,7 +14,7 @@ public class ArticleResponse {
     private String tradeState;
     private List<String> tags;
     private List<String> photos;
-    private MemberResponse author;
+    private AuthorResponse author;
     private boolean favoriteState;
     private long favoriteCount;
     private LocalDateTime createdTime;
@@ -25,7 +24,7 @@ public class ArticleResponse {
 
     public ArticleResponse(Long id, String title, String categoryName, String contents,
             Long price, String tradeState, List<String> tags, List<String> photos,
-            MemberResponse author, boolean favoriteState, long favoriteCount,
+            AuthorResponse author, boolean favoriteState, long favoriteCount,
             LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
@@ -51,7 +50,7 @@ public class ArticleResponse {
                 article.getTradeState().getTradeState(),
                 article.getTags().getNames(),
                 article.getPhotos().toList(),
-                MemberResponse.of(article.getAuthor()),
+                AuthorResponse.of(article.getAuthor()),
                 favoriteState,
                 favoriteCount,
                 article.getCreatedTime()
@@ -90,7 +89,7 @@ public class ArticleResponse {
         return photos;
     }
 
-    public MemberResponse getAuthor() {
+    public AuthorResponse getAuthor() {
         return author;
     }
 

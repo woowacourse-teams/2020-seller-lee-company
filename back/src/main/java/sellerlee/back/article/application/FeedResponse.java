@@ -9,14 +9,14 @@ public class FeedResponse {
     private Long id;
     private Long price;
     private Long favoriteCount;
-    private Boolean favoriteState;
+    private boolean favoriteState;
     private List<String> tags;
     private List<String> photos;
 
     private FeedResponse() {
     }
 
-    private FeedResponse(Long id, Long price, Long favoriteCount, Boolean favoriteState,
+    private FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,
             List<String> tags, List<String> photos) {
         this.id = id;
         this.price = price;
@@ -26,7 +26,7 @@ public class FeedResponse {
         this.photos = photos;
     }
 
-    public static FeedResponse of(Article article, Long favoriteCount, Boolean favoriteState) {
+    public static FeedResponse of(Article article, Long favoriteCount, boolean favoriteState) {
         return new FeedResponse(
                 article.getId(),
                 article.getPrice(),
@@ -59,7 +59,7 @@ public class FeedResponse {
         return favoriteCount;
     }
 
-    public Boolean getFavoriteState() {
+    public boolean getFavoriteState() {
         return favoriteState;
     }
 
