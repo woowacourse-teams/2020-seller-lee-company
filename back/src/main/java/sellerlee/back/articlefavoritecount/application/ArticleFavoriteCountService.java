@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
+import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountFactory;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 
 @Service
@@ -32,7 +33,8 @@ public class ArticleFavoriteCountService {
 
         ifPresentOrElse(persist,
                 ArticleFavoriteCount::increase,
-                () -> articleFavoriteCountRepository.save(new ArticleFavoriteCount(article, 1L)));
+                () -> articleFavoriteCountRepository.save(
+                        new ArticleFavoriteCountFactory(article).createFirstCount()));
     }
 
     @Transactional
