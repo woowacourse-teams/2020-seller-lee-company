@@ -22,11 +22,11 @@ public class Trade extends BaseTimeEntity {
     private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
     private Member buyer;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
     private Member seller;
 
     protected Trade() {

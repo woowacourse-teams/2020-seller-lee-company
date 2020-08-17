@@ -67,7 +67,8 @@ public class Article extends BaseTimeEntity {
     public Article(LocalDateTime createdTime, LocalDateTime modifiedTime, Long id, String title,
             Tags tags, Category category, String contents, Long price, TradeState tradeState,
             Photos photos, Member author) {
-        super(createdTime, modifiedTime);
+        this.createdTime = createdTime;
+        this.modifiedTime = modifiedTime;
         this.id = id;
         this.title = title;
         this.tags = tags;
