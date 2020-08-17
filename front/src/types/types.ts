@@ -114,16 +114,6 @@ export type Category =
   | "도서/티켓/음반"
   | "기타 중고물품";
 
-export interface CategoryAndTimeProps {
-  category: Category;
-  time: string;
-}
-
-export interface FavoriteCountAndHitProps {
-  favoriteCount: number;
-  hit: number;
-}
-
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface ArticleDetailFavoriteProp {
@@ -137,21 +127,6 @@ export interface Feed {
   tags: string[];
   favoriteState: boolean;
   photos: string[];
-}
-
-export interface Tag {
-  id: number;
-  tag: string;
-}
-
-export interface CategoryAndTimeProps {
-  category: Category;
-  time: string;
-}
-
-export interface FavoriteCountAndHitProps {
-  favoriteCount: number;
-  hit: number;
 }
 
 export interface Feed {
@@ -196,17 +171,10 @@ export interface Author {
   validated: boolean;
 }
 
-export interface Favorite {
-  id: number;
-  memberId: number;
-  articleId: number;
-}
-
 export interface Buyer {
   avatar: string;
   nickname: string;
 }
-
 
 export interface ArticleCardProps {
   title: string;

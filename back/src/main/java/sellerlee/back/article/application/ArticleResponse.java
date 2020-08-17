@@ -48,7 +48,7 @@ public class ArticleResponse {
                 article.getContents(),
                 article.getPrice(),
                 article.getTradeState().getTradeState(),
-                article.getTags().getNames(),
+                article.getTags().getTagNames(),
                 article.getPhotos().toList(),
                 AuthorResponse.of(article.getAuthor()),
                 favoriteState,

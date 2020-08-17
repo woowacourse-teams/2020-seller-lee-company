@@ -33,16 +33,16 @@ class ArticleServiceTest {
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
     @Test
     void createArticle() {
+        when(articleRepository.save(any())).thenReturn(ARTICLE1);
+
         ArticleRequest request = new ArticleRequest(
                 "노트북",
                 10000L,
                 "디지털/가전",
                 "쌉니다 싸요",
-                Arrays.asList(TAG_FIXTURE.getName(), TAG_FIXTURE2.getName()),
+                Arrays.asList(TAG_FIXTURE1.getName(), TAG_FIXTURE2.getName()),
                 Arrays.asList("testUri1", "testUri2"),
                 1L);
-        when(articleRepository.save(any())).thenReturn(ARTICLE1);
-
         Long actualId = articleService.post(request);
 
         assertThat(actualId).isEqualTo(ARTICLE1.getId());

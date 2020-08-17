@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.application;
 
 import static org.assertj.core.api.Assertions.*;

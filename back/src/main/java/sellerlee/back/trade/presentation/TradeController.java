@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.trade.presentation;
 
 import static sellerlee.back.trade.presentation.TradeController.*;
@@ -31,15 +27,14 @@ public class TradeController {
     @GetMapping
     public ResponseEntity<List<ArticleCardResponse>> showAll() {
         // TODO: 2020/08/06 아래의 Member는 추후 Login 기능 구현으로 @LoginMember resolver로 대체될 예정
-        Member member = new Member(
-                51L,
-                "turtle@woowabro.com",
-                "1234",
-                "testNickname",
-                "testUri",
-                4.5);
-
-        List<ArticleCardResponse> orders = tradeService.showAll(member);
+        List<ArticleCardResponse> orders = tradeService.showAll(
+                new Member(
+                        51L,
+                        "turtle@woowabro.com",
+                        "1234",
+                        "testNickname",
+                        "testUri",
+                        4.5));
 
         return ResponseEntity
                 .ok()

@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.domain;
 
 import java.util.Optional;

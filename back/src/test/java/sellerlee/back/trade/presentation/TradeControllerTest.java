@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.trade.presentation;
 
 import static org.mockito.Mockito.*;

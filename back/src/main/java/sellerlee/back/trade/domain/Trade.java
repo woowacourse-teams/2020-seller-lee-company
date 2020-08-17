@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.trade.domain;
 
 import javax.persistence.Entity;

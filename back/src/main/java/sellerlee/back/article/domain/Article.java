@@ -15,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-import sellerlee.back.common.BaseTimeEntity;
+import sellerlee.back.common.domain.BaseTimeEntity;
 import sellerlee.back.member.domain.Member;
 
 @Entity
@@ -64,9 +64,9 @@ public class Article extends BaseTimeEntity {
         this.author = author;
     }
 
-    public Article(LocalDateTime createdTime, LocalDateTime modifiedTime,
-            Long id, String title, Tags tags, Category category, String contents, Long price,
-            TradeState tradeState, Photos photos, Member author) {
+    public Article(LocalDateTime createdTime, LocalDateTime modifiedTime, Long id, String title,
+            Tags tags, Category category, String contents, Long price, TradeState tradeState,
+            Photos photos, Member author) {
         super(createdTime, modifiedTime);
         this.id = id;
         this.title = title;
@@ -79,8 +79,8 @@ public class Article extends BaseTimeEntity {
         this.author = author;
     }
 
-    public Article(String title, Tags tags, Category category, String contents,
-            Long price, TradeState tradeState, Photos photos, Member author) {
+    public Article(String title, Tags tags, Category category, String contents, Long price,
+            TradeState tradeState, Photos photos, Member author) {
         this(null, title, tags, category, contents, price, tradeState, photos, author);
     }
 

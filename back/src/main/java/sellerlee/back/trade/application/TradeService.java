@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.trade.application;
 
 import static java.util.stream.Collectors.*;
@@ -27,8 +23,10 @@ public class TradeService {
         return tradeRepository.findAllByBuyer(buyer)
                 .stream()
                 .map(Trade::getArticle)
-                .collect(collectingAndThen(
-                        toList(), ArticleCardResponse::listOf));
-
+                .collect(
+                        collectingAndThen(
+                                toList(),
+                                ArticleCardResponse::listOf
+                        ));
     }
 }

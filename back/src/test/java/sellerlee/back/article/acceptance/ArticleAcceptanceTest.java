@@ -64,37 +64,46 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private List<FeedResponse> findArticleInFeed(Long articleId) {
-        return given()
+        // @formatter:off
+        return
+                given()
                 .when()
-                .param("lastArticleId", articleId)
-                .param("size", ARTICLE_SIZE)
-                .get(ARTICLE_URI)
+                        .param("lastArticleId", articleId)
+                        .param("size", ARTICLE_SIZE)
+                        .get(ARTICLE_URI)
                 .then()
-                .log().all()
-                .extract().jsonPath().getList(".", FeedResponse.class);
+                        .log().all()
+                        .extract().jsonPath().getList(".", FeedResponse.class);
+        // @formatter:on
     }
 
     private ArticleResponse findArticleDetailOf(Long articleId) {
         String url = ARTICLE_URI + "/" + articleId;
 
-        return given()
+        // @formatter:off
+        return
+                given()
                 .when()
-                .param("memberId", MEMBER1.getId())
-                .get(url)
+                        .param("memberId", MEMBER1.getId())
+                        .get(url)
                 .then()
-                .log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract().jsonPath().getObject(".", ArticleResponse.class);
+                        .log().all()
+                        .statusCode(HttpStatus.OK.value())
+                        .extract()
+                        .jsonPath().getObject(".", ArticleResponse.class);
+        // @formatter:on
     }
 
     private void deleteArticle(Long articleId) {
         String url = ARTICLE_URI + "/" + articleId;
 
+        // @formatter:off
         given()
-                .when()
+        .when()
                 .delete(url)
-                .then()
+        .then()
                 .log().all()
                 .statusCode(HttpStatus.NO_CONTENT.value());
+        // @formatter:on
     }
 }

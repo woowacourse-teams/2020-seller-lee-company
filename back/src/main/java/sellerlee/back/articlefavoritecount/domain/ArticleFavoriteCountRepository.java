@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.articlefavoritecount.domain;
 
 import java.util.List;

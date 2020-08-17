@@ -30,8 +30,7 @@ public class ArticleController {
     private final ArticleService articleService;
     private final ArticleViewService articleViewService;
 
-    public ArticleController(ArticleService articleService,
-            ArticleViewService articleViewService) {
+    public ArticleController(ArticleService articleService, ArticleViewService articleViewService) {
         this.articleService = articleService;
         this.articleViewService = articleViewService;
     }
@@ -39,45 +38,50 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody ArticleRequest request) {
         Long articleId = articleService.post(request);
+
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
                 .build();
     }
 
     @GetMapping
-    public ResponseEntity<List<FeedResponse>> showPage(
-            @RequestParam Long lastArticleId,
+    public ResponseEntity<List<FeedResponse>> showPage(@RequestParam Long lastArticleId,
             @RequestParam int size) {
-        Member loginMember = new Member(
-                51L,
-                "turtle@woowabro.com",
-                "1234",
-                "testUri",
-                "testNickname",
-                4.5);
         List<FeedResponse> responses = articleViewService.showFeedPage(lastArticleId, size,
-                loginMember);
-        return ResponseEntity.ok(responses);
+                new Member(
+                        51L,
+                        "turtle@woowabro.com",
+                        "1234",
+                        "testUri",
+                        "testNickname",
+                        4.5));
+
+        return ResponseEntity
+                .ok(responses);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id) {
-        Member loginMember = new Member(
-                51L,
-                "turtle@woowabro.com",
-                "1234",
-                "testNickname",
-                "testUri",
-                4.5);
-        ArticleResponse articleResponse = articleViewService.show(id, loginMember);
+        ArticleResponse articleResponse = articleViewService.show(id,
+                new Member(
+                        51L,
+                        "turtle@woowabro.com",
+                        "1234",
+                        "testNickname",
+                        "testUri",
+                        4.5));
 
-        return ResponseEntity.ok(articleResponse);
+        return ResponseEntity
+                .ok(articleResponse);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         articleService.deleteById(id);
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     /*

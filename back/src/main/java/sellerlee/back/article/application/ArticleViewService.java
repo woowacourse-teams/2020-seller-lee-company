@@ -36,10 +36,8 @@ public class ArticleViewService {
     public ArticleResponse show(Long articleId, Member loginMember) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
-
         Optional<Favorite> favorite = favoriteRepository.findFavoriteByArticleAndMember(article,
                 loginMember);
-
         long favoriteCount = favoriteRepository.countByArticle(article);
 
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
@@ -51,11 +49,6 @@ public class ArticleViewService {
         List<Article> articles = articleRepository
                 .findByIdLessThanOrderByIdDesc(lastArticleId, pageRequest)
                 .getContent();
-        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(loginMember,
-                articles)
-                .stream()
-                .map(Favorite::getArticle)
-                .collect(toList());
         Map<Article, Long> articleAndCount = articleFavoriteCountRepository
                 .findAllByArticleInOrderByArticle(articles).stream()
                 .collect(toMap(ArticleFavoriteCount::getArticle,
@@ -63,6 +56,12 @@ public class ArticleViewService {
 
         List<Long> favoriteCounts = articles.stream()
                 .map(article -> articleAndCount.getOrDefault(article, 0L))
+                .collect(toList());
+
+        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(loginMember,
+                articles)
+                .stream()
+                .map(Favorite::getArticle)
                 .collect(toList());
         List<Boolean> favoriteStates = articles.stream()
                 .map(favorites::contains)

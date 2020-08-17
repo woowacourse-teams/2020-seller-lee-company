@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.favorite.presentation;
 
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
@@ -32,27 +28,31 @@ public class FavoriteController {
 
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody FavoriteRequest request) {
-        Member loginMember = new Member(
+        Long favoriteId = favoriteService.create(request, new Member(
                 51L,
                 "turtle@woowabro.com",
                 "1234",
                 "testUri",
                 "testNickname",
-                4.5);
-        Long favoriteId = favoriteService.create(request, loginMember);
-        return ResponseEntity.created(URI.create(FAVORITE_URI + "/" + favoriteId)).build();
+                4.5));
+
+        return ResponseEntity
+                .created(URI.create(FAVORITE_URI + "/" + favoriteId))
+                .build();
     }
 
     @DeleteMapping
     public ResponseEntity<Void> remove(@RequestBody FavoriteRequest request) {
-        Member loginMember = new Member(
+        favoriteService.remove(request, new Member(
                 51L,
                 "turtle@woowabro.com",
                 "1234",
                 "testUri",
                 "testNickname",
-                4.5);
-        favoriteService.remove(request, loginMember);
-        return ResponseEntity.noContent().build();
+                4.5));
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

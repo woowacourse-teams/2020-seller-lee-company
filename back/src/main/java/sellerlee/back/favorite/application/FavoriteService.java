@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.favorite.application;
 
 import javax.transaction.Transactional;

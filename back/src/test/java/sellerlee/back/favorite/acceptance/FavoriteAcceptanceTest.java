@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.favorite.acceptance;
 
 import static org.junit.jupiter.api.DynamicTest.*;
@@ -51,28 +47,33 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     private String createFavorite(Long articleId) throws JsonProcessingException {
         FavoriteRequest request = new FavoriteRequest(articleId);
 
-        return given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(objectMapper.writeValueAsString(request))
+        // @formatter:off
+        return
+                given()
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .body(objectMapper.writeValueAsString(request))
                 .when()
-                .post(FAVORITE_URI)
+                        .post(FAVORITE_URI)
                 .then()
-                .log().all()
-                .statusCode(HttpStatus.CREATED.value())
-                .extract()
-                .header(HttpHeaders.LOCATION);
+                        .log().all()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .extract()
+                        .header(HttpHeaders.LOCATION);
+        // @formatter:on
     }
 
     private void deleteFavorite(Long articleId) throws JsonProcessingException {
         FavoriteRequest request = new FavoriteRequest(articleId);
 
+        // @formatter:off
         given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(objectMapper.writeValueAsString(request))
-                .when()
+        .when()
                 .delete(FAVORITE_URI)
-                .then()
+        .then()
                 .log().all()
                 .statusCode(HttpStatus.NO_CONTENT.value());
+        // @formatter:on
     }
 }

@@ -1,9 +1,6 @@
 package sellerlee.back.article.domain;
 
-import static java.util.Collections.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -26,24 +23,20 @@ public class Tags {
         this.tags = new ArrayList<>(tags);
     }
 
-    public static Tags of(Tag... tags) {
-        return new Tags(Arrays.asList(tags));
-    }
-
     public static Tags of(List<String> tags) {
         return new Tags(tags.stream()
                 .map(Tag::new)
                 .collect(Collectors.toList()));
     }
 
-    public List<String> getNames() {
+    public List<String> getTagNames() {
         return tags.stream()
                 .map(Tag::getName)
                 .collect(Collectors.toList());
     }
 
-    public List<Tag> toList() {
-        return unmodifiableList(tags);
+    public List<Tag> getTags() {
+        return tags;
     }
 
     @Override

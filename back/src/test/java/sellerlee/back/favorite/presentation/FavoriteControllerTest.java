@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.favorite.presentation;
 
 import static org.mockito.ArgumentMatchers.*;

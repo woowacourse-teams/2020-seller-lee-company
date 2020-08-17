@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.member.acceptance;
 
 import static org.junit.jupiter.api.DynamicTest.*;
@@ -29,26 +25,23 @@ public class MemberAcceptanceTest extends AcceptanceTest {
     @DisplayName("회원 인수 테스트")
     @TestFactory
     Stream<DynamicTest> manageMember() {
-        // Given 회원이 등록되어 있다.
-        // data.sql 사용
         return Stream.of(
-                dynamicTest("회원 로그인", () -> {
-                    // When 로그인 요청을 한다.
-                    login();
-                })
+                dynamicTest("회원 로그인", this::login)
         );
     }
 
     private void login() throws JsonProcessingException {
         String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST_FIXTURE);
 
+        // @formatter:off
         given()
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
+        .when()
                 .post("/login")
-                .then()
+        .then()
                 .log().all()
                 .statusCode(HttpStatus.OK.value());
+        // @formatter:on
     }
 }

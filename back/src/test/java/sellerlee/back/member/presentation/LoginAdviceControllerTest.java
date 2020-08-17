@@ -53,7 +53,7 @@ class LoginAdviceControllerTest {
     @Test
     void handleIllegalMemberLoginException_InvalidEmail() throws Exception {
         String request = objectMapper.writeValueAsString(
-                INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE);
+                INVALID_EMAIL_MEMBER_LOGIN_REQUEST);
 
         doThrow(new IllegalMemberLoginException("이메일이 일치하는 회원이 존재하지 않습니다."))
                 .when(memberService).login(any());
@@ -80,7 +80,7 @@ class LoginAdviceControllerTest {
     @Test
     void handleIllegalMemberLoginException_InvalidPassword() throws Exception {
         String request = objectMapper.writeValueAsString(
-                INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE);
+                INVALID_PASSWORD_MEMBER_LOGIN);
 
         doThrow(new IllegalMemberLoginException("비밀번호가 일치하지 않습니다."))
                 .when(memberService).login(any());

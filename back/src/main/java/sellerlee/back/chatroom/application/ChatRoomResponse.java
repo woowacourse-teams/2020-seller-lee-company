@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.application;
 
 import static java.util.stream.Collectors.*;
@@ -25,8 +21,10 @@ public class ChatRoomResponse {
 
     public static List<ChatRoomResponse> listOf(List<ChatRoom> chatRooms) {
         return chatRooms.stream()
-                .map(chatRoom -> new ChatRoomResponse(chatRoom.getBuyer().getAvatar(),
-                        chatRoom.getBuyer().getNickname()))
+                .map(chatRoom -> new ChatRoomResponse(
+                        chatRoom.getBuyer().getAvatar(),
+                        chatRoom.getBuyer().getNickname()
+                ))
                 .collect(toList());
     }
 
