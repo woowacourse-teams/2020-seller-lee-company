@@ -1,5 +1,6 @@
 package sellerlee.back.trade.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import sellerlee.back.member.domain.Member;
 public class Trade extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "trade_id")
     private Long id;
 
     @OneToOne
