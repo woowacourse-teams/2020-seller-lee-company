@@ -4,18 +4,16 @@ import sellerlee.back.member.application.MemberLoginRequest;
 import sellerlee.back.member.domain.Member;
 
 public class MemberFixture {
-    private static final String MEMBER_EMAIL = "sellerlee@gmail.com";
+    private static final String MEMBER_EMAIL = "lxxjn0@woowabro.com";
     private static final String MEMBER_PASSWORD = "1234";
     private static final String MEMBER_NICKNAME = "testNickname";
     private static final String MEMBER_AVATAR = "testUri";
     private static final double MEMBER_SCORE = 4.5;
-    private static final String INVALID_MEMBER_PASSWORD = "0000";
-    private static final String INVALID_MEMBER_EMAIL = "sellerlee@hello.com";
 
     public static final MemberLoginRequest INVALID_PASSWORD_MEMBER_LOGIN_REQUEST_FIXTURE =
             new MemberLoginRequest(
                     MEMBER_EMAIL,
-                    INVALID_MEMBER_PASSWORD
+                    "0000"
             );
 
     public static final MemberLoginRequest MEMBER_LOGIN_REQUEST_FIXTURE =
@@ -26,7 +24,7 @@ public class MemberFixture {
 
     public static final MemberLoginRequest INVALID_EMAIL_MEMBER_LOGIN_REQUEST_FIXTURE =
             new MemberLoginRequest(
-                    INVALID_MEMBER_EMAIL,
+                    "sellerlee@hello.com",
                     MEMBER_PASSWORD
             );
 
@@ -42,7 +40,7 @@ public class MemberFixture {
     public static final Member MEMBER2 =
             new Member(
                     52L,
-                    "lxxjn0@gmail.com",
+                    MEMBER_EMAIL,
                     MEMBER_PASSWORD,
                     MEMBER_NICKNAME,
                     MEMBER_AVATAR,

@@ -1,18 +1,15 @@
-/**
- * @author begaonnuri
- */
-
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { CategoryAndTimeProps } from "../../../types/types";
+import { useRecoilValue } from "recoil/dist";
+import { articleSelectedState } from "../../../states/articleState";
+import calculateDiffTime from "../../../calculateDiffTime";
 
-export default function CategoryAndTime({
-  category,
-  time,
-}: CategoryAndTimeProps) {
+export default function CategoryAndTime() {
+  const { categoryName, createdTime } = useRecoilValue(articleSelectedState);
+
   return (
     <Text style={styles.text}>
-      {category} | {time}
+      {categoryName} | {calculateDiffTime(createdTime)}
     </Text>
   );
 }

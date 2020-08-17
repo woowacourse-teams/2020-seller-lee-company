@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import axios from "axios";
 
 // const BASE_URL = "http://3.34.248.131:8080";
@@ -11,6 +7,9 @@ const domain = {
   members: "/members",
   trades: "/trades",
   login: "/login",
+  chatRoom: "/chat-rooms",
+  trade: "/trades",
+  favorites: "/favorites",
 };
 
 interface ArticlesPost {
@@ -28,16 +27,31 @@ interface ArticlesGet {
   size: number;
 }
 
+interface ArticlesGetByTradeState {
+  tradeState: string;
+}
+
 export const articlesAPI = {
   get: async (params: ArticlesGet) =>
-    await axios.get(BASE_URL + domain.articles, { params }),
+    await axios.get(`${BASE_URL}${domain.articles}`, { params }),
+  getByTradeState: async (params: ArticlesGetByTradeState) =>
+    await axios.get(`${BASE_URL}${domain.articles}/trade-state`, { params }),
   post: async (data: ArticlesPost) =>
-    await axios.post(BASE_URL + domain.articles, data),
+    await axios.post(`${BASE_URL}${domain.articles}`, data),
+  put: async (articleId: number, data: ArticlesPost) =>
+    await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data),
+  delete: async (articleId: number) =>
+    await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),
 };
 
 export const articleDetailAPI = {
   get: async (articleId: number) =>
-    await axios.get(BASE_URL + domain.articles + "/" + articleId),
+    await axios.get(`${BASE_URL}${domain.articles}/${articleId}`, {
+      // 해당 부분은 Member가 구현되면 수정되어야함.
+      params: {
+        memberId: 1,
+      },
+    }),
 };
 
 interface MemberLogin {
@@ -47,7 +61,31 @@ interface MemberLogin {
 
 export const memberAPI = {
   post: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, { data }),
+    await axios.post(`${BASE_URL}${domain.login}`, { data }),
+};
+
+export const chatRoomAPI = {
+  getBuyers: async (articleId: number) =>
+    await axios.get(`${BASE_URL}${domain.chatRoom}`, {
+      params: {
+        articleId,
+      },
+    }),
+};
+
+interface FavoriteCreate {
+  articleId: number;
+}
+
+interface FavoriteDelete {
+  articleId: number;
+}
+
+export const favoriteAPI = {
+  post: async (data: FavoriteCreate) =>
+    await axios.post(BASE_URL + domain.favorites, data),
+  delete: async (data: FavoriteDelete) =>
+    await axios.delete(BASE_URL + domain.favorites, { data }),
 };
 
 export const tradeAPI = {

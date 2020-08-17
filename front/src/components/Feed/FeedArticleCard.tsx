@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React, { useRef } from "react";
 import {
   Animated,
@@ -16,6 +12,8 @@ import Favorite from "../Common/Button/Favorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useNavigation } from "@react-navigation/native";
 import { insertComma } from "../../replacePriceWithComma";
+import { useSetRecoilState } from "recoil/dist";
+import { articleSelectedIdState } from "../../states/articleState";
 
 const ANIMATE_START_VALUE = 0.93;
 
@@ -25,8 +23,10 @@ export default function FeedArticleCard({
   tags,
   favoriteCount,
   photos,
+  favoriteState,
 }: Feed) {
   const navigation = useNavigation<FeedHomeNavigationProp>();
+  const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
@@ -48,7 +48,8 @@ export default function FeedArticleCard({
     <AnimateTouchableWithoutFeedback
       onPress={() => {
         clickArticleAnimate();
-        navigation.navigate("FeedDetail", { articleId: id });
+        setArticleSelectedId(id);
+        navigation.navigate("ArticleDetailScreen");
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
@@ -58,14 +59,18 @@ export default function FeedArticleCard({
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite favoriteCount={favoriteCount} />
+            <Favorite
+              articleId={id}
+              state={favoriteState}
+              count={favoriteCount}
+            />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>{insertComma(price.toString())}원</Text>
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {tags.map((tagItem, index) => (
-              <FeedArticleTag key={index} tagItem={tagItem} />
+            {tags.map((tag, index) => (
+              <FeedArticleTag key={index} tag={tag} />
             ))}
           </View>
         </View>

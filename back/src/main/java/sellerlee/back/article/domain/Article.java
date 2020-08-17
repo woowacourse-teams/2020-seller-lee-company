@@ -1,8 +1,6 @@
-/**
- * @author joseph415 lxxjn0
- */
-
 package sellerlee.back.article.domain;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -11,18 +9,19 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-import sellerlee.back.common.domain.BaseTimeEntity;
+import sellerlee.back.common.BaseTimeEntity;
 import sellerlee.back.member.domain.Member;
 
 @Entity
 public class Article extends BaseTimeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Long id;
 
@@ -40,11 +39,6 @@ public class Article extends BaseTimeEntity {
     private Long price;
 
     @Enumerated(EnumType.STRING)
-    private TradeType tradeType;
-
-    private String tradeLocation;
-
-    @Enumerated(EnumType.STRING)
     private TradeState tradeState;
 
     @Embedded
@@ -58,26 +52,49 @@ public class Article extends BaseTimeEntity {
     }
 
     public Article(Long id, String title, Tags tags, Category category, String contents,
-            Long price, TradeType tradeType, String tradeLocation,
-            TradeState tradeState, Photos photos, Member author) {
+            Long price, TradeState tradeState, Photos photos, Member author) {
         this.id = id;
         this.title = title;
         this.tags = tags;
         this.category = category;
         this.contents = contents;
         this.price = price;
-        this.tradeType = tradeType;
-        this.tradeLocation = tradeLocation;
+        this.tradeState = tradeState;
+        this.photos = photos;
+        this.author = author;
+    }
+
+    public Article(LocalDateTime createdTime, LocalDateTime modifiedTime,
+            Long id, String title, Tags tags, Category category, String contents, Long price,
+            TradeState tradeState, Photos photos, Member author) {
+        super(createdTime, modifiedTime);
+        this.id = id;
+        this.title = title;
+        this.tags = tags;
+        this.category = category;
+        this.contents = contents;
+        this.price = price;
         this.tradeState = tradeState;
         this.photos = photos;
         this.author = author;
     }
 
     public Article(String title, Tags tags, Category category, String contents,
-            Long price, TradeType tradeType, String tradeLocation,
-            TradeState tradeState, Photos photos, Member author) {
-        this(null, title, tags, category, contents, price, tradeType, tradeLocation, tradeState,
-                photos, author);
+            Long price, TradeState tradeState, Photos photos, Member author) {
+        this(null, title, tags, category, contents, price, tradeState, photos, author);
+    }
+
+    public Article(Long id) {
+        this(id, null, null, null, null, null, null, null, null);
+    }
+
+    public void update(Article article) {
+        title = article.title;
+        price = article.price;
+        category = article.category;
+        contents = article.contents;
+        tags = article.tags;
+        photos = article.photos;
     }
 
     public Long getId() {
@@ -102,14 +119,6 @@ public class Article extends BaseTimeEntity {
 
     public Long getPrice() {
         return price;
-    }
-
-    public TradeType getTradeType() {
-        return tradeType;
-    }
-
-    public String getTradeLocation() {
-        return tradeLocation;
     }
 
     public TradeState getTradeState() {

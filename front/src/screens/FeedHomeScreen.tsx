@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -92,6 +88,7 @@ export default function FeedHomeScreen() {
           tags={item.tags}
           favoriteCount={item.favoriteCount}
           photos={item.photos}
+          favoriteState={item.favoriteState}
         />
       )}
       keyExtractor={(item) => `${item.id}`}

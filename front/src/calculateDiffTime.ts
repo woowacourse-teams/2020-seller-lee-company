@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import moment from "moment";
 
 export default function calculateDiffTime(createdTime: string) {
