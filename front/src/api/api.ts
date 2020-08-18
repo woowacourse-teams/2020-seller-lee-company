@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Score } from "../types/types";
 
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
@@ -79,7 +80,6 @@ export const chatRoomAPI = {
     }),
 };
 
-
 interface FavoriteCreate {
   articleId: number;
 }
@@ -102,6 +102,7 @@ export const tradeAPI = {
 interface EvaluationPost {
   scores: Score[];
 }
+
 export const evaluationAPI = {
   post: async (data: EvaluationPost) =>
     await axios.post(`${BASE_URL}${domain.evaluation}`, data),

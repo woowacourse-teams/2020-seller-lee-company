@@ -3,6 +3,7 @@ package sellerlee.back.article.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;

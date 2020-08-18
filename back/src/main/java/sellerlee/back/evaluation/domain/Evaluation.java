@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.trade.domain.Trade;
 

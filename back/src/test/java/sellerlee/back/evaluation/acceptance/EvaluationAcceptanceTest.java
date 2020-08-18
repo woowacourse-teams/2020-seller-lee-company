@@ -18,7 +18,6 @@ import org.springframework.http.MediaType;
 
 import sellerlee.back.AcceptanceTest;
 
-
 public class EvaluationAcceptanceTest extends AcceptanceTest {
     /**
      * Feature: 평가 관리

@@ -46,7 +46,7 @@ public class ChatRoomController {
             @RequestParam Long articleId) {
         List<ChatRoomResponse> responses = chatRoomService
                 .showChatRoomsOf(articleId);
-        
+
         return ResponseEntity
                 .ok(responses);
     }

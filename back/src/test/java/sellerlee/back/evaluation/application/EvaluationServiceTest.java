@@ -7,6 +7,7 @@ package sellerlee.back.evaluation.application;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static sellerlee.back.fixture.EvaluationFixture.*;
+import static sellerlee.back.fixture.TradeFixture.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import sellerlee.back.evaluation.domain.Evaluation;
 import sellerlee.back.evaluation.domain.EvaluationRepository;
 import sellerlee.back.member.domain.Member;
-import sellerlee.back.trade.domain.Trade;
 
 @ExtendWith(value = MockitoExtension.class)
 public class EvaluationServiceTest {
@@ -33,7 +33,8 @@ public class EvaluationServiceTest {
 
     @Test
     void createEvaluation() {
-        Evaluation expected = new Evaluation(1L, EVALUATION_CREATE_REQUEST.getScores(), new Trade(), new Member(1L));
+        Evaluation expected = new Evaluation(1L, EVALUATION_CREATE_REQUEST.getScores(), TRADE1,
+                new Member(1L));
         Mockito.when(evaluationRepository.save(any())).thenReturn(expected);
 
         Long actualId = evaluationService.createEvaluation(EVALUATION_CREATE_REQUEST);
