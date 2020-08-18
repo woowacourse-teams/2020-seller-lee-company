@@ -95,13 +95,14 @@ class ArticleViewServiceTest {
     @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
     @Test
     void showSalesDetailsInCaseCompleted() {
+        String tradeState = "COMPLETED";
         when(articleRepository.findAllByAuthorAndTradeState(any(), any())).thenReturn(
                 Collections.singletonList(
                         ARTICLE3
                 ));
 
         List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
-                MEMBER1, "판매 완료");
+                MEMBER1, tradeState);
 
         assertThat(responses).hasSize(1);
     }
@@ -109,27 +110,15 @@ class ArticleViewServiceTest {
     @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
     @Test
     void showSalesDetailsInCaseNotCompleted() {
+        String tradeState = "ON_SALE";
         when(articleRepository.findAllByAuthorAndTradeStateNot(any(), any())).thenReturn(
                 Arrays.asList(
                         ARTICLE1, ARTICLE2, ARTICLE3
                 ));
 
         List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
-                MEMBER1, "예약중|판매중");
+                MEMBER1, tradeState);
 
         assertThat(responses).hasSize(3);
     }
-    // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
-    // @Test
-    // void showArticlesByTradeState() {
-    //     String tradeState = "ON_SALE";
-    //     when(articleRepository.findByTradeState(TradeState.valueOf(tradeState))).thenReturn(
-    //             Arrays.asList(ARTICLE1, ARTICLE2)
-    //     );
-    //
-    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
-    //
-    //     assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
-    //     assertThat(responses.get(1).getId()).isEqualTo(ARTICLE2.getId());
-    // }
 }

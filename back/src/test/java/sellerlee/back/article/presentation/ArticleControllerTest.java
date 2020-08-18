@@ -34,7 +34,7 @@ import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.SalesHistoryResponse;
-import sellerlee.back.article.application.TradeSateUpdateRequest;
+import sellerlee.back.article.application.TradeStateRequest;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest extends ControllerTest {
@@ -175,51 +175,40 @@ class ArticleControllerTest extends ControllerTest {
         verify(articleService).deleteById(ARTICLE1.getId());
     }
 
-    @DisplayName("판매내역을 상세조회 한다.")
+    @DisplayName("판매 상태로 게시글 조회 시 HTTP STATUS OK와 판매 상태에 해당하는 게시글 반환")
     @Test
-    void showSalesDetails() throws Exception {
+    void showByTradeState() throws Exception {
+        String tradeState = "ON_SALE";
+
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(Collections.singletonList(SalesHistoryResponse.of(ARTICLE1, 5L, 3L)));
+                .thenReturn(Collections.singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
 
         // @formatter:off
         mockMvc
                 .perform(
                         get(ARTICLE_URI + TRADE_STATE_URI)
-                                .param("tradeState", "예약중|판매중"))
+                                .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
     }
 
     @DisplayName("판매상태를 변경한다.")
     @Test
-    void patchTradeState() throws Exception {
-        doNothing().when(articleService).updateTradeState(any(), any());
+    void updateTradeState() throws Exception {
+        doNothing().when(articleService).updateTradeState(anyLong(), any(), any());
 
-        TradeSateUpdateRequest tradeSateUpdateRequest = new TradeSateUpdateRequest(1L, "예약중");
+        TradeStateRequest tradeStateRequest = new TradeStateRequest("RESERVED");
 
-        String request = objectMapper.writeValueAsString(tradeSateUpdateRequest);
+        String request = objectMapper.writeValueAsString(tradeStateRequest);
 
         // @formatter:off
         mockMvc
                 .perform(
-                        patch(ARTICLE_URI + TRADE_STATE_URI)
+                        put(ARTICLE_URI + "/" + MEMBER1.getId() + TRADE_STATE_URI)
                                 .content(request)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         // @formatter:on
     }
-
-    // @DisplayName("게시글 판매 상태로 게시글 조회 시 HTTP STATUS OK와 판매 상태에 해당하는 게시글 반환")
-    // @Test
-    // void showArticlesByTradeState() throws Exception {
-    //     String tradeState = "ON_SALE";
-    //
-    //     when(articleViewService.showByTradeState(tradeState)).thenReturn(anyList());
-    //
-    //     mockMvc.perform(get(ARTICLE_URI + TRADE_STATE_URI)
-    //             .param("tradeState", tradeState))
-    //             .andDo(print())
-    //             .andExpect(status().isOk());
-    // }
 }
