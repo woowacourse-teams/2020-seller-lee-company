@@ -34,15 +34,16 @@ interface ArticlesGetByTradeState {
 }
 
 export const articlesAPI = {
-  get: async (params: ArticlesGet) =>{
+  get: async (params: ArticlesGet) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}`, { params,
+    return await axios.get(`${BASE_URL}${domain.articles}`, {
+      params,
       headers: {
         Authorization: `bearer ${token}`,
-      }
-    })
+      },
+    });
   },
-  getByTradeState: async (params: ArticlesGetByTradeState) =>{
+  getByTradeState: async (params: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.articles}/trade-state`, {
       params,
@@ -59,18 +60,12 @@ export const articlesAPI = {
       },
     });
   },
-  put: async (articleId: number, data: ArticlesPost) => {
+  put: async (articleId: number, data: ArticlesPost) =>
+    await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data),
+  putByTradeState: async (articleId: number, data: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
-    return await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-  putByTradeState: async (id: number, data: ArticlesGetByTradeState) =>{
-    const token = await DeviceStorage.getToken();
-    return await axios.patch(
-      `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
+    await axios.put(
+      `${BASE_URL}${domain.articles}/${articleId}/${domain.tradeState}`,
       data,
       {
         headers: {
