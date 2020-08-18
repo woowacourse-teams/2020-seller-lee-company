@@ -1,26 +1,20 @@
-/**
- * @author joseph415
- */
-
 package sellerlee.back.article.application;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.member.application.MemberResponse;
 
 public class ArticleResponse {
     private Long id;
     private String title;
-    private String category;
+    private String categoryName;
     private String contents;
     private Long price;
-    private String tradeType;
-    private String tradeLocation;
     private String tradeState;
+    private List<String> tags;
     private List<String> photos;
-    private MemberResponse author;
+    private AuthorResponse author;
     private boolean favoriteState;
     private long favoriteCount;
     private LocalDateTime createdTime;
@@ -28,18 +22,16 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    private ArticleResponse(Long id, String title, String category, String contents,
-            Long price, String tradeType, String tradeLocation, String tradeState,
-            List<String> photos, MemberResponse author, boolean favoriteState, long favoriteCount,
-            LocalDateTime createdTime) {
+    private ArticleResponse(Long id, String title, String categoryName, String contents, Long price,
+            String tradeState, List<String> tags, List<String> photos, AuthorResponse author,
+            boolean favoriteState, long favoriteCount, LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
-        this.category = category;
+        this.categoryName = categoryName;
         this.contents = contents;
         this.price = price;
-        this.tradeType = tradeType;
-        this.tradeLocation = tradeLocation;
         this.tradeState = tradeState;
+        this.tags = tags;
         this.photos = photos;
         this.author = author;
         this.favoriteState = favoriteState;
@@ -54,11 +46,10 @@ public class ArticleResponse {
                 article.getCategory().getCategory(),
                 article.getContents(),
                 article.getPrice(),
-                article.getTradeType().getTradeType(),
-                article.getTradeLocation(),
                 article.getTradeState().getTradeState(),
+                article.getTags().getTagNames(),
                 article.getPhotos().toList(),
-                MemberResponse.of(article.getAuthor()),
+                AuthorResponse.of(article.getAuthor()),
                 favoriteState,
                 favoriteCount,
                 article.getCreatedTime()
@@ -73,8 +64,8 @@ public class ArticleResponse {
         return title;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public String getContents() {
@@ -85,23 +76,19 @@ public class ArticleResponse {
         return price;
     }
 
-    public String getTradeType() {
-        return tradeType;
-    }
-
-    public String getTradeLocation() {
-        return tradeLocation;
-    }
-
     public String getTradeState() {
         return tradeState;
+    }
+
+    public List<String> getTags() {
+        return tags;
     }
 
     public List<String> getPhotos() {
         return photos;
     }
 
-    public MemberResponse getAuthor() {
+    public AuthorResponse getAuthor() {
         return author;
     }
 

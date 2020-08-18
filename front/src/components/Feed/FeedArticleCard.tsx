@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React, { useRef } from "react";
 import {
   Animated,
@@ -27,6 +23,7 @@ export default function FeedArticleCard({
   tags,
   favoriteCount,
   photos,
+  favoriteState,
 }: Feed) {
   const navigation = useNavigation<FeedHomeNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
@@ -52,7 +49,7 @@ export default function FeedArticleCard({
       onPress={() => {
         clickArticleAnimate();
         setArticleSelectedId(id);
-        navigation.navigate("FeedDetail");
+        navigation.navigate("ArticleDetailScreen");
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >
@@ -62,14 +59,18 @@ export default function FeedArticleCard({
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
-            <Favorite favoriteCount={favoriteCount} />
+            <Favorite
+              articleId={id}
+              state={favoriteState}
+              count={favoriteCount}
+            />
             <View style={styles.detailsPriceContainer}>
               <Text style={styles.text}>{insertComma(price.toString())}원</Text>
             </View>
           </View>
           <View style={styles.tagContainer}>
-            {tags.map((tagItem, index) => (
-              <FeedArticleTag key={index} tagItem={tagItem} />
+            {tags.map((tag, index) => (
+              <FeedArticleTag key={index} tag={tag} />
             ))}
           </View>
         </View>

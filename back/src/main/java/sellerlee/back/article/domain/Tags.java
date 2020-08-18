@@ -1,15 +1,10 @@
-/**
- * @author jnsorn
- */
-
 package sellerlee.back.article.domain;
-
-import static java.util.Collections.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -19,7 +14,8 @@ import javax.persistence.JoinColumn;
 @Embeddable
 public class Tags {
     @ElementCollection
-    @CollectionTable(name = "tag", joinColumns = @JoinColumn(name = "article_id"))
+    @CollectionTable(name = "tag",
+            joinColumns = @JoinColumn(name = "article_id"))
     private List<Tag> tags;
 
     protected Tags() {
@@ -33,8 +29,16 @@ public class Tags {
         return new Tags(Arrays.asList(tags));
     }
 
-    public List<Tag> toList() {
-        return unmodifiableList(tags);
+    public static Tags of(List<String> tags) {
+        return new Tags(tags.stream()
+                .map(Tag::new)
+                .collect(Collectors.toList()));
+    }
+
+    public List<String> getTagNames() {
+        return tags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList());
     }
 
     @Override

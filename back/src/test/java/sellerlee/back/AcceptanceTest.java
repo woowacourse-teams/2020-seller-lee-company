@@ -31,12 +31,13 @@ public class AcceptanceTest {
     private int port;
 
     protected static RequestSpecification given() {
-        return RestAssured.given()
+        return RestAssured
+                .given()
                 .log().all();
     }
 
     @BeforeEach
-    private void setUp() {
+    protected void setUp() {
         RestAssured.port = port;
     }
 
@@ -46,7 +47,7 @@ public class AcceptanceTest {
     }
 
     protected String createArticle() throws JsonProcessingException {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
+        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
 
         // @formatter:off
         return
@@ -72,7 +73,7 @@ public class AcceptanceTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .log().all()
                 .when()
-                        .post(LOGIN_URL)
+                        .post(LOGIN_URI)
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.OK.value())

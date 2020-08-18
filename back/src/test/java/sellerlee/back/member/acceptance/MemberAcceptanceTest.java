@@ -47,7 +47,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .log().all()
         .when()
-                .post(MEMBER_URL)
+                .post(MEMBER_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());

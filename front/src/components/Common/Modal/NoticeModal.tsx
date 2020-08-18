@@ -1,9 +1,5 @@
-/**
- * @author jnsorn
- */
-
 import React from "react";
-import { Modal, View, StyleSheet, Text, Button } from "react-native";
+import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { modalActivationState } from "../../../states/modalState";
 import theme from "../../../colors";

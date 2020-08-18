@@ -1,11 +1,15 @@
 package sellerlee.back;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -17,6 +21,7 @@ import sellerlee.back.security.oauth2.token.JwtTokenProvider;
 import sellerlee.back.security.web.LoginMemberMethodArgumentResolver;
 import sellerlee.back.security.web.context.TokenSecurityInterceptor;
 
+@ExtendWith(RestDocumentationExtension.class)
 public class ControllerTest {
     @MockBean
     protected MemberRepository memberRepository;
@@ -35,9 +40,11 @@ public class ControllerTest {
     protected ObjectMapper objectMapper;
 
     @BeforeEach
-    protected void setUp(WebApplicationContext webApplicationContext) throws Exception {
+    protected void setUp(WebApplicationContext webApplicationContext,
+            RestDocumentationContextProvider restDocumentation) throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
+                .apply(documentationConfiguration(restDocumentation))
                 .alwaysDo(print())
                 .build();
         objectMapper = new ObjectMapper();

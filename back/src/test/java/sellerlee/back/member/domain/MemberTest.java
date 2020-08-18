@@ -19,7 +19,7 @@ class MemberTest {
     @DisplayName("회원의 패스워드와 일치하는지 여부를 확인")
     @Test
     void verify() {
-        Member member = new Member("스티치", passwordEncoder.encode("1234"), "uri", 4.5);
+        Member member = new Member("스티치", passwordEncoder.encode("1234"), "uri", 5.0);
         String password = "1234";
 
         assertThat(member.verify(passwordEncoder, password)).isTrue();

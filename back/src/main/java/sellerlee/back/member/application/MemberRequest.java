@@ -18,6 +18,10 @@ public class MemberRequest {
         this.avatar = avatar;
     }
 
+    public Member toEntityWithPasswordEncode(PasswordEncoder passwordEncoder) {
+        return new Member(nickname, passwordEncoder.encode(password), avatar);
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -28,13 +32,5 @@ public class MemberRequest {
 
     public String getAvatar() {
         return avatar;
-    }
-
-    public Member toMember() {
-        return new Member(nickname, password, avatar);
-    }
-
-    public Member toEntityWithPasswordEncode(PasswordEncoder passwordEncoder) {
-        return new Member(nickname, passwordEncoder.encode(password), avatar);
     }
 }

@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React, { useLayoutEffect } from "react";
 import {
   KeyboardAvoidingView,

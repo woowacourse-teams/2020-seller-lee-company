@@ -1,21 +1,16 @@
-/**
- * @author kouz95
- */
-
 import React from "react";
 import PhotoBox from "../Common/Photo/PhotoBox";
 import { StyleSheet, TouchableOpacity } from "react-native";
-
 import Swiper from "react-native-swiper";
 import ActiveDot from "../Common/Dot/ActiveDot";
 import { useNavigation } from "@react-navigation/native";
-import { ArticleDetailScreenProp } from "../../types/types";
 import Dot from "../Common/Dot/Dot";
 import { useRecoilValue } from "recoil/dist";
 import { articleSelectedState } from "../../states/articleState";
+import { ArticleDetailImageSliderNavigationProp } from "../../types/types";
 
 export default function ArticleDetailImageSlider() {
-  const navigation = useNavigation<ArticleDetailScreenProp>();
+  const navigation = useNavigation<ArticleDetailImageSliderNavigationProp>();
   const { photos } = useRecoilValue(articleSelectedState);
 
   return (

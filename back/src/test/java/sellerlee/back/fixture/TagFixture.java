@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.fixture;
 
 import sellerlee.back.article.domain.Tag;

@@ -1,7 +1,3 @@
-/**
- * @author begaonnuri
- */
-
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import CategoryList from "../components/Category/CategoryList";
@@ -14,6 +10,7 @@ export default function CategoryChoiceScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      title: "카테고리",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}

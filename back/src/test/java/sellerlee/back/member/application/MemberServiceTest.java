@@ -40,12 +40,13 @@ class MemberServiceTest {
     @DisplayName("닉네임으로 이미 존재하는 회원인지 확인한 후 계정을 생성한다.")
     @Test
     void join() {
+        Member member = new Member("seller lee",
+                "encodedPassword",
+                "https://avatars2.githubusercontent.com/u/67987529?s=200&v=4");
+
         when(memberRepository.existsByNickname(anyString())).thenReturn(false);
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
-        when(memberRepository.save(any())).thenReturn(
-                new Member("seller lee",
-                        "encodedPassword",
-                        "https://avatars2.githubusercontent.com/u/67987529?s=200&v=4"));
+        when(memberRepository.save(any())).thenReturn(member);
 
         memberService.join(MEMBER_CREATE_REQUEST);
         verify(memberRepository).save(any());

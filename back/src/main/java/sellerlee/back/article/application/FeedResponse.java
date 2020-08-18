@@ -1,48 +1,48 @@
-/**
- * @author begaonnuri
- */
-
 package sellerlee.back.article.application;
 
 import static java.util.stream.Collectors.*;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.Tag;
 
 public class FeedResponse {
     private Long id;
     private Long price;
-    private int favoriteCount;
-    private List<Tag> tags;
+    private Long favoriteCount;
+    private boolean favoriteState;
+    private List<String> tags;
     private List<String> photos;
 
     private FeedResponse() {
     }
 
-    private FeedResponse(Long id, Long price, int favoriteCount,
-            List<Tag> tags, List<String> photos) {
+    private FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,
+            List<String> tags, List<String> photos) {
         this.id = id;
         this.price = price;
         this.favoriteCount = favoriteCount;
+        this.favoriteState = favoriteState;
         this.tags = tags;
         this.photos = photos;
     }
 
-    public static FeedResponse of(Article article) {
+    public static FeedResponse of(Article article, Long favoriteCount, boolean favoriteState) {
         return new FeedResponse(
                 article.getId(),
                 article.getPrice(),
-                10,
-                article.getTags().toList(),
+                favoriteCount,
+                favoriteState,
+                article.getTags().getTagNames(),
                 article.getPhotos().toList()
         );
     }
 
-    public static List<FeedResponse> listOf(List<Article> articles) {
-        return articles.stream()
-                .map(FeedResponse::of)
+    public static List<FeedResponse> listOf(List<Article> articles, List<Long> favoriteCounts,
+            List<Boolean> favoriteStates) {
+        return IntStream.range(0, articles.size())
+                .mapToObj(i -> of(articles.get(i), favoriteCounts.get(i), favoriteStates.get(i)))
                 .collect(toList());
     }
 
@@ -54,11 +54,15 @@ public class FeedResponse {
         return price;
     }
 
-    public int getFavoriteCount() {
+    public Long getFavoriteCount() {
         return favoriteCount;
     }
 
-    public List<Tag> getTags() {
+    public boolean getFavoriteState() {
+        return favoriteState;
+    }
+
+    public List<String> getTags() {
         return tags;
     }
 

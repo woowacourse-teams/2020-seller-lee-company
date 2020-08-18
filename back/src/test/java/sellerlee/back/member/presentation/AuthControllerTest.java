@@ -33,13 +33,14 @@ class AuthControllerTest extends ControllerTest {
         when(memberService.join(any())).thenReturn(56L);
 
         // @formatter:off
-        mockMvc.perform(
-                    post(MEMBER_URL)
-                        .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(request))
-                    .andExpect(status().isCreated());
+        mockMvc
+                .perform(
+                        post(MEMBER_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(request))
+                .andExpect(status().isCreated());
         // @formatter:on
     }
 
@@ -50,15 +51,16 @@ class AuthControllerTest extends ControllerTest {
         when(memberService.login(any())).thenReturn(TEST_TOKEN_SECRET_KEY);
 
         // @formatter:off
-        mockMvc.perform(
-                    post(LOGIN_URL)
-                        .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(request))
-                    .andExpect(jsonPath("$.accessToken", is(TEST_TOKEN_SECRET_KEY)))
-                    .andExpect(jsonPath("$.tokenType", is(BEARER.toLowerCase())))
-                    .andExpect(status().isOk());
+        mockMvc
+                .perform(
+                        post(LOGIN_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(request))
+                .andExpect(jsonPath("$.accessToken", is(TEST_TOKEN_SECRET_KEY)))
+                .andExpect(jsonPath("$.tokenType", is(BEARER.toLowerCase())))
+                .andExpect(status().isOk());
         // @formatter:on
     }
 }

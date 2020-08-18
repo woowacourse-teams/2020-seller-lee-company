@@ -1,14 +1,8 @@
 import moment from "moment";
 
 export default function calculateDiffTime(createdTime: string) {
-  const timeFormat = "YYYY-MM-DD HH:mm:ss";
-
-  const createdAt = moment(
-    createdTime.substr(0, timeFormat.length),
-    timeFormat,
-  );
   const currentTime = moment();
-  const diffTime = currentTime.diff(createdAt);
+  const diffTime = currentTime.diff(moment(createdTime, moment.ISO_8601));
 
   const diffSeconds = moment.duration(diffTime).asSeconds();
   const diffMinutes = moment.duration(diffTime).asMinutes();
@@ -28,7 +22,7 @@ export default function calculateDiffTime(createdTime: string) {
   } else if (diffSeconds >= 0) {
     return "방금 전";
   } else {
-    console.warn("calculateDiffTimeError: createdTime=" + createdTime);
+    console.warn(`calculateDiffTimeError: createdTime=${createdTime}`);
     return "알 수 없음";
   }
 }

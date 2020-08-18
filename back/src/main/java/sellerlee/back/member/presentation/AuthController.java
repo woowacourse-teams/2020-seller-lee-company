@@ -19,8 +19,8 @@ import sellerlee.back.security.web.AuthorizationType;
 
 @RestController
 public class AuthController {
-    public static final String MEMBER_URL = "/members";
-    public static final String LOGIN_URL = "/login";
+    public static final String MEMBER_URI = "/members";
+    public static final String LOGIN_URI = "/login";
 
     private final MemberService memberService;
 
@@ -28,16 +28,16 @@ public class AuthController {
         this.memberService = memberService;
     }
 
-    @PostMapping(MEMBER_URL)
+    @PostMapping(MEMBER_URI)
     public ResponseEntity<Void> join(@RequestBody MemberRequest request) {
         Long memberId = memberService.join(request);
 
         return ResponseEntity
-                .created(URI.create(MEMBER_URL + "/" + memberId))
+                .created(URI.create(MEMBER_URI + "/" + memberId))
                 .build();
     }
 
-    @PostMapping(LOGIN_URL)
+    @PostMapping(LOGIN_URI)
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
         String token = memberService.login(request);
 

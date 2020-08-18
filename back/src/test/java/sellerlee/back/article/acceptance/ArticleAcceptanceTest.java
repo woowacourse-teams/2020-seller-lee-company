@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 package sellerlee.back.article.acceptance;
 
 import static org.assertj.core.api.Assertions.*;
@@ -16,7 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
@@ -42,72 +37,80 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      * Then 게시글이 조회된다.
      * <p>
      * When 게시글을 클릭한다.
-     * Then 게시글 정보와 좋아요 를 응답받는다.
+     * Then 게시글 정보와 좋아요를 응답받는다.
+     * <p>
+     * When 게시글을 삭제한다.
+     * Then 게시글이 삭제된다.
      */
     @DisplayName("게시글을 관리한다")
     @TestFactory
     Stream<DynamicTest> manageArticle() throws JsonProcessingException {
-        token = login();
+        // 게시글을 등록 한다.
+        Long articleId = extractId(createArticle());
+        Long articleId2 = extractId(createArticle());
+        Long articleId3 = extractId(createArticle());
+        Long articleId4 = extractId(createArticle());
 
         return Stream.of(
-                dynamicTest("게시글 추가", this::post),
                 dynamicTest("게시글 페이지 조회", () -> {
-                    List<FeedResponse> feedArticleResponses = findArticlePage();
-                    assertThat(feedArticleResponses.size()).isEqualTo(1);
+                    List<FeedResponse> feedArticleResponses = findArticleInFeed(articleId4);
+                    assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
-                    ArticleResponse articleResponse = show();
-                    assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
+                    ArticleResponse articleResponse = findArticleDetailOf(articleId);
+                    assertThat(articleResponse.getId()).isEqualTo(articleId);
                     assertThat(articleResponse.getFavoriteState()).isFalse();
-                })
-        );
+                }),
+                dynamicTest("게시글 삭제", () -> {
+                    deleteArticle(articleId);
+                }));
     }
 
-    private void post() throws JsonProcessingException {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST_FIXTURE);
+    private List<FeedResponse> findArticleInFeed(Long articleId) throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
 
-        // @formatter:off
-        given()
-                .auth().oauth2(token.getAccessToken())
-                .body(request)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-        .when()
-                .post(ARTICLE_URI)
-        .then()
-                .log().all()
-                .statusCode(HttpStatus.CREATED.value());
-        // @formatter:on
-    }
-
-    private List<FeedResponse> findArticlePage() {
         // @formatter:off
         return
                 given()
                         .auth().oauth2(token.getAccessToken())
                 .when()
-                        .param("lastArticleId", LAST_ARTICLE_ID)
+                        .param("lastArticleId", articleId)
                         .param("size", ARTICLE_SIZE)
                         .get(ARTICLE_URI)
                 .then()
                         .log().all()
-                        .extract()
-                        .jsonPath().getList(".", FeedResponse.class);
+                        .extract().jsonPath().getList(".", FeedResponse.class);
         // @formatter:on
     }
 
-    private ArticleResponse show() {
+    private ArticleResponse findArticleDetailOf(Long articleId) {
+        String url = ARTICLE_URI + "/" + articleId;
+
         // @formatter:off
         return
                 given()
                         .auth().oauth2(token.getAccessToken())
                 .when()
-                        .pathParam("id", ARTICLE1.getId())
-                        .get(ARTICLE_URI + "/{id}")
+                        .get(url)
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.OK.value())
                         .extract()
                         .jsonPath().getObject(".", ArticleResponse.class);
+        // @formatter:on
+    }
+
+    private void deleteArticle(Long articleId) {
+        String url = ARTICLE_URI + "/" + articleId;
+
+        // @formatter:off
+        given()
+                .auth().oauth2(token.getAccessToken())
+        .when()
+                .delete(url)
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.NO_CONTENT.value());
         // @formatter:on
     }
 }

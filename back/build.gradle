@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
 group = 'sellerlee'
@@ -19,6 +20,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    // documentation
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     // apache
@@ -31,37 +38,41 @@ dependencies {
     testImplementation 'com.h2database:h2'
     // rest assured
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
-
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
 }
 
 test {
     useJUnitPlatform()
 }
 
-processResources.dependsOn('copyDatabaseSecret')
-
-task copyDatabaseSecret {
-    dependsOn 'copyDatabaseSecretToMain'
-    dependsOn 'copyDatabaseSecretToTest'
+ext {
+    snippetsDir = file('build/generated-snippets')
 }
 
-task copyDatabaseSecretToMain(type: Copy) {
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
+processResources.dependsOn('copyDatabaseSecret')
+
+task copyDatabaseSecret(type: Copy) {
     from('../seller-lee-secret') {
         include 'application-common.yml'
         include 'application-security.yml'
         include 'application-dev.yml'
+        include 'application-local.yml'
+        include 'application-prod.yml'
     }
     into 'src/main/resources'
-}
-
-task copyDatabaseSecretToTest(type: Copy) {
-    from('../seller-lee-secret') {
-        include 'application-common.yml'
-        include 'application-security.yml'
-        include 'application-local.yml'
-    }
-    into 'src/test/resources'
 }
