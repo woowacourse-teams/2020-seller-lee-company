@@ -72,6 +72,5 @@ public class ArticleFixture {
             Arrays.asList(TAG_FIXTURE1.getName(), TAG_FIXTURE2.getName()),
             Arrays.asList(
                     "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4",
-                    "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4"),
-            1L);
+                    "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4"));
 }

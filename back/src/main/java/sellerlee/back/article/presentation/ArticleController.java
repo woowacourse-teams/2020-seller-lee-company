@@ -43,8 +43,9 @@ public class ArticleController {
 
     // TODO: 2020/08/12 request의 authorId를 @LoginMember로 대체하기
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody ArticleRequest request) {
-        Long articleId = articleService.create(request);
+    public ResponseEntity<Void> create(@RequestBody ArticleRequest request,
+            @LoginMember Member loginMember) {
+        Long articleId = articleService.create(request, loginMember);
 
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
@@ -72,8 +73,8 @@ public class ArticleController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateArticle(@PathVariable Long id,
-            @RequestBody ArticleRequest request) {
-        articleService.update(id, request);
+            @RequestBody ArticleRequest request, @LoginMember Member loginMember) {
+        articleService.update(id, request, loginMember);
         return ResponseEntity.noContent().build();
     }
 

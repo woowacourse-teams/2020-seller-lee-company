@@ -1,6 +1,6 @@
 package sellerlee.back.article.application;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import sellerlee.back.article.domain.Article;
@@ -17,14 +17,14 @@ public class ArticleResponse {
     private AuthorResponse author;
     private boolean favoriteState;
     private long favoriteCount;
-    private LocalDateTime createdTime;
+    private String createdTime;
 
     private ArticleResponse() {
     }
 
     private ArticleResponse(Long id, String title, String categoryName, String contents, Long price,
             String tradeState, List<String> tags, List<String> photos, AuthorResponse author,
-            boolean favoriteState, long favoriteCount, LocalDateTime createdTime) {
+            boolean favoriteState, long favoriteCount, String createdTime) {
         this.id = id;
         this.title = title;
         this.categoryName = categoryName;
@@ -52,7 +52,7 @@ public class ArticleResponse {
                 AuthorResponse.of(article.getAuthor()),
                 favoriteState,
                 favoriteCount,
-                article.getCreatedTime()
+                article.getCreatedTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         );
     }
 
@@ -100,7 +100,7 @@ public class ArticleResponse {
         return favoriteCount;
     }
 
-    public LocalDateTime getCreatedTime() {
+    public String getCreatedTime() {
         return createdTime;
     }
 }

@@ -35,7 +35,6 @@ import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 import { defaultArticle } from "../data/defaultArticle";
-import { loginIdState } from "../states/loginState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
@@ -43,7 +42,6 @@ export default function ArticleCreateScreen() {
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
 
-  const memberId = useRecoilValue(loginIdState);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedCategory, setSelectedCategory] = useRecoilState(
@@ -124,7 +122,6 @@ export default function ArticleCreateScreen() {
       contents,
       tags,
       photos,
-      authorId: memberId,
     };
 
     isEditing
@@ -134,14 +131,14 @@ export default function ArticleCreateScreen() {
     navigation.goBack();
   };
 
-  const setForm = (article: Article) => {
-    setArticle(article);
-    setPhotos(article.photos);
-    setTitle(article.title);
-    setSelectedCategory(article.categoryName);
-    setPrice(article.price);
-    setContents(article.contents);
-    setTags(article.tags);
+  const setForm = (target: Article) => {
+    setArticle(target);
+    setPhotos(target.photos);
+    setTitle(target.title);
+    setSelectedCategory(target.categoryName);
+    setPrice(target.price);
+    setContents(target.contents);
+    setTags(target.tags);
   };
 
   useLayoutEffect(() => {

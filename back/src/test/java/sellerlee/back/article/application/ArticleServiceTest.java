@@ -33,7 +33,7 @@ class ArticleServiceTest {
     void createArticle() {
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
-        Long actualId = articleService.create(ARTICLE_REQUEST);
+        Long actualId = articleService.create(ARTICLE_REQUEST, MEMBER1);
 
         assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
@@ -44,7 +44,7 @@ class ArticleServiceTest {
         Long articleId = 1L;
         when(articleRepository.findById(articleId)).thenReturn(Optional.of(ARTICLE1));
 
-        articleService.update(articleId, ARTICLE_REQUEST);
+        articleService.update(articleId, ARTICLE_REQUEST, MEMBER1);
 
         assertThat(ARTICLE1.getTitle()).isEqualTo(ARTICLE_REQUEST.getTitle());
         assertThat(ARTICLE1.getContents()).isEqualTo(ARTICLE_REQUEST.getContents());

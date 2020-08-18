@@ -16,23 +16,21 @@ public class ArticleRequest {
     private String contents;
     private List<String> tags;
     private List<String> photos;
-    private Long authorId;
 
     private ArticleRequest() {
     }
 
     public ArticleRequest(String title, Long price, String category, String contents,
-            List<String> tags, List<String> photos, Long authorId) {
+            List<String> tags, List<String> photos) {
         this.title = title;
         this.price = price;
         this.category = category;
         this.contents = contents;
         this.tags = tags;
         this.photos = photos;
-        this.authorId = authorId;
     }
 
-    public Article toArticle() {
+    public Article toArticleWithLoginMember(Member loginMember) {
         return new Article(
                 title,
                 Tags.of(tags),
@@ -41,7 +39,7 @@ public class ArticleRequest {
                 price,
                 TradeState.ON_SALE,
                 new Photos(photos),
-                new Member(authorId));
+                loginMember);
     }
 
     public String getTitle() {
@@ -66,9 +64,5 @@ public class ArticleRequest {
 
     public List<String> getPhotos() {
         return photos;
-    }
-
-    public Long getAuthorId() {
-        return authorId;
     }
 }

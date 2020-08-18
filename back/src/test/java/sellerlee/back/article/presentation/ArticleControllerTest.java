@@ -49,7 +49,7 @@ class ArticleControllerTest extends ControllerTest {
     void createArticle() throws Exception {
         String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
 
-        when(articleService.create(any())).thenReturn(1L);
+        when(articleService.create(any(), any())).thenReturn(1L);
 
         // @formatter:off
         mockMvc
@@ -73,8 +73,7 @@ class ArticleControllerTest extends ControllerTest {
                                         fieldWithPath("price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
                                         // fieldWithPath("tradeState").type(JsonFieldType.STRING).description("게시글의 판매 상태"),
                                         fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그의 리스트"),
-                                        fieldWithPath("photos").type(JsonFieldType.ARRAY).description("사진의 리스트"),
-                                        fieldWithPath("authorId").type(JsonFieldType.NUMBER).description("글 작성자의 ID")
+                                        fieldWithPath("photos").type(JsonFieldType.ARRAY).description("사진의 리스트")
                                 ),
                                 responseHeaders(
                                         headerWithName("Location").description("생성된 게시글의 ID가 담긴 URI")
