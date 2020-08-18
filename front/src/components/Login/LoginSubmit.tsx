@@ -1,19 +1,51 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../colors";
-import { useSetRecoilState } from "recoil/dist";
-import { memberLoginTrialState } from "../../states/loginState";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import {
+  loginNicknameState,
+  loginPasswordState,
+  memberLoginTrialState,
+  memberLoginVerifyState,
+} from "../../states/loginState";
+import { memberAPI } from "../../api/api";
+import { DeviceStorage } from "../../auth/DeviceStorage";
 
 interface LoginSubmitProps {
-  login: () => Promise<void>;
+  resetLoginForm: Function;
 }
 
-export default function LoginSubmit({ login }: LoginSubmitProps) {
+export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
+  const loginNickname = useRecoilValue(loginNicknameState);
+  const loginPassword = useRecoilValue(loginPasswordState);
+
+  const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
   const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
 
   const onPressSubmitButton = async () => {
     setLoginTrialState(true);
     await login();
+  };
+
+  const login = async () => {
+    const request = {
+      nickname: loginNickname,
+      password: loginPassword,
+    };
+
+    try {
+      const response = await memberAPI.login(request);
+
+      if (response.status === 200) {
+        await DeviceStorage.storeToken(response.data.accessToken);
+
+        setLoginVerifyState(true);
+        resetLoginForm();
+      }
+    } catch (error) {
+      console.log(error);
+      setLoginVerifyState(false);
+    }
   };
 
   return (
@@ -22,7 +54,7 @@ export default function LoginSubmit({ login }: LoginSubmitProps) {
         style={styles.loginButton}
         onPress={onPressSubmitButton}
       >
-        <Text style={styles.loginButtonText}>로그인하기</Text>
+        <Text style={styles.loginButtonText}>로그인</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,7 +62,7 @@ export default function LoginSubmit({ login }: LoginSubmitProps) {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 5,
+    aspectRatio: 7,
   },
   loginButton: {
     flex: 1,
@@ -40,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   loginButtonText: {
-    fontSize: 20,
+    fontSize: 14,
     color: "white",
   },
 });

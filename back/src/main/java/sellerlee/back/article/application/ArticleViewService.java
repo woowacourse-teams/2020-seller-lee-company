@@ -4,8 +4,8 @@ import static java.util.stream.Collectors.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class ArticleViewService {
 
     public ArticleResponse show(Long articleId, Member loginMember) {
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+                .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
         Optional<Favorite> favorite = favoriteRepository.findFavoriteByArticleAndMember(article,
                 loginMember);
         long favoriteCount = favoriteRepository.countByArticle(article);
@@ -45,7 +45,7 @@ public class ArticleViewService {
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }
 
-    public List<FeedResponse> showFeedPage(Long lastArticleId, int size, Member loginMember) {
+    public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
 
         List<Article> articles = articleRepository
@@ -85,13 +85,11 @@ public class ArticleViewService {
     }
 
     private List<Article> getTradeNotCompletedBy(Member member) {
-        return articleRepository.findAllByAuthorAndTradeStateNot(member,
-                TradeState.COMPLETED);
+        return articleRepository.findAllByAuthorAndTradeStateNot(member, TradeState.COMPLETED);
     }
 
     private List<Article> getTradeCompletedBy(Member member) {
-        return articleRepository.findAllByAuthorAndTradeState(member,
-                TradeState.COMPLETED);
+        return articleRepository.findAllByAuthorAndTradeState(member, TradeState.COMPLETED);
     }
 
     private List<SalesHistoryResponse> getSalesDetailsResponses(List<Article> articles,
@@ -99,7 +97,7 @@ public class ArticleViewService {
         return articles.stream()
                 .map(article -> SalesHistoryResponse.of(article,
                         favoriteRepository.countAllByArticle(article), chatCount))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     // @Transactional(readOnly = true)

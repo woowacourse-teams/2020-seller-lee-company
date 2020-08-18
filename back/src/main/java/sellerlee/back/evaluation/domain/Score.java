@@ -1,14 +1,9 @@
-/**
- * @author jnsorn
- */
-
 package sellerlee.back.evaluation.domain;
 
 import java.util.Objects;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Access(AccessType.FIELD)

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.member.domain.Member;
+import sellerlee.back.security.core.LoginMember;
 import sellerlee.back.trade.application.TradeService;
 
 @RequestMapping(ORDER_URI)
@@ -25,16 +26,8 @@ public class TradeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleCardResponse>> showAll() {
-        // TODO: 2020/08/06 아래의 Member는 추후 Login 기능 구현으로 @LoginMember resolver로 대체될 예정
-        List<ArticleCardResponse> orders = tradeService.showAll(
-                new Member(
-                        51L,
-                        "turtle@woowabro.com",
-                        "1234",
-                        "testNickname",
-                        "testUri",
-                        4.5));
+    public ResponseEntity<List<ArticleCardResponse>> showAll(@LoginMember Member loginMember) {
+        List<ArticleCardResponse> orders = tradeService.showAll(loginMember);
 
         return ResponseEntity
                 .ok()

@@ -48,11 +48,6 @@ export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
   "ArticleDetailImageViewScreen"
 >;
 
-export type ArticleDetailImageViewRouteProp = RouteProp<
-  ArticleNavigationParamList,
-  "ArticleDetailImageViewScreen"
->;
-
 export type CategoryParamList = {
   CategoryHome: undefined;
   CategoryDetail: { title: string };
@@ -110,16 +105,6 @@ export type Category =
   | "도서/티켓/음반"
   | "기타 중고물품";
 
-export interface CategoryAndTimeProps {
-  category: Category;
-  time: string;
-}
-
-export interface FavoriteCountAndHitProps {
-  favoriteCount: number;
-  hit: number;
-}
-
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface ArticleDetailFavoriteProp {
@@ -135,21 +120,6 @@ export interface Feed {
   photos: string[];
 }
 
-export interface Tag {
-  id: number;
-  tag: string;
-}
-
-export interface CategoryAndTimeProps {
-  category: Category;
-  time: string;
-}
-
-export interface FavoriteCountAndHitProps {
-  favoriteCount: number;
-  hit: number;
-}
-
 export interface Feed {
   id: number;
   price: number;
@@ -157,6 +127,34 @@ export interface Feed {
   tags: string[];
   photos: string[];
 }
+
+export type AppStackNavigationParamList = {
+  TeaserScreen: undefined;
+  AuthScreen: undefined;
+  LoginScreen: undefined;
+  JoinScreen: undefined;
+  BottomTabNavigation: undefined;
+};
+
+export type TeaserScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "LoginScreen"
+>;
+
+export type LoginScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "LoginScreen"
+>;
+
+export type JoinScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "JoinScreen"
+>;
+
+export type AuthScreenNavigationProp = StackNavigationProp<
+  AppStackNavigationParamList,
+  "AuthScreen"
+>;
 
 export interface Article {
   id: number;

@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 package sellerlee.back.evaluation.application;
 
 import java.util.List;
@@ -11,15 +7,15 @@ import sellerlee.back.evaluation.domain.Score;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.trade.domain.Trade;
 
-public class EvaluationCreateRequest {
+public class EvaluationRequest {
     private List<Score> scores;
     private Trade trade;
     private Member target;
 
-    private EvaluationCreateRequest() {
+    private EvaluationRequest() {
     }
 
-    public EvaluationCreateRequest(List<Score> scores, Trade trade, Member target) {
+    public EvaluationRequest(List<Score> scores, Trade trade, Member target) {
         this.scores = scores;
         this.trade = trade;
         this.target = target;

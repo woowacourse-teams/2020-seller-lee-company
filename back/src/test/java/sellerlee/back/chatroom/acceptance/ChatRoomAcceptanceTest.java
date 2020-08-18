@@ -1,17 +1,13 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.acceptance;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
-import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.HttpStatus;
@@ -21,8 +17,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
 import sellerlee.back.chatroom.application.ChatRoomCreateRequest;
 import sellerlee.back.chatroom.application.ChatRoomResponse;
+import sellerlee.back.member.application.TokenResponse;
 
 public class ChatRoomAcceptanceTest extends AcceptanceTest {
+    private TokenResponse token;
 
     /**
      * Feature: 채팅 관리
@@ -38,10 +36,11 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
      * When 특정 게시글에 존재하는 채팅방들을 조회한다.
      * Then 채팅방들이 조회된다.
      */
-
+    @DisplayName("채팅방 관리")
     @TestFactory
     Stream<DynamicTest> manageChatRoom() throws JsonProcessingException {
-        Long articleId = extractId(createArticle());
+        token = joinMemberAndLogin();
+        Long articleId = extractId(createArticle(token));
 
         return Stream.of(
                 dynamicTest("채팅방을 만든다", () -> createChatRoom(articleId)),
@@ -53,13 +52,13 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
     }
 
     private void createChatRoom(Long articleId) throws JsonProcessingException {
-        String request = objectMapper.writeValueAsString(new ChatRoomCreateRequest(articleId,
-                MEMBER2.getId()));
+        String request = objectMapper.writeValueAsString(new ChatRoomCreateRequest(articleId, 1L));
 
         // @formatter:off
         given()
-                .body(request)
+                .auth().oauth2(token.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(request)
         .when()
                 .post(CHAT_ROOM_URI)
         .then()
@@ -72,6 +71,7 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
         // @formatter:off
         return
                 given()
+                        .auth().oauth2(token.getAccessToken())
                 .when()
                         .param("articleId", articleId)
                         .get(CHAT_ROOM_URI)

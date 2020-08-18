@@ -14,21 +14,30 @@ repositories {
 }
 
 dependencies {
+    // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.flywaydb:flyway-core'
-
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'io.rest-assured:rest-assured:3.3.0'
-    testImplementation 'com.h2database:h2'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-
+    // documentation
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    // apache
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    // flyway
+    implementation 'org.flywaydb:flyway-core'
+    // mariaDB
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    // h2
+    testImplementation 'com.h2database:h2'
+    // rest assured
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
 }
 
 test {
@@ -55,13 +64,15 @@ bootJar {
     }
 }
 
-processResources.dependsOn 'copyDatabaseSecret'
+processResources.dependsOn('copyDatabaseSecret')
 
 task copyDatabaseSecret(type: Copy) {
-    from '../seller-lee-secret/application-common.yml',
-            '../seller-lee-secret/application-dev.yml',
-            '../seller-lee-secret/application-local.yml',
-            '../seller-lee-secret/application-prod.yml',
-            '../seller-lee-secret/application-security.yml'
+    from('../seller-lee-secret') {
+        include 'application-common.yml'
+        include 'application-security.yml'
+        include 'application-dev.yml'
+        include 'application-local.yml'
+        include 'application-prod.yml'
+    }
     into 'src/main/resources'
 }

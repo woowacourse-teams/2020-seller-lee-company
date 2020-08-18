@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 package sellerlee.back.evaluation.application;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +12,7 @@ public class EvaluationService {
         this.evaluationRepository = evaluationRepository;
     }
 
-    public Long createEvaluation(EvaluationCreateRequest request) {
+    public Long createEvaluation(EvaluationRequest request) {
         return evaluationRepository.save(request.toEvaluation())
                 .getId();
     }

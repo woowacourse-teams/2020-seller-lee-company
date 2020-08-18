@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-    @GetMapping("/api")
+    private static final String API_URI = "/api";
+
+    @GetMapping(API_URI)
     public String showDocuments() {
         return "docs.html";
     }

@@ -1,6 +1,7 @@
 package sellerlee.back.article.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,7 +14,8 @@ import javax.persistence.JoinColumn;
 @Embeddable
 public class Tags {
     @ElementCollection
-    @CollectionTable(name = "tag", joinColumns = @JoinColumn(name = "article_id"))
+    @CollectionTable(name = "tag",
+            joinColumns = @JoinColumn(name = "article_id"))
     private List<Tag> tags;
 
     protected Tags() {
@@ -21,6 +23,10 @@ public class Tags {
 
     public Tags(List<Tag> tags) {
         this.tags = new ArrayList<>(tags);
+    }
+
+    public static Tags of(Tag... tags) {
+        return new Tags(Arrays.asList(tags));
     }
 
     public static Tags of(List<String> tags) {
@@ -33,10 +39,6 @@ public class Tags {
         return tags.stream()
                 .map(Tag::getName)
                 .collect(Collectors.toList());
-    }
-
-    public List<Tag> getTags() {
-        return tags;
     }
 
     @Override

@@ -4,10 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
-import static sellerlee.back.fixture.TagFixture.*;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,15 +33,7 @@ class ArticleServiceTest {
     void createArticle() {
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
-        ArticleRequest request = new ArticleRequest(
-                "노트북",
-                10000L,
-                "디지털/가전",
-                "쌉니다 싸요",
-                Arrays.asList(TAG_FIXTURE1.getName(), TAG_FIXTURE2.getName()),
-                Arrays.asList("testUri1", "testUri2"),
-                1L);
-        Long actualId = articleService.create(request);
+        Long actualId = articleService.create(ARTICLE_REQUEST);
 
         assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
@@ -53,14 +42,12 @@ class ArticleServiceTest {
     @Test
     void update() {
         Long articleId = 1L;
-        ArticleRequest request = new ArticleRequest("update", 1L, "디지털/가전",
-                "update", Collections.emptyList(), Collections.emptyList(), 1L);
-
         when(articleRepository.findById(articleId)).thenReturn(Optional.of(ARTICLE1));
-        articleService.update(articleId, request);
 
-        assertThat(ARTICLE1.getTitle()).isEqualTo(request.getTitle());
-        assertThat(ARTICLE1.getContents()).isEqualTo(request.getContents());
+        articleService.update(articleId, ARTICLE_REQUEST);
+
+        assertThat(ARTICLE1.getTitle()).isEqualTo(ARTICLE_REQUEST.getTitle());
+        assertThat(ARTICLE1.getContents()).isEqualTo(ARTICLE_REQUEST.getContents());
     }
 
     @DisplayName("게시글 삭제 메서드 호출 시 게시글 삭제")

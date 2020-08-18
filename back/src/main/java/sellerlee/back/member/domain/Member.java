@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Entity
 public class Member {
     @Id
@@ -13,47 +15,47 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String email;
+    private String nickname;
 
     private String password;
 
     private String avatar;
-
-    private String nickname;
 
     private Double score;
 
     protected Member() {
     }
 
-    public Member(Long id, String email, String password, String avatar, String nickname,
-            Double score) {
+    public Member(Long id, String nickname, String password, String avatar, Double score) {
         this.id = id;
-        this.email = email;
+        this.nickname = nickname;
         this.password = password;
         this.avatar = avatar;
-        this.nickname = nickname;
         this.score = score;
     }
 
-    public Member(String email, String password, String avatar, String nickname, Double score) {
-        this(null, email, password, avatar, nickname, score);
+    public Member(String nickname, String password, String avatar, Double score) {
+        this(null, nickname, password, avatar, score);
+    }
+
+    public Member(String nickname, String password, String avatar) {
+        this(null, nickname, password, avatar, null);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null);
+        this(id, null, null, null, null);
     }
 
-    public boolean verify(String password) {
-        return this.password.equals(password);
+    public boolean verify(PasswordEncoder passwordEncoder, String password) {
+        return passwordEncoder.matches(password, this.password);
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getPassword() {
@@ -62,10 +64,6 @@ public class Member {
 
     public String getAvatar() {
         return avatar;
-    }
-
-    public String getNickname() {
-        return nickname;
     }
 
     public Double getScore() {

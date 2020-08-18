@@ -13,8 +13,6 @@ export default function ArticleCardImage({ thumbnail }: ArticleCardImageProps) {
   );
 }
 
-const innerContainerMargin = 13;
-
 const styles = StyleSheet.create({
   imageContainer: {
     aspectRatio: 1,

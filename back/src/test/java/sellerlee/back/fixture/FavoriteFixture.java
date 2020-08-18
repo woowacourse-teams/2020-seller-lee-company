@@ -6,5 +6,6 @@ import static sellerlee.back.fixture.MemberFixture.*;
 import sellerlee.back.favorite.domain.Favorite;
 
 public class FavoriteFixture {
-    public static final Favorite FAVORITE = new Favorite(1L, ARTICLE1, MEMBER2);
+    public static final Favorite FAVORITE1 = new Favorite(51L, ARTICLE1, MEMBER1);
+    public static final Favorite FAVORITE2 = new Favorite(52L, ARTICLE2, MEMBER2);
 }

@@ -51,8 +51,9 @@ public class Article extends BaseTimeEntity {
     protected Article() {
     }
 
-    public Article(Long id, String title, Tags tags, Category category, String contents,
-            Long price, TradeState tradeState, Photos photos, Member author) {
+    public Article(Long id, String title, Tags tags, Category category, String contents, Long price,
+            TradeState tradeState, Photos photos, Member author, LocalDateTime createdTime,
+            LocalDateTime modifiedTime) {
         this.id = id;
         this.title = title;
         this.tags = tags;
@@ -62,22 +63,13 @@ public class Article extends BaseTimeEntity {
         this.tradeState = tradeState;
         this.photos = photos;
         this.author = author;
-    }
-
-    public Article(LocalDateTime createdTime, LocalDateTime modifiedTime, Long id, String title,
-            Tags tags, Category category, String contents, Long price, TradeState tradeState,
-            Photos photos, Member author) {
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
-        this.id = id;
-        this.title = title;
-        this.tags = tags;
-        this.category = category;
-        this.contents = contents;
-        this.price = price;
-        this.tradeState = tradeState;
-        this.photos = photos;
-        this.author = author;
+    }
+
+    public Article(Long id, String title, Tags tags, Category category, String contents, Long price,
+            TradeState tradeState, Photos photos, Member author) {
+        this(id, title, tags, category, contents, price, tradeState, photos, author, null, null);
     }
 
     public Article(String title, Tags tags, Category category, String contents, Long price,
@@ -98,7 +90,7 @@ public class Article extends BaseTimeEntity {
         photos = article.photos;
     }
 
-    public void updateState(TradeState tradeState) {
+    public void updateTradeState(TradeState tradeState) {
         this.tradeState = tradeState;
     }
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
 // const BASE_URL = "http://3.34.248.131:8080";
@@ -34,50 +35,103 @@ interface ArticlesGetByTradeState {
 }
 
 export const articlesAPI = {
-  get: async (params: ArticlesGet) =>
-    await axios.get(`${BASE_URL}${domain.articles}`, { params }),
-  getByTradeState: async (params: ArticlesGetByTradeState) =>
-    await axios.get(`${BASE_URL}${domain.articles}/trade-state`, { params }),
-  post: async (data: ArticlesPost) =>
-    await axios.post(`${BASE_URL}${domain.articles}`, data),
-  put: async (articleId: number, data: ArticlesPost) =>
-    await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data),
-  delete: async (articleId: number) =>
-    await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),
-  updateTradeState: async (id: number, data: ArticlesGetByTradeState) =>
-    await axios.patch(
+  get: async (params: ArticlesGet) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.articles}`, {
+      params,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  getByTradeState: async (params: ArticlesGetByTradeState) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.articles}/trade-state`, {
+      params,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  post: async (data: ArticlesPost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(`${BASE_URL}${domain.articles}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  put: async (articleId: number, data: ArticlesPost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  delete: async (articleId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  updateTradeState: async (id: number, data: ArticlesGetByTradeState) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.patch(
       `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
       data,
-    ),
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
 };
 
 export const articleDetailAPI = {
-  get: async (articleId: number) =>
-    await axios.get(`${BASE_URL}${domain.articles}/${articleId}`, {
-      // 해당 부분은 Member가 구현되면 수정되어야함.
-      params: {
-        memberId: 1,
+  get: async (articleId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.articles}/${articleId}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
       },
-    }),
+    });
+  },
 };
 
 interface MemberLogin {
-  email: string;
+  nickname: string;
   password: string;
 }
 
+interface MemberJoin {
+  nickname: string;
+  password: string;
+  avatar: string;
+}
+
 export const memberAPI = {
-  post: async (data: MemberLogin) =>
-    await axios.post(`${BASE_URL}${domain.login}`, { data }),
+  login: async (data: MemberLogin) =>
+    await axios.post(BASE_URL + domain.login, data),
+  join: async (data: MemberJoin) =>
+    await axios.post(BASE_URL + domain.members, data),
 };
 
 export const chatRoomAPI = {
-  getBuyers: async (articleId: number) =>
-    await axios.get(`${BASE_URL}${domain.chatRoom}`, {
+  getBuyers: async (articleId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.chatRoom}`, {
       params: {
         articleId,
       },
-    }),
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 interface FavoriteCreate {
@@ -89,14 +143,34 @@ interface FavoriteDelete {
 }
 
 export const favoriteAPI = {
-  post: async (data: FavoriteCreate) =>
-    await axios.post(BASE_URL + domain.favorites, data),
-  delete: async (data: FavoriteDelete) =>
-    await axios.delete(BASE_URL + domain.favorites, { data }),
+  post: async (data: FavoriteCreate) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(BASE_URL + domain.favorites, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  delete: async (data: FavoriteDelete) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(BASE_URL + domain.favorites, {
+      data,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 export const tradeAPI = {
-  get: async () => await axios.get(BASE_URL + domain.trades),
+  get: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(BASE_URL + domain.trades, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 interface EvaluationPost {
@@ -104,6 +178,12 @@ interface EvaluationPost {
 }
 
 export const evaluationAPI = {
-  post: async (data: EvaluationPost) =>
-    await axios.post(`${BASE_URL}${domain.evaluation}`, data),
+  post: async (data: EvaluationPost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(`${BASE_URL}${domain.evaluation}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };

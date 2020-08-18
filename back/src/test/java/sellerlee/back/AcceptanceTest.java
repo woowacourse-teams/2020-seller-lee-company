@@ -1,11 +1,9 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
+import sellerlee.back.member.application.TokenResponse;
 
-@Sql({"/truncate.sql"})
+@Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
     private static final int ID_INDEX_OF_LOCATION = 2;
@@ -40,7 +39,7 @@ public class AcceptanceTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    protected void setUp() {
         RestAssured.port = port;
     }
 
@@ -49,12 +48,13 @@ public class AcceptanceTest {
         return Long.parseLong(id);
     }
 
-    protected String createArticle() throws JsonProcessingException {
+    protected String createArticle(TokenResponse token) throws JsonProcessingException {
         String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
 
         // @formatter:off
         return
                 given()
+                        .auth().oauth2(token.getAccessToken())
                         .body(request)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
@@ -63,6 +63,45 @@ public class AcceptanceTest {
                         .log().all()
                         .statusCode(HttpStatus.CREATED.value())
                         .extract().header(HttpHeaders.LOCATION);
+        // @formatter:on
+    }
+
+    protected TokenResponse joinMemberAndLogin() throws JsonProcessingException {
+        join();
+        return login();
+    }
+
+    protected void join() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(MEMBER_CREATE_REQUEST);
+
+        // @formatter:off
+        given()
+                .body(request)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .log().all()
+        .when()
+                .post(MEMBER_URI)
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.CREATED.value());
+        // @formatter:on
+    }
+
+    protected TokenResponse login() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(MEMBER_LOGIN_REQUEST);
+
+        // @formatter:off
+        return
+                given()
+                        .body(request)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .log().all()
+                .when()
+                        .post(LOGIN_URI)
+                .then()
+                        .log().all()
+                        .statusCode(HttpStatus.OK.value())
+                        .extract().as(TokenResponse.class);
         // @formatter:on
     }
 }

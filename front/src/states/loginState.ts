@@ -1,17 +1,17 @@
 import { atom } from "recoil/dist";
 
-export const memberIdState = atom({
-  key: "memberIdState",
-  default: 51,
+export const loginIdState = atom({
+  key: "loginIdState",
+  default: 1,
 });
 
-export const memberEmailState = atom({
-  key: "memberEmailState",
+export const loginNicknameState = atom({
+  key: "loginNicknameState",
   default: "",
 });
 
-export const memberPasswordState = atom({
-  key: "memberPasswordState",
+export const loginPasswordState = atom({
+  key: "loginPasswordState",
   default: "",
 });
 

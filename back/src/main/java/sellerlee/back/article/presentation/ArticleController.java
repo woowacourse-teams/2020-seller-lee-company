@@ -25,11 +25,13 @@ import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeSateUpdateRequest;
 import sellerlee.back.member.domain.Member;
+import sellerlee.back.security.core.LoginMember;
 
 @RestController
 @RequestMapping(ARTICLE_URI)
 public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
+    public static final String TRADE_STATE_URI = "/trade-state";
 
     private final ArticleService articleService;
     private final ArticleViewService articleViewService;
@@ -39,9 +41,11 @@ public class ArticleController {
         this.articleViewService = articleViewService;
     }
 
+    // TODO: 2020/08/12 request의 authorId를 @LoginMember로 대체하기
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody ArticleRequest request) {
         Long articleId = articleService.create(request);
+
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
                 .build();
@@ -49,30 +53,18 @@ public class ArticleController {
 
     @GetMapping
     public ResponseEntity<List<FeedResponse>> showPage(@RequestParam Long lastArticleId,
-            @RequestParam int size) {
-        List<FeedResponse> responses = articleViewService.showFeedPage(lastArticleId, size,
-                new Member(
-                        51L,
-                        "turtle@woowabro.com",
-                        "1234",
-                        "testUri",
-                        "testNickname",
-                        4.5));
+            @RequestParam int size, @LoginMember Member loginMember) {
+        List<FeedResponse> responses = articleViewService.showPage(lastArticleId, size,
+                loginMember);
 
         return ResponseEntity
                 .ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> showArticle(@PathVariable Long id) {
-        ArticleResponse articleResponse = articleViewService.show(id,
-                new Member(
-                        51L,
-                        "turtle@woowabro.com",
-                        "1234",
-                        "testNickname",
-                        "testUri",
-                        4.5));
+    public ResponseEntity<ArticleResponse> show(@PathVariable Long id,
+            @LoginMember Member loginMember) {
+        ArticleResponse articleResponse = articleViewService.show(id, loginMember);
 
         return ResponseEntity
                 .ok(articleResponse);
@@ -94,48 +86,32 @@ public class ArticleController {
                 .build();
     }
 
-    @GetMapping("/trade-state")
+    @GetMapping(TRADE_STATE_URI)
     public ResponseEntity<List<SalesHistoryResponse>> showSalesDetailsArticle(
-            @RequestParam String tradeState) {
-        // TODO: 2020/08/12 로그인생기면 없어질 member
-        Member member = new Member(
-                51L,
-                "turtle@woowabro.com",
-                "1234",
-                "testNickname",
-                "testUri",
-                4.0);
-        List<SalesHistoryResponse> salesHistoryRespons = articleViewService.showSalesDetails(
-                member,
-                tradeState);
+            @RequestParam String tradeState, @LoginMember Member loginMember) {
+        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
+                loginMember, tradeState);
 
-        return ResponseEntity.ok(salesHistoryRespons);
+        return ResponseEntity
+                .ok(salesHistoryResponses);
     }
 
-    @PatchMapping("/trade-state")
-    public ResponseEntity<SalesHistoryResponse> updateTradeState(
-            @RequestBody TradeSateUpdateRequest tradeSateUpdateRequest) {
-        // TODO: 2020/08/12 로그인생기면 없어질 member
-        Member member = new Member(
-                51L,
-                "turtle@woowabro.com",
-                "1234",
-                "testNickname",
-                "testUri",
-                4.0);
+    @PatchMapping(TRADE_STATE_URI)
+    public ResponseEntity<Void> updateTradeState(
+            @RequestBody TradeSateUpdateRequest tradeSateUpdateRequest,
+            @LoginMember Member loginMember) {
+        articleService.updateTradeState(loginMember, tradeSateUpdateRequest);
 
-        articleService.updateTradeState(member, tradeSateUpdateRequest);
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity
+                .ok()
+                .build();
     }
 
-    /*
-     * MemberResponse.of의 인자로 Favorite도 받도록 변경되어서 일단 주석처리했음
-     * 코즈 PR이 머지되면 수정할 예정
-     * @GetMapping("/trade-state")
-     * public ResponseEntity<List<ArticleResponse>> showByTradeState(@RequestParam String tradeState){
-     *     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
-     *     return ResponseEntity.ok(responses);
-     * }
-     */
+    // MemberResponse.of의 인자로 Favorite도 받도록 변경되어서 일단 주석처리했음
+    // 코즈 PR이 머지되면 수정할 예정
+    // @GetMapping(TRADE_STATE_URI)
+    // public ResponseEntity<List<ArticleResponse>> showByTradeState(@RequestParam String tradeState){
+    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
+    //     return ResponseEntity.ok(responses);
+    // }
 }

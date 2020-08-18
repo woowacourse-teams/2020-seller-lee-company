@@ -7,13 +7,13 @@ import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticle
 import { QUESTION_SIZE, questions } from "../data";
 import QuestionAndAnswerCard from "../components/Evaluation/QuestionAndAnswerCard";
 import theme from "../colors";
-import { useRecoilState, useResetRecoilState } from "recoil/dist";
+import { useRecoilValue, useResetRecoilState } from "recoil/dist";
 import { scoresState } from "../states/evaluationState";
 import { evaluationAPI } from "../api/api";
 
 export default function EvaluationScreen() {
   const navigation = useNavigation();
-  const [scores, setScores] = useRecoilState(scoresState);
+  const scores = useRecoilValue(scoresState);
   const resetScoresState = useResetRecoilState(scoresState);
   /* 실제 코드 */
   //const title = useRecoilValue(articleTitleState);

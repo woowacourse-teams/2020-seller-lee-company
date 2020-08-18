@@ -23,10 +23,6 @@ public class TradeService {
         return tradeRepository.findAllByBuyer(buyer)
                 .stream()
                 .map(Trade::getArticle)
-                .collect(
-                        collectingAndThen(
-                                toList(),
-                                ArticleCardResponse::listOf
-                        ));
+                .collect(collectingAndThen(toList(), ArticleCardResponse::listOf));
     }
 }

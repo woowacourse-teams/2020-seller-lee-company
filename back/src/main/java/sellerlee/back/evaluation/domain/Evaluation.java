@@ -24,7 +24,8 @@ public class Evaluation {
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "score", joinColumns = @JoinColumn(name = "evaluation_id"))
+    @CollectionTable(name = "score",
+            joinColumns = @JoinColumn(name = "evaluation_id"))
     private List<Score> scores;
 
     @JoinColumn(name = "trade_id")

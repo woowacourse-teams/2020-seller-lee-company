@@ -22,10 +22,9 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, String title, String categoryName, String contents,
-            Long price, String tradeState, List<String> tags, List<String> photos,
-            AuthorResponse author, boolean favoriteState, long favoriteCount,
-            LocalDateTime createdTime) {
+    private ArticleResponse(Long id, String title, String categoryName, String contents, Long price,
+            String tradeState, List<String> tags, List<String> photos, AuthorResponse author,
+            boolean favoriteState, long favoriteCount, LocalDateTime createdTime) {
         this.id = id;
         this.title = title;
         this.categoryName = categoryName;

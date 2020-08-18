@@ -10,7 +10,13 @@ const Stack = createStackNavigator<CategoryParamList>();
 export default function CategoryNavigation() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="CategoryHome" component={CategoryHomeScreen} />
+      <Stack.Screen
+        name="CategoryHome"
+        component={CategoryHomeScreen}
+        options={{
+          headerLeft: () => null,
+        }}
+      />
       <Stack.Screen name="CategoryDetail" component={CategoryDetailScreen} />
       <Stack.Screen name="Search" component={SearchScreen} />
     </Stack.Navigator>

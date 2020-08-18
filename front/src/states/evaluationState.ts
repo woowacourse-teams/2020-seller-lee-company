@@ -1,7 +1,3 @@
-/**
- * @author jnsorn
- */
-
 import { atom } from "recoil/dist";
 import { Score } from "../types/types";
 

@@ -32,6 +32,7 @@ class FavoriteServiceTest {
     @Test
     void create() {
         when(favoriteRepository.save(any())).thenReturn(new Favorite(1L, ARTICLE1, MEMBER1));
+
         assertThat(favoriteService.create(
                 new FavoriteRequest(ARTICLE1.getId()), MEMBER1)).isEqualTo(1L);
     }
@@ -40,6 +41,7 @@ class FavoriteServiceTest {
     @Test
     void cancel() {
         favoriteService.remove(new FavoriteRequest(ARTICLE1.getId()), MEMBER1);
+
         verify(favoriteRepository).deleteByMemberIdAndArticleId(ARTICLE1.getId(), MEMBER1.getId());
     }
 }

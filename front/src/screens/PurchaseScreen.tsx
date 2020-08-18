@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React, { useEffect, useLayoutEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";

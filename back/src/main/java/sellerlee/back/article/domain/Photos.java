@@ -16,7 +16,8 @@ public class Photos {
     private static final int THUMBNAIL_INDEX = 0;
 
     @ElementCollection
-    @CollectionTable(name = "photo", joinColumns = @JoinColumn(name = "article_id"))
+    @CollectionTable(name = "photo",
+            joinColumns = @JoinColumn(name = "article_id"))
     private List<String> photos;
 
     protected Photos() {

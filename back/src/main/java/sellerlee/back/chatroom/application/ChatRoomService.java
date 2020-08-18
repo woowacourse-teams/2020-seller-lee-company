@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.application;
 
 import java.util.List;
@@ -25,8 +21,7 @@ public class ChatRoomService {
     }
 
     public List<ChatRoomResponse> showChatRoomsOf(Long articleId) {
-        List<ChatRoom> responses = chatRoomRepository.findChatRoomsByArticleId(
-                articleId);
+        List<ChatRoom> responses = chatRoomRepository.findChatRoomsByArticleId(articleId);
         return ChatRoomResponse.listOf(responses);
     }
 }

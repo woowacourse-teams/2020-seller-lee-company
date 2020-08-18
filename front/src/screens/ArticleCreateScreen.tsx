@@ -35,7 +35,7 @@ import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 import { defaultArticle } from "../data/defaultArticle";
-import { memberIdState } from "../states/loginState";
+import { loginIdState } from "../states/loginState";
 
 export default function ArticleCreateScreen() {
   const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
@@ -43,7 +43,7 @@ export default function ArticleCreateScreen() {
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
 
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(loginIdState);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedCategory, setSelectedCategory] = useRecoilState(

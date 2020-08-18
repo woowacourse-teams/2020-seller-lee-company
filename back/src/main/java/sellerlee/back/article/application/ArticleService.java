@@ -27,7 +27,7 @@ public class ArticleService {
     @Transactional
     public void update(Long id, ArticleRequest request) {
         Article article = articleRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("수정할 게시글이 존재하지 않습니다."));
 
         article.update(request.toArticle());
     }
@@ -40,13 +40,12 @@ public class ArticleService {
     public void updateTradeState(Member member,
             TradeSateUpdateRequest tradeSateUpdateRequest) {
         Article article = getArticleByAuthorAndTradeState(member, tradeSateUpdateRequest);
-        article.updateState(TradeState.fromString(tradeSateUpdateRequest.getTradeState()));
+        article.updateTradeState(TradeState.fromString(tradeSateUpdateRequest.getTradeState()));
     }
 
     private Article getArticleByAuthorAndTradeState(Member member,
             TradeSateUpdateRequest tradeSateUpdateRequest) {
-        return articleRepository.findByAuthorAndId(member,
-                tradeSateUpdateRequest.getId())
+        return articleRepository.findByAuthorAndId(member, tradeSateUpdateRequest.getId())
                 .orElseThrow(() -> new IllegalArgumentException("article 존재하지 않습니다."));
     }
 }

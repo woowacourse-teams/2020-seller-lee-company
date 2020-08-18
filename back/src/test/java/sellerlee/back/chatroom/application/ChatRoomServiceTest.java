@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.application;
 
 import static org.assertj.core.api.Assertions.*;
@@ -38,8 +34,7 @@ class ChatRoomServiceTest {
     @DisplayName("채팅방 생성시 Id가 생성된다.")
     @Test
     void createChatRoom() {
-        when(chatRoomRepository.save(any()))
-                .thenReturn(new ChatRoom(1L, ARTICLE1, MEMBER1));
+        when(chatRoomRepository.save(any())).thenReturn(new ChatRoom(1L, ARTICLE1, MEMBER1));
 
         Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId()));
@@ -53,8 +48,7 @@ class ChatRoomServiceTest {
                 .thenReturn(Arrays.asList(new ChatRoom(1L, ARTICLE1, MEMBER1),
                         new ChatRoom(2L, ARTICLE1, MEMBER2)));
 
-        List<ChatRoomResponse> responses = chatRoomService.showChatRoomsOf(
-                ARTICLE1.getId());
+        List<ChatRoomResponse> responses = chatRoomService.showChatRoomsOf(ARTICLE1.getId());
 
         assertThat(responses.size()).isEqualTo(2);
         assertThat(responses.get(0).getNickname()).isEqualTo(MEMBER1.getNickname());

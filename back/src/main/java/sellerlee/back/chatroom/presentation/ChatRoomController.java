@@ -1,7 +1,3 @@
-/**
- * @author kouz95
- */
-
 package sellerlee.back.chatroom.presentation;
 
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
@@ -44,8 +40,7 @@ public class ChatRoomController {
     @GetMapping
     public ResponseEntity<List<ChatRoomResponse>> showAllChatRoomOfArticle(
             @RequestParam Long articleId) {
-        List<ChatRoomResponse> responses = chatRoomService
-                .showChatRoomsOf(articleId);
+        List<ChatRoomResponse> responses = chatRoomService.showChatRoomsOf(articleId);
 
         return ResponseEntity
                 .ok(responses);

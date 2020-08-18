@@ -24,8 +24,8 @@ public class ArticleFavoriteCountService {
 
     @Transactional
     public void increase(Article article) {
-        Optional<ArticleFavoriteCount> persist =
-                articleFavoriteCountRepository.findByArticle(article);
+        Optional<ArticleFavoriteCount> persist = articleFavoriteCountRepository.findByArticle(
+                article);
 
         ifPresentOrElse(
                 persist,

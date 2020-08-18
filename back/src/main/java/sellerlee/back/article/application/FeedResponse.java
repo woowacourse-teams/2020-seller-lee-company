@@ -1,7 +1,9 @@
 package sellerlee.back.article.application;
 
-import java.util.ArrayList;
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
+import java.util.stream.IntStream;
 
 import sellerlee.back.article.domain.Article;
 
@@ -39,12 +41,9 @@ public class FeedResponse {
 
     public static List<FeedResponse> listOf(List<Article> articles, List<Long> favoriteCounts,
             List<Boolean> favoriteStates) {
-        List<FeedResponse> responses = new ArrayList<>();
-        for (int i = 0; i < articles.size(); i++) {
-            responses.add(
-                    FeedResponse.of(articles.get(i), favoriteCounts.get(i), favoriteStates.get(i)));
-        }
-        return responses;
+        return IntStream.range(0, articles.size())
+                .mapToObj(i -> of(articles.get(i), favoriteCounts.get(i), favoriteStates.get(i)))
+                .collect(toList());
     }
 
     public Long getId() {

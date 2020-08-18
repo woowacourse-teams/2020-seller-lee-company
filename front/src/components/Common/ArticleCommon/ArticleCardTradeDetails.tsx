@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import calculateDiffTime from "../../../calculateDiffTime";

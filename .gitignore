@@ -53,10 +53,4 @@ back/out/
 ### VS Code ###
 .vscode/
 .idea/
-
-### Submodule ###
-/back/src/main/resources/application-common.yml
-/back/src/main/resources/application-dev.yml
-/back/src/main/resources/application-local.yml
-/back/src/main/resources/application-prod.yml
-/back/src/main/resources/application-security.yml
+/back/src/main/resources/application-*.yml

@@ -56,7 +56,7 @@ class ArticleViewServiceTest {
     void showArticle() {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
-                .thenReturn(Optional.of(FAVORITE));
+                .thenReturn(Optional.of(FAVORITE1));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
@@ -82,7 +82,7 @@ class ArticleViewServiceTest {
         when(favoriteRepository.findAllByMemberAndArticleIn(MEMBER1, articles))
                 .thenReturn(singletonList(new Favorite(1L, articles.get(0), MEMBER1)));
         List<FeedResponse> actualArticles = articleViewService
-                .showFeedPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1);
+                .showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1);
 
         assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
         assertThat(actualArticles.get(0).getFavoriteCount()).isEqualTo(favoriteCounts.get(0));
@@ -100,10 +100,10 @@ class ArticleViewServiceTest {
                         ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryRespons = articleViewService.showSalesDetails(
+        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
                 MEMBER1, "판매 완료");
 
-        assertThat(salesHistoryRespons).hasSize(1);
+        assertThat(salesHistoryResponses).hasSize(1);
     }
 
     @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
@@ -114,10 +114,10 @@ class ArticleViewServiceTest {
                         ARTICLE1, ARTICLE2, ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryRespons = articleViewService.showSalesDetails(
+        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
                 MEMBER1, "예약중|판매중");
 
-        assertThat(salesHistoryRespons).hasSize(3);
+        assertThat(salesHistoryResponses).hasSize(3);
     }
     // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
     // @Test
