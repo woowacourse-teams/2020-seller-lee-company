@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.chatroom.presentation;
 
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
@@ -42,7 +46,7 @@ public class ChatRoomController {
             @RequestParam Long articleId) {
         List<ChatRoomResponse> responses = chatRoomService
                 .showChatRoomsOf(articleId);
-        
+
         return ResponseEntity
                 .ok(responses);
     }

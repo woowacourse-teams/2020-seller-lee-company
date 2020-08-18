@@ -101,11 +101,11 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         // @formatter:off
         return
                 given()
-                .when()
+                        .when()
                         .param("lastArticleId", articleId)
                         .param("size", ARTICLE_SIZE)
                         .get(ARTICLE_URI)
-                .then()
+                        .then()
                         .log().all()
                         .extract().jsonPath().getList(".", FeedResponse.class);
         // @formatter:on
@@ -117,10 +117,10 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         // @formatter:off
         return
                 given()
-                .when()
+                        .when()
                         .param("memberId", MEMBER1.getId())
                         .get(url)
-                .then()
+                        .then()
                         .log().all()
                         .statusCode(HttpStatus.OK.value())
                         .extract()
@@ -133,9 +133,9 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
         // @formatter:off
         given()
-        .when()
+                .when()
                 .delete(url)
-        .then()
+                .then()
                 .log().all()
                 .statusCode(HttpStatus.NO_CONTENT.value());
         // @formatter:on
@@ -147,12 +147,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         // @formatter:off
         return given()
                 .when()
-                    .param("tradeState", "예약중|거래중")
-                    .get(url)
+                .param("tradeState", "예약중|거래중")
+                .get(url)
                 .then()
-                    .log().all()
-                    .statusCode(HttpStatus.OK.value())
-                    .extract().jsonPath().getList(".", SalesHistoryResponse.class);
+                .log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract().jsonPath().getList(".", SalesHistoryResponse.class);
         // @formatter:on
     }
 
@@ -164,12 +164,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
         // @formatter:off
         given()
-        .when()
+                .when()
                 .body(tradeSateUpdateRequest)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .patch(url)
-        .then()
+                .then()
                 .log().all()
                 .statusCode(HttpStatus.OK.value());
         // @formatter:on

@@ -1,7 +1,3 @@
-/**
- * @author joseph415
- */
-
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
@@ -223,3 +219,8 @@ export type MyPageNavigationProps = StackNavigationProp<
   MyPageParamList,
   "SalesDetails"
 >;
+
+export interface Score {
+  questionId: number;
+  score: number;
+}

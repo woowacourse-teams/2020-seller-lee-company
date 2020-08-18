@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.chatroom.domain;
 
 import java.util.List;

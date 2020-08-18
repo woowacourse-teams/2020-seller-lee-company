@@ -1,3 +1,7 @@
+/**
+ * @author kouz95
+ */
+
 package sellerlee.back.chatroom.application;
 
 import static java.util.stream.Collectors.*;

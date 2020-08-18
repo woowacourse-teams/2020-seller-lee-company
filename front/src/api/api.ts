@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Score } from "../types/types";
 
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
@@ -9,7 +10,7 @@ const domain = {
   trades: "/trades",
   login: "/login",
   chatRoom: "/chat-rooms",
-  trade: "/trades",
+  evaluation: "/evaluations",
   favorites: "/favorites",
 };
 
@@ -96,4 +97,13 @@ export const favoriteAPI = {
 
 export const tradeAPI = {
   get: async () => await axios.get(BASE_URL + domain.trades),
+};
+
+interface EvaluationPost {
+  scores: Score[];
+}
+
+export const evaluationAPI = {
+  post: async (data: EvaluationPost) =>
+    await axios.post(`${BASE_URL}${domain.evaluation}`, data),
 };
