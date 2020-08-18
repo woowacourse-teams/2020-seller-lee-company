@@ -217,11 +217,17 @@ export type ProfileNavigationParamList = {
   SalesHistoryScreen: undefined;
   ArticleDetailScreen: undefined;
   Evaluation: undefined;
+  PurchaseScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
   ProfileNavigationParamList,
   "ProfileScreen"
+>;
+
+export type PurchaseScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "PurchaseScreen"
 >;
 
 export interface Score {
