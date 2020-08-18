@@ -19,17 +19,18 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Long create(ArticleRequest request) {
-        Article article = articleRepository.save(request.toArticle());
+    public Long create(ArticleRequest request, Member loginMember) {
+        Article article = articleRepository.save(request.toArticleWithLoginMember(loginMember));
+
         return article.getId();
     }
 
     @Transactional
-    public void update(Long id, ArticleRequest request) {
+    public void update(Long id, ArticleRequest request, Member loginMember) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("수정할 게시글이 존재하지 않습니다."));
 
-        article.update(request.toArticle());
+        article.update(request.toArticleWithLoginMember(loginMember));
     }
 
     public void deleteById(Long id) {

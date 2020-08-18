@@ -22,7 +22,6 @@ interface ArticlesPost {
   contents: string;
   tags: string[];
   photos: string[];
-  authorId: number;
 }
 
 interface ArticlesGet {
