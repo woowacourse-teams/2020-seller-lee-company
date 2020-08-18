@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
@@ -35,6 +35,11 @@ export default function ArticleDetailScreen() {
   const articleId = useRecoilValue(articleSelectedIdState);
   const setArticleSelected = useSetRecoilState(articleSelectedState);
   const setIsEditing = useSetRecoilState(articleIsEditingState);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    getArticle();
+  }, [isFocused]);
 
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
