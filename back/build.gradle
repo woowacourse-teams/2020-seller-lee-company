@@ -58,6 +58,10 @@ bootJar {
 processResources.dependsOn 'copyDatabaseSecret'
 
 task copyDatabaseSecret(type: Copy) {
-    from '../seller-lee-secret/application-db.yml'
+    from '../seller-lee-secret/application-common.yml',
+            '../seller-lee-secret/application-dev.yml',
+            '../seller-lee-secret/application-local.yml',
+            '../seller-lee-secret/application-prod.yml',
+            '../seller-lee-secret/application-security.yml'
     into 'src/main/resources'
 }
