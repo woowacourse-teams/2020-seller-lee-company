@@ -67,7 +67,7 @@ class ArticleControllerTest {
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
     void createArticle() throws Exception {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
+        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
 
         when(articleService.create(any())).thenReturn(1L);
 
@@ -195,6 +195,44 @@ class ArticleControllerTest {
                                         .description("게시글의 찜 개수"),
                                 fieldWithPath("createdTime").type(JsonFieldType.STRING)
                                         .description("게시글 생성 시간")
+                        )
+                ));
+    }
+
+    @DisplayName("게시글 수정 시 HTTP status는 NO CONTENT 이다.")
+    @Test
+    void updateArticle() throws Exception {
+        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
+
+        this.mockMvc.perform(RestDocumentationRequestBuilders.put(ARTICLE_URI + "/{id}", 1)
+                .content(request)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent())
+                .andDo(document("articles/update",
+                        preprocessRequest(prettyPrint()),
+                        // requestHeaders(
+                        //         headerWithName("Authorization").description("회원의 토큰")
+                        // ),
+                        pathParameters(
+                                parameterWithName("id").description("게시글의 아이디")
+                        ),
+                        requestFields(
+                                fieldWithPath("title").type(JsonFieldType.STRING)
+                                        .description("게시글의 제목"),
+                                fieldWithPath("category").type(JsonFieldType.STRING)
+                                        .description("게시글의 카테고리"),
+                                fieldWithPath("contents").type(JsonFieldType.STRING)
+                                        .description("게시글의 내용"),
+                                fieldWithPath("price").type(JsonFieldType.NUMBER)
+                                        .description("게시글의 가격"),
+                                // fieldWithPath("tradeState").type(JsonFieldType.STRING)
+                                //         .description("게시글의 판매 상태"),
+                                fieldWithPath("tags").type(JsonFieldType.ARRAY)
+                                        .description("태그의 리스트"),
+                                fieldWithPath("photos").type(JsonFieldType.ARRAY)
+                                        .description("사진의 리스트"),
+                                fieldWithPath("authorId").type(JsonFieldType.NUMBER)
+                                        .description("글 작성자의 ID")
                         )
                 ));
     }

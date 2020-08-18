@@ -46,7 +46,7 @@ public class AcceptanceTest {
     }
 
     protected String createArticle() throws JsonProcessingException {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
+        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
 
         // @formatter:off
         return
