@@ -1,17 +1,13 @@
-/**
- * @author lxxjn0
- */
-
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
-const MAX_LIMIT_TITLE_LENGTH = 47;
 
 interface ArticleCardTitleProps {
   title: string;
 }
 
 export default function ArticleCardTitle({ title }: ArticleCardTitleProps) {
+  const MAX_LIMIT_TITLE_LENGTH = 47;
+
   const isOverLengthTitle = () => {
     return title.length > MAX_LIMIT_TITLE_LENGTH;
   };

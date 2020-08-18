@@ -3,10 +3,10 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useRecoilValue } from "recoil/dist";
 import { articleContentsState } from "../../states/articleState";
 import { useNavigation } from "@react-navigation/native";
-import { ArticleFormScreenNavigationProp } from "../../types/types";
+import { ArticleCreateScreenNavigationProp } from "../../types/types";
 
 export default function ArticleContentsForm() {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const contents = useRecoilValue(articleContentsState);
 
   const dynamicStyles = StyleSheet.create({

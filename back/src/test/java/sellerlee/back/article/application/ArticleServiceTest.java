@@ -3,6 +3,7 @@ package sellerlee.back.article.application;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.fixture.MemberFixture.*;
 
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ class ArticleServiceTest {
     void createArticle() {
         when(articleRepository.save(any())).thenReturn(ARTICLE1);
 
-        Long actualId = articleService.post(ARTICLE_CREATE_REQUEST);
+        Long actualId = articleService.create(ARTICLE_REQUEST);
 
         assertThat(actualId).isEqualTo(ARTICLE1.getId());
     }
@@ -43,10 +44,10 @@ class ArticleServiceTest {
         Long articleId = 1L;
         when(articleRepository.findById(articleId)).thenReturn(Optional.of(ARTICLE1));
 
-        articleService.update(articleId, ARTICLE_CREATE_REQUEST);
+        articleService.update(articleId, ARTICLE_REQUEST);
 
-        assertThat(ARTICLE1.getTitle()).isEqualTo(ARTICLE_CREATE_REQUEST.getTitle());
-        assertThat(ARTICLE1.getContents()).isEqualTo(ARTICLE_CREATE_REQUEST.getContents());
+        assertThat(ARTICLE1.getTitle()).isEqualTo(ARTICLE_REQUEST.getTitle());
+        assertThat(ARTICLE1.getContents()).isEqualTo(ARTICLE_REQUEST.getContents());
     }
 
     @DisplayName("게시글 삭제 메서드 호출 시 게시글 삭제")
@@ -55,5 +56,15 @@ class ArticleServiceTest {
         articleService.deleteById(ARTICLE1.getId());
 
         verify(articleRepository).deleteById(ARTICLE1.getId());
+    }
+
+    @DisplayName("tradeState를 변경함")
+    @Test
+    void patchTradeState() {
+        when(articleRepository.findByAuthorAndId(any(), any())).thenReturn(Optional.of(ARTICLE1));
+
+        TradeSateUpdateRequest tradeSateUpdateRequest = new TradeSateUpdateRequest(51L, "예약중");
+
+        articleService.updateTradeState(MEMBER1, tradeSateUpdateRequest);
     }
 }

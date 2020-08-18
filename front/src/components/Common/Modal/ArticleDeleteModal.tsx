@@ -4,9 +4,10 @@ import { useRecoilState } from "recoil/dist";
 import { articleDetailModalState } from "../../../states/modalState";
 import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
+import { ArticleDetailNavigationProp } from "../../../types/types";
 
 export default function ArticleDeleteModal() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ArticleDetailNavigationProp>();
   const [modalVisible, setModalVisible] = useRecoilState(
     articleDetailModalState,
   );
@@ -25,7 +26,7 @@ export default function ArticleDeleteModal() {
             title={"목록으로 이동"}
             onPress={() => {
               setModalVisible(false);
-              navigation.navigate("FeedHome");
+              navigation.navigate("Home");
             }}
             color={theme.primary}
           />

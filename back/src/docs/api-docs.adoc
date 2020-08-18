@@ -42,6 +42,10 @@ operation::articles/get[snippets='http-request,http-response,path-parameters,req
 
 operation::articles/post[snippets='http-request,http-response,request-body,response-headers']
 
+=== 게시글 수정
+
+operation::articles/update[snippets='http-request,request-body']
+
 == 채팅방 관리
 
 === 채팅방 생성

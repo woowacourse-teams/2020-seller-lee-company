@@ -31,7 +31,6 @@ export default function Photo() {
   const [modalMessage, setModalMessage] = useState("");
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
-  "";
   const setModalVisible = useSetRecoilState(modalActivationState);
   const memberId = useRecoilValue(loginIdState);
 

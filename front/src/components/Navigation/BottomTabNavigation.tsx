@@ -13,9 +13,9 @@ const Tab = createBottomTabNavigator();
 function getTabBarVisibility(route: any) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
-    : "";
+    : "Home";
 
-  return routeName !== "FeedDetail";
+  return routeName === "Home" || routeName === "ProfileScreen";
 }
 
 export default function BottomTabNavigation() {
@@ -75,7 +75,7 @@ export default function BottomTabNavigation() {
       <Tab.Screen
         name="Profile"
         component={ProfileNavigation}
-        options={{
+        options={({ route }) => ({
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="account-circle-outline"
@@ -83,7 +83,8 @@ export default function BottomTabNavigation() {
               color={color}
             />
           ),
-        }}
+          tabBarVisible: getTabBarVisibility(route),
+        })}
       />
     </Tab.Navigator>
   );

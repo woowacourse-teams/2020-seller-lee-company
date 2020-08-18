@@ -23,8 +23,8 @@ import sellerlee.back.member.application.TokenResponse;
 @Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
-    protected static final String DELIMITER = "/";
     private static final int ID_INDEX_OF_LOCATION = 2;
+    private static final String DELIMITER = "/";
 
     @Autowired
     protected ObjectMapper objectMapper;
@@ -49,7 +49,7 @@ public class AcceptanceTest {
     }
 
     protected String createArticle(TokenResponse token) throws JsonProcessingException {
-        String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
+        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
 
         // @formatter:off
         return

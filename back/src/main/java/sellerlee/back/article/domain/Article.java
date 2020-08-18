@@ -90,6 +90,10 @@ public class Article extends BaseTimeEntity {
         photos = article.photos;
     }
 
+    public void updateTradeState(TradeState tradeState) {
+        this.tradeState = tradeState;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,15 +1,17 @@
 import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
+import { Score } from "../types/types";
 
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
 const domain = {
+  tradeState: "/trade-state",
   articles: "/articles",
   members: "/members",
   trades: "/trades",
   login: "/login",
   chatRoom: "/chat-rooms",
-  trade: "/trades",
+  evaluation: "/evaluations",
   favorites: "/favorites",
 };
 
@@ -75,16 +77,24 @@ export const articlesAPI = {
       },
     });
   },
+  updateTradeState: async (id: number, data: ArticlesGetByTradeState) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.patch(
+      `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
 };
 
 export const articleDetailAPI = {
   get: async (articleId: number) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.articles}/${articleId}`, {
-      // 해당 부분은 Member가 구현되면 수정되어야함.
-      params: {
-        memberId: 1,
-      },
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -156,6 +166,21 @@ export const tradeAPI = {
   get: async () => {
     const token = await DeviceStorage.getToken();
     return await axios.get(BASE_URL + domain.trades, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+interface EvaluationPost {
+  scores: Score[];
+}
+
+export const evaluationAPI = {
+  post: async (data: EvaluationPost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(`${BASE_URL}${domain.evaluation}`, data, {
       headers: {
         Authorization: `bearer ${token}`,
       },

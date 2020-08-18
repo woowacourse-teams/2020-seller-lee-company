@@ -64,7 +64,7 @@ public class ArticleFixture {
             LocalDateTime.now()
     );
 
-    public static final ArticleRequest ARTICLE_CREATE_REQUEST = new ArticleRequest(
+    public static final ArticleRequest ARTICLE_REQUEST = new ArticleRequest(
             "TEST_TITLE",
             10_000L,
             "디지털/가전",
