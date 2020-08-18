@@ -59,14 +59,19 @@ asciidoctor {
 
 bootJar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}/html5") {
+    from("${asciidoctor.outputDir}/html5") {
         into 'static/docs'
     }
 }
 
 processResources.dependsOn('copyDatabaseSecret')
 
-task copyDatabaseSecret(type: Copy) {
+task copyDatabaseSecret {
+    dependsOn 'copyDatabaseSecretMain'
+    dependsOn 'copyDatabaseSecretTest'
+}
+
+task copyDatabaseSecretMain(type: Copy) {
     from('../seller-lee-secret') {
         include 'application-common.yml'
         include 'application-security.yml'
@@ -75,4 +80,11 @@ task copyDatabaseSecret(type: Copy) {
         include 'application-prod.yml'
     }
     into 'src/main/resources'
+}
+
+task copyDatabaseSecretTest(type: Copy) {
+    from('../seller-lee-secret') {
+        include 'application-security.yml'
+    }
+    into 'src/test/resources'
 }
