@@ -12,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
+import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
+import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
 import java.util.Collections;
 
@@ -46,6 +48,7 @@ class ChatRoomControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         post(CHAT_ROOM_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -76,6 +79,7 @@ class ChatRoomControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         get(CHAT_ROOM_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("articleId", "1"))
                 .andExpect(status().isOk())
                 .andDo(

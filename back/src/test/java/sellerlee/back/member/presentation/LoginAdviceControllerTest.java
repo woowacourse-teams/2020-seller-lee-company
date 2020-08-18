@@ -48,7 +48,7 @@ class LoginAdviceControllerTest extends ControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestFields(
-                                fieldWithPath("email").type(JsonFieldType.STRING).description("사용자가 입력한 이메일"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("사용자가 입력한 닉네임"),
                                 fieldWithPath("password").type(JsonFieldType.STRING).description("사용자가 입력한 비밀번호")
                         )));
         // @formatter:on
@@ -73,7 +73,7 @@ class LoginAdviceControllerTest extends ControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestFields(
-                                fieldWithPath("email").description("사용자가 입력한 이메일"),
+                                fieldWithPath("nickname").description("사용자가 입력한 닉네임"),
                                 fieldWithPath("password").description("사용자가 입력한 비밀번호")
                         )));
         // @formatter:on

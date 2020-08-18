@@ -5,6 +5,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
+import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
+import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,7 @@ class FavoriteControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         post(FAVORITE_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
                 .andExpect(header().exists(HttpHeaders.LOCATION))
@@ -48,6 +51,7 @@ class FavoriteControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         delete(FAVORITE_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
                 .andExpect(status().isNoContent());

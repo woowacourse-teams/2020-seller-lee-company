@@ -4,6 +4,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
+import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
+import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 import static sellerlee.back.trade.presentation.TradeController.*;
 
 import java.util.Arrays;
@@ -31,7 +33,8 @@ class TradeControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ORDER_URI))
+                        get(ORDER_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk());
         // @formatter:on
     }

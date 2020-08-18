@@ -15,8 +15,11 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
 import sellerlee.back.favorite.application.FavoriteRequest;
+import sellerlee.back.member.application.TokenResponse;
 
 public class FavoriteAcceptanceTest extends AcceptanceTest {
+    private TokenResponse token;
+
     /**
      * Feature: 찜 관리
      * <p>
@@ -34,9 +37,8 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     @DisplayName("찜 관리")
     @TestFactory
     Stream<DynamicTest> manageFavorite() throws JsonProcessingException {
-        // Given
-        Long articleId = extractId(createArticle());
-        // 로그인 추가
+        token = joinMemberAndLogin();
+        Long articleId = extractId(createArticle(token));
 
         return Stream.of(
                 dynamicTest("찜 생성", () -> createFavorite(articleId)),
@@ -50,6 +52,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
         // @formatter:off
         return
                 given()
+                        .auth().oauth2(token.getAccessToken())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .body(objectMapper.writeValueAsString(request))
                 .when()
@@ -67,6 +70,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
 
         // @formatter:off
         given()
+                .auth().oauth2(token.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(objectMapper.writeValueAsString(request))
         .when()

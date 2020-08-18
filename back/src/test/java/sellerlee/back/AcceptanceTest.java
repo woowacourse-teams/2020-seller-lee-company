@@ -12,6 +12,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,7 @@ import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import sellerlee.back.member.application.TokenResponse;
 
+@Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
     protected static final String DELIMITER = "/";
@@ -46,12 +48,13 @@ public class AcceptanceTest {
         return Long.parseLong(id);
     }
 
-    protected String createArticle() throws JsonProcessingException {
+    protected String createArticle(TokenResponse token) throws JsonProcessingException {
         String request = objectMapper.writeValueAsString(ARTICLE_CREATE_REQUEST);
 
         // @formatter:off
         return
                 given()
+                        .auth().oauth2(token.getAccessToken())
                         .body(request)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
@@ -60,6 +63,27 @@ public class AcceptanceTest {
                         .log().all()
                         .statusCode(HttpStatus.CREATED.value())
                         .extract().header(HttpHeaders.LOCATION);
+        // @formatter:on
+    }
+
+    protected TokenResponse joinMemberAndLogin() throws JsonProcessingException {
+        join();
+        return login();
+    }
+
+    protected void join() throws JsonProcessingException {
+        String request = objectMapper.writeValueAsString(MEMBER_CREATE_REQUEST);
+
+        // @formatter:off
+        given()
+                .body(request)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .log().all()
+        .when()
+                .post(MEMBER_URI)
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.CREATED.value());
         // @formatter:on
     }
 

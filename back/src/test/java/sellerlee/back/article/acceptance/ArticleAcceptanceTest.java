@@ -42,14 +42,16 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      * When 게시글을 삭제한다.
      * Then 게시글이 삭제된다.
      */
-    @DisplayName("게시글을 관리한다")
+    @DisplayName("게시글 관리")
     @TestFactory
     Stream<DynamicTest> manageArticle() throws JsonProcessingException {
+        token = joinMemberAndLogin();
+
         // 게시글을 등록 한다.
-        Long articleId = extractId(createArticle());
-        Long articleId2 = extractId(createArticle());
-        Long articleId3 = extractId(createArticle());
-        Long articleId4 = extractId(createArticle());
+        Long articleId = extractId(createArticle(token));
+        Long articleId2 = extractId(createArticle(token));
+        Long articleId3 = extractId(createArticle(token));
+        Long articleId4 = extractId(createArticle(token));
 
         return Stream.of(
                 dynamicTest("게시글 페이지 조회", () -> {

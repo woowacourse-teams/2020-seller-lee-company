@@ -165,7 +165,8 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(ARTICLE_URI + "/" + ARTICLE1.getId()))
+                        delete(ARTICLE_URI + "/" + ARTICLE1.getId())
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
     }
