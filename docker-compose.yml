@@ -1,0 +1,19 @@
+version: "3"
+services:
+  seller_lee_database:
+    container_name: seller_lee_database
+    build:
+      context: .
+      dockerfile: Dockerfile-mariadb
+    ports:
+      - 3306:3306
+
+  seller_lee_server:
+    container_name: seller_lee_server
+    build:
+      context: .
+      dockerfile: Dockerfile-springboot
+    ports:
+      - 8080:8080
+    depends_on:
+      - seller_lee_database

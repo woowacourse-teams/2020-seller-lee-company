@@ -53,3 +53,5 @@ back/out/
 ### VS Code ###
 .vscode/
 .idea/
+/back/src/main/resources/application-*.yml
+/back/src/test/resources/application-*.yml

@@ -19,12 +19,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    // h2
-    implementation 'com.h2database:h2'
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     // apache
     implementation 'org.apache.commons:commons-lang3:3.10'
+    // flyway
+    implementation 'org.flywaydb:flyway-core'
+    // mariaDB
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    // h2
+    testImplementation 'com.h2database:h2'
     // rest assured
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
 
@@ -35,4 +39,29 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+processResources.dependsOn('copyDatabaseSecret')
+
+task copyDatabaseSecret {
+    dependsOn 'copyDatabaseSecretToMain'
+    dependsOn 'copyDatabaseSecretToTest'
+}
+
+task copyDatabaseSecretToMain(type: Copy) {
+    from('../seller-lee-secret') {
+        include 'application-common.yml'
+        include 'application-security.yml'
+        include 'application-dev.yml'
+    }
+    into 'src/main/resources'
+}
+
+task copyDatabaseSecretToTest(type: Copy) {
+    from('../seller-lee-secret') {
+        include 'application-common.yml'
+        include 'application-security.yml'
+        include 'application-local.yml'
+    }
+    into 'src/test/resources'
 }
