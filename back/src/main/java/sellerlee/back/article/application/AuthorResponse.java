@@ -3,6 +3,7 @@ package sellerlee.back.article.application;
 import sellerlee.back.member.domain.Member;
 
 public class AuthorResponse {
+    private Long id;
     private String avatar;
     private String nickname;
     private Double score;
@@ -18,6 +19,10 @@ public class AuthorResponse {
 
     public static AuthorResponse of(Member member) {
         return new AuthorResponse(member.getAvatar(), member.getNickname(), member.getScore());
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getAvatar() {

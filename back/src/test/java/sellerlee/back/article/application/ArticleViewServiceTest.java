@@ -10,6 +10,8 @@ import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,6 +92,33 @@ class ArticleViewServiceTest {
         assertThat(actualArticles.get(1).getFavoriteState()).isFalse();
     }
 
+    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @Test
+    void showSalesDetailsInCaseCompleted() {
+        when(articleRepository.findAllByAuthorAndTradeState(any(), any())).thenReturn(
+                Collections.singletonList(
+                        ARTICLE3
+                ));
+
+        List<SalesHistoryResponse> salesHistoryRespons = articleViewService.showSalesDetails(
+                MEMBER1, "판매 완료");
+
+        assertThat(salesHistoryRespons).hasSize(1);
+    }
+
+    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @Test
+    void showSalesDetailsInCaseNotCompleted() {
+        when(articleRepository.findAllByAuthorAndTradeStateNot(any(), any())).thenReturn(
+                Arrays.asList(
+                        ARTICLE1, ARTICLE2, ARTICLE3
+                ));
+
+        List<SalesHistoryResponse> salesHistoryRespons = articleViewService.showSalesDetails(
+                MEMBER1, "예약중|판매중");
+
+        assertThat(salesHistoryRespons).hasSize(3);
+    }
     // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
     // @Test
     // void showArticlesByTradeState() {

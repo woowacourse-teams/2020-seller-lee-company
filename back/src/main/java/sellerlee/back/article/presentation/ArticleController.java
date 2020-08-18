@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,8 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
+import sellerlee.back.article.application.SalesHistoryResponse;
+import sellerlee.back.article.application.TradeSateUpdateRequest;
 import sellerlee.back.member.domain.Member;
 
 @RestController
@@ -36,9 +39,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> post(@RequestBody ArticleRequest request) {
-        Long articleId = articleService.post(request);
-
+    public ResponseEntity<Void> create(@RequestBody ArticleRequest request) {
+        Long articleId = articleService.create(request);
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
                 .build();
@@ -82,6 +84,41 @@ public class ArticleController {
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @GetMapping("/trade-state")
+    public ResponseEntity<List<SalesHistoryResponse>> showSalesDetailsArticle(
+            @RequestParam String tradeState) {
+        // TODO: 2020/08/12 로그인생기면 없어질 member
+        Member member = new Member(
+                51L,
+                "turtle@woowabro.com",
+                "1234",
+                "testNickname",
+                "testUri",
+                4.0);
+        List<SalesHistoryResponse> salesHistoryRespons = articleViewService.showSalesDetails(
+                member,
+                tradeState);
+
+        return ResponseEntity.ok(salesHistoryRespons);
+    }
+
+    @PatchMapping("/trade-state")
+    public ResponseEntity<SalesHistoryResponse> updateTradeState(
+            @RequestBody TradeSateUpdateRequest tradeSateUpdateRequest) {
+        // TODO: 2020/08/12 로그인생기면 없어질 member
+        Member member = new Member(
+                51L,
+                "turtle@woowabro.com",
+                "1234",
+                "testNickname",
+                "testUri",
+                4.0);
+
+        articleService.updateTradeState(member, tradeSateUpdateRequest);
+
+        return ResponseEntity.ok().build();
     }
 
     /*

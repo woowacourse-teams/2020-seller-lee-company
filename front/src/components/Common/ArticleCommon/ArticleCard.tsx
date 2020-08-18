@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ArticleCardProps } from "../../../types/types";
@@ -13,12 +9,11 @@ import ArticleCardAdditional from "./ArticleCardAdditional";
 export default function ArticleCard({
   title,
   price,
-  tradeType,
-  location,
   createdTime,
   favoriteCount,
   chatCount,
   thumbnail,
+  tradeState,
 }: ArticleCardProps) {
   return (
     <View style={styles.container}>
@@ -27,11 +22,7 @@ export default function ArticleCard({
       </View>
       <View style={styles.contentsContainer}>
         <ArticleCardTitle title={title} />
-        <ArticleCardTradeDetails
-          location={location}
-          tradeType={tradeType}
-          createdTime={createdTime}
-        />
+        <ArticleCardTradeDetails createdTime={createdTime} />
         <ArticleCardAdditional
           price={price}
           chatCount={chatCount}
@@ -42,8 +33,6 @@ export default function ArticleCard({
   );
 }
 
-export const innerContainerMargin = 10;
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -52,7 +41,7 @@ const styles = StyleSheet.create({
   },
   contentsContainer: {
     flex: 1,
-    margin: innerContainerMargin,
+    margin: 13,
   },
   articleCardImageContainer: {
     aspectRatio: 1,

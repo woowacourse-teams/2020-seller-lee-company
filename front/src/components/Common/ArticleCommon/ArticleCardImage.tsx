@@ -1,7 +1,3 @@
-/**
- * @author lxxjn0
- */
-
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 
@@ -16,6 +12,8 @@ export default function ArticleCardImage({ thumbnail }: ArticleCardImageProps) {
     </View>
   );
 }
+
+const innerContainerMargin = 13;
 
 const styles = StyleSheet.create({
   imageContainer: {

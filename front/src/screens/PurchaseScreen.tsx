@@ -5,7 +5,6 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { PurchaseScreenNavigationProp } from "../types/types";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import PurchaseArticle from "../components/Profile/PurchaseArticle";
@@ -14,7 +13,7 @@ import { useRecoilState } from "recoil/dist";
 import { tradeArticleState } from "../states/articleState";
 
 export default function PurchaseScreen() {
-  const navigation = useNavigation<PurchaseScreenNavigationProp>();
+  const navigation = useNavigation();
   const [tradeArticles, setTradeArticles] = useRecoilState(tradeArticleState);
 
   useLayoutEffect(() => {
@@ -56,7 +55,6 @@ export default function PurchaseScreen() {
           <PurchaseArticle
             title={item.title}
             price={item.price}
-            tradeType={item.tradeType}
             createdTime={item.createdTime}
             favoriteCount={7}
             chatCount={2}

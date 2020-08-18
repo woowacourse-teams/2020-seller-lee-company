@@ -5,12 +5,14 @@ import static java.util.stream.Collectors.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
+import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import sellerlee.back.favorite.domain.Favorite;
@@ -68,6 +70,66 @@ public class ArticleViewService {
                 .collect(toList());
 
         return FeedResponse.listOf(articles, favoriteCounts, favoriteStates);
+    }
+
+    // TODO: 2020/08/17 chatCount mockData
+    public List<SalesHistoryResponse> showSalesDetails(Member member, String tradeState) {
+        if (TradeState.isCompleted(tradeState)) {
+            List<Article> articles = getTradeCompletedBy(member);
+
+            return getSalesDetailsResponses(articles, 3L);
+        }
+        List<Article> articles = getTradeNotCompletedBy(member);
+
+        return getSalesDetailsResponses(articles, 3L);
+    }
+
+    private List<Article> getTradeNotCompletedBy(Member member) {
+        return articleRepository.findAllByAuthorAndTradeStateNot(member,
+                TradeState.COMPLETED);
+    }
+
+    private List<Article> getTradeCompletedBy(Member member) {
+        return articleRepository.findAllByAuthorAndTradeState(member,
+                TradeState.COMPLETED);
+    }
+
+    private List<SalesHistoryResponse> getSalesDetailsResponses(List<Article> articles,
+            Long chatCount) {
+        return articles.stream()
+                .map(article -> SalesHistoryResponse.of(article,
+                        favoriteRepository.countAllByArticle(article), chatCount))
+                .collect(Collectors.toList());
+    }
+
+    // TODO: 2020/08/17 chatCount mockData
+    public List<SalesHistoryResponse> showSalesDetails(Member member, String tradeState) {
+        if (TradeState.isCompleted(tradeState)) {
+            List<Article> articles = getTradeCompletedBy(member);
+
+            return getSalesDetailsResponses(articles, 3L);
+        }
+        List<Article> articles = getTradeNotCompletedBy(member);
+
+        return getSalesDetailsResponses(articles, 3L);
+    }
+
+    private List<Article> getTradeNotCompletedBy(Member member) {
+        return articleRepository.findAllByAuthorAndTradeStateNot(member,
+                TradeState.COMPLETED);
+    }
+
+    private List<Article> getTradeCompletedBy(Member member) {
+        return articleRepository.findAllByAuthorAndTradeState(member,
+                TradeState.COMPLETED);
+    }
+
+    private List<SalesHistoryResponse> getSalesDetailsResponses(List<Article> articles,
+            Long chatCount) {
+        return articles.stream()
+                .map(article -> SalesHistoryResponse.of(article,
+                        favoriteRepository.countAllByArticle(article), chatCount))
+                .collect(Collectors.toList());
     }
 
     // @Transactional(readOnly = true)

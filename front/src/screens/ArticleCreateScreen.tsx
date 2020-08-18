@@ -29,7 +29,7 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { Article, ArticleFormScreenNavigationProp } from "../types/types";
+import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
@@ -37,8 +37,8 @@ import ArticleContentsForm from "../components/Article/ArticleContentsForm";
 import { defaultArticle } from "../data/defaultArticle";
 import { memberIdState } from "../states/loginState";
 
-export default function ArticleFormScreen() {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+export default function ArticleCreateScreen() {
+  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
   const [article, setArticle] = useState<Article>(defaultArticle);
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);

@@ -1,3 +1,7 @@
+/**
+ * @author joseph415
+ */
+
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
@@ -12,7 +16,7 @@ export type TabHomeNavigationProp = BottomTabNavigationProp<
 >;
 
 export type ArticleNavigationParamList = {
-  FeedHome: undefined;
+  Home: undefined;
   SellerLee: undefined;
   ChatRoom: undefined;
   ArticleDetailScreen: undefined;
@@ -25,7 +29,7 @@ export type ArticleNavigationParamList = {
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
-  "FeedHome"
+  "Home"
 >;
 
 export type ChatRoomNavigationProp = StackNavigationProp<
@@ -44,6 +48,11 @@ export type ArticleDetailImageSliderNavigationProp = StackNavigationProp<
 >;
 
 export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
+  ArticleNavigationParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
+export type ArticleDetailImageViewRouteProp = RouteProp<
   ArticleNavigationParamList,
   "ArticleDetailImageViewScreen"
 >;
@@ -74,29 +83,20 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type ArticleFormParamList = {
-  ArticleFormScreen: undefined;
+export type ArticleCreateParamList = {
+  ArticleCreateScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
 };
 
-export type ArticleFormScreenNavigationProp = StackNavigationProp<
-  ArticleFormParamList,
-  "ArticleFormScreen"
+export type ArticleCreateScreenNavigationProp = StackNavigationProp<
+  ArticleCreateParamList,
+  "ArticleCreateScreen"
 >;
 
 export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
-  ArticleFormParamList,
+  ArticleCreateParamList,
   "ArticleContentsFormScreen"
->;
-
-export type ProfileParamList = {
-  PurchaseScreen: undefined;
-};
-
-export type PurchaseScreenNavigationProp = StackNavigationProp<
-  ProfileParamList,
-  "PurchaseScreen"
 >;
 
 export type Category =
@@ -114,6 +114,16 @@ export type Category =
   | "도서/티켓/음반"
   | "기타 중고물품";
 
+export interface CategoryAndTimeProps {
+  category: Category;
+  time: string;
+}
+
+export interface FavoriteCountAndHitProps {
+  favoriteCount: number;
+  hit: number;
+}
+
 export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface ArticleDetailFavoriteProp {
@@ -127,6 +137,21 @@ export interface Feed {
   tags: string[];
   favoriteState: boolean;
   photos: string[];
+}
+
+export interface Tag {
+  id: number;
+  tag: string;
+}
+
+export interface CategoryAndTimeProps {
+  category: Category;
+  time: string;
+}
+
+export interface FavoriteCountAndHitProps {
+  favoriteCount: number;
+  hit: number;
 }
 
 export interface Feed {
@@ -143,7 +168,6 @@ export interface Article {
   categoryName: string;
   price: number;
   contents: string;
-  tradeType: string;
   tradeState: string;
   tags: string[];
   photos: string[];
@@ -163,6 +187,18 @@ export interface ArticleCard {
   createdTime: string;
 }
 
+//둘중 하나 선택해야함 프론트에 tradeState 고르는 컴포넌트 만들때 필요
+export interface ArticleCardProps {
+  id: number;
+  title: string;
+  price: number;
+  createdTime: string;
+  favoriteCount: number;
+  chatCount: number;
+  thumbnail: string;
+  tradeState: string;
+}
+
 export interface Author {
   id: number;
   nickname: string;
@@ -176,13 +212,14 @@ export interface Buyer {
   nickname: string;
 }
 
-export interface ArticleCardProps {
-  title: string;
-  price: number;
-  tradeType: string;
-  location?: string;
-  createdTime: string;
-  favoriteCount: number;
-  chatCount: number;
-  thumbnail: string;
-}
+export type MyPageParamList = {
+  MyPage: undefined;
+  SalesDetails: undefined;
+  ArticleDetailScreen: undefined;
+  Evaluation: undefined;
+};
+
+export type MyPageNavigationProps = StackNavigationProp<
+  MyPageParamList,
+  "SalesDetails"
+>;

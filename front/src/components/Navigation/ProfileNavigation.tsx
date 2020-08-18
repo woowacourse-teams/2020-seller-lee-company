@@ -4,8 +4,9 @@ import SalesHistoryScreen from "../../screens/SalesHistoryScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 
 type ProfileNavigationParamList = {
-  Profile: undefined;
+  ProfileScreen: undefined;
   SalesHistoryScreen: undefined;
+  PurchaseScreen: undefined;
 };
 
 const Stack = createStackNavigator<ProfileNavigationParamList>();
@@ -13,7 +14,7 @@ const Stack = createStackNavigator<ProfileNavigationParamList>();
 export default function ProfileNavigation() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       <Stack.Screen name="SalesHistoryScreen" component={SalesHistoryScreen} />
     </Stack.Navigator>
   );

@@ -3,6 +3,7 @@ import axios from "axios";
 // const BASE_URL = "http://3.34.248.131:8080";
 const BASE_URL = "http://localhost:8080";
 const domain = {
+  tradeState: "/trade-state",
   articles: "/articles",
   members: "/members",
   trades: "/trades",
@@ -42,6 +43,11 @@ export const articlesAPI = {
     await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data),
   delete: async (articleId: number) =>
     await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),
+  updateTradeState: async (id: number, data: ArticlesGetByTradeState) =>
+    await axios.patch(
+      `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
+      data,
+    ),
 };
 
 export const articleDetailAPI = {

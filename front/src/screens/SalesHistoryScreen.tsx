@@ -13,7 +13,7 @@ import { articlesAPI } from "../api/api";
 
 const salesHistoryTabs = [
   { key: "onSale", title: "판매중" },
-  { key: "completed", title: "거래완료" },
+  { key: "completed", title: "판매 완료" },
 ];
 
 export default function SalesHistoryScreen() {
