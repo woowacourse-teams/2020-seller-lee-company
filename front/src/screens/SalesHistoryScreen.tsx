@@ -11,12 +11,12 @@ import { useSetRecoilState } from "recoil/dist";
 import { articleSalesHistoryState } from "../states/articleState";
 import { articlesAPI } from "../api/api";
 
-const salesHistoryTabs = [
-  { key: "onSale", title: "판매중" },
-  { key: "completed", title: "판매 완료" },
-];
-
 export default function SalesHistoryScreen() {
+  const salesHistoryTabs = [
+    { key: "onSale", title: "판매중" },
+    { key: "completed", title: "판매 완료" },
+  ];
+
   const ON_SALE = "ON_SALE";
   const ON_SALE_INDEX = 0;
   const COMPLETED = "COMPLETED";

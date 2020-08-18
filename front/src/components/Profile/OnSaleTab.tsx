@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil/dist";
 import { articleSalesHistoryState } from "../../states/articleState";
 
 export default function OnSaleTab() {
-  const article = useRecoilValue(articleSalesHistoryState);
+  const articles = useRecoilValue(articleSalesHistoryState);
 
   return <View />;
 }

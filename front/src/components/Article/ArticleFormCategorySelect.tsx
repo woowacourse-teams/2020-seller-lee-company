@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
-import { ArticleCreateScreenNavigationProp } from "../../types/types";
+import { ArticleFormScreenNavigationProp } from "../../types/types";
 
 interface ArticleFormCategorySelectProp {
   isEditing: boolean;
@@ -13,7 +13,7 @@ interface ArticleFormCategorySelectProp {
 export default function ArticleFormCategorySelect({
   isEditing,
 }: ArticleFormCategorySelectProp) {
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
 
   const renderCategory = () => {

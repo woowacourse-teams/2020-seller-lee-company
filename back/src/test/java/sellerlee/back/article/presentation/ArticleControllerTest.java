@@ -178,7 +178,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("판매내역을 상세조회 한다.")
     @Test
     void showSalesDetails() throws Exception {
-        when(articleViewService.showSalesDetails(any(), any()))
+        when(articleViewService.showByTradeState(any(), any()))
                 .thenReturn(Collections.singletonList(SalesHistoryResponse.of(ARTICLE1, 5L, 3L)));
 
         // @formatter:off

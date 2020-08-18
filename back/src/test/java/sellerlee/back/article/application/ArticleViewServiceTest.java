@@ -100,10 +100,10 @@ class ArticleViewServiceTest {
                         ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
+        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
                 MEMBER1, "판매 완료");
 
-        assertThat(salesHistoryResponses).hasSize(1);
+        assertThat(responses).hasSize(1);
     }
 
     @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
@@ -114,10 +114,10 @@ class ArticleViewServiceTest {
                         ARTICLE1, ARTICLE2, ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
+        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
                 MEMBER1, "예약중|판매중");
 
-        assertThat(salesHistoryResponses).hasSize(3);
+        assertThat(responses).hasSize(3);
     }
     // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
     // @Test

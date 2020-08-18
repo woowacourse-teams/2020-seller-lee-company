@@ -34,16 +34,15 @@ interface ArticlesGetByTradeState {
 }
 
 export const articlesAPI = {
-  get: async (params: ArticlesGet) => {
+  get: async (params: ArticlesGet) =>{
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}`, {
-      params,
+    return await axios.get(`${BASE_URL}${domain.articles}`, { params,
       headers: {
         Authorization: `bearer ${token}`,
-      },
-    });
+      }
+    })
   },
-  getByTradeState: async (params: ArticlesGetByTradeState) => {
+  getByTradeState: async (params: ArticlesGetByTradeState) =>{
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.articles}/trade-state`, {
       params,
@@ -68,15 +67,7 @@ export const articlesAPI = {
       },
     });
   },
-  delete: async (articleId: number) => {
-    const token = await DeviceStorage.getToken();
-    return await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-  updateTradeState: async (id: number, data: ArticlesGetByTradeState) => {
+  putByTradeState: async (id: number, data: ArticlesGetByTradeState) =>{
     const token = await DeviceStorage.getToken();
     return await axios.patch(
       `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
@@ -85,9 +76,11 @@ export const articlesAPI = {
         headers: {
           Authorization: `bearer ${token}`,
         },
-      },
-    );
+      }
+    )
   },
+  delete: async (articleId: number) =>
+    await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),
 };
 
 export const articleDetailAPI = {

@@ -180,8 +180,6 @@ export interface Article {
 export interface ArticleCard {
   title: string;
   price: number;
-  tradeType: string;
-  tradeLocation: string;
   thumbnail: string;
   createdTime: string;
 }
@@ -211,13 +209,11 @@ export interface Buyer {
   nickname: string;
 }
 
-
 export type ProfileNavigationParamList = {
   ProfileScreen: undefined;
   SalesHistoryScreen: undefined;
-  ArticleDetailScreen: undefined;
+  PurchaseHistoryScreen: undefined;
   Evaluation: undefined;
-  PurchaseScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
@@ -225,9 +221,9 @@ export type ProfileScreenNavigationProp = StackNavigationProp<
   "ProfileScreen"
 >;
 
-export type PurchaseScreenNavigationProp = StackNavigationProp<
+export type PurchaseHistoryScreenNavigationProp = StackNavigationProp<
   ProfileNavigationParamList,
-  "PurchaseScreen"
+  "PurchaseHistoryScreen"
 >;
 
 export interface Score {

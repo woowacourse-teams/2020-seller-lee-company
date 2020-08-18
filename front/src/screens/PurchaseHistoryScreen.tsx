@@ -7,9 +7,10 @@ import PurchaseArticle from "../components/Profile/PurchaseArticle";
 import { tradeAPI } from "../api/api";
 import { useRecoilState } from "recoil/dist";
 import { tradeArticleState } from "../states/articleState";
+import { PurchaseHistoryScreenNavigationProp } from "../types/types";
 
-export default function PurchaseScreen() {
-  const navigation = useNavigation();
+export default function PurchaseHistoryScreen() {
+  const navigation = useNavigation<PurchaseHistoryScreenNavigationProp>();
   const [tradeArticles, setTradeArticles] = useRecoilState(tradeArticleState);
 
   useLayoutEffect(() => {

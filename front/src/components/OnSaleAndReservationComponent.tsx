@@ -8,14 +8,11 @@ import {
   View,
 } from "react-native";
 import colors from "../colors";
-import { ArticleCardProps, MyPageParamList } from "../types/types";
+import { ArticleCardProps } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import ArticleCard from "./Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../api/api";
 import { COMPLETED, RESERVATION } from "../screens/SalesDetailsScreen";
-
-type SalesDetails = StackNavigationProp<MyPageParamList, "SalesDetails">;
 
 const ANIMATE_START_VALUE = 0.93;
 
@@ -29,7 +26,7 @@ export default function OnSaleAndReservationComponent({
   thumbnail,
   tradeState,
 }: ArticleCardProps) {
-  const navigation = useNavigation<SalesDetails>();
+  const navigation = useNavigation();
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
   );
@@ -51,7 +48,7 @@ export default function OnSaleAndReservationComponent({
 
   const patchTradeState = async (data: string) => {
     console.log(id);
-    await articlesAPI.updateTradeState(id, { tradeState: data });
+    await articlesAPI.putByTradeState(id, { tradeState: data });
     setTradeStateState(data);
     data === COMPLETED && navigation.navigate("Evaluation");
   };

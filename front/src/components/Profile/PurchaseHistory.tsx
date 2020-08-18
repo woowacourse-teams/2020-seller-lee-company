@@ -11,7 +11,7 @@ export default function PurchaseHistory() {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => navigation.navigate("PurchaseScreen")}
+        onPress={() => navigation.navigate("PurchaseHistoryScreen")}
       >
         <AntDesign name="shoppingcart" size={30} color="black" />
         <Text style={styles.text}>구매 내역</Text>

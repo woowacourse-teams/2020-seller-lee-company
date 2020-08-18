@@ -43,10 +43,15 @@ public class ArticleController {
 
     // TODO: 2020/08/12 request의 authorId를 @LoginMember로 대체하기
     @PostMapping
+<<<<<<< HEAD
     public ResponseEntity<Void> create(@RequestBody ArticleRequest request,
             @LoginMember Member loginMember) {
         Long articleId = articleService.create(request, loginMember);
 
+=======
+    public ResponseEntity<Void> create(@RequestBody ArticleRequest request) {
+        Long articleId = articleService.create(request);
+>>>>>>> refactor: 불필요한 코드 제거
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
                 .build();
@@ -57,9 +62,7 @@ public class ArticleController {
             @RequestParam int size, @LoginMember Member loginMember) {
         List<FeedResponse> responses = articleViewService.showPage(lastArticleId, size,
                 loginMember);
-
-        return ResponseEntity
-                .ok(responses);
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
@@ -90,11 +93,8 @@ public class ArticleController {
     @GetMapping(TRADE_STATE_URI)
     public ResponseEntity<List<SalesHistoryResponse>> showSalesDetailsArticle(
             @RequestParam String tradeState, @LoginMember Member loginMember) {
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
-                loginMember, tradeState);
-
-        return ResponseEntity
-                .ok(salesHistoryResponses);
+        List<SalesHistoryResponse> responses = articleViewService.showSalesDetails(loginMember, tradeState);
+        return ResponseEntity.ok(responses);
     }
 
     @PatchMapping(TRADE_STATE_URI)
@@ -102,10 +102,7 @@ public class ArticleController {
             @RequestBody TradeSateUpdateRequest tradeSateUpdateRequest,
             @LoginMember Member loginMember) {
         articleService.updateTradeState(loginMember, tradeSateUpdateRequest);
-
-        return ResponseEntity
-                .ok()
-                .build();
+        return ResponseEntity.ok().build();
     }
 
     // MemberResponse.of의 인자로 Favorite도 받도록 변경되어서 일단 주석처리했음
