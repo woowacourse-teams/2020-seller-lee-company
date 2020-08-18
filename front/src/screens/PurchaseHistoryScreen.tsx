@@ -54,7 +54,6 @@ export default function PurchaseHistoryScreen() {
             price={item.price}
             createdTime={item.createdTime}
             favoriteCount={7}
-            chatCount={2}
             thumbnail={item.thumbnail}
           />
         )}

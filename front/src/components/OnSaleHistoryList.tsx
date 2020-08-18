@@ -12,20 +12,18 @@ import { ArticleCardProps } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import ArticleCard from "./Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../api/api";
-import { COMPLETED, RESERVATION } from "../screens/SalesDetailsScreen";
 
-const ANIMATE_START_VALUE = 0.93;
-
-export default function OnSaleAndReservationComponent({
+export default function OnSaleHistoryList({
   id,
   title,
   price,
   createdTime,
   favoriteCount,
-  chatCount,
   thumbnail,
   tradeState,
 }: ArticleCardProps) {
+  const ANIMATE_START_VALUE = 0.93;
+
   const navigation = useNavigation();
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
@@ -46,11 +44,10 @@ export default function OnSaleAndReservationComponent({
     navigation.navigate("ArticleDetailScreen");
   };
 
-  const patchTradeState = async (data: string) => {
-    console.log(id);
-    await articlesAPI.putByTradeState(id, { tradeState: data });
-    setTradeStateState(data);
-    data === COMPLETED && navigation.navigate("Evaluation");
+  const onClickTradeState = async (tradeState: string) => {
+    await articlesAPI.putByTradeState(id, { tradeState });
+    setTradeStateState(tradeState);
+    tradeState === "COMPLETED" && navigation.navigate("Evaluation");
   };
 
   return (
@@ -66,7 +63,6 @@ export default function OnSaleAndReservationComponent({
             price={price}
             createdTime={createdTime}
             favoriteCount={favoriteCount}
-            chatCount={chatCount}
             thumbnail={thumbnail}
             tradeState={tradeStateState}
           />
@@ -75,14 +71,14 @@ export default function OnSaleAndReservationComponent({
           <TouchableOpacity
             style={styles.reservationContainer}
             activeOpacity={0.5}
-            onPress={() => patchTradeState(RESERVATION)}
+            onPress={() => onClickTradeState("RESERVATION")}
           >
             <Text style={styles.salesCompletedText}>예약중</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.onSaleContainer}
             activeOpacity={0.5}
-            onPress={() => patchTradeState(COMPLETED)}
+            onPress={() => onClickTradeState("COMPLETED")}
           >
             <Text style={styles.salesCompletedText}>판매 완료</Text>
           </TouchableOpacity>

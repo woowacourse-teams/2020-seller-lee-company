@@ -8,7 +8,6 @@ interface PurchaseArticleProps {
   price: number;
   createdTime: string;
   favoriteCount: number;
-  chatCount: number;
   thumbnail: string;
 }
 
@@ -17,10 +16,8 @@ export default function PurchaseArticle({
   price,
   createdTime,
   favoriteCount,
-  chatCount,
   thumbnail,
 }: PurchaseArticleProps) {
-  //터틀이 이미 해둔거라 임시로 넣어둠
   return (
     <View style={styles.container}>
       <View style={styles.articleCardContainer}>
@@ -30,7 +27,6 @@ export default function PurchaseArticle({
           price={price}
           createdTime={createdTime}
           favoriteCount={favoriteCount}
-          chatCount={chatCount}
           thumbnail={thumbnail}
           tradeState={"판매중"}
         />

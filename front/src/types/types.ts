@@ -191,7 +191,6 @@ export interface ArticleCardProps {
   price: number;
   createdTime: string;
   favoriteCount: number;
-  chatCount: number;
   thumbnail: string;
   tradeState: string;
 }

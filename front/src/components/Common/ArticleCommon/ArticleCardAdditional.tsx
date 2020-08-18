@@ -4,23 +4,17 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface ArticleCardAdditionalProps {
   price: number;
-  chatCount: number;
   favoriteCount: number;
 }
 
 export default function ArticleCardAdditional({
   price,
-  chatCount,
   favoriteCount,
 }: ArticleCardAdditionalProps) {
   return (
     <View style={styles.pieceAndAdditionalContainer}>
       <Text style={styles.price}>{price}원</Text>
       <View style={styles.additionalContainer}>
-        <View style={styles.chatContainer}>
-          <MaterialCommunityIcons name="chat-outline" size={14} color="black" />
-          <Text style={styles.additionalText}>{chatCount}</Text>
-        </View>
         <View style={styles.favoriteContainer}>
           <MaterialCommunityIcons
             name="heart-outline"
