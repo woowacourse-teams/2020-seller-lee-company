@@ -10,7 +10,6 @@ public class SalesHistoryResponse {
     private Long price;
     private LocalDateTime createdTime;
     private Long favoriteCount;
-    private Long chatCount;
     private String thumbnail;
     private String tradeState;
 
@@ -18,26 +17,23 @@ public class SalesHistoryResponse {
     }
 
     private SalesHistoryResponse(Long id, String title, Long price, LocalDateTime createdTime,
-            Long favoriteCount, Long chatCount,
-            String thumbnail, String tradeState) {
+            Long favoriteCount, String thumbnail, String tradeState) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.createdTime = createdTime;
         this.favoriteCount = favoriteCount;
-        this.chatCount = chatCount;
         this.thumbnail = thumbnail;
         this.tradeState = tradeState;
     }
 
-    public static SalesHistoryResponse of(Article article, Long favoriteCount, Long chatCount) {
+    public static SalesHistoryResponse of(Article article, Long favoriteCount) {
         return new SalesHistoryResponse(
                 article.getId(),
                 article.getTitle(),
                 article.getPrice(),
                 article.getCreatedTime(),
                 favoriteCount,
-                chatCount,
                 article.getPhotos().pickThumbnail(),
                 article.getTradeState().getTradeState()
         );
@@ -61,10 +57,6 @@ public class SalesHistoryResponse {
 
     public Long getFavoriteCount() {
         return favoriteCount;
-    }
-
-    public Long getChatCount() {
-        return chatCount;
     }
 
     public String getThumbnail() {

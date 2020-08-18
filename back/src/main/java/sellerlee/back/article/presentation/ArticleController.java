@@ -70,8 +70,7 @@ public class ArticleController {
             @LoginMember Member loginMember) {
         ArticleResponse articleResponse = articleViewService.show(id, loginMember);
 
-        return ResponseEntity
-                .ok(articleResponse);
+        return ResponseEntity.ok(articleResponse);
     }
 
     @PutMapping("/{id}")
@@ -84,10 +83,7 @@ public class ArticleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         articleService.deleteById(id);
-
-        return ResponseEntity
-                .noContent()
-                .build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(TRADE_STATE_URI)
@@ -102,7 +98,7 @@ public class ArticleController {
             @RequestBody TradeSateUpdateRequest tradeSateUpdateRequest,
             @LoginMember Member loginMember) {
         articleService.updateTradeState(loginMember, tradeSateUpdateRequest);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     // MemberResponse.of의 인자로 Favorite도 받도록 변경되어서 일단 주석처리했음
