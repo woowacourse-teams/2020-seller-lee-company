@@ -28,6 +28,10 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
 
         if (StringUtils.isBlank(credentials)) {
+            if (request.getServletPath().equals("/index.html") || request.getServletPath().equals("/docs.html")) {
+                return true;
+            }
+
             throw new AuthenticationException("토큰이 존재하지 않습니다.");
         }
 
