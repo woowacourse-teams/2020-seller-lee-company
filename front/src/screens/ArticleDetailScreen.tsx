@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
@@ -49,7 +49,7 @@ export default function ArticleDetailScreen() {
   const route = useRoute<ArticleDetailRouteProp>();
   const photos = route.params.photos;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: "",
       headerTransparent: true,
