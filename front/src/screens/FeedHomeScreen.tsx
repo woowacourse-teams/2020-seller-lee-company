@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
@@ -15,7 +15,6 @@ export default function FeedHomeScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Feed[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
-  const isFocused = useIsFocused();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,7 +33,7 @@ export default function FeedHomeScreen() {
 
   useEffect(() => {
     initFeed();
-  }, [isFocused]);
+  }, []);
 
   const initFeed = async () => {
     const { data } = await articlesAPI.get({
