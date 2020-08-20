@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, View } from "react-native";
 import { useRecoilValue } from "recoil/dist";
 import { articleSalesHistoryState } from "../../states/articleState";
-import SalesHistoryList from "./SalesHistoryList";
+import SalesHistoryItem from "./SalesHistoryItem";
 
 export default function OnSaleTab() {
   const articles = useRecoilValue(articleSalesHistoryState);
@@ -12,7 +12,7 @@ export default function OnSaleTab() {
       <FlatList
         data={articles}
         renderItem={({ item }) => (
-          <SalesHistoryList isCompletedTab={false} article={item} />
+          <SalesHistoryItem isCompletedTab={false} article={item} />
         )}
         keyExtractor={(item, index) => `${index}`}
       />

@@ -48,15 +48,7 @@ export default function PurchaseHistoryScreen() {
     <View style={styles.container}>
       <FlatList
         data={tradeArticles}
-        renderItem={({ item }) => (
-          <PurchaseArticle
-            title={item.title}
-            price={item.price}
-            createdTime={item.createdTime}
-            favoriteCount={7}
-            thumbnail={item.thumbnail}
-          />
-        )}
+        renderItem={({ item }) => <PurchaseArticle article={item} />}
         keyExtractor={(item, index) => `${index}`}
       />
     </View>

@@ -177,22 +177,13 @@ export interface Article {
   createdTime: string;
 }
 
-export interface ArticleCard {
-  title: string;
-  price: number;
-  thumbnail: string;
-  createdTime: string;
-}
-
-//둘중 하나 선택해야함 프론트에 tradeState 고르는 컴포넌트 만들때 필요
 export interface ArticleCardProps {
   id: number;
   title: string;
   price: number;
-  createdTime: string;
-  favoriteCount: number;
   thumbnail: string;
-  tradeState: string;
+  favoriteCount: number;
+  createdTime: string;
 }
 
 export interface Author {

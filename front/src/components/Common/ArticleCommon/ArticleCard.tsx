@@ -12,7 +12,6 @@ export default function ArticleCard({
   createdTime,
   favoriteCount,
   thumbnail,
-  tradeState,
 }: ArticleCardProps) {
   return (
     <View style={styles.container}>

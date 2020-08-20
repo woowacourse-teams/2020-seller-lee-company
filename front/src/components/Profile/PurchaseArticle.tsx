@@ -2,33 +2,25 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ArticleCard from "../Common/ArticleCommon/ArticleCard";
 import theme from "../../colors";
+import { ArticleCardProps } from "../../types/types";
 
 interface PurchaseArticleProps {
-  title: string;
-  price: number;
-  createdTime: string;
-  favoriteCount: number;
-  thumbnail: string;
+  article: ArticleCardProps;
 }
 
 export default function PurchaseArticle({
-  title,
-  price,
-  createdTime,
-  favoriteCount,
-  thumbnail,
+  article: { id, title, price, createdTime, favoriteCount, thumbnail },
 }: PurchaseArticleProps) {
   return (
     <View style={styles.container}>
       <View style={styles.articleCardContainer}>
         <ArticleCard
-          id={1}
+          id={id}
           title={title}
           price={price}
           createdTime={createdTime}
           favoriteCount={favoriteCount}
           thumbnail={thumbnail}
-          tradeState={"판매중"}
         />
       </View>
       <TouchableOpacity activeOpacity={0.5} style={styles.buttonContainer}>
