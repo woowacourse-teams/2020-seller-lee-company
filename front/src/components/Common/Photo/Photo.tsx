@@ -22,7 +22,7 @@ import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
 import theme from "../../../colors";
-import { s3Secret } from "../../../secret";
+import { s3Secret } from "../../../../../seller-lee-secret/secret";
 import { loginIdState } from "../../../states/loginState";
 
 export default function Photo() {
