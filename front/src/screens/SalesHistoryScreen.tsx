@@ -10,6 +10,7 @@ import CompletedTab from "../components/Profile/CompletedTab";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSalesHistoryState } from "../states/articleState";
 import { articlesAPI } from "../api/api";
+import { SalesHistoryScreenNavigationProp } from "../types/types";
 
 export const ON_SALE = "ON_SALE";
 export const RESERVATION = "RESERVATION";
@@ -23,7 +24,7 @@ export default function SalesHistoryScreen() {
   const ON_SALE_INDEX = 0;
   const COMPLETED_INDEX = 1;
 
-  const navigation = useNavigation(); // TODO: 타입 지정
+  const navigation = useNavigation<SalesHistoryScreenNavigationProp>();
   const [index, setIndex] = useState(0);
   const [routes] = useState(salesHistoryTabs);
   const setSalesHistoryArticles = useSetRecoilState(articleSalesHistoryState);

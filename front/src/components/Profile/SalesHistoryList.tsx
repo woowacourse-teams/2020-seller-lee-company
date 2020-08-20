@@ -7,12 +7,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import colors from "../colors";
-import { Article } from "../types/types";
+import colors from "../../colors";
+import { Article, SalesHistoryScreenNavigationProp } from "../../types/types";
 import { useNavigation } from "@react-navigation/native";
-import ArticleCard from "./Common/ArticleCommon/ArticleCard";
-import { articlesAPI } from "../api/api";
-import theme from "../colors";
+import ArticleCard from "../Common/ArticleCommon/ArticleCard";
+import { articlesAPI } from "../../api/api";
+import theme from "../../colors";
 
 interface OnSaleHistoryListProps {
   isCompletedTab: boolean;
@@ -25,7 +25,7 @@ export default function SalesHistoryList({
 }: OnSaleHistoryListProps) {
   const ANIMATE_START_VALUE = 0.93;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<SalesHistoryScreenNavigationProp>();
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
   );
@@ -48,7 +48,8 @@ export default function SalesHistoryList({
   const onClickTradeState = async (tradeState: string) => {
     await articlesAPI.putByTradeState(id, { tradeState });
     setTradeStateState(tradeState);
-    tradeState === "COMPLETED" && navigation.navigate("EvaluationScreen");
+    // TODO: 1:1 채팅 생기면 반영
+    // tradeState === "COMPLETED" && navigation.navigate("SelectBuyerScreen");
   };
 
   return (
@@ -65,16 +66,11 @@ export default function SalesHistoryList({
             createdTime={createdTime}
             favoriteCount={favoriteCount}
             thumbnail={photos ? photos[0] : "tempURI"}
-            tradeState={tradeStateState}
           />
         </View>
         {isCompletedTab ? (
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate("EvaluationScreen")}
-          >
-            <Text style={styles.buttonText}>평가하기</Text>
+          <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.5}>
+            <Text style={styles.buttonText}>작성한 후기 보기</Text>
           </TouchableOpacity>
         ) : (
           <View style={styles.halfContainer}>

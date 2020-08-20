@@ -5,6 +5,8 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import { ProfileNavigationParamList } from "../../types/types";
 import PurchaseHistoryScreen from "../../screens/PurchaseHistoryScreen";
 import EvaluationScreen from "../../screens/EvaluationScreen";
+import SelectBuyerScreen from "../../screens/SelectBuyerScreen";
+import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 
 const Stack = createStackNavigator<ProfileNavigationParamList>();
 
@@ -17,6 +19,11 @@ export default function ProfileNavigation() {
         name="PurchaseHistoryScreen"
         component={PurchaseHistoryScreen}
       />
+      <Stack.Screen
+        name="ArticleDetailScreen"
+        component={ArticleDetailScreen}
+      />
+      <Stack.Screen name="SelectBuyerScreen" component={SelectBuyerScreen} />
       <Stack.Screen name="EvaluationScreen" component={EvaluationScreen} />
     </Stack.Navigator>
   );

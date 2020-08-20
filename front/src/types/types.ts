@@ -212,6 +212,8 @@ export type ProfileNavigationParamList = {
   ProfileScreen: undefined;
   SalesHistoryScreen: undefined;
   PurchaseHistoryScreen: undefined;
+  ArticleDetailScreen: undefined;
+  SelectBuyerScreen: undefined;
   EvaluationScreen: undefined;
 };
 
@@ -220,9 +222,19 @@ export type ProfileScreenNavigationProp = StackNavigationProp<
   "ProfileScreen"
 >;
 
+export type SalesHistoryScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "SalesHistoryScreen"
+>;
+
 export type PurchaseHistoryScreenNavigationProp = StackNavigationProp<
   ProfileNavigationParamList,
   "PurchaseHistoryScreen"
+>;
+
+export type SelectBuyerScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "SelectBuyerScreen"
 >;
 
 export interface Score {
