@@ -12,6 +12,7 @@ import { Article } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import ArticleCard from "./Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../api/api";
+import theme from "../colors";
 
 interface OnSaleHistoryListProps {
   isCompletedTab: boolean;
@@ -67,34 +68,32 @@ export default function SalesHistoryList({
             tradeState={tradeStateState}
           />
         </View>
-        <View style={styles.onSaleAndReservationContainer}>
-          {isCompletedTab ? (
+        {isCompletedTab ? (
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate("EvaluationScreen")}
+          >
+            <Text style={styles.buttonText}>평가하기</Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.halfContainer}>
             <TouchableOpacity
-              style={styles.reservationContainer}
+              style={styles.buttonHalfContainer}
               activeOpacity={0.5}
-              onPress={() => navigation.navigate("EvaluationScreen")}
+              onPress={() => onClickTradeState("RESERVATION")}
             >
-              <Text style={styles.salesCompletedText}>평가하기</Text>
+              <Text style={styles.buttonText}>예약중</Text>
             </TouchableOpacity>
-          ) : (
-            <>
-              <TouchableOpacity
-                style={styles.reservationContainer}
-                activeOpacity={0.5}
-                onPress={() => onClickTradeState("RESERVATION")}
-              >
-                <Text style={styles.salesCompletedText}>예약중</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.onSaleContainer}
-                activeOpacity={0.5}
-                onPress={() => onClickTradeState("COMPLETED")}
-              >
-                <Text style={styles.salesCompletedText}>판매 완료</Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </View>
+            <TouchableOpacity
+              style={styles.buttonHalfContainer}
+              activeOpacity={0.5}
+              onPress={() => onClickTradeState("COMPLETED")}
+            >
+              <Text style={styles.buttonText}>판매 완료</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </AnimateTouchableWithoutFeedback>
   );
@@ -114,22 +113,26 @@ const styles = StyleSheet.create({
   salesCompletedText: {
     fontSize: 15,
   },
-  onSaleAndReservationContainer: {
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: theme.primary,
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  halfContainer: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: colors.primary,
   },
-  reservationContainer: {
+  buttonHalfContainer: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: theme.primary,
+    paddingVertical: 11,
     alignItems: "center",
-    padding: 8,
-    borderRightWidth: 0.6,
+    justifyContent: "center",
   },
-  onSaleContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
+  buttonText: {
+    fontSize: 14,
+    color: "white",
   },
 });

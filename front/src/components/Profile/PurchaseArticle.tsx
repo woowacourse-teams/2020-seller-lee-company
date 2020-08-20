@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: theme.primary,
-    aspectRatio: 10,
+    paddingVertical: 12,
     alignItems: "center",
     justifyContent: "center",
   },
