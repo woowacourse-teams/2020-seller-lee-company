@@ -71,8 +71,8 @@ export const articlesAPI = {
         headers: {
           Authorization: `bearer ${token}`,
         },
-      }
-    )
+      },
+    );
   },
   delete: async (articleId: number) =>
     await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),

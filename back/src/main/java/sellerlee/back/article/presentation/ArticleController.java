@@ -40,17 +40,10 @@ public class ArticleController {
         this.articleViewService = articleViewService;
     }
 
-    // TODO: 2020/08/12 request의 authorId를 @LoginMember로 대체하기
     @PostMapping
-<<<<<<< HEAD
     public ResponseEntity<Void> create(@RequestBody ArticleRequest request,
             @LoginMember Member loginMember) {
         Long articleId = articleService.create(request, loginMember);
-
-=======
-    public ResponseEntity<Void> create(@RequestBody ArticleRequest request) {
-        Long articleId = articleService.create(request);
->>>>>>> refactor: 불필요한 코드 제거
         return ResponseEntity
                 .created(URI.create(ARTICLE_URI + "/" + articleId))
                 .build();
