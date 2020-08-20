@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   imageBackground: {
     height: "100%",
     width: "100%",
-    opacity: 0.8,
+    opacity: 0.95,
     justifyContent: "flex-end",
   },
   authButtonContainer: {

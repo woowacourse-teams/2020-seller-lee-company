@@ -8,11 +8,7 @@ import TeaserImage from "./TeaserImage";
 export default function TeaserImageSlider() {
   const [sliderIndex, setSliderIndex] = useState(0);
 
-  const teasers = [
-    require("../../../assets/teaser_1.jpg"),
-    require("../../../assets/teaser_2.jpg"),
-    require("../../../assets/teaser_3.jpg"),
-  ];
+  const teasers = [require("../../../assets/teaser_1.jpeg")];
 
   const isLastIndex = () => sliderIndex === teasers.length - 1;
 
@@ -28,15 +24,7 @@ export default function TeaserImageSlider() {
         onIndexChanged={setSliderIndex}
       >
         <TeaserImage
-          sourceUrl={require("../../../assets/teaser_1.jpg")}
-          isLastTeaser={false}
-        />
-        <TeaserImage
-          sourceUrl={require("../../../assets/teaser_2.jpg")}
-          isLastTeaser={false}
-        />
-        <TeaserImage
-          sourceUrl={require("../../../assets/teaser_3.jpg")}
+          sourceUrl={require("../../../assets/teaser_1.jpeg")}
           isLastTeaser={true}
         />
       </Swiper>
