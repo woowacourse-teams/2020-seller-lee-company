@@ -1,5 +1,6 @@
 package sellerlee.back.security.config;
 
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.util.List;
@@ -33,6 +34,6 @@ public class AuthorizationConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenSecurityInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns(MEMBER_URI, LOGIN_URI, "/", "/api");
+                .excludePathPatterns(MEMBER_URI, LOGIN_URI, "/", API_URI, PRIVACY_URI);
     }
 }
