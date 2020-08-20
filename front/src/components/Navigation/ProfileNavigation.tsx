@@ -17,7 +17,7 @@ export default function ProfileNavigation() {
         name="PurchaseHistoryScreen"
         component={PurchaseHistoryScreen}
       />
-      <Stack.Screen name="Evaluation" component={EvaluationScreen} />
+      <Stack.Screen name="EvaluationScreen" component={EvaluationScreen} />
     </Stack.Navigator>
   );
 }

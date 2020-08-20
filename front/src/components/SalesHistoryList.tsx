@@ -8,20 +8,20 @@ import {
   View,
 } from "react-native";
 import colors from "../colors";
-import { ArticleCardProps } from "../types/types";
+import { Article } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import ArticleCard from "./Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../api/api";
 
-export default function OnSaleHistoryList({
-  id,
-  title,
-  price,
-  createdTime,
-  favoriteCount,
-  thumbnail,
-  tradeState,
-}: ArticleCardProps) {
+interface OnSaleHistoryListProps {
+  isCompletedTab: boolean;
+  article: Article;
+}
+
+export default function SalesHistoryList({
+  isCompletedTab,
+  article: { id, title, price, photos, tradeState, favoriteCount, createdTime },
+}: OnSaleHistoryListProps) {
   const ANIMATE_START_VALUE = 0.93;
 
   const navigation = useNavigation();
@@ -47,7 +47,7 @@ export default function OnSaleHistoryList({
   const onClickTradeState = async (tradeState: string) => {
     await articlesAPI.putByTradeState(id, { tradeState });
     setTradeStateState(tradeState);
-    tradeState === "COMPLETED" && navigation.navigate("Evaluation");
+    tradeState === "COMPLETED" && navigation.navigate("EvaluationScreen");
   };
 
   return (
@@ -63,25 +63,37 @@ export default function OnSaleHistoryList({
             price={price}
             createdTime={createdTime}
             favoriteCount={favoriteCount}
-            thumbnail={thumbnail}
+            thumbnail={photos ? photos[0] : "tempURI"}
             tradeState={tradeStateState}
           />
         </View>
         <View style={styles.onSaleAndReservationContainer}>
-          <TouchableOpacity
-            style={styles.reservationContainer}
-            activeOpacity={0.5}
-            onPress={() => onClickTradeState("RESERVATION")}
-          >
-            <Text style={styles.salesCompletedText}>예약중</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.onSaleContainer}
-            activeOpacity={0.5}
-            onPress={() => onClickTradeState("COMPLETED")}
-          >
-            <Text style={styles.salesCompletedText}>판매 완료</Text>
-          </TouchableOpacity>
+          {isCompletedTab ? (
+            <TouchableOpacity
+              style={styles.reservationContainer}
+              activeOpacity={0.5}
+              onPress={() => navigation.navigate("EvaluationScreen")}
+            >
+              <Text style={styles.salesCompletedText}>평가하기</Text>
+            </TouchableOpacity>
+          ) : (
+            <>
+              <TouchableOpacity
+                style={styles.reservationContainer}
+                activeOpacity={0.5}
+                onPress={() => onClickTradeState("RESERVATION")}
+              >
+                <Text style={styles.salesCompletedText}>예약중</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.onSaleContainer}
+                activeOpacity={0.5}
+                onPress={() => onClickTradeState("COMPLETED")}
+              >
+                <Text style={styles.salesCompletedText}>판매 완료</Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </View>
     </AnimateTouchableWithoutFeedback>

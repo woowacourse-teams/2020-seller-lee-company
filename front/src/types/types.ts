@@ -212,7 +212,7 @@ export type ProfileNavigationParamList = {
   ProfileScreen: undefined;
   SalesHistoryScreen: undefined;
   PurchaseHistoryScreen: undefined;
-  Evaluation: undefined;
+  EvaluationScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
