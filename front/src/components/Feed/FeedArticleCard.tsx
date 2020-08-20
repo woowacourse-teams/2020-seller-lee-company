@@ -49,7 +49,7 @@ export default function FeedArticleCard({
       onPress={() => {
         clickArticleAnimate();
         setArticleSelectedId(id);
-        navigation.navigate("ArticleDetailScreen");
+        navigation.navigate("ArticleDetailScreen", { photos });
       }}
       style={{ transform: [{ scale: clickValue }] }}
     >

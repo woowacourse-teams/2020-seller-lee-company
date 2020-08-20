@@ -8,7 +8,7 @@ interface AuthorScoreProps {
 }
 
 export default function AuthorScore({ score }: AuthorScoreProps) {
-  const iconName = `numeric-${score}-circle-outline`;
+  const iconName = `numeric-${score ? score : 0}-circle-outline`;
   const iconColor = () => {
     switch (score) {
       case 0:

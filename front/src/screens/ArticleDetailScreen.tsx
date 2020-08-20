@@ -1,11 +1,14 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import { ArticleDetailNavigationProp } from "../types/types";
+import {
+  ArticleDetailNavigationProp,
+  ArticleNavigationParamList,
+} from "../types/types";
 import ArticlePrice from "../components/Article/ArticlePrice";
 import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
@@ -28,6 +31,13 @@ import {
 import { articleDetailModalState } from "../states/modalState";
 import ArticleDeleteModal from "../components/Common/Modal/ArticleDeleteModal";
 
+import TouchablePhoto from "../components/Common/Photo/TouchablePhoto";
+
+type ArticleDetailRouteProp = RouteProp<
+  ArticleNavigationParamList,
+  "ArticleDetailScreen"
+>;
+
 export default function ArticleDetailScreen() {
   const [currentY, setCurrentY] = useState(0);
   const setModalVisible = useSetRecoilState(articleDetailModalState);
@@ -35,35 +45,11 @@ export default function ArticleDetailScreen() {
   const articleId = useRecoilValue(articleSelectedIdState);
   const setArticleSelected = useSetRecoilState(articleSelectedState);
   const setIsEditing = useSetRecoilState(articleIsEditingState);
-  const isFocused = useIsFocused();
+
+  const route = useRoute<ArticleDetailRouteProp>();
+  const photos = route.params.photos;
 
   useEffect(() => {
-    getArticle();
-  }, [isFocused]);
-
-  const getArticle = async () => {
-    const { data } = await articleDetailAPI.get(articleId);
-    setArticleSelected(data);
-  };
-
-  const dynamicStyles = StyleSheet.create({
-    headerBackground: {
-      height: 90,
-      backgroundColor: `rgba(255,255,255,${currentY / 70})`,
-    },
-  });
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerBackground: () => <View style={dynamicStyles.headerBackground} />,
-    });
-  }, [currentY]);
-
-  useEffect(() => {
-    getArticle();
-  }, [articleId]);
-
-  useLayoutEffect(() => {
     navigation.setOptions({
       title: "",
       headerTransparent: true,
@@ -105,9 +91,30 @@ export default function ArticleDetailScreen() {
       ),
       headerLeftContainerStyle: { paddingLeft: 10 },
       headerRightContainerStyle: { paddingRight: 15 },
-    }),
-      [navigation];
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackground: () => <View style={dynamicStyles.headerBackground} />,
+    });
+  }, [currentY]);
+
+  const dynamicStyles = StyleSheet.create({
+    headerBackground: {
+      height: 90,
+      backgroundColor: `rgba(255,255,255,${currentY / 70})`,
+    },
   });
+
+  const getArticle = async () => {
+    const { data } = await articleDetailAPI.get(articleId);
+    setArticleSelected(data);
+  };
+
+  useEffect(() => {
+    getArticle();
+  }, [articleId]);
 
   return (
     <View style={styles.container}>
@@ -121,7 +128,11 @@ export default function ArticleDetailScreen() {
         scrollEventThrottle={1}
       >
         <View style={styles.imageSliderContainer}>
-          <ArticleDetailImageSlider />
+          {photos.length === 1 ? (
+            <TouchablePhoto photo={photos[0]} />
+          ) : (
+            <ArticleDetailImageSlider photos={route.params.photos} />
+          )}
         </View>
         <View style={styles.articleAuthorContainer}>
           <ArticleAuthor />

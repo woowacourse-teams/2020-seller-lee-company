@@ -1,36 +1,28 @@
 import React from "react";
-import PhotoBox from "../Common/Photo/PhotoBox";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import Swiper from "react-native-swiper";
 import ActiveDot from "../Common/Dot/ActiveDot";
-import { useNavigation } from "@react-navigation/native";
 import Dot from "../Common/Dot/Dot";
-import { useRecoilValue } from "recoil/dist";
-import { articleSelectedState } from "../../states/articleState";
-import { ArticleDetailImageSliderNavigationProp } from "../../types/types";
+import TouchablePhoto from "../Common/Photo/TouchablePhoto";
 
-export default function ArticleDetailImageSlider() {
-  const navigation = useNavigation<ArticleDetailImageSliderNavigationProp>();
-  const { photos } = useRecoilValue(articleSelectedState);
+interface ArticleDetailImageSliderProps {
+  photos: string[];
+}
 
+export default function ArticleDetailImageSlider({
+  photos,
+}: ArticleDetailImageSliderProps) {
   return (
     <Swiper
-      loadMinimal={true}
+      loadMinimal={false}
       loop={false}
       dot={<Dot />}
       activeDot={<ActiveDot />}
       paginationStyle={styles.pagination}
       centerContent={true}
     >
-      {photos.map((photo, index) => (
-        <TouchableOpacity
-          activeOpacity={1}
-          style={styles.buttonOnImage}
-          key={index}
-          onPress={() => navigation.navigate("ArticleDetailImageViewScreen")}
-        >
-          <PhotoBox photoURI={photo} marginBottom={0} />
-        </TouchableOpacity>
+      {photos.map((photo) => (
+        <TouchablePhoto photo={photo} key={photo} />
       ))}
     </Swiper>
   );
@@ -39,8 +31,5 @@ export default function ArticleDetailImageSlider() {
 const styles = StyleSheet.create({
   pagination: {
     bottom: 15,
-  },
-  buttonOnImage: {
-    flex: 1,
   },
 });
