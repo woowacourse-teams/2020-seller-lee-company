@@ -15,7 +15,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "sdkVersion": "38.0.1",
+    "sdkVersion": "38.0.0",
     "android": {
       "package": "com.sellerleecompany.jikgorae",
       "softwareKeyboardLayoutMode": "pan"
