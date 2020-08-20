@@ -132,6 +132,7 @@ export default function Photo() {
           )}
           contentContainerStyle={styles.photoListContents}
           showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => `${index}`}
         />
       </View>
     </View>

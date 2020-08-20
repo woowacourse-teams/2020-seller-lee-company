@@ -72,7 +72,7 @@ export default function FeedHomeScreen() {
     }
     setIsLoading(true);
     const data = await loadFeed();
-    if (data.length() === 0) {
+    if (data.length === 0) {
       setHasAdditionalArticle(false);
     }
     setIsLoading(false);
