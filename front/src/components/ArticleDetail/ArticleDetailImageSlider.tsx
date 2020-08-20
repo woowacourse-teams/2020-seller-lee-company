@@ -5,11 +5,13 @@ import ActiveDot from "../Common/Dot/ActiveDot";
 import Dot from "../Common/Dot/Dot";
 import TouchablePhoto from "../Common/Photo/TouchablePhoto";
 
+interface ArticleDetailImageSliderProps {
+  photos: string[];
+}
+
 export default function ArticleDetailImageSlider({
   photos,
-}: {
-  photos: string[];
-}) {
+}: ArticleDetailImageSliderProps) {
   return (
     <Swiper
       loadMinimal={false}

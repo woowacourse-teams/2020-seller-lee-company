@@ -4,7 +4,11 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ArticleDetailNavigationProp } from "../../../types/types";
 
-export default function TouchablePhoto({ photo }: { photo: string }) {
+interface TouchablePhotoProps {
+  photo: string;
+}
+
+export default function TouchablePhoto({ photo }: TouchablePhotoProps) {
   const navigation = useNavigation<ArticleDetailNavigationProp>();
   return (
     <TouchableOpacity
