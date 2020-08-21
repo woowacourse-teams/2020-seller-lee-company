@@ -27,7 +27,6 @@ export default function SelectBuyerScreen() {
     StackNavigationProp<SampleNavigationParamList, "SelectBuyerScreen">
   >();
   const [buyers, setBuyers] = useState<Buyer[]>([]);
-  // articleState 사용 (conflict 해결시 반영)
   const articleId = useRecoilValue(articleIdState);
   const title = useRecoilValue(articleTitleState);
   const photo = useRecoilValue(articlePhotosState)[0];

@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import ArticleAuthor from "../components/Article/ArticleAuthor";
+
+import { testChatRoomAPI } from "../api/api";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ChatScreen() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.ArticleAuthorContainer}>
-        <ArticleAuthor />
-      </View>
-    </View>
-  );
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    const getAllChatRoom = async () => {
+      const { data } = await testChatRoomAPI.get();
+      console.log(data);
+    };
+    isFocused ? getAllChatRoom() : null;
+  }, [isFocused]);
+
+  return <View style={styles.container} />;
 }
 
 const styles = StyleSheet.create({
@@ -17,8 +23,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
-  },
-  ArticleAuthorContainer: {
-    marginHorizontal: 10,
   },
 });

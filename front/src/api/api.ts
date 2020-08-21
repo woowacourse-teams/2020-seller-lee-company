@@ -2,7 +2,8 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-const BASE_URL = "http://15.164.125.244:8080";
+const BASE_URL = "http://localhost:8080";
+const BASE_URL_CHAT = "http://localhost:8000";
 
 const domain = {
   tradeState: "/trade-state",
@@ -13,6 +14,7 @@ const domain = {
   chatRoom: "/chat-rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
+  chatRooms: "/chat/rooms",
 };
 
 interface ArticlesPost {
@@ -119,20 +121,6 @@ export const memberAPI = {
     await axios.post(BASE_URL + domain.members, data),
 };
 
-export const chatRoomAPI = {
-  getBuyers: async (articleId: number) => {
-    const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.chatRoom}`, {
-      params: {
-        articleId,
-      },
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-};
-
 interface FavoriteCreate {
   articleId: number;
 }
@@ -180,6 +168,31 @@ export const evaluationAPI = {
   post: async (data: EvaluationPost) => {
     const token = await DeviceStorage.getToken();
     return await axios.post(`${BASE_URL}${domain.evaluation}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+export const chatRoomAPI = {
+  getBuyers: async (articleId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.chatRoom}`, {
+      params: {
+        articleId,
+      },
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+export const testChatRoomAPI = {
+  get: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL_CHAT}${domain.chatRooms}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
