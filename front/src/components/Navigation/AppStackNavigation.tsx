@@ -36,7 +36,6 @@ export default function AppStackNavigation() {
         component={AuthScreen}
         options={{
           headerTransparent: true,
-          cardStyleInterpolator: forFade,
         }}
       />
       <LoginStack.Screen name={"LoginScreen"} component={LoginScreen} />

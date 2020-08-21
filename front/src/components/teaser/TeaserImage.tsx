@@ -1,8 +1,7 @@
 import React from "react";
 import { ImageBackground, ImageProps, StyleSheet, View } from "react-native";
 import AuthButton from "../auth/AuthButton";
-import SvgWhale from "./SvgWhale";
-import SvgJikGoRae from "./SvgJikGoRae";
+import SvgTeaserTitle from "../svg/SvgTeaserTitle";
 
 interface TeaserImageProps {
   sourceUrl: ImageProps;
@@ -13,11 +12,8 @@ export default function TeaserImage({ sourceUrl }: TeaserImageProps) {
     <View style={styles.container}>
       <ImageBackground source={sourceUrl} style={styles.imageBackground}>
         <View style={styles.titleContainer}>
-          <View style={styles.svgWhale}>
-            <SvgWhale />
-          </View>
-          <View style={styles.svgJikGoRae}>
-            <SvgJikGoRae />
+          <View style={styles.SvgTeaserTitle}>
+            <SvgTeaserTitle />
           </View>
         </View>
         <View style={styles.authButtonContainer}>
@@ -37,19 +33,16 @@ const styles = StyleSheet.create({
   imageBackground: {
     height: "100%",
     width: "100%",
-    opacity: 0.95,
   },
   titleContainer: {
     flex: 4,
     marginHorizontal: 30,
     marginTop: 30,
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
   },
-  svgWhale: {
-    marginBottom: 30,
-  },
-  svgJikGoRae: {
-    marginBottom: 80,
+  SvgTeaserTitle: {
+    justifyContent: "flex-start",
+    marginVertical: 60,
   },
   authButtonContainer: {
     flex: 1,
