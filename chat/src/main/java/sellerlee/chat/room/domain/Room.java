@@ -20,6 +20,10 @@ public class Room {
         this.name = name;
     }
 
+    public Room(String name) {
+        this(null, name);
+    }
+
     public Long getRoomId() {
         return roomId;
     }
