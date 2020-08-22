@@ -52,6 +52,14 @@ export const articlesAPI = {
       },
     });
   },
+  getFavorites: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.articles}${domain.favorites}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   post: async (data: ArticlesPost) => {
     const token = await DeviceStorage.getToken();
     return await axios.post(`${BASE_URL}${domain.articles}`, data, {

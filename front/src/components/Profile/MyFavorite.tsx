@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import MyFavoriteItem from "./MyFavoriteItem";
 import { useRecoilState } from "recoil/dist";
 import { favoriteArticleState } from "../../states/articleState";
+import { articlesAPI } from "../../api/api";
 
 export default function MyFavorite() {
   const [articles, setArticles] = useRecoilState(favoriteArticleState);
@@ -11,7 +12,10 @@ export default function MyFavorite() {
     getFavoriteArticles();
   }, []);
 
-  const getFavoriteArticles = async () => {};
+  const getFavoriteArticles = async () => {
+    const { data } = await articlesAPI.getFavorites();
+    setArticles(data);
+  };
 
   return (
     <View style={styles.container}>
