@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "front",
-    "slug": "front",
+    "name": "직고래",
+    "slug": "jikgorae",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app_icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,14 +16,17 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "sdkVersion": "38.0.0",
+    "android": {
+      "package": "com.sellerleecompany.jikgorae",
+      "softwareKeyboardLayoutMode": "pan"
+    },
     "ios": {
+      "bundleIdentifier": "com.sellerleecompany.jikgorae",
       "supportsTablet": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "android": {
-      "softwareKeyboardLayoutMode": "pan"
+      "favicon": "./assets/app_icon.png"
     }
   }
 }
