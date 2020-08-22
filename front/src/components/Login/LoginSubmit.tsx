@@ -10,6 +10,7 @@ import {
 } from "../../states/loginState";
 import { memberAPI } from "../../api/api";
 import { DeviceStorage } from "../../auth/DeviceStorage";
+import { memberNicknameState } from "../../states/memberState";
 
 interface LoginSubmitProps {
   resetLoginForm: Function;
@@ -18,6 +19,7 @@ interface LoginSubmitProps {
 export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
   const loginNickname = useRecoilValue(loginNicknameState);
   const loginPassword = useRecoilValue(loginPasswordState);
+  const setMemberNickname = useSetRecoilState(memberNicknameState);
 
   const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
   const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
@@ -38,8 +40,8 @@ export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
 
       if (response.status === 200) {
         await DeviceStorage.storeToken(response.data.accessToken);
-
         setLoginVerifyState(true);
+        setMemberNickname(loginNickname);
         resetLoginForm();
       }
     } catch (error) {
