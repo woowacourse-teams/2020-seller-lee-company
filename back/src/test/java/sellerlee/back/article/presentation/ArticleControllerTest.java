@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.favorite.presentation.FavoriteController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -29,6 +30,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import sellerlee.back.ControllerTest;
+import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
@@ -209,6 +211,35 @@ class ArticleControllerTest extends ControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+        // @formatter:on
+    }
+
+    @DisplayName("찜 목록 조회 시 찜하고 있는 게시글과 Status OK 반환")
+    @Test
+    void showFavorites() throws Exception {
+        when(articleViewService.showFavorites(any())).thenReturn(
+                ArticleCardResponse.listOf(Collections.singletonList(ARTICLE1)));
+
+        // @formatter:off
+        mockMvc
+                .perform(
+                        get(ARTICLE_URI + FAVORITE_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
+                .andExpect(status().isOk())
+                .andDo(document("articles/favorites",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(AUTHORIZATION).description("회원의 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].id").description("게시글의 ID"),
+                                fieldWithPath("[].title").description("게시글의 제목"),
+                                fieldWithPath("[].price").description("게시글의 가격"),
+                                fieldWithPath("[].thumbnail").description("게시글의 섬네일"),
+                                fieldWithPath("[].favoriteCount").description("게시글의 좋아요 개수"),
+                                fieldWithPath("[].createdTime").description("게시글의 생성 시간")
+                        )));
         // @formatter:on
     }
 }

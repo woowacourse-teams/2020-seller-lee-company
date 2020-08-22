@@ -96,4 +96,17 @@ public class ArticleViewService {
                         favoriteRepository.countAllByArticle(article)))
                 .collect(Collectors.toList());
     }
+
+    public List<ArticleCardResponse> showFavorites(Member member) {
+        List<Favorite> favorites = favoriteRepository.findAllByMemberId(member.getId());
+
+        List<Long> favoriteArticleIds = favorites.stream()
+                .map(Favorite::getArticle)
+                .map(Article::getId)
+                .collect(toList());
+
+        List<Article> favoriteArticles = articleRepository.findAllById(favoriteArticleIds);
+
+        return ArticleCardResponse.listOf(favoriteArticles);
+    }
 }

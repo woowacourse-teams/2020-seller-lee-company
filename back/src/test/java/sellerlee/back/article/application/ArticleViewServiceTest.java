@@ -92,7 +92,7 @@ class ArticleViewServiceTest {
         assertThat(actualArticles.get(1).getFavoriteState()).isFalse();
     }
 
-    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @DisplayName("tradeState가 판매완료인 경우 판매 완료된 게시글을 반환")
     @Test
     void showSalesDetailsInCaseCompleted() {
         String tradeState = "COMPLETED";
@@ -107,7 +107,7 @@ class ArticleViewServiceTest {
         assertThat(responses).hasSize(1);
     }
 
-    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @DisplayName("tradeState가 판매완료가 아닌 경우 판매중, 예약중인 게시글 반환")
     @Test
     void showSalesDetailsInCaseNotCompleted() {
         String tradeState = "ON_SALE";
@@ -120,5 +120,18 @@ class ArticleViewServiceTest {
                 MEMBER1, tradeState);
 
         assertThat(responses).hasSize(3);
+    }
+
+    @DisplayName("Member가 찜하고 있는 게시글 반환")
+    @Test
+    void showFavorites() {
+        when(favoriteRepository.findAllByMemberId(MEMBER1.getId())).thenReturn(
+                singletonList(FAVORITE1));
+        when(articleRepository.findAllById(singletonList(FAVORITE1.getId()))).thenReturn(
+                singletonList(ARTICLE1));
+
+        List<ArticleCardResponse> responses = articleViewService.showFavorites(MEMBER1);
+
+        assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
     }
 }
