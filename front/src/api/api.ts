@@ -13,7 +13,6 @@ const domain = {
   chatRoom: "/chat-rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
-  chatRooms: "/chat/rooms",
 };
 
 interface ArticlesPost {
