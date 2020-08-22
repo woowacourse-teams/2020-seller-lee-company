@@ -1,29 +1,13 @@
-import React, { useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import MyFavoriteItem from "./MyFavoriteItem";
-import { useRecoilState } from "recoil/dist";
-import { favoriteArticleState } from "../../states/articleState";
-import { articlesAPI } from "../../api/api";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import MyFavoriteHeader from "./MyFavoriteHeader";
+import MyFavoriteList from "./MyFavoriteList";
 
 export default function MyFavorite() {
-  const [articles, setArticles] = useRecoilState(favoriteArticleState);
-
-  useEffect(() => {
-    getFavoriteArticles();
-  }, []);
-
-  const getFavoriteArticles = async () => {
-    const { data } = await articlesAPI.getFavorites();
-    setArticles(data);
-  };
-
   return (
     <View style={styles.container}>
-      <FlatList
-        data={articles}
-        keyExtractor={(item, index) => `${index}`}
-        renderItem={({ item }) => <MyFavoriteItem article={item} />}
-      />
+      <MyFavoriteHeader />
+      <MyFavoriteList />
     </View>
   );
 }
@@ -31,5 +15,7 @@ export default function MyFavorite() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 15,
+    paddingHorizontal: 30,
   },
 });

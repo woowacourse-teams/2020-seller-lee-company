@@ -45,5 +45,7 @@ const styles = StyleSheet.create({
   historyContainer: {
     flex: 1,
     flexDirection: "row",
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
   },
 });
