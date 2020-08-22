@@ -1,15 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilValue } from "recoil/dist";
+import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
   joinAvatarState,
+  joinCheckPasswordState,
   joinNicknameState,
   joinPasswordState,
+  joinSubmitState,
 } from "../../states/joinState";
 import { memberAPI } from "../../api/api";
 import theme from "../../colors";
 import { useNavigation } from "@react-navigation/native";
 import { JoinScreenNavigationProp } from "../../types/types";
+import { verify } from "../../joinValidator";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
@@ -20,17 +23,24 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
 
   const joinNickname = useRecoilValue(joinNicknameState);
   const joinPassword = useRecoilValue(joinPasswordState);
+  const joinCheckPassword = useRecoilValue(joinCheckPasswordState);
   const joinAvatar = useRecoilValue(joinAvatarState);
 
+  const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
+
   const join = async () => {
-    const request = {
-      nickname: joinNickname,
-      password: joinPassword,
-      avatar: joinAvatar,
-    };
+    setJoinSubmit(true);
+
+    if (!verify(joinNickname, joinPassword, joinCheckPassword)) {
+      return;
+    }
 
     try {
-      const response = await memberAPI.join(request);
+      const response = await memberAPI.join({
+        nickname: joinNickname,
+        password: joinPassword,
+        avatar: joinAvatar,
+      });
 
       if (response.status === 201) {
         resetJoinForm();
@@ -38,6 +48,8 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setJoinSubmit(false);
     }
   };
   return (
@@ -51,17 +63,18 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 7,
+    aspectRatio: 6,
   },
   joinButton: {
     flex: 1,
     backgroundColor: theme.primary,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
+    borderRadius: 100,
   },
   joinButtonText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: "bold",
     color: "white",
   },
 });

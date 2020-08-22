@@ -12,12 +12,23 @@ export const joinNicknameState = atom({
   key: "joinNicknameState",
   default: "",
 });
+
 export const joinPasswordState = atom({
   key: "joinPasswordState",
+  default: "",
+});
+
+export const joinCheckPasswordState = atom({
+  key: "joinCheckPasswordState",
   default: "",
 });
 
 export const joinAvatarState = atom({
   key: "joinAvatarState",
   default: DEFAULT_IMAGE_URL,
+});
+
+export const joinSubmitState = atom({
+  key: "joinSubmitState",
+  default: false,
 });

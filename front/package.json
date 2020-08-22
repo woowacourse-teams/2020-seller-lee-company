@@ -37,6 +37,7 @@
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
     "react-native-star-rating": "^1.1.0",
+    "react-native-svg": "12.1.0",
     "react-native-swiper": "^1.6.0",
     "react-native-tab-view": "^2.15.1",
     "react-native-web": "~0.11.7",

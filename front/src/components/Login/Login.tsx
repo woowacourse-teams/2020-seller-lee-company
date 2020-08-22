@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Keyboard,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import LoginNicknameForm from "./LoginNicknameForm";
 import LoginPasswordForm from "./LoginPasswordForm";
 import LoginSubmit from "./LoginSubmit";
@@ -29,30 +22,22 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.contentContainer}>
-          <Text style={styles.title}>닉네임으로 로그인</Text>
-          <TouchableWithoutFeedback
-            accessible={false}
-            onPress={Keyboard.dismiss}
-          >
-            <View style={styles.LoginFormContainer}>
-              <View style={styles.LoginTextFormContainer}>
-                <LoginNicknameForm />
-              </View>
-              <View style={styles.LoginTextFormContainer}>
-                <LoginPasswordForm />
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
+      <View style={styles.contentContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Login</Text>
+        </View>
+        <View style={styles.LoginFormContainer}>
+          <View style={styles.LoginTextFormContainer}>
+            <LoginNicknameForm />
+          </View>
+          <View style={styles.LoginTextFormContainer}>
+            <LoginPasswordForm />
+          </View>
           <View style={styles.LoginSubmitContainer}>
             <LoginSubmit resetLoginForm={resetMemberLoginValue} />
           </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }
@@ -60,32 +45,29 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
-  },
-  scrollView: {
-    flex: 1,
-    paddingTop: 40,
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "center",
-    paddingBottom: 40,
+    justifyContent: "flex-start",
+  },
+  titleContainer: {
+    marginVertical: 80,
+    marginLeft: 15,
   },
   title: {
-    marginVertical: 30,
-    fontSize: 20,
+    fontSize: 36,
     fontWeight: "bold",
   },
   LoginFormContainer: {
-    justifyContent: "center",
-    marginVertical: 30,
+    justifyContent: "flex-end",
+    marginVertical: 40,
   },
   LoginTextFormContainer: {
     justifyContent: "center",
-    marginVertical: 5,
+    marginBottom: 30,
   },
   LoginSubmitContainer: {
     justifyContent: "center",
-    marginVertical: 5,
+    marginVertical: 10,
   },
 });

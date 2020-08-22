@@ -26,10 +26,10 @@ export default function KakaoLoginButton() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f4de12",
-    aspectRatio: 7,
+    aspectRatio: 6,
     flexDirection: "row",
     justifyContent: "space-between",
-    borderRadius: 5,
+    borderRadius: 100,
   },
   image: {
     height: "100%",
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     aspectRatio: 1,
-    padding: 10,
+    padding: 15,
   },
   titleContainer: {
     flex: 1,
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleText: {
-    fontSize: 12,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
