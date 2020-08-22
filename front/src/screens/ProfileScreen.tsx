@@ -3,9 +3,9 @@ import { SafeAreaView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ProfileScreenNavigationProp } from "../types/types";
 import ProfileInfo from "../components/Profile/ProfileInfo";
-import ProfileAvatar from "../components/Profile/ProfileAvatar";
 import SalesHistory from "../components/Profile/SalesHistory";
 import PurchaseHistory from "../components/Profile/PurchaseHistory";
+import MyFavorite from "../components/Profile/MyFavorite";
 
 export default function ProfileScreen() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -21,12 +21,12 @@ export default function ProfileScreen() {
       <View style={styles.infoContainer}>
         <ProfileInfo />
       </View>
-      <View style={styles.avatarContainer}>
-        <ProfileAvatar />
-      </View>
       <View style={styles.historyContainer}>
         <SalesHistory />
         <PurchaseHistory />
+      </View>
+      <View style={styles.favoriteContainer}>
+        <MyFavorite />
       </View>
     </SafeAreaView>
   );
@@ -39,12 +39,11 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
   },
-  avatarContainer: {
+  favoriteContainer: {
     flex: 5,
   },
   historyContainer: {
     flex: 1,
     flexDirection: "row",
-    marginBottom: 25,
   },
 });

@@ -8,7 +8,7 @@ interface PurchaseArticleProps {
   article: ArticleCardProps;
 }
 
-export default function PurchaseArticle({
+export default function PurchaseHistoryItem({
   article: { id, title, price, createdTime, favoriteCount, thumbnail },
 }: PurchaseArticleProps) {
   return (

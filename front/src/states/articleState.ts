@@ -61,3 +61,8 @@ export const tradeArticleState = atom({
   key: "tradeArticleState",
   default: <ArticleCardProps[]>[],
 });
+
+export const favoriteArticleState = atom({
+  key: "favoriteArticleState",
+  default: <ArticleCardProps[]>[],
+});
