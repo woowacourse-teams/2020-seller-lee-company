@@ -4,15 +4,23 @@ import { useNavigation } from "@react-navigation/native";
 import { TeaserScreenNavigationProp } from "../../types/types";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../colors";
+import { DeviceStorage } from "../../auth/DeviceStorage";
 
 export default function AuthButton() {
   const navigation = useNavigation<TeaserScreenNavigationProp>();
 
+  const onPressButton = async () => {
+    const response = await DeviceStorage.getToken();
+
+    if (response !== null) {
+      navigation.navigate("BottomTabNavigation");
+    } else {
+      navigation.navigate("AuthScreen");
+    }
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate("AuthScreen")}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPressButton}>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>시작하기</Text>
         <Entypo name="controller-play" size={14} color={"white"} />

@@ -1,58 +1,36 @@
 import React from "react";
-import {
-  Keyboard,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import JoinPasswordForm from "./JoinPasswordForm";
 import JoinNicknameForm from "./JoinNicknameForm";
 import JoinSubmit from "./JoinSubmit";
-import { useResetRecoilState } from "recoil/dist";
-import {
-  joinAvatarState,
-  joinNicknameState,
-  joinPasswordState,
-} from "../../states/joinState";
+import JoinCheckPasswordForm from "./JoinCheckPasswordForm";
 
-export default function Join() {
-  const resetJoinNickname = useResetRecoilState(joinNicknameState);
-  const resetJoinPassword = useResetRecoilState(joinPasswordState);
-  const resetJoinAvatar = useResetRecoilState(joinAvatarState);
+interface JoinProps {
+  resetJoinForm: Function;
+}
 
-  const resetJoinValue = () => {
-    resetJoinNickname();
-    resetJoinPassword();
-    resetJoinAvatar();
-  };
-
+export default function Join({ resetJoinForm }: JoinProps) {
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.contentContainer}>
-          <Text style={styles.title}>닉네임으로 회원가입</Text>
+      <View style={styles.contentContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Sign Up</Text>
         </View>
-        <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
-          <View style={styles.contentContainer}>
-            <View style={styles.joinFormsContainer}>
-              <View style={styles.joinFormContainer}>
-                <JoinNicknameForm />
-              </View>
-              <View style={styles.joinFormContainer}>
-                <JoinPasswordForm />
-              </View>
-            </View>
-            <View style={styles.joinSubmitContainer}>
-              <JoinSubmit resetJoinForm={resetJoinValue} />
-            </View>
+        <View style={styles.joinFormContainer}>
+          <View style={styles.joinTextFormContainer}>
+            <JoinNicknameForm />
           </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
+          <View style={styles.joinTextFormContainer}>
+            <JoinPasswordForm />
+          </View>
+          <View style={styles.joinTextFormContainer}>
+            <JoinCheckPasswordForm />
+          </View>
+          <View style={styles.joinSubmitContainer}>
+            <JoinSubmit resetJoinForm={resetJoinForm} />
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
@@ -60,32 +38,30 @@ export default function Join() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
-  },
-  scrollView: {
-    flex: 1,
-    paddingTop: 40,
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "center",
-    paddingBottom: 40,
+    justifyContent: "flex-start",
+  },
+  titleContainer: {
+    marginTop: 80,
+    marginBottom: 40,
+    marginLeft: 15,
   },
   title: {
-    marginVertical: 30,
-    fontSize: 20,
+    fontSize: 36,
     fontWeight: "bold",
   },
-  joinFormsContainer: {
-    justifyContent: "center",
-    marginBottom: 30,
-  },
   joinFormContainer: {
+    justifyContent: "flex-end",
+    marginVertical: 40,
+  },
+  joinTextFormContainer: {
     justifyContent: "center",
-    marginVertical: 5,
+    marginBottom: 10,
   },
   joinSubmitContainer: {
     justifyContent: "center",
-    marginVertical: 5,
+    marginVertical: 30,
   },
 });

@@ -62,17 +62,18 @@ export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 7,
+    aspectRatio: 6,
   },
   loginButton: {
     flex: 1,
     backgroundColor: theme.primary,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
+    borderRadius: 100,
   },
   loginButtonText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: "bold",
     color: "white",
   },
 });
