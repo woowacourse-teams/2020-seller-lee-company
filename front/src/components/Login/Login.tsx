@@ -11,11 +11,11 @@ import {
 import LoginVerifyModal from "../Common/Modal/LoginVerifyModal";
 
 export default function Login() {
-  const resetMemberEmail = useResetRecoilState(loginNicknameState);
+  const resetMemberNickname = useResetRecoilState(loginNicknameState);
   const resetMemberPassword = useResetRecoilState(loginPasswordState);
 
   const resetMemberLoginValue = () => {
-    resetMemberEmail();
+    resetMemberNickname();
     resetMemberPassword();
   };
 
