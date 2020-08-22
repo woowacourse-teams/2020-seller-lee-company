@@ -3,7 +3,7 @@ export default {
   secondary: "#6293e0",
   tertiary: "#b0cdea",
   others: "#f26f0a",
-  // others: "#ff5a10",
+  // others: "#fc0067",
   warning: "#f9474e",
   border: "#eaeaea",
 };

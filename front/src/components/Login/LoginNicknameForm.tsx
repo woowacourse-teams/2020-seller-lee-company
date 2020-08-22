@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
@@ -28,6 +28,7 @@ export default function LoginNicknameForm() {
 
   return (
     <View style={styles.container}>
+      <Text style={dynamicStyles.title}>닉네임</Text>
       <View style={dynamicStyles.nicknameFormContainer}>
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons

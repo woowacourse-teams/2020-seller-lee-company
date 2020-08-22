@@ -123,9 +123,7 @@ export default function JoinPasswordForm() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={dynamicStyles.title}>비밀번호</Text>
-      </View>
+      <Text style={dynamicStyles.title}>비밀번호</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons
@@ -153,10 +151,6 @@ export default function JoinPasswordForm() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
   },
   iconContainer: {
     aspectRatio: 1,

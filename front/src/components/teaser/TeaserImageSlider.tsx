@@ -5,7 +5,7 @@ import TeaserImage from "./TeaserImage";
 export default function TeaserImageSlider() {
   return (
     <View style={styles.container}>
-      <TeaserImage sourceUrl={require("../../../assets/wave.jpeg")} />
+      <TeaserImage sourceUrl={require("../../../assets/wave_1.jpeg")} />
     </View>
   );
 }
