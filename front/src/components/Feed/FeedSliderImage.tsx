@@ -25,7 +25,7 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
           style={styles.imageContainer}
           key={index}
         >
-          <PhotoBox photoURI={photo} marginBottom={0} />
+          <PhotoBox photoURI={photo} />
         </TouchableOpacity>
       ))}
     </Swiper>
