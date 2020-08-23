@@ -26,7 +26,7 @@ export default function ProfileScreen() {
         <SalesHistory />
         <PurchaseHistory />
       </View>
-      <View style={styles.favoriteContainer}>
+      <View style={styles.listContainer}>
         <MyInfoButton />
         <MyFavorite />
       </View>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
   },
-  favoriteContainer: {
+  listContainer: {
     flex: 5,
     paddingHorizontal: 30,
   },

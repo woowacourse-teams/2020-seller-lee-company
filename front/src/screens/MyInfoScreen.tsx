@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
@@ -38,9 +38,25 @@ export default function MyInfoScreen() {
   }, []);
 
   return (
-    <View>
-      <MyInfoAvatar />
-      <MyInfoForm />
+    <View style={styles.container}>
+      <View style={styles.avatarContainer}>
+        <MyInfoAvatar />
+      </View>
+      <View style={styles.formContainer}>
+        <MyInfoForm />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  avatarContainer: {
+    flex: 1,
+  },
+  formContainer: {
+    flex: 3,
+  },
+});
