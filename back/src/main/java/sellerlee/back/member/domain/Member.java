@@ -50,6 +50,10 @@ public class Member {
         return passwordEncoder.matches(password, this.password);
     }
 
+    public boolean isNotEquals(Member member) {
+        return !id.equals(member.id);
+    }
+
     public Long getId() {
         return id;
     }

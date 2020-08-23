@@ -22,7 +22,7 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 
-import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
   articleIsEditingState,
   articleSelectedIdState,
@@ -43,11 +43,14 @@ export default function ArticleDetailScreen() {
   const setModalVisible = useSetRecoilState(articleDetailModalState);
   const navigation = useNavigation<ArticleDetailNavigationProp>();
   const articleId = useRecoilValue(articleSelectedIdState);
-  const setArticleSelected = useSetRecoilState(articleSelectedState);
+  const [articleSelected, setArticleSelected] = useRecoilState(
+    articleSelectedState,
+  );
   const setIsEditing = useSetRecoilState(articleIsEditingState);
 
   const route = useRoute<ArticleDetailRouteProp>();
   const photos = route.params.photos;
+  const memberNickname = route.params.memberNickname;
 
   useEffect(() => {
     navigation.setOptions({
@@ -62,37 +65,40 @@ export default function ArticleDetailScreen() {
           )}
         />
       ),
-      headerRight: () => (
-        <Menu>
-          <MenuTrigger>
-            <Ionicons name="md-more" size={26} color={"grey"} />
-          </MenuTrigger>
-          <MenuOptions
-            optionsContainerStyle={styles.menuOptionsContainer}
-            customStyles={{ optionText: styles.menuCustomText }}
-          >
-            <MenuOption
-              onSelect={() => {
-                navigation.navigate("ArticleFormScreen");
-                setIsEditing(true);
-              }}
-              text={"수정"}
-            />
-            <MenuOption
-              onSelect={() =>
-                articlesAPI.delete(articleId).then(() => {
-                  setModalVisible(true);
-                })
-              }
-              text={"삭제"}
-            />
-          </MenuOptions>
-        </Menu>
-      ),
+      headerRight:
+        articleSelected.author.nickname === memberNickname
+          ? () => (
+              <Menu>
+                <MenuTrigger>
+                  <Ionicons name="md-more" size={26} color={"grey"} />
+                </MenuTrigger>
+                <MenuOptions
+                  optionsContainerStyle={styles.menuOptionsContainer}
+                  customStyles={{ optionText: styles.menuCustomText }}
+                >
+                  <MenuOption
+                    onSelect={() => {
+                      navigation.navigate("ArticleFormScreen");
+                      setIsEditing(true);
+                    }}
+                    text={"수정"}
+                  />
+                  <MenuOption
+                    onSelect={() =>
+                      articlesAPI.delete(articleId).then(() => {
+                        setModalVisible(true);
+                      })
+                    }
+                    text={"삭제"}
+                  />
+                </MenuOptions>
+              </Menu>
+            )
+          : undefined,
       headerLeftContainerStyle: { paddingLeft: 10 },
       headerRightContainerStyle: { paddingRight: 15 },
     });
-  }, [navigation]);
+  }, [articleSelected]);
 
   useEffect(() => {
     navigation.setOptions({
