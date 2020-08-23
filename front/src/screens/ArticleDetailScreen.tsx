@@ -53,10 +53,6 @@ export default function ArticleDetailScreen() {
   const memberNickname = route.params.memberNickname;
 
   useEffect(() => {
-    console.log("articleSelected: " + JSON.stringify(articleSelected));
-    console.log("author: " + articleSelected.author.nickname);
-    console.log("member: " + memberNickname);
-    console.log("----- ");
     navigation.setOptions({
       title: "",
       headerTransparent: true,
