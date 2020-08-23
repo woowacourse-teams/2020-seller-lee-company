@@ -2,12 +2,11 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import SalesHistoryScreen from "../../screens/SalesHistoryScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
-
-type ProfileNavigationParamList = {
-  ProfileScreen: undefined;
-  SalesHistoryScreen: undefined;
-  PurchaseScreen: undefined;
-};
+import { ProfileNavigationParamList } from "../../types/types";
+import PurchaseHistoryScreen from "../../screens/PurchaseHistoryScreen";
+import EvaluationScreen from "../../screens/EvaluationScreen";
+import SelectBuyerScreen from "../../screens/SelectBuyerScreen";
+import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 
 const Stack = createStackNavigator<ProfileNavigationParamList>();
 
@@ -16,6 +15,16 @@ export default function ProfileNavigation() {
     <Stack.Navigator>
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       <Stack.Screen name="SalesHistoryScreen" component={SalesHistoryScreen} />
+      <Stack.Screen
+        name="PurchaseHistoryScreen"
+        component={PurchaseHistoryScreen}
+      />
+      <Stack.Screen
+        name="ArticleDetailScreen"
+        component={ArticleDetailScreen}
+      />
+      <Stack.Screen name="SelectBuyerScreen" component={SelectBuyerScreen} />
+      <Stack.Screen name="EvaluationScreen" component={EvaluationScreen} />
     </Stack.Navigator>
   );
 }

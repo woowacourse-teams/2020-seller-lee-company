@@ -48,6 +48,11 @@ export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
   "ArticleDetailImageViewScreen"
 >;
 
+export type ArticleDetailImageViewRouteProp = RouteProp<
+  ArticleNavigationParamList,
+  "ArticleDetailImageViewScreen"
+>;
+
 export type CategoryParamList = {
   CategoryHome: undefined;
   CategoryDetail: { title: string };
@@ -74,19 +79,19 @@ export type SearchNavigationProp = StackNavigationProp<
   "Search"
 >;
 
-export type ArticleCreateParamList = {
-  ArticleCreateScreen: undefined;
+export type ArticleFormParamList = {
+  ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
 };
 
-export type ArticleCreateScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
-  "ArticleCreateScreen"
+export type ArticleFormScreenNavigationProp = StackNavigationProp<
+  ArticleFormParamList,
+  "ArticleFormScreen"
 >;
 
 export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
+  ArticleFormParamList,
   "ArticleContentsFormScreen"
 >;
 
@@ -172,25 +177,13 @@ export interface Article {
   createdTime: string;
 }
 
-export interface ArticleCard {
-  title: string;
-  price: number;
-  tradeType: string;
-  tradeLocation: string;
-  thumbnail: string;
-  createdTime: string;
-}
-
-//둘중 하나 선택해야함 프론트에 tradeState 고르는 컴포넌트 만들때 필요
 export interface ArticleCardProps {
   id: number;
   title: string;
   price: number;
-  createdTime: string;
-  favoriteCount: number;
-  chatCount: number;
   thumbnail: string;
-  tradeState: string;
+  favoriteCount: number;
+  createdTime: string;
 }
 
 export interface Author {
@@ -206,16 +199,33 @@ export interface Buyer {
   nickname: string;
 }
 
-export type MyPageParamList = {
-  MyPage: undefined;
-  SalesDetails: undefined;
+export type ProfileNavigationParamList = {
+  ProfileScreen: undefined;
+  SalesHistoryScreen: undefined;
+  PurchaseHistoryScreen: undefined;
   ArticleDetailScreen: undefined;
-  Evaluation: undefined;
+  SelectBuyerScreen: undefined;
+  EvaluationScreen: undefined;
 };
 
-export type MyPageNavigationProps = StackNavigationProp<
-  MyPageParamList,
-  "SalesDetails"
+export type ProfileScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "ProfileScreen"
+>;
+
+export type SalesHistoryScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "SalesHistoryScreen"
+>;
+
+export type PurchaseHistoryScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "PurchaseHistoryScreen"
+>;
+
+export type SelectBuyerScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "SelectBuyerScreen"
 >;
 
 export interface Score {

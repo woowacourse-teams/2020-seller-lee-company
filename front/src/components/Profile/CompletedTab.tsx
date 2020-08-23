@@ -1,10 +1,21 @@
 import React from "react";
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 import { useRecoilValue } from "recoil/dist";
 import { articleSalesHistoryState } from "../../states/articleState";
+import SalesHistoryItem from "./SalesHistoryItem";
 
 export default function CompletedTab() {
-  const article = useRecoilValue(articleSalesHistoryState);
+  const articles = useRecoilValue(articleSalesHistoryState);
 
-  return <View />;
+  return (
+    <View>
+      <FlatList
+        data={articles}
+        renderItem={({ item }) => (
+          <SalesHistoryItem isCompletedTab={true} article={item} />
+        )}
+        keyExtractor={(item, index) => `${index}`}
+      />
+    </View>
+  );
 }

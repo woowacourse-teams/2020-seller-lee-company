@@ -92,44 +92,46 @@ class ArticleViewServiceTest {
         assertThat(actualArticles.get(1).getFavoriteState()).isFalse();
     }
 
-    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @DisplayName("tradeState가 판매완료인 경우 판매 완료된 게시글을 반환")
     @Test
     void showSalesDetailsInCaseCompleted() {
+        String tradeState = "COMPLETED";
         when(articleRepository.findAllByAuthorAndTradeState(any(), any())).thenReturn(
                 Collections.singletonList(
                         ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
-                MEMBER1, "판매 완료");
+        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
+                MEMBER1, tradeState);
 
-        assertThat(salesHistoryResponses).hasSize(1);
+        assertThat(responses).hasSize(1);
     }
 
-    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @DisplayName("tradeState가 판매완료가 아닌 경우 판매중, 예약중인 게시글 반환")
     @Test
     void showSalesDetailsInCaseNotCompleted() {
+        String tradeState = "ON_SALE";
         when(articleRepository.findAllByAuthorAndTradeStateNot(any(), any())).thenReturn(
                 Arrays.asList(
                         ARTICLE1, ARTICLE2, ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
-                MEMBER1, "예약중|판매중");
+        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
+                MEMBER1, tradeState);
 
-        assertThat(salesHistoryResponses).hasSize(3);
+        assertThat(responses).hasSize(3);
     }
-    // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
-    // @Test
-    // void showArticlesByTradeState() {
-    //     String tradeState = "ON_SALE";
-    //     when(articleRepository.findByTradeState(TradeState.valueOf(tradeState))).thenReturn(
-    //             Arrays.asList(ARTICLE1, ARTICLE2)
-    //     );
-    //
-    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
-    //
-    //     assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
-    //     assertThat(responses.get(1).getId()).isEqualTo(ARTICLE2.getId());
-    // }
+
+    @DisplayName("Member가 찜하고 있는 게시글 반환")
+    @Test
+    void showFavorites() {
+        when(favoriteRepository.findAllByMemberId(MEMBER1.getId())).thenReturn(
+                singletonList(FAVORITE1));
+        when(articleRepository.findAllById(singletonList(FAVORITE1.getId()))).thenReturn(
+                singletonList(ARTICLE1));
+
+        List<ArticleCardResponse> responses = articleViewService.showFavorites(MEMBER1);
+
+        assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
+    }
 }

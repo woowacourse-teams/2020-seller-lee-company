@@ -22,12 +22,16 @@ export default function BottomTabNavigation() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: "black" }}
+      tabBarOptions={{
+        activeTintColor: "black",
+        labelStyle: { fontSize: 13 },
+      }}
     >
       <Tab.Screen
         name="Home"
         component={ArticleNavigation}
         options={({ route }) => ({
+          tabBarLabel: "홈",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
@@ -42,6 +46,7 @@ export default function BottomTabNavigation() {
         name="Category"
         component={CategoryNavigation}
         options={{
+          tabBarLabel: "카테고리",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="file-document-box-outline"
@@ -55,7 +60,7 @@ export default function BottomTabNavigation() {
         name="Posting"
         component={ArticleFormNavigation}
         options={{
-          tabBarVisible: false,
+          tabBarLabel: "글쓰기",
           tabBarButton: () => <ArticleFormOptionsModal />,
         }}
       />
@@ -63,6 +68,7 @@ export default function BottomTabNavigation() {
         name="Chat"
         component={ChatScreen}
         options={{
+          tabBarLabel: "채팅",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="chat-outline"
@@ -76,6 +82,7 @@ export default function BottomTabNavigation() {
         name="Profile"
         component={ProfileNavigation}
         options={({ route }) => ({
+          tabBarLabel: "프로필",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="account-circle-outline"

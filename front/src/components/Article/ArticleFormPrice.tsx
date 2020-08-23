@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil/dist";
 import { articlePriceState } from "../../states/articleState";
 import { insertComma, removeComma } from "../../replacePriceWithComma";
 
-export default function ArticlePriceForm() {
+export default function ArticleFormPrice() {
   const [price, setPrice] = useRecoilState(articlePriceState);
 
   return (

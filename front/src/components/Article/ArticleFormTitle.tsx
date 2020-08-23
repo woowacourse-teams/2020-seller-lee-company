@@ -3,7 +3,7 @@ import { StyleSheet, TextInput } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { articleTitleState } from "../../states/articleState";
 
-export default function ArticleTitleForm() {
+export default function ArticleFormTitle() {
   const [title, setTitle] = useRecoilState(articleTitleState);
 
   return (

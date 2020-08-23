@@ -52,6 +52,14 @@ export const articlesAPI = {
       },
     });
   },
+  getFavorites: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.articles}${domain.favorites}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   post: async (data: ArticlesPost) => {
     const token = await DeviceStorage.getToken();
     return await axios.post(`${BASE_URL}${domain.articles}`, data, {
@@ -60,26 +68,12 @@ export const articlesAPI = {
       },
     });
   },
-  put: async (articleId: number, data: ArticlesPost) => {
+  put: async (articleId: number, data: ArticlesPost) =>
+    await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data),
+  putByTradeState: async (articleId: number, data: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
-    return await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-  delete: async (articleId: number) => {
-    const token = await DeviceStorage.getToken();
-    return await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-  updateTradeState: async (id: number, data: ArticlesGetByTradeState) => {
-    const token = await DeviceStorage.getToken();
-    return await axios.patch(
-      `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
+    await axios.put(
+      `${BASE_URL}${domain.articles}/${articleId}/${domain.tradeState}`,
       data,
       {
         headers: {
@@ -88,6 +82,8 @@ export const articlesAPI = {
       },
     );
   },
+  delete: async (articleId: number) =>
+    await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),
 };
 
 export const articleDetailAPI = {

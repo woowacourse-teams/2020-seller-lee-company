@@ -40,7 +40,7 @@ export default function EvaluationScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "거래 후기",
+      title: "평가",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}

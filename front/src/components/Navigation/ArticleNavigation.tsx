@@ -6,7 +6,7 @@ import ChatRoomScreen from "../../screens/ChatRoomScreen";
 import { ArticleNavigationParamList } from "../../types/types";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
-import ArticleCreateScreen from "../../screens/ArticleCreateScreen";
+import ArticleFormScreen from "../../screens/ArticleFormScreen";
 import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
 import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
 import ArticleDetailImageSlider from "../ArticleDetail/ArticleDetailImageSlider";
@@ -31,7 +31,7 @@ export default function ArticleNavigation() {
         name="ArticleDetailImageViewScreen"
         component={ArticleDetailImageViewScreen}
       />
-      <Stack.Screen name="ArticleFormScreen" component={ArticleCreateScreen} />
+      <Stack.Screen name="ArticleFormScreen" component={ArticleFormScreen} />
       <Stack.Screen
         name="ArticleContentsFormScreen"
         component={ArticleContentsFormScreen}
