@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 
 import sellerlee.back.common.domain.BaseTimeEntity;
 import sellerlee.back.member.domain.Member;
+import sellerlee.back.security.web.AuthorizationException;
 
 @Entity
 public class Article extends BaseTimeEntity {
@@ -82,6 +83,9 @@ public class Article extends BaseTimeEntity {
     }
 
     public void update(Article article) {
+        if (author.isNotEquals(article.author)) {
+            throw new AuthorizationException("수정할 수 있는 권한이 없습니다.");
+        }
         title = article.title;
         price = article.price;
         category = article.category;

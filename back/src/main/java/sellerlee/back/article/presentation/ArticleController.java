@@ -74,8 +74,8 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        articleService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id, @LoginMember Member loginMember) {
+        articleService.deleteById(id, loginMember);
         return ResponseEntity.noContent().build();
     }
 

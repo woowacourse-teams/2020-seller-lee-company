@@ -174,7 +174,6 @@ class ArticleControllerTest extends ControllerTest {
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
-        verify(articleService).deleteById(ARTICLE1.getId());
     }
 
     @DisplayName("판매 상태로 게시글 조회 시 HTTP STATUS OK와 판매 상태에 해당하는 게시글 반환")

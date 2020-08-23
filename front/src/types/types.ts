@@ -15,7 +15,7 @@ export type ArticleNavigationParamList = {
   Home: undefined;
   SellerLee: undefined;
   ChatRoom: undefined;
-  ArticleDetailScreen: { photos: string[] };
+  ArticleDetailScreen: { photos: string[]; memberNickname: string };
   ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
   ArticleFormScreen: undefined;

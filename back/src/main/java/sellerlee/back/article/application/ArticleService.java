@@ -10,6 +10,7 @@ import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
 import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.member.domain.Member;
+import sellerlee.back.security.web.AuthorizationException;
 
 @Service
 public class ArticleService {
@@ -27,14 +28,21 @@ public class ArticleService {
 
     @Transactional
     public void update(Long id, ArticleRequest request, Member loginMember) {
-        Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("수정할 게시글이 존재하지 않습니다."));
-
+        Article article = findById(id);
         article.update(request.toArticleWithLoginMember(loginMember));
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id, Member loginMember) {
+        Article article = findById(id);
+        if (loginMember.isNotEquals(article.getAuthor())) {
+            throw new AuthorizationException("삭제할 수 있는 권한이 없습니다.");
+        }
         articleRepository.deleteById(id);
+    }
+
+    private Article findById(Long id) {
+        return articleRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("게시글이 존재하지 않습니다."));
     }
 
     @Transactional
