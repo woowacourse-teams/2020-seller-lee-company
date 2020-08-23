@@ -63,7 +63,6 @@ public class ArticleController {
     public ResponseEntity<ArticleResponse> show(@PathVariable Long id,
             @LoginMember Member loginMember) {
         ArticleResponse articleResponse = articleViewService.show(id, loginMember);
-
         return ResponseEntity.ok(articleResponse);
     }
 
