@@ -1,11 +1,10 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { useRecoilValue } from "recoil/dist";
+import { memberProfileState } from "../../states/memberState";
 
 export default function ProfileInfo() {
-  const nickname = "터틀";
-  const email = "turtle@woowabros.com";
-  const avatar =
-    "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4";
+  const { avatar, nickname } = useRecoilValue(memberProfileState);
 
   return (
     <View style={styles.container}>
@@ -14,7 +13,6 @@ export default function ProfileInfo() {
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.nickname}>{nickname}님, 안녕하세요!</Text>
-        <Text style={styles.email}>{email}</Text>
       </View>
     </View>
   );
@@ -34,13 +32,10 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flex: 4,
+    paddingTop: 10,
     paddingLeft: 15,
   },
   nickname: {
     fontSize: 30,
-  },
-  email: {
-    marginTop: 5,
-    fontSize: 15,
   },
 });

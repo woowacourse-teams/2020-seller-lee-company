@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ProfileScreenNavigationProp } from "../types/types";
@@ -7,15 +7,28 @@ import SalesHistory from "../components/Profile/SalesHistory";
 import PurchaseHistory from "../components/Profile/PurchaseHistory";
 import MyFavorite from "../components/Profile/MyFavorite";
 import MyInfoButton from "../components/Profile/MyInfoButton";
+import { memberAPI } from "../api/api";
+import { useSetRecoilState } from "recoil/dist";
+import { memberProfileState } from "../states/memberState";
 
 export default function ProfileScreen() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const setProfile = useSetRecoilState(memberProfileState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const getProfile = async () => {
+    const { data } = await memberAPI.profile();
+    setProfile(data);
+  };
 
   return (
     <SafeAreaView style={styles.container}>

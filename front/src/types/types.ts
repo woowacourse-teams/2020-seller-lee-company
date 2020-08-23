@@ -204,3 +204,9 @@ export interface Score {
   questionId: number;
   score: number;
 }
+
+export interface Profile {
+  nickname: string;
+  avatar: string;
+  score: number;
+}

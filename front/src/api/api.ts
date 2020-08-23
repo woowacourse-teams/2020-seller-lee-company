@@ -147,7 +147,7 @@ export const memberAPI = {
         Authorization: `bearer ${token}`,
       },
     });
-  },
+  }
 };
 
 interface FavoriteCreate {
