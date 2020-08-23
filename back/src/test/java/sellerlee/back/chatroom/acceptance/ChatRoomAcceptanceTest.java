@@ -3,6 +3,7 @@ package sellerlee.back.chatroom.acceptance;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -60,7 +61,7 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
         .when()
-                .post(CHAT_ROOM_URI)
+                .post(LOGIN_URI+CHAT_ROOM_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
@@ -74,7 +75,7 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                         .auth().oauth2(token.getAccessToken())
                 .when()
                         .param("articleId", articleId)
-                        .get(CHAT_ROOM_URI)
+                        .get(LOGIN_URI+CHAT_ROOM_URI)
                 .then()
                         .log().all()
                         .extract()

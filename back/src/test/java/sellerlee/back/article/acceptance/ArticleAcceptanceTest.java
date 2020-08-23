@@ -3,6 +3,7 @@ package sellerlee.back.article.acceptance;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -88,7 +89,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 .when()
                         .param("lastArticleId", articleId)
                         .param("size", ARTICLE_SIZE)
-                        .get(ARTICLE_URI)
+                        .get(LOGIN_URI+ARTICLE_URI)
                 .then()
                         .log().all()
                         .extract().jsonPath().getList(".", FeedResponse.class);
@@ -96,7 +97,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private ArticleResponse showArticle(Long articleId) {
-        String url = ARTICLE_URI + "/" + articleId;
+        String url = LOGIN_URI + ARTICLE_URI + "/" + articleId;
 
         // @formatter:off
         return
@@ -113,7 +114,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private void deleteArticle(Long articleId) {
-        String url = ARTICLE_URI + "/" + articleId;
+        String url = LOGIN_URI + ARTICLE_URI + "/" + articleId;
 
         // @formatter:off
         given()
@@ -127,7 +128,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private List<SalesHistoryResponse> showSalesHistory() {
-        String url = ARTICLE_URI + TRADE_STATE_URI;
+        String url = LOGIN_URI + ARTICLE_URI + TRADE_STATE_URI;
 
         // @formatter:off
         return
@@ -145,7 +146,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private void updateTradeState(Long articleId) {
-        String url = ARTICLE_URI + TRADE_STATE_URI;
+        String url = LOGIN_URI + ARTICLE_URI + TRADE_STATE_URI;
 
         TradeSateUpdateRequest tradeSateUpdateRequest = new TradeSateUpdateRequest(articleId,
                 "예약중");

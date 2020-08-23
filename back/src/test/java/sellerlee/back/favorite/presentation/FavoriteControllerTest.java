@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
 import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
@@ -34,7 +35,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(FAVORITE_URI)
+                        post(LOGIN_URI+FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
@@ -50,7 +51,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(FAVORITE_URI)
+                        delete(LOGIN_URI+FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))

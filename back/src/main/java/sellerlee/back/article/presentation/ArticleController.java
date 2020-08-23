@@ -1,6 +1,7 @@
 package sellerlee.back.article.presentation;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.net.URI;
 import java.util.List;
@@ -28,7 +29,7 @@ import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 
 @RestController
-@RequestMapping(ARTICLE_URI)
+@RequestMapping(LOGIN_URI + ARTICLE_URI)
 public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
     public static final String TRADE_STATE_URI = "/trade-state";

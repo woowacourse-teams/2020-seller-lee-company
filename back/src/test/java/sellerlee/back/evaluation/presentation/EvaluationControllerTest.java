@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.evaluation.presentation.EvaluationController.*;
 import static sellerlee.back.fixture.EvaluationFixture.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
 import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
@@ -32,7 +33,7 @@ public class EvaluationControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(EVALUATION_URI)
+                        post(LOGIN_URI+EVALUATION_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))

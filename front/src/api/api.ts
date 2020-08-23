@@ -10,6 +10,7 @@ const domain = {
   members: "/members",
   trades: "/trades",
   login: "/login",
+  loginNotOAuth: "/login/not-oauth",
   chatRoom: "/chat-rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
@@ -36,7 +37,7 @@ interface ArticlesGetByTradeState {
 export const articlesAPI = {
   get: async (params: ArticlesGet) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}`, {
+    return await axios.get(`${BASE_URL}${domain.login}${domain.articles}`, {
       params,
       headers: {
         Authorization: `bearer ${token}`,
@@ -45,41 +46,55 @@ export const articlesAPI = {
   },
   getByTradeState: async (params: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}/trade-state`, {
-      params,
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.get(
+      `${BASE_URL}${domain.login}${domain.articles}/trade-state`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
   post: async (data: ArticlesPost) => {
     const token = await DeviceStorage.getToken();
-    return await axios.post(`${BASE_URL}${domain.articles}`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.post(
+      `${BASE_URL}${domain.login}${domain.articles}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
   put: async (articleId: number, data: ArticlesPost) => {
     const token = await DeviceStorage.getToken();
-    return await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.put(
+      `${BASE_URL}${domain.login}${domain.articles}/${articleId}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
   delete: async (articleId: number) => {
     const token = await DeviceStorage.getToken();
-    return await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.delete(
+      `${BASE_URL}${domain.login}${domain.articles}/${articleId}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
   updateTradeState: async (id: number, data: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
     return await axios.patch(
-      `${BASE_URL}${domain.articles}/${id}${domain.tradeState}`,
+      `${BASE_URL}${domain.login}${domain.articles}/${id}${domain.tradeState}`,
       data,
       {
         headers: {
@@ -93,11 +108,14 @@ export const articlesAPI = {
 export const articleDetailAPI = {
   get: async (articleId: number) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}/${articleId}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.get(
+      `${BASE_URL}${domain.login}${domain.articles}/${articleId}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
 };
 
@@ -114,7 +132,7 @@ interface MemberJoin {
 
 export const memberAPI = {
   login: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, data),
+    await axios.post(BASE_URL + domain.loginNotOAuth, data),
   join: async (data: MemberJoin) =>
     await axios.post(BASE_URL + domain.members, data),
 };

@@ -20,6 +20,7 @@ import sellerlee.back.security.web.AuthorizationType;
 @RestController
 public class AuthController {
     public static final String MEMBER_URI = "/members";
+    public static final String LOGIN_NOT_OAUTH_URI = "/login/not-oauth";
     public static final String LOGIN_URI = "/login";
 
     private final MemberService memberService;
@@ -37,7 +38,7 @@ public class AuthController {
                 .build();
     }
 
-    @PostMapping(LOGIN_URI)
+    @PostMapping(LOGIN_NOT_OAUTH_URI)
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
         String token = memberService.login(request);
 

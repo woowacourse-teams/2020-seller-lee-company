@@ -2,6 +2,7 @@ package sellerlee.back.favorite.acceptance;
 
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.util.stream.Stream;
 
@@ -56,7 +57,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .body(objectMapper.writeValueAsString(request))
                 .when()
-                        .post(FAVORITE_URI)
+                        .post(LOGIN_URI+FAVORITE_URI)
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.CREATED.value())
@@ -74,7 +75,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(objectMapper.writeValueAsString(request))
         .when()
-                .delete(FAVORITE_URI)
+                .delete(LOGIN_URI+FAVORITE_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.NO_CONTENT.value());

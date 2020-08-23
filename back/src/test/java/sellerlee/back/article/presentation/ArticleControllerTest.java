@@ -13,6 +13,7 @@ import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
 import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
@@ -54,7 +55,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(ARTICLE_URI)
+                        post(LOGIN_URI+ARTICLE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -168,7 +169,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(ARTICLE_URI + "/" + ARTICLE1.getId())
+                        delete(LOGIN_URI+ARTICLE_URI + "/" + ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
@@ -184,7 +185,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_URI + TRADE_STATE_URI)
+                        get(LOGIN_URI+ARTICLE_URI + TRADE_STATE_URI)
                                 .param("tradeState", "예약중|판매중"))
                 .andExpect(status().isOk());
         // @formatter:on
@@ -202,7 +203,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        patch(ARTICLE_URI + TRADE_STATE_URI)
+                        patch(LOGIN_URI+ARTICLE_URI + TRADE_STATE_URI)
                                 .content(request)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))

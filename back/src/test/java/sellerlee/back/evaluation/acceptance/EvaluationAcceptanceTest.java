@@ -3,6 +3,7 @@ package sellerlee.back.evaluation.acceptance;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.evaluation.presentation.EvaluationController.*;
 import static sellerlee.back.fixture.EvaluationFixture.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.util.stream.Stream;
 
@@ -46,7 +47,7 @@ public class EvaluationAcceptanceTest extends AcceptanceTest {
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
         .when()
-                .post(EVALUATION_URI)
+                .post(LOGIN_URI+EVALUATION_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());

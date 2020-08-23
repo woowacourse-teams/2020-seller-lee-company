@@ -1,6 +1,7 @@
 package sellerlee.back.evaluation.presentation;
 
 import static sellerlee.back.evaluation.presentation.EvaluationController.*;
+import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.net.URI;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sellerlee.back.evaluation.application.EvaluationRequest;
 import sellerlee.back.evaluation.application.EvaluationService;
 
-@RequestMapping(EVALUATION_URI)
+@RequestMapping(LOGIN_URI + EVALUATION_URI)
 @RestController
 public class EvaluationController {
     public static final String EVALUATION_URI = "/evaluations";
