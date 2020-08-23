@@ -68,8 +68,14 @@ export const articlesAPI = {
       },
     });
   },
-  put: async (articleId: number, data: ArticlesPost) =>
-    await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data),
+  put: async (articleId: number, data: ArticlesPost) => {
+    const token = await DeviceStorage.getToken();
+    await axios.put(`${BASE_URL}${domain.articles}/${articleId}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   putByTradeState: async (articleId: number, data: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
     await axios.put(
@@ -82,8 +88,14 @@ export const articlesAPI = {
       },
     );
   },
-  delete: async (articleId: number) =>
-    await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`),
+  delete: async (articleId: number) => {
+    const token = await DeviceStorage.getToken();
+    await axios.delete(`${BASE_URL}${domain.articles}/${articleId}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 export const articleDetailAPI = {
