@@ -32,6 +32,7 @@ export default function ProfileNavigation() {
       />
       <Stack.Screen name="SelectBuyerScreen" component={SelectBuyerScreen} />
       <Stack.Screen name="EvaluationScreen" component={EvaluationScreen} />
+      <Stack.Screen name="MyInfoScreen" component={MyInfoScreen} />
     </Stack.Navigator>
   );
 }

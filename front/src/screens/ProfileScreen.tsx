@@ -6,6 +6,7 @@ import ProfileInfo from "../components/Profile/ProfileInfo";
 import SalesHistory from "../components/Profile/SalesHistory";
 import PurchaseHistory from "../components/Profile/PurchaseHistory";
 import MyFavorite from "../components/Profile/MyFavorite";
+import MyInfoButton from "../components/Profile/MyInfoButton";
 
 export default function ProfileScreen() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -26,6 +27,7 @@ export default function ProfileScreen() {
         <PurchaseHistory />
       </View>
       <View style={styles.favoriteContainer}>
+        <MyInfoButton />
         <MyFavorite />
       </View>
     </SafeAreaView>
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
   },
   favoriteContainer: {
     flex: 5,
+    paddingHorizontal: 30,
   },
   historyContainer: {
     flex: 1,
