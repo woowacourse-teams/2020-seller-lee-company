@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 import ImageViewSliderDot from "../Common/Dot/ImageViewSliderDot";
 import Swiper from "react-native-swiper";
 import ActiveDot from "../Common/Dot/ActiveDot";
-import PhotoBox from "../Common/Photo/PhotoBox";
 import { useRecoilValue } from "recoil/dist";
 import { articleSelectedState } from "../../states/articleState";
+import PhotoBoxInImageViewSlider from "../Common/Photo/PhotoBoxInImageViewSlider";
 
 export default function ArticleDetailImageViewSlider() {
   const { photos } = useRecoilValue(articleSelectedState);
@@ -20,7 +20,7 @@ export default function ArticleDetailImageViewSlider() {
       style={styles.container}
     >
       {photos.map((imageURISource, index) => (
-        <PhotoBox photoURI={imageURISource} key={index} marginBottom={50} />
+        <PhotoBoxInImageViewSlider photoURI={imageURISource} key={index} />
       ))}
     </Swiper>
   );

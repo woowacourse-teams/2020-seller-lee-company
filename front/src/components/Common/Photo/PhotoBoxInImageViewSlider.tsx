@@ -5,7 +5,7 @@ interface PhotoBoxProps {
   photoURI: string;
 }
 
-export default function PhotoBox({ photoURI }: PhotoBoxProps) {
+export default function PhotoBoxInImageViewSlider({ photoURI }: PhotoBoxProps) {
   return (
     <View style={styles.imageContainer}>
       <Image source={{ uri: photoURI ? photoURI : "" }} style={styles.image} />
@@ -16,9 +16,10 @@ export default function PhotoBox({ photoURI }: PhotoBoxProps) {
 const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
+    marginBottom: 50,
   },
   image: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
 });
