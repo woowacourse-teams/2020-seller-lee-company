@@ -9,24 +9,24 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import sellerlee.back.member.domain.Member;
-import sellerlee.back.member.domain.MemberRepository;
+import sellerlee.back.member.domain.KakaoMember;
+import sellerlee.back.member.domain.KakaoMemberRepository;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
 public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientService {
 
-    private final MemberRepository memberRepository;
+    private final KakaoMemberRepository kakaoMemberRepository;
 
     public MyOAuth2AuthorizedClientService(
-            MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+            KakaoMemberRepository kakaoMemberRepository) {
+        this.kakaoMemberRepository = kakaoMemberRepository;
     }
 
     @Override
     public void saveAuthorizedClient(OAuth2AuthorizedClient oAuth2AuthorizedClient,
             Authentication authentication) {
-        // String providerType = oAuth2AuthorizedClient.getClientRegistration().getRegistrationId();
+        String providerType = oAuth2AuthorizedClient.getClientRegistration().getRegistrationId();
         OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
 
         OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
@@ -34,8 +34,13 @@ public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientSe
         String name = (String)((LinkedHashMap)((LinkedHashMap)oauth2User.getAttribute(
                 "kakao_account")).get("profile")).get("nickname");
 
-        Member member = new Member(Long.valueOf(id), name, accessToken.getTokenValue(), null, 5D);
-        memberRepository.save(member);
+        KakaoMember kakaoMember = kakaoMemberRepository.findOptionalKakaoMemberByOauthId(id)
+                .map(entity -> entity.update(name, providerType, accessToken.getTokenValue()))
+                .orElse(
+                        new KakaoMember(id, name, providerType, accessToken.getTokenValue())
+                );
+
+        kakaoMemberRepository.save(kakaoMember);
     }
 
     @Override
