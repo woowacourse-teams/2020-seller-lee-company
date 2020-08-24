@@ -1,21 +1,17 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CategoryHomeNavigationProp } from "../types/types";
+import { useRecoilValue } from "recoil/dist";
+import { articleSelectedCategoryState } from "../states/articleState";
 
 export default function CategoryHomeScreen() {
-  const selectedCategoryName = "가전 제품";
   const navigation = useNavigation<CategoryHomeNavigationProp>();
+  const selectedCategoryName = useRecoilValue(articleSelectedCategoryState);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Category Screen</Text>
-      <Button
-        title="move"
-        onPress={() =>
-          navigation.navigate("CategoryDetail", { title: selectedCategoryName })
-        }
-      />
+      <Text style={styles.text}>{selectedCategoryName}</Text>
     </View>
   );
 }

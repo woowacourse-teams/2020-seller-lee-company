@@ -54,6 +54,7 @@ export type ArticleDetailImageViewRouteProp = RouteProp<
 >;
 
 export type CategoryParamList = {
+  HomeCategorySelect: undefined;
   CategoryHome: undefined;
   CategoryDetail: { title: string };
   Search: undefined;
