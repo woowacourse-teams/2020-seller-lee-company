@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -72,40 +73,40 @@ public class ArticleViewService {
         return FeedResponse.listOf(articles, favoriteCounts, favoriteStates);
     }
 
-    // TODO: 2020/08/17 chatCount mockData
-    public List<SalesHistoryResponse> showSalesDetails(Member member, String tradeState) {
-        if (TradeState.isCompleted(tradeState)) {
-            List<Article> articles = getTradeCompletedBy(member);
-
-            return getSalesDetailsResponses(articles, 3L);
+    public List<SalesHistoryResponse> showByTradeState(Member member, String tradeState) {
+        if (TradeState.valueOf(tradeState).isCompleted()) {
+            List<Article> articles = getCompletedStateArticleBy(member);
+            return getSalesHistoryResponse(articles);
         }
-        List<Article> articles = getTradeNotCompletedBy(member);
-
-        return getSalesDetailsResponses(articles, 3L);
+        List<Article> articles = getNotCompletedStateArticleBy(member);
+        return getSalesHistoryResponse(articles);
     }
 
-    private List<Article> getTradeNotCompletedBy(Member member) {
+    private List<Article> getNotCompletedStateArticleBy(Member member) {
         return articleRepository.findAllByAuthorAndTradeStateNot(member, TradeState.COMPLETED);
     }
 
-    private List<Article> getTradeCompletedBy(Member member) {
+    private List<Article> getCompletedStateArticleBy(Member member) {
         return articleRepository.findAllByAuthorAndTradeState(member, TradeState.COMPLETED);
     }
 
-    private List<SalesHistoryResponse> getSalesDetailsResponses(List<Article> articles,
-            Long chatCount) {
+    private List<SalesHistoryResponse> getSalesHistoryResponse(List<Article> articles) {
         return articles.stream()
                 .map(article -> SalesHistoryResponse.of(article,
-                        favoriteRepository.countAllByArticle(article), chatCount))
-                .collect(toList());
+                        favoriteRepository.countAllByArticle(article)))
+                .collect(Collectors.toList());
     }
 
-    // @Transactional(readOnly = true)
-    // public List<ArticleResponse> showByTradeState(String state) {
-    //     TradeState tradeState = TradeState.valueOf(state);
-    //     List<Article> articles = articleRepository.findByTradeState(tradeState);
-    //     return articles.stream()
-    //             .map(ArticleResponse::of)
-    //             .collect(Collectors.toList());
-    // }
+    public List<ArticleCardResponse> showFavorites(Member member) {
+        List<Favorite> favorites = favoriteRepository.findAllByMemberId(member.getId());
+
+        List<Long> favoriteArticleIds = favorites.stream()
+                .map(Favorite::getArticle)
+                .map(Article::getId)
+                .collect(toList());
+
+        List<Article> favoriteArticles = articleRepository.findAllById(favoriteArticleIds);
+
+        return ArticleCardResponse.listOf(favoriteArticles);
+    }
 }

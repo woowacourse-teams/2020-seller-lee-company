@@ -74,7 +74,9 @@ export default function Photo() {
 
       const response = await RNS3.put(file, options);
 
-      setPhotos(photos.concat(response.body.postResponse.location));
+      setPhotos((previousPhotos) =>
+        previousPhotos.concat(response.body.postResponse.location),
+      );
     }
   };
 

@@ -1,40 +1,60 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
 import { loginPasswordState } from "../../states/loginState";
 
 export default function LoginPasswordForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);
+  const [secureText, setSecureText] = useState(true);
   const setPasswordState = useSetRecoilState(loginPasswordState);
 
   const dynamicStyles = StyleSheet.create({
     passwordFormContainer: {
       flexDirection: "row",
       paddingVertical: 10,
-      borderBottomWidth: 2,
-      borderColor: focusTextInputState ? theme.primary : "lightgrey",
+      borderWidth: 2,
+      borderRadius: 100,
+      borderColor: focusTextInputState ? theme.secondary : "lightgrey",
+    },
+    title: {
+      marginLeft: 15,
+      marginVertical: 5,
+      color: focusTextInputState ? theme.secondary : "lightgrey",
+      fontSize: 14,
+      fontWeight: "bold",
     },
   });
 
   return (
     <View style={styles.container}>
       <View style={dynamicStyles.passwordFormContainer}>
-        <MaterialCommunityIcons
-          name="lock-outline"
-          size={28}
-          color="lightgrey"
-          style={styles.lockIcon}
-        />
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="lock-outline"
+            size={20}
+            color={focusTextInputState ? theme.secondary : "lightgrey"}
+            style={styles.lockIcon}
+          />
+        </View>
         <TextInput
           onFocus={() => setFocusTextInputState(true)}
           onBlur={() => setFocusTextInputState(false)}
           onChangeText={setPasswordState}
           style={styles.passwordForm}
-          placeholder={"비밀번호"}
-          secureTextEntry={true}
+          placeholder={"Password"}
+          secureTextEntry={secureText}
         />
+        <View style={styles.iconContainer}>
+          <MaterialIcons
+            name="remove-red-eye"
+            size={20}
+            color={secureText ? "lightgrey" : theme.secondary}
+            style={styles.eyeIcon}
+            onPress={() => setSecureText(!secureText)}
+          />
+        </View>
       </View>
     </View>
   );
@@ -42,15 +62,23 @@ export default function LoginPasswordForm() {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 6,
     justifyContent: "center",
   },
+  iconContainer: {
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   lockIcon: {
-    marginHorizontal: 5,
+    marginLeft: 10,
   },
   passwordForm: {
     flex: 1,
     fontSize: 16,
     marginHorizontal: 5,
+  },
+  eyeIcon: {
+    justifyContent: "center",
+    marginRight: 10,
   },
 });

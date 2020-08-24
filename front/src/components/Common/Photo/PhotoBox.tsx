@@ -3,12 +3,11 @@ import { Image, StyleSheet, View } from "react-native";
 
 interface PhotoBoxProps {
   photoURI: string;
-  marginBottom: number;
 }
 
-export default function PhotoBox({ photoURI, marginBottom }: PhotoBoxProps) {
+export default function PhotoBox({ photoURI }: PhotoBoxProps) {
   return (
-    <View style={styles.imageContainer || { marginBottom: marginBottom }}>
+    <View style={styles.imageContainer}>
       <Image source={{ uri: photoURI ? photoURI : "" }} style={styles.image} />
     </View>
   );

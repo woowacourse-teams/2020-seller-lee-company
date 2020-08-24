@@ -10,6 +10,7 @@ import {
 } from "../../states/loginState";
 import { memberAPI } from "../../api/api";
 import { DeviceStorage } from "../../auth/DeviceStorage";
+import { memberNicknameState } from "../../states/memberState";
 
 interface LoginSubmitProps {
   resetLoginForm: Function;
@@ -18,6 +19,7 @@ interface LoginSubmitProps {
 export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
   const loginNickname = useRecoilValue(loginNicknameState);
   const loginPassword = useRecoilValue(loginPasswordState);
+  const setMemberNickname = useSetRecoilState(memberNicknameState);
 
   const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
   const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
@@ -38,8 +40,8 @@ export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
 
       if (response.status === 200) {
         await DeviceStorage.storeToken(response.data.accessToken);
-
         setLoginVerifyState(true);
+        setMemberNickname(loginNickname);
         resetLoginForm();
       }
     } catch (error) {
@@ -62,17 +64,18 @@ export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 7,
+    aspectRatio: 6,
   },
   loginButton: {
     flex: 1,
     backgroundColor: theme.primary,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
+    borderRadius: 100,
   },
   loginButtonText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: "bold",
     color: "white",
   },
 });

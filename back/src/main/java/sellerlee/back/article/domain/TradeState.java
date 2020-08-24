@@ -21,8 +21,8 @@ public enum TradeState {
                         new IllegalArgumentException(String.format("잘못된 State : %s.", tradeState)));
     }
 
-    public static boolean isCompleted(String tradeState) {
-        return COMPLETED.tradeState.equals(tradeState);
+    public boolean isCompleted() {
+        return this == COMPLETED;
     }
 
     public String getTradeState() {

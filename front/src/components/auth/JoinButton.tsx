@@ -1,30 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AuthScreenNavigationProp } from "../../types/types";
+import theme from "../../colors";
 
 export default function JoinButton() {
   const navigation = useNavigation<AuthScreenNavigationProp>();
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate("JoinScreen")}
-    >
-      <Text style={styles.title}>회원가입</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.joinButton}
+        onPress={() => navigation.navigate("JoinScreen")}
+      >
+        <Text style={styles.title}>회원가입</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 7,
-    justifyContent: "center",
+    aspectRatio: 6,
+  },
+  joinButton: {
+    flex: 1,
+    backgroundColor: "white",
     alignItems: "center",
-    borderRadius: 5,
+    justifyContent: "center",
+    borderRadius: 100,
   },
   title: {
-    fontSize: 12,
-    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    color: theme.primary,
   },
 });

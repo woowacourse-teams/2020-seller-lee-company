@@ -2,37 +2,25 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ArticleCard from "../Common/ArticleCommon/ArticleCard";
 import theme from "../../colors";
+import { ArticleCardProps } from "../../types/types";
 
 interface PurchaseArticleProps {
-  title: string;
-  price: number;
-  createdTime: string;
-  favoriteCount: number;
-  chatCount: number;
-  thumbnail: string;
+  article: ArticleCardProps;
 }
 
-export default function PurchaseArticle({
-  title,
-  price,
-  createdTime,
-  favoriteCount,
-  chatCount,
-  thumbnail,
+export default function PurchaseHistoryItem({
+  article: { id, title, price, createdTime, favoriteCount, thumbnail },
 }: PurchaseArticleProps) {
-  //터틀이 이미 해둔거라 임시로 넣어둠
   return (
     <View style={styles.container}>
       <View style={styles.articleCardContainer}>
         <ArticleCard
-          id={1}
+          id={id}
           title={title}
           price={price}
           createdTime={createdTime}
           favoriteCount={favoriteCount}
-          chatCount={chatCount}
           thumbnail={thumbnail}
-          tradeState={"판매중"}
         />
       </View>
       <TouchableOpacity activeOpacity={0.5} style={styles.buttonContainer}>
@@ -51,7 +39,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: theme.primary,
-    aspectRatio: 10,
+    paddingVertical: 12,
     alignItems: "center",
     justifyContent: "center",
   },

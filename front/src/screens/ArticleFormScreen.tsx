@@ -13,8 +13,8 @@ import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
-import ArticleTitleForm from "../components/Article/ArticleTitleForm";
-import ArticlePriceForm from "../components/Article/ArticlePriceForm";
+import ArticleFormTitle from "../components/Article/ArticleFormTitle";
+import ArticleFormPrice from "../components/Article/ArticleFormPrice";
 import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
 import Photo from "../components/Common/Photo/Photo";
 import Tag from "../components/Common/Tag/Tag";
@@ -29,15 +29,15 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
+import { Article, ArticleFormScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
-import ArticleContentsForm from "../components/Article/ArticleContentsForm";
+import ArticleFormContents from "../components/Article/ArticleFormContents";
 import { defaultArticle } from "../data/defaultArticle";
 
-export default function ArticleCreateScreen() {
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+export default function ArticleFormScreen() {
+  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
   const [article, setArticle] = useState<Article>(defaultArticle);
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
@@ -182,17 +182,17 @@ export default function ArticleCreateScreen() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.touchableWithoutFeedbackContainer}>
             <View style={styles.titleFormContainer}>
-              <ArticleTitleForm />
+              <ArticleFormTitle />
             </View>
             <View style={styles.selectCategoryContainer}>
               <ArticleFormCategorySelect isEditing={isEditing} />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
-              <ArticlePriceForm />
+              <ArticleFormPrice />
             </View>
             <View style={styles.contentsFormContainer}>
-              <ArticleContentsForm />
+              <ArticleFormContents />
             </View>
             <View style={styles.tagFormContainer}>
               <View style={styles.tagForm}>

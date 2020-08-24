@@ -13,27 +13,37 @@ export default function LoginNicknameForm() {
     nicknameFormContainer: {
       flexDirection: "row",
       paddingVertical: 10,
-      borderBottomWidth: 2,
-      borderColor: focusTextInputState ? theme.primary : "lightgrey",
+      borderWidth: 2,
+      borderRadius: 100,
+      borderColor: focusTextInputState ? theme.secondary : "lightgrey",
+    },
+    title: {
+      marginLeft: 15,
+      marginVertical: 5,
+      color: focusTextInputState ? theme.secondary : "lightgrey",
+      fontSize: 14,
+      fontWeight: "bold",
     },
   });
 
   return (
     <View style={styles.container}>
       <View style={dynamicStyles.nicknameFormContainer}>
-        <MaterialCommunityIcons
-          name="account-circle-outline"
-          size={28}
-          color="lightgrey"
-          style={styles.accountIcon}
-        />
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="account-outline"
+            size={20}
+            color={focusTextInputState ? theme.secondary : "lightgrey"}
+            style={styles.accountIcon}
+          />
+        </View>
         <TextInput
           onFocus={() => setFocusTextInputState(true)}
           onBlur={() => setFocusTextInputState(false)}
           onChangeText={setNicknameState}
           keyboardType={"default"}
           style={styles.nicknameForm}
-          placeholder={"닉네임 입력"}
+          placeholder={"Username"}
         />
       </View>
     </View>
@@ -42,11 +52,15 @@ export default function LoginNicknameForm() {
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 6,
     justifyContent: "center",
   },
+  iconContainer: {
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   accountIcon: {
-    marginHorizontal: 5,
+    marginLeft: 10,
   },
   nicknameForm: {
     flex: 1,
