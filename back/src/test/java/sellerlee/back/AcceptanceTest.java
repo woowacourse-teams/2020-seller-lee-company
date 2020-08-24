@@ -67,11 +67,11 @@ public class AcceptanceTest {
     }
 
     protected TokenResponse joinMemberAndLogin() throws JsonProcessingException {
-        join();
+        NotOAuthJoin();
         return login();
     }
 
-    protected void join() throws JsonProcessingException {
+    protected void NotOAuthJoin() throws JsonProcessingException {
         String request = objectMapper.writeValueAsString(MEMBER_CREATE_REQUEST);
 
         // @formatter:off

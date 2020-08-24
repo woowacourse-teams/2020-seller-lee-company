@@ -28,7 +28,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageMember() {
         return Stream.of(
-                dynamicTest("회원 가입", this::join),
+                dynamicTest("회원 가입", this::NotOAuthJoin),
                 dynamicTest("회원 로그인", this::login)
         );
     }

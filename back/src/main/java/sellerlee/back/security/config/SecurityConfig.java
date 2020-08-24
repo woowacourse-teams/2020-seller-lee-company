@@ -21,6 +21,12 @@ import sellerlee.back.security.oauth2.provider.CustomOAuth2Provider;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final MyOAuth2SuccessHandler myOAuth2SuccessHandler;
+
+    public SecurityConfig(MyOAuth2SuccessHandler myOAuth2SuccessHandler) {
+        this.myOAuth2SuccessHandler = myOAuth2SuccessHandler;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -30,10 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members", "/oauth2/**", "/login/**").permitAll()
+                .antMatchers("/members", "/oauth2/**", "/login/*", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
+                .successHandler(myOAuth2SuccessHandler)
         ;
     }
 
@@ -46,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
                 .clientId(kakaoClient)
                 .clientSecret(kakaoClientSecret)
-                .jwkSetUri("temp")
                 .build()
         );
 
