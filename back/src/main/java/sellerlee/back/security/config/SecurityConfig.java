@@ -15,10 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
-
-import sellerlee.back.security.oauth2.provider.CustomOAuth2Provider;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+
+import sellerlee.back.security.oauth2.provider.CustomOAuth2Provider;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members", "/oauth2/**", "/login/*", "/").permitAll()
+                .antMatchers("/members", "/oauth2/**", "/login/**", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()

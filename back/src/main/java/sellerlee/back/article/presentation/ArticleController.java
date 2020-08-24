@@ -88,7 +88,7 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
-    @PutMapping("/{id}/" + TRADE_STATE_URI)
+    @PutMapping("/{id}" + TRADE_STATE_URI)
     public ResponseEntity<Void> updateTradeState(@PathVariable Long id,
             @RequestBody TradeStateRequest request, @LoginMember Member loginMember) {
         articleService.updateTradeState(id, request, loginMember);
