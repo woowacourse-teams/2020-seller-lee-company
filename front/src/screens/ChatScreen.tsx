@@ -54,6 +54,7 @@ export default function ChatScreen() {
         renderSend={renderSend}
         scrollToBottom
         renderLoading={renderLoading}
+        renderUsernameOnMessage={true}
       />
     </View>
   );
