@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { JoinScreenNavigationProp } from "../types/types";
 import { HeaderBackButton } from "@react-navigation/stack";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import Join from "../components/join/Join";
 import { useResetRecoilState } from "recoil/dist";
 import {
@@ -51,7 +51,7 @@ export default function JoinScreen() {
           labelVisible={false}
           onPress={onPressGoBack}
           backImage={() => (
-            <MaterialIcons name="arrow-back" size={24} color="white" />
+            <Feather name="arrow-left" size={24} color="white" />
           )}
         />
       ),

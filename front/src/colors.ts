@@ -5,5 +5,6 @@ export default {
   others: "#f26f0a",
   // others: "#fc0067",
   warning: "#f9474e",
+  heart: "#e92f3c",
   border: "#eaeaea",
 };

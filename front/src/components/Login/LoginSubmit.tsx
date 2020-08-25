@@ -10,12 +10,16 @@ import {
 } from "../../states/loginState";
 import { memberAPI } from "../../api/api";
 import { DeviceStorage } from "../../auth/DeviceStorage";
+import { useNavigation } from "@react-navigation/native";
+import { AuthScreenNavigationProp } from "../../types/types";
 
 interface LoginSubmitProps {
   resetLoginForm: Function;
 }
 
 export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
+  const navigation = useNavigation<AuthScreenNavigationProp>();
+
   const loginNickname = useRecoilValue(loginNicknameState);
   const loginPassword = useRecoilValue(loginPasswordState);
 
@@ -41,6 +45,7 @@ export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
 
         setLoginVerifyState(true);
         resetLoginForm();
+        navigation.navigate("BottomTabNavigation");
       }
     } catch (error) {
       console.log(error);

@@ -59,19 +59,23 @@ export default function FeedArticleCard({
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
+            <View style={styles.tagContainer}>
+              {tags.map((tag, index) => (
+                <FeedArticleTag key={index} tag={tag} />
+              ))}
+            </View>
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceText}>
+                {insertComma(price.toString())}원
+              </Text>
+            </View>
+          </View>
+          <View style={styles.favoriteContainer}>
             <Favorite
               articleId={id}
               state={favoriteState}
               count={favoriteCount}
             />
-            <View style={styles.detailsPriceContainer}>
-              <Text style={styles.text}>{insertComma(price.toString())}원</Text>
-            </View>
-          </View>
-          <View style={styles.tagContainer}>
-            {tags.map((tag, index) => (
-              <FeedArticleTag key={index} tag={tag} />
-            ))}
           </View>
         </View>
       </View>
@@ -81,47 +85,33 @@ export default function FeedArticleCard({
 
 const styles = StyleSheet.create({
   articleContainer: {
-    marginVertical: 3,
-    marginLeft: 6,
-    paddingVertical: 15,
-    backgroundColor: "#FFF",
-    borderRadius: 8,
-    aspectRatio: 4 / 3,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 6,
+    aspectRatio: 5 / 6,
   },
   photoContainer: {
-    paddingHorizontal: 8,
-    flex: 3,
-  },
-  pagination: {
-    bottom: 15,
+    flex: 5,
   },
   articleSemiDetailsContainer: {
-    flex: 1.3,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
   detailsContainer: {
-    flexDirection: "row",
-    flex: 1,
-    paddingHorizontal: 8,
-  },
-  text: { fontWeight: "bold" },
-  detailsPriceContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-end",
+    justifyContent: "space-evenly",
   },
   tagContainer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 8,
+    marginBottom: 5,
   },
+  priceContainer: {
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  priceText: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  favoriteContainer: {},
 });

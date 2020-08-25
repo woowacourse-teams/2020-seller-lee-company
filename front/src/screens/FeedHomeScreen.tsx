@@ -1,10 +1,19 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
+import theme from "../colors";
 
 export default function FeedHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
@@ -18,18 +27,9 @@ export default function FeedHomeScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "",
-      headerRight: () => (
-        <MaterialIcons
-          name="person"
-          size={24}
-          color="black"
-          onPress={() => navigation.navigate("SellerLee")}
-        />
-      ),
-      headerRightContainerStyle: { paddingRight: 15 },
+      headerShown: false,
     });
-  }, [navigation]);
+  }, []);
 
   useEffect(() => {
     initFeed();
@@ -79,31 +79,73 @@ export default function FeedHomeScreen() {
   };
 
   return (
-    <FlatList
-      data={articles}
-      renderItem={({ item }) => (
-        <FeedArticleCard
-          id={item.id}
-          price={item.price}
-          tags={item.tags}
-          favoriteCount={item.favoriteCount}
-          photos={item.photos}
-          favoriteState={item.favoriteState}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Feeds</Text>
+        <Text style={styles.description}>현재 거래 중인 게시글입니다.</Text>
+      </View>
+      <View style={styles.flatListContainer}>
+        <FlatList
+          data={articles}
+          renderItem={({ item }) => (
+            <View style={styles.feedArticleCardContainer}>
+              <FeedArticleCard
+                id={item.id}
+                price={item.price}
+                tags={item.tags}
+                favoriteCount={item.favoriteCount}
+                photos={item.photos}
+                favoriteState={item.favoriteState}
+              />
+            </View>
+          )}
+          keyExtractor={(item) => `${item.id}`}
+          refreshing={isRefreshing}
+          contentContainerStyle={styles.feedArticleContainer}
+          onRefresh={onRefresh}
+          onEndReachedThreshold={0.25}
+          onEndReached={onLoad}
+          ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         />
-      )}
-      keyExtractor={(item) => `${item.id}`}
-      refreshing={isRefreshing}
-      contentContainerStyle={styles.feedArticleContainer}
-      onRefresh={onRefresh}
-      onEndReachedThreshold={0.25}
-      onEndReached={onLoad}
-      ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
-    />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
+  },
+  titleContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "white",
+    paddingHorizontal: 30,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: theme.primary,
+    marginBottom: 5,
+  },
+  description: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: theme.secondary,
+    marginBottom: 20,
+  },
+  flatListContainer: {
+    flex: 5,
+  },
   feedArticleContainer: {
-    marginHorizontal: 3,
+    paddingHorizontal: 20,
+  },
+  feedArticleCardContainer: {
+    backgroundColor: "transparent",
+    marginBottom: 10,
   },
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import theme from "../../colors";
 
 interface FeedArticleTagProps {
   tag: string;
@@ -7,24 +8,18 @@ interface FeedArticleTagProps {
 
 export default function FeedArticleTag({ tag }: FeedArticleTagProps) {
   return (
-    <View style={styles.tagItem}>
-      <View style={styles.tagItemTextWrapper}>
-        <Text>{tag}</Text>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.tagText}>{tag}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  tagItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: "80%",
+  container: {
     marginRight: 5,
-    borderRadius: 10,
-    backgroundColor: "#eeecda",
   },
-  tagItemTextWrapper: {
-    paddingHorizontal: 3,
+  tagText: {
+    fontSize: 15,
+    color: theme.secondary,
   },
 });

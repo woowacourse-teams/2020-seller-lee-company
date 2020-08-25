@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
 import { loginPasswordState } from "../../states/loginState";
@@ -48,8 +48,8 @@ export default function LoginPasswordForm() {
           secureTextEntry={secureText}
         />
         <View style={styles.iconContainer}>
-          <MaterialIcons
-            name="remove-red-eye"
+          <Feather
+            name={secureText ? "eye-off" : "eye"}
             size={20}
             color={secureText ? "lightgrey" : theme.secondary}
             style={styles.eyeIcon}
