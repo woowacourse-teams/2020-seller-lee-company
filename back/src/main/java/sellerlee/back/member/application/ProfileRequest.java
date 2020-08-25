@@ -4,15 +4,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import sellerlee.back.member.domain.Member;
 
-public class MyInfoRequest {
+public class ProfileRequest {
     private String nickname;
     private String password;
     private String avatar;
 
-    private MyInfoRequest() {
+    private ProfileRequest() {
     }
 
-    public MyInfoRequest(String nickname, String password, String avatar) {
+    public ProfileRequest(String nickname, String password, String avatar) {
         this.nickname = nickname;
         this.password = password;
         this.avatar = avatar;

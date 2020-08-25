@@ -46,7 +46,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateProfile(Member loginMember, MyInfoRequest request) {
+    public void update(Member loginMember, ProfileRequest request) {
         if (!loginMember.isSameNickname(request.getNickname())) {
             throw new IllegalArgumentException("닉네임은 변경될 수 없습니다.");
         }

@@ -2,22 +2,22 @@ package sellerlee.back.member.application;
 
 import sellerlee.back.member.domain.Member;
 
-public class MyInfoResponse {
+public class ProfileResponse {
     private String nickname;
     private String avatar;
     private Double score;
 
-    private MyInfoResponse() {
+    private ProfileResponse() {
     }
 
-    public MyInfoResponse(String nickname, String avatar, Double score) {
+    public ProfileResponse(String nickname, String avatar, Double score) {
         this.nickname = nickname;
         this.avatar = avatar;
         this.score = score;
     }
 
-    public static MyInfoResponse of(Member member) {
-        return new MyInfoResponse(
+    public static ProfileResponse of(Member member) {
+        return new ProfileResponse(
                 member.getNickname(),
                 member.getAvatar(),
                 member.getScore()
