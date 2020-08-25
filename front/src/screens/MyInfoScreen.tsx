@@ -7,12 +7,44 @@ import { MyInfoScreenNavigationProp } from "../types/types";
 import colors from "../colors";
 import MyInfoAvatar from "../components/Profile/MyInfoAvatar";
 import MyInfoForm from "../components/Profile/MyInfoForm";
+import { useRecoilValue, useResetRecoilState } from "recoil/dist";
+import {
+  memberInfoAvatarState,
+  memberInfoConfirmState,
+  memberInfoPasswordState,
+  memberProfileState,
+} from "../states/memberState";
+import { memberAPI } from "../api/api";
 
 export default function MyInfoScreen() {
   const navigation = useNavigation<MyInfoScreenNavigationProp>();
 
-  const onPressCompleteButton = () => {
-    navigation.goBack();
+  const { nickname } = useRecoilValue(memberProfileState);
+  // const nickname = useRecoilValue(memberInfoNicknameState); 일단 닉네임 수정불가
+  const password = useRecoilValue(memberInfoPasswordState);
+  const confirm = useRecoilValue(memberInfoConfirmState);
+  const avatar = useRecoilValue(memberInfoAvatarState);
+
+  // const resetNickname = useResetRecoilState(memberInfoNicknameState); 일단 닉네임 수정불가
+  const resetPassword = useResetRecoilState(memberInfoPasswordState);
+  const resetConfirm = useResetRecoilState(memberInfoConfirmState);
+  const resetAvatar = useResetRecoilState(memberInfoAvatarState);
+
+  const onPressCompleteButton = async () => {
+    if (password !== confirm) {
+      alert("비밀번호와 확인이 일치하지 않습니다.");
+    } else {
+      navigation.goBack();
+      await memberAPI.put({ nickname, password, avatar });
+      resetForm();
+    }
+  };
+
+  const resetForm = () => {
+    // resetNickname();
+    resetPassword();
+    resetConfirm();
+    resetAvatar();
   };
 
   useLayoutEffect(() => {

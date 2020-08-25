@@ -135,11 +135,33 @@ interface MemberJoin {
   avatar: string;
 }
 
+interface MemberPost {
+  nickname: string;
+  password: string;
+  avatar: string;
+}
+
 export const memberAPI = {
   login: async (data: MemberLogin) =>
     await axios.post(BASE_URL + domain.login, data),
   join: async (data: MemberJoin) =>
     await axios.post(BASE_URL + domain.members, data),
+  get: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.members}/me`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  put: async (data: MemberPost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.members}/me`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   getNickname: async () => {
     const token = await DeviceStorage.getToken();
     return await axios.get(BASE_URL + domain.members, {
