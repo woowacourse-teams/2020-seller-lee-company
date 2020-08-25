@@ -19,7 +19,7 @@ export default function HomeCategoryItem({ title }: CategoryItemProps) {
 
   const onClickCategory = () => {
     setSelectedCategory(title);
-    navigation.navigate("CategoryHome");
+    navigation.navigate("CategoryHomeScreen");
   };
 
   return (

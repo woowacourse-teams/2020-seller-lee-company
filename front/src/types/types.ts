@@ -1,4 +1,3 @@
-import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
@@ -48,31 +47,17 @@ export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
   "ArticleDetailImageViewScreen"
 >;
 
-export type ArticleDetailImageViewRouteProp = RouteProp<
-  ArticleNavigationParamList,
-  "ArticleDetailImageViewScreen"
->;
-
 export type CategoryParamList = {
-  HomeCategorySelect: undefined;
-  CategoryHome: undefined;
-  CategoryDetail: { title: string };
-  ArticleDetail: undefined;
+  HomeCategorySelectScreen: undefined;
+  CategoryHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
+  ArticleFormScreen: undefined;
+  ArticleDetailImageViewScreen: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
   CategoryParamList,
-  "CategoryHome"
->;
-
-export type CategoryDetailNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "CategoryDetail"
->;
-
-export type CategoryDetailRouteProp = RouteProp<
-  CategoryParamList,
-  "CategoryDetail"
+  "CategoryHomeScreen"
 >;
 
 export type ArticleFormParamList = {
@@ -194,6 +179,8 @@ export type ProfileNavigationParamList = {
   SalesHistoryScreen: undefined;
   PurchaseHistoryScreen: undefined;
   ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: undefined;
+  ArticleFormScreen: undefined;
   SelectBuyerScreen: undefined;
   EvaluationScreen: undefined;
 };

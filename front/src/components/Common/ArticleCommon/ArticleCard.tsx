@@ -31,7 +31,7 @@ export default function ArticleCard({
       style={styles.container}
       onPress={() => {
         setArticleSelectedId(id);
-        navigation.navigate("ArticleDetail");
+        navigation.navigate("ArticleDetailScreen");
       }}
     >
       <View style={styles.innerContainer}>
