@@ -27,13 +27,11 @@ public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res,
             Authentication authentication) {
-        String id = authentication.getName();
-
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>)((DefaultOAuth2User)authentication
                 .getPrincipal()).getAttributes().get("properties");
-        String name = (String)properties.get("nickname");
+        String email = (String)properties.get("account_email");
 
-        String token = jwtTokenProvider.createToken(id, name);
+        String token = jwtTokenProvider.createToken(email);
 
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }

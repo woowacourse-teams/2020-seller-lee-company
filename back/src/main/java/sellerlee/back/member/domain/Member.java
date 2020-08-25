@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,53 +15,54 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String kakaoId;
+
+    private String email;
+
     private String nickname;
 
+    //todo deleted
     private String password;
 
     private String avatar;
 
     private Double score;
 
-    @OneToOne
-    @JoinColumn(name = "kakao_member_id")
-    private KakaoMember kakaoMember;
-
     protected Member() {
     }
 
-    public Member(Long id, String nickname, String password, String avatar, Double score,
-            KakaoMember kakaoMember) {
+    public Member(Long id, String kakaoId, String email, String nickname, String password,
+            String avatar, Double score) {
         this.id = id;
+        this.kakaoId = kakaoId;
+        this.email = email;
         this.nickname = nickname;
         this.password = password;
         this.avatar = avatar;
         this.score = score;
-        this.kakaoMember = kakaoMember;
     }
 
-    // public Member(Long id, String nickname, String password, String avatar, Double score) {
-    //     this.id = id;
-    //     this.nickname = nickname;
-    //     this.password = password;
-    //     this.avatar = avatar;
-    //     this.score = score;
-    // }
-
-    public Member(Long id, String nickname, String password, String avatar, Double score) {
-        this(id, nickname, password, avatar, score, null);
+    public Member(String kakaoId, String email, String nickname, String password, String avatar,
+            Double score) {
+        this(null, kakaoId, email, nickname, password, avatar, score);
     }
 
     public Member(String nickname, String password, String avatar, Double score) {
-        this(null, nickname, password, avatar, score, null);
+        this(null, null, nickname, password, avatar, score);
     }
 
     public Member(String nickname, String password, String avatar) {
-        this(null, nickname, password, avatar, null, null);
+        this(null, null, null, nickname, password, avatar, null);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null);
+        this(id, null, null, null, null, null, null);
+    }
+
+    public Member updateNickName(String nickname) {
+        this.nickname = nickname;
+
+        return this;
     }
 
     public boolean verify(PasswordEncoder passwordEncoder, String password) {

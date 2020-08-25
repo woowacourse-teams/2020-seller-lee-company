@@ -38,6 +38,8 @@ public class MemberFixture {
     public static final Member MEMBER1 =
             new Member(
                     51L,
+                    null,
+                    null,
                     "lxxjn0",
                     "1234",
                     "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
@@ -46,6 +48,8 @@ public class MemberFixture {
     public static final Member MEMBER2 =
             new Member(
                     52L,
+                    null,
+                    null,
                     "begaonnuri",
                     "0000",
                     "https://avatars2.githubusercontent.com/u/39271364?s=400&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4",

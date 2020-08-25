@@ -9,18 +9,18 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import sellerlee.back.member.domain.KakaoMember;
-import sellerlee.back.member.domain.KakaoMemberRepository;
+import sellerlee.back.member.domain.Member;
+import sellerlee.back.member.domain.MemberRepository;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
 public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientService {
 
-    private final KakaoMemberRepository kakaoMemberRepository;
+    private final MemberRepository memberRepository;
 
     public MyOAuth2AuthorizedClientService(
-            KakaoMemberRepository kakaoMemberRepository) {
-        this.kakaoMemberRepository = kakaoMemberRepository;
+            MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Override
@@ -30,17 +30,19 @@ public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientSe
         OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
 
         OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
-        String id = String.valueOf(oauth2User.getAttributes().get("id"));
-        String name = (String)((LinkedHashMap)((LinkedHashMap)oauth2User.getAttribute(
+        String kakaoId = String.valueOf(oauth2User.getAttributes().get("id"));
+        String nickName = (String)((LinkedHashMap)((LinkedHashMap)oauth2User.getAttribute(
                 "kakao_account")).get("profile")).get("nickname");
+        String email = (String)(((LinkedHashMap)oauth2User.getAttribute(
+                "kakao_account")).get("email"));
 
-        KakaoMember kakaoMember = kakaoMemberRepository.findOptionalKakaoMemberByOauthId(id)
-                .map(entity -> entity.update(name, providerType, accessToken.getTokenValue()))
+        Member member = memberRepository.findOptionalMemberByEmail(email)
+                .map(entity -> entity.updateNickName(nickName))
                 .orElse(
-                        new KakaoMember(id, name, providerType, accessToken.getTokenValue())
+                        new Member(null, kakaoId, nickName)
                 );
 
-        kakaoMemberRepository.save(kakaoMember);
+        memberRepository.save(member);
     }
 
     @Override
