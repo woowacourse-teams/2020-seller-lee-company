@@ -26,7 +26,7 @@ export default function ArticleDeleteModal() {
             title={"목록으로 이동"}
             onPress={() => {
               setModalVisible(false);
-              navigation.navigate("Home");
+              navigation.navigate("FeedHomeScreen");
             }}
             color={theme.primary}
           />
