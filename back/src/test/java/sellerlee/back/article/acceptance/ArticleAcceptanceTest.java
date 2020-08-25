@@ -3,6 +3,7 @@ package sellerlee.back.article.acceptance;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.fixture.ArticleFixture.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
+import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.SalesHistoryResponse;
@@ -69,6 +71,10 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                     List<FeedResponse> feedArticleResponses = showPage(articleId4);
                     assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE);
                 }),
+                dynamicTest("카테고리 별 게시글 페이지 조회", () -> {
+                    List<ArticleCardResponse> feedArticleResponses = showPageByCategory(articleId4);
+                    assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE);
+                }),
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = showArticle(articleId);
                     assertThat(articleResponse.getId()).isEqualTo(articleId);
@@ -101,6 +107,22 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 .then()
                         .log().all()
                         .extract().jsonPath().getList(".", FeedResponse.class);
+        // @formatter:on
+    }
+
+    private List<ArticleCardResponse> showPageByCategory(Long articleId) {
+        // @formatter:off
+        return
+                given()
+                        .auth().oauth2(token.getAccessToken())
+                        .when()
+                        .param("lastArticleId", articleId)
+                        .param("size", ARTICLE_SIZE)
+                        .param("category", ARTICLE_REQUEST.getCategory())
+                        .get(ARTICLE_URI)
+                        .then()
+                        .log().all()
+                        .extract().jsonPath().getList(".", ArticleCardResponse.class);
         // @formatter:on
     }
 

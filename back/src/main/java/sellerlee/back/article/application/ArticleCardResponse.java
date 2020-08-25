@@ -4,45 +4,54 @@ import static java.util.stream.Collectors.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.TradeState;
 
 public class ArticleCardResponse {
     private Long id;
     private String title;
     private Long price;
     private String thumbnail;
+    private TradeState tradeState;
     private long favoriteCount;
+    private boolean favoriteState;
     private String createdTime;
 
     private ArticleCardResponse() {
     }
 
-    public ArticleCardResponse(Long id, String title, Long price, String thumbnail,
-            long favoriteCount,
+    private ArticleCardResponse(Long id, String title, Long price, String thumbnail,
+            TradeState tradeState, long favoriteCount, boolean favoriteState,
             String createdTime) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.thumbnail = thumbnail;
+        this.tradeState = tradeState;
         this.favoriteCount = favoriteCount;
+        this.favoriteState = favoriteState;
         this.createdTime = createdTime;
     }
 
-    public static ArticleCardResponse of(Article article) {
+    public static ArticleCardResponse of(Article article, Long favoriteCount, boolean favoriteState) {
         return new ArticleCardResponse(
                 article.getId(),
                 article.getTitle(),
                 article.getPrice(),
                 article.getPhotos().pickThumbnail(),
-                7, // TODO : 실제 값으로 변경
+                article.getTradeState(),
+                favoriteCount,
+                favoriteState,
                 article.getCreatedTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         );
     }
 
-    public static List<ArticleCardResponse> listOf(List<Article> articles) {
-        return articles.stream()
-                .map(ArticleCardResponse::of)
+    public static List<ArticleCardResponse> listOf(List<Article> articles, List<Long> favoriteCounts,
+            List<Boolean> favoriteStates) {
+        return IntStream.range(0, articles.size())
+                .mapToObj(i -> of(articles.get(i), favoriteCounts.get(i), favoriteStates.get(i)))
                 .collect(toList());
     }
 
@@ -62,8 +71,16 @@ public class ArticleCardResponse {
         return thumbnail;
     }
 
+    public TradeState getTradeState() {
+        return tradeState;
+    }
+
     public long getFavoriteCount() {
         return favoriteCount;
+    }
+
+    public boolean isFavoriteState() {
+        return favoriteState;
     }
 
     public String getCreatedTime() {

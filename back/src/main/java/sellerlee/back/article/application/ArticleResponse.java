@@ -43,7 +43,7 @@ public class ArticleResponse {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
-                article.getCategory().getCategory(),
+                article.getCategory().getCategoryName(),
                 article.getContents(),
                 article.getPrice(),
                 article.getTradeState().getTradeState(),

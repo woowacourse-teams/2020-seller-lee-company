@@ -15,7 +15,7 @@ export type ArticleNavigationParamList = {
   Home: undefined;
   SellerLee: undefined;
   ChatRoom: undefined;
-  ArticleDetailScreen: { photos: string[]; memberNickname: string };
+  ArticleDetailScreen: undefined;
   ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
   ArticleFormScreen: undefined;
@@ -54,9 +54,10 @@ export type ArticleDetailImageViewRouteProp = RouteProp<
 >;
 
 export type CategoryParamList = {
+  HomeCategorySelect: undefined;
   CategoryHome: undefined;
   CategoryDetail: { title: string };
-  Search: undefined;
+  ArticleDetail: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
@@ -72,11 +73,6 @@ export type CategoryDetailNavigationProp = StackNavigationProp<
 export type CategoryDetailRouteProp = RouteProp<
   CategoryParamList,
   "CategoryDetail"
->;
-
-export type SearchNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "Search"
 >;
 
 export type ArticleFormParamList = {
@@ -122,14 +118,6 @@ export interface Feed {
   favoriteCount: number;
   tags: string[];
   favoriteState: boolean;
-  photos: string[];
-}
-
-export interface Feed {
-  id: number;
-  price: number;
-  favoriteCount: number;
-  tags: string[];
   photos: string[];
 }
 
@@ -182,6 +170,7 @@ export interface ArticleCardProps {
   title: string;
   price: number;
   thumbnail: string;
+  favoriteState: boolean;
   favoriteCount: number;
   createdTime: string;
 }

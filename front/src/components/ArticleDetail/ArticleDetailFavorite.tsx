@@ -2,17 +2,22 @@ import React, { useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import theme from "../../colors";
-import { useRecoilState } from "recoil/dist";
-import { articleSelectedState } from "../../states/articleState";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
+import {
+  articleIsModifiedState,
+  articleSelectedState,
+} from "../../states/articleState";
 import { favoriteAPI } from "../../api/api";
 
 export default function ArticleDetailFavorite() {
   const [article, setArticle] = useRecoilState(articleSelectedState);
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
 
   const springValue = useRef(new Animated.Value(1)).current;
 
   const fulfillHeartAnimate = () => {
+    setIsModified(true);
     springValue.setValue(0.33);
     Animated.timing(springValue, {
       toValue: 1,

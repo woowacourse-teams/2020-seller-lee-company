@@ -42,6 +42,11 @@ export const articleSelectedState = atom({
   default: defaultArticle,
 });
 
+export const articleIsModifiedState = atom({
+  key: "articleIsModifiedState",
+  default: false,
+});
+
 export const articleIsEditingState = atom({
   key: "articleIsEditingState",
   default: false,

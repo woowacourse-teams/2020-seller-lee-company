@@ -1,9 +1,9 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import CategoryHomeScreen from "../../screens/CategoryHomeScreen";
-import CategoryDetailScreen from "../../screens/CategoryDetailScreen";
-import SearchScreen from "../../screens/SearchScreen";
 import { CategoryParamList } from "../../types/types";
+import HomeCategorySelectScreen from "../../screens/HomeCategorySelectScreen";
+import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 
 const Stack = createStackNavigator<CategoryParamList>();
 
@@ -11,14 +11,11 @@ export default function CategoryNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="CategoryHome"
-        component={CategoryHomeScreen}
-        options={{
-          headerLeft: () => null,
-        }}
+        name="HomeCategorySelect"
+        component={HomeCategorySelectScreen}
       />
-      <Stack.Screen name="CategoryDetail" component={CategoryDetailScreen} />
-      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="CategoryHome" component={CategoryHomeScreen} />
+      <Stack.Screen name="ArticleDetail" component={ArticleDetailScreen} />
     </Stack.Navigator>
   );
 }

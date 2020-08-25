@@ -12,6 +12,8 @@ import sellerlee.back.member.domain.Member;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findByIdLessThanOrderByIdDesc(Long lastArticleId, Pageable pageRequest);
 
+    Page<Article> findByIdLessThanAndCategoryOrderByIdDesc(Long lastArticleId, Category category, Pageable pageRequest);
+
     List<Article> findAllByTradeState(TradeState tradeState);
 
     Optional<Article> findByAuthorAndId(Member author, Long id);
