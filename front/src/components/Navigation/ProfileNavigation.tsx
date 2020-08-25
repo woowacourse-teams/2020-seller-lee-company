@@ -9,6 +9,7 @@ import SelectBuyerScreen from "../../screens/SelectBuyerScreen";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
 import ArticleFormScreen from "../../screens/ArticleFormScreen";
+import MyInfoScreen from "../../screens/MyInfoScreen";
 
 const Stack = createStackNavigator<ProfileNavigationParamList>();
 
