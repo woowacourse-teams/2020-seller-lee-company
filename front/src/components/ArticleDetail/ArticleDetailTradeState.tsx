@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
   containerOfOnSale: {
     flex: 1,
     backgroundColor: colors.primary,
-    aspectRatio: 2.2,
+    width: 50,
+    height: 25,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
   containerOfNotOnSale: {
     flex: 1,
     backgroundColor: "lightgrey",
-    aspectRatio: 3,
+    width: 60,
+    height: 25,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",

@@ -18,7 +18,7 @@ function getTabBarVisibility(route: any) {
   return (
     routeName === "Home" ||
     routeName === "ProfileScreen" ||
-    routeName === "HomeCategorySelect"
+    routeName === "HomeCategorySelectScreen"
   );
 }
 
