@@ -55,6 +55,8 @@ export default function ChatScreen() {
         scrollToBottom
         renderLoading={renderLoading}
         renderUsernameOnMessage={true}
+        dateFormat="YYYY년 MM월 DD일"
+        timeFormat="HH:mm"
       />
     </View>
   );
