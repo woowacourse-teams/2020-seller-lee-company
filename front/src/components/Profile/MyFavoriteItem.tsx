@@ -13,6 +13,7 @@ export default function MyFavoriteItem({
     title,
     price,
     thumbnail,
+    tradeState,
     favoriteState,
     favoriteCount,
     createdTime,
@@ -25,6 +26,7 @@ export default function MyFavoriteItem({
         title={title}
         price={price}
         thumbnail={thumbnail}
+        tradeState={tradeState}
         favoriteState={favoriteState}
         favoriteCount={favoriteCount}
         createdTime={createdTime}

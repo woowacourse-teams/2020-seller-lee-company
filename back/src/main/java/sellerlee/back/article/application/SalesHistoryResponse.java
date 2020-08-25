@@ -35,7 +35,7 @@ public class SalesHistoryResponse {
                 article.getCreatedTime(),
                 favoriteCount,
                 article.getPhotos().pickThumbnail(),
-                article.getTradeState().getTradeState()
+                article.getTradeState().getTradeStateName()
         );
     }
 

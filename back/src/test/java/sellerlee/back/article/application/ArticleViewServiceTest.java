@@ -27,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
+import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import sellerlee.back.favorite.domain.Favorite;
@@ -73,7 +74,7 @@ class ArticleViewServiceTest {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
         Page<Article> expectedPage = new PageImpl<>(articles);
 
-        when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID, pageRequest))
+        when(articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(LAST_ARTICLE_ID, TradeState.ON_SALE, pageRequest))
                 .thenReturn(expectedPage);
         when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles))
                 .thenReturn(asList(

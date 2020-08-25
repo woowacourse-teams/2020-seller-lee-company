@@ -11,12 +11,14 @@ import ArticleCardAdditional from "./ArticleCardAdditional";
 import { useNavigation } from "@react-navigation/native";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSelectedIdState } from "../../../states/articleState";
+import ArticleCardTradeState from "./ArticleCardTradeState";
 
 export default function ArticleCard({
   id,
   title,
   price,
   createdTime,
+  tradeState,
   favoriteState,
   favoriteCount,
   thumbnail,
@@ -38,6 +40,7 @@ export default function ArticleCard({
         </View>
         <View style={styles.contentsContainer}>
           <ArticleCardTitle title={title} />
+          <ArticleCardTradeState tradeState={tradeState} />
           <ArticleCardTradeDetails createdTime={createdTime} />
           <ArticleCardAdditional
             price={price}
