@@ -1,10 +1,17 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { ArticleCardProps, CategoryHomeNavigationProp } from "../types/types";
 import { articlesAPI } from "../api/api";
-import { useRecoilValue, useResetRecoilState } from "recoil/dist";
-import { articleSelectedCategoryState } from "../states/articleState";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+} from "recoil/dist";
+import {
+  articleIsModifiedState,
+  articleSelectedCategoryState,
+} from "../states/articleState";
 import ArticleCard from "../components/Common/ArticleCommon/ArticleCard";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
@@ -20,6 +27,16 @@ export default function CategoryHomeScreen() {
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const category = useRecoilValue(articleSelectedCategoryState);
   const resetCategory = useResetRecoilState(articleSelectedCategoryState);
+  const isFocused = useIsFocused();
+  const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+
+  useEffect(() => {
+    const applyChange = async () => {
+      initFeed();
+      setIsModified(false);
+    };
+    isModified ? applyChange() : undefined;
+  }, [isFocused]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -80,11 +97,10 @@ export default function CategoryHomeScreen() {
   };
 
   const onLoad = async () => {
-    if (
-      articles.length < MIN_LOAD_ARTICLE_COUNT ||
-      !hasAdditionalArticle ||
-      !category
-    ) {
+    if (articles.length < MIN_LOAD_ARTICLE_COUNT || !hasAdditionalArticle) {
+      return;
+    }
+    if (!category) {
       setIsLoading(false);
       return;
     }

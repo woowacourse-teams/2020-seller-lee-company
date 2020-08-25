@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 3,
   },
   containerOfNotOnSale: {
     flex: 1,
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 3,
   },
   tradeStateOfOnSale: {
     color: "white",
