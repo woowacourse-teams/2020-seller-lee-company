@@ -34,6 +34,6 @@ public class AuthorizationConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenSecurityInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns(MEMBER_URI, LOGIN_URI, "/", API_URI, PRIVACY_URI);
+                .excludePathPatterns(LOGIN_URI, "/", API_URI, PRIVACY_URI);
     }
 }
