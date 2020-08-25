@@ -10,6 +10,7 @@ export default function ArticleCard({
   title,
   price,
   createdTime,
+  favoriteState,
   favoriteCount,
   thumbnail,
 }: ArticleCardProps) {
@@ -21,7 +22,11 @@ export default function ArticleCard({
       <View style={styles.contentsContainer}>
         <ArticleCardTitle title={title} />
         <ArticleCardTradeDetails createdTime={createdTime} />
-        <ArticleCardAdditional price={price} favoriteCount={favoriteCount} />
+        <ArticleCardAdditional
+          price={price}
+          favoriteCount={favoriteCount}
+          favoriteState={favoriteState}
+        />
       </View>
     </View>
   );

@@ -71,8 +71,16 @@ public class ArticleCardResponse {
         return thumbnail;
     }
 
+    public TradeState getTradeState() {
+        return tradeState;
+    }
+
     public long getFavoriteCount() {
         return favoriteCount;
+    }
+
+    public boolean isFavoriteState() {
+        return favoriteState;
     }
 
     public String getCreatedTime() {

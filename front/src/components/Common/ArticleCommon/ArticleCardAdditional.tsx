@@ -5,11 +5,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 interface ArticleCardAdditionalProps {
   price: number;
   favoriteCount: number;
+  favoriteState: boolean;
 }
 
 export default function ArticleCardAdditional({
   price,
   favoriteCount,
+  favoriteState,
 }: ArticleCardAdditionalProps) {
   return (
     <View style={styles.pieceAndAdditionalContainer}>
@@ -17,9 +19,9 @@ export default function ArticleCardAdditional({
       <View style={styles.additionalContainer}>
         <View style={styles.favoriteContainer}>
           <MaterialCommunityIcons
-            name="heart-outline"
+            name={favoriteState ? "heart" : "heart-outline"}
             size={14}
-            color="black"
+            color={favoriteState ? "red" : "black"}
           />
           <Text style={styles.additionalText}>{favoriteCount}</Text>
         </View>

@@ -22,7 +22,7 @@ export default function CategoryHomeScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "",
+      title: category,
       headerRight: () => <></>,
       headerRightContainerStyle: { paddingRight: 15 },
       headerLeft: () => (
@@ -95,6 +95,7 @@ export default function CategoryHomeScreen() {
           id={item.id}
           title={item.title}
           price={item.price}
+          favoriteState={item.favoriteState}
           favoriteCount={item.favoriteCount}
           thumbnail={item.thumbnail}
           createdTime={item.createdTime}

@@ -12,7 +12,16 @@ interface OnSaleHistoryListProps {
 
 export default function SalesHistoryItem({
   isCompletedTab,
-  article: { id, title, price, photos, tradeState, favoriteCount, createdTime },
+  article: {
+    id,
+    title,
+    price,
+    photos,
+    tradeState,
+    favoriteState,
+    favoriteCount,
+    createdTime,
+  },
 }: OnSaleHistoryListProps) {
   const [tradeStateState, setTradeStateState] = useState(tradeState);
 
@@ -31,6 +40,7 @@ export default function SalesHistoryItem({
           title={title}
           price={price}
           createdTime={createdTime}
+          favoriteState={favoriteState}
           favoriteCount={favoriteCount}
           thumbnail={photos ? photos[0] : "tempURI"}
         />
