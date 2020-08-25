@@ -3,7 +3,7 @@ import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ArticleCardProps, CategoryHomeNavigationProp } from "../types/types";
 import { articlesAPI } from "../api/api";
-import { useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useResetRecoilState } from "recoil/dist";
 import { articleSelectedCategoryState } from "../states/articleState";
 import ArticleCard from "../components/Common/ArticleCommon/ArticleCard";
 import { HeaderBackButton } from "@react-navigation/stack";
@@ -19,21 +19,25 @@ export default function CategoryHomeScreen() {
   const [articles, setArticles] = useState<ArticleCardProps[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const category = useRecoilValue(articleSelectedCategoryState);
+  const resetCategory = useResetRecoilState(articleSelectedCategoryState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: category,
       headerRight: () => <></>,
       headerRightContainerStyle: { paddingRight: 15 },
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={navigation.goBack}
-          backImage={() => (
-            <EvilIcons name="chevron-left" size={24} color="black" />
-          )}
-        />
-      ),
+      headerLeft: () => {
+        resetCategory();
+        return (
+          <HeaderBackButton
+            labelVisible={false}
+            onPress={navigation.goBack}
+            backImage={() => (
+              <EvilIcons name="chevron-left" size={24} color="black" />
+            )}
+          />
+        );
+      },
       headerLeftContainerStyle: { paddingLeft: 15 },
     });
   }, [navigation]);

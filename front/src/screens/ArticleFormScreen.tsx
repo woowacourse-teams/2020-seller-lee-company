@@ -21,6 +21,7 @@ import Tag from "../components/Common/Tag/Tag";
 import {
   articleContentsState,
   articleIsEditingState,
+  articleIsModifiedState,
   articleModalActivationState,
   articlePhotosState,
   articlePriceState,
@@ -52,6 +53,7 @@ export default function ArticleFormScreen() {
   const [tags, setTags] = useRecoilState(tagsState);
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
   const [originArticle, setOriginArticle] = useState<Article>();
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
 
   const confirmToBackAction = () => {
     if (isDirty()) {
@@ -128,6 +130,7 @@ export default function ArticleFormScreen() {
       ? await articlesAPI.put(article.id, data)
       : await articlesAPI.post(data);
     resetForm();
+    setIsModified(true);
     navigation.goBack();
   };
 

@@ -15,7 +15,7 @@ export type ArticleNavigationParamList = {
   Home: undefined;
   SellerLee: undefined;
   ChatRoom: undefined;
-  ArticleDetailScreen: { photos: string[]; memberNickname: string };
+  ArticleDetailScreen: undefined;
   ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
   ArticleFormScreen: undefined;
@@ -57,7 +57,7 @@ export type CategoryParamList = {
   HomeCategorySelect: undefined;
   CategoryHome: undefined;
   CategoryDetail: { title: string };
-  Search: undefined;
+  ArticleDetail: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
@@ -73,11 +73,6 @@ export type CategoryDetailNavigationProp = StackNavigationProp<
 export type CategoryDetailRouteProp = RouteProp<
   CategoryParamList,
   "CategoryDetail"
->;
-
-export type SearchNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "Search"
 >;
 
 export type ArticleFormParamList = {
