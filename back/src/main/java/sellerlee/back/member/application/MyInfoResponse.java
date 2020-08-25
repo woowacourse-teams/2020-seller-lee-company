@@ -7,6 +7,9 @@ public class MyInfoResponse {
     private String avatar;
     private Double score;
 
+    private MyInfoResponse() {
+    }
+
     public MyInfoResponse(String nickname, String avatar, Double score) {
         this.nickname = nickname;
         this.avatar = avatar;

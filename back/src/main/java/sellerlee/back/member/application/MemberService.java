@@ -44,4 +44,16 @@ public class MemberService {
 
         return jwtTokenProvider.createToken(request.getNickname());
     }
+
+    @Transactional
+    public void updateProfile(Member loginMember, MyInfoRequest request) {
+        if (!loginMember.isSameNickname(request.getNickname())) {
+            throw new IllegalArgumentException("닉네임은 변경될 수 없습니다.");
+        }
+
+        Member member = memberRepository.findById(loginMember.getId())
+                .orElseThrow(() -> new IllegalArgumentException("ID가 일치하는 회원이 존재하지 않습니다."));
+
+        member.update(request.toMemberWithPasswordEncode(passwordEncoder));
+    }
 }
