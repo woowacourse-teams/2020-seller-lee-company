@@ -1,11 +1,13 @@
 package sellerlee.back.security.web.context;
 
+import static sellerlee.back.member.presentation.AuthController.*;
 import static sellerlee.back.security.web.LoginMemberMethodArgumentResolver.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -26,12 +28,16 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
+        boolean isHTMLFile = request.getServletPath().contains("html");
+        boolean isJoinRequest =
+                HttpMethod.POST.matches(request.getMethod()) && MEMBER_URI.equals(
+                        request.getServletPath());
 
         if (StringUtils.isBlank(credentials)) {
-            if (!request.getServletPath().contains("html")) {
-                throw new AuthenticationException("토큰이 존재하지 않습니다.");
+            if (isHTMLFile || isJoinRequest) {
+                return true;
             }
-            return true;
+            throw new AuthenticationException("토큰이 존재하지 않습니다.");
         }
 
         if (!jwtTokenProvider.validateToken(credentials)) {
