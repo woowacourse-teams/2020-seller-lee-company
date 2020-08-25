@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -27,9 +27,9 @@ public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res,
             Authentication authentication) {
-        LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>)((DefaultOAuth2User)authentication
-                .getPrincipal()).getAttributes().get("properties");
-        String email = (String)properties.get("account_email");
+        OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
+        String email = (String)(((LinkedHashMap)oauth2User.getAttribute(
+                "kakao_account")).get("email"));
 
         String token = jwtTokenProvider.createToken(email);
 

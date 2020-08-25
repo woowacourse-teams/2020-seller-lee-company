@@ -39,7 +39,7 @@ public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientSe
         Member member = memberRepository.findOptionalMemberByEmail(email)
                 .map(entity -> entity.updateNickName(nickName))
                 .orElse(
-                        new Member(null, kakaoId, nickName)
+                        new Member(kakaoId, email, nickName, "0000", null, null)
                 );
 
         memberRepository.save(member);

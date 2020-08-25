@@ -55,6 +55,10 @@ public class Member {
         this(null, null, null, nickname, password, avatar, null);
     }
 
+    public Member(String kakaoId, String email) {
+        this(null, kakaoId, email, null, null, null, null);
+    }
+
     public Member(Long id) {
         this(id, null, null, null, null, null, null);
     }
