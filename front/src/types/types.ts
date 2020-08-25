@@ -126,14 +126,6 @@ export interface Feed {
   photos: string[];
 }
 
-export interface Feed {
-  id: number;
-  price: number;
-  favoriteCount: number;
-  tags: string[];
-  photos: string[];
-}
-
 export type AppStackNavigationParamList = {
   TeaserScreen: undefined;
   AuthScreen: undefined;
@@ -183,6 +175,7 @@ export interface ArticleCardProps {
   title: string;
   price: number;
   thumbnail: string;
+  favoriteState?: boolean;
   favoriteCount: number;
   createdTime: string;
 }

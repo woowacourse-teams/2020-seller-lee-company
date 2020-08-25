@@ -51,11 +51,19 @@ public class ArticleController {
                 .build();
     }
 
-    @GetMapping
+    @GetMapping(params = {"lastArticleId", "size"})
     public ResponseEntity<List<FeedResponse>> showPage(@RequestParam Long lastArticleId,
             @RequestParam int size, @LoginMember Member loginMember) {
         List<FeedResponse> responses = articleViewService.showPage(lastArticleId, size,
                 loginMember);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping(params = {"lastArticleId", "size", "category"})
+    public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(@RequestParam Long lastArticleId,
+            @RequestParam int size, @RequestParam String category, @LoginMember Member loginMember) {
+        List<ArticleCardResponse> responses = articleViewService.showPageByCategory(
+                lastArticleId, size, category, loginMember);
         return ResponseEntity.ok(responses);
     }
 
