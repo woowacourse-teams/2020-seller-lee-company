@@ -4,6 +4,7 @@ import JoinPasswordForm from "./JoinPasswordForm";
 import JoinNicknameForm from "./JoinNicknameForm";
 import JoinSubmit from "./JoinSubmit";
 import JoinCheckPasswordForm from "./JoinCheckPasswordForm";
+import JoinVerifyModal from "../Common/Modal/JoinVerifyModal";
 
 interface JoinProps {
   resetJoinForm: Function;
@@ -12,6 +13,7 @@ interface JoinProps {
 export default function Join({ resetJoinForm }: JoinProps) {
   return (
     <View style={styles.container}>
+      <JoinVerifyModal />
       <View style={styles.contentContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Sign Up</Text>

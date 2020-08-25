@@ -23,8 +23,8 @@ import sellerlee.back.member.application.MemberService;
 import sellerlee.back.member.domain.IllegalLoginException;
 
 @ExtendWith(RestDocumentationExtension.class)
-@WebMvcTest(controllers = {AuthController.class, LoginAdviceController.class})
-class LoginAdviceControllerTest extends ControllerTest {
+@WebMvcTest(controllers = {AuthController.class, AuthAdviceController.class})
+class AuthAdviceControllerTest extends ControllerTest {
     @MockBean
     private MemberService memberService;
 

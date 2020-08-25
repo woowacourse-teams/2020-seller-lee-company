@@ -1,12 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilState, useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
   joinAvatarState,
   joinCheckPasswordState,
   joinNicknameState,
   joinPasswordState,
   joinSubmitState,
+  memberJoinVerifyState,
 } from "../../states/joinState";
 import { memberAPI } from "../../api/api";
 import theme from "../../colors";
@@ -26,7 +27,8 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
   const joinCheckPassword = useRecoilValue(joinCheckPasswordState);
   const joinAvatar = useRecoilValue(joinAvatarState);
 
-  const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
+  const setJoinSubmit = useSetRecoilState(joinSubmitState);
+  const setJoinVerifyState = useSetRecoilState(memberJoinVerifyState);
 
   const join = async () => {
     setJoinSubmit(true);
@@ -43,11 +45,13 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       });
 
       if (response.status === 201) {
+        setJoinVerifyState(true);
         resetJoinForm();
         navigation.goBack();
       }
     } catch (error) {
       console.log(error);
+      setJoinVerifyState(false);
     } finally {
       setJoinSubmit(false);
     }

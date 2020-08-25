@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "sdkVersion": "38.0.0",
     "android": {
       "package": "com.sellerleecompany.jikgorae",

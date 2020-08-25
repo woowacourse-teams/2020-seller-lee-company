@@ -32,3 +32,8 @@ export const joinSubmitState = atom({
   key: "joinSubmitState",
   default: false,
 });
+
+export const memberJoinVerifyState = atom({
+  key: "memberJoinVerifyState",
+  default: true,
+});
