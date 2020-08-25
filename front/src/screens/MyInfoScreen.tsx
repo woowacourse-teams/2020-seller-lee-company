@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
@@ -12,20 +12,16 @@ import {
   memberInfoAvatarState,
   memberInfoConfirmState,
   memberInfoPasswordState,
-  memberProfileState,
 } from "../states/memberState";
 import { profileAPI } from "../api/api";
 
 export default function MyInfoScreen() {
   const navigation = useNavigation<MyInfoScreenNavigationProp>();
 
-  const { nickname } = useRecoilValue(memberProfileState);
-  // const nickname = useRecoilValue(memberInfoNicknameState); 일단 닉네임 수정불가
   const password = useRecoilValue(memberInfoPasswordState);
   const confirm = useRecoilValue(memberInfoConfirmState);
   const avatar = useRecoilValue(memberInfoAvatarState);
 
-  // const resetNickname = useResetRecoilState(memberInfoNicknameState); 일단 닉네임 수정불가
   const resetPassword = useResetRecoilState(memberInfoPasswordState);
   const resetConfirm = useResetRecoilState(memberInfoConfirmState);
   const resetAvatar = useResetRecoilState(memberInfoAvatarState);
@@ -34,20 +30,19 @@ export default function MyInfoScreen() {
     if (password !== confirm) {
       alert("비밀번호와 확인이 일치하지 않습니다.");
     } else {
-      navigation.goBack();
       await profileAPI.put({ password, avatar });
       resetForm();
+      navigation.goBack();
     }
   };
 
   const resetForm = () => {
-    // resetNickname();
     resetPassword();
     resetConfirm();
     resetAvatar();
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: "내 정보 수정",
       headerLeft: () => (
@@ -68,6 +63,16 @@ export default function MyInfoScreen() {
       headerRightContainerStyle: { paddingRight: 20 },
     });
   }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={onPressCompleteButton}>
+          <AntDesign name="check" size={24} color={colors.primary} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [password, confirm, avatar]);
 
   return (
     <View style={styles.container}>

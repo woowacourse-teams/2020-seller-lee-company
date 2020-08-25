@@ -13,11 +13,8 @@ export default function MyInfoForm() {
   const CONFIRM_PASSWORD = "확인";
 
   const { nickname } = useRecoilValue(memberProfileState);
-  // const [nickname, setNickname] = useRecoilState(memberInfoNicknameState); 일단 닉네임 수정불가
   const [password, setPassword] = useRecoilState(memberInfoPasswordState);
   const [confirm, setConfirm] = useRecoilState(memberInfoConfirmState);
-
-  // useEffect(() => setNickname(profile.nickname), [profile]); 일단 닉네임 수정불가
 
   return (
     <View style={styles.container}>

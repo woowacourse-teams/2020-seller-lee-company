@@ -1,10 +1,11 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import colors from "../../colors";
+import { useRecoilValue } from "recoil/dist";
+import { memberInfoAvatarState } from "../../states/memberState";
 
 export default function MyInfoAvatar() {
-  const avatar =
-    "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4";
+  const avatar = useRecoilValue(memberInfoAvatarState);
 
   return (
     <View style={styles.container}>
