@@ -1,5 +1,6 @@
 package sellerlee.back.article.presentation;
 
+import static java.util.Collections.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -182,7 +183,7 @@ class ArticleControllerTest extends ControllerTest {
         String tradeState = "ON_SALE";
 
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(Collections.singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
+                .thenReturn(singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
 
         // @formatter:off
         mockMvc
@@ -217,7 +218,7 @@ class ArticleControllerTest extends ControllerTest {
     @Test
     void showFavorites() throws Exception {
         when(articleViewService.showFavorites(any())).thenReturn(
-                ArticleCardResponse.listOf(Collections.singletonList(ARTICLE1)));
+                ArticleCardResponse.listOf(singletonList(ARTICLE1), singletonList(1L), singletonList(true)));
 
         // @formatter:off
         mockMvc
@@ -236,7 +237,9 @@ class ArticleControllerTest extends ControllerTest {
                                 fieldWithPath("[].title").description("게시글의 제목"),
                                 fieldWithPath("[].price").description("게시글의 가격"),
                                 fieldWithPath("[].thumbnail").description("게시글의 섬네일"),
+                                fieldWithPath("[].tradeState").description("게시글의 거래 상태"),
                                 fieldWithPath("[].favoriteCount").description("게시글의 좋아요 개수"),
+                                fieldWithPath("[].favoriteState").description("게시글의 좋아요 상태"),
                                 fieldWithPath("[].createdTime").description("게시글의 생성 시간")
                         )));
         // @formatter:on
