@@ -42,6 +42,10 @@ public class Member {
         this(null, nickname, password, avatar, null);
     }
 
+    public Member(String password, String avatar) {
+        this(null, null, password, avatar, null);
+    }
+
     public Member(Long id) {
         this(id, null, null, null, null);
     }

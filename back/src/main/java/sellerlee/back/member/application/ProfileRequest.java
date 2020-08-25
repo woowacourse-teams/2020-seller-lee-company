@@ -5,25 +5,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import sellerlee.back.member.domain.Member;
 
 public class ProfileRequest {
-    private String nickname;
     private String password;
     private String avatar;
 
     private ProfileRequest() {
     }
 
-    public ProfileRequest(String nickname, String password, String avatar) {
-        this.nickname = nickname;
+    public ProfileRequest(String password, String avatar) {
         this.password = password;
         this.avatar = avatar;
     }
 
     public Member toMemberWithPasswordEncode(PasswordEncoder passwordEncoder) {
-        return new Member(nickname, passwordEncoder.encode(password), avatar);
-    }
-
-    public String getNickname() {
-        return nickname;
+        return new Member(passwordEncoder.encode(password), avatar);
     }
 
     public String getPassword() {

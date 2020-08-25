@@ -13,6 +13,7 @@ const domain = {
   chatRoom: "/chat-rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
+  profiles: "/me",
 };
 
 interface ArticlesPost {
@@ -135,33 +136,11 @@ interface MemberJoin {
   avatar: string;
 }
 
-interface MemberPost {
-  nickname: string;
-  password: string;
-  avatar: string;
-}
-
 export const memberAPI = {
   login: async (data: MemberLogin) =>
     await axios.post(BASE_URL + domain.login, data),
   join: async (data: MemberJoin) =>
     await axios.post(BASE_URL + domain.members, data),
-  get: async () => {
-    const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.members}/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-  put: async (data: MemberPost) => {
-    const token = await DeviceStorage.getToken();
-    return await axios.put(`${BASE_URL}${domain.members}/me`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
   getNickname: async () => {
     const token = await DeviceStorage.getToken();
     return await axios.get(BASE_URL + domain.members, {
@@ -169,7 +148,31 @@ export const memberAPI = {
         Authorization: `bearer ${token}`,
       },
     });
-  }
+  },
+};
+
+interface ProfilePost {
+  password: string;
+  avatar: string;
+}
+
+export const profileAPI = {
+  get: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.profiles}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  put: async (data: ProfilePost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.profiles}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 interface FavoriteCreate {

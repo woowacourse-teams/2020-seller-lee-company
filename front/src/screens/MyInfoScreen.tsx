@@ -14,7 +14,7 @@ import {
   memberInfoPasswordState,
   memberProfileState,
 } from "../states/memberState";
-import { memberAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 
 export default function MyInfoScreen() {
   const navigation = useNavigation<MyInfoScreenNavigationProp>();
@@ -35,7 +35,7 @@ export default function MyInfoScreen() {
       alert("비밀번호와 확인이 일치하지 않습니다.");
     } else {
       navigation.goBack();
-      await memberAPI.put({ nickname, password, avatar });
+      await profileAPI.put({ password, avatar });
       resetForm();
     }
   };

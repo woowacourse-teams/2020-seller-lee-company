@@ -7,7 +7,7 @@ import SalesHistory from "../components/Profile/SalesHistory";
 import PurchaseHistory from "../components/Profile/PurchaseHistory";
 import MyFavorite from "../components/Profile/MyFavorite";
 import MyInfoButton from "../components/Profile/MyInfoButton";
-import { memberAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { memberProfileState } from "../states/memberState";
 
@@ -26,7 +26,7 @@ export default function ProfileScreen() {
   }, []);
 
   const getProfile = async () => {
-    const { data } = await memberAPI.profile();
+    const { data } = await profileAPI.get();
     setProfile(data);
   };
 
