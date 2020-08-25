@@ -40,6 +40,7 @@ export default function SalesHistoryItem({
           title={title}
           price={price}
           createdTime={createdTime}
+          tradeState={tradeState}
           favoriteState={favoriteState}
           favoriteCount={favoriteCount}
           thumbnail={photos ? photos[0] : "tempURI"}

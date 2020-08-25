@@ -14,6 +14,7 @@ export default function PurchaseHistoryItem({
     title,
     price,
     createdTime,
+    tradeState,
     favoriteState,
     favoriteCount,
     thumbnail,
@@ -27,6 +28,7 @@ export default function PurchaseHistoryItem({
           title={title}
           price={price}
           createdTime={createdTime}
+          tradeState={tradeState}
           favoriteState={favoriteState}
           favoriteCount={favoriteCount}
           thumbnail={thumbnail}

@@ -170,6 +170,7 @@ export interface ArticleCardProps {
   title: string;
   price: number;
   thumbnail: string;
+  tradeState: string;
   favoriteState: boolean;
   favoriteCount: number;
   createdTime: string;

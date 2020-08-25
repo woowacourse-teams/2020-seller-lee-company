@@ -80,7 +80,12 @@ export default function CategoryHomeScreen() {
   };
 
   const onLoad = async () => {
-    if (articles.length < MIN_LOAD_ARTICLE_COUNT || !hasAdditionalArticle) {
+    if (
+      articles.length < MIN_LOAD_ARTICLE_COUNT ||
+      !hasAdditionalArticle ||
+      !category
+    ) {
+      setIsLoading(false);
       return;
     }
     setIsLoading(true);
@@ -99,6 +104,7 @@ export default function CategoryHomeScreen() {
           id={item.id}
           title={item.title}
           price={item.price}
+          tradeState={item.tradeState}
           favoriteState={item.favoriteState}
           favoriteCount={item.favoriteCount}
           thumbnail={item.thumbnail}

@@ -25,7 +25,7 @@ public enum TradeState {
         return this == COMPLETED;
     }
 
-    public String getTradeState() {
+    public String getTradeStateName() {
         return tradeState;
     }
 }

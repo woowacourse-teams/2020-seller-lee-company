@@ -14,7 +14,7 @@ public class ArticleCardResponse {
     private String title;
     private Long price;
     private String thumbnail;
-    private TradeState tradeState;
+    private String tradeState;
     private long favoriteCount;
     private boolean favoriteState;
     private String createdTime;
@@ -23,7 +23,7 @@ public class ArticleCardResponse {
     }
 
     private ArticleCardResponse(Long id, String title, Long price, String thumbnail,
-            TradeState tradeState, long favoriteCount, boolean favoriteState,
+            String tradeState, long favoriteCount, boolean favoriteState,
             String createdTime) {
         this.id = id;
         this.title = title;
@@ -41,7 +41,7 @@ public class ArticleCardResponse {
                 article.getTitle(),
                 article.getPrice(),
                 article.getPhotos().pickThumbnail(),
-                article.getTradeState(),
+                article.getTradeState().getTradeStateName(),
                 favoriteCount,
                 favoriteState,
                 article.getCreatedTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
@@ -71,7 +71,7 @@ public class ArticleCardResponse {
         return thumbnail;
     }
 
-    public TradeState getTradeState() {
+    public String getTradeState() {
         return tradeState;
     }
 
