@@ -172,6 +172,7 @@ export type ProfileNavigationParamList = {
   ArticleFormScreen: undefined;
   SelectBuyerScreen: undefined;
   EvaluationScreen: undefined;
+  MyInfoScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
@@ -194,7 +195,18 @@ export type SelectBuyerScreenNavigationProp = StackNavigationProp<
   "SelectBuyerScreen"
 >;
 
+export type MyInfoScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "MyInfoScreen"
+>;
+
 export interface Score {
   questionId: number;
+  score: number;
+}
+
+export interface Profile {
+  nickname: string;
+  avatar: string;
   score: number;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import MyFavoriteItem from "./MyFavoriteItem";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { favoriteArticleState } from "../../states/articleState";
 import { articlesAPI } from "../../api/api";
@@ -19,11 +19,15 @@ export default function MyFavoriteList() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={articles}
-        keyExtractor={(item, index) => `${index}`}
-        renderItem={({ item }) => <MyFavoriteItem article={item} />}
-      />
+      {articles.length !== 0 ? (
+        <FlatList
+          data={articles}
+          keyExtractor={(item, index) => `${index}`}
+          renderItem={({ item }) => <MyFavoriteItem article={item} />}
+        />
+      ) : (
+        <Text style={styles.text}>찜 목록이 비어있어요.</Text>
+      )}
     </View>
   );
 }
@@ -31,5 +35,10 @@ export default function MyFavoriteList() {
 const styles = StyleSheet.create({
   container: {
     flex: 15,
+  },
+  text: {
+    paddingTop: 30,
+    textAlign: "center",
+    color: "#777",
   },
 });

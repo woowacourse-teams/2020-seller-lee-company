@@ -2,6 +2,7 @@ package sellerlee.back.fixture;
 
 import sellerlee.back.member.application.LoginRequest;
 import sellerlee.back.member.application.MemberRequest;
+import sellerlee.back.member.application.ProfileRequest;
 import sellerlee.back.member.domain.Member;
 
 public class MemberFixture {
@@ -9,6 +10,9 @@ public class MemberFixture {
     private static final String MEMBER_PASSWORD = "0000";
     private static final String MEMBER_AVATAR = "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4";
     private static final double MEMBER_SCORE = 4.0;
+
+    private static final String MEMBER_CHANGE_PASSWORD = "1111";
+    private static final String MEMBER_CHANGE_AVATAR = "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4";
 
     public static final MemberRequest MEMBER_CREATE_REQUEST =
             new MemberRequest(
@@ -50,4 +54,7 @@ public class MemberFixture {
                     "0000",
                     "https://avatars2.githubusercontent.com/u/39271364?s=400&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4",
                     5.0);
+
+    public static final ProfileRequest PROFILE_REQUEST = new ProfileRequest(MEMBER_CHANGE_PASSWORD,
+            MEMBER_CHANGE_AVATAR);
 }

@@ -13,6 +13,7 @@ const domain = {
   chatRoom: "/chat-rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
+  profiles: "/me",
 };
 
 interface ArticlesPost {
@@ -143,6 +144,30 @@ export const memberAPI = {
   getNickname: async () => {
     const token = await DeviceStorage.getToken();
     return await axios.get(BASE_URL + domain.members, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+interface ProfilePost {
+  password: string;
+  avatar: string;
+}
+
+export const profileAPI = {
+  get: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.profiles}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  put: async (data: ProfilePost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.profiles}`, data, {
       headers: {
         Authorization: `bearer ${token}`,
       },

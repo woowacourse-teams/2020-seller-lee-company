@@ -34,7 +34,7 @@ public class ArticleService {
 
     public void deleteById(Long id, Member loginMember) {
         Article article = findById(id);
-        if (loginMember.isNotEquals(article.getAuthor())) {
+        if (!loginMember.isSameId(article.getAuthor())) {
             throw new AuthorizationException("삭제할 수 있는 권한이 없습니다.");
         }
         articleRepository.deleteById(id);
