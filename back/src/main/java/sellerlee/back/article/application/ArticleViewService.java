@@ -51,8 +51,9 @@ public class ArticleViewService {
     public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
 
-        List<Article> articles = articleRepository.findByIdLessThanOrderByIdDesc(lastArticleId,
-                pageRequest).getContent();
+        List<Article> articles = articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(
+                lastArticleId, TradeState.ON_SALE, pageRequest
+        ).getContent();
 
         Map<Article, Long> articleAndCount = toArticleAndFavoriteCount(articles);
         List<Long> favoriteCounts = toFavoriteCounts(articles, articleAndCount);
