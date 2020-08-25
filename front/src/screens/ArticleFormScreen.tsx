@@ -69,7 +69,11 @@ export default function ArticleFormScreen() {
     confirmToBackAction,
   );
 
-  const resetForm = () => setIsEditing(false);
+  const resetForm = () => {
+    setIsEditing(false);
+    setForm(defaultArticle);
+    setOriginArticle(defaultArticle);
+  };
 
   const isDirty = () => {
     return (
@@ -97,6 +101,10 @@ export default function ArticleFormScreen() {
       setArticleModalState(true);
       return;
     }
+    resetAndBack();
+  };
+
+  const resetAndBack = () => {
     resetForm();
     navigation.goBack();
   };
@@ -129,9 +137,8 @@ export default function ArticleFormScreen() {
     isEditing
       ? await articlesAPI.put(article.id, data)
       : await articlesAPI.post(data);
-    resetForm();
     setIsModified(true);
-    navigation.goBack();
+    resetAndBack();
   };
 
   const setForm = (target: Article) => {
@@ -164,9 +171,6 @@ export default function ArticleFormScreen() {
     if (isEditing) {
       setForm(editingArticle);
       setOriginArticle(editingArticle);
-    } else {
-      setForm(defaultArticle);
-      setOriginArticle(defaultArticle);
     }
   }, [isEditing]);
 

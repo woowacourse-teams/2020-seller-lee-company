@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 export default function ArticleFormNavigation() {
   return (
-    <Stack.Navigator initialRouteName="ArticleCreateScreen">
+    <Stack.Navigator initialRouteName="ArticleFormScreen">
       <Stack.Screen name="ArticleFormScreen" component={ArticleFormScreen} />
       <Stack.Screen
         name="ArticleContentsFormScreen"
