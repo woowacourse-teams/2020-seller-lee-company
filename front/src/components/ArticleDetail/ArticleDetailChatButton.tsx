@@ -1,19 +1,19 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
-import { ChatRoomNavigationProp } from "../../types/types";
+
+// import { ChatRoomNavigationProp } from "../../types/types";
 import theme from "../../colors";
 
 export default function ArticleDetailChatButton() {
-  const navigation = useNavigation<ChatRoomNavigationProp>();
+  // const navigation = useNavigation<ChatRoomNavigationProp>();
 
   return (
     <TouchableOpacity
       activeOpacity={0.4}
       style={styles.addButton}
       onPress={() => {
-        navigation.navigate("ChatRoom");
+        // navigation.navigate("ChatRoom");
       }}
     >
       <Text style={styles.text}>채팅하기</Text>

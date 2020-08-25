@@ -10,7 +10,7 @@ import {
   ArticleNavigationParamList,
 } from "../types/types";
 import ArticlePrice from "../components/Article/ArticlePrice";
-import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
+
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
 import theme from "../colors";
@@ -67,7 +67,7 @@ export default function ArticleDetailScreen() {
         />
       ),
       headerRight:
-        articleSelected.author.nickname === memberNickname
+        articleSelected.author.nickname == memberNickname
           ? () => (
               <Menu>
                 <MenuTrigger>
@@ -156,7 +156,7 @@ export default function ArticleDetailScreen() {
         </View>
         <ArticlePrice />
         <View style={styles.chatButtonContainer}>
-          <ArticleDetailChatButton />
+          {/*<ArticleDetailChatButton />*/}
         </View>
       </View>
     </View>

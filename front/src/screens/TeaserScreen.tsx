@@ -11,7 +11,7 @@ export default function TeaserScreen() {
     navigation.setOptions({
       headerShown: false,
     });
-  });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

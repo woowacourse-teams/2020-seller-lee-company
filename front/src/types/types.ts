@@ -1,36 +1,25 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-
-export type TabParamList = {
-  Home: undefined;
-};
-
-export type TabHomeNavigationProp = BottomTabNavigationProp<
-  TabParamList,
-  "Home"
->;
 
 export type ArticleNavigationParamList = {
-  Home: undefined;
-  SellerLee: undefined;
-  ChatRoom: undefined;
+  FeedHomeScreen: undefined;
   ArticleDetailScreen: undefined;
   ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  TeaserScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
-  "Home"
+  "FeedHomeScreen"
 >;
 
-export type ChatRoomNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ChatRoom"
->;
+// export type ChatRoomNavigationProp = StackNavigationProp<
+//   ArticleNavigationParamList,
+//   "ChatRoom"
+// >;
 
 export type ArticleDetailNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,

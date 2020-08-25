@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
@@ -30,13 +30,20 @@ export default function FeedHomeScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerLeft: () => <></>,
       title: "",
       headerRight: () => (
-        <MaterialIcons
-          name="person"
+        <MaterialCommunityIcons
+          name="login"
           size={24}
           color="black"
-          onPress={() => navigation.navigate("SellerLee")}
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "TeaserScreen" }],
+            });
+            navigation.popToTop();
+          }}
         />
       ),
       headerRightContainerStyle: { paddingRight: 15 },

@@ -13,10 +13,10 @@ const Tab = createBottomTabNavigator();
 function getTabBarVisibility(route: any) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
-    : "Home";
+    : "FeedHomeScreen";
 
   return (
-    routeName === "Home" ||
+    routeName === "FeedHomeScreen" ||
     routeName === "ProfileScreen" ||
     routeName === "HomeCategorySelectScreen"
   );
