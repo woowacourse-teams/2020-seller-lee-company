@@ -20,7 +20,6 @@ import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*
 
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,10 +34,8 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.article.domain.Category;
-import sellerlee.back.article.domain.TradeState;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest extends ControllerTest {
@@ -224,7 +221,7 @@ class ArticleControllerTest extends ControllerTest {
         String tradeState = "ON_SALE";
 
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
+                .thenReturn(singletonList(ArticleCardResponse.of(ARTICLE1, 5L, true)));
 
         // @formatter:off
         mockMvc

@@ -32,7 +32,8 @@ export default function ArticleCardAdditional({
 
 const styles = StyleSheet.create({
   price: {
-    margin: 3,
+    marginLeft: 3,
+    marginTop: 3,
     fontSize: 14,
     fontWeight: "bold",
   },
@@ -41,11 +42,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-  },
-  chatContainer: {
-    margin: 3,
-    alignItems: "center",
-    flexDirection: "row",
   },
   additionalText: {
     fontSize: 14,

@@ -10,7 +10,6 @@ import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -125,12 +124,10 @@ class ArticleViewServiceTest {
     @Test
     void showSalesDetailsInCaseCompleted() {
         String tradeState = "COMPLETED";
-        when(articleRepository.findAllByAuthorAndTradeState(any(), any())).thenReturn(
-                Collections.singletonList(
-                        ARTICLE3
-                ));
+        when(articleRepository.findAllByAuthorAndTradeState(MEMBER1, TradeState.COMPLETED))
+                .thenReturn(Collections.singletonList(ARTICLE3));
 
-        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(
                 MEMBER1, tradeState);
 
         assertThat(responses).hasSize(1);
@@ -140,13 +137,12 @@ class ArticleViewServiceTest {
     @Test
     void showSalesDetailsInCaseNotCompleted() {
         String tradeState = "ON_SALE";
-        when(articleRepository.findAllByAuthorAndTradeStateNot(any(), any())).thenReturn(
-                Arrays.asList(
-                        ARTICLE1, ARTICLE2, ARTICLE3
-                ));
+        List<Article> articles = asList(ARTICLE1, ARTICLE2, ARTICLE3);
+        when(articleRepository.findAllByAuthorAndTradeStateNot(MEMBER1, TradeState.COMPLETED))
+                .thenReturn(articles);
 
-        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
-                MEMBER1, tradeState);
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(MEMBER1,
+                tradeState);
 
         assertThat(responses).hasSize(3);
     }
