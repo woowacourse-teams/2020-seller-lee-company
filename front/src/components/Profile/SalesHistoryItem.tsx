@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../colors";
 import { Article } from "../../types/types";
 import ArticleCard from "../Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../../api/api";
+import { useRecoilState } from "recoil/dist";
+import { articleSalesHistoryState } from "../../states/articleState";
 
 interface OnSaleHistoryListProps {
   isCompletedTab: boolean;
@@ -23,13 +25,13 @@ export default function SalesHistoryItem({
     createdTime,
   },
 }: OnSaleHistoryListProps) {
-  const [tradeStateState, setTradeStateState] = useState(tradeState);
+  const [articles, setArticles] = useRecoilState(articleSalesHistoryState);
 
   const onClickTradeState = async (tradeState: string) => {
     await articlesAPI.putByTradeState(id, { tradeState });
-    setTradeStateState(tradeState);
-    // TODO: 1:1 채팅 생기면 반영
-    // tradeState === "COMPLETED" && navigation.navigate("SelectBuyerScreen");
+    if (tradeState === "COMPLETED") {
+      setArticles(articles.filter((article) => article.id !== id));
+    }
   };
 
   return (
