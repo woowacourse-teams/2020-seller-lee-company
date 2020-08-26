@@ -6,8 +6,8 @@ export const defaultArticle = {
   price: 0,
   createTime: "",
   tradeState: "",
-  tags: [],
-  photos: [],
+  tags: [] as string[],
+  photos: [] as string[],
   author: {
     id: 0,
     nickname: "",
