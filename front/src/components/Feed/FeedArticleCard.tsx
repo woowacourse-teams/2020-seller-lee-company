@@ -15,8 +15,6 @@ import { insertComma } from "../../replacePriceWithComma";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSelectedIdState } from "../../states/articleState";
 
-const ANIMATE_START_VALUE = 0.93;
-
 export default function FeedArticleCard({
   id,
   price,
@@ -25,6 +23,8 @@ export default function FeedArticleCard({
   photos,
   favoriteState,
 }: Feed) {
+  const ANIMATE_START_VALUE = 0.93;
+
   const navigation = useNavigation<FeedHomeNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
 
@@ -32,7 +32,7 @@ export default function FeedArticleCard({
     TouchableWithoutFeedback,
   );
 
-  const clickValue = useRef(new Animated.Value(1)).current;
+  const clickValue = useRef(new Animated.Value(0)).current;
 
   const clickArticleAnimate = () => {
     clickValue.setValue(ANIMATE_START_VALUE);

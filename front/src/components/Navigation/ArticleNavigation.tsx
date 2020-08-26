@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import FeedHomeScreen from "../../screens/FeedHomeScreen";
 import SellerLeeScreen from "../../screens/SellerLeeScreen";
 import ChatRoomScreen from "../../screens/ChatRoomScreen";
 import { ArticleNavigationParamList } from "../../types/types";
@@ -10,6 +9,7 @@ import ArticleCreateScreen from "../../screens/ArticleCreateScreen";
 import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
 import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
 import ArticleDetailImageSlider from "../ArticleDetail/ArticleDetailImageSlider";
+import FeedHomeScreen from "../../screens/FeedHomeScreen";
 
 const Stack = createStackNavigator<ArticleNavigationParamList>();
 

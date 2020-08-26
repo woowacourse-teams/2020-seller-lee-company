@@ -10,6 +10,7 @@ interface TouchablePhotoProps {
 
 export default function TouchablePhoto({ photo }: TouchablePhotoProps) {
   const navigation = useNavigation<ArticleDetailNavigationProp>();
+
   return (
     <TouchableOpacity
       activeOpacity={1}

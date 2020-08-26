@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { favoriteAPI } from "../../../api/api";
 import theme from "../../../colors";
@@ -16,7 +16,7 @@ export default function Favorite({ articleId, state, count }: FavoriteProp) {
 
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
 
-  const springValue = useRef(new Animated.Value(0.3)).current;
+  const springValue = useRef(new Animated.Value(1)).current;
 
   const fulfillHeartAnimate = () => {
     springValue.setValue(0.33);
@@ -49,18 +49,17 @@ export default function Favorite({ articleId, state, count }: FavoriteProp) {
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={toggleFavorite} style={styles.container}>
       <AnimateIcon
         name={favoriteState ? "heart" : "hearto"}
         size={26}
         color={favoriteState ? theme.heart : "black"}
-        onPress={toggleFavorite}
         style={{
           transform: [{ scale: springValue }],
         }}
       />
       <Text style={styles.text}>{favoriteCount}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
