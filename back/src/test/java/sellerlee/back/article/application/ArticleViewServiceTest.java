@@ -27,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
+import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import sellerlee.back.favorite.domain.Favorite;
@@ -65,15 +66,15 @@ class ArticleViewServiceTest {
                 .isEqualTo(MEMBER1.getNickname());
     }
 
-    @DisplayName("showArticlePages()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
+    @DisplayName("showPage()에서 마지막 글의 id와 가져올 size를 입력한 경우 입력한 id보다 작은 게시글 리스트 반환")
     @Test
-    void showArticlePages() {
+    void showPage() {
         List<Article> articles = asList(ARTICLE2, ARTICLE1);
         List<Long> favoriteCounts = asList(1L, 2L);
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
         Page<Article> expectedPage = new PageImpl<>(articles);
 
-        when(articleRepository.findByIdLessThanOrderByIdDesc(LAST_ARTICLE_ID, pageRequest))
+        when(articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(LAST_ARTICLE_ID, TradeState.ON_SALE, pageRequest))
                 .thenReturn(expectedPage);
         when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles))
                 .thenReturn(asList(
@@ -92,44 +93,72 @@ class ArticleViewServiceTest {
         assertThat(actualArticles.get(1).getFavoriteState()).isFalse();
     }
 
-    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @DisplayName("showPageByCategory()에서 마지막 글의 id와 가져올 size, category를 입력한 경우, category가 일치하며 입력한 id보다 작은 게시글 리스트 반환")
+    @Test
+    void showPageByCategory() {
+        List<Article> articles = asList(ARTICLE2, ARTICLE1);
+        List<Long> favoriteCounts = asList(1L, 2L);
+        PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
+        Page<Article> expectedPage = new PageImpl<>(articles);
+
+        when(articleRepository.findByIdLessThanAndCategoryOrderByIdDesc(LAST_ARTICLE_ID,
+                ARTICLE2.getCategory(),pageRequest))
+                .thenReturn(expectedPage);
+        when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles))
+                .thenReturn(asList(
+                        new ArticleFavoriteCount(1L, articles.get(0), favoriteCounts.get(0)),
+                        new ArticleFavoriteCount(2L, articles.get(1), favoriteCounts.get(1))));
+        when(favoriteRepository.findAllByMemberAndArticleIn(MEMBER1, articles))
+                .thenReturn(singletonList(new Favorite(1L, articles.get(0), MEMBER1)));
+        List<ArticleCardResponse> actualArticles = articleViewService
+                .showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE, ARTICLE1.getCategory().getCategoryName(), MEMBER1);
+
+        assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
+        assertThat(actualArticles.get(0).getFavoriteCount()).isEqualTo(favoriteCounts.get(0));
+        assertThat(actualArticles.get(1).getId()).isEqualTo(ARTICLE1.getId());
+        assertThat(actualArticles.get(1).getFavoriteCount()).isEqualTo(favoriteCounts.get(1));
+    }
+
+    @DisplayName("tradeState가 판매완료인 경우 판매 완료된 게시글을 반환")
     @Test
     void showSalesDetailsInCaseCompleted() {
+        String tradeState = "COMPLETED";
         when(articleRepository.findAllByAuthorAndTradeState(any(), any())).thenReturn(
                 Collections.singletonList(
                         ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
-                MEMBER1, "판매 완료");
+        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
+                MEMBER1, tradeState);
 
-        assertThat(salesHistoryResponses).hasSize(1);
+        assertThat(responses).hasSize(1);
     }
 
-    @DisplayName("Member 의 article 을 tradeState 에 따라 다르게 가져온다 - 판매 완료 일 경우")
+    @DisplayName("tradeState가 판매완료가 아닌 경우 판매중, 예약중인 게시글 반환")
     @Test
     void showSalesDetailsInCaseNotCompleted() {
+        String tradeState = "ON_SALE";
         when(articleRepository.findAllByAuthorAndTradeStateNot(any(), any())).thenReturn(
                 Arrays.asList(
                         ARTICLE1, ARTICLE2, ARTICLE3
                 ));
 
-        List<SalesHistoryResponse> salesHistoryResponses = articleViewService.showSalesDetails(
-                MEMBER1, "예약중|판매중");
+        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
+                MEMBER1, tradeState);
 
-        assertThat(salesHistoryResponses).hasSize(3);
+        assertThat(responses).hasSize(3);
     }
-    // @DisplayName("판매 상태로 게시글을 요청한 경우 해당 상태의 게시글 반환")
-    // @Test
-    // void showArticlesByTradeState() {
-    //     String tradeState = "ON_SALE";
-    //     when(articleRepository.findByTradeState(TradeState.valueOf(tradeState))).thenReturn(
-    //             Arrays.asList(ARTICLE1, ARTICLE2)
-    //     );
-    //
-    //     List<ArticleResponse> responses = articleViewService.showByTradeState(tradeState);
-    //
-    //     assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
-    //     assertThat(responses.get(1).getId()).isEqualTo(ARTICLE2.getId());
-    // }
+
+    @DisplayName("Member가 찜하고 있는 게시글 반환")
+    @Test
+    void showFavorites() {
+        when(favoriteRepository.findAllByMemberId(MEMBER1.getId())).thenReturn(
+                singletonList(FAVORITE1));
+        when(articleRepository.findAllById(singletonList(FAVORITE1.getId()))).thenReturn(
+                singletonList(ARTICLE1));
+
+        List<ArticleCardResponse> responses = articleViewService.showFavorites(MEMBER1);
+
+        assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
+    }
 }

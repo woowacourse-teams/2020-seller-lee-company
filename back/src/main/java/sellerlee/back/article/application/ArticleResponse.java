@@ -43,10 +43,10 @@ public class ArticleResponse {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
-                article.getCategory().getCategory(),
+                article.getCategory().getCategoryName(),
                 article.getContents(),
                 article.getPrice(),
-                article.getTradeState().getTradeState(),
+                article.getTradeState().getTradeStateName(),
                 article.getTags().getTagNames(),
                 article.getPhotos().toList(),
                 AuthorResponse.of(article.getAuthor()),

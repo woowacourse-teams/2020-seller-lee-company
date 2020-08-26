@@ -18,7 +18,7 @@ export default function TouchablePhoto({ photo }: TouchablePhotoProps) {
       key={photo}
       onPress={() => navigation.navigate("ArticleDetailImageViewScreen")}
     >
-      <PhotoBox photoURI={photo} marginBottom={0} />
+      <PhotoBox photoURI={photo} />
     </TouchableOpacity>
   );
 }

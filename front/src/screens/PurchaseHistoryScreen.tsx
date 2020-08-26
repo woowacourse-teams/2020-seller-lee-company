@@ -3,13 +3,14 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
-import PurchaseArticle from "../components/Profile/PurchaseArticle";
+import PurchaseHistoryItem from "../components/Profile/PurchaseHistoryItem";
 import { tradeAPI } from "../api/api";
 import { useRecoilState } from "recoil/dist";
 import { tradeArticleState } from "../states/articleState";
+import { PurchaseHistoryScreenNavigationProp } from "../types/types";
 
-export default function PurchaseScreen() {
-  const navigation = useNavigation();
+export default function PurchaseHistoryScreen() {
+  const navigation = useNavigation<PurchaseHistoryScreenNavigationProp>();
   const [tradeArticles, setTradeArticles] = useRecoilState(tradeArticleState);
 
   useLayoutEffect(() => {
@@ -47,16 +48,7 @@ export default function PurchaseScreen() {
     <View style={styles.container}>
       <FlatList
         data={tradeArticles}
-        renderItem={({ item }) => (
-          <PurchaseArticle
-            title={item.title}
-            price={item.price}
-            createdTime={item.createdTime}
-            favoriteCount={7}
-            chatCount={2}
-            thumbnail={item.thumbnail}
-          />
-        )}
+        renderItem={({ item }) => <PurchaseHistoryItem article={item} />}
         keyExtractor={(item, index) => `${index}`}
       />
     </View>

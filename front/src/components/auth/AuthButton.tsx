@@ -5,14 +5,19 @@ import { TeaserScreenNavigationProp } from "../../types/types";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
+import { memberAPI } from "../../api/api";
+import { useSetRecoilState } from "recoil/dist";
+import { memberNicknameState } from "../../states/memberState";
 
 export default function AuthButton() {
   const navigation = useNavigation<TeaserScreenNavigationProp>();
+  const setMemberNickname = useSetRecoilState(memberNicknameState);
 
   const onPressButton = async () => {
     const response = await DeviceStorage.getToken();
-
     if (response !== null) {
+      const { data } = await memberAPI.getNickname();
+      setMemberNickname(data);
       navigation.navigate("BottomTabNavigation");
     } else {
       navigation.navigate("AuthScreen");

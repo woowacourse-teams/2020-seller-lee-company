@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.article.domain.ArticleRepository;
+import sellerlee.back.article.domain.Category;
 import sellerlee.back.article.domain.TradeState;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCount;
 import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
@@ -48,64 +51,102 @@ public class ArticleViewService {
     public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember) {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
 
-        List<Article> articles = articleRepository
-                .findByIdLessThanOrderByIdDesc(lastArticleId, pageRequest)
-                .getContent();
-        Map<Article, Long> articleAndCount = articleFavoriteCountRepository
-                .findAllByArticleInOrderByArticle(articles).stream()
-                .collect(toMap(ArticleFavoriteCount::getArticle,
-                        ArticleFavoriteCount::getFavoriteCount));
+        List<Article> articles = articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(
+                lastArticleId, TradeState.ON_SALE, pageRequest
+        ).getContent();
 
-        List<Long> favoriteCounts = articles.stream()
-                .map(article -> articleAndCount.getOrDefault(article, 0L))
-                .collect(toList());
-
-        List<Article> favorites = favoriteRepository.findAllByMemberAndArticleIn(loginMember,
-                articles)
-                .stream()
-                .map(Favorite::getArticle)
-                .collect(toList());
-        List<Boolean> favoriteStates = articles.stream()
-                .map(favorites::contains)
-                .collect(toList());
+        Map<Article, Long> articleAndCount = toArticleAndFavoriteCount(articles);
+        List<Long> favoriteCounts = toFavoriteCounts(articles, articleAndCount);
+        List<Article> favorites = toFavorites(loginMember, articles);
+        List<Boolean> favoriteStates = toFavoriteStates(articles, favorites);
 
         return FeedResponse.listOf(articles, favoriteCounts, favoriteStates);
     }
 
-    // TODO: 2020/08/17 chatCount mockData
-    public List<SalesHistoryResponse> showSalesDetails(Member member, String tradeState) {
-        if (TradeState.isCompleted(tradeState)) {
-            List<Article> articles = getTradeCompletedBy(member);
+    public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
+            String category,
+            Member loginMember) {
+        PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
 
-            return getSalesDetailsResponses(articles, 3L);
-        }
-        List<Article> articles = getTradeNotCompletedBy(member);
+        List<Article> articles = articleRepository
+                .findByIdLessThanAndCategoryOrderByIdDesc(lastArticleId,
+                        Category.fromString(category), pageRequest).getContent();
 
-        return getSalesDetailsResponses(articles, 3L);
+        Map<Article, Long> articleAndFavoriteCount = toArticleAndFavoriteCount(articles);
+        List<Long> favoriteCounts = toFavoriteCounts(articles, articleAndFavoriteCount);
+        List<Article> favorites = toFavorites(loginMember, articles);
+        List<Boolean> favoriteStates = toFavoriteStates(articles, favorites);
+
+        return ArticleCardResponse.listOf(articles, favoriteCounts, favoriteStates);
     }
 
-    private List<Article> getTradeNotCompletedBy(Member member) {
-        return articleRepository.findAllByAuthorAndTradeStateNot(member, TradeState.COMPLETED);
+    public List<ArticleCardResponse> showFavorites(Member member) {
+        List<Favorite> favorites = favoriteRepository.findAllByMemberId(member.getId());
+
+        List<Long> favoriteArticleIds = favorites.stream()
+                .map(Favorite::getArticle)
+                .map(Article::getId)
+                .collect(toList());
+
+        List<Article> favoriteArticles = articleRepository.findAllById(favoriteArticleIds);
+
+        Map<Article, Long> articleAndFavoriteCount = toArticleAndFavoriteCount(favoriteArticles);
+        List<Long> favoriteCounts = toFavoriteCounts(favoriteArticles, articleAndFavoriteCount);
+        List<Boolean> favoriteStates = IntStream.range(0, favoriteArticles.size())
+                .mapToObj(i -> Boolean.TRUE)
+                .collect(toList());
+
+        return ArticleCardResponse.listOf(favoriteArticles, favoriteCounts, favoriteStates);
     }
 
-    private List<Article> getTradeCompletedBy(Member member) {
-        return articleRepository.findAllByAuthorAndTradeState(member, TradeState.COMPLETED);
+    private Map<Article, Long> toArticleAndFavoriteCount(List<Article> articles) {
+        return articleFavoriteCountRepository
+                .findAllByArticleInOrderByArticle(articles).stream()
+                .collect(toMap(ArticleFavoriteCount::getArticle,
+                        ArticleFavoriteCount::getFavoriteCount));
     }
 
-    private List<SalesHistoryResponse> getSalesDetailsResponses(List<Article> articles,
-            Long chatCount) {
+    private List<Long> toFavoriteCounts(List<Article> articles,
+            Map<Article, Long> articleAndFavoriteCount) {
         return articles.stream()
-                .map(article -> SalesHistoryResponse.of(article,
-                        favoriteRepository.countAllByArticle(article), chatCount))
+                .map(article -> articleAndFavoriteCount.getOrDefault(article, 0L))
                 .collect(toList());
     }
 
-    // @Transactional(readOnly = true)
-    // public List<ArticleResponse> showByTradeState(String state) {
-    //     TradeState tradeState = TradeState.valueOf(state);
-    //     List<Article> articles = articleRepository.findByTradeState(tradeState);
-    //     return articles.stream()
-    //             .map(ArticleResponse::of)
-    //             .collect(Collectors.toList());
-    // }
+    private List<Article> toFavorites(Member loginMember, List<Article> articles) {
+        return favoriteRepository.findAllByMemberAndArticleIn(loginMember, articles)
+                .stream()
+                .map(Favorite::getArticle)
+                .collect(toList());
+    }
+
+    private List<Boolean> toFavoriteStates(List<Article> articles, List<Article> favorites) {
+        return articles.stream()
+                .map(favorites::contains)
+                .collect(toList());
+    }
+
+    public List<SalesHistoryResponse> showByTradeState(Member member, String tradeState) {
+        if (TradeState.valueOf(tradeState).isCompleted()) {
+            List<Article> articles = getCompletedStateArticleBy(member);
+            return getSalesHistoryResponse(articles);
+        }
+        List<Article> articles = getNotCompletedStateArticleBy(member);
+        return getSalesHistoryResponse(articles);
+    }
+
+    private List<Article> getNotCompletedStateArticleBy(Member member) {
+        return articleRepository.findAllByAuthorAndTradeStateNot(member, TradeState.COMPLETED);
+    }
+
+    private List<Article> getCompletedStateArticleBy(Member member) {
+        return articleRepository.findAllByAuthorAndTradeState(member, TradeState.COMPLETED);
+    }
+
+    private List<SalesHistoryResponse> getSalesHistoryResponse(List<Article> articles) {
+        return articles.stream()
+                .map(article -> SalesHistoryResponse.of(article,
+                        favoriteRepository.countAllByArticle(article)))
+                .collect(Collectors.toList());
+    }
 }

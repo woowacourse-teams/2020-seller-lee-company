@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
-  BackHandler,
+  //BackHandler,
   Button,
   Keyboard,
   StyleSheet,
@@ -13,14 +13,15 @@ import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
-import ArticleTitleForm from "../components/Article/ArticleTitleForm";
-import ArticlePriceForm from "../components/Article/ArticlePriceForm";
+import ArticleFormTitle from "../components/Article/ArticleFormTitle";
+import ArticleFormPrice from "../components/Article/ArticleFormPrice";
 import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
 import Photo from "../components/Common/Photo/Photo";
 import Tag from "../components/Common/Tag/Tag";
 import {
   articleContentsState,
   articleIsEditingState,
+  articleIsModifiedState,
   articleModalActivationState,
   articlePhotosState,
   articlePriceState,
@@ -29,15 +30,15 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { Article, ArticleCreateScreenNavigationProp } from "../types/types";
+import { Article, ArticleFormScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
-import ArticleContentsForm from "../components/Article/ArticleContentsForm";
+import ArticleFormContents from "../components/Article/ArticleFormContents";
 import { defaultArticle } from "../data/defaultArticle";
 
-export default function ArticleCreateScreen() {
-  const navigation = useNavigation<ArticleCreateScreenNavigationProp>();
+export default function ArticleFormScreen() {
+  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
   const [article, setArticle] = useState<Article>(defaultArticle);
   const editingArticle = useRecoilValue(articleSelectedState);
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
@@ -52,22 +53,27 @@ export default function ArticleCreateScreen() {
   const [tags, setTags] = useRecoilState(tagsState);
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
   const [originArticle, setOriginArticle] = useState<Article>();
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
 
-  const confirmToBackAction = () => {
-    if (isDirty()) {
-      setArticleModalState(true);
-      return true;
-    }
-    resetForm();
-    return false;
+  // const confirmToBackAction = () => {
+  //   if (isDirty()) {
+  //     setArticleModalState(true);
+  //     return true;
+  //   }
+  //   resetForm();
+  //   return false;
+  // };
+  //
+  // const backHandler = BackHandler.addEventListener(
+  //   "hardwareBackPress",
+  //   confirmToBackAction,
+  // );
+
+  const resetForm = () => {
+    setIsEditing(false);
+    setForm(defaultArticle);
+    setOriginArticle(defaultArticle);
   };
-
-  const backHandler = BackHandler.addEventListener(
-    "hardwareBackPress",
-    confirmToBackAction,
-  );
-
-  const resetForm = () => setIsEditing(false);
 
   const isDirty = () => {
     return (
@@ -95,6 +101,10 @@ export default function ArticleCreateScreen() {
       setArticleModalState(true);
       return;
     }
+    resetAndBack();
+  };
+
+  const resetAndBack = () => {
     resetForm();
     navigation.goBack();
   };
@@ -127,8 +137,8 @@ export default function ArticleCreateScreen() {
     isEditing
       ? await articlesAPI.put(article.id, data)
       : await articlesAPI.post(data);
-    resetForm();
-    navigation.goBack();
+    setIsModified(true);
+    resetAndBack();
   };
 
   const setForm = (target: Article) => {
@@ -161,13 +171,10 @@ export default function ArticleCreateScreen() {
     if (isEditing) {
       setForm(editingArticle);
       setOriginArticle(editingArticle);
-    } else {
-      setForm(defaultArticle);
-      setOriginArticle(defaultArticle);
     }
   }, [isEditing]);
 
-  useEffect(() => backHandler.remove(), []);
+  // useEffect(() => backHandler.remove(), []);
 
   return (
     <KeyboardAwareScrollView
@@ -182,17 +189,17 @@ export default function ArticleCreateScreen() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.touchableWithoutFeedbackContainer}>
             <View style={styles.titleFormContainer}>
-              <ArticleTitleForm />
+              <ArticleFormTitle />
             </View>
             <View style={styles.selectCategoryContainer}>
               <ArticleFormCategorySelect isEditing={isEditing} />
             </View>
             <View style={styles.priceFormContainer}>
               <Text style={dynamicStyles.priceCurrencyUnit}>₩ </Text>
-              <ArticlePriceForm />
+              <ArticleFormPrice />
             </View>
             <View style={styles.contentsFormContainer}>
-              <ArticleContentsForm />
+              <ArticleFormContents />
             </View>
             <View style={styles.tagFormContainer}>
               <View style={styles.tagForm}>

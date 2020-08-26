@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  timeContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   createTime: {
     margin: 3,
     fontSize: 10,
-  },
-  timeContainer: {
-    justifyContent: "center",
   },
 });

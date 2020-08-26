@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import { HeaderBackButton } from "@react-navigation/stack";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
 import { chatRoomAPI } from "../api/api";
 import BuyerCard from "../components/SelectBuyer/BuyerCard";
-import { Buyer } from "../types/types";
+import { Buyer, SelectBuyerScreenNavigationProp } from "../types/types";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRecoilValue } from "recoil";
 import {
@@ -14,20 +14,9 @@ import {
   articleTitleState,
 } from "../states/articleState";
 
-type SampleNavigationParamList = {
-  SelectBuyerScreen: {
-    articleId: number;
-    title: string;
-    photo: string;
-  };
-};
-
 export default function SelectBuyerScreen() {
-  const navigation = useNavigation<
-    StackNavigationProp<SampleNavigationParamList, "SelectBuyerScreen">
-  >();
+  const navigation = useNavigation<SelectBuyerScreenNavigationProp>();
   const [buyers, setBuyers] = useState<Buyer[]>([]);
-  // articleState 사용 (conflict 해결시 반영)
   const articleId = useRecoilValue(articleIdState);
   const title = useRecoilValue(articleTitleState);
   const photo = useRecoilValue(articlePhotosState)[0];

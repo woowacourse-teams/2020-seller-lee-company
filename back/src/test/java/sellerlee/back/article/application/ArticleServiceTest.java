@@ -53,7 +53,9 @@ class ArticleServiceTest {
     @DisplayName("게시글 삭제 메서드 호출 시 게시글 삭제")
     @Test
     void deleteArticle() {
-        articleService.deleteById(ARTICLE1.getId());
+        when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
+
+        articleService.deleteById(ARTICLE1.getId(),MEMBER1);
 
         verify(articleRepository).deleteById(ARTICLE1.getId());
     }
@@ -63,8 +65,8 @@ class ArticleServiceTest {
     void patchTradeState() {
         when(articleRepository.findByAuthorAndId(any(), any())).thenReturn(Optional.of(ARTICLE1));
 
-        TradeSateUpdateRequest tradeSateUpdateRequest = new TradeSateUpdateRequest(51L, "예약중");
+        TradeStateRequest request = new TradeStateRequest("RESERVED");
 
-        articleService.updateTradeState(MEMBER1, tradeSateUpdateRequest);
+        articleService.updateTradeState(ARTICLE1.getId(), request, MEMBER1);
     }
 }

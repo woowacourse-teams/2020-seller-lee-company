@@ -42,12 +42,29 @@ public class Member {
         this(null, nickname, password, avatar, null);
     }
 
+    public Member(String password, String avatar) {
+        this(null, null, password, avatar, null);
+    }
+
     public Member(Long id) {
         this(id, null, null, null, null);
     }
 
     public boolean verify(PasswordEncoder passwordEncoder, String password) {
         return passwordEncoder.matches(password, this.password);
+    }
+
+    public boolean isSameId(Member member) {
+        return id.equals(member.id);
+    }
+
+    public boolean isSameNickname(String nickname) {
+        return this.nickname.equals(nickname);
+    }
+
+    public void update(Member member) {
+        this.password = member.password;
+        this.avatar = member.avatar;
     }
 
     public Long getId() {

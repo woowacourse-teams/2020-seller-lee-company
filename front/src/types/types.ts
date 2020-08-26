@@ -1,37 +1,25 @@
-import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-
-export type TabParamList = {
-  Home: undefined;
-};
-
-export type TabHomeNavigationProp = BottomTabNavigationProp<
-  TabParamList,
-  "Home"
->;
 
 export type ArticleNavigationParamList = {
-  Home: undefined;
-  SellerLee: undefined;
-  ChatRoom: undefined;
-  ArticleDetailScreen: { photos: string[] };
+  FeedHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
   ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  TeaserScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
-  "Home"
+  "FeedHomeScreen"
 >;
 
-export type ChatRoomNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ChatRoom"
->;
+// export type ChatRoomNavigationProp = StackNavigationProp<
+//   ArticleNavigationParamList,
+//   "ChatRoom"
+// >;
 
 export type ArticleDetailNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
@@ -49,44 +37,31 @@ export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
 >;
 
 export type CategoryParamList = {
-  CategoryHome: undefined;
-  CategoryDetail: { title: string };
-  Search: undefined;
+  HomeCategorySelectScreen: undefined;
+  CategoryHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
+  ArticleFormScreen: undefined;
+  ArticleDetailImageViewScreen: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
   CategoryParamList,
-  "CategoryHome"
+  "CategoryHomeScreen"
 >;
 
-export type CategoryDetailNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "CategoryDetail"
->;
-
-export type CategoryDetailRouteProp = RouteProp<
-  CategoryParamList,
-  "CategoryDetail"
->;
-
-export type SearchNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "Search"
->;
-
-export type ArticleCreateParamList = {
-  ArticleCreateScreen: undefined;
+export type ArticleFormParamList = {
+  ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
 };
 
-export type ArticleCreateScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
-  "ArticleCreateScreen"
+export type ArticleFormScreenNavigationProp = StackNavigationProp<
+  ArticleFormParamList,
+  "ArticleFormScreen"
 >;
 
 export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
-  ArticleCreateParamList,
+  ArticleFormParamList,
   "ArticleContentsFormScreen"
 >;
 
@@ -117,14 +92,6 @@ export interface Feed {
   favoriteCount: number;
   tags: string[];
   favoriteState: boolean;
-  photos: string[];
-}
-
-export interface Feed {
-  id: number;
-  price: number;
-  favoriteCount: number;
-  tags: string[];
   photos: string[];
 }
 
@@ -172,25 +139,15 @@ export interface Article {
   createdTime: string;
 }
 
-export interface ArticleCard {
-  title: string;
-  price: number;
-  tradeType: string;
-  tradeLocation: string;
-  thumbnail: string;
-  createdTime: string;
-}
-
-//둘중 하나 선택해야함 프론트에 tradeState 고르는 컴포넌트 만들때 필요
 export interface ArticleCardProps {
   id: number;
   title: string;
   price: number;
-  createdTime: string;
-  favoriteCount: number;
-  chatCount: number;
   thumbnail: string;
   tradeState: string;
+  favoriteState: boolean;
+  favoriteCount: number;
+  createdTime: string;
 }
 
 export interface Author {
@@ -206,19 +163,52 @@ export interface Buyer {
   nickname: string;
 }
 
-export type MyPageParamList = {
-  MyPage: undefined;
-  SalesDetails: undefined;
+export type ProfileNavigationParamList = {
+  ProfileScreen: undefined;
+  SalesHistoryScreen: undefined;
+  PurchaseHistoryScreen: undefined;
   ArticleDetailScreen: undefined;
-  Evaluation: undefined;
+  ArticleDetailImageViewScreen: undefined;
+  ArticleFormScreen: undefined;
+  SelectBuyerScreen: undefined;
+  EvaluationScreen: undefined;
+  MyInfoScreen: undefined;
+  MyFavoriteScreen: undefined;
+  TeaserScreen: undefined;
 };
 
-export type MyPageNavigationProps = StackNavigationProp<
-  MyPageParamList,
-  "SalesDetails"
+export type ProfileScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "ProfileScreen"
+>;
+
+export type SalesHistoryScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "SalesHistoryScreen"
+>;
+
+export type PurchaseHistoryScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "PurchaseHistoryScreen"
+>;
+
+export type SelectBuyerScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "SelectBuyerScreen"
+>;
+
+export type MyInfoScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "MyInfoScreen"
 >;
 
 export interface Score {
   questionId: number;
+  score: number;
+}
+
+export interface Profile {
+  nickname: string;
+  avatar: string;
   score: number;
 }

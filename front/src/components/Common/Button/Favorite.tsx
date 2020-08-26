@@ -15,7 +15,6 @@ export default function Favorite({ articleId, state, count }: FavoriteProp) {
   const [favoriteCount, setFavoriteCount] = useState(count);
 
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
-
   const springValue = useRef(new Animated.Value(1)).current;
 
   const fulfillHeartAnimate = () => {

@@ -14,7 +14,10 @@ const LoginStack = createStackNavigator();
 
 export default function AppStackNavigation() {
   return (
-    <LoginStack.Navigator headerMode={"screen"}>
+    <LoginStack.Navigator
+      initialRouteName={"TeaserScreen"}
+      headerMode={"screen"}
+    >
       <LoginStack.Screen name={"TeaserScreen"} component={TeaserScreen} />
       <LoginStack.Screen name={"AuthScreen"} component={AuthScreen} />
       <LoginStack.Screen name={"LoginScreen"} component={LoginScreen} />
