@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons } from "@expo/vector-icons";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import ArticleFormTitle from "../components/Article/ArticleFormTitle";
 import ArticleFormPrice from "../components/Article/ArticleFormPrice";
 import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
@@ -40,7 +40,9 @@ import { defaultArticle } from "../data/defaultArticle";
 export default function ArticleFormScreen() {
   const navigation = useNavigation<ArticleFormScreenNavigationProp>();
   const [article, setArticle] = useState<Article>(defaultArticle);
-  const editingArticle = useRecoilValue(articleSelectedState);
+  const [editingArticle, setEditingArticle] = useRecoilState(
+    articleSelectedState,
+  );
   const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
 
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
@@ -135,7 +137,17 @@ export default function ArticleFormScreen() {
     };
 
     isEditing
-      ? await articlesAPI.put(article.id, data)
+      ? await articlesAPI.put(article.id, data).then(() => {
+          setEditingArticle({
+            ...editingArticle,
+            title: data.title,
+            price: data.price,
+            categoryName: data.category,
+            contents: data.contents,
+            tags: data.tags,
+            photos: data.photos,
+          });
+        })
       : await articlesAPI.post(data);
     setIsModified(true);
     resetAndBack();
@@ -172,7 +184,7 @@ export default function ArticleFormScreen() {
       setForm(editingArticle);
       setOriginArticle(editingArticle);
     }
-  }, [isEditing]);
+  }, [isEditing, editingArticle]);
 
   // useEffect(() => backHandler.remove(), []);
 

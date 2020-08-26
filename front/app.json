@@ -18,7 +18,7 @@
     "android": {
       "package": "com.sellerleecompany.jikgorae",
       "softwareKeyboardLayoutMode": "pan",
-      "versionCode": 2,
+      "versionCode": 2
     },
     "ios": {
       "bundleIdentifier": "com.sellerleecompany.jikgorae",
