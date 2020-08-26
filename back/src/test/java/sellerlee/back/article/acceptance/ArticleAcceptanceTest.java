@@ -19,7 +19,6 @@ import sellerlee.back.AcceptanceTest;
 import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.member.application.TokenResponse;
 
