@@ -13,7 +13,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Login from "../components/Login/Login";
 import JoinButton from "../components/auth/JoinButton";
 import LoginSubmit from "../components/Login/LoginSubmit";
-import KakaoLoginButton from "../components/auth/KakaoLoginButton";
+// import KakaoLoginButton from "../components/auth/KakaoLoginButton";
 import theme from "../colors";
 import { useResetRecoilState } from "recoil/dist";
 import { loginNicknameState, loginPasswordState } from "../states/loginState";
@@ -60,11 +60,11 @@ export default function AuthScreen() {
                 <View style={styles.buttonContainer}>
                   <LoginSubmit resetLoginForm={resetMemberLoginValue} />
                 </View>
+                {/*<View style={styles.buttonContainer}>*/}
+                {/*  <Text style={styles.dividerText}>OR</Text>*/}
+                {/*</View>*/}
                 <View style={styles.buttonContainer}>
-                  <Text style={styles.dividerText}>OR</Text>
-                </View>
-                <View style={styles.buttonContainer}>
-                  <KakaoLoginButton />
+                  {/*<KakaoLoginButton />*/}
                 </View>
                 <View style={styles.buttonContainer}>
                   <JoinButton />
