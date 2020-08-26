@@ -102,7 +102,6 @@ class MemberServiceTest {
         memberService.update(MEMBER1, PROFILE_REQUEST);
 
         assertThat(MEMBER1.getAvatar()).isEqualTo(PROFILE_REQUEST.getAvatar());
-        assertThat(MEMBER1.getPassword()).isEqualTo(
-                PROFILE_REQUEST.toMemberWithPasswordEncode(passwordEncoder).getPassword());
+        assertThat(MEMBER1.getPassword()).isEqualTo(PROFILE_REQUEST.getPassword());
     }
 }

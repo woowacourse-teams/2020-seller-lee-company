@@ -58,13 +58,16 @@ public class Member {
         return id.equals(member.id);
     }
 
-    public boolean isSameNickname(String nickname) {
-        return this.nickname.equals(nickname);
+    public void update(Member member, PasswordEncoder encoder) {
+        this.password = changePassword(member, encoder);
+        this.avatar = member.avatar;
     }
 
-    public void update(Member member) {
-        this.password = member.password;
-        this.avatar = member.avatar;
+    private String changePassword(Member member, PasswordEncoder encoder) {
+        if (member.password.equals("")) {
+            return this.password;
+        }
+        return encoder.encode(member.password);
     }
 
     public Long getId() {
