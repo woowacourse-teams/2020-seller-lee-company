@@ -7,6 +7,7 @@ import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
 import { useRecoilState } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
+import { DeviceStorage } from "../auth/DeviceStorage";
 
 export default function FeedHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
@@ -20,11 +21,12 @@ export default function FeedHomeScreen() {
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
 
+  const applyChange = async () => {
+    initFeed();
+    setIsModified(false);
+  };
+
   useEffect(() => {
-    const applyChange = async () => {
-      initFeed();
-      setIsModified(false);
-    };
     isModified ? applyChange() : undefined;
   }, [isFocused]);
 
@@ -42,7 +44,7 @@ export default function FeedHomeScreen() {
               index: 0,
               routes: [{ name: "TeaserScreen" }],
             });
-            navigation.popToTop();
+            DeviceStorage.clearToken().then(navigation.popToTop);
           }}
         />
       ),
@@ -51,8 +53,11 @@ export default function FeedHomeScreen() {
   }, [navigation]);
 
   useEffect(() => {
-    initFeed();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      initFeed();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const initFeed = async () => {
     const { data } = await articlesAPI.get({
