@@ -89,6 +89,7 @@ export default function MyInfoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   avatarContainer: {
     flex: 1,

@@ -1,7 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
@@ -20,37 +24,19 @@ export default function FeedHomeScreen() {
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
 
+  const applyChange = async () => {
+    initFeed();
+    setIsModified(false);
+  };
+
   useEffect(() => {
-    const applyChange = async () => {
-      initFeed();
-      setIsModified(false);
-    };
     isModified ? applyChange() : undefined;
   }, [isFocused]);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <></>,
-      title: "",
-      headerRight: () => (
-        <MaterialCommunityIcons
-          name="login"
-          size={24}
-          color="black"
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "TeaserScreen" }],
-            });
-            navigation.popToTop();
-          }}
-        />
-      ),
-      headerRightContainerStyle: { paddingRight: 15 },
-    });
-  }, [navigation]);
-
   useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
     initFeed();
   }, []);
 
@@ -98,26 +84,28 @@ export default function FeedHomeScreen() {
   };
 
   return (
-    <FlatList
-      data={articles}
-      renderItem={({ item }) => (
-        <FeedArticleCard
-          id={item.id}
-          price={item.price}
-          tags={item.tags}
-          favoriteCount={item.favoriteCount}
-          photos={item.photos}
-          favoriteState={item.favoriteState}
-        />
-      )}
-      keyExtractor={(item) => `${item.id}`}
-      refreshing={isRefreshing}
-      contentContainerStyle={styles.feedArticleContainer}
-      onRefresh={onRefresh}
-      onEndReachedThreshold={0.25}
-      onEndReached={onLoad}
-      ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
-    />
+    <SafeAreaView>
+      <FlatList
+        data={articles}
+        renderItem={({ item }) => (
+          <FeedArticleCard
+            id={item.id}
+            price={item.price}
+            tags={item.tags}
+            favoriteCount={item.favoriteCount}
+            photos={item.photos}
+            favoriteState={item.favoriteState}
+          />
+        )}
+        keyExtractor={(item) => `${item.id}`}
+        refreshing={isRefreshing}
+        contentContainerStyle={styles.feedArticleContainer}
+        onRefresh={onRefresh}
+        onEndReachedThreshold={0.25}
+        onEndReached={onLoad}
+        ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
+      />
+    </SafeAreaView>
   );
 }
 

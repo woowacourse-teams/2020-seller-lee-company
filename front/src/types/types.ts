@@ -173,6 +173,8 @@ export type ProfileNavigationParamList = {
   SelectBuyerScreen: undefined;
   EvaluationScreen: undefined;
   MyInfoScreen: undefined;
+  MyFavoriteScreen: undefined;
+  TeaserScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
