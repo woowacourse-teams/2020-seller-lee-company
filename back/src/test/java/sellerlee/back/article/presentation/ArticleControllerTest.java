@@ -224,7 +224,7 @@ class ArticleControllerTest extends ControllerTest {
         String tradeState = "ON_SALE";
 
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
+                .thenReturn(singletonList(ArticleCardResponse.of(ARTICLE1, 5L, true)));
 
         // @formatter:off
         mockMvc

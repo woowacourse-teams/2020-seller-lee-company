@@ -22,7 +22,6 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
@@ -89,9 +88,9 @@ public class ArticleController {
     }
 
     @GetMapping(TRADE_STATE_URI)
-    public ResponseEntity<List<SalesHistoryResponse>> showSalesDetailsArticle(
+    public ResponseEntity<List<ArticleCardResponse>> showByTradeState(
             @RequestParam String tradeState, @LoginMember Member loginMember) {
-        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(loginMember,
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(loginMember,
                 tradeState);
         return ResponseEntity.ok(responses);
     }
