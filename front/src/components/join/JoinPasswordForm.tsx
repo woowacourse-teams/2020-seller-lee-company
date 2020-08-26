@@ -109,6 +109,7 @@ export default function JoinPasswordForm() {
         </View>
       );
     }
+
     return (
       <View style={styles.iconContainer}>
         <MaterialCommunityIcons

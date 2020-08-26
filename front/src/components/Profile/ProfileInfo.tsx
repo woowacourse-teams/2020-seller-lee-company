@@ -20,7 +20,8 @@ export default function ProfileInfo() {
         <Image style={styles.avatar} source={{ uri: avatar }} />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.nickname}>{profile.nickname}님, 안녕하세요!</Text>
+        <Text style={styles.nickname}>{profile.nickname}님,</Text>
+        <Text style={styles.nickname}>안녕하세요!</Text>
       </View>
     </View>
   );
@@ -31,19 +32,23 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     padding: 30,
+    paddingHorizontal: 50,
   },
-  avatarContainer: { flex: 1 },
+  avatarContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
     borderRadius: 100,
   },
   infoContainer: {
     flex: 4,
-    paddingTop: 10,
-    paddingLeft: 15,
+    paddingLeft: 30,
   },
   nickname: {
-    fontSize: 30,
+    fontSize: 22,
   },
 });

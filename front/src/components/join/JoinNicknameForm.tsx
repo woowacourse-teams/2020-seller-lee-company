@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { joinNicknameState, joinSubmitState } from "../../states/joinState";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { isBlank } from "../../joinValidator";
+import { isBlank, isValidNickname } from "../../joinValidator";
 import theme from "../../colors";
 
 export default function JoinNicknameForm() {
@@ -28,6 +28,18 @@ export default function JoinNicknameForm() {
     },
   });
 
+  const invalidNicknameMessage = () => {
+    return (
+      <Text style={styles.warningMessage}>
+        닉네임을 8글자 이내로 입력해주세요.
+      </Text>
+    );
+  };
+
+  const validPasswordMessage = () => {
+    return <Text style={styles.validMessage}>사용 가능한 닉네임입니다.</Text>;
+  };
+
   const validateMessageOnSubmit = () => {
     if (isBlank(joinNickname)) {
       return (
@@ -37,6 +49,16 @@ export default function JoinNicknameForm() {
       );
     }
     return <></>;
+  };
+
+  const validateMessageNotSubmit = () => {
+    if (isBlank(joinNickname)) {
+      return <></>;
+    }
+    if (!isValidNickname(joinNickname)) {
+      return invalidNicknameMessage();
+    }
+    return validPasswordMessage();
   };
 
   const validateIconOnSubmit = () => {
@@ -52,6 +74,35 @@ export default function JoinNicknameForm() {
         </View>
       );
     }
+    return (
+      <View style={styles.iconContainer}>
+        <MaterialCommunityIcons
+          name="check-circle-outline"
+          size={20}
+          color={theme.primary}
+          style={styles.validateIcon}
+        />
+      </View>
+    );
+  };
+
+  const validateIconNotSubmit = () => {
+    if (isBlank(joinNickname)) {
+      return <></>;
+    }
+    if (!isValidNickname(joinNickname)) {
+      return (
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="alert-circle-outline"
+            size={20}
+            color={theme.warning}
+            style={styles.validateIcon}
+          />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.iconContainer}>
         <MaterialCommunityIcons
@@ -83,9 +134,9 @@ export default function JoinNicknameForm() {
           style={styles.nicknameForm}
           placeholder={"사용할 닉네임을 입력해주세요."}
         />
-        {joinSubmit ? validateIconOnSubmit() : <></>}
+        {joinSubmit ? validateIconOnSubmit() : validateIconNotSubmit()}
       </View>
-      {joinSubmit ? validateMessageOnSubmit() : <></>}
+      {joinSubmit ? validateMessageOnSubmit() : validateMessageNotSubmit()}
     </View>
   );
 }
@@ -114,6 +165,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginVertical: 5,
     color: theme.warning,
+    fontSize: 13,
+    fontWeight: "bold",
+  },
+  validMessage: {
+    marginLeft: 15,
+    marginVertical: 5,
+    color: theme.primary,
     fontSize: 13,
     fontWeight: "bold",
   },

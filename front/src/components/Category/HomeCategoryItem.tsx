@@ -1,9 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useRecoilState } from "recoil/dist";
+import { useSetRecoilState } from "recoil/dist";
 import { useNavigation } from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../../states/articleState";
-import theme from "../../colors";
 import { CategoryHomeNavigationProp } from "../../types/types";
 
 interface CategoryItemProps {
@@ -13,9 +12,7 @@ interface CategoryItemProps {
 export default function HomeCategoryItem({ title }: CategoryItemProps) {
   const navigation = useNavigation<CategoryHomeNavigationProp>();
 
-  const [selectedCategory, setSelectedCategory] = useRecoilState(
-    articleSelectedCategoryState,
-  );
+  const setSelectedCategory = useSetRecoilState(articleSelectedCategoryState);
 
   const onClickCategory = () => {
     setSelectedCategory(title);
@@ -24,10 +21,7 @@ export default function HomeCategoryItem({ title }: CategoryItemProps) {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={selectedCategory === title ? styles.selected : {}}
-        onPress={onClickCategory}
-      >
+      <Text style={styles.text} onPress={onClickCategory}>
         {title}
       </Text>
     </View>
@@ -37,11 +31,11 @@ export default function HomeCategoryItem({ title }: CategoryItemProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    padding: 15,
-    borderBottomWidth: 0.2,
-    borderBottomColor: "#BBB",
+    padding: 20,
+    borderBottomWidth: 0.3,
+    borderBottomColor: "#ccc",
   },
-  selected: {
-    color: theme.primary,
+  text: {
+    fontSize: 16,
   },
 });

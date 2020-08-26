@@ -1,7 +1,12 @@
+const VALID_NICKNAME_UPPER_BOUND = 8;
 const VALID_PASSWORD_LOWER_BOUND = 6;
 
 export const isBlank = (value: string) => {
   return value === "";
+};
+
+export const isValidNickname = (nickname: string) => {
+  return nickname.length <= VALID_NICKNAME_UPPER_BOUND;
 };
 
 export const isValidPassword = (password: string) => {
@@ -20,6 +25,7 @@ export const verify = (
   return (
     !isBlank(nickname) &&
     !isBlank(password) &&
+    isValidNickname(nickname) &&
     isValidPassword(password) &&
     isSamePassword(password, checkPassword)
   );
