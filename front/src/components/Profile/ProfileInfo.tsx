@@ -17,7 +17,14 @@ export default function ProfileInfo() {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Image style={styles.avatar} source={{ uri: avatar }} />
+        {avatar === "" ? (
+          <Image
+            style={styles.avatar}
+            source={require("../../../assets/user.png")}
+          />
+        ) : (
+          <Image style={styles.avatar} source={{ uri: avatar }} />
+        )}
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.nickname}>{profile.nickname}님,</Text>
