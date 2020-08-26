@@ -16,8 +16,8 @@ public class ProfileRequest {
         this.avatar = avatar;
     }
 
-    public Member toMemberWithPasswordEncode(PasswordEncoder passwordEncoder) {
-        return new Member(passwordEncoder.encode(password), avatar);
+    public Member toMember() {
+        return new Member(password, avatar);
     }
 
     public String getPassword() {

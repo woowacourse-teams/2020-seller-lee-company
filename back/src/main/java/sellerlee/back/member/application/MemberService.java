@@ -50,6 +50,6 @@ public class MemberService {
         Member member = memberRepository.findById(loginMember.getId())
                 .orElseThrow(() -> new IllegalArgumentException("ID가 일치하는 회원이 존재하지 않습니다."));
 
-        member.update(request.toMemberWithPasswordEncode(passwordEncoder));
+        member.update(request.toMember(), passwordEncoder);
     }
 }
