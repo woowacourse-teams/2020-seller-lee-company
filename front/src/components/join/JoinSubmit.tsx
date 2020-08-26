@@ -45,9 +45,9 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       });
 
       if (response.status === 201) {
-        setJoinVerifyState(true);
-        resetJoinForm();
         navigation.goBack();
+        setJoinVerifyState(true);
+        setTimeout(resetJoinForm, 1000);
       }
     } catch (error) {
       console.log(error);
