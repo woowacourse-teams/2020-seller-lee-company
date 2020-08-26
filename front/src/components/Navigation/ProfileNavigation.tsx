@@ -9,7 +9,9 @@ import SelectBuyerScreen from "../../screens/SelectBuyerScreen";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
 import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
 import ArticleFormScreen from "../../screens/ArticleFormScreen";
+import MyFavoriteScreen from "../../screens/MyFavoriteScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
+import TeaserScreen from "../../screens/TeaserScreen";
 
 const Stack = createStackNavigator<ProfileNavigationParamList>();
 
@@ -34,6 +36,8 @@ export default function ProfileNavigation() {
       <Stack.Screen name="SelectBuyerScreen" component={SelectBuyerScreen} />
       <Stack.Screen name="EvaluationScreen" component={EvaluationScreen} />
       <Stack.Screen name="MyInfoScreen" component={MyInfoScreen} />
+      <Stack.Screen name="MyFavoriteScreen" component={MyFavoriteScreen} />
+      <Stack.Screen name="TeaserScreen" component={TeaserScreen} />
     </Stack.Navigator>
   );
 }

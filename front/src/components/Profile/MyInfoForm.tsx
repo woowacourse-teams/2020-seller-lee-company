@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderTopWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#ddd",
   },
   item: {
     flexDirection: "row",
