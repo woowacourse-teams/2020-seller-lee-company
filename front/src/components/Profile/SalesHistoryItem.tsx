@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../colors";
-import { Article } from "../../types/types";
+import { ArticleCardProps } from "../../types/types";
 import ArticleCard from "../Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../../api/api";
 import { useRecoilState } from "recoil/dist";
@@ -9,7 +9,7 @@ import { articleSalesHistoryState } from "../../states/articleState";
 
 interface OnSaleHistoryListProps {
   isCompletedTab: boolean;
-  article: Article;
+  article: ArticleCardProps;
 }
 
 export default function SalesHistoryItem({
@@ -18,7 +18,7 @@ export default function SalesHistoryItem({
     id,
     title,
     price,
-    photos,
+    thumbnail,
     tradeState,
     favoriteState,
     favoriteCount,
@@ -45,7 +45,7 @@ export default function SalesHistoryItem({
           tradeState={tradeState}
           favoriteState={favoriteState}
           favoriteCount={favoriteCount}
-          thumbnail={photos ? photos[0] : "tempURI"}
+          thumbnail={thumbnail}
         />
       </View>
       {isCompletedTab ? (
