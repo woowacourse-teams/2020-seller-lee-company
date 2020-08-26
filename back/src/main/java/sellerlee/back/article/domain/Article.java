@@ -83,7 +83,7 @@ public class Article extends BaseTimeEntity {
     }
 
     public void update(Article article) {
-        if (author.isNotEquals(article.author)) {
+        if (!author.isSameId(article.author)) {
             throw new AuthorizationException("수정할 수 있는 권한이 없습니다.");
         }
         title = article.title;

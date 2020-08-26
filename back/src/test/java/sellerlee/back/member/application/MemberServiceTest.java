@@ -7,6 +7,7 @@ import static sellerlee.back.fixture.MemberFixture.*;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -90,5 +91,18 @@ class MemberServiceTest {
                 .hasMessage("비밀번호가 일치하지 않습니다.");
 
         verify(memberRepository).findOptionalMemberByNickname(anyString());
+    }
+
+    @Disabled
+    @DisplayName("회원정보 수정 요청 시 회원정보 수정")
+    @Test
+    void update() {
+        when(memberRepository.findById(anyLong())).thenReturn(Optional.of(MEMBER1));
+
+        memberService.update(MEMBER1, PROFILE_REQUEST);
+
+        assertThat(MEMBER1.getAvatar()).isEqualTo(PROFILE_REQUEST.getAvatar());
+        assertThat(MEMBER1.getPassword()).isEqualTo(
+                PROFILE_REQUEST.toMemberWithPasswordEncode(passwordEncoder).getPassword());
     }
 }

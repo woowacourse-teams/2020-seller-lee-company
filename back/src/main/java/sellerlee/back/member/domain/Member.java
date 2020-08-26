@@ -55,8 +55,8 @@ public class Member {
         this(null, null, null, nickname, password, avatar, null);
     }
 
-    public Member(String kakaoId, String email) {
-        this(null, kakaoId, email, null, null, null, null);
+    public Member(String password, String avatar) {
+        this(null, null, null, null, password, avatar, null);
     }
 
     public Member(Long id) {
@@ -73,8 +73,17 @@ public class Member {
         return passwordEncoder.matches(password, this.password);
     }
 
-    public boolean isNotEquals(Member member) {
-        return !id.equals(member.id);
+    public boolean isSameId(Member member) {
+        return id.equals(member.id);
+    }
+
+    public boolean isSameNickname(String nickname) {
+        return this.nickname.equals(nickname);
+    }
+
+    public void update(Member member) {
+        this.password = member.password;
+        this.avatar = member.avatar;
     }
 
     public Long getId() {

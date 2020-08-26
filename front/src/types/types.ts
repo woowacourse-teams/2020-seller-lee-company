@@ -1,37 +1,25 @@
-import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-
-export type TabParamList = {
-  Home: undefined;
-};
-
-export type TabHomeNavigationProp = BottomTabNavigationProp<
-  TabParamList,
-  "Home"
->;
 
 export type ArticleNavigationParamList = {
-  Home: undefined;
-  SellerLee: undefined;
-  ChatRoom: undefined;
-  ArticleDetailScreen: { photos: string[]; memberNickname: string };
+  FeedHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
   ArticleDetailImageSlider: undefined;
   ArticleDetailImageViewScreen: undefined;
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  TeaserScreen: undefined;
 };
 
 export type FeedHomeNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
-  "Home"
+  "FeedHomeScreen"
 >;
 
-export type ChatRoomNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ChatRoom"
->;
+// export type ChatRoomNavigationProp = StackNavigationProp<
+//   ArticleNavigationParamList,
+//   "ChatRoom"
+// >;
 
 export type ArticleDetailNavigationProp = StackNavigationProp<
   ArticleNavigationParamList,
@@ -48,35 +36,17 @@ export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
   "ArticleDetailImageViewScreen"
 >;
 
-export type ArticleDetailImageViewRouteProp = RouteProp<
-  ArticleNavigationParamList,
-  "ArticleDetailImageViewScreen"
->;
-
 export type CategoryParamList = {
-  CategoryHome: undefined;
-  CategoryDetail: { title: string };
-  Search: undefined;
+  HomeCategorySelectScreen: undefined;
+  CategoryHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
+  ArticleFormScreen: undefined;
+  ArticleDetailImageViewScreen: undefined;
 };
 
 export type CategoryHomeNavigationProp = StackNavigationProp<
   CategoryParamList,
-  "CategoryHome"
->;
-
-export type CategoryDetailNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "CategoryDetail"
->;
-
-export type CategoryDetailRouteProp = RouteProp<
-  CategoryParamList,
-  "CategoryDetail"
->;
-
-export type SearchNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "Search"
+  "CategoryHomeScreen"
 >;
 
 export type ArticleFormParamList = {
@@ -122,14 +92,6 @@ export interface Feed {
   favoriteCount: number;
   tags: string[];
   favoriteState: boolean;
-  photos: string[];
-}
-
-export interface Feed {
-  id: number;
-  price: number;
-  favoriteCount: number;
-  tags: string[];
   photos: string[];
 }
 
@@ -182,6 +144,8 @@ export interface ArticleCardProps {
   title: string;
   price: number;
   thumbnail: string;
+  tradeState: string;
+  favoriteState: boolean;
   favoriteCount: number;
   createdTime: string;
 }
@@ -204,8 +168,13 @@ export type ProfileNavigationParamList = {
   SalesHistoryScreen: undefined;
   PurchaseHistoryScreen: undefined;
   ArticleDetailScreen: undefined;
+  ArticleDetailImageViewScreen: undefined;
+  ArticleFormScreen: undefined;
   SelectBuyerScreen: undefined;
   EvaluationScreen: undefined;
+  MyInfoScreen: undefined;
+  MyFavoriteScreen: undefined;
+  TeaserScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<
@@ -228,7 +197,18 @@ export type SelectBuyerScreenNavigationProp = StackNavigationProp<
   "SelectBuyerScreen"
 >;
 
+export type MyInfoScreenNavigationProp = StackNavigationProp<
+  ProfileNavigationParamList,
+  "MyInfoScreen"
+>;
+
 export interface Score {
   questionId: number;
+  score: number;
+}
+
+export interface Profile {
+  nickname: string;
+  avatar: string;
   score: number;
 }

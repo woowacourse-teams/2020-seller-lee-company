@@ -32,21 +32,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createToken(String id, String payload) {
-        Claims claimsId = Jwts.claims().setSubject(id);
-        Claims claimsPayload = Jwts.claims().setSubject(payload);
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + expireLength);
-
-        return Jwts.builder()
-                .setClaims(claimsId)
-                .setClaims(claimsPayload)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
-    }
-
     public String getPayload(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)

@@ -1,17 +1,21 @@
 import React, { useLayoutEffect } from "react";
 import {
+  ImageBackground,
   Keyboard,
-  SafeAreaView,
   StyleSheet,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AuthScreenNavigationProp } from "../types/types";
-import theme from "../colors";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Login from "../components/Login/Login";
-import KakaoLoginButton from "../components/auth/KakaoLoginButton";
-import LoginVerifyModal from "../components/Common/Modal/LoginVerifyModal";
+import JoinButton from "../components/auth/JoinButton";
+import LoginSubmit from "../components/Login/LoginSubmit";
+// import KakaoLoginButton from "../components/auth/KakaoLoginButton";
+// import LoginVerifyModal from "../components/Common/Modal/LoginVerifyModal";
+import theme from "../colors";
 import { useResetRecoilState } from "recoil/dist";
 import { loginNicknameState, loginPasswordState } from "../states/loginState";
 
@@ -33,52 +37,104 @@ export default function AuthScreen() {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      source={require("../../assets/wave_2.jpg")}
+    >
       <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
         <View style={styles.contentContainer}>
-          <View style={styles.loginContainer}>
-            <Login />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Login</Text>
           </View>
-          <View style={styles.authButtonsContainer}>
-            <View style={styles.kakaoLoginButtonContainer}>
-              <LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />
-              <KakaoLoginButton />
-            </View>
+          <View style={styles.keyboardAwareScrollViewContainer}>
+            <KeyboardAwareScrollView
+              contentContainerStyle={styles.keyboardAwareScrollView}
+              enableOnAndroid={true}
+              enableAutomaticScroll={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.loginContainer}>
+                <Login />
+              </View>
+              <View style={styles.buttonsContainer}>
+                <View style={styles.buttonContainer}>
+                  <LoginSubmit resetLoginForm={resetMemberLoginValue} />
+                </View>
+                {/*<View style={styles.buttonContainer}>*/}
+                {/*  <Text style={styles.dividerText}>OR</Text>*/}
+                {/*</View>*/}
+                <View style={styles.buttonContainer}>
+                  {/*<LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />*/}
+                  {/*<KakaoLoginButton />*/}
+                </View>
+                <View style={styles.buttonContainer}>
+                  <JoinButton />
+                </View>
+              </View>
+            </KeyboardAwareScrollView>
           </View>
         </View>
       </TouchableWithoutFeedback>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
   },
   contentContainer: {
     flex: 1,
+  },
+  titleContainer: {
+    flex: 3,
     justifyContent: "center",
-    margin: 30,
+    marginHorizontal: 30,
+    paddingLeft: 15,
   },
-  loginContainer: {
-    flex: 4,
-  },
-  titleText: {
-    color: theme.primary,
+  title: {
     fontSize: 36,
     fontWeight: "bold",
-    textAlign: "center",
+    color: "white",
+    marginBottom: 20,
   },
-  authButtonsContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
+  keyboardAwareScrollViewContainer: {
+    flex: 8,
+    backgroundColor: "white",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: 30,
+  },
+  keyboardAwareScrollView: {
+    flexGrow: 1,
+    flexShrink: 0,
+    justifyContent: "space-between",
+  },
+  loginContainer: {
+    marginHorizontal: 30,
+  },
+  buttonsContainer: {
+    justifyContent: "center",
+    marginHorizontal: 30,
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  buttonContainer: {
     marginVertical: 10,
   },
-  kakaoLoginButtonContainer: {
-    marginBottom: 5,
+  divider: {
+    aspectRatio: 6,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  dividerText: {
+    fontSize: 16,
+    textAlign: "center",
+    color: theme.tertiary,
   },
   joinButtonContainer: {
-    marginTop: 5,
+    marginHorizontal: 30,
+    marginBottom: 40,
   },
 });

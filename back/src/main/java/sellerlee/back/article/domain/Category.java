@@ -17,21 +17,22 @@ public enum Category {
     BOOK("도서/티켓/음반"),
     ETC("기타 중고물품");
 
-    private final String category;
+    private final String categoryName;
 
-    Category(String category) {
-        this.category = category;
+    Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public static Category fromString(String category) {
+    public static Category fromString(String categoryName) {
         return Arrays.stream(values())
-                .filter(v -> v.category.equals(category))
+                .filter(v -> v.categoryName.equals(categoryName))
                 .findFirst()
                 .orElseThrow(() ->
-                        new IllegalArgumentException(String.format("잘못된 카테고리 : %s.", category)));
+                        new IllegalArgumentException(
+                                String.format("잘못된 카테고리 : %s.", categoryName)));
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 }

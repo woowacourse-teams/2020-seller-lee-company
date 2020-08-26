@@ -1,5 +1,6 @@
 package sellerlee.back.article.presentation;
 
+import static java.util.Collections.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -19,9 +20,7 @@ import static sellerlee.back.security.oauth2.authentication.AuthorizationExtract
 import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -38,6 +37,7 @@ import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
+import sellerlee.back.article.domain.Category;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest extends ControllerTest {
@@ -84,8 +84,6 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:on
     }
 
-    // TODO: 2020/08/17 문서화 테스트 복구
-    @Disabled
     @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
@@ -96,7 +94,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_URI)
+                        get(API + ARTICLE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
@@ -115,6 +113,7 @@ class ArticleControllerTest extends ControllerTest {
                                 responseFields(
                                         fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
                                         fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
+                                        fieldWithPath("[].favoriteState").type(JsonFieldType.BOOLEAN).description("게시글의 찜 여부"),
                                         fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER).description("게시글의 찜 개수"),
                                         fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("태그의 리스트"),
                                         fieldWithPath("[].photos").type(JsonFieldType.ARRAY).description("사진의 리스트")
@@ -122,8 +121,49 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:on
     }
 
+    @DisplayName("카테고리별 게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
+    @Test
+    void showPageByCategory() throws Exception {
+        when(articleViewService.showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE,
+                Category.ETC.getCategoryName(), MEMBER1))
+                .thenReturn(ArticleCardResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
+                        Arrays.asList(1L, 2L), Arrays.asList(true, false)));
+
+        // @formatter:off
+        mockMvc
+                .perform(
+                        get(API + ARTICLE_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
+                                .param("size", String.valueOf(ARTICLE_SIZE))
+                                .param("category", Category.ETC.getCategoryName()))
+                .andExpect(status().isOk())
+                .andDo(
+                        document("articles/getPageByCategory",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestHeaders(
+                                        headerWithName("Authorization").description("회원의 토큰")
+                                ),
+                                requestParameters(
+                                        parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
+                                        parameterWithName("size").description("가져올 페이지의 크기(게시물 수)"),
+                                        parameterWithName("category").description("가져올 페이지의 카테고리")
+                                ),
+                                responseFields(
+                                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
+                                        fieldWithPath("[].title").type(JsonFieldType.STRING).description("게시글의 제목"),
+                                        fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
+                                        fieldWithPath("[].thumbnail").type(JsonFieldType.STRING).description("게시글의 대표 사진"),
+                                        fieldWithPath("[].tradeState").type(JsonFieldType.STRING).description("게시글의 거래 상태"),
+                                        fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER).description("게시글의 찜 개수"),
+                                        fieldWithPath("[].favoriteState").type(JsonFieldType.BOOLEAN).description("게시글의 찜 여부"),
+                                        fieldWithPath("[].createdTime").type(JsonFieldType.STRING).description("게시글의 생성 시간")
+                                )));
+        // @formatter:on
+    }
+
     // TODO: 2020/08/17 문서화 테스트 복구
-    @Disabled
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
@@ -133,7 +173,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        RestDocumentationRequestBuilders.get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
+                        RestDocumentationRequestBuilders.get(API + ARTICLE_URI + "/{id}", ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
@@ -183,7 +223,7 @@ class ArticleControllerTest extends ControllerTest {
         String tradeState = "ON_SALE";
 
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(Collections.singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
+                .thenReturn(singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
 
         // @formatter:off
         mockMvc
@@ -218,7 +258,8 @@ class ArticleControllerTest extends ControllerTest {
     @Test
     void showFavorites() throws Exception {
         when(articleViewService.showFavorites(any())).thenReturn(
-                ArticleCardResponse.listOf(Collections.singletonList(ARTICLE1)));
+                ArticleCardResponse.listOf(singletonList(ARTICLE1), singletonList(1L),
+                        singletonList(true)));
 
         // @formatter:off
         mockMvc
@@ -237,7 +278,9 @@ class ArticleControllerTest extends ControllerTest {
                                 fieldWithPath("[].title").description("게시글의 제목"),
                                 fieldWithPath("[].price").description("게시글의 가격"),
                                 fieldWithPath("[].thumbnail").description("게시글의 섬네일"),
+                                fieldWithPath("[].tradeState").description("게시글의 거래 상태"),
                                 fieldWithPath("[].favoriteCount").description("게시글의 좋아요 개수"),
+                                fieldWithPath("[].favoriteState").description("게시글의 좋아요 상태"),
                                 fieldWithPath("[].createdTime").description("게시글의 생성 시간")
                         )));
         // @formatter:on

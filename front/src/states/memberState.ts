@@ -1,4 +1,5 @@
 import { atom } from "recoil/dist";
+import { Profile } from "../types/types";
 
 export const authorTheCheatState = atom({
   key: "authorTheCheatState",
@@ -13,4 +14,29 @@ export const memberNicknameState = atom({
 export const memberAvatarState = atom({
   key: "memberAvatarState",
   default: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
+});
+
+export const memberProfileState = atom({
+  key: "memberProfileState",
+  default: <Profile>{},
+});
+
+export const memberInfoNicknameState = atom({
+  key: "memberInfoNicknameState",
+  default: "",
+});
+
+export const memberInfoPasswordState = atom({
+  key: "memberInfoPasswordState",
+  default: "",
+});
+
+export const memberInfoConfirmState = atom({
+  key: "memberInfoConfirmState",
+  default: "",
+});
+
+export const memberInfoAvatarState = atom({
+  key: "memberInfoAvatarState",
+  default: "",
 });

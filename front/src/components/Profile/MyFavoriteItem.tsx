@@ -8,7 +8,16 @@ interface MyFavoriteItemProps {
 }
 
 export default function MyFavoriteItem({
-  article: { id, title, price, thumbnail, favoriteCount, createdTime },
+  article: {
+    id,
+    title,
+    price,
+    thumbnail,
+    tradeState,
+    favoriteState,
+    favoriteCount,
+    createdTime,
+  },
 }: MyFavoriteItemProps) {
   return (
     <View>
@@ -17,6 +26,8 @@ export default function MyFavoriteItem({
         title={title}
         price={price}
         thumbnail={thumbnail}
+        tradeState={tradeState}
+        favoriteState={favoriteState}
         favoriteCount={favoriteCount}
         createdTime={createdTime}
       />

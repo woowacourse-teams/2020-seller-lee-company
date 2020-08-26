@@ -9,7 +9,16 @@ interface PurchaseArticleProps {
 }
 
 export default function PurchaseHistoryItem({
-  article: { id, title, price, createdTime, favoriteCount, thumbnail },
+  article: {
+    id,
+    title,
+    price,
+    createdTime,
+    tradeState,
+    favoriteState,
+    favoriteCount,
+    thumbnail,
+  },
 }: PurchaseArticleProps) {
   return (
     <View style={styles.container}>
@@ -19,6 +28,8 @@ export default function PurchaseHistoryItem({
           title={title}
           price={price}
           createdTime={createdTime}
+          tradeState={tradeState}
+          favoriteState={favoriteState}
           favoriteCount={favoriteCount}
           thumbnail={thumbnail}
         />

@@ -16,6 +16,7 @@ const domain = {
   chatRoom: "/chat-rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
+  profiles: "/me",
 };
 
 interface ArticlesPost {
@@ -36,10 +37,25 @@ interface ArticlesGetByTradeState {
   tradeState: string;
 }
 
+interface ArticlesGetByCategory {
+  lastArticleId: number;
+  size: number;
+  category: string;
+}
+
 export const articlesAPI = {
   get: async (params: ArticlesGet) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.login}${domain.articles}`, {
+      params,
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  getByCategory: async (params: ArticlesGetByCategory) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.articles}`, {
       params,
       headers: {
         Authorization: `bearer ${token}`,
@@ -148,6 +164,38 @@ export const memberAPI = {
     await axios.post(BASE_URL + domain.login, data),
   join: async (data: MemberJoin) =>
     await axios.post(BASE_URL + domain.members, data),
+  getNickname: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(BASE_URL + domain.members, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+interface ProfilePost {
+  password: string;
+  avatar: string;
+}
+
+export const profileAPI = {
+  get: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.profiles}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  put: async (data: ProfilePost) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.profiles}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 interface FavoriteCreate {

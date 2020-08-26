@@ -1,15 +1,16 @@
 import React, { useLayoutEffect } from "react";
 import {
+  ImageBackground,
   Keyboard,
-  SafeAreaView,
   StyleSheet,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { JoinScreenNavigationProp } from "../types/types";
 import { HeaderBackButton } from "@react-navigation/stack";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import Join from "../components/join/Join";
 import { useResetRecoilState } from "recoil/dist";
 import {
@@ -18,6 +19,8 @@ import {
   joinPasswordState,
   joinSubmitState,
 } from "../states/joinState";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import JoinSubmit from "../components/join/JoinSubmit";
 
 export default function JoinScreen() {
   const navigation = useNavigation<JoinScreenNavigationProp>();
@@ -48,7 +51,7 @@ export default function JoinScreen() {
           labelVisible={false}
           onPress={onPressGoBack}
           backImage={() => (
-            <MaterialIcons name="arrow-back" size={24} color="black" />
+            <Feather name="arrow-left" size={24} color="white" />
           )}
         />
       ),
@@ -61,24 +64,75 @@ export default function JoinScreen() {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      source={require("../../assets/wave_3.jpeg")}
+    >
       <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
         <View style={styles.contentContainer}>
-          <Join resetJoinForm={resetJoinValue} />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Sign Up</Text>
+          </View>
+          <View style={styles.keyboardAwareScrollViewContainer}>
+            <KeyboardAwareScrollView
+              contentContainerStyle={styles.keyboardAwareScrollView}
+              enableOnAndroid={true}
+              enableAutomaticScroll={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.joinContainer}>
+                <Join />
+              </View>
+              <View style={styles.joinSubmitContainer}>
+                <JoinSubmit resetJoinForm={resetJoinValue} />
+              </View>
+            </KeyboardAwareScrollView>
+          </View>
         </View>
       </TouchableWithoutFeedback>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
   },
   contentContainer: {
     flex: 1,
+  },
+  titleContainer: {
+    flex: 3,
     justifyContent: "center",
-    margin: 30,
+    marginHorizontal: 30,
+    paddingLeft: 15,
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: 20,
+  },
+  keyboardAwareScrollViewContainer: {
+    flex: 8,
+    backgroundColor: "white",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: 30,
+  },
+  keyboardAwareScrollView: {
+    flexGrow: 1,
+    flexShrink: 0,
+    justifyContent: "space-between",
+  },
+  joinContainer: {
+    marginHorizontal: 30,
+  },
+  joinSubmitContainer: {
+    justifyContent: "center",
+    marginHorizontal: 30,
+    marginTop: 20,
+    marginBottom: 40,
   },
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
-  BackHandler,
+  //BackHandler,
   Button,
   Keyboard,
   StyleSheet,
@@ -21,6 +21,7 @@ import Tag from "../components/Common/Tag/Tag";
 import {
   articleContentsState,
   articleIsEditingState,
+  articleIsModifiedState,
   articleModalActivationState,
   articlePhotosState,
   articlePriceState,
@@ -52,22 +53,27 @@ export default function ArticleFormScreen() {
   const [tags, setTags] = useRecoilState(tagsState);
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
   const [originArticle, setOriginArticle] = useState<Article>();
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
 
-  const confirmToBackAction = () => {
-    if (isDirty()) {
-      setArticleModalState(true);
-      return true;
-    }
-    resetForm();
-    return false;
+  // const confirmToBackAction = () => {
+  //   if (isDirty()) {
+  //     setArticleModalState(true);
+  //     return true;
+  //   }
+  //   resetForm();
+  //   return false;
+  // };
+  //
+  // const backHandler = BackHandler.addEventListener(
+  //   "hardwareBackPress",
+  //   confirmToBackAction,
+  // );
+
+  const resetForm = () => {
+    setIsEditing(false);
+    setForm(defaultArticle);
+    setOriginArticle(defaultArticle);
   };
-
-  const backHandler = BackHandler.addEventListener(
-    "hardwareBackPress",
-    confirmToBackAction,
-  );
-
-  const resetForm = () => setIsEditing(false);
 
   const isDirty = () => {
     return (
@@ -95,6 +101,10 @@ export default function ArticleFormScreen() {
       setArticleModalState(true);
       return;
     }
+    resetAndBack();
+  };
+
+  const resetAndBack = () => {
     resetForm();
     navigation.goBack();
   };
@@ -127,8 +137,8 @@ export default function ArticleFormScreen() {
     isEditing
       ? await articlesAPI.put(article.id, data)
       : await articlesAPI.post(data);
-    resetForm();
-    navigation.goBack();
+    setIsModified(true);
+    resetAndBack();
   };
 
   const setForm = (target: Article) => {
@@ -161,13 +171,10 @@ export default function ArticleFormScreen() {
     if (isEditing) {
       setForm(editingArticle);
       setOriginArticle(editingArticle);
-    } else {
-      setForm(defaultArticle);
-      setOriginArticle(defaultArticle);
     }
   }, [isEditing]);
 
-  useEffect(() => backHandler.remove(), []);
+  // useEffect(() => backHandler.remove(), []);
 
   return (
     <KeyboardAwareScrollView

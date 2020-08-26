@@ -13,9 +13,13 @@ const Tab = createBottomTabNavigator();
 function getTabBarVisibility(route: any) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
-    : "Home";
+    : "FeedHomeScreen";
 
-  return routeName === "Home" || routeName === "ProfileScreen";
+  return (
+    routeName === "FeedHomeScreen" ||
+    routeName === "ProfileScreen" ||
+    routeName === "HomeCategorySelectScreen"
+  );
 }
 
 export default function BottomTabNavigation() {
@@ -45,7 +49,7 @@ export default function BottomTabNavigation() {
       <Tab.Screen
         name="Category"
         component={CategoryNavigation}
-        options={{
+        options={({ route }) => ({
           tabBarLabel: "카테고리",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -54,7 +58,8 @@ export default function BottomTabNavigation() {
               color={color}
             />
           ),
-        }}
+          tabBarVisible: getTabBarVisibility(route),
+        })}
       />
       <Tab.Screen
         name="Posting"
@@ -62,6 +67,7 @@ export default function BottomTabNavigation() {
         options={{
           tabBarLabel: "글쓰기",
           tabBarButton: () => <ArticleFormOptionsModal />,
+          tabBarVisible: false,
         }}
       />
       <Tab.Screen

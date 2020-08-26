@@ -20,9 +20,6 @@ import sellerlee.back.security.web.AuthorizationType;
 
 @Component
 public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
-    public static final String HEADER_STRING = "Authorization";
-    private static final String TOKEN_PREFIX = "Bearer";
-
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper = new ObjectMapper();
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
@@ -10,7 +10,7 @@ import {
   ArticleNavigationParamList,
 } from "../types/types";
 import ArticlePrice from "../components/Article/ArticlePrice";
-import ArticleDetailChatButton from "../components/ArticleDetail/ArticleDetailChatButton";
+
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
 import theme from "../colors";
@@ -25,6 +25,7 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
   articleIsEditingState,
+  articleIsModifiedState,
   articleSelectedIdState,
   articleSelectedState,
 } from "../states/articleState";
@@ -32,6 +33,7 @@ import { articleDetailModalState } from "../states/modalState";
 import ArticleDeleteModal from "../components/Common/Modal/ArticleDeleteModal";
 
 import TouchablePhoto from "../components/Common/Photo/TouchablePhoto";
+import { memberNicknameState } from "../states/memberState";
 
 type ArticleDetailRouteProp = RouteProp<
   ArticleNavigationParamList,
@@ -47,10 +49,9 @@ export default function ArticleDetailScreen() {
     articleSelectedState,
   );
   const setIsEditing = useSetRecoilState(articleIsEditingState);
-
-  const route = useRoute<ArticleDetailRouteProp>();
-  const photos = route.params.photos;
-  const memberNickname = route.params.memberNickname;
+  const memberNickname = useRecoilValue(memberNicknameState);
+  const [photos, setPhotos] = useState([]);
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
 
   useEffect(() => {
     navigation.setOptions({
@@ -66,11 +67,16 @@ export default function ArticleDetailScreen() {
         />
       ),
       headerRight:
-        articleSelected.author.nickname === memberNickname
+        articleSelected.author.nickname == memberNickname
           ? () => (
               <Menu>
                 <MenuTrigger>
-                  <Ionicons name="md-more" size={26} color={"grey"} />
+                  <Ionicons
+                    name="md-more"
+                    size={26}
+                    color={"grey"}
+                    style={styles.editButton}
+                  />
                 </MenuTrigger>
                 <MenuOptions
                   optionsContainerStyle={styles.menuOptionsContainer}
@@ -86,6 +92,7 @@ export default function ArticleDetailScreen() {
                   <MenuOption
                     onSelect={() =>
                       articlesAPI.delete(articleId).then(() => {
+                        setIsModified(true);
                         setModalVisible(true);
                       })
                     }
@@ -115,6 +122,7 @@ export default function ArticleDetailScreen() {
 
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
+    setPhotos(data.photos);
     setArticleSelected(data);
   };
 
@@ -137,7 +145,7 @@ export default function ArticleDetailScreen() {
           {photos.length === 1 ? (
             <TouchablePhoto photo={photos[0]} />
           ) : (
-            <ArticleDetailImageSlider photos={route.params.photos} />
+            <ArticleDetailImageSlider photos={photos} />
           )}
         </View>
         <View style={styles.articleAuthorContainer}>
@@ -153,7 +161,7 @@ export default function ArticleDetailScreen() {
         </View>
         <ArticlePrice />
         <View style={styles.chatButtonContainer}>
-          <ArticleDetailChatButton />
+          {/*<ArticleDetailChatButton />*/}
         </View>
       </View>
     </View>
@@ -208,5 +216,9 @@ const styles = StyleSheet.create({
   menuCustomText: {
     textAlign: "center",
     margin: 10,
+  },
+  editButton: {
+    marginRight: 10,
+    marginLeft: 10,
   },
 });
