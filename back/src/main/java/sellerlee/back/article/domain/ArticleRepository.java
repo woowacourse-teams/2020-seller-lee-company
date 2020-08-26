@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import sellerlee.back.member.domain.Member;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    Page<Article> findByIdLessThanAndTradeStateOrderByIdDesc(Long lastArticleId, TradeState tradeState, Pageable pageRequest);
+    Page<Article> findByIdLessThanAndTradeStateOrderByIdDesc(Long lastArticleId,
+            TradeState tradeState, Pageable pageRequest);
 
-    Page<Article> findByIdLessThanAndCategoryOrderByIdDesc(Long lastArticleId, Category category, Pageable pageRequest);
+    Page<Article> findByIdLessThanAndCategoryOrderByIdDesc(Long lastArticleId, Category category,
+            Pageable pageRequest);
 
     List<Article> findAllByTradeState(TradeState tradeState);
 

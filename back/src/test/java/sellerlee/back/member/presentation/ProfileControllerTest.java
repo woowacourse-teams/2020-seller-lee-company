@@ -26,7 +26,7 @@ class ProfileControllerTest extends ControllerTest {
     @MockBean
     MemberService memberService;
 
-    @DisplayName("프로필 조회 시 회원 정보와 Status OK 반환")
+    @DisplayName("프로필 조회 시 회원 정보와 OK Status 반환")
     @Test
     void show() throws Exception {
         mockMvc.perform(
@@ -47,6 +47,7 @@ class ProfileControllerTest extends ControllerTest {
                                 )));
     }
 
+    @DisplayName("프로필 수정 시 회원 정보 수정 및 No Content Status 반환")
     @Test
     void update() throws Exception {
         String request = objectMapper.writeValueAsString(PROFILE_REQUEST);
