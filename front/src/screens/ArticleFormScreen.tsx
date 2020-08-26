@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
-  BackHandler,
+  //BackHandler,
   Button,
   Keyboard,
   StyleSheet,
@@ -55,19 +55,19 @@ export default function ArticleFormScreen() {
   const [originArticle, setOriginArticle] = useState<Article>();
   const setIsModified = useSetRecoilState(articleIsModifiedState);
 
-  const confirmToBackAction = () => {
-    if (isDirty()) {
-      setArticleModalState(true);
-      return true;
-    }
-    resetForm();
-    return false;
-  };
-
-  const backHandler = BackHandler.addEventListener(
-    "hardwareBackPress",
-    confirmToBackAction,
-  );
+  // const confirmToBackAction = () => {
+  //   if (isDirty()) {
+  //     setArticleModalState(true);
+  //     return true;
+  //   }
+  //   resetForm();
+  //   return false;
+  // };
+  //
+  // const backHandler = BackHandler.addEventListener(
+  //   "hardwareBackPress",
+  //   confirmToBackAction,
+  // );
 
   const resetForm = () => {
     setIsEditing(false);
@@ -174,7 +174,7 @@ export default function ArticleFormScreen() {
     }
   }, [isEditing]);
 
-  useEffect(() => backHandler.remove(), []);
+  // useEffect(() => backHandler.remove(), []);
 
   return (
     <KeyboardAwareScrollView
