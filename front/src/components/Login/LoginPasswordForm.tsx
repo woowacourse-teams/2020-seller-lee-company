@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
 import { loginPasswordState } from "../../states/loginState";
@@ -29,6 +29,7 @@ export default function LoginPasswordForm() {
 
   return (
     <View style={styles.container}>
+      <Text style={dynamicStyles.title}>비밀번호</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons
@@ -47,8 +48,8 @@ export default function LoginPasswordForm() {
           secureTextEntry={secureText}
         />
         <View style={styles.iconContainer}>
-          <MaterialIcons
-            name="remove-red-eye"
+          <Feather
+            name={secureText ? "eye-off" : "eye"}
             size={20}
             color={secureText ? "lightgrey" : theme.secondary}
             style={styles.eyeIcon}

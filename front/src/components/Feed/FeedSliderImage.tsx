@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 import Dot from "../Common/Dot/Dot";
 import ActiveDot from "../Common/Dot/ActiveDot";
-import PhotoBox from "../Common/Photo/PhotoBox";
 
 export interface FeedSliderImageProp {
   photos: string[];
@@ -25,7 +24,7 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
           style={styles.imageContainer}
           key={index}
         >
-          <PhotoBox photoURI={photo} />
+          <Image source={{ uri: photo }} style={styles.image} />
         </TouchableOpacity>
       ))}
     </Swiper>
@@ -33,10 +32,12 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
 }
 
 const styles = StyleSheet.create({
-  pagination: {
-    bottom: 15,
-  },
+  pagination: {},
   imageContainer: {
     flex: 1,
+  },
+  image: {
+    flex: 1,
+    borderRadius: 30,
   },
 });

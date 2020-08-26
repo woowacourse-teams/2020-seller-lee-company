@@ -8,7 +8,6 @@ import ArticleFormScreen from "../../screens/ArticleFormScreen";
 import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
 import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
 import ArticleDetailImageSlider from "../ArticleDetail/ArticleDetailImageSlider";
-import AppStackNavigation from "./AppStackNavigation";
 
 const Stack = createStackNavigator<ArticleNavigationParamList>();
 
@@ -16,7 +15,6 @@ export default function ArticleNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="FeedHomeScreen" component={FeedHomeScreen} />
-      <Stack.Screen name="TeaserScreen" component={AppStackNavigation} />
       <Stack.Screen
         name="ArticleDetailScreen"
         component={ArticleDetailScreen}

@@ -131,9 +131,7 @@ export default function JoinCheckPasswordForm() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={dynamicStyles.title}>비밀번호 확인</Text>
-      </View>
+      <Text style={dynamicStyles.title}>비밀번호 확인</Text>
       <View style={dynamicStyles.checkPasswordFormContainer}>
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons
@@ -161,10 +159,6 @@ export default function JoinCheckPasswordForm() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
   },
   iconContainer: {
     aspectRatio: 1,
