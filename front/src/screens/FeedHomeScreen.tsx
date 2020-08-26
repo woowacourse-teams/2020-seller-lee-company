@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -9,10 +9,12 @@ import {
   Text,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Feed, FeedHomeNavigationProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
+import { useRecoilState } from "recoil/dist";
+import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 
 export default function FeedHomeScreen() {
@@ -24,14 +26,22 @@ export default function FeedHomeScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Feed[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
+  const isFocused = useIsFocused();
+  const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
 
-  useLayoutEffect(() => {
+  const applyChange = async () => {
+    initFeed();
+    setIsModified(false);
+  };
+
+  useEffect(() => {
+    isModified ? applyChange() : undefined;
+  }, [isFocused]);
+
+  useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
-  }, []);
-
-  useEffect(() => {
     initFeed();
   }, []);
 
