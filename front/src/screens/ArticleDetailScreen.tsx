@@ -71,7 +71,12 @@ export default function ArticleDetailScreen() {
           ? () => (
               <Menu>
                 <MenuTrigger>
-                  <Ionicons name="md-more" size={26} color={"grey"} />
+                  <Ionicons
+                    name="md-more"
+                    size={26}
+                    color={"grey"}
+                    style={styles.editButton}
+                  />
                 </MenuTrigger>
                 <MenuOptions
                   optionsContainerStyle={styles.menuOptionsContainer}
@@ -211,5 +216,9 @@ const styles = StyleSheet.create({
   menuCustomText: {
     textAlign: "center",
     margin: 10,
+  },
+  editButton: {
+    marginRight: 10,
+    marginLeft: 10,
   },
 });

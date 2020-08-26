@@ -5,7 +5,7 @@ import { articleSelectedState } from "../../../states/articleState";
 
 export default function FavoriteCountAndHit() {
   const { favoriteCount } = useRecoilValue(articleSelectedState);
-  return <Text style={styles.text}>찜 {favoriteCount} | 조회 11</Text>;
+  return <Text style={styles.text}>찜 {favoriteCount}</Text>;
 }
 
 const styles = StyleSheet.create({
