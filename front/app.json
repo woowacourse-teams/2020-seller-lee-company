@@ -17,11 +17,13 @@
     "sdkVersion": "38.0.0",
     "android": {
       "package": "com.sellerleecompany.jikgorae",
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "versionCode": 2,
     },
     "ios": {
       "bundleIdentifier": "com.sellerleecompany.jikgorae",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1.1.0"
     },
     "web": {
       "favicon": "./assets/app_icon.png"
