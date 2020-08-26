@@ -47,7 +47,7 @@ public class EvaluationAcceptanceTest extends AcceptanceTest {
                 .body(request)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
         .when()
-                .post(LOGIN_URI+EVALUATION_URI)
+                .post(API+EVALUATION_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sellerlee.back.evaluation.application.EvaluationRequest;
 import sellerlee.back.evaluation.application.EvaluationService;
 
-@RequestMapping(LOGIN_URI + EVALUATION_URI)
+@RequestMapping(API + EVALUATION_URI)
 @RestController
 public class EvaluationController {
     public static final String EVALUATION_URI = "/evaluations";

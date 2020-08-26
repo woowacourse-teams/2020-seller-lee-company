@@ -57,7 +57,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .body(objectMapper.writeValueAsString(request))
                 .when()
-                        .post(LOGIN_URI+FAVORITE_URI)
+                        .post(API+FAVORITE_URI)
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.CREATED.value())
@@ -75,7 +75,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(objectMapper.writeValueAsString(request))
         .when()
-                .delete(LOGIN_URI+FAVORITE_URI)
+                .delete(API+FAVORITE_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.NO_CONTENT.value());

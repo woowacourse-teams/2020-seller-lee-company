@@ -61,7 +61,7 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
         .when()
-                .post(LOGIN_URI+CHAT_ROOM_URI)
+                .post(API+CHAT_ROOM_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
@@ -75,7 +75,7 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                         .auth().oauth2(token.getAccessToken())
                 .when()
                         .param("articleId", articleId)
-                        .get(LOGIN_URI+CHAT_ROOM_URI)
+                        .get(API+CHAT_ROOM_URI)
                 .then()
                         .log().all()
                         .extract()

@@ -98,7 +98,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 .when()
                         .param("lastArticleId", articleId)
                         .param("size", ARTICLE_SIZE)
-                        .get(LOGIN_URI+ARTICLE_URI)
+                        .get(API+ARTICLE_URI)
                 .then()
                         .log().all()
                         .extract().jsonPath().getList(".", FeedResponse.class);
@@ -106,7 +106,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private ArticleResponse showArticle(Long articleId) {
-        String url = LOGIN_URI + ARTICLE_URI + "/" + articleId;
+        String url = API + ARTICLE_URI + "/" + articleId;
 
         // @formatter:off
         return
@@ -123,7 +123,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
     private void deleteArticle(Long articleId) {
-        String url = LOGIN_URI + ARTICLE_URI + "/" + articleId;
+        String url = API + ARTICLE_URI + "/" + articleId;
 
         // @formatter:off
         given()
@@ -138,7 +138,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
     private List<SalesHistoryResponse> showSalesHistory() {
         String tradeState = "ON_SALE";
-        String url = LOGIN_URI + ARTICLE_URI + TRADE_STATE_URI;
+        String url = API + ARTICLE_URI + TRADE_STATE_URI;
 
         // @formatter:off
         return
@@ -157,7 +157,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
     private void updateTradeState(Long articleId) {
         String tradeState = "RESERVED";
-        String url = LOGIN_URI + ARTICLE_URI + "/" + articleId + TRADE_STATE_URI;
+        String url = API + ARTICLE_URI + "/" + articleId + TRADE_STATE_URI;
 
         TradeStateRequest tradeStateRequest = new TradeStateRequest(tradeState);
 

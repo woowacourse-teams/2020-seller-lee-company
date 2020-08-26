@@ -48,7 +48,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_URI+CHAT_ROOM_URI)
+                        post(API+CHAT_ROOM_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))
@@ -79,7 +79,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(LOGIN_URI+CHAT_ROOM_URI)
+                        get(API+CHAT_ROOM_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("articleId", "1"))
                 .andExpect(status().isOk())

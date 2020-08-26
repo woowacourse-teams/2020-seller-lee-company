@@ -30,7 +30,7 @@ import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 
 @RestController
-@RequestMapping(LOGIN_URI + ARTICLE_URI)
+@RequestMapping(API + ARTICLE_URI)
 public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
     public static final String TRADE_STATE_URI = "/trade-state";

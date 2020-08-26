@@ -35,7 +35,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_URI+FAVORITE_URI)
+                        post(API+FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
@@ -51,7 +51,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(LOGIN_URI+FAVORITE_URI)
+                        delete(API+FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))

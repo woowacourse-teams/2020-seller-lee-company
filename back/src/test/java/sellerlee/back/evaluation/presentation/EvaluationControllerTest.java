@@ -33,7 +33,7 @@ public class EvaluationControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_URI+EVALUATION_URI)
+                        post(API+EVALUATION_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))

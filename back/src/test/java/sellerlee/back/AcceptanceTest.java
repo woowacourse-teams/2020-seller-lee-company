@@ -58,7 +58,7 @@ public class AcceptanceTest {
                         .body(request)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                        .post(LOGIN_URI+ARTICLE_URI)
+                        .post(API+ARTICLE_URI)
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.CREATED.value())

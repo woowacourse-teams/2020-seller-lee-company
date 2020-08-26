@@ -57,7 +57,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_URI+ARTICLE_URI)
+                        post(API+ARTICLE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -171,7 +171,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(LOGIN_URI+ARTICLE_URI + "/" + ARTICLE1.getId())
+                        delete(API+ARTICLE_URI + "/" + ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
@@ -188,7 +188,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(LOGIN_URI + ARTICLE_URI + TRADE_STATE_URI)
+                        get(API + ARTICLE_URI + TRADE_STATE_URI)
                                 .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
@@ -206,7 +206,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        put(LOGIN_URI + ARTICLE_URI + "/" + MEMBER1.getId() + TRADE_STATE_URI)
+                        put(API + ARTICLE_URI + "/" + MEMBER1.getId() + TRADE_STATE_URI)
                                 .content(request)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))
@@ -223,7 +223,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(LOGIN_URI + ARTICLE_URI + FAVORITE_URI)
+                        get(API + ARTICLE_URI + FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(document("articles/favorites",

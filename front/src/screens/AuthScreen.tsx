@@ -10,11 +10,21 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthScreenNavigationProp } from "../types/types";
 import theme from "../colors";
 import Login from "../components/Login/Login";
-import JoinButton from "../components/auth/JoinButton";
 import KakaoLoginButton from "../components/auth/KakaoLoginButton";
+import LoginVerifyModal from "../components/Common/Modal/LoginVerifyModal";
+import { useResetRecoilState } from "recoil/dist";
+import { loginNicknameState, loginPasswordState } from "../states/loginState";
 
 export default function AuthScreen() {
   const navigation = useNavigation<AuthScreenNavigationProp>();
+
+  const resetMemberNickname = useResetRecoilState(loginNicknameState);
+  const resetMemberPassword = useResetRecoilState(loginPasswordState);
+
+  const resetMemberLoginValue = () => {
+    resetMemberNickname();
+    resetMemberPassword();
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,10 +41,8 @@ export default function AuthScreen() {
           </View>
           <View style={styles.authButtonsContainer}>
             <View style={styles.kakaoLoginButtonContainer}>
+              <LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />
               <KakaoLoginButton />
-            </View>
-            <View style={styles.joinButtonContainer}>
-              <JoinButton />
             </View>
           </View>
         </View>

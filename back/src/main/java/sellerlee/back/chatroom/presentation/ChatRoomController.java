@@ -19,7 +19,7 @@ import sellerlee.back.chatroom.application.ChatRoomResponse;
 import sellerlee.back.chatroom.application.ChatRoomService;
 
 @RestController
-@RequestMapping(LOGIN_URI + CHAT_ROOM_URI)
+@RequestMapping(API + CHAT_ROOM_URI)
 public class ChatRoomController {
     public static final String CHAT_ROOM_URI = "/chat-rooms";
 

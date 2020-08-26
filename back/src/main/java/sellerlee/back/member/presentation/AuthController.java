@@ -21,7 +21,7 @@ import sellerlee.back.security.web.AuthorizationType;
 public class AuthController {
     public static final String MEMBER_URI = "/members";
     public static final String LOGIN_NOT_OAUTH_URI = "/login/not-oauth";
-    public static final String LOGIN_URI = "/login";
+    public static final String API = "/api";
 
     private final MemberService memberService;
 

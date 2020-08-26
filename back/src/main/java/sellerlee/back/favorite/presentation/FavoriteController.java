@@ -18,7 +18,7 @@ import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 
 @RestController
-@RequestMapping(LOGIN_URI + FAVORITE_URI)
+@RequestMapping(API + FAVORITE_URI)
 public class FavoriteController {
     public static final String FAVORITE_URI = "/favorites";
 
