@@ -5,49 +5,35 @@ import LoginIndicator from "./LoginIndicator";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useSetRecoilState } from "recoil/dist";
 import { loadingState } from "../../states/loadingState";
+import { memberAPI } from "../../api/api";
+import { memberNicknameState } from "../../states/memberState";
+import { useNavigation } from "@react-navigation/native";
+import { AuthScreenNavigationProp } from "../../types/types";
 
 export default function KakaoLoginButton() {
+  const navigation = useNavigation<AuthScreenNavigationProp>();
   const [modalVisible, setModalVisible] = useState(false);
   const setIsLoading = useSetRecoilState(loadingState);
+  const setMemberNickname = useSetRecoilState(memberNicknameState);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
 
-  //
-  // const onLogin = async () => {
-  //   setIsLoading(true);
-  //   const token = await AsyncStorage.getItem(TOKEN_STORAGE);
-  //   if (token) {
-  //     setToken(token);
-  //     try {
-  //       const memberResponse = await MemberApi.get(token);
-  //       setMemberInfo(memberResponse);
-  //       navigateWithoutHistory(navigation, "ApplicationNavigationRoot");
-  //     } catch (error) {
-  //       console.log(error.response.data.message);
-  //       toggleModal();
-  //     }
-  //   } else {
-  //     toggleModal();
-  //   }
-  //   setIsLoading(false);
-  // };
-  //
-
   const kakaoLogin = async () => {
     setIsLoading(true);
     const token = await DeviceStorage.getToken();
-    console.log(token);
+    console.log("kakaoLoginButton: " + token);
+
     if (token) {
-      // try {
-      //   const memberResponse = await memberAPI.get(token);
-      //   setMemberInfo(memberResponse);
-      //   navigateWithoutHistory(navigation, "ApplicationNavigationRoot");
-      // } catch (error) {
-      //   console.log(error.response.data.message);
-      //   toggleModal();
-      // }
+      try {
+        const { data } = await memberAPI.getNickname();
+        setMemberNickname(data);
+        navigation.navigate("BottomTabNavigation");
+      } catch (error) {
+        console.log(error.response.data.message);
+        toggleModal();
+      }
     } else {
       toggleModal();
     }

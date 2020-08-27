@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "#145374",
-    opacity: 0.9,
+    opacity: 0.6,
     justifyContent: "center",
     alignItems: "center",
   },

@@ -47,9 +47,18 @@ public class MemberService {
 
     @Transactional
     public void update(Member loginMember, ProfileRequest request) {
+        if (findNickname(request.getNickname())) {
+            throw new IllegalArgumentException("중복된 이름을 변경할 수 없습니다.");
+        }
+
         Member member = memberRepository.findById(loginMember.getId())
                 .orElseThrow(() -> new IllegalArgumentException("ID가 일치하는 회원이 존재하지 않습니다."));
 
-        member.update(request.toMemberWithPasswordEncode(passwordEncoder));
+        member.update(request.getNickname(), request.getAvatar());
+    }
+
+    @Transactional
+    public boolean findNickname(String verifyNickname) {
+        return memberRepository.findOptionalMemberByNickname(verifyNickname).isPresent();
     }
 }

@@ -212,3 +212,8 @@ export interface Profile {
   avatar: string;
   score: number;
 }
+
+export interface ModalVisiableProps {
+  toggleModal: Function;
+  modalVisible: boolean;
+}

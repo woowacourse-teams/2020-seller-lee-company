@@ -35,7 +35,7 @@ class AuthControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(MEMBER_URI)
+                        post(API + MEMBER_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
@@ -53,7 +53,7 @@ class AuthControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_NOT_OAUTH_URI)
+                        post(API+LOGIN_NOT_OAUTH_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)

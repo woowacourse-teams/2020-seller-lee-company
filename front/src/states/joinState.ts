@@ -33,7 +33,7 @@ export const joinSubmitState = atom({
   default: false,
 });
 
-export const memberJoinVerifyState = atom({
-  key: "memberJoinVerifyState",
+export const memberNicknameVerifyState = atom({
+  key: "memberNicknameVerifyState",
   default: true,
 });

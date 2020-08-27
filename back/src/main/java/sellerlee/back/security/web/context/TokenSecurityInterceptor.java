@@ -29,8 +29,9 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
             Object handler) throws Exception {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
         boolean isHTMLFile = request.getServletPath().contains("html");
+        //todo showNickname tocken 검사 현재 안함 로그인 기능 겹처서
         boolean isJoinRequest =
-                HttpMethod.POST.matches(request.getMethod()) && MEMBER_URI.equals(
+                HttpMethod.POST.matches(request.getMethod()) && (API + MEMBER_URI).equals(
                         request.getServletPath());
 
         if (StringUtils.isBlank(credentials)) {

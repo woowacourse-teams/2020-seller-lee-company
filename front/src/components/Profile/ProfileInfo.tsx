@@ -3,15 +3,18 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
   memberInfoAvatarState,
+  memberInfoNicknameState,
   memberProfileState,
 } from "../../states/memberState";
 
 export default function ProfileInfo() {
   const profile = useRecoilValue(memberProfileState);
   const [avatar, setAvatar] = useRecoilState(memberInfoAvatarState);
+  const [nickname, setNickname] = useRecoilState(memberInfoNicknameState);
 
   useEffect(() => {
     setAvatar(profile.avatar);
+    setNickname(profile.nickname);
   }, [profile]);
 
   return (
@@ -20,7 +23,7 @@ export default function ProfileInfo() {
         <Image style={styles.avatar} source={{ uri: avatar }} />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.nickname}>{profile.nickname}님, 안녕하세요!</Text>
+        <Text style={styles.nickname}>{nickname}님, 안녕하세요!</Text>
       </View>
     </View>
   );

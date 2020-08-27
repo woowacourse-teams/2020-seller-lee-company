@@ -1,48 +1,57 @@
-import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { useRecoilState, useRecoilValue } from "recoil/dist";
+import React, { useState } from "react";
 import {
-  memberInfoConfirmState,
-  memberInfoPasswordState,
-  memberProfileState,
-} from "../../states/memberState";
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useRecoilState } from "recoil/dist";
+import { memberInfoNicknameState } from "../../states/memberState";
+import NicknameVerifyModal from "../Common/Modal/NicknameVerifyModal";
+import { memberAPI } from "../../api/api";
 
 export default function MyInfoForm() {
   const NICKNAME = "닉네임";
-  const PASSWORD = "비밀번호";
-  const CONFIRM_PASSWORD = "확인";
 
-  const { nickname } = useRecoilValue(memberProfileState);
-  const [password, setPassword] = useRecoilState(memberInfoPasswordState);
-  const [confirm, setConfirm] = useRecoilState(memberInfoConfirmState);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [nickname, setNickname] = useRecoilState(memberInfoNicknameState);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const verifyNickname = async () => {
+    const { data } = await memberAPI.findNickname({ nickname });
+    setModalVisible(data);
+  };
 
   return (
     <View style={styles.container}>
+      <NicknameVerifyModal
+        toggleModal={toggleModal}
+        modalVisible={modalVisible}
+      />
       <View style={styles.item}>
         <Text style={styles.text}>{NICKNAME}</Text>
-        <Text style={styles.input}>{nickname}</Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.text}>{PASSWORD}</Text>
         <TextInput
           style={styles.input}
-          placeholder={PASSWORD}
-          value={password}
-          onChangeText={setPassword}
-          textContentType={"password"}
-          secureTextEntry={true}
+          placeholder={NICKNAME}
+          value={nickname}
+          onChangeText={setNickname}
+          textContentType={"username"}
         />
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.text}>{CONFIRM_PASSWORD}</Text>
-        <TextInput
-          style={styles.input}
-          placeholder={CONFIRM_PASSWORD}
-          value={confirm}
-          onChangeText={setConfirm}
-          textContentType={"password"}
-          secureTextEntry={true}
-        />
+        <View style={styles.addWrapperMargin}>
+          <View style={styles.addWrapper}>
+            <TouchableOpacity
+              activeOpacity={0.4}
+              style={styles.addButton}
+              onPress={verifyNickname}
+            >
+              <Text style={styles.buttonText}>중복 확인</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -68,5 +77,28 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomWidth: 1,
     borderColor: "#ccc",
+  },
+  addWrapperMargin: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 10,
+  },
+  addWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "25%",
+    borderRadius: 10,
+    borderColor: "gray",
+    borderWidth: 0.5,
+  },
+  buttonText: {
+    fontWeight: "200",
+    color: "gray",
+  },
+  addButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -1,14 +1,9 @@
-/**
- * @author lxxjn0
- */
-
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from "../../screens/LoginScreen";
 import TeaserScreen from "../../screens/TeaserScreen";
 import AuthScreen from "../../screens/AuthScreen";
 import BottomTabNavigation from "./BottomTabNavigation";
-import JoinScreen from "../../screens/JoinScreen";
+import KakaoLoginButton from "../auth/KakaoLoginButton";
 
 const LoginStack = createStackNavigator();
 
@@ -20,8 +15,10 @@ export default function AppStackNavigation() {
     >
       <LoginStack.Screen name={"TeaserScreen"} component={TeaserScreen} />
       <LoginStack.Screen name={"AuthScreen"} component={AuthScreen} />
-      <LoginStack.Screen name={"LoginScreen"} component={LoginScreen} />
-      <LoginStack.Screen name={"JoinScreen"} component={JoinScreen} />
+      <LoginStack.Screen
+        name={"KakaoLoginButton"}
+        component={KakaoLoginButton}
+      />
       <LoginStack.Screen
         name={"BottomTabNavigation"}
         component={BottomTabNavigation}

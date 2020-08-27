@@ -6,20 +6,18 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { useRecoilState } from "recoil/dist";
-import { memberJoinVerifyState } from "../../../states/joinState";
+import { ModalVisiableProps } from "../../../types/types";
 
-export default function JoinVerifyModal() {
-  const [joinVerifyState, setJoinVerifyState] = useRecoilState(
-    memberJoinVerifyState,
-  );
-
+export default function NicknameVerifyModal({
+  toggleModal,
+  modalVisible,
+}: ModalVisiableProps) {
   return (
     <Modal
       animationType={"fade"}
       transparent={true}
-      visible={!joinVerifyState}
-      onRequestClose={() => setJoinVerifyState(true)}
+      visible={modalVisible}
+      onRequestClose={() => toggleModal()}
     >
       <View style={styles.container}>
         <View style={styles.modalContainer}>
@@ -27,7 +25,7 @@ export default function JoinVerifyModal() {
           <View style={styles.buttonContainer}>
             <TouchableHighlight
               style={styles.button}
-              onPress={() => setJoinVerifyState(true)}
+              onPress={() => toggleModal()}
             >
               <Text style={styles.buttonText}>나가기</Text>
             </TouchableHighlight>

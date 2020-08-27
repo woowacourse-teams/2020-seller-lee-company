@@ -1,32 +1,21 @@
 import React from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import { Modal } from "react-native";
 import KakaoLoginWebView from "../../auth/KakaoLoginWebView";
-
-interface kakaoWebViewModalProps {
-  toggleModal: Function;
-  modalVisible: boolean;
-}
+import { ModalVisiableProps } from "../../../types/types";
 
 export default function KakaoWebViewModal({
   toggleModal,
   modalVisible,
-}: kakaoWebViewModalProps) {
+}: ModalVisiableProps) {
   return (
-    <View style={styles.container}>
-      <Modal
-        animationType={"fade"}
-        visible={modalVisible}
-        transparent={true}
-        onRequestClose={() => toggleModal()}
-      >
-        <KakaoLoginWebView toggleModal={toggleModal} />
-      </Modal>
-    </View>
+    <Modal
+      animationType={"fade"}
+      visible={modalVisible}
+      transparent={true}
+      onRequestClose={() => toggleModal()}
+      statusBarTranslucent={true}
+    >
+      <KakaoLoginWebView toggleModal={toggleModal} />
+    </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

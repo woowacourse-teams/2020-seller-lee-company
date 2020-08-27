@@ -30,6 +30,7 @@ export default function KakaoLoginWebView({
   const loginAccess = async (data: string) => {
     const { accessToken }: response = JSON.parse(data);
     console.log(accessToken);
+
     if (accessToken) {
       toggleModal();
       setLoginTrialState(true);

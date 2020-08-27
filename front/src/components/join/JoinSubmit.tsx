@@ -7,7 +7,7 @@ import {
   joinNicknameState,
   joinPasswordState,
   joinSubmitState,
-  memberJoinVerifyState,
+  memberNicknameVerifyState,
 } from "../../states/joinState";
 import { memberAPI } from "../../api/api";
 import theme from "../../colors";
@@ -28,7 +28,7 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
   const joinAvatar = useRecoilValue(joinAvatarState);
 
   const setJoinSubmit = useSetRecoilState(joinSubmitState);
-  const setJoinVerifyState = useSetRecoilState(memberJoinVerifyState);
+  const setJoinVerifyState = useSetRecoilState(memberNicknameVerifyState);
 
   const join = async () => {
     setJoinSubmit(true);

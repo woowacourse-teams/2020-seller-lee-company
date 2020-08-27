@@ -10,11 +10,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AuthScreenNavigationProp } from "../types/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Login from "../components/Login/Login";
-import JoinButton from "../components/auth/JoinButton";
-import LoginSubmit from "../components/Login/LoginSubmit";
-// import KakaoLoginButton from "../components/auth/KakaoLoginButton";
-// import LoginVerifyModal from "../components/Common/Modal/LoginVerifyModal";
+import KakaoLoginButton from "../components/auth/KakaoLoginButton";
+import LoginVerifyModal from "../components/Common/Modal/LoginVerifyModal";
 import theme from "../colors";
 import { useResetRecoilState } from "recoil/dist";
 import { loginNicknameState, loginPasswordState } from "../states/loginState";
@@ -54,22 +51,12 @@ export default function AuthScreen() {
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
             >
-              <View style={styles.loginContainer}>
-                <Login />
-              </View>
               <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                  <LoginSubmit resetLoginForm={resetMemberLoginValue} />
-                </View>
-                {/*<View style={styles.buttonContainer}>*/}
-                {/*  <Text style={styles.dividerText}>OR</Text>*/}
-                {/*</View>*/}
-                <View style={styles.buttonContainer}>
-                  {/*<LoginVerifyModal resetMemberLoginValue={resetMemberLoginValue} />*/}
-                  {/*<KakaoLoginButton />*/}
-                </View>
-                <View style={styles.buttonContainer}>
-                  <JoinButton />
+                  <LoginVerifyModal
+                    resetMemberLoginValue={resetMemberLoginValue}
+                  />
+                  <KakaoLoginButton />
                 </View>
               </View>
             </KeyboardAwareScrollView>

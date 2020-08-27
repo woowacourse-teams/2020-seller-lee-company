@@ -34,17 +34,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // rest api 이므로 기본설정 사용안함. 기본설정은 비인증시 로그인폼 화면으로 리다이렉트 된다.
-                .httpBasic().disable()
-                .formLogin().disable()
+                .httpBasic()
+                .disable()
+                .formLogin()
+                .disable()
                 //jwt token으로 인증할것이므로 세션필요없으므로 생성안함.
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 //h2 이용할꺼면 off
-                .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
+                .csrf()
+                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members", "/oauth2/**", "/login/**", "/api/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/members/**", "/oauth2/**", "/login/**", "/api/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .oauth2Login()
                 .successHandler(myOAuth2SuccessHandler)

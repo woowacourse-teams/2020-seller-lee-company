@@ -15,8 +15,11 @@ export default function AuthButton() {
 
   const onPressButton = async () => {
     const response = await DeviceStorage.getToken();
+    console.log("AuthButton response: " + response);
+
     if (response !== null) {
       const { data } = await memberAPI.getNickname();
+      console.log("AuthButton data: " + data);
       setMemberNickname(data);
       navigation.navigate("BottomTabNavigation");
     } else {

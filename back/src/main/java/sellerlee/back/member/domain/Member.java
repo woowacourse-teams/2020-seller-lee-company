@@ -81,9 +81,9 @@ public class Member {
         return this.nickname.equals(nickname);
     }
 
-    public void update(Member member) {
-        this.password = member.password;
-        this.avatar = member.avatar;
+    public void update(String nickname, String avatar) {
+        this.nickname = nickname;
+        this.avatar = avatar;
     }
 
     public Long getId() {

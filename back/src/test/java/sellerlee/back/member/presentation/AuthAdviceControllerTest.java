@@ -39,7 +39,7 @@ class AuthAdviceControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_NOT_OAUTH_URI)
+                        post(API+LOGIN_NOT_OAUTH_URI)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
@@ -64,7 +64,7 @@ class AuthAdviceControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(LOGIN_NOT_OAUTH_URI)
+                        post(API+LOGIN_NOT_OAUTH_URI)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))

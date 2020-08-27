@@ -32,13 +32,14 @@ public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        String nickname = (String)webRequest.getAttribute(MEMBER_NICKNAME_ATTRIBUTE, SCOPE_REQUEST);
+        String email = (String)webRequest.getAttribute(MEMBER_NICKNAME_ATTRIBUTE, SCOPE_REQUEST);
 
-        if (StringUtils.isBlank(nickname)) {
+        if (StringUtils.isBlank(email)) {
             return new AuthenticationException("인증된 사용자가 존재하지 않습니다.");
         }
         try {
-            return memberRepository.findOptionalMemberByNickname(nickname)
+            return memberRepository.findOptionalMemberByEmail(email)
+                    // return memberRepository.findOptionalMemberByNickname(email)
                     .orElseThrow(() -> new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
         } catch (Exception e) {
             throw new AuthenticationException("비정상적인 로그인입니다.");

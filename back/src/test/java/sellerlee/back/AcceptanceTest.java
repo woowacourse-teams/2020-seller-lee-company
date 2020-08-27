@@ -80,7 +80,7 @@ public class AcceptanceTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .log().all()
         .when()
-                .post(MEMBER_URI)
+                .post(API + MEMBER_URI)
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
@@ -97,7 +97,7 @@ public class AcceptanceTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .log().all()
                 .when()
-                        .post(LOGIN_NOT_OAUTH_URI)
+                        .post(API + LOGIN_NOT_OAUTH_URI)
                 .then()
                         .log().all()
                         .statusCode(HttpStatus.OK.value())
