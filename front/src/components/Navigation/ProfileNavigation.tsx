@@ -7,7 +7,7 @@ import PurchaseHistoryScreen from "../../screens/PurchaseHistoryScreen";
 import EvaluationScreen from "../../screens/EvaluationScreen";
 import SelectBuyerScreen from "../../screens/SelectBuyerScreen";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
-import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
+import ArticleDetailPhotoViewScreen from "../../screens/ArticleDetailPhotoViewScreen";
 import ArticleFormScreen from "../../screens/ArticleFormScreen";
 import MyFavoriteScreen from "../../screens/MyFavoriteScreen";
 import MyInfoScreen from "../../screens/MyInfoScreen";
@@ -31,7 +31,7 @@ export default function ProfileNavigation() {
       <Stack.Screen name="ArticleFormScreen" component={ArticleFormScreen} />
       <Stack.Screen
         name="ArticleDetailImageViewScreen"
-        component={ArticleDetailImageViewScreen}
+        component={ArticleDetailPhotoViewScreen}
       />
       <Stack.Screen name="SelectBuyerScreen" component={SelectBuyerScreen} />
       <Stack.Screen name="EvaluationScreen" component={EvaluationScreen} />

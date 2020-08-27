@@ -4,7 +4,7 @@ import CategoryHomeScreen from "../../screens/CategoryHomeScreen";
 import { CategoryParamList } from "../../types/types";
 import HomeCategorySelectScreen from "../../screens/HomeCategorySelectScreen";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
-import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
+import ArticleDetailPhotoViewScreen from "../../screens/ArticleDetailPhotoViewScreen";
 import ArticleFormScreen from "../../screens/ArticleFormScreen";
 
 const Stack = createStackNavigator<CategoryParamList>();
@@ -24,7 +24,7 @@ export default function CategoryNavigation() {
       <Stack.Screen name="ArticleFormScreen" component={ArticleFormScreen} />
       <Stack.Screen
         name="ArticleDetailImageViewScreen"
-        component={ArticleDetailImageViewScreen}
+        component={ArticleDetailPhotoViewScreen}
       />
     </Stack.Navigator>
   );

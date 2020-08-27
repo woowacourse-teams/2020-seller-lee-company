@@ -1,77 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { RouteProp, useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
-import { EvilIcons, Ionicons } from "@expo/vector-icons";
-import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
-import ArticleDetailFavorite from "../components/ArticleDetail/ArticleDetailFavorite";
-import {
-  ArticleDetailNavigationProp,
-  ArticleNavigationParamList,
-} from "../types/types";
-import ArticlePrice from "../components/Article/ArticlePrice";
-
-import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
-import ArticleAuthor from "../components/Article/ArticleAuthor";
-import theme from "../colors";
-import { articleDetailAPI, articlesAPI } from "../api/api";
+import { useNavigation } from "@react-navigation/native";
+import { HeaderBackButton, useHeaderHeight } from "@react-navigation/stack";
 import {
   Menu,
   MenuOption,
   MenuOptions,
   MenuTrigger,
 } from "react-native-popup-menu";
-
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { Feather } from "@expo/vector-icons";
+import ArticleAuthor from "../components/Article/ArticleAuthor";
+import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
+import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
+import ArticleDeleteModal from "../components/Common/Modal/ArticleDeleteModal";
+import TouchablePhoto from "../components/Common/Photo/TouchablePhoto";
+import { FeedStackArticleDetailScreenProp } from "../types/types";
+import { articleDetailAPI, articlesAPI } from "../api/api";
+import { articleDetailModalState } from "../states/modalState";
+import { memberNicknameState } from "../states/memberState";
 import {
   articleIsEditingState,
   articleIsModifiedState,
   articleSelectedIdState,
   articleSelectedState,
 } from "../states/articleState";
-import { articleDetailModalState } from "../states/modalState";
-import ArticleDeleteModal from "../components/Common/Modal/ArticleDeleteModal";
-
-import TouchablePhoto from "../components/Common/Photo/TouchablePhoto";
-import { memberNicknameState } from "../states/memberState";
-
-type ArticleDetailRouteProp = RouteProp<
-  ArticleNavigationParamList,
-  "ArticleDetailScreen"
->;
+import ArticleDetailBottomNav from "../components/ArticleDetail/ArticleDetailBottomNav";
+import theme from "../colors";
 
 export default function ArticleDetailScreen() {
-  const [currentY, setCurrentY] = useState(0);
-  const setModalVisible = useSetRecoilState(articleDetailModalState);
-  const navigation = useNavigation<ArticleDetailNavigationProp>();
-  const articleId = useRecoilValue(articleSelectedIdState);
+  const HEADER_HEIGHT = useHeaderHeight();
+  const navigation = useNavigation<FeedStackArticleDetailScreenProp>();
+
   const [articleSelected, setArticleSelected] = useRecoilState(
     articleSelectedState,
   );
-  const setIsEditing = useSetRecoilState(articleIsEditingState);
+  const articleId = useRecoilValue(articleSelectedIdState);
   const memberNickname = useRecoilValue(memberNicknameState);
-  const [photos, setPhotos] = useState([]);
   const setIsModified = useSetRecoilState(articleIsModifiedState);
+  const setIsEditing = useSetRecoilState(articleIsEditingState);
+  const setModalVisible = useSetRecoilState(articleDetailModalState);
+
+  const [currentY, setCurrentY] = useState(0);
+  const [photos, setPhotos] = useState([]);
+
+  const calculateIconColor = () => {
+    const colorValue = 255 - 255 * (currentY / 270);
+    return colorValue > 0 ? colorValue : 0;
+  };
 
   useEffect(() => {
     navigation.setOptions({
       title: "",
       headerTransparent: true,
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={navigation.goBack}
-          backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color={"grey"} />
-          )}
-        />
-      ),
+      headerLeftContainerStyle: {
+        aspectRatio: 1,
+        justifyContents: "center",
+        alignItems: "center",
+      },
       headerRight:
-        articleSelected.author.nickname == memberNickname
+        articleSelected.author.nickname === memberNickname
           ? () => (
               <Menu>
                 <MenuTrigger>
-                  <Ionicons name="md-more" size={26} color={"grey"} />
+                  <Feather name="more-vertical" size={24} color="grey" />
                 </MenuTrigger>
                 <MenuOptions
                   optionsContainerStyle={styles.menuOptionsContainer}
@@ -96,22 +88,40 @@ export default function ArticleDetailScreen() {
                 </MenuOptions>
               </Menu>
             )
-          : undefined,
-      headerLeftContainerStyle: { paddingLeft: 10 },
-      headerRightContainerStyle: { paddingRight: 15 },
+          : () => <></>,
+      headerRightContainerStyle: {
+        aspectRatio: 1,
+        justifyContents: "center",
+        alignItems: "center",
+      },
     });
   }, [articleSelected]);
 
   useEffect(() => {
+    const iconColor = calculateIconColor();
+
     navigation.setOptions({
       headerBackground: () => <View style={dynamicStyles.headerBackground} />,
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => (
+            <Feather
+              name="chevron-left"
+              size={24}
+              color={`rgb(${iconColor},${iconColor},${iconColor})`}
+            />
+          )}
+        />
+      ),
     });
   }, [currentY]);
 
   const dynamicStyles = StyleSheet.create({
     headerBackground: {
-      height: 90,
-      backgroundColor: `rgba(255,255,255,${currentY / 70})`,
+      height: HEADER_HEIGHT,
+      backgroundColor: `rgba(255,255,255,${currentY / 270})`,
     },
   });
 
@@ -129,35 +139,31 @@ export default function ArticleDetailScreen() {
     <View style={styles.container}>
       <ArticleDeleteModal />
       <ScrollView
-        style={styles.scrollView}
-        bounces={false}
-        contentContainerStyle={styles.scrollViewContentContainer}
-        showsVerticalScrollIndicator={false}
-        onScroll={(event) => setCurrentY(event.nativeEvent.contentOffset.y)}
         scrollEventThrottle={1}
+        style={styles.scrollView}
+        onScroll={(event) => setCurrentY(event.nativeEvent.contentOffset.y)}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
       >
         <View style={styles.imageSliderContainer}>
           {photos.length === 1 ? (
-            <TouchablePhoto photo={photos[0]} />
+            <TouchablePhoto photo={photos[0]} key={photos[0]} />
           ) : (
             <ArticleDetailImageSlider photos={photos} />
           )}
         </View>
-        <View style={styles.articleAuthorContainer}>
-          <ArticleAuthor />
-        </View>
-        <View style={styles.articleDetailContainer}>
-          <ArticleDetail />
+        <View style={styles.articleContentContainer}>
+          <View style={styles.articleAuthorContainer}>
+            <ArticleAuthor />
+          </View>
+          <View style={styles.articleDetailContainer}>
+            <ArticleDetail />
+          </View>
         </View>
       </ScrollView>
       <View style={styles.bottomTab}>
-        <View style={styles.articleDetailFavoriteContainer}>
-          <ArticleDetailFavorite />
-        </View>
-        <ArticlePrice />
-        <View style={styles.chatButtonContainer}>
-          {/*<ArticleDetailChatButton />*/}
-        </View>
+        <ArticleDetailBottomNav />
       </View>
     </View>
   );
@@ -169,31 +175,34 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   scrollView: {
-    flex: 1,
-    marginHorizontal: 15,
+    // flex: 1,
   },
   scrollViewContentContainer: {},
   imageSliderContainer: {
     aspectRatio: 1,
-    borderRadius: 5,
+  },
+  articleContentContainer: {
+    backgroundColor: "white",
+    marginTop: -30,
+    paddingHorizontal: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   articleAuthorContainer: {
-    flex: 1,
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#eaeaea",
+    borderBottomColor: theme.border,
   },
   articleDetailContainer: {
     paddingVertical: 10,
   },
   bottomTab: {
-    flexDirection: "row",
-    aspectRatio: 5,
+    backgroundColor: "red",
+    justifyContent: "center",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     paddingHorizontal: 15,
     paddingBottom: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#eaeaea",
-    backgroundColor: theme.tertiary,
   },
   chatButtonContainer: {
     flex: 1,

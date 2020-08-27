@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { Button, StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
@@ -17,11 +17,7 @@ export default function ArticleFormOptionsModal() {
           setModalVisible(true);
         }}
       >
-        <MaterialCommunityIcons
-          name="pencil-box-outline"
-          size={24}
-          color={"grey"}
-        />
+        <Feather name="edit" size={24} color={"grey"} />
       </TouchableOpacity>
       <View>
         <Modal
@@ -34,7 +30,7 @@ export default function ArticleFormOptionsModal() {
             <Button
               title={"글쓰기"}
               onPress={() => {
-                navigation.navigate("Posting");
+                navigation.navigate("ArticleFormNavigation");
                 setModalVisible(false);
               }}
               color={theme.primary}

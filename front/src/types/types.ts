@@ -1,4 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
 export type ArticleNavigationParamList = {
   FeedHomeScreen: undefined;
@@ -202,6 +203,21 @@ export type MyInfoScreenNavigationProp = StackNavigationProp<
   "MyInfoScreen"
 >;
 
+export type BottomTabNavigationParamList = {
+  FeedHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
+  ArticleNavigation: undefined;
+  CategoryNavigation: undefined;
+  ArticleFormNavigation: undefined;
+  ChatScreen: undefined;
+  ProfileNavigation: undefined;
+};
+
+export type ArticleTabNavigationProp = BottomTabNavigationProp<
+  BottomTabNavigationParamList,
+  "ArticleNavigation"
+>;
+
 export interface Score {
   questionId: number;
   score: number;
@@ -212,3 +228,137 @@ export interface Profile {
   avatar: string;
   score: number;
 }
+
+// ======================================================================
+// ============================= Navigation =============================
+// ========================== Params And Props ==========================
+// ======================================================================
+
+// ============================= BottomTab ==============================
+
+export type BottomTabParams = {
+  FeedHomeScreen: undefined;
+  CategoryHomeScreen: undefined;
+  PostingScreen: undefined;
+  ChatScreen: undefined;
+  ProfileScreen: undefined;
+};
+
+export type BottomTabFeedHomeScreenProp = BottomTabNavigationProp<
+  BottomTabParams,
+  "FeedHomeScreen"
+>;
+
+export type BottomTabCategoryHomeScreenProp = BottomTabNavigationProp<
+  BottomTabParams,
+  "CategoryHomeScreen"
+>;
+
+export type BottomTabPostingScreenProp = BottomTabNavigationProp<
+  BottomTabParams,
+  "PostingScreen"
+>;
+
+export type BottomTabChatScreenProp = BottomTabNavigationProp<
+  BottomTabParams,
+  "ChatScreen"
+>;
+
+export type BottomTabProfileScreenProp = BottomTabNavigationProp<
+  BottomTabParams,
+  "ProfileScreen"
+>;
+
+// ============================== AppStack ==============================
+
+export type AppStackParams = {
+  TeaserScreen: undefined;
+  AuthScreen: undefined;
+  JoinScreen: undefined;
+  FeedStack: undefined;
+  CategoryStack: undefined;
+  PostingStack: undefined;
+  ChatStack: undefined;
+  ProfileStack: undefined;
+};
+
+export type AppStackTeaserScreenProp = StackNavigationProp<
+  AppStackParams,
+  "TeaserScreen"
+>;
+
+export type AppStackAuthScreenProp = StackNavigationProp<
+  AppStackParams,
+  "AuthScreen"
+>;
+
+export type AppStackJoinScreenProp = StackNavigationProp<
+  AppStackParams,
+  "JoinScreen"
+>;
+
+export type AppStackFeedStackProp = StackNavigationProp<
+  AppStackParams,
+  "FeedStack"
+>;
+
+export type AppStackCategoryStackProp = StackNavigationProp<
+  AppStackParams,
+  "CategoryStack"
+>;
+
+export type AppStackPostingStackProp = StackNavigationProp<
+  AppStackParams,
+  "PostingStack"
+>;
+
+export type AppStackChatStackProp = StackNavigationProp<
+  AppStackParams,
+  "ChatStack"
+>;
+
+export type AppStackProfileStackProp = StackNavigationProp<
+  AppStackParams,
+  "ProfileStack"
+>;
+
+// ============================== FeedStack =============================
+
+export type FeedStackParams = {
+  FeedHomeScreen: undefined;
+  ArticleDetailScreen: undefined;
+  ArticleDetailPhotoViewScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
+  ArticleFormScreen: undefined;
+};
+
+export type FeedStackFeedHomeScreenProp = StackNavigationProp<
+  FeedStackParams,
+  "FeedHomeScreen"
+>;
+
+export type FeedStackArticleDetailScreenProp = StackNavigationProp<
+  FeedStackParams,
+  "ArticleDetailScreen"
+>;
+
+export type FeedStackArticleDetailPhotoViewScreenProp = StackNavigationProp<
+  FeedStackParams,
+  "ArticleDetailPhotoViewScreen"
+>;
+
+export type FeedStackArticleContentsFormScreenProp = StackNavigationProp<
+  FeedStackParams,
+  "ArticleContentsFormScreen"
+>;
+
+export type FeedStackCategoryChoiceScreenProp = StackNavigationProp<
+  FeedStackParams,
+  "CategoryChoiceScreen"
+>;
+
+export type FeedStackArticleFormScreenProp = StackNavigationProp<
+  FeedStackParams,
+  "ArticleFormScreen"
+>;

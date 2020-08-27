@@ -7,8 +7,9 @@ import ArticleNavigation from "./ArticleNavigation";
 import ArticleFormNavigation from "./ArticleFormNavigation";
 import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
 import ProfileNavigation from "./ProfileNavigation";
+import { BottomTabNavigationParamList } from "../../types/types";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabNavigationParamList>();
 
 function getTabBarVisibility(route: any) {
   const routeName = route.state
@@ -17,7 +18,7 @@ function getTabBarVisibility(route: any) {
 
   return (
     routeName === "FeedHomeScreen" ||
-    routeName === "ProfileScreen" ||
+    routeName === "ProfileNavigation" ||
     routeName === "HomeCategorySelectScreen"
   );
 }
@@ -25,14 +26,14 @@ function getTabBarVisibility(route: any) {
 export default function BottomTabNavigation() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="FeedHomeScreen"
       tabBarOptions={{
         activeTintColor: "black",
         labelStyle: { fontSize: 13 },
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="FeedHomeScreen"
         component={ArticleNavigation}
         options={({ route }) => ({
           tabBarLabel: "홈",
@@ -43,11 +44,11 @@ export default function BottomTabNavigation() {
               color={color}
             />
           ),
-          tabBarVisible: getTabBarVisibility(route),
+          // tabBarVisible: getTabBarVisibility(route),
         })}
       />
       <Tab.Screen
-        name="Category"
+        name="CategoryNavigation"
         component={CategoryNavigation}
         options={({ route }) => ({
           tabBarLabel: "카테고리",
@@ -62,7 +63,7 @@ export default function BottomTabNavigation() {
         })}
       />
       <Tab.Screen
-        name="Posting"
+        name="ArticleFormNavigation"
         component={ArticleFormNavigation}
         options={{
           tabBarLabel: "글쓰기",
@@ -71,7 +72,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Chat"
+        name="ChatScreen"
         component={ChatScreen}
         options={{
           tabBarLabel: "채팅",
@@ -85,7 +86,7 @@ export default function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileNavigation"
         component={ProfileNavigation}
         options={({ route }) => ({
           tabBarLabel: "프로필",

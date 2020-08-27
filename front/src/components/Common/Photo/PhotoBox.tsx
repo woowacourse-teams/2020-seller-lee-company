@@ -2,19 +2,19 @@ import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 
 interface PhotoBoxProps {
-  photoURI: string;
+  photo: string;
 }
 
-export default function PhotoBox({ photoURI }: PhotoBoxProps) {
+export default function PhotoBox({ photo }: PhotoBoxProps) {
   return (
-    <View style={styles.imageContainer}>
-      <Image source={{ uri: photoURI ? photoURI : "" }} style={styles.image} />
+    <View style={styles.container}>
+      <Image source={{ uri: photo ? photo : "" }} style={styles.image} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  imageContainer: {
+  container: {
     flex: 1,
   },
   image: {

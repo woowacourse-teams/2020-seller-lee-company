@@ -11,7 +11,7 @@ import {
 import { memberAPI } from "../../api/api";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useNavigation } from "@react-navigation/native";
-import { AuthScreenNavigationProp } from "../../types/types";
+import { AppStackAuthScreenProp } from "../../types/types";
 import { memberNicknameState } from "../../states/memberState";
 
 interface LoginSubmitProps {
@@ -19,7 +19,7 @@ interface LoginSubmitProps {
 }
 
 export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
-  const navigation = useNavigation<AuthScreenNavigationProp>();
+  const navigation = useNavigation<AppStackAuthScreenProp>();
 
   const loginNickname = useRecoilValue(loginNicknameState);
   const loginPassword = useRecoilValue(loginPasswordState);
@@ -48,7 +48,7 @@ export default function LoginSubmit({ resetLoginForm }: LoginSubmitProps) {
         setLoginVerifyState(true);
         setMemberNickname(loginNickname);
         resetLoginForm();
-        navigation.navigate("BottomTabNavigation");
+        navigation.navigate("FeedStack");
       }
     } catch (error) {
       console.log(error);

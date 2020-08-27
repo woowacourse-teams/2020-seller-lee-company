@@ -8,12 +8,13 @@ import {
 } from "react-native";
 import { Feed, FeedHomeNavigationProp } from "../../types/types";
 import FeedArticleTag from "./FeedArticleTag";
-import Favorite from "../Common/Button/Favorite";
+import FeedFavorite from "./FeedFavorite";
 import FeedSliderImage from "./FeedSliderImage";
 import { useNavigation } from "@react-navigation/native";
 import { insertComma } from "../../replacePriceWithComma";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSelectedIdState } from "../../states/articleState";
+import MaskedView from "@react-native-community/masked-view";
 
 export default function FeedArticleCard({
   id,
@@ -55,7 +56,12 @@ export default function FeedArticleCard({
     >
       <View style={styles.articleContainer}>
         <View style={styles.photoContainer}>
-          <FeedSliderImage photos={photos} />
+          <MaskedView
+            style={StyleSheet.absoluteFill}
+            maskElement={<View style={styles.maskedElement} />}
+          >
+            <FeedSliderImage photos={photos} />
+          </MaskedView>
         </View>
         <View style={styles.articleSemiDetailsContainer}>
           <View style={styles.detailsContainer}>
@@ -71,7 +77,7 @@ export default function FeedArticleCard({
             </View>
           </View>
           <View style={styles.favoriteContainer}>
-            <Favorite
+            <FeedFavorite
               articleId={id}
               state={favoriteState}
               count={favoriteCount}
@@ -89,6 +95,11 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     flex: 5,
+  },
+  maskedElement: {
+    flex: 1,
+    borderRadius: 30,
+    backgroundColor: "white",
   },
   articleSemiDetailsContainer: {
     flex: 1,

@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import FeedHomeScreen from "../../screens/FeedHomeScreen";
 import { ArticleNavigationParamList } from "../../types/types";
 import ArticleDetailScreen from "../../screens/ArticleDetailScreen";
-import ArticleDetailImageViewScreen from "../../screens/ArticleDetailImageViewScreen";
+import ArticleDetailPhotoViewScreen from "../../screens/ArticleDetailPhotoViewScreen";
 import ArticleFormScreen from "../../screens/ArticleFormScreen";
 import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
 import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
@@ -25,7 +25,7 @@ export default function ArticleNavigation() {
       />
       <Stack.Screen
         name="ArticleDetailImageViewScreen"
-        component={ArticleDetailImageViewScreen}
+        component={ArticleDetailPhotoViewScreen}
       />
       <Stack.Screen name="ArticleFormScreen" component={ArticleFormScreen} />
       <Stack.Screen

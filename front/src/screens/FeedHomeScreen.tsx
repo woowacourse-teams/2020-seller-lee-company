@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Feed, FeedHomeNavigationProp } from "../types/types";
+import { Feed, FeedStackFeedHomeScreenProp } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
 import theme from "../colors";
@@ -19,7 +19,7 @@ export default function FeedHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 
-  const navigation = useNavigation<FeedHomeNavigationProp>();
+  const navigation = useNavigation<FeedStackFeedHomeScreenProp>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Feed[]>([]);

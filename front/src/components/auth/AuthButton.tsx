@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TeaserScreenNavigationProp } from "../../types/types";
+import { AppStackTeaserScreenProp } from "../../types/types";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
@@ -10,15 +10,18 @@ import { useSetRecoilState } from "recoil/dist";
 import { memberNicknameState } from "../../states/memberState";
 
 export default function AuthButton() {
-  const navigation = useNavigation<TeaserScreenNavigationProp>();
+  const navigation = useNavigation<AppStackTeaserScreenProp>();
   const setMemberNickname = useSetRecoilState(memberNicknameState);
 
   const onPressButton = async () => {
     const response = await DeviceStorage.getToken();
+
     if (response !== null) {
+      console.log(response);
       const { data } = await memberAPI.getNickname();
+      console.log(data);
       setMemberNickname(data);
-      navigation.navigate("BottomTabNavigation");
+      navigation.navigate("FeedStack");
     } else {
       navigation.navigate("AuthScreen");
     }

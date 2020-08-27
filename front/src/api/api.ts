@@ -2,7 +2,8 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-const BASE_URL = "https://sellerlee.tk";
+// const BASE_URL = "https://sellerlee.tk";
+const BASE_URL = "http://192.168.43.237:8080";
 
 const domain = {
   tradeState: "/trade-state",
@@ -138,12 +139,12 @@ interface MemberJoin {
 
 export const memberAPI = {
   login: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, data),
+    await axios.post(`${BASE_URL}${domain.login}`, data),
   join: async (data: MemberJoin) =>
-    await axios.post(BASE_URL + domain.members, data),
+    await axios.post(`${BASE_URL}${domain.members}`, data),
   getNickname: async () => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(BASE_URL + domain.members, {
+    return await axios.get(`${BASE_URL}${domain.members}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

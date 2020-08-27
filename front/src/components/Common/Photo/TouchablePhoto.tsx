@@ -2,29 +2,29 @@ import React from "react";
 import PhotoBox from "./PhotoBox";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ArticleDetailNavigationProp } from "../../../types/types";
+import { FeedStackArticleDetailScreenProp } from "../../../types/types";
 
 interface TouchablePhotoProps {
   photo: string;
 }
 
 export default function TouchablePhoto({ photo }: TouchablePhotoProps) {
-  const navigation = useNavigation<ArticleDetailNavigationProp>();
+  const navigation = useNavigation<FeedStackArticleDetailScreenProp>();
 
   return (
     <TouchableOpacity
       activeOpacity={1}
-      style={styles.buttonOnImage}
+      style={styles.container}
       key={photo}
-      onPress={() => navigation.navigate("ArticleDetailImageViewScreen")}
+      onPress={() => navigation.navigate("ArticleDetailPhotoViewScreen")}
     >
-      <PhotoBox photoURI={photo} />
+      <PhotoBox photo={photo} />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonOnImage: {
+  container: {
     flex: 1,
   },
 });

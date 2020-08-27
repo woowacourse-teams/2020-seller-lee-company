@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Animated, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { favoriteAPI } from "../../../api/api";
-import theme from "../../../colors";
+import { favoriteAPI } from "../../api/api";
+import theme from "../../colors";
 
 interface FavoriteProp {
   articleId: number;
@@ -10,7 +10,11 @@ interface FavoriteProp {
   count: number;
 }
 
-export default function Favorite({ articleId, state, count }: FavoriteProp) {
+export default function FeedFavorite({
+  articleId,
+  state,
+  count,
+}: FavoriteProp) {
   const [favoriteState, setFavoriteState] = useState(state);
   const [favoriteCount, setFavoriteCount] = useState(count);
 

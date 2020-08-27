@@ -12,6 +12,5 @@ export default function ArticleDetailContents() {
 const styles = StyleSheet.create({
   contents: {
     fontSize: 18,
-    fontWeight: "300",
   },
 });

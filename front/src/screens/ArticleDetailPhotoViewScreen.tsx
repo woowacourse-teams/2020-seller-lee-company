@@ -1,12 +1,12 @@
 import React, { useLayoutEffect } from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
-import ArticleDetailImageViewSlider from "../components/ArticleDetail/ArticleDetailImageViewSlider";
+import ArticleDetailPhotoViewSlider from "../components/ArticleDetail/ArticleDetailPhotoViewSlider";
 import { HeaderBackButton } from "@react-navigation/stack";
 import { ArticleDetailImageViewNavigationProp } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function ArticleDetailImageViewScreen() {
+export default function ArticleDetailPhotoViewScreen() {
   const navigation = useNavigation<ArticleDetailImageViewNavigationProp>();
 
   const goBackAndSetStatusBarVisible = () => {
@@ -34,7 +34,7 @@ export default function ArticleDetailImageViewScreen() {
   }, [navigation]);
   return (
     <View style={styles.container}>
-      <ArticleDetailImageViewSlider />
+      <ArticleDetailPhotoViewSlider />
     </View>
   );
 }
