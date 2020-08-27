@@ -49,7 +49,9 @@ export default function ChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {memberNickname === props.currentMessage.user.name ? undefined : (
+        {memberNickname === props.currentMessage.user.name ||
+        props.currentMessage.user.name ===
+          props.previousMessage.user?.name ? undefined : (
           <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
         )}
         <Bubble
