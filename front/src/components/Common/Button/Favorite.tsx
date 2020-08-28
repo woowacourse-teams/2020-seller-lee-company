@@ -3,8 +3,6 @@ import { Animated, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { favoriteAPI } from "../../../api/api";
 import theme from "../../../colors";
-import { useSetRecoilState } from "recoil/dist";
-import { articleIsModifiedState } from "../../../states/articleState";
 
 interface FavoriteProp {
   articleId: number;
@@ -15,7 +13,6 @@ interface FavoriteProp {
 export default function Favorite({ articleId, state, count }: FavoriteProp) {
   const [favoriteState, setFavoriteState] = useState(state);
   const [favoriteCount, setFavoriteCount] = useState(count);
-  const setIsModified = useSetRecoilState(articleIsModifiedState);
 
   const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
   const springValue = useRef(new Animated.Value(1)).current;
@@ -30,7 +27,6 @@ export default function Favorite({ articleId, state, count }: FavoriteProp) {
   };
 
   const toggleFavorite = async () => {
-    setIsModified(true);
     const unmarkFavorite = async () => {
       await favoriteAPI.delete({ articleId });
       setFavoriteState(false);
