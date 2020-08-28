@@ -2,18 +2,18 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { RecoilRoot } from "recoil/dist";
 import { MenuProvider } from "react-native-popup-menu";
-import AppStack from "./src/components/Navigation/AppStack";
-
-console.disableYellowBox = true;
+import RootStack from "./src/components/Navigation/RootStack";
 
 export default function App() {
   return (
     <RecoilRoot>
       <MenuProvider>
         <NavigationContainer>
-          <AppStack />
+          <RootStack />
         </NavigationContainer>
       </MenuProvider>
     </RecoilRoot>
   );
 }
+
+console.disableYellowBox = true;

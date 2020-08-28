@@ -8,6 +8,7 @@ export default function CategoryList() {
     <FlatList
       data={categories}
       renderItem={({ item }) => <CategoryItem title={item} />}
+      keyExtractor={(item, index) => `${index}`}
     />
   );
 }

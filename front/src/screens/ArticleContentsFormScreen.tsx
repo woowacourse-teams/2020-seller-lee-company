@@ -1,14 +1,23 @@
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
-import { HeaderBackButton } from "@react-navigation/stack";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import { articleContentsState } from "../states/articleState";
-import { ArticleContentsFormScreenNavigationProp } from "../types/types";
+import { HomeStackParam, RootStackParam } from "../types/types";
+
+type ArticleContentsFormScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function ArticleContentsFormScreen() {
   const navigation = useNavigation<ArticleContentsFormScreenNavigationProp>();
+
   const [contents, setContents] = useRecoilState(articleContentsState);
 
   useLayoutEffect(() => {
@@ -25,7 +34,7 @@ export default function ArticleContentsFormScreen() {
       ),
       headerLeftContainerStyle: { paddingLeft: 10 },
     });
-  });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

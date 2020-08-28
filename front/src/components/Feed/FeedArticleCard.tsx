@@ -6,15 +6,26 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Feed, FeedHomeNavigationProp } from "../../types/types";
+import { Feed, HomeStackParam, RootStackParam } from "../../types/types";
 import FeedArticleTag from "./FeedArticleTag";
 import FeedFavorite from "./FeedFavorite";
 import FeedSliderImage from "./FeedSliderImage";
-import { useNavigation } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { insertComma } from "../../replacePriceWithComma";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSelectedIdState } from "../../states/articleState";
 import MaskedView from "@react-native-community/masked-view";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+const ANIMATE_START_VALUE = 0.93;
+
+type FeedArticleCardNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function FeedArticleCard({
   id,
@@ -24,9 +35,7 @@ export default function FeedArticleCard({
   photos,
   favoriteState,
 }: Feed) {
-  const ANIMATE_START_VALUE = 0.93;
-
-  const navigation = useNavigation<FeedHomeNavigationProp>();
+  const navigation = useNavigation<FeedArticleCardNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
 
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(

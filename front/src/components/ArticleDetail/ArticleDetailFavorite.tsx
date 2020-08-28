@@ -50,7 +50,7 @@ export default function ArticleDetailFavorite() {
       <AnimateIcon
         name={article.favoriteState ? "heart" : "hearto"}
         size={32}
-        color={article.favoriteState ? theme.others : "black"}
+        color={article.favoriteState ? theme.heart : "black"}
         style={{
           transform: [{ scale: springValue }],
         }}
@@ -62,7 +62,6 @@ export default function ArticleDetailFavorite() {
 const styles = StyleSheet.create({
   container: {
     aspectRatio: 1,
-    // backgroundColor: "yellow",
     alignItems: "center",
   },
 });

@@ -1,7 +1,15 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { ArticleCardProps, CategoryHomeNavigationProp } from "../types/types";
+import {
+  CompositeNavigationProp,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
+import {
+  ArticleCardProps,
+  HomeStackParam,
+  RootStackParam,
+} from "../types/types";
 import { articlesAPI } from "../api/api";
 import {
   useRecoilState,
@@ -13,14 +21,20 @@ import {
   articleSelectedCategoryState,
 } from "../states/articleState";
 import ArticleCard from "../components/Common/ArticleCommon/ArticleCard";
-import { HeaderBackButton } from "@react-navigation/stack";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
+
+type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function CategoryHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 
-  const navigation = useNavigation<CategoryHomeNavigationProp>();
+  const navigation = useNavigation<CategoryHomeScreenNavigationProp>();
+
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<ArticleCardProps[]>([]);

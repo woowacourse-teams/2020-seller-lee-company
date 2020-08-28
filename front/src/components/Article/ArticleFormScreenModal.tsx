@@ -1,5 +1,8 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { useRecoilState } from "recoil/dist";
 import {
   Modal,
@@ -9,7 +12,20 @@ import {
   View,
 } from "react-native";
 import { articleModalActivationState } from "../../states/articleState";
-import { ArticleFormScreenNavigationProp } from "../../types/types";
+import {
+  HomeStackParam,
+  PostingStackParam,
+  RootStackParam,
+} from "../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type ArticleFormScreenModalNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<PostingStackParam, "ArticleFormScreen">,
+  CompositeNavigationProp<
+    StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
+    StackNavigationProp<RootStackParam, "HomeStack">
+  >
+>;
 
 interface ArticleFormScreenModalProps {
   resetCreateScreen: Function;
@@ -18,7 +34,8 @@ interface ArticleFormScreenModalProps {
 export default function ArticleFormScreenModal({
   resetCreateScreen,
 }: ArticleFormScreenModalProps) {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormScreenModalNavigationProp>();
+
   const [articleModalState, setArticleModalState] = useRecoilState(
     articleModalActivationState,
   );

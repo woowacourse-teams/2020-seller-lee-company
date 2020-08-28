@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
-  //BackHandler,
   Button,
   Keyboard,
   StyleSheet,
@@ -8,8 +7,11 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
@@ -30,30 +32,54 @@ import {
   articleTitleState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
-import { Article, ArticleFormScreenNavigationProp } from "../types/types";
+import { Article, HomeStackParam, RootStackParam } from "../types/types";
 import theme from "../colors";
 import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleFormContents from "../components/Article/ArticleFormContents";
 import { defaultArticle } from "../data/defaultArticle";
 
+type ArticleFormScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
+
 export default function ArticleFormScreen() {
   const navigation = useNavigation<ArticleFormScreenNavigationProp>();
-  const [article, setArticle] = useState<Article>(defaultArticle);
-  const editingArticle = useRecoilValue(articleSelectedState);
-  const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
 
-  const [photos, setPhotos] = useRecoilState(articlePhotosState);
-  const [title, setTitle] = useRecoilState(articleTitleState);
+  const [article, setArticle] = useState<Article>(defaultArticle);
+  const [originArticle, setOriginArticle] = useState<Article>();
+
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
   );
+  const [photos, setPhotos] = useRecoilState(articlePhotosState);
+  const [title, setTitle] = useRecoilState(articleTitleState);
   const [price, setPrice] = useRecoilState(articlePriceState);
   const [contents, setContents] = useRecoilState(articleContentsState);
   const [tags, setTags] = useRecoilState(tagsState);
+  const [isEditing, setIsEditing] = useRecoilState(articleIsEditingState);
+
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
-  const [originArticle, setOriginArticle] = useState<Article>();
   const setIsModified = useSetRecoilState(articleIsModifiedState);
+  const editingArticle = useRecoilValue(articleSelectedState);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing ? "수정하기" : "글쓰기",
+      headerShown: true,
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={confirmToLeave}
+          backImage={() => (
+            <EvilIcons name="chevron-left" size={35} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: { paddingLeft: 10 },
+    });
+  }, [navigation]);
 
   // const confirmToBackAction = () => {
   //   if (isDirty()) {
@@ -150,22 +176,6 @@ export default function ArticleFormScreen() {
     setContents(target.contents);
     setTags(target.tags);
   };
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: isEditing ? "수정하기" : "글쓰기",
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={confirmToLeave}
-          backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
-          )}
-        />
-      ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
-    });
-  });
 
   useEffect(() => {
     if (isEditing) {

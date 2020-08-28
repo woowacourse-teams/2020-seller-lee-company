@@ -12,15 +12,21 @@ import {
 import { memberAPI } from "../../api/api";
 import theme from "../../colors";
 import { useNavigation } from "@react-navigation/native";
-import { JoinScreenNavigationProp } from "../../types/types";
+import { RootStackParam } from "../../types/types";
 import { verify } from "../../joinValidator";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type JoinSubmitNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "JoinScreen"
+>;
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
 }
 
 export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
-  const navigation = useNavigation<JoinScreenNavigationProp>();
+  const navigation = useNavigation<JoinSubmitNavigationProp>();
 
   const joinNickname = useRecoilValue(joinNicknameState);
   const joinPassword = useRecoilValue(joinPasswordState);

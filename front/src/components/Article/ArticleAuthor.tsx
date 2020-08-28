@@ -7,7 +7,7 @@ import { articleSelectedState } from "../../states/articleState";
 
 export default function ArticleAuthor() {
   const {
-    author: { nickname, avatar, score },
+    author: { nickname, avatar },
   } = useRecoilValue(articleSelectedState);
 
   return (

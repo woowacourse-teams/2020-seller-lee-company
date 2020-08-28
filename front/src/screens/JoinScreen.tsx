@@ -8,8 +8,8 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { JoinScreenNavigationProp } from "../types/types";
-import { HeaderBackButton } from "@react-navigation/stack";
+import { RootStackParam } from "../types/types";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import Join from "../components/join/Join";
 import { useResetRecoilState } from "recoil/dist";
@@ -21,6 +21,11 @@ import {
 } from "../states/joinState";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import JoinSubmit from "../components/join/JoinSubmit";
+
+type JoinScreenNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "JoinScreen"
+>;
 
 export default function JoinScreen() {
   const navigation = useNavigation<JoinScreenNavigationProp>();
@@ -61,7 +66,7 @@ export default function JoinScreen() {
         aspectRatio: 1,
       },
     });
-  });
+  }, [navigation]);
 
   return (
     <ImageBackground

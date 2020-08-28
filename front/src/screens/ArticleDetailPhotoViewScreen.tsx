@@ -1,13 +1,23 @@
 import React, { useLayoutEffect } from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 import ArticleDetailPhotoViewSlider from "../components/ArticleDetail/ArticleDetailPhotoViewSlider";
-import { HeaderBackButton } from "@react-navigation/stack";
-import { ArticleDetailImageViewNavigationProp } from "../types/types";
-import { useNavigation } from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import { HomeStackParam, RootStackParam } from "../types/types";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
+type ArticleDetailPhotoViewScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleDetailPhotoViewScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
+
 export default function ArticleDetailPhotoViewScreen() {
-  const navigation = useNavigation<ArticleDetailImageViewNavigationProp>();
+  const navigation = useNavigation<
+    ArticleDetailPhotoViewScreenNavigationProp
+  >();
 
   const goBackAndSetStatusBarVisible = () => {
     navigation.goBack();
@@ -32,6 +42,7 @@ export default function ArticleDetailPhotoViewScreen() {
     });
     StatusBar.setHidden(true);
   }, [navigation]);
+
   return (
     <View style={styles.container}>
       <ArticleDetailPhotoViewSlider />

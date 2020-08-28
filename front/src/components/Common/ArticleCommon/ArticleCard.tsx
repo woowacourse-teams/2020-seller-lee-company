@@ -2,16 +2,26 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import {
   ArticleCardProps,
-  CategoryHomeNavigationProp,
+  HomeStackParam,
+  RootStackParam,
 } from "../../../types/types";
 import ArticleCardImage from "./ArticleCardImage";
 import ArticleCardTitle from "./ArticleCardTitle";
 import ArticleCardTradeDetails from "./ArticleCardTradeDetails";
 import ArticleCardAdditional from "./ArticleCardAdditional";
-import { useNavigation } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSelectedIdState } from "../../../states/articleState";
 import ArticleCardTradeState from "./ArticleCardTradeState";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type ArticleCardNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function ArticleCard({
   id,
@@ -23,7 +33,7 @@ export default function ArticleCard({
   favoriteCount,
   thumbnail,
 }: ArticleCardProps) {
-  const navigation = useNavigation<CategoryHomeNavigationProp>();
+  const navigation = useNavigation<ArticleCardNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
 
   return (

@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton, useHeaderHeight } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import {
+  HeaderBackButton,
+  StackNavigationProp,
+  useHeaderHeight,
+} from "@react-navigation/stack";
 import {
   Menu,
   MenuOption,
@@ -15,7 +22,7 @@ import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import ArticleDetailImageSlider from "../components/ArticleDetail/ArticleDetailImageSlider";
 import ArticleDeleteModal from "../components/Common/Modal/ArticleDeleteModal";
 import TouchablePhoto from "../components/Common/Photo/TouchablePhoto";
-import { FeedStackArticleDetailScreenProp } from "../types/types";
+import { HomeStackParam, RootStackParam } from "../types/types";
 import { articleDetailAPI, articlesAPI } from "../api/api";
 import { articleDetailModalState } from "../states/modalState";
 import { memberNicknameState } from "../states/memberState";
@@ -28,9 +35,14 @@ import {
 import ArticleDetailBottomNav from "../components/ArticleDetail/ArticleDetailBottomNav";
 import theme from "../colors";
 
+type ArticleDetailScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleDetailScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
+
 export default function ArticleDetailScreen() {
   const HEADER_HEIGHT = useHeaderHeight();
-  const navigation = useNavigation<FeedStackArticleDetailScreenProp>();
+  const navigation = useNavigation<ArticleDetailScreenNavigationProp>();
 
   const [articleSelected, setArticleSelected] = useRecoilState(
     articleSelectedState,
@@ -49,7 +61,7 @@ export default function ArticleDetailScreen() {
     return colorValue > 0 ? colorValue : 0;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       title: "",
       headerTransparent: true,
@@ -58,6 +70,11 @@ export default function ArticleDetailScreen() {
         justifyContents: "center",
         alignItems: "center",
       },
+    });
+  }, [navigation]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
       headerRight:
         articleSelected.author.nickname === memberNickname
           ? () => (
@@ -132,7 +149,7 @@ export default function ArticleDetailScreen() {
   };
 
   useEffect(() => {
-    getArticle();
+    getArticle().then();
   }, [articleId]);
 
   return (
@@ -197,12 +214,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   bottomTab: {
-    backgroundColor: "red",
     justifyContent: "center",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: 15,
-    paddingBottom: 10,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: theme.border,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
   },
   chatButtonContainer: {
     flex: 1,

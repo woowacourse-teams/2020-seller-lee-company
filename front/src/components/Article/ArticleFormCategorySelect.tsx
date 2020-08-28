@@ -1,10 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
-import { ArticleFormScreenNavigationProp } from "../../types/types";
+import { HomeStackParam, RootStackParam } from "../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type ArticleFormCategorySelectNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 interface ArticleFormCategorySelectProp {
   isEditing: boolean;
@@ -13,7 +22,7 @@ interface ArticleFormCategorySelectProp {
 export default function ArticleFormCategorySelect({
   isEditing,
 }: ArticleFormCategorySelectProp) {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormCategorySelectNavigationProp>();
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
 
   const renderCategory = () => {

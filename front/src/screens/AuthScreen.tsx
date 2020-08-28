@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AuthScreenNavigationProp } from "../types/types";
+import { RootStackParam } from "../types/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Login from "../components/Login/Login";
 import JoinButton from "../components/auth/JoinButton";
@@ -17,6 +17,12 @@ import KakaoLoginButton from "../components/auth/KakaoLoginButton";
 import theme from "../colors";
 import { useResetRecoilState } from "recoil/dist";
 import { loginNicknameState, loginPasswordState } from "../states/loginState";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type AuthScreenNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "AuthScreen"
+>;
 
 export default function AuthScreen() {
   const navigation = useNavigation<AuthScreenNavigationProp>();
@@ -24,16 +30,16 @@ export default function AuthScreen() {
   const resetMemberEmail = useResetRecoilState(loginNicknameState);
   const resetMemberPassword = useResetRecoilState(loginPasswordState);
 
-  const resetMemberLoginValue = () => {
-    resetMemberEmail();
-    resetMemberPassword();
-  };
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
-  });
+  }, [navigation]);
+
+  const resetMemberLoginValue = () => {
+    resetMemberEmail();
+    resetMemberPassword();
+  };
 
   return (
     <ImageBackground

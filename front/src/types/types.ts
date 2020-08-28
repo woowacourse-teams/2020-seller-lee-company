@@ -1,70 +1,4 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-
-export type ArticleNavigationParamList = {
-  FeedHomeScreen: undefined;
-  ArticleDetailScreen: undefined;
-  ArticleDetailImageSlider: undefined;
-  ArticleDetailImageViewScreen: undefined;
-  ArticleFormScreen: undefined;
-  ArticleContentsFormScreen: undefined;
-  CategoryChoiceScreen: undefined;
-  TeaserScreen: undefined;
-};
-
-export type FeedHomeNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "FeedHomeScreen"
->;
-
-// export type ChatRoomNavigationProp = StackNavigationProp<
-//   ArticleNavigationParamList,
-//   "ChatRoom"
-// >;
-
-export type ArticleDetailNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ArticleDetailScreen"
->;
-
-export type ArticleDetailImageSliderNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ArticleDetailImageSlider"
->;
-
-export type ArticleDetailImageViewNavigationProp = StackNavigationProp<
-  ArticleNavigationParamList,
-  "ArticleDetailImageViewScreen"
->;
-
-export type CategoryParamList = {
-  HomeCategorySelectScreen: undefined;
-  CategoryHomeScreen: undefined;
-  ArticleDetailScreen: undefined;
-  ArticleFormScreen: undefined;
-  ArticleDetailImageViewScreen: undefined;
-};
-
-export type CategoryHomeNavigationProp = StackNavigationProp<
-  CategoryParamList,
-  "CategoryHomeScreen"
->;
-
-export type ArticleFormParamList = {
-  ArticleFormScreen: undefined;
-  ArticleContentsFormScreen: undefined;
-  CategoryChoiceScreen: undefined;
-};
-
-export type ArticleFormScreenNavigationProp = StackNavigationProp<
-  ArticleFormParamList,
-  "ArticleFormScreen"
->;
-
-export type ArticleContentsFormScreenNavigationProp = StackNavigationProp<
-  ArticleFormParamList,
-  "ArticleContentsFormScreen"
->;
 
 export type Category =
   | "디지털/가전"
@@ -95,34 +29,6 @@ export interface Feed {
   favoriteState: boolean;
   photos: string[];
 }
-
-export type AppStackNavigationParamList = {
-  TeaserScreen: undefined;
-  AuthScreen: undefined;
-  LoginScreen: undefined;
-  JoinScreen: undefined;
-  BottomTabNavigation: undefined;
-};
-
-export type TeaserScreenNavigationProp = StackNavigationProp<
-  AppStackNavigationParamList,
-  "LoginScreen"
->;
-
-export type LoginScreenNavigationProp = StackNavigationProp<
-  AppStackNavigationParamList,
-  "LoginScreen"
->;
-
-export type JoinScreenNavigationProp = StackNavigationProp<
-  AppStackNavigationParamList,
-  "JoinScreen"
->;
-
-export type AuthScreenNavigationProp = StackNavigationProp<
-  AppStackNavigationParamList,
-  "AuthScreen"
->;
 
 export interface Article {
   id: number;
@@ -203,21 +109,6 @@ export type MyInfoScreenNavigationProp = StackNavigationProp<
   "MyInfoScreen"
 >;
 
-export type BottomTabNavigationParamList = {
-  FeedHomeScreen: undefined;
-  ArticleDetailScreen: undefined;
-  ArticleNavigation: undefined;
-  CategoryNavigation: undefined;
-  ArticleFormNavigation: undefined;
-  ChatScreen: undefined;
-  ProfileNavigation: undefined;
-};
-
-export type ArticleTabNavigationProp = BottomTabNavigationProp<
-  BottomTabNavigationParamList,
-  "ArticleNavigation"
->;
-
 export interface Score {
   questionId: number;
   score: number;
@@ -229,136 +120,52 @@ export interface Profile {
   score: number;
 }
 
-// ======================================================================
-// ============================= Navigation =============================
-// ========================== Params And Props ==========================
-// ======================================================================
+// **********************************************************************
+// ************************** Navigation Params *************************
+// **********************************************************************
 
-// ============================= BottomTab ==============================
-
-export type BottomTabParams = {
-  FeedHomeScreen: undefined;
-  CategoryHomeScreen: undefined;
-  PostingScreen: undefined;
-  ChatScreen: undefined;
-  ProfileScreen: undefined;
-};
-
-export type BottomTabFeedHomeScreenProp = BottomTabNavigationProp<
-  BottomTabParams,
-  "FeedHomeScreen"
->;
-
-export type BottomTabCategoryHomeScreenProp = BottomTabNavigationProp<
-  BottomTabParams,
-  "CategoryHomeScreen"
->;
-
-export type BottomTabPostingScreenProp = BottomTabNavigationProp<
-  BottomTabParams,
-  "PostingScreen"
->;
-
-export type BottomTabChatScreenProp = BottomTabNavigationProp<
-  BottomTabParams,
-  "ChatScreen"
->;
-
-export type BottomTabProfileScreenProp = BottomTabNavigationProp<
-  BottomTabParams,
-  "ProfileScreen"
->;
-
-// ============================== AppStack ==============================
-
-export type AppStackParams = {
+export type RootStackParam = {
   TeaserScreen: undefined;
   AuthScreen: undefined;
   JoinScreen: undefined;
-  FeedStack: undefined;
-  CategoryStack: undefined;
-  PostingStack: undefined;
-  ChatStack: undefined;
-  ProfileStack: undefined;
+  HomeStack: undefined;
 };
 
-export type AppStackTeaserScreenProp = StackNavigationProp<
-  AppStackParams,
-  "TeaserScreen"
->;
-
-export type AppStackAuthScreenProp = StackNavigationProp<
-  AppStackParams,
-  "AuthScreen"
->;
-
-export type AppStackJoinScreenProp = StackNavigationProp<
-  AppStackParams,
-  "JoinScreen"
->;
-
-export type AppStackFeedStackProp = StackNavigationProp<
-  AppStackParams,
-  "FeedStack"
->;
-
-export type AppStackCategoryStackProp = StackNavigationProp<
-  AppStackParams,
-  "CategoryStack"
->;
-
-export type AppStackPostingStackProp = StackNavigationProp<
-  AppStackParams,
-  "PostingStack"
->;
-
-export type AppStackChatStackProp = StackNavigationProp<
-  AppStackParams,
-  "ChatStack"
->;
-
-export type AppStackProfileStackProp = StackNavigationProp<
-  AppStackParams,
-  "ProfileStack"
->;
-
-// ============================== FeedStack =============================
-
-export type FeedStackParams = {
+export type HomeStackParam = {
+  HomeTab: undefined;
+  /* 피드 스크린 */
   FeedHomeScreen: undefined;
   ArticleDetailScreen: undefined;
   ArticleDetailPhotoViewScreen: undefined;
+  /* 카테고리 스크린 */
+  CategoryHomeSelectedScreen: undefined;
+  CategoryHomeScreen: undefined;
+  /* 게시글 생성, 수정 스크린 */
+  ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
-  ArticleFormScreen: undefined;
+  /* 채팅 스크린 */
+  ChatScreen: undefined;
+  /* 프로필 스크린 */
+  ProfileScreen: undefined;
+  SalesHistoryScreen: undefined;
+  PurchaseHistoryScreen: undefined;
+  SelectBuyerScreen: undefined;
+  EvaluationScreen: undefined;
+  MyInfoScreen: undefined;
+  MyFavoriteScreen: undefined;
 };
 
-export type FeedStackFeedHomeScreenProp = StackNavigationProp<
-  FeedStackParams,
-  "FeedHomeScreen"
->;
+export type PostingStackParam = {
+  ArticleFormScreen: undefined;
+  ArticleContentsFormScreen: undefined;
+  CategoryChoiceScreen: undefined;
+};
 
-export type FeedStackArticleDetailScreenProp = StackNavigationProp<
-  FeedStackParams,
-  "ArticleDetailScreen"
->;
-
-export type FeedStackArticleDetailPhotoViewScreenProp = StackNavigationProp<
-  FeedStackParams,
-  "ArticleDetailPhotoViewScreen"
->;
-
-export type FeedStackArticleContentsFormScreenProp = StackNavigationProp<
-  FeedStackParams,
-  "ArticleContentsFormScreen"
->;
-
-export type FeedStackCategoryChoiceScreenProp = StackNavigationProp<
-  FeedStackParams,
-  "CategoryChoiceScreen"
->;
-
-export type FeedStackArticleFormScreenProp = StackNavigationProp<
-  FeedStackParams,
-  "ArticleFormScreen"
->;
+export type HomeTabParam = {
+  FeedHomeScreen: undefined;
+  CategoryHomeSelectedScreen: undefined;
+  PostingStack: undefined;
+  ChatScreen: undefined;
+  ProfileScreen: undefined;
+};

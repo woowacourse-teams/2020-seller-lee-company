@@ -1,12 +1,21 @@
 import React, { useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import CategoryList from "../components/Category/CategoryList";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
+import { HomeStackParam, RootStackParam } from "../types/types";
+
+type CategoryChoiceScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "CategoryChoiceScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function CategoryChoiceScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<CategoryChoiceScreenNavigationProp>();
 
   useLayoutEffect(() => {
     navigation.setOptions({

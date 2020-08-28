@@ -1,11 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AuthScreenNavigationProp } from "../../types/types";
+import { RootStackParam } from "../../types/types";
 import theme from "../../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type JoinButtonNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "AuthScreen"
+>;
 
 export default function JoinButton() {
-  const navigation = useNavigation<AuthScreenNavigationProp>();
+  const navigation = useNavigation<JoinButtonNavigationProp>();
 
   return (
     <View style={styles.container}>
