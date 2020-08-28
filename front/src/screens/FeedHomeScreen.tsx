@@ -35,7 +35,7 @@ export default function FeedHomeScreen() {
   };
 
   useEffect(() => {
-    isModified ? applyChange() : undefined;
+    applyChange();
   }, [isFocused]);
 
   useEffect(() => {

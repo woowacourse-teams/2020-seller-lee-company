@@ -70,7 +70,7 @@ export const articlesAPI = {
   },
   getFavorites: async () => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}${domain.favorites}`, {
+    return await axios.get(`${BASE_URL}${domain.favorites}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
