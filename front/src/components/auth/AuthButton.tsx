@@ -8,29 +8,45 @@ import { DeviceStorage } from "../../auth/DeviceStorage";
 import { memberAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { memberNicknameState } from "../../states/memberState";
+import { loadingState } from "../../states/loadingState";
 
-export default function AuthButton() {
+interface KakakoLoginWebViewProp {
+  toggleModal: Function;
+}
+
+export default function AuthButton({ toggleModal }: KakakoLoginWebViewProp) {
   const navigation = useNavigation<TeaserScreenNavigationProp>();
+  const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
 
   const onPressButton = async () => {
-    const response = await DeviceStorage.getToken();
-    console.log("AuthButton response: " + response);
+    setIsLoading(true);
+    const token = await DeviceStorage.getToken();
+    console.log("AuthButton token: " + token);
 
-    if (response !== null) {
-      const { data } = await memberAPI.getNickname();
-      console.log("AuthButton data: " + data);
-      setMemberNickname(data);
-      navigation.navigate("BottomTabNavigation");
+    if (token) {
+      try {
+        const { data } = await memberAPI.getNickname();
+        setMemberNickname(data);
+        navigation.navigate("BottomTabNavigation");
+        console.log("AuthButton data: " + data);
+      } catch (error) {
+        toggleModal();
+        console.log(error.response.data.message);
+      }
     } else {
-      navigation.navigate("AuthScreen");
+      toggleModal();
     }
+    setIsLoading(false);
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPressButton}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>시작하기</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>카카오톡으로</Text>
+          <Text style={styles.title}>시작하기</Text>
+        </View>
         <Entypo name="controller-play" size={14} color={"white"} />
       </View>
     </TouchableOpacity>
@@ -42,7 +58,7 @@ const styles = StyleSheet.create({
     aspectRatio: 2.6,
     backgroundColor: colors.others,
     justifyContent: "center",
-    borderRadius: 100,
+    borderRadius: 30,
   },
   contentContainer: {
     flex: 1,
@@ -55,5 +71,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+    marginVertical: 2,
   },
+  titleContainer: {},
 });

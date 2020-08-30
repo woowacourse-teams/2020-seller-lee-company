@@ -6,12 +6,12 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { ModalVisiableProps } from "../../../types/types";
+import { ModalVisibleProps } from "../../../types/types";
 
 export default function NicknameVerifyModal({
   toggleModal,
   modalVisible,
-}: ModalVisiableProps) {
+}: ModalVisibleProps) {
   return (
     <Modal
       animationType={"fade"}
@@ -22,7 +22,7 @@ export default function NicknameVerifyModal({
       <View style={styles.container}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}> 중복된 닉네임입니다. </Text>
-          <View style={styles.buttonContainer}>
+          <View style={styles.emptyContainer}>
             <TouchableHighlight
               style={styles.button}
               onPress={() => toggleModal()}
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-  buttonContainer: {
+  emptyContainer: {
     flexDirection: "row",
   },
   button: {

@@ -2,18 +2,21 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
+  duplicateState,
   joinAvatarState,
-  joinCheckPasswordState,
   joinNicknameState,
-  joinPasswordState,
   joinSubmitState,
-  memberNicknameVerifyState,
 } from "../../states/joinState";
-import { memberAPI } from "../../api/api";
+import { profileAPI } from "../../api/api";
 import theme from "../../colors";
 import { useNavigation } from "@react-navigation/native";
 import { JoinScreenNavigationProp } from "../../types/types";
-import { verify } from "../../joinValidator";
+import {
+  isBlank,
+  isDuplicatedNickname,
+  isValidNickname,
+} from "../../nicknameValidator";
+import { DeviceStorage } from "../../auth/DeviceStorage";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
@@ -23,35 +26,44 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
   const navigation = useNavigation<JoinScreenNavigationProp>();
 
   const joinNickname = useRecoilValue(joinNicknameState);
-  const joinPassword = useRecoilValue(joinPasswordState);
-  const joinCheckPassword = useRecoilValue(joinCheckPasswordState);
   const joinAvatar = useRecoilValue(joinAvatarState);
+  const setDuplicateState = useSetRecoilState(duplicateState);
 
   const setJoinSubmit = useSetRecoilState(joinSubmitState);
-  const setJoinVerifyState = useSetRecoilState(memberNicknameVerifyState);
+
+  const deleteJoiningMember = async () => {
+    await profileAPI.delete();
+    await DeviceStorage.clearToken();
+  };
 
   const join = async () => {
     setJoinSubmit(true);
 
-    if (!verify(joinNickname, joinPassword, joinCheckPassword)) {
+    if (isBlank(joinNickname) || !isValidNickname(joinNickname)) {
+      return;
+    }
+
+    const { data } = await isDuplicatedNickname(joinNickname);
+
+    if (data) {
+      setDuplicateState(true);
       return;
     }
 
     try {
-      const response = await memberAPI.join({
+      const response = await profileAPI.put({
         nickname: joinNickname,
-        password: joinPassword,
         avatar: joinAvatar,
       });
-
-      if (response.status === 201) {
-        setJoinVerifyState(true);
+      if (response.status === 204) {
         resetJoinForm();
-        navigation.goBack();
+        navigation.navigate("BottomTabNavigation");
+      } else {
+        await deleteJoiningMember();
       }
     } catch (error) {
       console.log(error);
-      setJoinVerifyState(false);
+      await deleteJoiningMember();
     } finally {
       setJoinSubmit(false);
     }

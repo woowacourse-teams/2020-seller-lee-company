@@ -20,7 +20,7 @@ public enum CustomOAuth2Provider {
             return builder;
         }
     };
-    // private static final String BASE_URL = "http://192.168.35.118:8080";
+    // private static final String BASE_URL = "http://192.168.43.218:8080";
     private static final String BASE_URL = "http://localhost:8080";
     // private static final String BASE_URL = "https://sellerlee.tk";
     private static final String DEFAULT_LOGIN_REDIRECT_URL = BASE_URL + "/login/oauth2/code/kakao";

@@ -78,6 +78,11 @@ export default function MyInfoScreen() {
 }
 
 const styles = StyleSheet.create({
+  keyboardAwareScrollView: {
+    flexGrow: 1,
+    flexShrink: 0,
+    justifyContent: "space-between",
+  },
   container: {
     flex: 1,
     backgroundColor: "white",

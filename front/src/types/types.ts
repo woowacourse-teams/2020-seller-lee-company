@@ -97,7 +97,6 @@ export interface Feed {
 
 export type AppStackNavigationParamList = {
   TeaserScreen: undefined;
-  AuthScreen: undefined;
   LoginScreen: undefined;
   JoinScreen: undefined;
   BottomTabNavigation: undefined;
@@ -105,12 +104,12 @@ export type AppStackNavigationParamList = {
 
 export type TeaserScreenNavigationProp = StackNavigationProp<
   AppStackNavigationParamList,
-  "LoginScreen"
+  "TeaserScreen"
 >;
 
 export type LoginScreenNavigationProp = StackNavigationProp<
   AppStackNavigationParamList,
-  "LoginScreen"
+  "TeaserScreen"
 >;
 
 export type JoinScreenNavigationProp = StackNavigationProp<
@@ -120,7 +119,7 @@ export type JoinScreenNavigationProp = StackNavigationProp<
 
 export type AuthScreenNavigationProp = StackNavigationProp<
   AppStackNavigationParamList,
-  "AuthScreen"
+  "TeaserScreen"
 >;
 
 export interface Article {
@@ -213,7 +212,7 @@ export interface Profile {
   score: number;
 }
 
-export interface ModalVisiableProps {
+export interface ModalVisibleProps {
   toggleModal: Function;
   modalVisible: boolean;
 }

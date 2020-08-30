@@ -1,5 +1,6 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {
+  BackHandler,
   ImageBackground,
   Keyboard,
   StyleSheet,
@@ -13,32 +14,27 @@ import { HeaderBackButton } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import Join from "../components/join/Join";
 import { useResetRecoilState } from "recoil/dist";
-import {
-  joinAvatarState,
-  joinNicknameState,
-  joinPasswordState,
-  joinSubmitState,
-} from "../states/joinState";
+import { joinNicknameState, joinSubmitState } from "../states/joinState";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import JoinSubmit from "../components/join/JoinSubmit";
+import { DeviceStorage } from "../auth/DeviceStorage";
+import { profileAPI } from "../api/api";
 
 export default function JoinScreen() {
   const navigation = useNavigation<JoinScreenNavigationProp>();
 
   const resetJoinNickname = useResetRecoilState(joinNicknameState);
-  const resetJoinPassword = useResetRecoilState(joinPasswordState);
-  const resetJoinAvatar = useResetRecoilState(joinAvatarState);
   const resetJoinSubmit = useResetRecoilState(joinSubmitState);
 
   const resetJoinValue = () => {
     resetJoinNickname();
-    resetJoinPassword();
-    resetJoinAvatar();
     resetJoinSubmit();
   };
 
-  const onPressGoBack = () => {
+  const onPressGoBack = async () => {
     resetJoinValue();
+    await profileAPI.delete();
+    await DeviceStorage.clearToken();
     navigation.goBack();
   };
 
@@ -62,6 +58,17 @@ export default function JoinScreen() {
       },
     });
   });
+
+  //todo
+  const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+    console.log("backHandeler");
+    DeviceStorage.clearToken().then();
+    resetJoinValue();
+    return true;
+  });
+
+  useEffect(() => backHandler.remove(), []);
+  //todo
 
   return (
     <ImageBackground
@@ -115,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   keyboardAwareScrollViewContainer: {
-    flex: 8,
+    flex: 6,
     backgroundColor: "white",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

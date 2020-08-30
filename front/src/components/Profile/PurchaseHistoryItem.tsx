@@ -34,7 +34,7 @@ export default function PurchaseHistoryItem({
           thumbnail={thumbnail}
         />
       </View>
-      <TouchableOpacity activeOpacity={0.5} style={styles.buttonContainer}>
+      <TouchableOpacity activeOpacity={0.5} style={styles.emptyContainer}>
         <Text style={styles.buttonText}>작성한 후기 보기</Text>
       </TouchableOpacity>
     </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   articleCardContainer: {
     margin: 5,
   },
-  buttonContainer: {
+  emptyContainer: {
     backgroundColor: theme.primary,
     paddingVertical: 12,
     alignItems: "center",

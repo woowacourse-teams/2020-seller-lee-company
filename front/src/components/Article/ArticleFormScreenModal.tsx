@@ -36,7 +36,7 @@ export default function ArticleFormScreenModal({
             페이지를 나가면 작성 중인 내용이 삭제됩니다.{"\n"}
             페이지를 나가시겠습니까?
           </Text>
-          <View style={styles.buttonContainer}>
+          <View style={styles.emptyContainer}>
             <TouchableHighlight
               style={styles.button}
               onPress={() => setArticleModalState(false)}
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-  buttonContainer: {
+  emptyContainer: {
     flexDirection: "row",
   },
   button: {

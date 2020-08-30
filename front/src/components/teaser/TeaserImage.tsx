@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { ImageBackground, ImageProps, StyleSheet, View } from "react-native";
 import AuthButton from "../auth/AuthButton";
 import SvgTeaserTitle from "../svg/SvgTeaserTitle";
 import SvgWhale from "../svg/SvgWhale";
+import LoginIndicator from "../Login/LoginIndicator";
+import KakaoLoginWebViewModal from "../Common/Modal/KakaoLoginWebViewModal";
+import LoginVerifyModal from "../Common/Modal/LoginVerifyModal";
+import { useRecoilValue } from "recoil/dist";
+import { httpStatusState } from "../../states/memberState";
 
 interface TeaserImageProps {
   sourceUrl: ImageProps;
 }
 
 export default function TeaserImage({ sourceUrl }: TeaserImageProps) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const httpStatus = useRecoilValue(httpStatusState);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
     <View style={styles.container}>
+      <LoginIndicator />
+      <KakaoLoginWebViewModal
+        toggleModal={toggleModal}
+        modalVisible={modalVisible}
+      />
       <ImageBackground source={sourceUrl} style={styles.imageBackground}>
         <View style={styles.titleContainer}>
           <View style={styles.svgContainer}>
@@ -24,7 +41,8 @@ export default function TeaserImage({ sourceUrl }: TeaserImageProps) {
         </View>
         <View style={styles.authButtonContainer}>
           <View style={styles.authButton}>
-            <AuthButton />
+            {httpStatus === 200 ? <LoginVerifyModal /> : <></>}
+            <AuthButton toggleModal={toggleModal} />
           </View>
         </View>
       </ImageBackground>

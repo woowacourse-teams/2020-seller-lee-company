@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.member.domain.MemberRepository;
+import sellerlee.back.member.domain.State;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
@@ -39,7 +40,7 @@ public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientSe
         Member member = memberRepository.findOptionalMemberByEmail(email)
                 .map(entity -> entity.updateNickName(nickName))
                 .orElse(
-                        new Member(kakaoId, email, nickName, "0000", null, null)
+                        new Member(kakaoId, email, nickName, "0000", null, State.NEW, null)
                 );
 
         memberRepository.save(member);

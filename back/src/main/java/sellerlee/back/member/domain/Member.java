@@ -2,6 +2,8 @@ package sellerlee.back.member.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,45 +28,55 @@ public class Member {
 
     private String avatar;
 
+    @Enumerated(EnumType.STRING)
+    private State state;
+
     private Double score;
 
     protected Member() {
     }
 
     public Member(Long id, String kakaoId, String email, String nickname, String password,
-            String avatar, Double score) {
+            String avatar, State state, Double score) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.email = email;
         this.nickname = nickname;
         this.password = password;
         this.avatar = avatar;
+        this.state = state;
         this.score = score;
     }
 
     public Member(String kakaoId, String email, String nickname, String password, String avatar,
+            State state, Double score) {
+        this(null, kakaoId, email, nickname, password, avatar, state, score);
+    }
+
+    public Member(String kakaoId, String email, String nickname, String password, String avatar,
             Double score) {
-        this(null, kakaoId, email, nickname, password, avatar, score);
+        this(null, kakaoId, email, nickname, password, avatar, null, score);
     }
 
     public Member(String nickname, String password, String avatar, Double score) {
-        this(null, null, nickname, password, avatar, score);
+        this(null, null, null, nickname, password, avatar, null, score);
     }
 
     public Member(String nickname, String password, String avatar) {
-        this(null, null, null, nickname, password, avatar, null);
+        this(null, null, null, nickname, password, avatar, null, null);
     }
 
     public Member(String password, String avatar) {
-        this(null, null, null, null, password, avatar, null);
+        this(null, null, null, null, password, avatar, null, null);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null, null);
     }
 
     public Member updateNickName(String nickname) {
         this.nickname = nickname;
+        this.state = State.EXISTING;
 
         return this;
     }
@@ -90,6 +102,14 @@ public class Member {
         return id;
     }
 
+    public String getKakaoId() {
+        return kakaoId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -100,6 +120,10 @@ public class Member {
 
     public String getAvatar() {
         return avatar;
+    }
+
+    public State getState() {
+        return state;
     }
 
     public Double getScore() {

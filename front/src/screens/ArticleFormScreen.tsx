@@ -68,7 +68,6 @@ export default function ArticleFormScreen() {
   //   "hardwareBackPress",
   //   confirmToBackAction,
   // );
-
   const resetForm = () => {
     setIsEditing(false);
     setForm(defaultArticle);

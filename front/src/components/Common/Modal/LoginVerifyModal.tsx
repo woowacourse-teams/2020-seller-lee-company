@@ -7,34 +7,23 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useRecoilState } from "recoil/dist";
-import {
-  memberLoginTrialState,
-  memberLoginVerifyState,
-} from "../../../states/loginState";
-import { LoginScreenNavigationProp } from "../../../types/types";
+import { useRecoilState, useRecoilValue } from "recoil/dist";
+import { memberLoginTrialState } from "../../../states/loginState";
+import { AuthScreenNavigationProp } from "../../../types/types";
+import { httpStatusState } from "../../../states/memberState";
 
-interface LoginVerifyModalProps {
-  resetMemberLoginValue: Function;
-}
-
-export default function LoginVerifyModal({
-  resetMemberLoginValue,
-}: LoginVerifyModalProps) {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+export default function LoginVerifyModal() {
+  const navigation = useNavigation<AuthScreenNavigationProp>();
 
   const [loginTrialState, setLoginTrialState] = useRecoilState(
     memberLoginTrialState,
   );
-  const [loginVerifyState, setLoginVerifyState] = useRecoilState(
-    memberLoginVerifyState,
-  );
+  const httpStatus = useRecoilValue(httpStatusState);
 
   const onPressCloseButton = () => {
     setLoginTrialState(false);
 
-    if (loginVerifyState) {
-      resetMemberLoginValue();
+    if (httpStatus === 200 || httpStatus === 204) {
       // TODO LoginScreen을 Home으로 변경해야 함
       navigation.navigate("BottomTabNavigation");
     }
@@ -45,16 +34,16 @@ export default function LoginVerifyModal({
       animationType={"fade"}
       transparent={true}
       visible={loginTrialState}
-      onRequestClose={() => setLoginVerifyState(false)}
+      onRequestClose={onPressCloseButton}
     >
       <View style={styles.container}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            {loginVerifyState
+            {httpStatus === 200 || httpStatus === 201
               ? "로그인에 성공하였습니다."
               : "로그인에 실패하였습니다."}
           </Text>
-          <View style={styles.buttonContainer}>
+          <View style={styles.emptyContainer}>
             <TouchableHighlight
               style={styles.button}
               onPress={onPressCloseButton}
@@ -92,7 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-  buttonContainer: {
+  emptyContainer: {
     flexDirection: "row",
   },
   button: {

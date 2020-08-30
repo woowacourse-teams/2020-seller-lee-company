@@ -30,3 +30,8 @@ export const memberInfoAvatarState = atom({
   key: "memberInfoAvatarState",
   default: "",
 });
+
+export const httpStatusState = atom({
+  key: "httpStatusState",
+  default: 0,
+});

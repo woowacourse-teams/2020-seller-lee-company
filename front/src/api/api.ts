@@ -2,7 +2,7 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-// const BASE_URL = "http://192.168.35.118:8080";
+// const BASE_URL = "http://192.168.43.218:8080";
 const BASE_URL = "http://localhost:8080";
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
@@ -209,6 +209,14 @@ export const profileAPI = {
   put: async (data: ProfilePost) => {
     const token = await DeviceStorage.getToken();
     return await axios.put(`${BASE_URL}${domain.api}${domain.profiles}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  delete: async () => {
+    const token = await DeviceStorage.getToken();
+    await axios.delete(`${BASE_URL}${domain.api}${domain.profiles}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

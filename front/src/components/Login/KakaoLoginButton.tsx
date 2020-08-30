@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import KakaoWebViewModal from "../Common/Modal/KakaoWebViewModal";
+import KakaoLoginWebViewModal from "../Common/Modal/KakaoLoginWebViewModal";
 import LoginIndicator from "./LoginIndicator";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useSetRecoilState } from "recoil/dist";
@@ -43,11 +43,11 @@ export default function KakaoLoginButton() {
   return (
     <View style={styles.container}>
       <LoginIndicator />
-      <KakaoWebViewModal
+      <KakaoLoginWebViewModal
         toggleModal={toggleModal}
         modalVisible={modalVisible}
       />
-      <TouchableOpacity style={styles.buttonContainer} onPress={kakaoLogin}>
+      <TouchableOpacity style={styles.emptyContainer} onPress={kakaoLogin}>
         <View style={styles.imageContainer}>
           <Image
             source={require("../../../assets/KakaoTalk_logo.png")}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  buttonContainer: {
+  emptyContainer: {
     backgroundColor: "#f4de12",
     aspectRatio: 6,
     flexDirection: "row",

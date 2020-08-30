@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,12 +10,37 @@ import { useRecoilState } from "recoil/dist";
 import { memberInfoNicknameState } from "../../states/memberState";
 import NicknameVerifyModal from "../Common/Modal/NicknameVerifyModal";
 import { memberAPI } from "../../api/api";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import theme from "../../colors";
 
 export default function MyInfoForm() {
   const NICKNAME = "닉네임";
 
   const [modalVisible, setModalVisible] = useState(false);
   const [nickname, setNickname] = useRecoilState(memberInfoNicknameState);
+  const [validatorVisible, setValidatorVisible] = useState(false);
+
+  const [initNickname, setInit] = useState("");
+
+  const validateIconOnSubmit = () => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="check-circle-outline"
+            size={20}
+            color={theme.primary}
+            style={styles.validateIcon}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  useEffect(() => {
+    setInit(nickname);
+  }, []);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -23,7 +48,9 @@ export default function MyInfoForm() {
 
   const verifyNickname = async () => {
     const { data } = await memberAPI.findNickname({ nickname });
+    console.log("MyInfo: " + data);
     setModalVisible(data);
+    setValidatorVisible(!data);
   };
 
   return (
@@ -38,18 +65,30 @@ export default function MyInfoForm() {
           style={styles.input}
           placeholder={NICKNAME}
           value={nickname}
-          onChangeText={setNickname}
+          onChangeText={(text) => {
+            setValidatorVisible(false);
+            setNickname(text);
+          }}
           textContentType={"username"}
         />
+        {validatorVisible && validateIconOnSubmit()}
         <View style={styles.addWrapperMargin}>
           <View style={styles.addWrapper}>
-            <TouchableOpacity
-              activeOpacity={0.4}
-              style={styles.addButton}
-              onPress={verifyNickname}
-            >
-              <Text style={styles.buttonText}>중복 확인</Text>
-            </TouchableOpacity>
+            {initNickname === nickname ? (
+              <View style={styles.addButton}>
+                <TouchableWithoutFeedback style={styles.addButtonInitNickname}>
+                  <Text style={styles.buttonText}>중복 확인</Text>
+                </TouchableWithoutFeedback>
+              </View>
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.4}
+                style={styles.addButton}
+                onPress={verifyNickname}
+              >
+                <Text style={styles.buttonText}>중복 확인</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
@@ -58,6 +97,14 @@ export default function MyInfoForm() {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  validateIcon: {
+    marginRight: 10,
+  },
   container: {
     flex: 1,
     borderTopWidth: 1,
@@ -97,6 +144,11 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   addButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addButtonInitNickname: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

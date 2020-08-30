@@ -10,7 +10,7 @@ export default function PurchaseHistory() {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={styles.buttonContainer}
+        style={styles.emptyContainer}
         onPress={() => navigation.navigate("PurchaseHistoryScreen")}
       >
         <AntDesign name="shoppingcart" size={30} color="black" />
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  buttonContainer: {
+  emptyContainer: {
     alignItems: "center",
   },
   text: {

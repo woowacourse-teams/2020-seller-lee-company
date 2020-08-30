@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import LoginNicknameForm from "./LoginNicknameForm";
-import LoginPasswordForm from "./LoginPasswordForm";
 
 export default function Login() {
   return (
@@ -9,9 +8,6 @@ export default function Login() {
       <View style={styles.LoginFormContainer}>
         <View style={styles.LoginTextFormContainer}>
           <LoginNicknameForm />
-        </View>
-        <View style={styles.LoginTextFormContainer}>
-          <LoginPasswordForm />
         </View>
       </View>
     </View>
@@ -23,6 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   LoginFormContainer: {
+    backgroundColor: "red",
     justifyContent: "center",
   },
   LoginTextFormContainer: {

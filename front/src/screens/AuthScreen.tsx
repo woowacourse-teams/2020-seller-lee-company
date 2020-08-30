@@ -10,22 +10,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AuthScreenNavigationProp } from "../types/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import KakaoLoginButton from "../components/auth/KakaoLoginButton";
-import LoginVerifyModal from "../components/Common/Modal/LoginVerifyModal";
+import KakaoLoginButton from "../components/Login/KakaoLoginButton";
 import theme from "../colors";
-import { useResetRecoilState } from "recoil/dist";
-import { loginNicknameState, loginPasswordState } from "../states/loginState";
 
 export default function AuthScreen() {
   const navigation = useNavigation<AuthScreenNavigationProp>();
-
-  const resetMemberNickname = useResetRecoilState(loginNicknameState);
-  const resetMemberPassword = useResetRecoilState(loginPasswordState);
-
-  const resetMemberLoginValue = () => {
-    resetMemberNickname();
-    resetMemberPassword();
-  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -52,10 +41,8 @@ export default function AuthScreen() {
               showsVerticalScrollIndicator={false}
             >
               <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                  <LoginVerifyModal
-                    resetMemberLoginValue={resetMemberLoginValue}
-                  />
+                <View style={styles.emptyContainer}>
+                  {/*<LoginVerifyModal />*/}
                   <KakaoLoginButton />
                 </View>
               </View>
@@ -87,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   keyboardAwareScrollViewContainer: {
-    flex: 8,
+    flex: 4,
     backgroundColor: "white",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -107,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 40,
   },
-  buttonContainer: {
+  emptyContainer: {
     marginVertical: 10,
   },
   divider: {

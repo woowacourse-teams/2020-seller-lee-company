@@ -4,10 +4,10 @@ import { StyleSheet, View } from "react-native";
 import { KAKAO_LOGIN_API_URI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { DeviceStorage } from "../../auth/DeviceStorage";
-import {
-  memberLoginTrialState,
-  memberLoginVerifyState,
-} from "../../states/loginState";
+import { memberLoginTrialState } from "../../states/loginState";
+import { httpStatusState } from "../../states/memberState";
+import { useNavigation } from "@react-navigation/native";
+import { TeaserScreenNavigationProp } from "../../types/types";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
@@ -15,30 +15,35 @@ interface KakakoLoginWebViewProp {
 
 interface response {
   accessToken: string;
+  httpStatus: number;
 }
 
 export default function KakaoLoginWebView({
   toggleModal,
 }: KakakoLoginWebViewProp) {
-  const setLoginVerifyState = useSetRecoilState(memberLoginVerifyState);
+  const navigation = useNavigation<TeaserScreenNavigationProp>();
+
   const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
+  const setHttpStatusStates = useSetRecoilState(httpStatusState);
 
   const INJECTED_JAVASCRIPT = `(function() {
       window.ReactNativeWebView.postMessage(document.getElementsByTagName('pre')[0].innerHTML);
       })();
      `;
   const loginAccess = async (data: string) => {
-    const { accessToken }: response = JSON.parse(data);
-    console.log(accessToken);
+    const { accessToken, httpStatus }: response = JSON.parse(data);
+    setHttpStatusStates(httpStatus);
+    console.log("httpStatus: " + httpStatus);
 
     if (accessToken) {
       toggleModal();
       setLoginTrialState(true);
       await DeviceStorage.storeToken(accessToken);
-      setLoginVerifyState(true);
+      if (httpStatus === 201) {
+        navigation.navigate("JoinScreen");
+      }
     } else {
       console.log("not aceess token");
-      setLoginVerifyState(false);
     }
   };
 

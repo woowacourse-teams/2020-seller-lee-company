@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { joinPasswordState, joinSubmitState } from "../../states/joinState";
 import theme from "../../colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { isBlank, isValidPassword } from "../../joinValidator";
+import { isBlank, isValidPassword } from "../../nicknameValidator";
 
 export default function JoinPasswordForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);

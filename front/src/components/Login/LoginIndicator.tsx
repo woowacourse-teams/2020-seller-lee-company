@@ -10,7 +10,7 @@ export default function LoginIndicator() {
     <View style={styles.container}>
       {isLoading && (
         <View style={styles.loadingIndicator}>
-          <ActivityIndicator size="large" color={"#145374"} />
+          <ActivityIndicator size="small" color={"#145374"} />
         </View>
       )}
     </View>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "#145374",
-    opacity: 0.6,
+    opacity: 0.3,
     justifyContent: "center",
     alignItems: "center",
   },

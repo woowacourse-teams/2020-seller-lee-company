@@ -3,6 +3,7 @@ package sellerlee.back.member.presentation;
 import static sellerlee.back.member.presentation.AuthController.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,13 @@ public class ProfileController {
     public ResponseEntity<Void> update(@LoginMember Member loginMember,
             @RequestBody ProfileRequest request) {
         memberService.update(loginMember, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(PROFILE_URI)
+    public ResponseEntity<Void> delete(@LoginMember Member loginMember) {
+        memberService.delete(loginMember);
+
         return ResponseEntity.noContent().build();
     }
 }

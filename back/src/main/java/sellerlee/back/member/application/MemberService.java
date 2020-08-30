@@ -56,9 +56,12 @@ public class MemberService {
 
         member.update(request.getNickname(), request.getAvatar());
     }
-
-    @Transactional
+    
     public boolean findNickname(String verifyNickname) {
         return memberRepository.findOptionalMemberByNickname(verifyNickname).isPresent();
+    }
+
+    public void delete(Member loginMember) {
+        memberRepository.delete(loginMember);
     }
 }

@@ -47,7 +47,7 @@ export default function SalesHistoryItem({
         />
       </View>
       {isCompletedTab ? (
-        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.5}>
+        <TouchableOpacity style={styles.emptyContainer} activeOpacity={0.5}>
           <Text style={styles.buttonText}>작성한 후기 보기</Text>
         </TouchableOpacity>
       ) : (
@@ -75,7 +75,7 @@ export default function SalesHistoryItem({
 const styles = StyleSheet.create({
   container: { flex: 1 },
   articleContainer: { margin: 5 },
-  buttonContainer: {
+  emptyContainer: {
     flex: 1,
     backgroundColor: theme.primary,
     paddingVertical: 12,
