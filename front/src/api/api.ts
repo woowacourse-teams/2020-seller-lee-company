@@ -61,7 +61,7 @@ export const articlesAPI = {
   },
   getByTradeState: async (params: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}/trade-state`, {
+    return await axios.get(`${BASE_URL}${domain.articles}`, {
       params,
       headers: {
         Authorization: `bearer ${token}`,
