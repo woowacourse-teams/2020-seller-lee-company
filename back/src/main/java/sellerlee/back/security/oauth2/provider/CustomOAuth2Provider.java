@@ -10,7 +10,7 @@ public enum CustomOAuth2Provider {
         public ClientRegistration.Builder getBuilder(String registrationId) {
             ClientRegistration.Builder builder = getBuilder(registrationId,
                     ClientAuthenticationMethod.POST, DEFAULT_LOGIN_REDIRECT_URL)
-                    .scope("profile", "account_email")
+                    .scope("profile")
                     .authorizationUri("https://kauth.kakao.com/oauth/authorize")
                     .tokenUri("https://kauth.kakao.com/oauth/token")
                     .userInfoUri("https://kapi.kakao.com/v2/user/me")
@@ -20,7 +20,6 @@ public enum CustomOAuth2Provider {
             return builder;
         }
     };
-    // private static final String BASE_URL = "http://192.168.43.218:8080";
     private static final String BASE_URL = "http://localhost:8080";
     // private static final String BASE_URL = "https://sellerlee.tk";
     private static final String DEFAULT_LOGIN_REDIRECT_URL = BASE_URL + "/login/oauth2/code/kakao";

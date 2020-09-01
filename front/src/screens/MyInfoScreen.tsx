@@ -24,7 +24,6 @@ export default function MyInfoScreen() {
   const initAvatar = avatar;
 
   const onPressCompleteButton = async () => {
-    console.log("MyInfoScreen: " + nickname);
     await profileAPI.put({ nickname, avatar });
     navigation.goBack();
   };

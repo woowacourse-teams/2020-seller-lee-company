@@ -27,6 +27,8 @@ dependencies {
     // documentation
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    //httpClientBuilder
+    implementation 'org.apache.httpcomponents:httpclient:4.5'
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     // apache

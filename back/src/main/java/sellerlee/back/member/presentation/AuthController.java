@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sellerlee.back.member.application.MemberService;
-import sellerlee.back.member.domain.Member;
-import sellerlee.back.security.core.LoginMember;
 
 @RestController
 @RequestMapping(API)
@@ -23,33 +21,6 @@ public class AuthController {
 
     public AuthController(MemberService memberService) {
         this.memberService = memberService;
-    }
-
-    // //todo 안씀
-    // @PostMapping(MEMBER_URI)
-    // public ResponseEntity<Void> join(@RequestBody MemberRequest request) {
-    //     Long memberId = memberService.join(request);
-    //
-    //     return ResponseEntity
-    //             .created(URI.create(MEMBER_URI + "/" + memberId))
-    //             .build();
-    // }
-    //
-    // @PostMapping(LOGIN_NOT_OAUTH_URI)
-    // public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
-    //     String token = memberService.login(request);
-    //
-    //     return ResponseEntity
-    //             .ok()
-    //             .body(TokenResponse.of(token, AuthorizationType.BEARER));
-    // }
-    // //todo 안씀
-
-    @GetMapping(MEMBER_URI)
-    public ResponseEntity<String> showNickname(@LoginMember Member loginMember) {
-        return ResponseEntity
-                .ok()
-                .body(loginMember.getNickname());
     }
 
     @GetMapping(value = MEMBER_URI, params = "nickname")

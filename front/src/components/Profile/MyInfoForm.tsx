@@ -48,7 +48,6 @@ export default function MyInfoForm() {
 
   const verifyNickname = async () => {
     const { data } = await memberAPI.findNickname({ nickname });
-    console.log("MyInfo: " + data);
     setModalVisible(data);
     setValidatorVisible(!data);
   };

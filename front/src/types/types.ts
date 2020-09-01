@@ -174,6 +174,7 @@ export type ProfileNavigationParamList = {
   MyInfoScreen: undefined;
   MyFavoriteScreen: undefined;
   TeaserScreen: undefined;
+  JoinScreen: undefined;
 };
 
 export type ProfileScreenNavigationProp = StackNavigationProp<

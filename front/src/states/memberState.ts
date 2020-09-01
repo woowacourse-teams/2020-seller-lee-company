@@ -31,7 +31,7 @@ export const memberInfoAvatarState = atom({
   default: "",
 });
 
-export const httpStatusState = atom({
-  key: "httpStatusState",
-  default: 0,
+export const memberState = atom({
+  key: "memberState",
+  default: "",
 });

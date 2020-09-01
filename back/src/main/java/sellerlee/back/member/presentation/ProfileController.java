@@ -3,13 +3,13 @@ package sellerlee.back.member.presentation;
 import static sellerlee.back.member.presentation.AuthController.*;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.member.application.MemberService;
 import sellerlee.back.member.application.ProfileRequest;
 import sellerlee.back.member.application.ProfileResponse;
@@ -34,14 +34,8 @@ public class ProfileController {
 
     @PutMapping(PROFILE_URI)
     public ResponseEntity<Void> update(@LoginMember Member loginMember,
-            @RequestBody ProfileRequest request) {
+            @RequestBody ProfileRequest request) throws JsonProcessingException {
         memberService.update(loginMember, request);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping(PROFILE_URI)
-    public ResponseEntity<Void> delete(@LoginMember Member loginMember) {
-        memberService.delete(loginMember);
 
         return ResponseEntity.noContent().build();
     }

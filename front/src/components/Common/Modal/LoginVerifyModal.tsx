@@ -6,11 +6,12 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
+import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { memberLoginTrialState } from "../../../states/loginState";
 import { AuthScreenNavigationProp } from "../../../types/types";
-import { httpStatusState } from "../../../states/memberState";
+import { memberState } from "../../../states/memberState";
 
 export default function LoginVerifyModal() {
   const navigation = useNavigation<AuthScreenNavigationProp>();
@@ -18,12 +19,12 @@ export default function LoginVerifyModal() {
   const [loginTrialState, setLoginTrialState] = useRecoilState(
     memberLoginTrialState,
   );
-  const httpStatus = useRecoilValue(httpStatusState);
+  const state = useRecoilValue(memberState);
 
   const onPressCloseButton = () => {
     setLoginTrialState(false);
 
-    if (httpStatus === 200 || httpStatus === 204) {
+    if (state === "JOIN") {
       // TODO LoginScreen을 Home으로 변경해야 함
       navigation.navigate("BottomTabNavigation");
     }
@@ -39,7 +40,7 @@ export default function LoginVerifyModal() {
       <View style={styles.container}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            {httpStatus === 200 || httpStatus === 201
+            {state === "JOIN"
               ? "로그인에 성공하였습니다."
               : "로그인에 실패하였습니다."}
           </Text>
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   button: {
-    backgroundColor: "#dfd3c3",
+    backgroundColor: theme.secondary,
     borderRadius: 20,
     marginHorizontal: 5,
     padding: 10,

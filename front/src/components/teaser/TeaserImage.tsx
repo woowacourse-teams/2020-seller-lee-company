@@ -7,7 +7,7 @@ import LoginIndicator from "../Login/LoginIndicator";
 import KakaoLoginWebViewModal from "../Common/Modal/KakaoLoginWebViewModal";
 import LoginVerifyModal from "../Common/Modal/LoginVerifyModal";
 import { useRecoilValue } from "recoil/dist";
-import { httpStatusState } from "../../states/memberState";
+import { memberState } from "../../states/memberState";
 
 interface TeaserImageProps {
   sourceUrl: ImageProps;
@@ -15,7 +15,7 @@ interface TeaserImageProps {
 
 export default function TeaserImage({ sourceUrl }: TeaserImageProps) {
   const [modalVisible, setModalVisible] = useState(false);
-  const httpStatus = useRecoilValue(httpStatusState);
+  const state = useRecoilValue(memberState);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -41,7 +41,7 @@ export default function TeaserImage({ sourceUrl }: TeaserImageProps) {
         </View>
         <View style={styles.authButtonContainer}>
           <View style={styles.authButton}>
-            {httpStatus === 200 ? <LoginVerifyModal /> : <></>}
+            {state === "JOIN" ? <LoginVerifyModal /> : <></>}
             <AuthButton toggleModal={toggleModal} />
           </View>
         </View>

@@ -5,7 +5,7 @@ import LoginIndicator from "./LoginIndicator";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useSetRecoilState } from "recoil/dist";
 import { loadingState } from "../../states/loadingState";
-import { memberAPI } from "../../api/api";
+import { profileAPI } from "../../api/api";
 import { memberNicknameState } from "../../states/memberState";
 import { useNavigation } from "@react-navigation/native";
 import { AuthScreenNavigationProp } from "../../types/types";
@@ -23,12 +23,11 @@ export default function KakaoLoginButton() {
   const kakaoLogin = async () => {
     setIsLoading(true);
     const token = await DeviceStorage.getToken();
-    console.log("kakaoLoginButton: " + token);
 
     if (token) {
       try {
-        const { data } = await memberAPI.getNickname();
-        setMemberNickname(data);
+        const { data } = await profileAPI.get();
+        setMemberNickname(data.nickname);
         navigation.navigate("BottomTabNavigation");
       } catch (error) {
         console.log(error.response.data.message);

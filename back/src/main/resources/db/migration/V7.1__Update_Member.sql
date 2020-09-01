@@ -1,6 +1,8 @@
 alter table member
     add kakao_id varchar(255) null;
 alter table member
-    add email varchar(255) null;
+    add kakao_access_token varchar(255) null;
 alter table member
     add state varchar(255) null;
+alter table member
+    drop column password;

@@ -27,20 +27,22 @@ public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientSe
     @Override
     public void saveAuthorizedClient(OAuth2AuthorizedClient oAuth2AuthorizedClient,
             Authentication authentication) {
-        String providerType = oAuth2AuthorizedClient.getClientRegistration().getRegistrationId();
+        // String providerType = oAuth2AuthorizedClient.getClientRegistration().getRegistrationId();
         OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
 
         OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
         String kakaoId = String.valueOf(oauth2User.getAttributes().get("id"));
-        String nickName = (String)((LinkedHashMap)((LinkedHashMap)oauth2User.getAttribute(
-                "kakao_account")).get("profile")).get("nickname");
-        String email = (String)(((LinkedHashMap)oauth2User.getAttribute(
-                "kakao_account")).get("email"));
 
-        Member member = memberRepository.findOptionalMemberByEmail(email)
-                .map(entity -> entity.updateNickName(nickName))
+        String nickName = (String)((LinkedHashMap)oauth2User.getAttribute("properties")).get(
+                "nickname");
+        String avatar = (String)((LinkedHashMap)oauth2User.getAttribute("properties")).get(
+                "profile_image");
+
+        Member member = memberRepository.findOptionalMemberByKakaoId(kakaoId)
+                .map(entity -> entity.update(nickName, avatar))
                 .orElse(
-                        new Member(kakaoId, email, nickName, "0000", null, State.NEW, null)
+                        new Member(kakaoId, null, null, accessToken.getTokenValue(), State.NOT_JOIN,
+                                null)
                 );
 
         memberRepository.save(member);

@@ -172,15 +172,6 @@ export const memberAPI = {
   join: async (data: MemberJoin) =>
     await axios.post(BASE_URL + domain.members, data),
   // todo 여기까지
-
-  getNickname: async () => {
-    const token = await DeviceStorage.getToken();
-    return await axios.get(BASE_URL + domain.api + domain.members, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
   findNickname: async (params: VerifyNickname) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(BASE_URL + domain.api + domain.members, {
@@ -206,17 +197,17 @@ export const profileAPI = {
       },
     });
   },
+  // getNickname: async () => {
+  //   const token = await DeviceStorage.getToken();
+  //   return await axios.get(BASE_URL + domain.api + domain.profiles, {
+  //     headers: {
+  //       Authorization: `bearer ${token}`,
+  //     },
+  //   });
+  // },
   put: async (data: ProfilePost) => {
     const token = await DeviceStorage.getToken();
     return await axios.put(`${BASE_URL}${domain.api}${domain.profiles}`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
-  delete: async () => {
-    const token = await DeviceStorage.getToken();
-    await axios.delete(`${BASE_URL}${domain.api}${domain.profiles}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

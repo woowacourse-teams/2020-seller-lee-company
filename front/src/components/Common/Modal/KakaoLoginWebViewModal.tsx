@@ -9,7 +9,7 @@ export default function KakaoLoginWebViewModal({
 }: ModalVisibleProps) {
   return (
     <Modal
-      animationType={"fade"}
+      animationType={"slide"}
       visible={modalVisible}
       transparent={true}
       onRequestClose={() => toggleModal()}
@@ -25,7 +25,10 @@ export default function KakaoLoginWebViewModal({
 
 const styles = StyleSheet.create({
   emptyContainer: {
-    flex: 2,
+    aspectRatio: 2.19,
   },
-  modalContainer: { flex: 8 },
+  modalContainer: {
+    width: "100%",
+    flex: 1,
+  },
 });

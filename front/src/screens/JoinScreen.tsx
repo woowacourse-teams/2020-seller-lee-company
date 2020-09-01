@@ -1,6 +1,5 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import {
-  BackHandler,
   ImageBackground,
   Keyboard,
   StyleSheet,
@@ -17,8 +16,7 @@ import { useResetRecoilState } from "recoil/dist";
 import { joinNicknameState, joinSubmitState } from "../states/joinState";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import JoinSubmit from "../components/join/JoinSubmit";
-import { DeviceStorage } from "../auth/DeviceStorage";
-import { profileAPI } from "../api/api";
+import JoinVerifyModal from "../components/Common/Modal/JoinVerifyModal";
 
 export default function JoinScreen() {
   const navigation = useNavigation<JoinScreenNavigationProp>();
@@ -33,8 +31,6 @@ export default function JoinScreen() {
 
   const onPressGoBack = async () => {
     resetJoinValue();
-    await profileAPI.delete();
-    await DeviceStorage.clearToken();
     navigation.goBack();
   };
 
@@ -59,22 +55,12 @@ export default function JoinScreen() {
     });
   });
 
-  //todo
-  const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-    console.log("backHandeler");
-    DeviceStorage.clearToken().then();
-    resetJoinValue();
-    return true;
-  });
-
-  useEffect(() => backHandler.remove(), []);
-  //todo
-
   return (
     <ImageBackground
       style={styles.container}
       source={require("../../assets/wave_3.jpeg")}
     >
+      <JoinVerifyModal />
       <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>

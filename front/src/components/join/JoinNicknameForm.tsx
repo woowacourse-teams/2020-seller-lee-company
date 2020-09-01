@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
-import { joinNicknameState, joinSubmitState } from "../../states/joinState";
+import {
+  duplicateState,
+  joinNicknameState,
+  joinSubmitState,
+} from "../../states/joinState";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { isBlank, isValidNickname } from "../../nicknameValidator";
 import theme from "../../colors";
@@ -9,14 +13,15 @@ import ValidateMessage from "../auth/ValidateMessage";
 import ValidateIcon from "../auth/ValidateIcon";
 
 export default function JoinNicknameForm() {
+  const isDuplicated = useRecoilValue(duplicateState);
   const [focusTextInputState, setFocusTextInputState] = useState(false);
   const [joinNickname, setJoinNickname] = useRecoilState(joinNicknameState);
-  const joinSubmit = useRecoilValue(joinSubmitState);
-
-  console.log("jojojojojojo: " + joinSubmit);
-  console.log("nickname: " + joinNickname);
+  const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
 
   const changeDynamicColor = () => {
+    if ((isBlank(joinNickname) && joinSubmit) || isDuplicated) {
+      return theme.warning;
+    }
     if (focusTextInputState || !isBlank(joinNickname)) {
       if (!isValidNickname(joinNickname)) {
         return theme.warning;
@@ -62,7 +67,10 @@ export default function JoinNicknameForm() {
           onBlur={() => {
             setFocusTextInputState(false);
           }}
-          onChangeText={setJoinNickname}
+          onChangeText={(text) => {
+            setJoinSubmit(false);
+            setJoinNickname(text);
+          }}
           style={styles.nicknameForm}
           placeholder={"사용할 닉네임을 입력해주세요."}
         />

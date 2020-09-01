@@ -4,37 +4,31 @@ import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
   duplicateState,
   joinAvatarState,
+  joinModalState,
   joinNicknameState,
   joinSubmitState,
+  validateJoinState,
 } from "../../states/joinState";
 import { profileAPI } from "../../api/api";
 import theme from "../../colors";
-import { useNavigation } from "@react-navigation/native";
-import { JoinScreenNavigationProp } from "../../types/types";
 import {
   isBlank,
   isDuplicatedNickname,
   isValidNickname,
 } from "../../nicknameValidator";
-import { DeviceStorage } from "../../auth/DeviceStorage";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
 }
 
 export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
-  const navigation = useNavigation<JoinScreenNavigationProp>();
-
   const joinNickname = useRecoilValue(joinNicknameState);
   const joinAvatar = useRecoilValue(joinAvatarState);
+  const isValidateJoin = useRecoilValue(validateJoinState);
+  const setJoinModalVisible = useSetRecoilState(joinModalState);
   const setDuplicateState = useSetRecoilState(duplicateState);
 
   const setJoinSubmit = useSetRecoilState(joinSubmitState);
-
-  const deleteJoiningMember = async () => {
-    await profileAPI.delete();
-    await DeviceStorage.clearToken();
-  };
 
   const join = async () => {
     setJoinSubmit(true);
@@ -43,7 +37,7 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       return;
     }
 
-    const { data } = await isDuplicatedNickname(joinNickname);
+    const data = await isDuplicatedNickname(joinNickname);
 
     if (data) {
       setDuplicateState(true);
@@ -57,20 +51,23 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       });
       if (response.status === 204) {
         resetJoinForm();
-        navigation.navigate("BottomTabNavigation");
-      } else {
-        await deleteJoiningMember();
+        setJoinModalVisible(true);
       }
     } catch (error) {
       console.log(error);
-      await deleteJoiningMember();
     } finally {
       setJoinSubmit(false);
     }
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.joinButton} onPress={join}>
+      <TouchableOpacity
+        activeOpacity={isValidateJoin ? 0.3 : 1}
+        style={styles.joinButton}
+        onPress={() => {
+          isValidateJoin && join();
+        }}
+      >
         <Text style={styles.joinButtonText}>회원가입</Text>
       </TouchableOpacity>
     </View>

@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 @Entity
 public class Member {
     @Id
@@ -19,14 +17,11 @@ public class Member {
 
     private String kakaoId;
 
-    private String email;
-
     private String nickname;
 
-    //todo deleted
-    private String password;
-
     private String avatar;
+
+    private String kakaoAccessToken;
 
     @Enumerated(EnumType.STRING)
     private State state;
@@ -36,54 +31,49 @@ public class Member {
     protected Member() {
     }
 
-    public Member(Long id, String kakaoId, String email, String nickname, String password,
-            String avatar, State state, Double score) {
+    public Member(Long id, String kakaoId, String nickname, String avatar, String kakaoAccessToken,
+            State state, Double score) {
         this.id = id;
         this.kakaoId = kakaoId;
-        this.email = email;
         this.nickname = nickname;
-        this.password = password;
         this.avatar = avatar;
+        this.kakaoAccessToken = kakaoAccessToken;
         this.state = state;
         this.score = score;
     }
 
-    public Member(String kakaoId, String email, String nickname, String password, String avatar,
-            State state, Double score) {
-        this(null, kakaoId, email, nickname, password, avatar, state, score);
-    }
-
-    public Member(String kakaoId, String email, String nickname, String password, String avatar,
+    public Member(String kakaoId, String nickname, String avatar, String kakaoAccessToken,
+            State state,
             Double score) {
-        this(null, kakaoId, email, nickname, password, avatar, null, score);
+        this(null, kakaoId, nickname, avatar, kakaoAccessToken, state, score);
     }
 
-    public Member(String nickname, String password, String avatar, Double score) {
-        this(null, null, null, nickname, password, avatar, null, score);
+    public Member(String kakaoId, String nickname, String avatar, Double score) {
+        this(null, kakaoId, nickname, avatar, null, null, score);
     }
 
-    public Member(String nickname, String password, String avatar) {
-        this(null, null, null, nickname, password, avatar, null, null);
+    public Member(String nickname, String avatar, Double score) {
+        this(null, null, nickname, avatar, null, null, score);
     }
 
-    public Member(String password, String avatar) {
-        this(null, null, null, null, password, avatar, null, null);
+    public Member(String nickname, String avatar) {
+        this(null, null, nickname, avatar, null, null, null);
+    }
+
+    public Member(String avatar) {
+        this(null, null, null, avatar, null, null);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null);
     }
 
-    public Member updateNickName(String nickname) {
-        this.nickname = nickname;
-        this.state = State.EXISTING;
-
-        return this;
-    }
-
-    public boolean verify(PasswordEncoder passwordEncoder, String password) {
-        return passwordEncoder.matches(password, this.password);
-    }
+    // public Member updateNickName(String nickname) {
+    //     this.nickname = nickname;
+    //     this.state = State.EXISTING;
+    //
+    //     return this;
+    // }
 
     public boolean isSameId(Member member) {
         return id.equals(member.id);
@@ -93,9 +83,12 @@ public class Member {
         return this.nickname.equals(nickname);
     }
 
-    public void update(String nickname, String avatar) {
+    public Member update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;
+        this.state = State.JOIN;
+
+        return this;
     }
 
     public Long getId() {
@@ -106,20 +99,16 @@ public class Member {
         return kakaoId;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public String getNickname() {
         return nickname;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getAvatar() {
         return avatar;
+    }
+
+    public String getKakaoAccessToken() {
+        return kakaoAccessToken;
     }
 
     public State getState() {

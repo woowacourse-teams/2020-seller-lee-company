@@ -1,7 +1,6 @@
 package sellerlee.back.security.config;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +21,9 @@ import sellerlee.back.security.web.AuthorizationType;
 
 @Component
 public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
+    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String HEADER_STRING = "Authorization";
+
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
     private final MemberRepository memberRepository;
@@ -38,19 +40,18 @@ public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res,
             Authentication authentication) throws IOException {
         OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
-        String email = (String)(((LinkedHashMap)oauth2User.getAttribute(
-                "kakao_account")).get("email"));
+        String kakaoId = String.valueOf(oauth2User.getAttributes().get("id"));
 
-        Member member = memberRepository.findOptionalMemberByEmail(email)
+        Member member = memberRepository.findOptionalMemberByKakaoId(kakaoId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        String token = jwtTokenProvider.createToken(email);
-        int http_status = member.getState().getHttp_status();
+        String token = jwtTokenProvider.createToken(kakaoId);
+        String memberState = member.getState().name();
 
         res.setContentType(MediaType.APPLICATION_JSON_VALUE);
         res.setStatus(HttpStatus.OK.value());
         res.getWriter()
                 .write(objectMapper.writeValueAsString(
-                        TokenResponse.of(token, http_status, AuthorizationType.BEARER)));
+                        TokenResponse.of(token, memberState, AuthorizationType.BEARER)));
 
     }
 }

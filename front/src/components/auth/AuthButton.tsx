@@ -5,9 +5,9 @@ import { TeaserScreenNavigationProp } from "../../types/types";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
-import { memberAPI } from "../../api/api";
+import { profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
-import { memberNicknameState } from "../../states/memberState";
+import { memberNicknameState, memberState } from "../../states/memberState";
 import { loadingState } from "../../states/loadingState";
 
 interface KakakoLoginWebViewProp {
@@ -18,18 +18,21 @@ export default function AuthButton({ toggleModal }: KakakoLoginWebViewProp) {
   const navigation = useNavigation<TeaserScreenNavigationProp>();
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
+  const setMemberState = useSetRecoilState(memberState);
 
   const onPressButton = async () => {
     setIsLoading(true);
     const token = await DeviceStorage.getToken();
-    console.log("AuthButton token: " + token);
 
     if (token) {
       try {
-        const { data } = await memberAPI.getNickname();
-        setMemberNickname(data);
+        const { data } = await profileAPI.get();
+        if (data.state === "NOT_JOIN") {
+          setMemberState(data.state);
+          return navigation.navigate("JoinScreen");
+        }
+        setMemberNickname(data.nickname);
         navigation.navigate("BottomTabNavigation");
-        console.log("AuthButton data: " + data);
       } catch (error) {
         toggleModal();
         console.log(error.response.data.message);
