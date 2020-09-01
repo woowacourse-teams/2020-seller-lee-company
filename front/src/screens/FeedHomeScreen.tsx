@@ -91,7 +91,7 @@ export default function FeedHomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Feeds</Text>
-        <Text style={styles.description}>최근에 등록된 게시글입니다.</Text>
+        {/*<Text style={styles.description}>최근에 등록된 게시글입니다.</Text>*/}
       </View>
       <View style={styles.flatListContainer}>
         <FlatList
@@ -138,10 +138,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.border,
   },
   title: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: "bold",
-    color: theme.primary,
-    marginBottom: 5,
+    color: theme.black,
   },
   description: {
     fontSize: 16,
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     color: theme.secondary,
   },
   flatListContainer: {
-    flex: 6,
+    flex: 11,
   },
   feedArticleContainer: {
     paddingTop: 20,

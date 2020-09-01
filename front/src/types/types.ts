@@ -132,6 +132,7 @@ export type RootStackParam = {
 };
 
 export type HomeStackParam = {
+  /* 루트 */
   HomeTab: undefined;
   /* 피드 스크린 */
   FeedHomeScreen: undefined;

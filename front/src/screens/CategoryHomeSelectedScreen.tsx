@@ -29,7 +29,7 @@ export default function CategoryHomeSelectedScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Categories</Text>
-        <Text style={styles.description}>카테고리별 게시글입니다.</Text>
+        {/*<Text style={styles.description}>카테고리별 게시글입니다.</Text>*/}
       </View>
       <View style={styles.homeCategoryListContainer}>
         <HomeCategoryList />
@@ -53,10 +53,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.border,
   },
   title: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: "bold",
-    color: theme.primary,
-    marginBottom: 5,
+    color: theme.black,
   },
   description: {
     fontSize: 16,
@@ -64,6 +63,6 @@ const styles = StyleSheet.create({
     color: theme.secondary,
   },
   homeCategoryListContainer: {
-    flex: 6,
+    flex: 11,
   },
 });

@@ -2,7 +2,8 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ProfileScreenNavigationProp } from "../../types/types";
-import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import theme from "../../colors";
 
 export default function PurchaseHistory() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -13,8 +14,10 @@ export default function PurchaseHistory() {
         style={styles.buttonContainer}
         onPress={() => navigation.navigate("PurchaseHistoryScreen")}
       >
-        <AntDesign name="shoppingcart" size={30} color="black" />
-        <Text style={styles.text}>구매 내역</Text>
+        <Feather name="shopping-cart" size={22} color={theme.primary} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>구매 내역</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -22,14 +25,22 @@ export default function PurchaseHistory() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    aspectRatio: 1.5,
     justifyContent: "center",
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: theme.border,
   },
   buttonContainer: {
+    justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    fontSize: 18,
-    marginTop: 5,
+  titleContainer: {
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: theme.primary,
   },
 });
