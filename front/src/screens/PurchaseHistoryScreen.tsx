@@ -1,13 +1,21 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import PurchaseHistoryItem from "../components/Profile/PurchaseHistoryItem";
 import { tradeAPI } from "../api/api";
 import { useRecoilState } from "recoil/dist";
 import { tradeArticleState } from "../states/articleState";
-import { PurchaseHistoryScreenNavigationProp } from "../types/types";
+import { HomeStackParam, RootStackParam } from "../types/types";
+
+type PurchaseHistoryScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "PurchaseHistoryScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function PurchaseHistoryScreen() {
   const navigation = useNavigation<PurchaseHistoryScreenNavigationProp>();

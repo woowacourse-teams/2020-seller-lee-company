@@ -20,14 +20,15 @@ export default function ArticleFormContents() {
 
   const dynamicStyles = StyleSheet.create({
     contentsText: {
+      flex: 1,
       fontSize: 18,
-      color: contents.length === 0 ? "grey" : "black",
+      color: contents.length === 0 ? "lightgrey" : "black",
     },
   });
 
   return (
     <TouchableOpacity
-      style={styles.contentsFormButton}
+      style={styles.container}
       onPress={() => navigation.navigate("ArticleContentsFormScreen")}
     >
       <Text style={dynamicStyles.contentsText}>
@@ -38,8 +39,8 @@ export default function ArticleFormContents() {
 }
 
 const styles = StyleSheet.create({
-  contentsFormButton: {
-    height: "100%",
+  container: {
+    flex: 1,
     marginVertical: 15,
   },
 });

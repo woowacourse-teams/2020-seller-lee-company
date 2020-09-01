@@ -50,7 +50,7 @@ export default function ArticleFormOptionsModal() {
       >
         <TouchableOpacity style={styles.content} onPress={onPress}>
           <View style={styles.optionContainer}>
-            <Text style={styles.title}>게시물 작성 </Text>
+            <Text style={styles.title}>게시글 작성 </Text>
             <Feather name="edit-3" size={20} color={theme.secondary} />
           </View>
         </TouchableOpacity>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   content: {
-    aspectRatio: 5,
+    aspectRatio: 4.5,
     backgroundColor: "white",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,

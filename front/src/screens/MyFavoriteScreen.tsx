@@ -1,12 +1,20 @@
 import React, { useEffect } from "react";
 import MyFavoriteList from "../components/Profile/MyFavoriteList";
-import { ProfileScreenNavigationProp } from "../types/types";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import { HomeStackParam, RootStackParam } from "../types/types";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 
+type MyFavoriteScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "MyFavoriteScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
+
 export default function MyFavoriteScreen() {
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const navigation = useNavigation<MyFavoriteScreenNavigationProp>();
 
   useEffect(() => {
     navigation.setOptions({

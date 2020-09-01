@@ -2,19 +2,27 @@ import * as React from "react";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import OnSaleTab from "../components/Profile/OnSaleTab";
 import CompletedTab from "../components/Profile/CompletedTab";
 import { useSetRecoilState } from "recoil/dist";
 import { articleSalesHistoryState } from "../states/articleState";
 import { articlesAPI } from "../api/api";
-import { SalesHistoryScreenNavigationProp } from "../types/types";
+import { HomeStackParam, RootStackParam } from "../types/types";
 
 export const ON_SALE = "ON_SALE";
 export const RESERVATION = "RESERVATION";
 export const COMPLETED = "COMPLETED";
+
+type SalesHistoryScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "SalesHistoryScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function SalesHistoryScreen() {
   const salesHistoryTabs = [

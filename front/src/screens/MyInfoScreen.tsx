@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
-import { MyInfoScreenNavigationProp } from "../types/types";
+import { HomeStackParam, RootStackParam } from "../types/types";
 import colors from "../colors";
 import MyInfoAvatar from "../components/Profile/MyInfoAvatar";
 import MyInfoForm from "../components/Profile/MyInfoForm";
@@ -14,6 +17,11 @@ import {
   memberInfoPasswordState,
 } from "../states/memberState";
 import { profileAPI } from "../api/api";
+
+type MyInfoScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "MyInfoScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function MyInfoScreen() {
   const navigation = useNavigation<MyInfoScreenNavigationProp>();

@@ -7,7 +7,7 @@ import {
   CompositeNavigationProp,
   useNavigation,
 } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 type ArticleDetailPhotoViewScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleDetailPhotoViewScreen">,
@@ -27,17 +27,22 @@ export default function ArticleDetailPhotoViewScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "",
-      headerLeft: () => undefined,
+      headerLeft: () => <></>,
       headerRight: () => (
         <HeaderBackButton
           labelVisible={false}
           onPress={goBackAndSetStatusBarVisible}
-          backImage={() => <AntDesign name="close" size={24} color="white" />}
+          backImage={() => <Feather name="x" size={24} color="white" />}
         />
       ),
-      headerRightContainerStyle: { paddingRight: 20 },
+      headerRightContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
       headerStyle: {
         backgroundColor: "black",
+        shadowColor: "black",
       },
     });
     StatusBar.setHidden(true);

@@ -1,12 +1,21 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { ProfileScreenNavigationProp } from "../../types/types";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HomeStackParam, RootStackParam } from "../../types/types";
 import theme from "../../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type MyFavoriteButtonNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ProfileScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function MyFavoriteButton() {
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const navigation = useNavigation<MyFavoriteButtonNavigationProp>();
 
   return (
     <View style={styles.container}>

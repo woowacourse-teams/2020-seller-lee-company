@@ -1,5 +1,3 @@
-import { StackNavigationProp } from "@react-navigation/stack";
-
 export type Category =
   | "디지털/가전"
   | "가구/인테리어"
@@ -69,45 +67,6 @@ export interface Buyer {
   avatar: string;
   nickname: string;
 }
-
-export type ProfileNavigationParamList = {
-  ProfileScreen: undefined;
-  SalesHistoryScreen: undefined;
-  PurchaseHistoryScreen: undefined;
-  ArticleDetailScreen: undefined;
-  ArticleDetailImageViewScreen: undefined;
-  ArticleFormScreen: undefined;
-  SelectBuyerScreen: undefined;
-  EvaluationScreen: undefined;
-  MyInfoScreen: undefined;
-  MyFavoriteScreen: undefined;
-  TeaserScreen: undefined;
-};
-
-export type ProfileScreenNavigationProp = StackNavigationProp<
-  ProfileNavigationParamList,
-  "ProfileScreen"
->;
-
-export type SalesHistoryScreenNavigationProp = StackNavigationProp<
-  ProfileNavigationParamList,
-  "SalesHistoryScreen"
->;
-
-export type PurchaseHistoryScreenNavigationProp = StackNavigationProp<
-  ProfileNavigationParamList,
-  "PurchaseHistoryScreen"
->;
-
-export type SelectBuyerScreenNavigationProp = StackNavigationProp<
-  ProfileNavigationParamList,
-  "SelectBuyerScreen"
->;
-
-export type MyInfoScreenNavigationProp = StackNavigationProp<
-  ProfileNavigationParamList,
-  "MyInfoScreen"
->;
 
 export interface Score {
   questionId: number;

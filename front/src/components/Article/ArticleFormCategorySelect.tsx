@@ -9,6 +9,7 @@ import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
 import { HomeStackParam, RootStackParam } from "../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { categoryIcons } from "../../data/categoryData";
 
 type ArticleFormCategorySelectNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
@@ -23,13 +24,19 @@ export default function ArticleFormCategorySelect({
   isEditing,
 }: ArticleFormCategorySelectProp) {
   const navigation = useNavigation<ArticleFormCategorySelectNavigationProp>();
+
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
+
+  const getCategoryIcon = () =>
+    categoryIcons.filter((value) => value.category === selectedCategory)[0];
 
   const renderCategory = () => {
     if (isEditing) {
       return selectedCategory;
     } else {
-      return selectedCategory === "" ? "카테고리" : selectedCategory;
+      return selectedCategory === ""
+        ? "카테고리"
+        : `${getCategoryIcon().icon} ${selectedCategory}`;
     }
   };
 

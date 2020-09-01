@@ -37,7 +37,9 @@ export default function CategoryItem({ title }: CategoryItemProps) {
   return (
     <View style={styles.container}>
       <Text
-        style={selectedCategory === title ? styles.selected : {}}
+        style={
+          selectedCategory === title ? styles.selected : styles.nonSelected
+        }
         onPress={onClickCategory}
       >
         {`${getCategoryIcon().icon} ${title}`}
@@ -48,12 +50,18 @@ export default function CategoryItem({ title }: CategoryItemProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
-    padding: 15,
-    borderBottomWidth: 0.2,
-    borderBottomColor: "#BBB",
+    backgroundColor: "white",
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.border,
   },
   selected: {
+    fontSize: 16,
     color: theme.primary,
+  },
+  nonSelected: {
+    fontSize: 16,
+    color: "black",
   },
 });

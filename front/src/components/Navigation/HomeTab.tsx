@@ -43,9 +43,6 @@ export default function HomeTab() {
         name={"PostingStack"}
         component={PostingStack}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Feather name="edit" size={24} color={color} />
-          ),
           tabBarButton: () => {
             return <ArticleFormOptionsModal />;
           },

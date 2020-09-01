@@ -12,7 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { categoryIcons } from "../../data/categoryData";
 
 type HomeCategoryItemNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParam, "CategoryHomeSelectedScreen">,
+  StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
   StackNavigationProp<RootStackParam, "HomeStack">
 >;
 

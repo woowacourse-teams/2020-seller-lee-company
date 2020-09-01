@@ -35,7 +35,7 @@ export default function ProfileMenu() {
   return (
     <Menu>
       <MenuTrigger>
-        <Feather name="more-vertical" size={26} color={theme.black} />
+        <Feather name="more-vertical" size={24} color={theme.primary} />
       </MenuTrigger>
       <MenuOptions
         optionsContainerStyle={styles.menuOptions}

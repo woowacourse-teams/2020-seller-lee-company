@@ -1,12 +1,21 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { ProfileScreenNavigationProp } from "../../types/types";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HomeStackParam, RootStackParam } from "../../types/types";
 import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type SalesHistoryNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ProfileScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function SalesHistory() {
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const navigation = useNavigation<SalesHistoryNavigationProp>();
 
   return (
     <View style={styles.container}>

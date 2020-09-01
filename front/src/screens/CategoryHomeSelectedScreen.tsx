@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.border,
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: "bold",
-    color: theme.black,
+    color: theme.primary,
   },
   description: {
     fontSize: 16,
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     color: theme.secondary,
   },
   homeCategoryListContainer: {
-    flex: 11,
+    flex: 12,
   },
 });

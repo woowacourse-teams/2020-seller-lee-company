@@ -1,11 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
 import { chatRoomAPI } from "../api/api";
 import BuyerCard from "../components/SelectBuyer/BuyerCard";
-import { Buyer, SelectBuyerScreenNavigationProp } from "../types/types";
+import { Buyer, HomeStackParam, RootStackParam } from "../types/types";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRecoilValue } from "recoil";
 import {
@@ -13,6 +16,11 @@ import {
   articlePhotosState,
   articleTitleState,
 } from "../states/articleState";
+
+type SelectBuyerScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "SelectBuyerScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function SelectBuyerScreen() {
   const navigation = useNavigation<SelectBuyerScreenNavigationProp>();

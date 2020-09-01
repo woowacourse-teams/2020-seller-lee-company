@@ -6,7 +6,7 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
-import { EvilIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { HomeStackParam, RootStackParam } from "../types/types";
 
 type CategoryChoiceScreenNavigationProp = CompositeNavigationProp<
@@ -19,18 +19,22 @@ export default function CategoryChoiceScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "카테고리",
+      title: "카테고리 선택",
+      headerTitleAlign: "left",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
           onPress={() => navigation.goBack()}
           backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
+            <Feather name="chevron-left" size={24} color="black" />
           )}
         />
       ),
-      headerLeftContainerStyle: { paddingLeft: 5 },
-      headerBackTitleVisible: false,
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
   }, [navigation]);
 

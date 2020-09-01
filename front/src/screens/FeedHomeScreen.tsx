@@ -138,9 +138,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.border,
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: "bold",
-    color: theme.black,
+    color: theme.primary,
   },
   description: {
     fontSize: 16,
@@ -148,11 +148,11 @@ const styles = StyleSheet.create({
     color: theme.secondary,
   },
   flatListContainer: {
-    flex: 11,
+    flex: 12,
   },
   feedArticleContainer: {
     paddingTop: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
   },
   feedArticleCardContainer: {
     backgroundColor: "transparent",
