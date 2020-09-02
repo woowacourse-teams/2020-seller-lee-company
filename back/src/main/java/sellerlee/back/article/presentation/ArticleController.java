@@ -67,6 +67,14 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping(params = "tradeState")
+    public ResponseEntity<List<ArticleCardResponse>> showByTradeState(
+            @RequestParam String tradeState, @LoginMember Member loginMember) {
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(loginMember,
+                tradeState);
+        return ResponseEntity.ok(responses);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ArticleResponse> show(@PathVariable Long id,
             @LoginMember Member loginMember) {
@@ -85,14 +93,6 @@ public class ArticleController {
     public ResponseEntity<Void> delete(@PathVariable Long id, @LoginMember Member loginMember) {
         articleService.deleteById(id, loginMember);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(TRADE_STATE_URI)
-    public ResponseEntity<List<ArticleCardResponse>> showByTradeState(
-            @RequestParam String tradeState, @LoginMember Member loginMember) {
-        List<ArticleCardResponse> responses = articleViewService.showByTradeState(loginMember,
-                tradeState);
-        return ResponseEntity.ok(responses);
     }
 
     @PutMapping("/{id}/" + TRADE_STATE_URI)

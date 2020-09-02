@@ -158,7 +158,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
     private List<ArticleCardResponse> showSalesHistory() {
         String tradeState = "ON_SALE";
-        String url = ARTICLE_URI + TRADE_STATE_URI;
+        String url = ARTICLE_URI;
 
         // @formatter:off
         return

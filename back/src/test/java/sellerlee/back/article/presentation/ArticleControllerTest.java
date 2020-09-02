@@ -226,7 +226,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_URI + TRADE_STATE_URI)
+                        get(ARTICLE_URI)
                                 .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
