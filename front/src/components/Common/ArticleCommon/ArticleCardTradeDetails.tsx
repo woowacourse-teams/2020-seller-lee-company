@@ -11,24 +11,19 @@ export default function ArticleCardTradeDetails({
 }: ArticleCardTradeDetailsProps) {
   return (
     <View style={styles.tradeDetailContainer}>
-      <View style={styles.timeContainer}>
-        <Text style={styles.createTime}>{calculateDiffTime(createdTime)}</Text>
-      </View>
+      <Text style={styles.createTime}>{calculateDiffTime(createdTime)}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   tradeDetailContainer: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
   },
-  timeContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
   createTime: {
-    margin: 3,
-    fontSize: 10,
+    marginLeft: 5,
+    fontSize: 12,
   },
 });

@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { joinPasswordState, joinSubmitState } from "../../states/joinState";
 import theme from "../../colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { isBlank, isValidPassword } from "../../joinValidator";
 
 export default function JoinPasswordForm() {
@@ -72,8 +72,8 @@ export default function JoinPasswordForm() {
     if (isBlank(joinPassword) || !isValidPassword(joinPassword)) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -83,8 +83,8 @@ export default function JoinPasswordForm() {
     }
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -100,8 +100,8 @@ export default function JoinPasswordForm() {
     if (!isValidPassword(joinPassword)) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -112,8 +112,8 @@ export default function JoinPasswordForm() {
 
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -127,8 +127,8 @@ export default function JoinPasswordForm() {
       <Text style={dynamicStyles.title}>비밀번호</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="lock-outline"
+          <Feather
+            name="lock"
             size={20}
             color={focusTextInputState ? theme.secondary : "lightgrey"}
             style={styles.lockIcon}

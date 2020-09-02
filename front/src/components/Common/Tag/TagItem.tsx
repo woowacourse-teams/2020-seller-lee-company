@@ -17,55 +17,48 @@ export default function TagItem({ tag }: TagItemProps) {
     setTags(tags.filter((tag) => tag !== deleteTag));
 
   return (
-    <View style={styles.tagItem}>
+    <View style={styles.container}>
       <View style={styles.tagItemTextWrapper}>
         <Text style={styles.tagItemText}>{tag}</Text>
       </View>
-      <View style={styles.deleteTagButtonWrapper}>
-        <TouchableOpacity
-          activeOpacity={0.4}
-          style={styles.deleteButton}
-          onPress={() => onRemove(tag)}
-        >
-          <Feather
-            name="x"
-            size={13}
-            color="black"
-            style={styles.deleteButtonText}
-          />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        activeOpacity={0.4}
+        style={styles.deleteButton}
+        onPress={() => onRemove(tag)}
+      >
+        <Feather name="x-circle" size={16} color={theme.tertiary} />
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  tagItem: {
+  container: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
-    marginRight: 5,
+    marginRight: 8,
     borderRadius: 10,
-    backgroundColor: theme.secondary,
+    borderWidth: 1,
+    borderColor: theme.tertiary,
   },
   tagItemTextWrapper: {
-    marginLeft: 3,
-    marginRight: 2,
+    marginVertical: 8,
+    marginLeft: 8,
   },
   tagItemText: {
-    fontWeight: "100",
-    fontSize: 15,
-  },
-  deleteTagButtonWrapper: {
-    marginRight: 3,
-    alignItems: "center",
+    fontSize: 16,
+    color: theme.primary,
   },
   deleteButton: {
+    paddingVertical: 8,
+    paddingLeft: 4,
+    paddingRight: 8,
     alignItems: "center",
+    justifyContent: "center",
   },
   deleteButtonText: {
-    fontWeight: "200",
-    color: "gray",
+    fontSize: 16,
+    color: theme.primary,
   },
 });

@@ -1,15 +1,26 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { useRecoilState } from "recoil/dist";
 import {
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { useRecoilState } from "recoil/dist";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { articleModalActivationState } from "../../states/articleState";
-import { ArticleFormScreenNavigationProp } from "../../types/types";
+import {
+  HomeStackParam,
+  PostingStackParam,
+  RootStackParam,
+} from "../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import theme from "../../colors";
+
+type ArticleFormScreenModalNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<PostingStackParam, "ArticleFormScreen">,
+  CompositeNavigationProp<
+    StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
+    StackNavigationProp<RootStackParam, "HomeStack">
+  >
+>;
 
 interface ArticleFormScreenModalProps {
   resetCreateScreen: Function;
@@ -18,10 +29,17 @@ interface ArticleFormScreenModalProps {
 export default function ArticleFormScreenModal({
   resetCreateScreen,
 }: ArticleFormScreenModalProps) {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormScreenModalNavigationProp>();
+
   const [articleModalState, setArticleModalState] = useRecoilState(
     articleModalActivationState,
   );
+
+  const onPressExit = () => {
+    resetCreateScreen();
+    setArticleModalState(false);
+    navigation.goBack();
+  };
 
   return (
     <Modal
@@ -37,22 +55,15 @@ export default function ArticleFormScreenModal({
             페이지를 나가시겠습니까?
           </Text>
           <View style={styles.buttonContainer}>
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.button}
               onPress={() => setArticleModalState(false)}
             >
               <Text style={styles.buttonText}>돌아가기</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => {
-                resetCreateScreen();
-                setArticleModalState(false);
-                navigation.goBack();
-              }}
-            >
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={onPressExit}>
               <Text style={styles.buttonText}>나가기</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -88,7 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   button: {
-    backgroundColor: "#dfd3c3",
+    backgroundColor: theme.secondary,
     borderRadius: 20,
     marginHorizontal: 5,
     padding: 10,

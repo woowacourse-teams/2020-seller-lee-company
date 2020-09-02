@@ -1,87 +1,146 @@
-import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
-import { MyInfoScreenNavigationProp } from "../types/types";
-import colors from "../colors";
+import React, { useEffect, useLayoutEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import { Feather } from "@expo/vector-icons";
+import { HomeStackParam, RootStackParam } from "../types/types";
+import theme from "../colors";
 import MyInfoAvatar from "../components/Profile/MyInfoAvatar";
 import MyInfoForm from "../components/Profile/MyInfoForm";
-import { useRecoilValue, useResetRecoilState } from "recoil/dist";
 import {
-  memberInfoAvatarState,
-  memberInfoConfirmState,
-  memberInfoPasswordState,
-} from "../states/memberState";
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+} from "recoil/dist";
+import { memberInfoAvatarState } from "../states/memberState";
 import { profileAPI } from "../api/api";
+import {
+  myInfoCheckPasswordState,
+  myInfoPasswordState,
+  myInfoSubmitState,
+} from "../states/myInfoState";
+import { isBlank, isSamePassword, isValidPassword } from "../joinValidator";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+type MyInfoScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "MyInfoScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function MyInfoScreen() {
   const navigation = useNavigation<MyInfoScreenNavigationProp>();
 
-  const password = useRecoilValue(memberInfoPasswordState);
-  const confirm = useRecoilValue(memberInfoConfirmState);
-  const avatar = useRecoilValue(memberInfoAvatarState);
+  const [myInfoSubmit, setMyInfoSubmit] = useRecoilState(myInfoSubmitState);
 
-  const resetPassword = useResetRecoilState(memberInfoPasswordState);
-  const resetConfirm = useResetRecoilState(memberInfoConfirmState);
-  const resetAvatar = useResetRecoilState(memberInfoAvatarState);
+  const avatar = useRecoilValue(memberInfoAvatarState);
+  const myInfoPassword = useRecoilValue(myInfoPasswordState);
+  const myInfoCheckPassword = useRecoilValue(myInfoCheckPasswordState);
+
+  const resetMyInfoPassword = useResetRecoilState(myInfoPasswordState);
+  const resetMyInfoCheckPassword = useResetRecoilState(
+    myInfoCheckPasswordState,
+  );
+  const resetMyInfoSubmit = useResetRecoilState(myInfoSubmitState);
 
   const onPressCompleteButton = async () => {
-    if (password !== confirm) {
-      alert("비밀번호와 확인이 일치하지 않습니다.");
-    } else {
-      await profileAPI.put({ password, avatar });
-      resetForm();
-      navigation.goBack();
-    }
+    setMyInfoSubmit(true);
+    await profileAPI.put({ password: myInfoPassword, avatar });
+    resetForm();
+    navigation.goBack();
   };
 
   const resetForm = () => {
-    resetPassword();
-    resetConfirm();
-    resetAvatar();
+    resetMyInfoPassword();
+    resetMyInfoCheckPassword();
+    resetMyInfoSubmit();
   };
 
-  useEffect(() => {
+  const isValidateSubmit = () => {
+    return (
+      !isBlank(myInfoPassword) &&
+      !isBlank(myInfoCheckPassword) &&
+      isValidPassword(myInfoPassword) &&
+      isSamePassword(myInfoPassword, myInfoCheckPassword)
+    );
+  };
+
+  const submitButtonColor = () => {
+    return isValidateSubmit() ? theme.primary : "lightgrey";
+  };
+
+  const onPressBack = () => {
+    resetForm();
+    navigation.goBack();
+  };
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       title: "내 정보 수정",
+      headerTitleAlign: "left",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
-          onPress={navigation.goBack}
+          onPress={onPressBack}
           backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color={"grey"} />
+            <Feather name="chevron-left" size={24} color="black" />
           )}
         />
       ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
       headerRight: () => (
-        <TouchableOpacity onPress={onPressCompleteButton}>
-          <AntDesign name="check" size={24} color={colors.primary} />
-        </TouchableOpacity>
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={onPressCompleteButton}
+          disabled={true}
+          backImage={() => <Feather name="check" size={24} color="lightgrey" />}
+        />
       ),
-      headerRightContainerStyle: { paddingRight: 20 },
+      headerRightContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={onPressCompleteButton}>
-          <AntDesign name="check" size={24} color={colors.primary} />
-        </TouchableOpacity>
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={onPressCompleteButton}
+          disabled={!isValidateSubmit()}
+          backImage={() => (
+            <Feather name="check" size={24} color={submitButtonColor()} />
+          )}
+        />
       ),
     });
-  }, [password, confirm, avatar]);
+  }, [myInfoPassword, myInfoCheckPassword, myInfoSubmit]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.avatarContainer}>
-        <MyInfoAvatar />
-      </View>
-      <View style={styles.formContainer}>
-        <MyInfoForm />
-      </View>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.keyboardAwareScrollView}
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.avatarContainer}>
+          <MyInfoAvatar />
+        </View>
+        <View style={styles.formContainer}>
+          <MyInfoForm />
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -90,11 +149,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    paddingHorizontal: 30,
+  },
+  keyboardAwareScrollView: {
+    flexGrow: 1,
+    flexShrink: 0,
+    justifyContent: "flex-start",
   },
   avatarContainer: {
-    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.border,
   },
   formContainer: {
-    flex: 3,
+    marginVertical: 10,
   },
 });

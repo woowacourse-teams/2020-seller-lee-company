@@ -1,18 +1,26 @@
 import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HeaderBackButton } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
 import { chatRoomAPI } from "../api/api";
 import BuyerCard from "../components/SelectBuyer/BuyerCard";
-import { Buyer, SelectBuyerScreenNavigationProp } from "../types/types";
-import { EvilIcons } from "@expo/vector-icons";
+import { Buyer, HomeStackParam, RootStackParam } from "../types/types";
+import { Feather } from "@expo/vector-icons";
 import { useRecoilValue } from "recoil";
 import {
   articleIdState,
   articlePhotosState,
   articleTitleState,
 } from "../states/articleState";
+
+type SelectBuyerScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "SelectBuyerScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function SelectBuyerScreen() {
   const navigation = useNavigation<SelectBuyerScreenNavigationProp>();
@@ -24,17 +32,23 @@ export default function SelectBuyerScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "구매자 선택",
+      headerTitleAlign: "left",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
           onPress={navigation.goBack}
           backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color={"grey"} />
+            <Feather name="chevron-left" size={24} color="black" />
           )}
         />
       ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
+
     const loadBuyers = async (articleId: number) => {
       const { data } = await chatRoomAPI.getBuyers(articleId);
       setBuyers(data);

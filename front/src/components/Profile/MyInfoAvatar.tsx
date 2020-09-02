@@ -59,7 +59,13 @@ export default function MyInfoAvatar() {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.avatar} source={{ uri: avatar }} />
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.avatar}
+          source={{ uri: avatar }}
+          defaultSource={require("../../../assets/user.png")}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={pickPhoto}>
         <Text style={styles.text}>사진 변경</Text>
       </TouchableOpacity>
@@ -69,13 +75,19 @@ export default function MyInfoAvatar() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    aspectRatio: 2,
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 10,
+  },
+  imageContainer: {
+    aspectRatio: 1,
+    width: "70%",
+    height: "70%",
   },
   avatar: {
-    width: 120,
-    height: 120,
+    aspectRatio: 1,
+    resizeMode: "cover",
     borderRadius: 100,
   },
   button: {

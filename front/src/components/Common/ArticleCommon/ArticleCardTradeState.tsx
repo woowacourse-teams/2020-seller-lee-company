@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../../../colors";
+import theme from "../../../colors";
 
 interface ArticleCardTradeStateProps {
   tradeState: string;
@@ -9,28 +10,70 @@ interface ArticleCardTradeStateProps {
 export default function ArticleCardTradeState({
   tradeState,
 }: ArticleCardTradeStateProps) {
+  const getContainerStyleByTradeState = () => {
+    if (tradeState === "판매중") {
+      return styles.tradeOnSaleContainer;
+    }
+    if (tradeState === "예약중") {
+      return styles.tradeReservedContainer;
+    }
+    return styles.tradeCompletedContainer;
+  };
+
+  const getTextStyleByTradeState = () => {
+    if (tradeState === "판매중") {
+      return styles.tradeOnSaleText;
+    }
+    if (tradeState === "예약중") {
+      return styles.tradeReservedText;
+    }
+    return styles.tradeCompletedText;
+  };
+
   return (
-    <View
-      style={
-        tradeState === "판매중"
-          ? styles.containerOfOnSale
-          : styles.containerOfNotOnSale
-      }
-    >
-      <Text
-        style={
-          tradeState === "판매중"
-            ? styles.tradeStateOfOnSale
-            : styles.tradeStateOfNotOnSale
-        }
-      >
-        {tradeState}
-      </Text>
+    <View style={getContainerStyleByTradeState()}>
+      <Text style={getTextStyleByTradeState()}>{tradeState}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  tradeOnSaleContainer: {
+    aspectRatio: 5 / 3,
+    backgroundColor: theme.primary,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tradeReservedContainer: {
+    aspectRatio: 5 / 3,
+    backgroundColor: theme.secondary,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tradeCompletedContainer: {
+    aspectRatio: 2,
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tradeOnSaleText: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "white",
+  },
+  tradeReservedText: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "white",
+  },
+  tradeCompletedText: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "grey",
+  },
   containerOfOnSale: {
     flex: 1,
     backgroundColor: colors.primary,

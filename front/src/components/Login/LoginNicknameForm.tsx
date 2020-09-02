@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
 import { loginNicknameState } from "../../states/loginState";
@@ -31,8 +31,8 @@ export default function LoginNicknameForm() {
       <Text style={dynamicStyles.title}>닉네임</Text>
       <View style={dynamicStyles.nicknameFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="account-outline"
+          <Feather
+            name="user"
             size={20}
             color={focusTextInputState ? theme.secondary : "lightgrey"}
             style={styles.accountIcon}

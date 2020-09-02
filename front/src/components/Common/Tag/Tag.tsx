@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputSubmitEditingEventData,
+  View,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import TagModal from "../Modal/TagModal";
@@ -37,6 +44,15 @@ export default function Tag() {
     setInput("");
   };
 
+  const onSubmitEditing = (
+    event: NativeSyntheticEvent<TextInputSubmitEditingEventData>,
+  ) => {
+    if (removeBlank(input).length !== 0) {
+      setInput(event.nativeEvent.text);
+      insertTag();
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TagModal />
@@ -46,50 +62,34 @@ export default function Tag() {
       <View style={styles.inputContainerWrapper}>
         <View style={styles.inputWrapper}>
           <TextInput
-            placeholder={"# 해시태그 (20자 이내)"}
-            maxLength={20}
+            placeholder={"#해시태그 (10자 이내)"}
+            maxLength={10}
             onChangeText={setInput}
             value={input}
             autoFocus={true}
-            onSubmitEditing={(event) => {
-              if (removeBlank(input).length !== 0) {
-                setInput(event.nativeEvent.text);
-                insertTag();
-              }
-            }}
+            onSubmitEditing={onSubmitEditing}
             blurOnSubmit={false}
             style={styles.inputBox}
           />
-          <View style={styles.deleteButtonWrapper}>
-            <TouchableOpacity
-              activeOpacity={0.4}
-              style={styles.deleteButton}
-              onPress={() => {
-                setInput("");
-              }}
-            >
-              <Feather
-                name="x-circle"
-                size={17}
-                color="black"
-                style={styles.deleteButtonText}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.addWrapper}>
           <TouchableOpacity
             activeOpacity={0.4}
-            style={styles.addButton}
-            onPress={() => {
-              if (removeBlank(input).length !== 0) {
-                insertTag();
-              }
-            }}
+            style={styles.deleteButton}
+            onPress={() => setInput("")}
           >
-            <Text style={styles.buttonText}>추가하기</Text>
+            <Feather name="x-circle" size={18} color="lightgrey" />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          activeOpacity={0.4}
+          style={styles.addButton}
+          onPress={() => {
+            if (removeBlank(input).length !== 0) {
+              insertTag();
+            }
+          }}
+        >
+          <Text style={styles.buttonText}>추가하기</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.tagContainerWrapper}>
         {tags.map((tag, index) => (
@@ -102,62 +102,51 @@ export default function Tag() {
 
 export const styles = StyleSheet.create({
   container: {
-    aspectRatio: 5 / 1.8,
+    flex: 1,
   },
   textContainer: {
+    marginBottom: 10,
     justifyContent: "center",
   },
   text: {
     fontSize: 18,
   },
   inputContainerWrapper: {
-    flex: 1.8,
+    aspectRatio: 7,
     flexDirection: "row",
-    borderColor: "gray",
-    borderWidth: 0.3,
-    borderRadius: 5,
-    marginVertical: 10,
+    borderColor: "lightgrey",
+    borderWidth: 1,
+    borderRadius: 10,
   },
   inputWrapper: {
+    flex: 4,
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
-    width: "75%",
+    paddingLeft: 10,
   },
   inputBox: {
-    width: "85%",
-    height: "80%",
+    flex: 1,
     fontSize: 15,
   },
-  deleteButtonWrapper: {
-    alignItems: "center",
-    width: "10%",
-  },
   deleteButton: {
+    aspectRatio: 1,
+    padding: 10,
     alignItems: "center",
-  },
-  deleteButtonText: {
-    fontWeight: "200",
-    color: "gray",
-  },
-  addWrapper: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "25%",
-    borderColor: "gray",
-    borderLeftWidth: 0.3,
   },
   buttonText: {
-    fontWeight: "200",
-    color: "gray",
+    color: "lightgrey",
   },
   addButton: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    borderColor: "lightgrey",
+    borderLeftWidth: 1,
+    paddingHorizontal: 10,
   },
   tagContainerWrapper: {
-    flex: 1.7,
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
   },

@@ -71,3 +71,8 @@ export const favoriteArticleState = atom({
   key: "favoriteArticleState",
   default: <ArticleCardProps[]>[],
 });
+
+export const articleFormExitState = atom({
+  key: "articleFormExitState",
+  default: false,
+});

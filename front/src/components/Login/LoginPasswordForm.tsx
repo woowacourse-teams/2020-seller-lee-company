@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useSetRecoilState } from "recoil/dist";
 import { loginPasswordState } from "../../states/loginState";
@@ -32,8 +32,8 @@ export default function LoginPasswordForm() {
       <Text style={dynamicStyles.title}>비밀번호</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="lock-outline"
+          <Feather
+            name="lock"
             size={20}
             color={focusTextInputState ? theme.secondary : "lightgrey"}
             style={styles.lockIcon}

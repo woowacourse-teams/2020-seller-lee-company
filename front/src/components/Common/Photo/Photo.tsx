@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import {
   launchImageLibraryAsync,
   MediaTypeOptions,
@@ -111,7 +111,7 @@ export default function Photo() {
       <NoticeModal message={modalMessage} />
       <View style={styles.cameraButtonContainer}>
         <TouchableOpacity style={styles.cameraButton} onPress={addImage}>
-          <MaterialCommunityIcons name="camera" size={28} color="grey" />
+          <Feather name="camera" size={26} color="grey" />
           <View style={styles.photoCountContainer}>
             <Text style={styles.addedPhotoCount}>{photos.length}</Text>
             <Text style={styles.limitPhotoCount}>/{LIMIT_PHOTO_COUNT}</Text>
@@ -126,7 +126,7 @@ export default function Photo() {
             <View style={styles.photoContainer}>
               <View style={styles.delete}>
                 <TouchableOpacity onPress={() => removeImage(item)}>
-                  <AntDesign name="closecircle" size={23} />
+                  <Feather name="x-circle" size={24} color="black" />
                 </TouchableOpacity>
               </View>
               <Image style={styles.photo} source={{ uri: item }} />

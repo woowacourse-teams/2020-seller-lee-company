@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     aspectRatio: 1,
     justifyContent: "center",
-    margin: 5,
   },
   image: {
     aspectRatio: 1,

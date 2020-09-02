@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -9,25 +9,42 @@ import {
   Text,
   View,
 } from "react-native";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { Feed, FeedHomeNavigationProp } from "../types/types";
+import {
+  useIsFocused,
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
 import { useRecoilState } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type FeedHomeScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function FeedHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 
-  const navigation = useNavigation<FeedHomeNavigationProp>();
+  const navigation = useNavigation<FeedHomeScreenNavigationProp>();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Feed[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+    initFeed();
+  }, [navigation]);
 
   const applyChange = async () => {
     initFeed();
@@ -37,13 +54,6 @@ export default function FeedHomeScreen() {
   useEffect(() => {
     applyChange();
   }, [isFocused]);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-    initFeed();
-  }, []);
 
   const initFeed = async () => {
     const { data } = await articlesAPI.get({
@@ -92,7 +102,7 @@ export default function FeedHomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Feeds</Text>
-        <Text style={styles.description}>현재 거래 중인 게시글입니다.</Text>
+        {/*<Text style={styles.description}>최근에 등록된 게시글입니다.</Text>*/}
       </View>
       <View style={styles.flatListContainer}>
         <FlatList
@@ -132,30 +142,31 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
     backgroundColor: "white",
     paddingHorizontal: 30,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.border,
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "bold",
     color: theme.primary,
-    marginBottom: 5,
   },
   description: {
     fontSize: 16,
     fontWeight: "bold",
     color: theme.secondary,
-    marginBottom: 20,
   },
   flatListContainer: {
-    flex: 5,
+    flex: 12,
   },
   feedArticleContainer: {
-    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingHorizontal: 30,
   },
   feedArticleCardContainer: {
     backgroundColor: "transparent",
-    marginBottom: 10,
+    marginBottom: 15,
   },
 });

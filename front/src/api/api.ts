@@ -138,12 +138,12 @@ interface MemberJoin {
 
 export const memberAPI = {
   login: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.login, data),
+    await axios.post(`${BASE_URL}${domain.login}`, data),
   join: async (data: MemberJoin) =>
-    await axios.post(BASE_URL + domain.members, data),
+    await axios.post(`${BASE_URL}${domain.members}`, data),
   getNickname: async () => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(BASE_URL + domain.members, {
+    return await axios.get(`${BASE_URL}${domain.members}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -186,7 +186,7 @@ interface FavoriteDelete {
 export const favoriteAPI = {
   post: async (data: FavoriteCreate) => {
     const token = await DeviceStorage.getToken();
-    return await axios.post(BASE_URL + domain.favorites, data, {
+    return await axios.post(`${BASE_URL}${domain.favorites}`, data, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -194,7 +194,7 @@ export const favoriteAPI = {
   },
   delete: async (data: FavoriteDelete) => {
     const token = await DeviceStorage.getToken();
-    return await axios.delete(BASE_URL + domain.favorites, {
+    return await axios.delete(`${BASE_URL}${domain.favorites}`, {
       data,
       headers: {
         Authorization: `bearer ${token}`,
@@ -206,7 +206,7 @@ export const favoriteAPI = {
 export const tradeAPI = {
   get: async () => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(BASE_URL + domain.trades, {
+    return await axios.get(`${BASE_URL}${domain.trades}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

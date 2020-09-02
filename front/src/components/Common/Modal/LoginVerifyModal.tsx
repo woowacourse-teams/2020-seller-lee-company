@@ -12,16 +12,22 @@ import {
   memberLoginTrialState,
   memberLoginVerifyState,
 } from "../../../states/loginState";
-import { LoginScreenNavigationProp } from "../../../types/types";
+import { RootStackParam } from "../../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 interface LoginVerifyModalProps {
   resetMemberLoginValue: Function;
 }
 
+type LoginVerifyModalNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "AuthScreen"
+>;
+
 export default function LoginVerifyModal({
   resetMemberLoginValue,
 }: LoginVerifyModalProps) {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+  const navigation = useNavigation<LoginVerifyModalNavigationProp>();
 
   const [loginTrialState, setLoginTrialState] = useRecoilState(
     memberLoginTrialState,
@@ -36,7 +42,7 @@ export default function LoginVerifyModal({
     if (loginVerifyState) {
       resetMemberLoginValue();
       // TODO LoginScreen을 Home으로 변경해야 함
-      navigation.navigate("BottomTabNavigation");
+      navigation.navigate("HomeStack");
     }
   };
 

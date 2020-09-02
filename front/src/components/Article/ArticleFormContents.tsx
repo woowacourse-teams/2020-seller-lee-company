@@ -2,23 +2,33 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useRecoilValue } from "recoil/dist";
 import { articleContentsState } from "../../states/articleState";
-import { useNavigation } from "@react-navigation/native";
-import { ArticleFormScreenNavigationProp } from "../../types/types";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HomeStackParam, RootStackParam } from "../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type ArticleFormContentsNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function ArticleFormContents() {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormContentsNavigationProp>();
   const contents = useRecoilValue(articleContentsState);
 
   const dynamicStyles = StyleSheet.create({
     contentsText: {
+      flex: 1,
       fontSize: 18,
-      color: contents.length === 0 ? "grey" : "black",
+      color: contents.length === 0 ? "lightgrey" : "black",
     },
   });
 
   return (
     <TouchableOpacity
-      style={styles.contentsFormButton}
+      style={styles.container}
       onPress={() => navigation.navigate("ArticleContentsFormScreen")}
     >
       <Text style={dynamicStyles.contentsText}>
@@ -29,8 +39,8 @@ export default function ArticleFormContents() {
 }
 
 const styles = StyleSheet.create({
-  contentsFormButton: {
-    height: "100%",
+  container: {
+    flex: 1,
     marginVertical: 15,
   },
 });

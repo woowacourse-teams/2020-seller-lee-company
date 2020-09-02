@@ -17,18 +17,14 @@ export default function ProfileInfo() {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        {avatar === "" ? (
-          <Image
-            style={styles.avatar}
-            source={require("../../../assets/user.png")}
-          />
-        ) : (
-          <Image style={styles.avatar} source={{ uri: avatar }} />
-        )}
+        <Image
+          source={{ uri: avatar }}
+          style={styles.avatar}
+          defaultSource={require("../../../assets/user.png")}
+        />
       </View>
-      <View style={styles.infoContainer}>
-        <Text style={styles.nickname}>{profile.nickname}님,</Text>
-        <Text style={styles.nickname}>안녕하세요!</Text>
+      <View style={styles.nicknameContainer}>
+        <Text style={styles.nickname}>{profile.nickname}</Text>
       </View>
     </View>
   );
@@ -36,26 +32,24 @@ export default function ProfileInfo() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row",
-    padding: 30,
-    paddingHorizontal: 50,
-  },
-  avatarContainer: {
-    flex: 1,
+    aspectRatio: 2,
     alignItems: "center",
     justifyContent: "center",
   },
+  avatarContainer: {
+    aspectRatio: 1,
+    width: "60%",
+    height: "60%",
+    marginBottom: 15,
+  },
   avatar: {
-    width: 70,
-    height: 70,
+    aspectRatio: 1,
+    resizeMode: "cover",
     borderRadius: 100,
   },
-  infoContainer: {
-    flex: 4,
-    paddingLeft: 30,
-  },
+  nicknameContainer: {},
   nickname: {
     fontSize: 22,
+    fontWeight: "bold",
   },
 });

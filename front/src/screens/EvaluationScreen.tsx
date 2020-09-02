@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { Button, StyleSheet, View } from "react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/stack";
-import { EvilIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import SelectBuyerArticleInfo from "../components/SelectBuyer/SelectBuyerArticleInfo";
 import { QUESTION_SIZE, questions } from "../data";
 import QuestionAndAnswerCard from "../components/Evaluation/QuestionAndAnswerCard";
@@ -40,17 +40,22 @@ export default function EvaluationScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "평가",
+      title: "평가하기",
+      headerTitleAlign: "left",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
           onPress={() => goBackAndReset()}
           backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
+            <Feather name="chevron-left" size={24} color="black" />
           )}
         />
       ),
-      headerLeftContainerStyle: { paddingLeft: 5 },
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
       headerBackTitleVisible: false,
     });
   }, [navigation]);

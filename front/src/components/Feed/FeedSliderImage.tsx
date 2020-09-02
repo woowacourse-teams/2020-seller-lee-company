@@ -15,13 +15,13 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
       loop={false}
       dot={<Dot />}
       activeDot={<ActiveDot />}
-      paginationStyle={styles.pagination}
       centerContent={true}
+      key={photos.length}
     >
       {photos.map((photo, index) => (
         <TouchableOpacity
           activeOpacity={1}
-          style={styles.imageContainer}
+          style={styles.container}
           key={index}
         >
           <Image source={{ uri: photo }} style={styles.image} />
@@ -32,12 +32,11 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
 }
 
 const styles = StyleSheet.create({
-  pagination: {},
-  imageContainer: {
+  container: {
     flex: 1,
   },
   image: {
-    flex: 1,
-    borderRadius: 30,
+    aspectRatio: 1,
+    resizeMode: "cover",
   },
 });

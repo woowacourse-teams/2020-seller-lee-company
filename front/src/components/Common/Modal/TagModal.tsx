@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet, Text, View } from "react-native";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useRecoilState } from "recoil/dist";
 import { isModalOpenState } from "../../../states/TagState";
@@ -17,11 +17,12 @@ export default function TagModal() {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>최대 3개의 태그만 가능합니다.</Text>
-          <Button
-            title={"닫기"}
-            color={theme.secondary}
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => setIsModalOpen(false)}
-          />
+          >
+            <Text style={styles.buttonText}>닫기</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 25,
     alignItems: "center",
@@ -53,5 +54,18 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  button: {
+    backgroundColor: theme.secondary,
+    borderRadius: 20,
+    marginHorizontal: 5,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginHorizontal: 10,
   },
 });

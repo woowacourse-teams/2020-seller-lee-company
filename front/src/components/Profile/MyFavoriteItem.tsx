@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { ArticleCardProps } from "../../types/types";
 import ArticleCard from "../Common/ArticleCommon/ArticleCard";
 
@@ -20,17 +19,15 @@ export default function MyFavoriteItem({
   },
 }: MyFavoriteItemProps) {
   return (
-    <View>
-      <ArticleCard
-        id={id}
-        title={title}
-        price={price}
-        thumbnail={thumbnail}
-        tradeState={tradeState}
-        favoriteState={favoriteState}
-        favoriteCount={favoriteCount}
-        createdTime={createdTime}
-      />
-    </View>
+    <ArticleCard
+      id={id}
+      title={title}
+      price={price}
+      thumbnail={thumbnail}
+      tradeState={tradeState}
+      favoriteState={favoriteState}
+      favoriteCount={favoriteCount}
+      createdTime={createdTime}
+    />
   );
 }

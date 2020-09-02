@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { favoriteArticleState } from "../../states/articleState";
 import { articlesAPI } from "../../api/api";
+import theme from "../../colors";
 
 export default function MyFavoriteList() {
   const [articles, setArticles] = useRecoilState(favoriteArticleState);
@@ -23,7 +24,11 @@ export default function MyFavoriteList() {
         <FlatList
           data={articles}
           keyExtractor={(item, index) => `${index}`}
-          renderItem={({ item }) => <MyFavoriteItem article={item} />}
+          renderItem={({ item }) => (
+            <View style={styles.myFavoriteItemContainer}>
+              <MyFavoriteItem article={item} />
+            </View>
+          )}
         />
       ) : (
         <Text style={styles.text}>찜 목록이 비어있어요.</Text>
@@ -34,10 +39,17 @@ export default function MyFavoriteList() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 15,
+    paddingHorizontal: 15,
+    backgroundColor: "white",
+  },
+  myFavoriteItemContainer: {
+    paddingVertical: 15,
+    borderBottomColor: theme.border,
+    borderBottomWidth: 1,
   },
   text: {
-    paddingTop: 30,
+    marginTop: 20,
+    fontSize: 18,
     textAlign: "center",
     color: "#777",
   },

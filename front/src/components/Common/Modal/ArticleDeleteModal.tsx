@@ -1,13 +1,22 @@
 import React from "react";
-import { Modal, View, StyleSheet, Text, Button } from "react-native";
+import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { articleDetailModalState } from "../../../states/modalState";
 import theme from "../../../colors";
-import { useNavigation } from "@react-navigation/native";
-import { ArticleDetailNavigationProp } from "../../../types/types";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HomeStackParam, RootStackParam } from "../../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type ArticleDeleteModalNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleDetailScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function ArticleDeleteModal() {
-  const navigation = useNavigation<ArticleDetailNavigationProp>();
+  const navigation = useNavigation<ArticleDeleteModalNavigationProp>();
   const [modalVisible, setModalVisible] = useRecoilState(
     articleDetailModalState,
   );
@@ -26,7 +35,7 @@ export default function ArticleDeleteModal() {
             title={"목록으로 이동"}
             onPress={() => {
               setModalVisible(false);
-              navigation.navigate("FeedHomeScreen");
+              navigation.navigate("HomeTab");
             }}
             color={theme.primary}
           />

@@ -61,6 +61,7 @@ export default function SalesHistoryItem({
           >
             <Text style={styles.buttonText}>예약중</Text>
           </TouchableOpacity>
+          <View style={styles.divider} />
           <TouchableOpacity
             style={styles.buttonHalfContainer}
             activeOpacity={0.5}
@@ -75,28 +76,40 @@ export default function SalesHistoryItem({
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  articleContainer: { margin: 5 },
-  buttonContainer: {
+  container: {
     flex: 1,
-    backgroundColor: theme.primary,
-    paddingVertical: 12,
+  },
+  articleContainer: {
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    aspectRatio: 9,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.secondary,
   },
   halfContainer: {
-    flex: 1,
+    aspectRatio: 9,
     flexDirection: "row",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.secondary,
   },
   buttonHalfContainer: {
     flex: 1,
-    backgroundColor: theme.primary,
-    paddingVertical: 11,
     alignItems: "center",
     justifyContent: "center",
   },
   buttonText: {
     fontSize: 14,
-    color: "white",
+    color: theme.primary,
+  },
+  divider: {
+    borderColor: theme.border,
+    borderWidth: 0.5,
+    marginVertical: 3,
   },
 });

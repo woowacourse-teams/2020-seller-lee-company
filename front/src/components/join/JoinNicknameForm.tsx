@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { joinNicknameState, joinSubmitState } from "../../states/joinState";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { isBlank, isValidNickname } from "../../joinValidator";
 import theme from "../../colors";
 
@@ -36,17 +36,24 @@ export default function JoinNicknameForm() {
     );
   };
 
-  const validPasswordMessage = () => {
+  const validNicknameMessage = () => {
     return <Text style={styles.validMessage}>사용 가능한 닉네임입니다.</Text>;
+  };
+
+  const emptyNicknameMessage = () => {
+    return (
+      <Text style={styles.warningMessage}>
+        닉네임을 입력하지 않았습니다. 닉네임을 입력해주세요.
+      </Text>
+    );
   };
 
   const validateMessageOnSubmit = () => {
     if (isBlank(joinNickname)) {
-      return (
-        <Text style={styles.warningMessage}>
-          닉네임을 입력하지 않았습니다. 닉네임을 입력해주세요.
-        </Text>
-      );
+      return emptyNicknameMessage();
+    }
+    if (!isValidNickname(joinNickname)) {
+      return invalidNicknameMessage();
     }
     return <></>;
   };
@@ -58,15 +65,15 @@ export default function JoinNicknameForm() {
     if (!isValidNickname(joinNickname)) {
       return invalidNicknameMessage();
     }
-    return validPasswordMessage();
+    return validNicknameMessage();
   };
 
   const validateIconOnSubmit = () => {
     if (isBlank(joinNickname)) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -76,8 +83,8 @@ export default function JoinNicknameForm() {
     }
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -93,8 +100,8 @@ export default function JoinNicknameForm() {
     if (!isValidNickname(joinNickname)) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -105,8 +112,8 @@ export default function JoinNicknameForm() {
 
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -120,8 +127,8 @@ export default function JoinNicknameForm() {
       <Text style={dynamicStyles.title}>닉네임</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="account-outline"
+          <Feather
+            name="user"
             size={20}
             color={focusTextInputState ? theme.secondary : "lightgrey"}
             style={styles.accountIcon}

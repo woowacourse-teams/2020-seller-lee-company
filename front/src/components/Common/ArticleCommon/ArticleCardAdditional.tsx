@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { insertComma } from "../../../replacePriceWithComma";
+import theme from "../../../colors";
 
 interface ArticleCardAdditionalProps {
   price: number;
@@ -14,14 +16,14 @@ export default function ArticleCardAdditional({
   favoriteState,
 }: ArticleCardAdditionalProps) {
   return (
-    <View style={styles.pieceAndAdditionalContainer}>
-      <Text style={styles.price}>{price}원</Text>
+    <View style={styles.container}>
+      <Text style={styles.price}>{insertComma(price.toString())}원</Text>
       <View style={styles.additionalContainer}>
         <View style={styles.favoriteContainer}>
-          <MaterialCommunityIcons
-            name={favoriteState ? "heart" : "heart-outline"}
+          <AntDesign
+            name={favoriteState ? "heart" : "hearto"}
             size={14}
-            color={favoriteState ? "red" : "black"}
+            color={favoriteState ? theme.heart : "black"}
           />
           <Text style={styles.additionalText}>{favoriteCount}</Text>
         </View>
@@ -31,11 +33,14 @@ export default function ArticleCardAdditional({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+  },
   price: {
-    marginLeft: 3,
-    marginTop: 3,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "bold",
+    marginTop: 5,
   },
   additionalContainer: {
     flex: 1,
@@ -43,17 +48,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
   },
+  favoriteContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   additionalText: {
     fontSize: 14,
-    marginLeft: 1,
-  },
-  favoriteContainer: {
-    margin: 3,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  pieceAndAdditionalContainer: {
-    flex: 1,
-    flexDirection: "row",
+    marginLeft: 3,
   },
 });
