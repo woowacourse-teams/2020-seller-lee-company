@@ -287,10 +287,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   photoContainer: {
-    aspectRatio: 3.2,
+    aspectRatio: 3.5,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    paddingVertical: 5,
   },
   touchableWithoutFeedbackContainer: {},
   titleFormContainer: {
