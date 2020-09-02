@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { GiftedChat, Send } from "react-native-gifted-chat";
+import { Bubble, GiftedChat, Send } from "react-native-gifted-chat";
 import { useRecoilValue } from "recoil/dist";
 import Fire from "../components/Chat/Fire";
 import colors from "../colors";
@@ -18,7 +18,7 @@ import { Feather } from "@expo/vector-icons";
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
-  const memberNickname = useRecoilValue(memberNicknameState);
+  const memberNickname: string = useRecoilValue(memberNicknameState);
   const memberAvatar = useRecoilValue(memberAvatarState);
 
   useEffect(() => {
@@ -47,6 +47,38 @@ export default function ChatScreen() {
     </View>
   );
 
+  const renderBubble = (props: any) => {
+    return (
+      <View>
+        {memberNickname === props.currentMessage.user.name ||
+        props.currentMessage.user.name ===
+          props.previousMessage.user?.name ? undefined : (
+          <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
+        )}
+        <Bubble
+          {...props}
+          containerStyle={styles.bubbleContainer}
+          wrapperStyle={{
+            left: {
+              backgroundColor: "lightgrey",
+            },
+            right: {
+              backgroundColor: colors.primary,
+            },
+          }}
+          timeTextStyle={{
+            left: {
+              color: "#000",
+            },
+            right: {
+              color: "#ffffff",
+            },
+          }}
+        />
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
@@ -68,14 +100,15 @@ export default function ChatScreen() {
             avatar: memberAvatar,
           }}
           renderSend={renderSend}
+          renderLoading={renderLoading}
+          renderBubble={renderBubble}
+          renderAvatarOnTop={true}
+          dateFormat="YYYY년 MM월 DD일"
           scrollToBottom
           scrollToBottomComponent={() => (
             <Feather name="chevron-down" size={28} color={colors.primary} />
           )}
-          renderLoading={renderLoading}
-          renderUsernameOnMessage={true}
-          dateFormat="YYYY년 MM월 DD일"
-          timeFormat="HH:mm"
+          parsePatterns={(linkStyle) => [{ type: "phone", style: linkStyle }]}
         />
       </View>
     </SafeAreaView>
@@ -85,7 +118,6 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     backgroundColor: "white",
     paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
   },
@@ -121,5 +153,20 @@ const styles = StyleSheet.create({
     flex: 12,
     alignItems: "center",
     justifyContent: "center",
+  },
+  bubbleContainer: {
+    flex: 12,
+  },
+  userName: {
+    flex: 1,
+    padding: 7,
+  },
+  emptySpace: {
+    flex: 1,
+  },
+  profileSpace: { width: 10 },
+  avatar: {},
+  userInfoContainer: {
+    width: 50,
   },
 });

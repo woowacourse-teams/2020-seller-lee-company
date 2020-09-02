@@ -20,7 +20,6 @@ import static sellerlee.back.security.web.context.TokenSecurityInterceptorTest.*
 
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,10 +34,8 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.article.domain.Category;
-import sellerlee.back.article.domain.TradeState;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest extends ControllerTest {
@@ -224,7 +221,7 @@ class ArticleControllerTest extends ControllerTest {
         String tradeState = "ON_SALE";
 
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
+                .thenReturn(singletonList(ArticleCardResponse.of(ARTICLE1, 5L, true)));
 
         // @formatter:off
         mockMvc
@@ -252,38 +249,6 @@ class ArticleControllerTest extends ControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
-        // @formatter:on
-    }
-
-    @DisplayName("찜 목록 조회 시 찜하고 있는 게시글과 Status OK 반환")
-    @Test
-    void showFavorites() throws Exception {
-        when(articleViewService.showFavorites(any())).thenReturn(
-                ArticleCardResponse.listOf(singletonList(ARTICLE1), singletonList(1L),
-                        singletonList(true)));
-
-        // @formatter:off
-        mockMvc
-                .perform(
-                        get(ARTICLE_URI + FAVORITE_URI)
-                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
-                .andExpect(status().isOk())
-                .andDo(document("articles/favorites",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        requestHeaders(
-                                headerWithName(AUTHORIZATION).description("회원의 토큰")
-                        ),
-                        responseFields(
-                                fieldWithPath("[].id").description("게시글의 ID"),
-                                fieldWithPath("[].title").description("게시글의 제목"),
-                                fieldWithPath("[].price").description("게시글의 가격"),
-                                fieldWithPath("[].thumbnail").description("게시글의 섬네일"),
-                                fieldWithPath("[].tradeState").description("게시글의 거래 상태"),
-                                fieldWithPath("[].favoriteCount").description("게시글의 좋아요 개수"),
-                                fieldWithPath("[].favoriteState").description("게시글의 좋아요 상태"),
-                                fieldWithPath("[].createdTime").description("게시글의 생성 시간")
-                        )));
         // @formatter:on
     }
 }

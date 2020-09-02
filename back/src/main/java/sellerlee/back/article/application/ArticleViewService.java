@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.data.domain.PageRequest;
@@ -72,6 +71,11 @@ public class ArticleViewService {
                 .findByIdLessThanAndCategoryOrderByIdDesc(lastArticleId,
                         Category.fromString(category), pageRequest).getContent();
 
+        return toArticleCardResponses(loginMember, articles);
+    }
+
+    private List<ArticleCardResponse> toArticleCardResponses(Member loginMember,
+            List<Article> articles) {
         Map<Article, Long> articleAndFavoriteCount = toArticleAndFavoriteCount(articles);
         List<Long> favoriteCounts = toFavoriteCounts(articles, articleAndFavoriteCount);
         List<Article> favorites = toFavorites(loginMember, articles);
@@ -126,27 +130,14 @@ public class ArticleViewService {
                 .collect(toList());
     }
 
-    public List<SalesHistoryResponse> showByTradeState(Member member, String tradeState) {
+    public List<ArticleCardResponse> showByTradeState(Member loginMember, String tradeState) {
         if (TradeState.valueOf(tradeState).isCompleted()) {
-            List<Article> articles = getCompletedStateArticleBy(member);
-            return getSalesHistoryResponse(articles);
+            List<Article> articles = articleRepository.findAllByAuthorAndTradeState(loginMember,
+                    TradeState.COMPLETED);
+            return toArticleCardResponses(loginMember, articles);
         }
-        List<Article> articles = getNotCompletedStateArticleBy(member);
-        return getSalesHistoryResponse(articles);
-    }
-
-    private List<Article> getNotCompletedStateArticleBy(Member member) {
-        return articleRepository.findAllByAuthorAndTradeStateNot(member, TradeState.COMPLETED);
-    }
-
-    private List<Article> getCompletedStateArticleBy(Member member) {
-        return articleRepository.findAllByAuthorAndTradeState(member, TradeState.COMPLETED);
-    }
-
-    private List<SalesHistoryResponse> getSalesHistoryResponse(List<Article> articles) {
-        return articles.stream()
-                .map(article -> SalesHistoryResponse.of(article,
-                        favoriteRepository.countAllByArticle(article)))
-                .collect(Collectors.toList());
+        List<Article> articles = articleRepository.findAllByAuthorAndTradeStateNot(loginMember,
+                TradeState.COMPLETED);
+        return toArticleCardResponses(loginMember, articles);
     }
 }

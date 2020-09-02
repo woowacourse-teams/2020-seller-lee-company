@@ -10,12 +10,15 @@ import {
   View,
 } from "react-native";
 import {
+  useIsFocused,
   CompositeNavigationProp,
   useNavigation,
 } from "@react-navigation/native";
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
+import { useRecoilState } from "recoil/dist";
+import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -33,16 +36,24 @@ export default function FeedHomeScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<Feed[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
+  const isFocused = useIsFocused();
+  const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
+    initFeed();
   }, [navigation]);
 
-  useEffect(() => {
+  const applyChange = async () => {
     initFeed();
-  }, []);
+    setIsModified(false);
+  };
+
+  useEffect(() => {
+    applyChange();
+  }, [isFocused]);
 
   const initFeed = async () => {
     const { data } = await articlesAPI.get({

@@ -1,9 +1,13 @@
 package sellerlee.back.favorite.application;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import sellerlee.back.article.application.ArticleCardResponse;
+import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.domain.Article;
 import sellerlee.back.favorite.domain.Favorite;
 import sellerlee.back.favorite.domain.FavoriteRepository;
@@ -12,9 +16,16 @@ import sellerlee.back.member.domain.Member;
 @Service
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
+    private final ArticleViewService articleViewService;
 
-    public FavoriteService(FavoriteRepository favoriteRepository) {
+    public FavoriteService(FavoriteRepository favoriteRepository,
+            ArticleViewService articleViewService) {
         this.favoriteRepository = favoriteRepository;
+        this.articleViewService = articleViewService;
+    }
+
+    public List<ArticleCardResponse> showFavorites(Member member) {
+        return articleViewService.showFavorites(member);
     }
 
     @Transactional

@@ -1,6 +1,6 @@
 import { atom } from "recoil/dist";
 import { defaultArticle } from "../data/defaultArticle";
-import { Article, ArticleCardProps } from "../types/types";
+import { ArticleCardProps } from "../types/types";
 
 export const articleTitleState = atom({
   key: "articleTitleState",
@@ -59,7 +59,7 @@ export const articleIdState = atom({
 
 export const articleSalesHistoryState = atom({
   key: "articleSalesHistoryState",
-  default: <Article[]>[],
+  default: <ArticleCardProps[]>[],
 });
 
 export const tradeArticleState = atom({

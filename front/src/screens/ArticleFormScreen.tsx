@@ -14,7 +14,7 @@ import {
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Feather } from "@expo/vector-icons";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import ArticleFormTitle from "../components/Article/ArticleFormTitle";
 import ArticleFormPrice from "../components/Article/ArticleFormPrice";
 import ArticleFormScreenModal from "../components/Article/ArticleFormScreenModal";
@@ -51,12 +51,15 @@ export default function ArticleFormScreen() {
   const [article, setArticle] = useState<Article>(defaultArticle);
   const [originArticle, setOriginArticle] = useState<Article>();
 
+  const [editingArticle, setEditingArticle] = useRecoilState(
+    articleSelectedState,
+  );
   const [exitForm, setExitForm] = useRecoilState(articleFormExitState);
+  const [photos, setPhotos] = useRecoilState(articlePhotosState);
+  const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
   );
-  const [photos, setPhotos] = useRecoilState(articlePhotosState);
-  const [title, setTitle] = useRecoilState(articleTitleState);
   const [price, setPrice] = useRecoilState(articlePriceState);
   const [contents, setContents] = useRecoilState(articleContentsState);
   const [tags, setTags] = useRecoilState(tagsState);
@@ -64,30 +67,6 @@ export default function ArticleFormScreen() {
 
   const setArticleModalState = useSetRecoilState(articleModalActivationState);
   const setIsModified = useSetRecoilState(articleIsModifiedState);
-  const editingArticle = useRecoilValue(articleSelectedState);
-
-  useLayoutEffect(() => {
-    setExitForm(false);
-    navigation.setOptions({
-      title: isEditing ? "게시글 수정" : "게시글 작성",
-      headerTitleAlign: "left",
-      headerShown: true,
-      headerLeft: () => (
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={() => setExitForm(true)}
-          backImage={() => (
-            <Feather name="chevron-left" size={24} color="black" />
-          )}
-        />
-      ),
-      headerLeftContainerStyle: {
-        alignItems: "center",
-        justifyContents: "center",
-        aspectRatio: 1,
-      },
-    });
-  }, [navigation]);
 
   // const confirmToBackAction = () => {
   //   if (isDirty()) {
@@ -110,7 +89,6 @@ export default function ArticleFormScreen() {
   };
 
   const isDirty = () => {
-    console.log("=== isDirty ===");
     if (isEditing) {
       return (
         photos.length !== originArticle?.photos.length ||
@@ -121,7 +99,6 @@ export default function ArticleFormScreen() {
         tags.length !== originArticle.tags.length
       );
     }
-    console.log("isDirty -> not editing");
     return (
       photos.length !== 0 ||
       title !== "" ||
@@ -174,7 +151,17 @@ export default function ArticleFormScreen() {
       photos,
     };
     isEditing
-      ? await articlesAPI.put(article.id, data)
+      ? await articlesAPI.put(article.id, data).then(() => {
+          setEditingArticle({
+            ...editingArticle,
+            title: data.title,
+            price: data.price,
+            categoryName: data.category,
+            contents: data.contents,
+            tags: data.tags,
+            photos: data.photos,
+          });
+        })
       : await articlesAPI.post(data);
 
     setIsModified(true);
@@ -191,12 +178,35 @@ export default function ArticleFormScreen() {
     setTags(target.tags);
   };
 
+  useLayoutEffect(() => {
+    setExitForm(false);
+    navigation.setOptions({
+      title: isEditing ? "게시글 수정" : "게시글 작성",
+      headerTitleAlign: "left",
+      headerShown: true,
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={() => setExitForm(true)}
+          backImage={() => (
+            <Feather name="chevron-left" size={24} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
+    });
+  }, [navigation]);
+
   useEffect(() => {
     if (isEditing) {
       setForm(editingArticle);
       setOriginArticle(editingArticle);
     }
-  }, [isEditing]);
+  }, [isEditing, editingArticle]);
 
   // useEffect(() => backHandler.remove(), []);
 

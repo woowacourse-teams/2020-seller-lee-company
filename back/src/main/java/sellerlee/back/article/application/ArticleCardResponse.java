@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.TradeState;
 
 public class ArticleCardResponse {
     private Long id;
@@ -35,7 +34,8 @@ public class ArticleCardResponse {
         this.createdTime = createdTime;
     }
 
-    public static ArticleCardResponse of(Article article, Long favoriteCount, boolean favoriteState) {
+    public static ArticleCardResponse of(Article article, Long favoriteCount,
+            boolean favoriteState) {
         return new ArticleCardResponse(
                 article.getId(),
                 article.getTitle(),
@@ -48,7 +48,8 @@ public class ArticleCardResponse {
         );
     }
 
-    public static List<ArticleCardResponse> listOf(List<Article> articles, List<Long> favoriteCounts,
+    public static List<ArticleCardResponse> listOf(List<Article> articles,
+            List<Long> favoriteCounts,
             List<Boolean> favoriteStates) {
         return IntStream.range(0, articles.size())
                 .mapToObj(i -> of(articles.get(i), favoriteCounts.get(i), favoriteStates.get(i)))

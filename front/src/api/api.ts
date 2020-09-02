@@ -2,8 +2,7 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-// const BASE_URL = "https://sellerlee.tk";
-const BASE_URL = "http://192.168.43.237:8080";
+const BASE_URL = "http://15.164.125.244:8080";
 
 const domain = {
   tradeState: "/trade-state",
@@ -71,7 +70,7 @@ export const articlesAPI = {
   },
   getFavorites: async () => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.articles}${domain.favorites}`, {
+    return await axios.get(`${BASE_URL}${domain.favorites}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -187,7 +186,7 @@ interface FavoriteDelete {
 export const favoriteAPI = {
   post: async (data: FavoriteCreate) => {
     const token = await DeviceStorage.getToken();
-    return await axios.post(BASE_URL + domain.favorites, data, {
+    return await axios.post(`${BASE_URL}${domain.favorites}`, data, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -195,7 +194,7 @@ export const favoriteAPI = {
   },
   delete: async (data: FavoriteDelete) => {
     const token = await DeviceStorage.getToken();
-    return await axios.delete(BASE_URL + domain.favorites, {
+    return await axios.delete(`${BASE_URL}${domain.favorites}`, {
       data,
       headers: {
         Authorization: `bearer ${token}`,
@@ -207,7 +206,7 @@ export const favoriteAPI = {
 export const tradeAPI = {
   get: async () => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(BASE_URL + domain.trades, {
+    return await axios.get(`${BASE_URL}${domain.trades}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

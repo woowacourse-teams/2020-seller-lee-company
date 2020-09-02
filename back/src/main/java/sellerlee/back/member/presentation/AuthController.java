@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     @GetMapping(MEMBER_URI)
-    public ResponseEntity<String> showNickname(@LoginMember Member loginMember){
+    public ResponseEntity<String> showNickname(@LoginMember Member loginMember) {
         return ResponseEntity
                 .ok()
                 .body(loginMember.getNickname());

@@ -1,7 +1,6 @@
 package sellerlee.back.article.presentation;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
-import static sellerlee.back.favorite.presentation.FavoriteController.*;
 
 import java.net.URI;
 import java.util.List;
@@ -23,7 +22,6 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
@@ -60,8 +58,10 @@ public class ArticleController {
     }
 
     @GetMapping(params = {"lastArticleId", "size", "category"})
-    public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(@RequestParam Long lastArticleId,
-            @RequestParam int size, @RequestParam String category, @LoginMember Member loginMember) {
+    public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(
+            @RequestParam Long lastArticleId,
+            @RequestParam int size, @RequestParam String category,
+            @LoginMember Member loginMember) {
         List<ArticleCardResponse> responses = articleViewService.showPageByCategory(
                 lastArticleId, size, category, loginMember);
         return ResponseEntity.ok(responses);
@@ -88,9 +88,9 @@ public class ArticleController {
     }
 
     @GetMapping(TRADE_STATE_URI)
-    public ResponseEntity<List<SalesHistoryResponse>> showSalesDetailsArticle(
+    public ResponseEntity<List<ArticleCardResponse>> showByTradeState(
             @RequestParam String tradeState, @LoginMember Member loginMember) {
-        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(loginMember,
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(loginMember,
                 tradeState);
         return ResponseEntity.ok(responses);
     }
@@ -100,12 +100,5 @@ public class ArticleController {
             @RequestBody TradeStateRequest request, @LoginMember Member loginMember) {
         articleService.updateTradeState(id, request, loginMember);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(FAVORITE_URI)
-    public ResponseEntity<List<ArticleCardResponse>> showFavorites(
-            @LoginMember Member loginMember) {
-        List<ArticleCardResponse> responses = articleViewService.showFavorites(loginMember);
-        return ResponseEntity.ok(responses);
     }
 }

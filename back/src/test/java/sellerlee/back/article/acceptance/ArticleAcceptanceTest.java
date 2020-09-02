@@ -19,7 +19,6 @@ import sellerlee.back.AcceptanceTest;
 import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.member.application.TokenResponse;
 
@@ -81,8 +80,8 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                     assertThat(articleResponse.getFavoriteState()).isFalse();
                 }),
                 dynamicTest("판매중인 게시글 조회", () -> {
-                    List<SalesHistoryResponse> salesHistoryResponses = showSalesHistory();
-                    assertThat(salesHistoryResponses).hasSize(4);
+                    List<ArticleCardResponse> responses = showSalesHistory();
+                    assertThat(responses).hasSize(4);
                 }),
                 dynamicTest("예약중으로 tradeState 변경후 조회", () -> {
                     updateTradeState(articleId);
@@ -157,7 +156,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         // @formatter:on
     }
 
-    private List<SalesHistoryResponse> showSalesHistory() {
+    private List<ArticleCardResponse> showSalesHistory() {
         String tradeState = "ON_SALE";
         String url = ARTICLE_URI + TRADE_STATE_URI;
 
@@ -172,7 +171,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                         .log().all()
                         .statusCode(HttpStatus.OK.value())
                         .extract()
-                        .jsonPath().getList(".", SalesHistoryResponse.class);
+                        .jsonPath().getList(".", ArticleCardResponse.class);
         // @formatter:on
     }
 
