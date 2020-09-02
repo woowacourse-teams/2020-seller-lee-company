@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  titleAndTag: {},
+  titleAndTag: {
+    flex: 4,
+    flexWrap: "wrap",
+  },
   titleContainer: {
     marginBottom: 5,
   },
@@ -45,7 +48,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   tradeState: {
-    aspectRatio: 5 / 3,
+    flex: 1,
+    justifyContent: "center",
     marginVertical: 5,
   },
 });

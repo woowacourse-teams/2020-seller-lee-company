@@ -40,13 +40,20 @@ export default function JoinNicknameForm() {
     return <Text style={styles.validMessage}>사용 가능한 닉네임입니다.</Text>;
   };
 
+  const emptyNicknameMessage = () => {
+    return (
+      <Text style={styles.warningMessage}>
+        닉네임을 입력하지 않았습니다. 닉네임을 입력해주세요.
+      </Text>
+    );
+  };
+
   const validateMessageOnSubmit = () => {
     if (isBlank(joinNickname)) {
-      return (
-        <Text style={styles.warningMessage}>
-          닉네임을 입력하지 않았습니다. 닉네임을 입력해주세요.
-        </Text>
-      );
+      return emptyNicknameMessage();
+    }
+    if (!isValidNickname(joinNickname)) {
+      return invalidNicknameMessage();
     }
     return <></>;
   };

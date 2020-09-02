@@ -282,7 +282,6 @@ const styles = StyleSheet.create({
   keyboardAwareScrollView: {
     flexGrow: 1,
     flexShrink: 0,
-    justifyContent: "space-between",
   },
   contentsContainer: {
     paddingHorizontal: 20,

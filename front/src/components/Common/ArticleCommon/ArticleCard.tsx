@@ -36,22 +36,25 @@ export default function ArticleCard({
   const navigation = useNavigation<ArticleCardNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
 
+  const onPressCard = () => {
+    setArticleSelectedId(id);
+    navigation.navigate("ArticleDetailScreen");
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => {
-        setArticleSelectedId(id);
-        navigation.navigate("ArticleDetailScreen");
-      }}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPressCard}>
       <View style={styles.innerContainer}>
         <View style={styles.articleCardImageContainer}>
           <ArticleCardImage thumbnail={thumbnail} />
         </View>
         <View style={styles.contentsContainer}>
           <ArticleCardTitle title={title} />
-          <ArticleCardTradeState tradeState={tradeState} />
-          <ArticleCardTradeDetails createdTime={createdTime} />
+          <View style={styles.tradeStateAndDetailContainer}>
+            <ArticleCardTradeState tradeState={tradeState} />
+            <View style={styles.detailContainer}>
+              <ArticleCardTradeDetails createdTime={createdTime} />
+            </View>
+          </View>
           <ArticleCardAdditional
             price={price}
             favoriteCount={favoriteCount}
@@ -65,21 +68,26 @@ export default function ArticleCard({
 
 const styles = StyleSheet.create({
   container: {
-    margin: 1,
+    aspectRatio: 3.5,
   },
   innerContainer: {
-    borderRadius: 5,
-    flexDirection: "row",
-    aspectRatio: 13 / 4,
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  contentsContainer: {
     flex: 1,
-    margin: 13,
+    flexDirection: "row",
+    justifyContent: "center",
   },
   articleCardImageContainer: {
     aspectRatio: 1,
     justifyContent: "center",
+  },
+  tradeStateAndDetailContainer: {
+    aspectRatio: 10,
+    flexDirection: "row",
+  },
+  detailContainer: {
+    flex: 1,
+  },
+  contentsContainer: {
+    flex: 1,
+    marginLeft: 15,
   },
 });

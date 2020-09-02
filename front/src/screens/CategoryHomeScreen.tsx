@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import {
   CompositeNavigationProp,
   useIsFocused,
@@ -24,6 +24,7 @@ import ArticleCard from "../components/Common/ArticleCommon/ArticleCard";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { categoryIcons } from "../data/categoryData";
+import theme from "../colors";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -135,33 +136,43 @@ export default function CategoryHomeScreen() {
   };
 
   return (
-    <FlatList
-      data={articles}
-      renderItem={({ item }) => (
-        <ArticleCard
-          id={item.id}
-          title={item.title}
-          price={item.price}
-          tradeState={item.tradeState}
-          favoriteState={item.favoriteState}
-          favoriteCount={item.favoriteCount}
-          thumbnail={item.thumbnail}
-          createdTime={item.createdTime}
-        />
-      )}
-      keyExtractor={(item) => `${item.id}`}
-      refreshing={isRefreshing}
-      contentContainerStyle={styles.feedArticleContainer}
-      onRefresh={onRefresh}
-      onEndReachedThreshold={0.25}
-      onEndReached={onLoad}
-      ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={articles}
+        renderItem={({ item }) => (
+          <View style={styles.articleCardContainer}>
+            <ArticleCard
+              id={item.id}
+              title={item.title}
+              price={item.price}
+              tradeState={item.tradeState}
+              favoriteState={item.favoriteState}
+              favoriteCount={item.favoriteCount}
+              thumbnail={item.thumbnail}
+              createdTime={item.createdTime}
+            />
+          </View>
+        )}
+        keyExtractor={(item) => `${item.id}`}
+        refreshing={isRefreshing}
+        onRefresh={onRefresh}
+        onEndReachedThreshold={0.25}
+        onEndReached={onLoad}
+        ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  feedArticleContainer: {
-    marginHorizontal: 3,
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+  },
+  articleCardContainer: {
+    paddingVertical: 15,
+    borderBottomColor: theme.border,
+    borderBottomWidth: 1,
   },
 });

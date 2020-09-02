@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    flex: 1,
+    aspectRatio: 1,
     resizeMode: "cover",
   },
 });

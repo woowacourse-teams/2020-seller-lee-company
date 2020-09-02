@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import {
   CompositeNavigationProp,
@@ -14,6 +14,8 @@ import { useSetRecoilState } from "recoil/dist";
 import { articleSalesHistoryState } from "../states/articleState";
 import { articlesAPI } from "../api/api";
 import { HomeStackParam, RootStackParam } from "../types/types";
+import theme from "../colors";
+import { Scene } from "react-native-tab-view/lib/typescript/src/types";
 
 export const ON_SALE = "ON_SALE";
 export const RESERVATION = "RESERVATION";
@@ -69,6 +71,7 @@ export default function SalesHistoryScreen() {
 
   const onTabChange = async (idx: number) => {
     setIndex(idx);
+
     if (idx === ON_SALE_INDEX) {
       await getArticles(ON_SALE);
     }
@@ -82,17 +85,42 @@ export default function SalesHistoryScreen() {
     setSalesHistoryArticles(data);
   };
 
+  const renderLabel = (
+    scene: Scene<{ key: string; title: string }> & {
+      focused: boolean;
+      color: string;
+    },
+  ) => {
+    const tabLabel = salesHistoryTabs.filter(
+      (value) => value.key === scene.route.key,
+    )[0].title;
+
+    return (
+      <Text
+        style={{
+          color: scene.focused ? "black" : "grey",
+        }}
+      >
+        {tabLabel}
+      </Text>
+    );
+  };
+
   return (
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={onTabChange}
+      style={styles.container}
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={styles.container}
-          labelStyle={styles.label}
+          style={styles.tabBarContainer}
+          renderLabel={renderLabel}
           indicatorStyle={styles.indicator}
+          indicatorContainerStyle={styles.indicatorContainer}
+          activeColor={"black"}
+          inactiveColor={"lightgrey"}
         />
       )}
     />
@@ -103,11 +131,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
   },
-  label: {
-    color: "black",
-    fontSize: 15,
+  tabBarContainer: {
+    backgroundColor: "white",
+    elevation: 0,
   },
   indicator: {
-    backgroundColor: "#777",
+    backgroundColor: theme.secondary,
+  },
+  indicatorContainer: {
+    borderBottomColor: theme.border,
+    borderBottomWidth: 1,
   },
 });

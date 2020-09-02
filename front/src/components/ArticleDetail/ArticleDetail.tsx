@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   categoryAndTimeContainer: {
-    marginTop: 10,
+    marginTop: 5,
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,

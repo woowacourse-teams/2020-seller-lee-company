@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/native";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
+import { StyleSheet, View } from "react-native";
 
 type MyFavoriteScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "MyFavoriteScreen">,
@@ -37,5 +38,16 @@ export default function MyFavoriteScreen() {
     });
   }, [navigation]);
 
-  return <MyFavoriteList />;
+  return (
+    <View style={styles.container}>
+      <MyFavoriteList />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+});

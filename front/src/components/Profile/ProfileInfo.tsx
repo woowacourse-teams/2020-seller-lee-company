@@ -17,14 +17,11 @@ export default function ProfileInfo() {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        {avatar === "" ? (
-          <Image
-            style={styles.avatar}
-            source={require("../../../assets/user.png")}
-          />
-        ) : (
-          <Image style={styles.avatar} source={{ uri: avatar }} />
-        )}
+        <Image
+          source={{ uri: avatar }}
+          style={styles.avatar}
+          defaultSource={require("../../../assets/user.png")}
+        />
       </View>
       <View style={styles.nicknameContainer}>
         <Text style={styles.nickname}>{profile.nickname}</Text>
@@ -46,7 +43,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   avatar: {
-    flex: 1,
+    aspectRatio: 1,
     resizeMode: "cover",
     borderRadius: 100,
   },

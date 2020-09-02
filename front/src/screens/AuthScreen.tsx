@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from "react";
 import {
   ImageBackground,
   Keyboard,
+  Platform,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -42,23 +43,24 @@ export default function AuthScreen() {
   };
 
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require("../../assets/wave_2.jpg")}
-    >
-      <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
-        <View style={styles.contentContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Login</Text>
-          </View>
-          <View style={styles.keyboardAwareScrollViewContainer}>
-            <KeyboardAwareScrollView
-              contentContainerStyle={styles.keyboardAwareScrollView}
-              enableOnAndroid={true}
-              enableAutomaticScroll={true}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-            >
+    <View style={styles.container}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.keyboardAwareScrollView}
+        extraScrollHeight={Platform.OS === "ios" ? -160 : 0}
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
+          <ImageBackground
+            style={styles.imageBackground}
+            source={require("../../assets/wave_2.jpg")}
+          >
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Login</Text>
+            </View>
+            <View style={styles.loginFormContainer}>
               <View style={styles.loginContainer}>
                 <Login />
               </View>
@@ -69,18 +71,18 @@ export default function AuthScreen() {
                 {/*<View style={styles.buttonContainer}>*/}
                 {/*  <Text style={styles.dividerText}>OR</Text>*/}
                 {/*</View>*/}
-                <View style={styles.buttonContainer}>
-                  {/*<KakaoLoginButton />*/}
-                </View>
+                {/*<View style={styles.buttonContainer}>*/}
+                {/*  <KakaoLoginButton />*/}
+                {/*</View>*/}
                 <View style={styles.buttonContainer}>
                   <JoinButton />
                 </View>
               </View>
-            </KeyboardAwareScrollView>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </ImageBackground>
+            </View>
+          </ImageBackground>
+        </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
+    </View>
   );
 }
 
@@ -88,11 +90,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  contentContainer: {
+  keyboardAwareScrollView: {
+    flexGrow: 1,
+    flexShrink: 0,
+  },
+  imageBackground: {
     flex: 1,
   },
   titleContainer: {
-    flex: 3,
+    aspectRatio: 1.5,
     justifyContent: "center",
     marginHorizontal: 30,
     paddingLeft: 15,
@@ -103,26 +109,21 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 20,
   },
-  keyboardAwareScrollViewContainer: {
-    flex: 8,
+  loginFormContainer: {
+    flex: 1,
     backgroundColor: "white",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingTop: 30,
   },
-  keyboardAwareScrollView: {
-    flexGrow: 1,
-    flexShrink: 0,
-    justifyContent: "space-between",
-  },
   loginContainer: {
     marginHorizontal: 30,
+    marginBottom: 40,
   },
   buttonsContainer: {
     justifyContent: "center",
     marginHorizontal: 30,
-    marginTop: 20,
-    marginBottom: 40,
+    marginVertical: 20,
   },
   buttonContainer: {
     marginVertical: 10,

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   tagText: {
-    fontSize: 17,
+    fontSize: 16,
     color: theme.secondary,
   },
 });
