@@ -7,7 +7,7 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
-import { EvilIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import OnSaleTab from "../components/Profile/OnSaleTab";
 import CompletedTab from "../components/Profile/CompletedTab";
 import { useSetRecoilState } from "recoil/dist";
@@ -40,18 +40,23 @@ export default function SalesHistoryScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "판매 내역",
+      headerTitleAlign: "left",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
           onPress={navigation.goBack}
           backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color={"grey"} />
+            <Feather name="chevron-left" size={24} color="black" />
           )}
         />
       ),
-      headerLeftContainerStyle: { paddingLeft: 10 },
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     getArticles(ON_SALE);

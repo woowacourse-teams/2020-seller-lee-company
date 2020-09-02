@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 interface ArticleCardAdditionalProps {
   price: number;
@@ -18,8 +18,8 @@ export default function ArticleCardAdditional({
       <Text style={styles.price}>{price}원</Text>
       <View style={styles.additionalContainer}>
         <View style={styles.favoriteContainer}>
-          <MaterialCommunityIcons
-            name={favoriteState ? "heart" : "heart-outline"}
+          <AntDesign
+            name={favoriteState ? "heart" : "hearto"}
             size={14}
             color={favoriteState ? "red" : "black"}
           />

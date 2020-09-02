@@ -56,7 +56,7 @@ export default function JoinScreen() {
           labelVisible={false}
           onPress={onPressGoBack}
           backImage={() => (
-            <Feather name="chevron-left" size={24} color="black" />
+            <Feather name="chevron-left" size={24} color="white" />
           )}
         />
       ),

@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     paddingHorizontal: 30,
-    paddingBottom: 15,
+    paddingVertical: 15,
   },
   listTitleContainer: {
     marginHorizontal: 30,

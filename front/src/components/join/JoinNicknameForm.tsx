@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { joinNicknameState, joinSubmitState } from "../../states/joinState";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { isBlank } from "../../joinValidator";
 import theme from "../../colors";
 
@@ -43,8 +43,8 @@ export default function JoinNicknameForm() {
     if (isBlank(joinNickname)) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -54,8 +54,8 @@ export default function JoinNicknameForm() {
     }
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -69,8 +69,8 @@ export default function JoinNicknameForm() {
       <Text style={dynamicStyles.title}>닉네임</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="account-outline"
+          <Feather
+            name="user"
             size={20}
             color={focusTextInputState ? theme.secondary : "lightgrey"}
             style={styles.accountIcon}

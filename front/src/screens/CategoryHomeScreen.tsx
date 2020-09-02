@@ -22,7 +22,8 @@ import {
 } from "../states/articleState";
 import ArticleCard from "../components/Common/ArticleCommon/ArticleCard";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
-import { EvilIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { categoryIcons } from "../data/categoryData";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -52,11 +53,14 @@ export default function CategoryHomeScreen() {
     isModified ? applyChange() : undefined;
   }, [isFocused]);
 
+  const getCategoryIcon = () =>
+    categoryIcons.filter((value) => value.category === category)[0];
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: category,
+      title: `${getCategoryIcon().icon} ${category}`,
+      headerTitleAlign: "left",
       headerRight: () => <></>,
-      headerRightContainerStyle: { paddingRight: 15 },
       headerLeft: () => {
         resetCategory();
         return (
@@ -64,12 +68,16 @@ export default function CategoryHomeScreen() {
             labelVisible={false}
             onPress={navigation.goBack}
             backImage={() => (
-              <EvilIcons name="chevron-left" size={24} color="black" />
+              <Feather name="chevron-left" size={24} color="black" />
             )}
           />
         );
       },
-      headerLeftContainerStyle: { paddingLeft: 15 },
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
   }, [navigation]);
 

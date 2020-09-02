@@ -21,21 +21,6 @@ export const memberProfileState = atom({
   default: <Profile>{},
 });
 
-export const memberInfoNicknameState = atom({
-  key: "memberInfoNicknameState",
-  default: "",
-});
-
-export const memberInfoPasswordState = atom({
-  key: "memberInfoPasswordState",
-  default: "",
-});
-
-export const memberInfoConfirmState = atom({
-  key: "memberInfoConfirmState",
-  default: "",
-});
-
 export const memberInfoAvatarState = atom({
   key: "memberInfoAvatarState",
   default: "",

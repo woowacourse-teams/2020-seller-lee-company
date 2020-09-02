@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import {
   CompositeNavigationProp,
   useNavigation,
@@ -46,9 +46,9 @@ export default function ArticleFormCategorySelect({
       onPress={() => navigation.navigate("CategoryChoiceScreen")}
     >
       <Text style={styles.buttonText}>{renderCategory()}</Text>
-      <MaterialCommunityIcons
+      <Feather
         name="chevron-down"
-        size={22}
+        size={18}
         color="black"
         style={styles.selectCategoryArrowIcon}
       />

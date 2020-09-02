@@ -9,12 +9,12 @@ import {
   View,
 } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
-import { IconButton } from "react-native-paper";
 import { useRecoilValue } from "recoil/dist";
 import Fire from "../components/Chat/Fire";
 import colors from "../colors";
 import theme from "../colors";
 import { memberAvatarState, memberNicknameState } from "../states/memberState";
+import { Feather } from "@expo/vector-icons";
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
@@ -35,7 +35,7 @@ export default function ChatScreen() {
     return (
       <Send {...props}>
         <View style={styles.sendingContainer}>
-          <IconButton icon="send-circle" size={32} color={colors.primary} />
+          <Feather name="send" size={28} color={colors.primary} />
         </View>
       </Send>
     );
@@ -69,6 +69,9 @@ export default function ChatScreen() {
           }}
           renderSend={renderSend}
           scrollToBottom
+          scrollToBottomComponent={() => (
+            <Feather name="chevron-down" size={28} color={colors.primary} />
+          )}
           renderLoading={renderLoading}
           renderUsernameOnMessage={true}
           dateFormat="YYYY년 MM월 DD일"
@@ -108,11 +111,14 @@ const styles = StyleSheet.create({
     flex: 12,
   },
   sendingContainer: {
+    aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 5,
+    marginRight: 5,
   },
   loadingContainer: {
-    flex: 6,
+    flex: 12,
     alignItems: "center",
     justifyContent: "center",
   },

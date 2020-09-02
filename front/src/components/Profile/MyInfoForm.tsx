@@ -1,72 +1,51 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
-  memberInfoConfirmState,
-  memberInfoPasswordState,
-  memberProfileState,
-} from "../../states/memberState";
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
+import { useRecoilValue } from "recoil/dist";
+import { memberProfileState } from "../../states/memberState";
+import MyInfoPasswordForm from "./MyInfoPasswordForm";
+import MyInfoCheckPasswordForm from "./MyInfoCheckPasswordForm";
+import theme from "../../colors";
 
 export default function MyInfoForm() {
-  const NICKNAME = "닉네임";
-  const PASSWORD = "비밀번호";
-  const CONFIRM_PASSWORD = "확인";
-
   const { nickname } = useRecoilValue(memberProfileState);
-  const [password, setPassword] = useRecoilState(memberInfoPasswordState);
-  const [confirm, setConfirm] = useRecoilState(memberInfoConfirmState);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.item}>
-        <Text style={styles.text}>{NICKNAME}</Text>
-        <Text style={styles.input}>{nickname}</Text>
+    <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.itemContainer}>
+          <MyInfoPasswordForm />
+        </View>
+        <View style={styles.itemContainer}>
+          <MyInfoCheckPasswordForm />
+        </View>
       </View>
-      <View style={styles.item}>
-        <Text style={styles.text}>{PASSWORD}</Text>
-        <TextInput
-          style={styles.input}
-          placeholder={PASSWORD}
-          value={password}
-          onChangeText={setPassword}
-          textContentType={"password"}
-          secureTextEntry={true}
-        />
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.text}>{CONFIRM_PASSWORD}</Text>
-        <TextInput
-          style={styles.input}
-          placeholder={CONFIRM_PASSWORD}
-          value={confirm}
-          onChangeText={setConfirm}
-          textContentType={"password"}
-          secureTextEntry={true}
-        />
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopWidth: 1,
-    borderColor: "#ddd",
+  },
+  itemContainer: {
+    marginVertical: 10,
   },
   item: {
-    flexDirection: "row",
+    aspectRatio: 6,
   },
   text: {
-    flex: 1,
-    fontSize: 18,
-    padding: 20,
+    fontSize: 14,
+    marginBottom: 10,
   },
   input: {
-    flex: 3,
     fontSize: 18,
-    paddingVertical: 20,
+    paddingBottom: 5,
     borderBottomWidth: 1,
-    borderColor: "#ccc",
+    borderBottomColor: theme.border,
   },
 });

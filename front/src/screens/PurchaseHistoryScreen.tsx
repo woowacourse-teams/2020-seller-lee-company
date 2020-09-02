@@ -5,7 +5,7 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
-import { EvilIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import PurchaseHistoryItem from "../components/Profile/PurchaseHistoryItem";
 import { tradeAPI } from "../api/api";
 import { useRecoilState } from "recoil/dist";
@@ -23,21 +23,24 @@ export default function PurchaseHistoryScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "구매내역",
+      title: "구매 내역",
+      headerTitleAlign: "left",
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
           onPress={navigation.goBack}
           backImage={() => (
-            <EvilIcons name="chevron-left" size={35} color="black" />
+            <Feather name="chevron-left" size={24} color="black" />
           )}
         />
       ),
       headerLeftContainerStyle: {
-        paddingLeft: 10,
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
       },
     });
-  });
+  }, [navigation]);
 
   useEffect(() => {
     getArticles();

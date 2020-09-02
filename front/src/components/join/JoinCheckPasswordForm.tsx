@@ -6,7 +6,7 @@ import {
   joinPasswordState,
   joinSubmitState,
 } from "../../states/joinState";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import { isBlank, isSamePassword } from "../../joinValidator";
 
@@ -80,8 +80,8 @@ export default function JoinCheckPasswordForm() {
     ) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -91,8 +91,8 @@ export default function JoinCheckPasswordForm() {
     }
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -108,8 +108,8 @@ export default function JoinCheckPasswordForm() {
     if (!isSamePassword(joinPassword, joinCheckPassword)) {
       return (
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="alert-circle-outline"
+          <Feather
+            name="alert-circle"
             size={20}
             color={theme.warning}
             style={styles.validateIcon}
@@ -119,8 +119,8 @@ export default function JoinCheckPasswordForm() {
     }
     return (
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -134,9 +134,9 @@ export default function JoinCheckPasswordForm() {
       <Text style={dynamicStyles.title}>비밀번호 확인</Text>
       <View style={dynamicStyles.checkPasswordFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="lock-outline"
-            size={22}
+          <Feather
+            name="lock"
+            size={20}
             color={focusTextInputState ? theme.secondary : "lightgrey"}
             style={styles.lockIcon}
           />
