@@ -57,15 +57,18 @@ export default function Photo() {
       quality: 1,
     });
     if (!result.cancelled) {
+      const date = new Date();
+      const format = "YYYY.MM.DD_HH:mm:ss";
+      const now = moment(date).format(format);
       const file = {
         uri: result.uri,
-        name: memberId + "_" + moment.now() + ".jpeg",
+        name: memberId + "_" + now + ".jpeg",
         type: "image/jpeg",
       };
 
       const options = {
         keyPrefix: "images/",
-        bucket: "seller-lee-bucket",
+        bucket: "seller-lee",
         region: "ap-northeast-2",
         accessKey: s3Secret.accessKey,
         secretKey: s3Secret.secretKey,
