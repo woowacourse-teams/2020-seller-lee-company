@@ -1,5 +1,6 @@
 package sellerlee.back.security.web.context;
 
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.member.presentation.AuthController.*;
 import static sellerlee.back.security.web.LoginMemberMethodArgumentResolver.*;
 
@@ -30,7 +31,7 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
         boolean isHTMLFile = request.getServletPath().contains("html");
         boolean isJoinRequest =
-                HttpMethod.POST.matches(request.getMethod()) && (API + MEMBER_URI).equals(
+                HttpMethod.POST.matches(request.getMethod()) && (API_URI + MEMBER_URI).equals(
                         request.getServletPath());
 
         if (StringUtils.isBlank(credentials)) {

@@ -20,15 +20,12 @@ import sellerlee.back.security.oauth2.token.JwtTokenProvider;
 import sellerlee.back.security.web.AuthorizationType;
 
 @Component
-public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String HEADER_STRING = "Authorization";
-
+public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
     private final MemberRepository memberRepository;
 
-    public MyOAuth2SuccessHandler(
+    public OAuth2SuccessHandler(
             JwtTokenProvider jwtTokenProvider,
             MemberRepository memberRepository) {
         this.jwtTokenProvider = jwtTokenProvider;

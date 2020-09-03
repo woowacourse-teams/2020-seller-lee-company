@@ -24,33 +24,28 @@ import sellerlee.back.security.oauth2.provider.CustomOAuth2Provider;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final MyOAuth2SuccessHandler myOAuth2SuccessHandler;
+    private final OAuth2SuccessHandler OAuth2SuccessHandler;
 
-    public SecurityConfig(MyOAuth2SuccessHandler myOAuth2SuccessHandler) {
-        this.myOAuth2SuccessHandler = myOAuth2SuccessHandler;
+    public SecurityConfig(OAuth2SuccessHandler OAuth2SuccessHandler) {
+        this.OAuth2SuccessHandler = OAuth2SuccessHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // rest api 이므로 기본설정 사용안함. 기본설정은 비인증시 로그인폼 화면으로 리다이렉트 된다.
                 .httpBasic().disable()
                 .formLogin().disable()
-                //jwt token으로 인증할것이므로 세션필요없으므로 생성안함.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                //h2 이용할꺼면 off
                 .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
                 .and()
-                //권한 설정
                 .authorizeRequests()
-                .antMatchers("/members/**", "/oauth2/**", "/login/**", "/api/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/", "/oauth2**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
-                .successHandler(myOAuth2SuccessHandler)
+                .loginPage("/oauth2/authorization/kakao")
+                .successHandler(OAuth2SuccessHandler)
         ;
     }
 

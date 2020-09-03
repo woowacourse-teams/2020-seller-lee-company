@@ -1,5 +1,6 @@
 package sellerlee.back.member.presentation;
 
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.member.presentation.AuthController.*;
 
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import sellerlee.back.member.application.MemberService;
 
 @RestController
-@RequestMapping(API)
+@RequestMapping(API_URI + MEMBER_URI)
 public class AuthController {
     public static final String MEMBER_URI = "/members";
-    public static final String LOGIN_NOT_OAUTH_URI = "/login/not-oauth";
-    public static final String API = "/api";
 
     private final MemberService memberService;
 
@@ -23,8 +22,8 @@ public class AuthController {
         this.memberService = memberService;
     }
 
-    @GetMapping(value = MEMBER_URI, params = "nickname")
-    public ResponseEntity<Boolean> verifyNickname(@RequestParam String nickname) {
+    @GetMapping
+    public ResponseEntity<Boolean> findNickname(@RequestParam String nickname) {
         return ResponseEntity.ok(memberService.findNickname(nickname));
     }
 }

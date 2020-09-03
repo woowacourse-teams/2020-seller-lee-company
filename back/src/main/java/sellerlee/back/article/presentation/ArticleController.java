@@ -1,8 +1,8 @@
 package sellerlee.back.article.presentation;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
-import static sellerlee.back.member.presentation.AuthController.*;
 
 import java.net.URI;
 import java.util.List;
@@ -30,7 +30,7 @@ import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 
 @RestController
-@RequestMapping(API + ARTICLE_URI)
+@RequestMapping(API_URI + ARTICLE_URI)
 public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
     public static final String TRADE_STATE_URI = "/trade-state";
@@ -61,8 +61,10 @@ public class ArticleController {
     }
 
     @GetMapping(params = {"lastArticleId", "size", "category"})
-    public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(@RequestParam Long lastArticleId,
-            @RequestParam int size, @RequestParam String category, @LoginMember Member loginMember) {
+    public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(
+            @RequestParam Long lastArticleId,
+            @RequestParam int size, @RequestParam String category,
+            @LoginMember Member loginMember) {
         List<ArticleCardResponse> responses = articleViewService.showPageByCategory(
                 lastArticleId, size, category, loginMember);
         return ResponseEntity.ok(responses);

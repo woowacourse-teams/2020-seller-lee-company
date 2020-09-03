@@ -68,21 +68,10 @@ public class Member {
         this(id, null, null, null, null, null, null);
     }
 
-    // public Member updateNickName(String nickname) {
-    //     this.nickname = nickname;
-    //     this.state = State.EXISTING;
-    //
-    //     return this;
-    // }
-
     public boolean isSameId(Member member) {
         return id.equals(member.id);
     }
-
-    public boolean isSameNickname(String nickname) {
-        return this.nickname.equals(nickname);
-    }
-
+    
     public Member update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;

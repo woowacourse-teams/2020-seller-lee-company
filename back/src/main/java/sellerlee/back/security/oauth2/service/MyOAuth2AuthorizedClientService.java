@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.member.domain.MemberRepository;
 import sellerlee.back.member.domain.State;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
 public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientService {
@@ -50,11 +49,10 @@ public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientSe
 
     @Override
     public <T extends OAuth2AuthorizedClient> T loadAuthorizedClient(String s, String s1) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public void removeAuthorizedClient(String s, String s1) {
-        throw new NotImplementedException();
     }
 }

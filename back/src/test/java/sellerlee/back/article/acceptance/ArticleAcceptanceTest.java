@@ -2,9 +2,14 @@ package sellerlee.back.article.acceptance;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
-import static sellerlee.back.member.presentation.AuthController.*;
+import static sellerlee.back.fixture.MemberFixture.*;
+import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -12,10 +17,10 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MvcResult;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import sellerlee.back.AcceptanceTest;
 import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.application.ArticleResponse;
@@ -23,6 +28,7 @@ import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.member.application.TokenResponse;
+import sellerlee.back.security.web.AuthorizationType;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 4L;
@@ -58,8 +64,9 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("게시글 관리")
     @TestFactory
-    Stream<DynamicTest> manageArticle() throws JsonProcessingException {
-        token = joinMemberAndLogin();
+    @WithMockUser
+    Stream<DynamicTest> manageArticle() throws Exception {
+        token = joinAndLogin(MEMBER1);
 
         // 게시글을 등록 한다.
         Long articleId = extractId(createArticle(token));
@@ -96,104 +103,173 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 }));
     }
 
-    private List<FeedResponse> showPage(Long articleId) {
+    private List<FeedResponse> showPage(Long articleId) throws Exception {
+
+        MvcResult mvcResult = mockMvc.perform(
+                get(API_URI + ARTICLE_URI)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .param("lastArticleId", String.valueOf(articleId))
+                        .param("size", String.valueOf(ARTICLE_SIZE)))
+                .andDo(print())
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+
+        return objectMapper.readValue(json, objectMapper.getTypeFactory()
+                .constructCollectionType(List.class, FeedResponse.class));
         // @formatter:off
-        return
-                given()
-                        .auth().oauth2(token.getAccessToken())
-                .when()
-                        .param("lastArticleId", articleId)
-                        .param("size", ARTICLE_SIZE)
-                        .get(API+ARTICLE_URI)
-                .then()
-                        .log().all()
-                        .extract().jsonPath().getList(".", FeedResponse.class);
+        // return
+        //         given()
+        //                 .auth().oauth2(token.getAccessToken())
+        //         .when()
+        //                 .param("lastArticleId", articleId)
+        //                 .param("size", ARTICLE_SIZE)
+        //                 .get(API_URI+ARTICLE_URI)
+        //         .then()
+        //                 .log().all()
+        //                 .extract().jsonPath().getList(".", FeedResponse.class);
         // @formatter:on
     }
 
-    private List<ArticleCardResponse> showPageByCategory(Long articleId) {
+    private List<ArticleCardResponse> showPageByCategory(Long articleId) throws
+            Exception {
+
+        MvcResult mvcResult = mockMvc.perform(
+                get(API_URI + ARTICLE_URI)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .param("lastArticleId", String.valueOf(articleId))
+                        .param("size", String.valueOf(ARTICLE_SIZE))
+                        .param("category", ARTICLE_REQUEST.getCategory()))
+                .andDo(print())
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+
+        return objectMapper.readValue(json, objectMapper.getTypeFactory()
+                .constructCollectionType(List.class, ArticleResponse.class));
+
         // @formatter:off
-        return
-                given()
-                        .auth().oauth2(token.getAccessToken())
-                        .when()
-                        .param("lastArticleId", articleId)
-                        .param("size", ARTICLE_SIZE)
-                        .param("category", ARTICLE_REQUEST.getCategory())
-                        .get(API + ARTICLE_URI)
-                        .then()
-                        .log().all()
-                        .extract().jsonPath().getList(".", ArticleCardResponse.class);
+        // return
+        //         given()
+        //                 .auth().oauth2(token.getAccessToken())
+        //                 .when()
+        //                 .param("lastArticleId", articleId)
+        //                 .param("size", ARTICLE_SIZE)
+        //                 .param("category", ARTICLE_REQUEST.getCategory())
+        //                 .get(API_URI + ARTICLE_URI)
+        //                 .then()
+        //                 .log().all()
+        //                 .extract().jsonPath().getList(".", ArticleCardResponse.class);
         // @formatter:on
     }
 
-    private ArticleResponse showArticle(Long articleId) {
-        String url = API + ARTICLE_URI + "/" + articleId;
+    private ArticleResponse showArticle(Long articleId) throws Exception {
+
+        MvcResult mvcResult = mockMvc.perform(
+                get(API_URI + ARTICLE_URI + "/" + articleId)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken())))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+
+        return objectMapper.readValue(json, ArticleResponse.class);
 
         // @formatter:off
-        return
-                given()
-                        .auth().oauth2(token.getAccessToken())
-                .when()
-                        .get(url)
-                .then()
-                        .log().all()
-                        .statusCode(HttpStatus.OK.value())
-                        .extract()
-                        .jsonPath().getObject(".", ArticleResponse.class);
+        // return
+        //         given()
+        //                 .auth().oauth2(token.getAccessToken())
+        //         .when()
+        //                 .get(url)
+        //         .then()
+        //                 .log().all()
+        //                 .statusCode(HttpStatus.OK.value())
+        //                 .extract()
+        //                 .jsonPath().getObject(".", ArticleResponse.class);
         // @formatter:on
     }
 
-    private void deleteArticle(Long articleId) {
-        String url = API + ARTICLE_URI + "/" + articleId;
+    private void deleteArticle(Long articleId) throws Exception {
+
+        mockMvc.perform(
+                delete(API_URI + ARTICLE_URI + "/" + articleId)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken())))
+                .andDo(print())
+                .andExpect(status().isNoContent());
 
         // @formatter:off
-        given()
-                .auth().oauth2(token.getAccessToken())
-        .when()
-                .delete(url)
-        .then()
-                .log().all()
-                .statusCode(HttpStatus.NO_CONTENT.value());
+        // given()
+        //         .auth().oauth2(token.getAccessToken())
+        // .when()
+        //         .delete(url)
+        // .then()
+        //         .log().all()
+        //         .statusCode(HttpStatus.NO_CONTENT.value());
         // @formatter:on
     }
 
-    private List<SalesHistoryResponse> showSalesHistory() {
+    private List<SalesHistoryResponse> showSalesHistory() throws Exception {
         String tradeState = "ON_SALE";
-        String url = API + ARTICLE_URI + TRADE_STATE_URI;
+
+        MvcResult mvcResult = mockMvc.perform(
+                get(API_URI + ARTICLE_URI + TRADE_STATE_URI)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .param("tradeState", tradeState))
+                .andDo(print())
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+
+        return objectMapper.readValue(json, objectMapper.getTypeFactory()
+                .constructCollectionType(List.class, SalesHistoryResponse.class));
 
         // @formatter:off
-        return
-                given()
-                        .auth().oauth2(token.getAccessToken())
-                .when()
-                    .param("tradeState", tradeState)
-                    .get(url)
-                .then()
-                        .log().all()
-                        .statusCode(HttpStatus.OK.value())
-                        .extract()
-                        .jsonPath().getList(".", SalesHistoryResponse.class);
+        // return
+        //         given()
+        //                 .auth().oauth2(token.getAccessToken())
+        //         .when()
+        //             .param("tradeState", tradeState)
+        //             .get(url)
+        //         .then()
+        //                 .log().all()
+        //                 .statusCode(HttpStatus.OK.value())
+        //                 .extract()
+        //                 .jsonPath().getList(".", SalesHistoryResponse.class);
         // @formatter:on
     }
 
-    private void updateTradeState(Long articleId) {
+    private void updateTradeState(Long articleId) throws Exception {
         String tradeState = "RESERVED";
-        String url = API + ARTICLE_URI + "/" + articleId + TRADE_STATE_URI;
 
         TradeStateRequest tradeStateRequest = new TradeStateRequest(tradeState);
 
+        mockMvc.perform(
+                put(API_URI + ARTICLE_URI + "/" + articleId + TRADE_STATE_URI)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(tradeStateRequest)))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
         // @formatter:off
-        given()
-                .auth().oauth2(token.getAccessToken())
-        .when()
-                .body(tradeStateRequest)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .put(url)
-        .then()
-                .log().all()
-                .statusCode(HttpStatus.NO_CONTENT.value());
+        // given()
+        //         .auth().oauth2(token.getAccessToken())
+        // .when()
+        //         .body(tradeStateRequest)
+        //         .accept(MediaType.APPLICATION_JSON_VALUE)
+        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
+        //         .put(url)
+        // .then()
+        //         .log().all()
+        //         .statusCode(HttpStatus.NO_CONTENT.value());
         // @formatter:on
     }
 }
