@@ -7,7 +7,7 @@ import { articleSelectedState } from "../../states/articleState";
 
 export default function ArticleAuthor() {
   const {
-    author: { nickname, avatar, score },
+    author: { nickname, avatar },
   } = useRecoilValue(articleSelectedState);
 
   return (
@@ -18,12 +18,12 @@ export default function ArticleAuthor() {
       <View style={styles.authorNameContainer}>
         <AuthorName nickname={nickname} />
       </View>
-      <View style={styles.authorScoreContainer}>
-        {/*<AuthorScore score={score as AuthorScoreType} />*/}
-      </View>
-      <View style={styles.authorTheCheatContainer}>
-        {/*<AuthorTheCheat />*/}
-      </View>
+      {/*<View style={styles.authorScoreContainer}>*/}
+      {/*  <AuthorScore score={score as AuthorScoreType} />*/}
+      {/*</View>*/}
+      {/*<View style={styles.authorTheCheatContainer}>*/}
+      {/*  <AuthorTheCheat />*/}
+      {/*</View>*/}
     </View>
   );
 }
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   },
   authorAvatarContainer: {
     marginRight: 10,
+    marginVertical: 5,
   },
   authorNameContainer: {
     flex: 1,

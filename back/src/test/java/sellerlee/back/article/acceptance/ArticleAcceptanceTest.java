@@ -25,7 +25,6 @@ import sellerlee.back.AcceptanceTest;
 import sellerlee.back.article.application.ArticleCardResponse;
 import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.member.application.TokenResponse;
 import sellerlee.back.security.web.AuthorizationType;
@@ -89,8 +88,8 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                     assertThat(articleResponse.getFavoriteState()).isFalse();
                 }),
                 dynamicTest("판매중인 게시글 조회", () -> {
-                    List<SalesHistoryResponse> salesHistoryResponses = showSalesHistory();
-                    assertThat(salesHistoryResponses).hasSize(4);
+                    List<ArticleCardResponse> responses = showSalesHistory();
+                    assertThat(responses).hasSize(4);
                 }),
                 dynamicTest("예약중으로 tradeState 변경후 조회", () -> {
                     updateTradeState(articleId);
@@ -213,11 +212,11 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         // @formatter:on
     }
 
-    private List<SalesHistoryResponse> showSalesHistory() throws Exception {
+    private List<ArticleCardResponse> showSalesHistory() throws Exception {
         String tradeState = "ON_SALE";
 
         MvcResult mvcResult = mockMvc.perform(
-                get(API_URI + ARTICLE_URI + TRADE_STATE_URI)
+                get(API_URI + ARTICLE_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("tradeState", tradeState))
@@ -227,7 +226,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         String json = mvcResult.getResponse().getContentAsString();
 
         return objectMapper.readValue(json, objectMapper.getTypeFactory()
-                .constructCollectionType(List.class, SalesHistoryResponse.class));
+                .constructCollectionType(List.class, ArticleCardResponse.class));
 
         // @formatter:off
         // return
@@ -240,7 +239,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         //                 .log().all()
         //                 .statusCode(HttpStatus.OK.value())
         //                 .extract()
-        //                 .jsonPath().getList(".", SalesHistoryResponse.class);
+        //                 .jsonPath().getList(".", ArticleCardResponse.class);
         // @formatter:on
     }
 

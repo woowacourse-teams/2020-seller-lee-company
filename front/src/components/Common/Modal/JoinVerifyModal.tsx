@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { JoinScreenNavigationProp } from "../../../types/types";
 import { useRecoilState } from "recoil/dist";
 import {
   Modal,
@@ -11,14 +10,21 @@ import {
 } from "react-native";
 import { joinModalState } from "../../../states/joinState";
 import theme from "../../../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParam } from "../../../types/types";
+
+type JoinVerifyModalNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "JoinScreen"
+>;
 
 export default function JoinVerifyModal() {
-  const navigation = useNavigation<JoinScreenNavigationProp>();
+  const navigation = useNavigation<JoinVerifyModalNavigationProp>();
   const [isModalVisible, setJoinModalVisible] = useRecoilState(joinModalState);
 
   const onPressCloseButton = () => {
     setJoinModalVisible(false);
-    navigation.navigate("BottomTabNavigation");
+    navigation.navigate("HomeStack");
   };
 
   return (

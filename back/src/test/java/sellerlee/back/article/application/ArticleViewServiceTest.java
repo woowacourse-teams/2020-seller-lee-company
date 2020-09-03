@@ -10,7 +10,6 @@ import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.FavoriteFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +73,8 @@ class ArticleViewServiceTest {
         PageRequest pageRequest = PageRequest.of(FIRST_PAGE, ARTICLE_SIZE);
         Page<Article> expectedPage = new PageImpl<>(articles);
 
-        when(articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(LAST_ARTICLE_ID, TradeState.ON_SALE, pageRequest))
+        when(articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(LAST_ARTICLE_ID,
+                TradeState.ON_SALE, pageRequest))
                 .thenReturn(expectedPage);
         when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles))
                 .thenReturn(asList(
@@ -102,7 +102,7 @@ class ArticleViewServiceTest {
         Page<Article> expectedPage = new PageImpl<>(articles);
 
         when(articleRepository.findByIdLessThanAndCategoryOrderByIdDesc(LAST_ARTICLE_ID,
-                ARTICLE2.getCategory(),pageRequest))
+                ARTICLE2.getCategory(), pageRequest))
                 .thenReturn(expectedPage);
         when(articleFavoriteCountRepository.findAllByArticleInOrderByArticle(articles))
                 .thenReturn(asList(
@@ -111,7 +111,8 @@ class ArticleViewServiceTest {
         when(favoriteRepository.findAllByMemberAndArticleIn(MEMBER1, articles))
                 .thenReturn(singletonList(new Favorite(1L, articles.get(0), MEMBER1)));
         List<ArticleCardResponse> actualArticles = articleViewService
-                .showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE, ARTICLE1.getCategory().getCategoryName(), MEMBER1);
+                .showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE,
+                        ARTICLE1.getCategory().getCategoryName(), MEMBER1);
 
         assertThat(actualArticles.get(0).getId()).isEqualTo(ARTICLE2.getId());
         assertThat(actualArticles.get(0).getFavoriteCount()).isEqualTo(favoriteCounts.get(0));
@@ -123,12 +124,10 @@ class ArticleViewServiceTest {
     @Test
     void showSalesDetailsInCaseCompleted() {
         String tradeState = "COMPLETED";
-        when(articleRepository.findAllByAuthorAndTradeState(any(), any())).thenReturn(
-                Collections.singletonList(
-                        ARTICLE3
-                ));
+        when(articleRepository.findAllByAuthorAndTradeState(MEMBER1, TradeState.COMPLETED))
+                .thenReturn(Collections.singletonList(ARTICLE3));
 
-        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(
                 MEMBER1, tradeState);
 
         assertThat(responses).hasSize(1);
@@ -138,27 +137,13 @@ class ArticleViewServiceTest {
     @Test
     void showSalesDetailsInCaseNotCompleted() {
         String tradeState = "ON_SALE";
-        when(articleRepository.findAllByAuthorAndTradeStateNot(any(), any())).thenReturn(
-                Arrays.asList(
-                        ARTICLE1, ARTICLE2, ARTICLE3
-                ));
+        List<Article> articles = asList(ARTICLE1, ARTICLE2, ARTICLE3);
+        when(articleRepository.findAllByAuthorAndTradeStateNot(MEMBER1, TradeState.COMPLETED))
+                .thenReturn(articles);
 
-        List<SalesHistoryResponse> responses = articleViewService.showByTradeState(
-                MEMBER1, tradeState);
+        List<ArticleCardResponse> responses = articleViewService.showByTradeState(MEMBER1,
+                tradeState);
 
         assertThat(responses).hasSize(3);
-    }
-
-    @DisplayName("Member가 찜하고 있는 게시글 반환")
-    @Test
-    void showFavorites() {
-        when(favoriteRepository.findAllByMemberId(MEMBER1.getId())).thenReturn(
-                singletonList(FAVORITE1));
-        when(articleRepository.findAllById(singletonList(FAVORITE1.getId()))).thenReturn(
-                singletonList(ARTICLE1));
-
-        List<ArticleCardResponse> responses = articleViewService.showFavorites(MEMBER1);
-
-        assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
     }
 }

@@ -49,6 +49,7 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
         nickname: joinNickname,
         avatar: joinAvatar,
       });
+
       if (response.status === 204) {
         resetJoinForm();
         setJoinModalVisible(true);

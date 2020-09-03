@@ -13,7 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
 import static sellerlee.back.common.PageController.*;
-import static sellerlee.back.favorite.presentation.FavoriteController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -35,7 +34,6 @@ import sellerlee.back.article.application.ArticleResponse;
 import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
-import sellerlee.back.article.application.SalesHistoryResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.article.domain.Category;
 
@@ -223,12 +221,12 @@ class ArticleControllerTest extends ControllerTest {
         String tradeState = "ON_SALE";
 
         when(articleViewService.showByTradeState(any(), any()))
-                .thenReturn(singletonList(SalesHistoryResponse.of(ARTICLE1, 5L)));
+                .thenReturn(singletonList(ArticleCardResponse.of(ARTICLE1, 5L, true)));
 
         // @formatter:off
         mockMvc
                 .perform(
-                        get(API_URI + ARTICLE_URI + TRADE_STATE_URI)
+                        get(API_URI + ARTICLE_URI)
                                 .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
@@ -251,38 +249,6 @@ class ArticleControllerTest extends ControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
-        // @formatter:on
-    }
-
-    @DisplayName("찜 목록 조회 시 찜하고 있는 게시글과 Status OK 반환")
-    @Test
-    void showFavorites() throws Exception {
-        when(articleViewService.showFavorites(any())).thenReturn(
-                ArticleCardResponse.listOf(singletonList(ARTICLE1), singletonList(1L),
-                        singletonList(true)));
-
-        // @formatter:off
-        mockMvc
-                .perform(
-                        get(API_URI + ARTICLE_URI + FAVORITE_URI)
-                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
-                .andExpect(status().isOk())
-                .andDo(document("articles/favorites",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        requestHeaders(
-                                headerWithName(AUTHORIZATION).description("회원의 토큰")
-                        ),
-                        responseFields(
-                                fieldWithPath("[].id").description("게시글의 ID"),
-                                fieldWithPath("[].title").description("게시글의 제목"),
-                                fieldWithPath("[].price").description("게시글의 가격"),
-                                fieldWithPath("[].thumbnail").description("게시글의 섬네일"),
-                                fieldWithPath("[].tradeState").description("게시글의 거래 상태"),
-                                fieldWithPath("[].favoriteCount").description("게시글의 좋아요 개수"),
-                                fieldWithPath("[].favoriteState").description("게시글의 좋아요 상태"),
-                                fieldWithPath("[].createdTime").description("게시글의 생성 시간")
-                        )));
         // @formatter:on
     }
 }

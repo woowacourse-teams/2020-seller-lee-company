@@ -7,7 +7,8 @@ import { DeviceStorage } from "../../auth/DeviceStorage";
 import { memberLoginTrialState } from "../../states/loginState";
 import { memberState } from "../../states/memberState";
 import { useNavigation } from "@react-navigation/native";
-import { TeaserScreenNavigationProp } from "../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParam } from "../../types/types";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
@@ -18,10 +19,15 @@ interface response {
   state: string;
 }
 
+type KakaoLoginWebViewNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "TeaserScreen"
+>;
+
 export default function KakaoLoginWebView({
   toggleModal,
 }: KakakoLoginWebViewProp) {
-  const navigation = useNavigation<TeaserScreenNavigationProp>();
+  const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
   const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
   const setMemberState = useSetRecoilState(memberState);

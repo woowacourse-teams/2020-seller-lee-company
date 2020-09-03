@@ -10,11 +10,17 @@ import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { memberLoginTrialState } from "../../../states/loginState";
-import { AuthScreenNavigationProp } from "../../../types/types";
 import { memberState } from "../../../states/memberState";
+import { RootStackParam } from "../../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type LoginVerifyModalNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "AuthScreen"
+>;
 
 export default function LoginVerifyModal() {
-  const navigation = useNavigation<AuthScreenNavigationProp>();
+  const navigation = useNavigation<LoginVerifyModalNavigationProp>();
 
   const [loginTrialState, setLoginTrialState] = useRecoilState(
     memberLoginTrialState,
@@ -25,8 +31,7 @@ export default function LoginVerifyModal() {
     setLoginTrialState(false);
 
     if (state === "JOIN") {
-      // TODO LoginScreen을 Home으로 변경해야 함
-      navigation.navigate("BottomTabNavigation");
+      navigation.navigate("HomeStack");
     }
   };
 
@@ -44,7 +49,7 @@ export default function LoginVerifyModal() {
               ? "로그인에 성공하였습니다."
               : "로그인에 실패하였습니다."}
           </Text>
-          <View style={styles.emptyContainer}>
+          <View style={styles.buttonContainer}>
             <TouchableHighlight
               style={styles.button}
               onPress={onPressCloseButton}
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-  emptyContainer: {
+  buttonContainer: {
     flexDirection: "row",
   },
   button: {

@@ -6,8 +6,8 @@ import {
   joinNicknameState,
   joinSubmitState,
 } from "../../states/joinState";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { isBlank, isValidNickname } from "../../nicknameValidator";
+import { Feather } from "@expo/vector-icons";
+import { isBlank, isValidNickname } from "../../joinValidator";
 import theme from "../../colors";
 import ValidateMessage from "../auth/ValidateMessage";
 import ValidateIcon from "../auth/ValidateIcon";
@@ -34,7 +34,7 @@ export default function JoinNicknameForm() {
 
   const dynamicStyles = StyleSheet.create({
     passwordFormContainer: {
-      flex: 1,
+      // flex: 1,
       flexDirection: "row",
       paddingVertical: 10,
       borderWidth: 2,
@@ -55,8 +55,8 @@ export default function JoinNicknameForm() {
       <Text style={dynamicStyles.title}>닉네임</Text>
       <View style={dynamicStyles.passwordFormContainer}>
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons
-            name="account-outline"
+          <Feather
+            name="user"
             size={20}
             color={changeDynamicColor()}
             style={styles.accountIcon}
@@ -97,22 +97,5 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     marginHorizontal: 15,
-  },
-  validateIcon: {
-    marginRight: 10,
-  },
-  warningMessage: {
-    marginLeft: 15,
-    marginVertical: 5,
-    color: theme.warning,
-    fontSize: 13,
-    fontWeight: "bold",
-  },
-  validMessage: {
-    marginLeft: 15,
-    marginVertical: 5,
-    color: theme.primary,
-    fontSize: 13,
-    fontWeight: "bold",
   },
 });

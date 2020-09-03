@@ -8,10 +8,9 @@ import { loadingState } from "../../states/loadingState";
 import { profileAPI } from "../../api/api";
 import { memberNicknameState } from "../../states/memberState";
 import { useNavigation } from "@react-navigation/native";
-import { AuthScreenNavigationProp } from "../../types/types";
 
 export default function KakaoLoginButton() {
-  const navigation = useNavigation<AuthScreenNavigationProp>();
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);

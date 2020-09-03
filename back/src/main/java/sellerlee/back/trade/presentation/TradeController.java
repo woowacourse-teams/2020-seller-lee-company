@@ -2,16 +2,9 @@ package sellerlee.back.trade.presentation;
 
 import static sellerlee.back.trade.presentation.TradeController.*;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sellerlee.back.article.application.ArticleCardResponse;
-import sellerlee.back.member.domain.Member;
-import sellerlee.back.security.core.LoginMember;
 import sellerlee.back.trade.application.TradeService;
 
 @RequestMapping(ORDER_URI)

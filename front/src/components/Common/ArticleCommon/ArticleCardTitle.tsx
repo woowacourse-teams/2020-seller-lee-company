@@ -27,13 +27,11 @@ export default function ArticleCardTitle({ title }: ArticleCardTitleProps) {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flex: 2,
     flexWrap: "wrap",
     alignItems: "flex-start",
+    marginBottom: 5,
   },
   title: {
-    margin: 3,
-    fontSize: 14,
-    fontWeight: "bold",
+    fontSize: 16,
   },
 });

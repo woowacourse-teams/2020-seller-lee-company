@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TeaserScreenNavigationProp } from "../../types/types";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
@@ -9,13 +8,20 @@ import { profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { memberNicknameState, memberState } from "../../states/memberState";
 import { loadingState } from "../../states/loadingState";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParam } from "../../types/types";
 
-interface KakakoLoginWebViewProp {
+type AuthButtonNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "AuthScreen"
+>;
+
+interface AuthButtonProps {
   toggleModal: Function;
 }
 
-export default function AuthButton({ toggleModal }: KakakoLoginWebViewProp) {
-  const navigation = useNavigation<TeaserScreenNavigationProp>();
+export default function AuthButton({ toggleModal }: AuthButtonProps) {
+  const navigation = useNavigation<AuthButtonNavigationProp>();
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
   const setMemberState = useSetRecoilState(memberState);
@@ -32,7 +38,7 @@ export default function AuthButton({ toggleModal }: KakakoLoginWebViewProp) {
           return navigation.navigate("JoinScreen");
         }
         setMemberNickname(data.nickname);
-        navigation.navigate("BottomTabNavigation");
+        navigation.navigate("HomeStack");
       } catch (error) {
         toggleModal();
         console.log(error.response.data.message);

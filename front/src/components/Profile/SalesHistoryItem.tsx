@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../colors";
-import { Article } from "../../types/types";
+import { ArticleCardProps } from "../../types/types";
 import ArticleCard from "../Common/ArticleCommon/ArticleCard";
 import { articlesAPI } from "../../api/api";
+import { useRecoilState } from "recoil/dist";
+import { articleSalesHistoryState } from "../../states/articleState";
 
 interface OnSaleHistoryListProps {
   isCompletedTab: boolean;
-  article: Article;
+  article: ArticleCardProps;
 }
 
 export default function SalesHistoryItem({
@@ -16,20 +18,20 @@ export default function SalesHistoryItem({
     id,
     title,
     price,
-    photos,
+    thumbnail,
     tradeState,
     favoriteState,
     favoriteCount,
     createdTime,
   },
 }: OnSaleHistoryListProps) {
-  const [tradeStateState, setTradeStateState] = useState(tradeState);
+  const [articles, setArticles] = useRecoilState(articleSalesHistoryState);
 
-  const onClickTradeState = async (tradeState: string) => {
-    await articlesAPI.putByTradeState(id, { tradeState });
-    setTradeStateState(tradeState);
-    // TODO: 1:1 채팅 생기면 반영
-    // tradeState === "COMPLETED" && navigation.navigate("SelectBuyerScreen");
+  const onClickTradeState = async (tradeStateProp: string) => {
+    await articlesAPI.putByTradeState(id, { tradeState: tradeStateProp });
+    if (tradeStateProp === "COMPLETED") {
+      setArticles(articles.filter((article) => article.id !== id));
+    }
   };
 
   return (
@@ -43,11 +45,11 @@ export default function SalesHistoryItem({
           tradeState={tradeState}
           favoriteState={favoriteState}
           favoriteCount={favoriteCount}
-          thumbnail={photos ? photos[0] : "tempURI"}
+          thumbnail={thumbnail}
         />
       </View>
       {isCompletedTab ? (
-        <TouchableOpacity style={styles.emptyContainer} activeOpacity={0.5}>
+        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.5}>
           <Text style={styles.buttonText}>작성한 후기 보기</Text>
         </TouchableOpacity>
       ) : (
@@ -59,6 +61,7 @@ export default function SalesHistoryItem({
           >
             <Text style={styles.buttonText}>예약중</Text>
           </TouchableOpacity>
+          <View style={styles.divider} />
           <TouchableOpacity
             style={styles.buttonHalfContainer}
             activeOpacity={0.5}
@@ -73,28 +76,40 @@ export default function SalesHistoryItem({
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  articleContainer: { margin: 5 },
-  emptyContainer: {
+  container: {
     flex: 1,
-    backgroundColor: theme.primary,
-    paddingVertical: 12,
+  },
+  articleContainer: {
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    aspectRatio: 9,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.secondary,
   },
   halfContainer: {
-    flex: 1,
+    aspectRatio: 9,
     flexDirection: "row",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.secondary,
   },
   buttonHalfContainer: {
     flex: 1,
-    backgroundColor: theme.primary,
-    paddingVertical: 11,
     alignItems: "center",
     justifyContent: "center",
   },
   buttonText: {
     fontSize: 14,
-    color: "white",
+    color: theme.primary,
+  },
+  divider: {
+    borderColor: theme.border,
+    borderWidth: 0.5,
+    marginVertical: 3,
   },
 });

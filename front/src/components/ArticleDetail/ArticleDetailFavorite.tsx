@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { Animated, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useRecoilState, useSetRecoilState } from "recoil/dist";
@@ -11,58 +11,57 @@ import { favoriteAPI } from "../../api/api";
 
 export default function ArticleDetailFavorite() {
   const [article, setArticle] = useRecoilState(articleSelectedState);
-  const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
   const setIsModified = useSetRecoilState(articleIsModifiedState);
 
+  const AnimateIcon = Animated.createAnimatedComponent(AntDesign);
   const springValue = useRef(new Animated.Value(1)).current;
 
   const fulfillHeartAnimate = () => {
     setIsModified(true);
     springValue.setValue(0.33);
-    Animated.timing(springValue, {
+    Animated.spring(springValue, {
       toValue: 1,
-      duration: 150,
+      friction: 3.5,
       useNativeDriver: true,
     }).start();
   };
 
   const unmarkFavorite = async () => {
-    setArticle({ ...article, favoriteState: false });
     await favoriteAPI.delete({ articleId: article.id });
+    setArticle({ ...article, favoriteState: false });
   };
 
   const markFavorite = async () => {
-    setArticle({ ...article, favoriteState: true });
     await favoriteAPI.post({ articleId: article.id });
+    setArticle({ ...article, favoriteState: true });
   };
 
-  const toggleFavorite = () => {
+  const toggleFavorite = async () => {
     if (article.favoriteState) {
-      unmarkFavorite();
+      await unmarkFavorite();
     } else {
-      markFavorite();
+      await markFavorite();
     }
     fulfillHeartAnimate();
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={toggleFavorite} style={styles.container}>
       <AnimateIcon
         name={article.favoriteState ? "heart" : "hearto"}
-        size={25}
-        color={article.favoriteState ? theme.others : "black"}
-        onPress={toggleFavorite}
+        size={32}
+        color={article.favoriteState ? theme.heart : "black"}
         style={{
           transform: [{ scale: springValue }],
         }}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    aspectRatio: 1,
     alignItems: "center",
   },
 });

@@ -2,8 +2,7 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-// const BASE_URL = "http://192.168.43.218:8080";
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://15.164.125.244:8080";
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -65,26 +64,12 @@ export const articlesAPI = {
   },
   getByTradeState: async (params: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(
-      `${BASE_URL}${domain.api}${domain.articles}/trade-state`,
-      {
-        params,
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
+    return await axios.get(`${BASE_URL}${domain.api}${domain.articles}`, {
+      params,
+      headers: {
+        Authorization: `bearer ${token}`,
       },
-    );
-  },
-  getFavorites: async () => {
-    const token = await DeviceStorage.getToken();
-    return await axios.get(
-      `${BASE_URL}${domain.api}${domain.articles}${domain.favorites}`,
-      {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      },
-    );
+    });
   },
   post: async (data: ArticlesPost) => {
     const token = await DeviceStorage.getToken();
@@ -152,6 +137,7 @@ export const articleDetailAPI = {
 interface VerifyNickname {
   nickname: string;
 }
+
 //todo 여기부터
 interface MemberLogin {
   nickname: string;
@@ -163,18 +149,18 @@ interface MemberJoin {
   password: string;
   avatar: string;
 }
+
 //todo 여기까지
 
 export const memberAPI = {
   //todo 여기부터
   login: async (data: MemberLogin) =>
-    await axios.post(BASE_URL + domain.loginNotOAuth, data),
+    await axios.post(`${BASE_URL}${domain.loginNotOAuth}`, data),
   join: async (data: MemberJoin) =>
-    await axios.post(BASE_URL + domain.members, data),
-  // todo 여기까지
+    await axios.post(`${BASE_URL}${domain.members}`, data),
   findNickname: async (params: VerifyNickname) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(BASE_URL + domain.api + domain.members, {
+    return await axios.get(`${BASE_URL}${domain.api}${domain.members}`, {
       params,
       headers: {
         Authorization: `bearer ${token}`,
@@ -214,7 +200,16 @@ interface FavoriteCreate {
 interface FavoriteDelete {
   articleId: number;
 }
+
 export const favoriteAPI = {
+  getFavorites: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.favorites}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   post: async (data: FavoriteCreate) => {
     const token = await DeviceStorage.getToken();
     return await axios.post(

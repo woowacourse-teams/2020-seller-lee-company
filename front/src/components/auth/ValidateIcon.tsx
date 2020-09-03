@@ -1,7 +1,7 @@
 import React from "react";
 import { isBlank, isValidNickname } from "../../nicknameValidator";
 import { StyleSheet, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import { useRecoilValue } from "recoil/dist";
 import {
@@ -19,8 +19,8 @@ export default function ValidateIcon() {
   if (!isBlank(joinNickname)) {
     if (isValidNickname(joinNickname)) {
       validateIcon = (
-        <MaterialCommunityIcons
-          name="check-circle-outline"
+        <Feather
+          name="check-circle"
           size={20}
           color={theme.primary}
           style={styles.validateIcon}
@@ -28,8 +28,8 @@ export default function ValidateIcon() {
       );
     } else {
       validateIcon = (
-        <MaterialCommunityIcons
-          name="alert-circle-outline"
+        <Feather
+          name="alert-circle"
           size={20}
           color={theme.warning}
           style={styles.validateIcon}
@@ -39,8 +39,8 @@ export default function ValidateIcon() {
 
     if (joinSubmit && duplicatedState) {
       validateIcon = (
-        <MaterialCommunityIcons
-          name="alert-circle-outline"
+        <Feather
+          name="alert-circle"
           size={20}
           color={theme.warning}
           style={styles.validateIcon}

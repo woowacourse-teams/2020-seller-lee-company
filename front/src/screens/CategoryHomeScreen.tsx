@@ -1,7 +1,15 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { ArticleCardProps, CategoryHomeNavigationProp } from "../types/types";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import {
+  CompositeNavigationProp,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
+import {
+  ArticleCardProps,
+  HomeStackParam,
+  RootStackParam,
+} from "../types/types";
 import { articlesAPI } from "../api/api";
 import {
   useRecoilState,
@@ -13,14 +21,22 @@ import {
   articleSelectedCategoryState,
 } from "../states/articleState";
 import ArticleCard from "../components/Common/ArticleCommon/ArticleCard";
-import { HeaderBackButton } from "@react-navigation/stack";
-import { EvilIcons } from "@expo/vector-icons";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import { Feather } from "@expo/vector-icons";
+import { categoryIcons } from "../data/categoryData";
+import theme from "../colors";
+
+type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function CategoryHomeScreen() {
   const MIN_LOAD_ARTICLE_COUNT = 3;
   const PAGE_ARTICLE_UNIT = 10;
 
-  const navigation = useNavigation<CategoryHomeNavigationProp>();
+  const navigation = useNavigation<CategoryHomeScreenNavigationProp>();
+
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<ArticleCardProps[]>([]);
@@ -38,11 +54,14 @@ export default function CategoryHomeScreen() {
     isModified ? applyChange() : undefined;
   }, [isFocused]);
 
+  const getCategoryIcon = () =>
+    categoryIcons.filter((value) => value.category === category)[0];
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: category,
+      title: `${getCategoryIcon().icon} ${category}`,
+      headerTitleAlign: "left",
       headerRight: () => <></>,
-      headerRightContainerStyle: { paddingRight: 15 },
       headerLeft: () => {
         resetCategory();
         return (
@@ -50,12 +69,16 @@ export default function CategoryHomeScreen() {
             labelVisible={false}
             onPress={navigation.goBack}
             backImage={() => (
-              <EvilIcons name="chevron-left" size={24} color="black" />
+              <Feather name="chevron-left" size={24} color="black" />
             )}
           />
         );
       },
-      headerLeftContainerStyle: { paddingLeft: 15 },
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
   }, [navigation]);
 
@@ -113,33 +136,43 @@ export default function CategoryHomeScreen() {
   };
 
   return (
-    <FlatList
-      data={articles}
-      renderItem={({ item }) => (
-        <ArticleCard
-          id={item.id}
-          title={item.title}
-          price={item.price}
-          tradeState={item.tradeState}
-          favoriteState={item.favoriteState}
-          favoriteCount={item.favoriteCount}
-          thumbnail={item.thumbnail}
-          createdTime={item.createdTime}
-        />
-      )}
-      keyExtractor={(item) => `${item.id}`}
-      refreshing={isRefreshing}
-      contentContainerStyle={styles.feedArticleContainer}
-      onRefresh={onRefresh}
-      onEndReachedThreshold={0.25}
-      onEndReached={onLoad}
-      ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={articles}
+        renderItem={({ item }) => (
+          <View style={styles.articleCardContainer}>
+            <ArticleCard
+              id={item.id}
+              title={item.title}
+              price={item.price}
+              tradeState={item.tradeState}
+              favoriteState={item.favoriteState}
+              favoriteCount={item.favoriteCount}
+              thumbnail={item.thumbnail}
+              createdTime={item.createdTime}
+            />
+          </View>
+        )}
+        keyExtractor={(item) => `${item.id}`}
+        refreshing={isRefreshing}
+        onRefresh={onRefresh}
+        onEndReachedThreshold={0.25}
+        onEndReached={onLoad}
+        ListFooterComponent={isLoading ? <ActivityIndicator /> : <></>}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  feedArticleContainer: {
-    marginHorizontal: 3,
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+  },
+  articleCardContainer: {
+    paddingVertical: 15,
+    borderBottomColor: theme.border,
+    borderBottomWidth: 1,
   },
 });

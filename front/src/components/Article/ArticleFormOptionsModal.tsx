@@ -1,52 +1,68 @@
 import React, { useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Button, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
-import { useNavigation } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import theme from "../../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+import {
+  HomeStackParam,
+  PostingStackParam,
+  RootStackParam,
+} from "../../types/types";
+
+type ArticleFormOptionsModalNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<PostingStackParam, "ArticleFormScreen">,
+  CompositeNavigationProp<
+    StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
+    StackNavigationProp<RootStackParam, "HomeStack">
+  >
+>;
 
 export default function ArticleFormOptionsModal() {
+  const navigation = useNavigation<ArticleFormOptionsModalNavigationProp>();
+
   const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate("ArticleFormScreen");
+    setModalVisible(false);
+  };
 
   return (
-    <>
+    <View style={styles.container}>
       <TouchableOpacity
         style={styles.writeButtonContainer}
         onPress={() => {
           setModalVisible(true);
         }}
       >
-        <MaterialCommunityIcons
-          name="pencil-box-outline"
-          size={24}
-          color={"grey"}
-        />
+        <Feather name="edit" size={24} color={"grey"} />
       </TouchableOpacity>
-      <View>
-        <Modal
-          style={styles.contentView}
-          backdropOpacity={0.3}
-          isVisible={modalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-        >
-          <View style={styles.content}>
-            <Button
-              title={"글쓰기"}
-              onPress={() => {
-                navigation.navigate("Posting");
-                setModalVisible(false);
-              }}
-              color={theme.primary}
-            />
+      <Modal
+        style={styles.contentView}
+        backdropOpacity={0.4}
+        isVisible={modalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+      >
+        <TouchableOpacity style={styles.content} onPress={onPress}>
+          <View style={styles.optionContainer}>
+            <Text style={styles.title}>게시글 작성 </Text>
+            <Feather name="edit-3" size={20} color={theme.secondary} />
           </View>
-        </Modal>
-      </View>
-    </>
+        </TouchableOpacity>
+      </Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   writeButtonContainer: {
     flex: 1,
     justifyContent: "center",
@@ -57,11 +73,21 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   content: {
+    aspectRatio: 4.5,
     backgroundColor: "white",
-    padding: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+  },
+  optionContainer: {
+    flex: 1,
+    // backgroundColor: "yellow",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    borderTopRightRadius: 17,
-    borderTopLeftRadius: 17,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: theme.primary,
   },
 });

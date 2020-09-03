@@ -1,8 +1,5 @@
 import { atom } from "recoil/dist";
 
-const DEFAULT_IMAGE_URL =
-  "https://seller-lee-bucket.s3.amazonaws.com/images%2F1_1597344575694.jpeg";
-
 export const joinEmailState = atom({
   key: "joinEmailState",
   default: "",
@@ -25,7 +22,7 @@ export const joinCheckPasswordState = atom({
 
 export const joinAvatarState = atom({
   key: "joinAvatarState",
-  default: DEFAULT_IMAGE_URL,
+  default: "",
 });
 
 export const joinSubmitState = atom({

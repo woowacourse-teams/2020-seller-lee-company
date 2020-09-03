@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil/dist";
 import { articleSelectedState } from "../../states/articleState";
 import PhotoBoxInImageViewSlider from "../Common/Photo/PhotoBoxInImageViewSlider";
 
-export default function ArticleDetailImageViewSlider() {
+export default function ArticleDetailPhotoViewSlider() {
   const { photos } = useRecoilValue(articleSelectedState);
   return (
     <Swiper
@@ -18,6 +18,7 @@ export default function ArticleDetailImageViewSlider() {
       paginationStyle={styles.pagination}
       centerContent={true}
       style={styles.container}
+      key={photos.length}
     >
       {photos.map((imageURISource, index) => (
         <PhotoBoxInImageViewSlider photoURI={imageURISource} key={index} />

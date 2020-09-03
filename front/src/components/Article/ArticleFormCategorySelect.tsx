@@ -1,10 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { articleSelectedCategoryState } from "../../states/articleState";
 import { useRecoilValue } from "recoil";
-import { ArticleFormScreenNavigationProp } from "../../types/types";
+import { HomeStackParam, RootStackParam } from "../../types/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { categoryIcons } from "../../data/categoryData";
+
+type ArticleFormCategorySelectNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 interface ArticleFormCategorySelectProp {
   isEditing: boolean;
@@ -13,14 +23,20 @@ interface ArticleFormCategorySelectProp {
 export default function ArticleFormCategorySelect({
   isEditing,
 }: ArticleFormCategorySelectProp) {
-  const navigation = useNavigation<ArticleFormScreenNavigationProp>();
+  const navigation = useNavigation<ArticleFormCategorySelectNavigationProp>();
+
   const selectedCategory = useRecoilValue(articleSelectedCategoryState);
+
+  const getCategoryIcon = () =>
+    categoryIcons.filter((value) => value.category === selectedCategory)[0];
 
   const renderCategory = () => {
     if (isEditing) {
       return selectedCategory;
     } else {
-      return selectedCategory === "" ? "카테고리" : selectedCategory;
+      return selectedCategory === ""
+        ? "카테고리"
+        : `${getCategoryIcon().icon} ${selectedCategory}`;
     }
   };
 
@@ -30,9 +46,9 @@ export default function ArticleFormCategorySelect({
       onPress={() => navigation.navigate("CategoryChoiceScreen")}
     >
       <Text style={styles.buttonText}>{renderCategory()}</Text>
-      <MaterialCommunityIcons
+      <Feather
         name="chevron-down"
-        size={22}
+        size={18}
         color="black"
         style={styles.selectCategoryArrowIcon}
       />
