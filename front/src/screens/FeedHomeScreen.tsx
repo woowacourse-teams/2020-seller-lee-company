@@ -61,6 +61,7 @@ export default function FeedHomeScreen() {
       size: PAGE_ARTICLE_UNIT,
     });
     setArticles([...data]);
+    console.log(data);
   };
 
   const loadFeed = async () => {

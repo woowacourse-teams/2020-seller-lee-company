@@ -5,7 +5,10 @@ import static java.util.stream.Collectors.*;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.querydsl.core.annotations.QueryProjection;
 import sellerlee.back.article.domain.Article;
+import sellerlee.back.article.domain.Photos;
+import sellerlee.back.article.domain.Tags;
 
 public class FeedResponse {
     private Long id;
@@ -15,7 +18,14 @@ public class FeedResponse {
     private List<String> tags;
     private List<String> photos;
 
-    private FeedResponse() {
+    @QueryProjection
+    public FeedResponse(Long id, Long price, Long favoriteCount, Tags tags, Photos photos) {
+        this.id = id;
+        this.price = price;
+        this.favoriteCount = favoriteCount;
+        this.favoriteState = false;
+        this.tags = tags.getTagNames();
+        this.photos = photos.toList();
     }
 
     private FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,
