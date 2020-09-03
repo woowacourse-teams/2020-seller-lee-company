@@ -197,14 +197,6 @@ export const profileAPI = {
       },
     });
   },
-  // getNickname: async () => {
-  //   const token = await DeviceStorage.getToken();
-  //   return await axios.get(BASE_URL + domain.api + domain.profiles, {
-  //     headers: {
-  //       Authorization: `bearer ${token}`,
-  //     },
-  //   });
-  // },
   put: async (data: ProfilePost) => {
     const token = await DeviceStorage.getToken();
     return await axios.put(`${BASE_URL}${domain.api}${domain.profiles}`, data, {

@@ -45,7 +45,7 @@ export default function ValidateMessage() {
 
   if (
     !isBlank(joinNickname) &&
-    !isValidNickname(joinNickname) &&
+    isValidNickname(joinNickname) &&
     !isDuplicated
   ) {
     setValidateJoinState(true);
