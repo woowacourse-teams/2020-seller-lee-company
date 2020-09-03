@@ -23,7 +23,7 @@ import moment from "moment";
 import { RNS3 } from "react-native-aws3";
 import theme from "../../../colors";
 import { s3Secret } from "../../../secret";
-import { loginIdState } from "../../../states/loginState";
+import { memberNicknameState } from "../../../states/memberState";
 
 export default function Photo() {
   const LIMIT_PHOTO_COUNT = 5;
@@ -32,7 +32,7 @@ export default function Photo() {
   const [permissionForCameraRoll, setPermissionForCameraRoll] = useState(false);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const setModalVisible = useSetRecoilState(modalActivationState);
-  const memberId = useRecoilValue(loginIdState);
+  const memberNickname = useRecoilValue(memberNicknameState);
 
   useEffect(() => {
     requestPermission();
@@ -62,7 +62,7 @@ export default function Photo() {
       const now = moment(date).format(format);
       const file = {
         uri: result.uri,
-        name: memberId + "_" + now + ".jpeg",
+        name: memberNickname + "_" + now + ".jpeg",
         type: "image/jpeg",
       };
 

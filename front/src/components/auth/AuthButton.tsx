@@ -25,7 +25,6 @@ export default function AuthButton() {
 
     if (response !== null) {
       const { data } = await memberAPI.getNickname();
-      console.log(data);
       setMemberNickname(data);
       navigation.navigate("HomeStack");
     } else {
