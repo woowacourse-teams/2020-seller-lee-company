@@ -2,6 +2,7 @@ package sellerlee.back.article.application;
 
 import static java.util.stream.Collectors.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -19,13 +20,13 @@ public class FeedResponse {
     private List<String> photos;
 
     @QueryProjection
-    public FeedResponse(Long id, Long price, Long favoriteCount, Tags tags, Photos photos) {
+    public FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState) {
         this.id = id;
         this.price = price;
         this.favoriteCount = favoriteCount;
-        this.favoriteState = false;
-        this.tags = tags.getTagNames();
-        this.photos = photos.toList();
+        this.favoriteState = favoriteState;
+        this.tags = new ArrayList<>();
+        this.photos = new ArrayList<>();
     }
 
     private FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,

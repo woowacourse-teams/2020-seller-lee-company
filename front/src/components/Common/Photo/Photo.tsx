@@ -65,7 +65,7 @@ export default function Photo() {
 
       const options = {
         keyPrefix: "images/",
-        bucket: "seller-lee-bucket",
+        bucket: "seller-lee",
         region: "ap-northeast-2",
         accessKey: s3Secret.accessKey,
         secretKey: s3Secret.secretKey,

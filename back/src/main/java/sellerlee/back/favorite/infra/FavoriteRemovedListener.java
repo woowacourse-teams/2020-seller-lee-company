@@ -1,4 +1,4 @@
-package sellerlee.back.articlefavoritecount.infra;
+package sellerlee.back.favorite.infra;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
