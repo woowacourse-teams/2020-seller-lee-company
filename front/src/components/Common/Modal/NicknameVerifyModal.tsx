@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { ModalVisibleProps } from "../../../types/types";
 
+//안씀
 export default function NicknameVerifyModal({
   toggleModal,
   modalVisible,

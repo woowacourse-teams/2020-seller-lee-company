@@ -1,13 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil/dist";
 import {
-  duplicateState,
+  joinNicknameDuplicatedState,
   joinAvatarState,
   joinModalState,
   joinNicknameState,
   joinSubmitState,
-  validateJoinState,
 } from "../../states/joinState";
 import { profileAPI } from "../../api/api";
 import theme from "../../colors";
@@ -24,11 +23,17 @@ interface JoinSubmitProps {
 export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
   const joinNickname = useRecoilValue(joinNicknameState);
   const joinAvatar = useRecoilValue(joinAvatarState);
-  const isValidateJoin = useRecoilValue(validateJoinState);
   const setJoinModalVisible = useSetRecoilState(joinModalState);
-  const setDuplicateState = useSetRecoilState(duplicateState);
+  const setNicknameDuplicateState = useSetRecoilState(
+    joinNicknameDuplicatedState,
+  );
+  const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
 
-  const setJoinSubmit = useSetRecoilState(joinSubmitState);
+  const isValidateSubmit = () => {
+    if (!joinSubmit) {
+      return !(!isBlank(joinNickname) && !isValidNickname(joinNickname));
+    }
+  };
 
   const join = async () => {
     setJoinSubmit(true);
@@ -40,10 +45,9 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
     const data = await isDuplicatedNickname(joinNickname);
 
     if (data) {
-      setDuplicateState(true);
+      setNicknameDuplicateState(true);
       return;
     }
-
     try {
       const response = await profileAPI.put({
         nickname: joinNickname,
@@ -63,10 +67,10 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        activeOpacity={isValidateJoin ? 0.3 : 1}
+        activeOpacity={isValidateSubmit() ? 0.3 : 1}
         style={styles.joinButton}
         onPress={() => {
-          isValidateJoin && join();
+          isValidateSubmit() && join();
         }}
       >
         <Text style={styles.joinButtonText}>회원가입</Text>

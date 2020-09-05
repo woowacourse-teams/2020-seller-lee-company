@@ -2,7 +2,8 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-const BASE_URL = "http://15.164.125.244:8080";
+// const BASE_URL = "http://15.164.125.244:8080";
+const BASE_URL = "http://localhost:8080";
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 

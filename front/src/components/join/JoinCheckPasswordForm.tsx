@@ -8,7 +8,7 @@ import {
 } from "../../states/joinState";
 import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
-import { isBlank, isSamePassword } from "../../nicknameValidator";
+import { isBlank, isSamePassword } from "../../joinValidator";
 
 export default function JoinCheckPasswordForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);

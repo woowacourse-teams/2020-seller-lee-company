@@ -2,24 +2,26 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
-  duplicateState,
+  joinNicknameDuplicatedState,
   joinNicknameState,
   joinSubmitState,
 } from "../../states/joinState";
 import { Feather } from "@expo/vector-icons";
-import { isBlank, isValidNickname } from "../../joinValidator";
+import { isBlank, isValidNickname } from "../../nicknameValidator";
 import theme from "../../colors";
 import ValidateMessage from "../auth/ValidateMessage";
 import ValidateIcon from "../auth/ValidateIcon";
 
 export default function JoinNicknameForm() {
-  const isDuplicated = useRecoilValue(duplicateState);
+  const nicknameDuplicatedState = useRecoilValue(joinNicknameDuplicatedState);
+  const duplicatedState = useRecoilValue(joinNicknameDuplicatedState);
+
   const [focusTextInputState, setFocusTextInputState] = useState(false);
   const [joinNickname, setJoinNickname] = useRecoilState(joinNicknameState);
   const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
 
-  const changeDynamicColor = () => {
-    if ((isBlank(joinNickname) && joinSubmit) || isDuplicated) {
+  const NicknameFormColor = () => {
+    if ((isBlank(joinNickname) && joinSubmit) || nicknameDuplicatedState) {
       return theme.warning;
     }
     if (focusTextInputState || !isBlank(joinNickname)) {
@@ -33,18 +35,18 @@ export default function JoinNicknameForm() {
   };
 
   const dynamicStyles = StyleSheet.create({
-    passwordFormContainer: {
+    NicknameFormContainer: {
       // flex: 1,
       flexDirection: "row",
       paddingVertical: 10,
       borderWidth: 2,
       borderRadius: 100,
-      borderColor: changeDynamicColor(),
+      borderColor: NicknameFormColor(),
     },
     title: {
       marginLeft: 15,
       marginVertical: 5,
-      color: changeDynamicColor(),
+      color: NicknameFormColor(),
       fontSize: 14,
       fontWeight: "bold",
     },
@@ -53,20 +55,18 @@ export default function JoinNicknameForm() {
   return (
     <View style={styles.container}>
       <Text style={dynamicStyles.title}>닉네임</Text>
-      <View style={dynamicStyles.passwordFormContainer}>
+      <View style={dynamicStyles.NicknameFormContainer}>
         <View style={styles.iconContainer}>
           <Feather
             name="user"
             size={20}
-            color={changeDynamicColor()}
+            color={NicknameFormColor()}
             style={styles.accountIcon}
           />
         </View>
         <TextInput
           onFocus={() => setFocusTextInputState(true)}
-          onBlur={() => {
-            setFocusTextInputState(false);
-          }}
+          onBlur={() => setFocusTextInputState(false)}
           onChangeText={(text) => {
             setJoinSubmit(false);
             setJoinNickname(text);
@@ -74,9 +74,17 @@ export default function JoinNicknameForm() {
           style={styles.nicknameForm}
           placeholder={"사용할 닉네임을 입력해주세요."}
         />
-        <ValidateIcon />
+        <ValidateIcon
+          nickname={joinNickname}
+          submitState={joinSubmit}
+          duplicatedState={duplicatedState}
+        />
       </View>
-      <ValidateMessage />
+      <ValidateMessage
+        nickname={joinNickname}
+        submitState={joinSubmit}
+        duplicatedState={duplicatedState}
+      />
     </View>
   );
 }

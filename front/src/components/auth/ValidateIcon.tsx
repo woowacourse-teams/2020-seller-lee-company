@@ -3,21 +3,22 @@ import { isBlank, isValidNickname } from "../../nicknameValidator";
 import { StyleSheet, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
-import { useRecoilValue } from "recoil/dist";
-import {
-  duplicateState,
-  joinNicknameState,
-  joinSubmitState,
-} from "../../states/joinState";
 
-export default function ValidateIcon() {
-  const joinNickname = useRecoilValue(joinNicknameState);
-  const duplicatedState = useRecoilValue(duplicateState);
-  const joinSubmit = useRecoilValue(joinSubmitState);
+interface ValidateIconProps {
+  nickname: string;
+  submitState: boolean;
+  duplicatedState: boolean;
+}
+
+export default function ValidateIcon({
+  nickname,
+  submitState,
+  duplicatedState,
+}: ValidateIconProps) {
   let validateIcon = null;
 
-  if (!isBlank(joinNickname)) {
-    if (isValidNickname(joinNickname)) {
+  if (!isBlank(nickname)) {
+    if (isValidNickname(nickname)) {
       validateIcon = (
         <Feather
           name="check-circle"
@@ -37,7 +38,7 @@ export default function ValidateIcon() {
       );
     }
 
-    if (joinSubmit && duplicatedState) {
+    if (submitState && duplicatedState) {
       validateIcon = (
         <Feather
           name="alert-circle"
