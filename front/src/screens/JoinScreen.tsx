@@ -91,8 +91,10 @@ export default function JoinScreen() {
               <View style={styles.joinContainer}>
                 <Join />
               </View>
-              <View style={styles.joinSubmitContainer}>
-                <JoinSubmit resetJoinForm={resetJoinValue} />
+              <View style={styles.joinSubmitFlexDirection}>
+                <View style={styles.joinSubmitContainer}>
+                  <JoinSubmit resetJoinForm={resetJoinValue} />
+                </View>
               </View>
             </View>
           </ImageBackground>
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleContainer: {
-    aspectRatio: 1.5,
+    aspectRatio: 1,
     justifyContent: "center",
     marginHorizontal: 30,
     paddingLeft: 15,
@@ -127,18 +129,22 @@ const styles = StyleSheet.create({
   joinFormContainer: {
     flex: 1,
     backgroundColor: "white",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
     paddingTop: 30,
   },
   joinContainer: {
     marginHorizontal: 30,
     marginBottom: 40,
   },
+  joinSubmitFlexDirection: {
+    flex: 1,
+    flexDirection: "column-reverse",
+  },
   joinSubmitContainer: {
     justifyContent: "center",
     marginHorizontal: 30,
-    marginTop: 20,
-    marginBottom: 40,
+    // marginTop: 20,
+    marginBottom: 80,
   },
 });

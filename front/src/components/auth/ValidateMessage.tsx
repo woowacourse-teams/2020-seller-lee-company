@@ -29,6 +29,9 @@ export default function ValidateMessage({
       );
     }
   } else {
+    if (isBlank(nickname)) {
+      validateMessage = <Text style={styles.emptySpace}>.</Text>;
+    }
     if (!isBlank(nickname) && !isValidNickname(nickname)) {
       validateMessage = (
         <Text style={styles.warningMessage}>
@@ -39,7 +42,6 @@ export default function ValidateMessage({
   }
 
   if (!isBlank(nickname) && isValidNickname(nickname) && !duplicatedState) {
-    // setValidateJoinState(true);
     validateMessage = (
       <Text style={styles.validMessage}>사용 가능한 닉네임입니다.</Text>
     );
@@ -62,5 +64,11 @@ const styles = StyleSheet.create({
     color: theme.primary,
     fontSize: 13,
     fontWeight: "bold",
+  },
+  emptySpace: {
+    marginLeft: 15,
+    marginVertical: 5,
+    fontSize: 13,
+    opacity: 0,
   },
 });

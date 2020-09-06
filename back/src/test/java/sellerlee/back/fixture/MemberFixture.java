@@ -46,6 +46,7 @@ public class MemberFixture {
                     "lxxjn0",
                     "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
                     null,
+                    null,
                     State.JOIN,
                     8.0);
 
@@ -55,6 +56,7 @@ public class MemberFixture {
                     "52L",
                     "begaonnuri",
                     "https://avatars2.githubusercontent.com/u/39271364?s=400&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4",
+                    null,
                     null,
                     State.JOIN,
                     5.0);

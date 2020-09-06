@@ -26,7 +26,7 @@ export default function MyInfoNicknameForm() {
 
   useEffect(() => {
     setMyInfoNickname(memberNickname);
-  }, []);
+  }, [memberNickname]);
 
   const dynamicStyles = StyleSheet.create({
     NicknameFormContainer: {

@@ -25,13 +25,13 @@ import { memberAvatarState } from "../../states/memberState";
 
 export default function MyInfoAvatar() {
   const memberId = useRecoilValue(loginIdState);
-  const [avatar, setAvatar] = useRecoilState(myInfoAvatarState);
+  const [myInfoAvatar, setMyInfoAvatar] = useRecoilState(myInfoAvatarState);
   const memberAvatar = useRecoilValue(memberAvatarState);
 
   useEffect(() => {
     requestPermission();
-    setAvatar(memberAvatar);
-  }, []);
+    setMyInfoAvatar(memberAvatar);
+  }, [memberAvatar]);
 
   const requestPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -63,7 +63,7 @@ export default function MyInfoAvatar() {
       };
 
       const response = await RNS3.put(file, options);
-      setAvatar(response.body.postResponse.location);
+      setMyInfoAvatar(response.body.postResponse.location);
     }
   };
 
@@ -72,7 +72,7 @@ export default function MyInfoAvatar() {
       <View style={styles.imageContainer}>
         <Image
           style={styles.avatar}
-          source={{ uri: avatar }}
+          source={{ uri: myInfoAvatar }}
           defaultSource={require("../../../assets/user.png")}
         />
       </View>

@@ -23,6 +23,8 @@ public class Member {
 
     private String kakaoAccessToken;
 
+    private String kakaoRefreshToken;
+
     @Enumerated(EnumType.STRING)
     private State state;
 
@@ -31,53 +33,77 @@ public class Member {
     protected Member() {
     }
 
-    public Member(Long id, String kakaoId, String nickname, String avatar, String kakaoAccessToken,
-            State state, Double score) {
+    public Member(Long id, String kakaoId, String nickname, String avatar,
+            String kakaoAccessToken, String kakaoRefreshToken, State state, Double score) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.avatar = avatar;
         this.kakaoAccessToken = kakaoAccessToken;
+        this.kakaoRefreshToken = kakaoRefreshToken;
         this.state = state;
         this.score = score;
     }
 
     public Member(String kakaoId, String nickname, String avatar, String kakaoAccessToken,
-            State state,
-            Double score) {
-        this(null, kakaoId, nickname, avatar, kakaoAccessToken, state, score);
+            String kakaoRefreshToken, State state, Double score) {
+        this(null, kakaoId, nickname, avatar, kakaoAccessToken, kakaoRefreshToken, state, score);
     }
 
     public Member(String kakaoId, String nickname, String avatar, Double score) {
-        this(null, kakaoId, nickname, avatar, null, null, score);
+        this(null, kakaoId, nickname, avatar, null, null, null, score);
     }
 
     public Member(String nickname, String avatar, Double score) {
-        this(null, null, nickname, avatar, null, null, score);
+        this(null, null, nickname, avatar, null, null, null, score);
     }
 
     public Member(String nickname, String avatar) {
-        this(null, null, nickname, avatar, null, null, null);
+        this(null, null, nickname, avatar, null, null, null, null);
     }
 
     public Member(String avatar) {
-        this(null, null, null, avatar, null, null);
+        this(null, null, null, avatar, null, null, null);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null, null);
     }
 
     public boolean isSameId(Member member) {
         return id.equals(member.id);
     }
-    
-    public Member update(String nickname, String avatar) {
+
+    // public Member login(String nickname, String avatar, String kakaoAccessToken,
+    //         String kakaoRefreshToken) {
+    //     this.nickname = nickname;
+    //     this.avatar = avatar;
+    //     this.kakaoAccessToken = kakaoAccessToken;
+    //     this.kakaoRefreshToken = kakaoRefreshToken;
+    //
+    //     return this;
+    // }
+
+    public Member login(String kakaoAccessToken, String kakaoRefreshToken) {
+        this.kakaoAccessToken = kakaoAccessToken;
+        this.kakaoRefreshToken = kakaoRefreshToken;
+
+        return this;
+    }
+
+    public void update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;
         this.state = State.JOIN;
+    }
 
-        return this;
+    public void updateToken(String kakaoAccessToken, String kakaoRefreshToken) {
+        this.kakaoAccessToken = kakaoAccessToken;
+        this.kakaoRefreshToken = kakaoRefreshToken;
+    }
+
+    public void updateToken(String kakaoAccessToken) {
+        updateToken(kakaoAccessToken, this.kakaoRefreshToken);
     }
 
     public Long getId() {
@@ -98,6 +124,10 @@ public class Member {
 
     public String getKakaoAccessToken() {
         return kakaoAccessToken;
+    }
+
+    public String getKakaoRefreshToken() {
+        return kakaoRefreshToken;
     }
 
     public State getState() {

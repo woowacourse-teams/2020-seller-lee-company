@@ -36,7 +36,6 @@ export default function JoinNicknameForm() {
 
   const dynamicStyles = StyleSheet.create({
     NicknameFormContainer: {
-      // flex: 1,
       flexDirection: "row",
       paddingVertical: 10,
       borderWidth: 2,

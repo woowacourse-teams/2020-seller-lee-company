@@ -25,7 +25,7 @@ public class MemberService {
             throwUpdateException(loginMember, request);
         }
         loginMember.update(request.getNickname(), request.getAvatar());
-        kakaoService.updateProfile(loginMember);
+        // kakaoService.updateProfile(loginMember);
     }
 
     public boolean findNickname(String verifyNickname) {
