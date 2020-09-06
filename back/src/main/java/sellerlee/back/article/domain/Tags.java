@@ -22,7 +22,7 @@ public class Tags {
     }
 
     public Tags(List<Tag> tags) {
-        this.tags = tags;
+        this.tags = new ArrayList<>(tags);
     }
 
     public static Tags of(Tag... tags) {
