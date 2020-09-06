@@ -19,7 +19,7 @@ public class FeedResponse {
     private FeedResponse() {
     }
 
-    public FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,
+    private FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,
             List<String> tags, List<String> photos) {
         this.id = id;
         this.price = price;
