@@ -16,6 +16,9 @@ public class FeedResponse {
     private List<String> tags;
     private List<String> photos;
 
+    private FeedResponse() {
+    }
+
     public FeedResponse(Long id, Long price, Long favoriteCount, boolean favoriteState,
             List<String> tags, List<String> photos) {
         this.id = id;
