@@ -5,7 +5,6 @@ import static sellerlee.back.article.presentation.ArticleController.*;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.TradeStateRequest;
-import sellerlee.back.article.infra.ArticleDao;
+import sellerlee.back.article.query.ArticleDao;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 

@@ -1,4 +1,4 @@
-package sellerlee.back.article.infra;
+package sellerlee.back.article.query;
 
 import static sellerlee.back.article.domain.QArticle.*;
 import static sellerlee.back.articlefavoritecount.domain.QArticleFavoriteCount.*;
@@ -29,17 +29,14 @@ public class ArticleDao {
                 .select(new QFeedResponse(
                         article,
                         articleFavoriteCount.favoriteCount,
-                        ExpressionUtils.as(JPAExpressions.select()
-                                        .from(favorite)
+                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
                                         .where(favorite.member.id.eq(loginMember.getId()),
                                                 favorite.article.id.eq(article.id))
-                                        .exists()
-                                , "favoriteState")))
+                                        .exists(), "favoriteState")))
                 .distinct()
                 .from(article)
                 .leftJoin(articleFavoriteCount).on(article.id.eq(articleFavoriteCount.article.id))
-                .where(article.id.lt(lastArticleId),
-                        article.tradeState.eq(TradeState.ON_SALE))
+                .where(article.id.lt(lastArticleId), article.tradeState.eq(TradeState.ON_SALE))
                 .orderBy(article.id.desc())
                 .limit(size)
                 .fetch();
