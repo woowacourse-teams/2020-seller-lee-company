@@ -22,17 +22,17 @@ public class MemberService {
     @Transactional
     public void update(Member loginMember, ProfileRequest request) throws JsonProcessingException {
         if (findNickname(request.getNickname())) {
-            throwUpdateException(loginMember, request);
+            throwUpdateException(loginMember);
         }
         loginMember.update(request.getNickname(), request.getAvatar());
-        // kakaoService.updateProfile(loginMember);
+        kakaoService.updateProfile(loginMember);
     }
 
     public boolean findNickname(String verifyNickname) {
         return memberRepository.findOptionalMemberByNickname(verifyNickname).isPresent();
     }
 
-    private void throwUpdateException(Member loginMember, ProfileRequest request) {
+    private void throwUpdateException(Member loginMember) {
         if (loginMember.getState().equals(State.NOT_JOIN)) {
             throw new IllegalJoinException("중복된 이름으로 회원가입 할 수 없습니다.");
         }

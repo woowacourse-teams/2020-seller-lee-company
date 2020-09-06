@@ -50,22 +50,6 @@ public class Member {
         this(null, kakaoId, nickname, avatar, kakaoAccessToken, kakaoRefreshToken, state, score);
     }
 
-    public Member(String kakaoId, String nickname, String avatar, Double score) {
-        this(null, kakaoId, nickname, avatar, null, null, null, score);
-    }
-
-    public Member(String nickname, String avatar, Double score) {
-        this(null, null, nickname, avatar, null, null, null, score);
-    }
-
-    public Member(String nickname, String avatar) {
-        this(null, null, nickname, avatar, null, null, null, null);
-    }
-
-    public Member(String avatar) {
-        this(null, null, null, avatar, null, null, null);
-    }
-
     public Member(Long id) {
         this(id, null, null, null, null, null, null, null);
     }
@@ -74,17 +58,10 @@ public class Member {
         return id.equals(member.id);
     }
 
-    // public Member login(String nickname, String avatar, String kakaoAccessToken,
-    //         String kakaoRefreshToken) {
-    //     this.nickname = nickname;
-    //     this.avatar = avatar;
-    //     this.kakaoAccessToken = kakaoAccessToken;
-    //     this.kakaoRefreshToken = kakaoRefreshToken;
-    //
-    //     return this;
-    // }
-
-    public Member login(String kakaoAccessToken, String kakaoRefreshToken) {
+    public Member login(String nickname, String avatar, String kakaoAccessToken,
+            String kakaoRefreshToken) {
+        this.nickname = nickname;
+        this.avatar = avatar;
         this.kakaoAccessToken = kakaoAccessToken;
         this.kakaoRefreshToken = kakaoRefreshToken;
 
