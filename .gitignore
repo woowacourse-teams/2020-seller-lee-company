@@ -1,3 +1,6 @@
+front/package-lock.json
+front/yarn.lock
+front/.prettierignore
 front/node_modules/**/*
 front/.expo/*
 front/npm-debug.*
@@ -9,6 +12,8 @@ front/*.mobileprovision
 front/*.orig.*
 front/web-build/
 front/dist/
+front/src/secret.ts
+
 
 # macOS
 front/.DS_Store
@@ -48,3 +53,5 @@ back/out/
 ### VS Code ###
 .vscode/
 .idea/
+/back/src/main/resources/application-*.yml
+/back/src/test/resources/application-*.yml

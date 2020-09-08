@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
 group = 'sellerlee'
@@ -13,14 +14,77 @@ repositories {
 }
 
 dependencies {
+    // spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    // documentation
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    // apache
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    // flyway
+    implementation 'org.flywaydb:flyway-core'
+    // mariaDB
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    // h2
+    testImplementation 'com.h2database:h2'
+    // rest assured
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
+processResources.dependsOn('copyDatabaseSecret')
+
+task copyDatabaseSecret {
+    dependsOn 'copyDatabaseSecretMain'
+    dependsOn 'copyDatabaseSecretTest'
+}
+
+task copyDatabaseSecretMain(type: Copy) {
+    from('../seller-lee-secret') {
+        include 'application-common.yml'
+        include 'application-security.yml'
+        include 'application-dev.yml'
+        include 'application-local.yml'
+        include 'application-prod.yml'
+    }
+    into 'src/main/resources'
+}
+
+task copyDatabaseSecretTest(type: Copy) {
+    from('../seller-lee-secret') {
+        include 'application-security.yml'
+    }
+    into 'src/test/resources'
 }
