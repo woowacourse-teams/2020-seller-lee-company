@@ -21,7 +21,7 @@ public enum CustomOAuth2Provider {
         }
     };
     private static final String BASE_URL = "http://localhost:8080";
-    // private static final String BASE_URL = "https://sellerlee.tk";
+    // private static final String BASE_URL = "http://15.164.125.244:8080";
     private static final String DEFAULT_LOGIN_REDIRECT_URL = BASE_URL + "/login/oauth2/code/kakao";
     public static final String AUTHORIZATION_URI = "https://kauth.kakao.com/oauth/authorize";
     public static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
