@@ -1,5 +1,6 @@
 package sellerlee.back.security.web.context;
 
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.member.presentation.AuthController.*;
 import static sellerlee.back.security.web.LoginMemberMethodArgumentResolver.*;
 
@@ -30,7 +31,7 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
         String credentials = AuthorizationExtractor.extract(request, AuthorizationType.BEARER);
         boolean isHTMLFile = request.getServletPath().contains("html");
         boolean isJoinRequest =
-                HttpMethod.POST.matches(request.getMethod()) && MEMBER_URI.equals(
+                HttpMethod.POST.matches(request.getMethod()) && (API_URI + MEMBER_URI).equals(
                         request.getServletPath());
 
         if (StringUtils.isBlank(credentials)) {
@@ -44,8 +45,8 @@ public class TokenSecurityInterceptor implements HandlerInterceptor {
             throw new AuthenticationException("토큰이 유효하지 않습니다.");
         }
 
-        String nickname = jwtTokenProvider.getPayload(credentials);
-        request.setAttribute(MEMBER_NICKNAME_ATTRIBUTE, nickname);
+        String kakaoId = jwtTokenProvider.getPayload(credentials);
+        request.setAttribute(MEMBER_KAKAO_ID_ATTRIBUTE, kakaoId);
         return true;
     }
 }

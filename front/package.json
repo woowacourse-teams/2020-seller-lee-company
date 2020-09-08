@@ -46,6 +46,7 @@
     "react-native-swiper": "^1.6.0",
     "react-native-tab-view": "^2.15.1",
     "react-native-web": "~0.11.7",
+    "react-native-webview": "^10.8.0",
     "recoil": "^0.0.10"
   },
   "devDependencies": {

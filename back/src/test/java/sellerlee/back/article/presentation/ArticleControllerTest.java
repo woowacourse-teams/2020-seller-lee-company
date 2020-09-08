@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.article.acceptance.ArticleAcceptanceTest.*;
 import static sellerlee.back.article.presentation.ArticleController.*;
-import static sellerlee.back.favorite.presentation.FavoriteController.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -55,7 +55,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(ARTICLE_URI)
+                        post(API_URI+ARTICLE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_URI)
+                        get(API_URI + ARTICLE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
@@ -130,7 +130,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_URI)
+                        get(API_URI + ARTICLE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE))
@@ -171,7 +171,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        RestDocumentationRequestBuilders.get(ARTICLE_URI + "/{id}", ARTICLE1.getId())
+                        RestDocumentationRequestBuilders.get(API_URI + ARTICLE_URI + "/{id}", ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
@@ -209,7 +209,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(ARTICLE_URI + "/" + ARTICLE1.getId())
+                        delete(API_URI+ARTICLE_URI + "/" + ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
@@ -226,7 +226,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_URI)
+                        get(API_URI + ARTICLE_URI)
                                 .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
@@ -244,7 +244,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        put(ARTICLE_URI + "/" + MEMBER1.getId() + TRADE_STATE_URI)
+                        put(API_URI + ARTICLE_URI + "/" + MEMBER1.getId() + TRADE_STATE_URI)
                                 .content(request)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))

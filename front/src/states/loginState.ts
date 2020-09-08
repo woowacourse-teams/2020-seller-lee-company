@@ -24,3 +24,8 @@ export const memberLoginVerifyState = atom({
   key: "memberLoginVerifyState",
   default: false,
 });
+
+export const newMemberLoginVerifyState = atom({
+  key: "newMemberLoginVerifyState",
+  default: false,
+});

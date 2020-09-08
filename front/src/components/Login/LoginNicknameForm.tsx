@@ -19,9 +19,9 @@ export default function LoginNicknameForm() {
     },
     title: {
       marginLeft: 15,
-      marginVertical: 5,
+      marginVertical: 25,
       color: focusTextInputState ? theme.secondary : "lightgrey",
-      fontSize: 14,
+      fontSize: 20,
       fontWeight: "bold",
     },
   });

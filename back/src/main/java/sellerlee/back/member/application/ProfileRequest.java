@@ -1,27 +1,19 @@
 package sellerlee.back.member.application;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import sellerlee.back.member.domain.Member;
-
 public class ProfileRequest {
-    private String password;
+    private String nickname;
     private String avatar;
 
     private ProfileRequest() {
     }
 
-    public ProfileRequest(String password, String avatar) {
-        this.password = password;
+    public ProfileRequest(String nickname, String avatar) {
+        this.nickname = nickname;
         this.avatar = avatar;
     }
 
-    public Member toMember() {
-        return new Member(password, avatar);
-    }
-
-    public String getPassword() {
-        return password;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getAvatar() {

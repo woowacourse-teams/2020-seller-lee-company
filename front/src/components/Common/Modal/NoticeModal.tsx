@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   closeButton: {
-    backgroundColor: "#dfd3c3",
+    backgroundColor: theme.secondary,
     borderRadius: 20,
     padding: 10,
     elevation: 2,
