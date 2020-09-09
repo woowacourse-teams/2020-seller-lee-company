@@ -7,6 +7,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.member.presentation.ProfileController.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -30,7 +31,7 @@ class ProfileControllerTest extends ControllerTest {
     @Test
     void show() throws Exception {
         mockMvc.perform(
-                get(PROFILE_URI)
+                get(API_URI + PROFILE_URI)
                         .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
@@ -43,6 +44,7 @@ class ProfileControllerTest extends ControllerTest {
                                 responseFields(
                                         fieldWithPath("nickname").description("회원의 닉네임"),
                                         fieldWithPath("avatar").description("회원의 아바타"),
+                                        fieldWithPath("state").description("회원가입 여부"),
                                         fieldWithPath("score").description("회원의 정보")
                                 )));
     }
@@ -55,7 +57,7 @@ class ProfileControllerTest extends ControllerTest {
         doNothing().when(memberService).update(any(), any());
 
         mockMvc.perform(
-                put(PROFILE_URI)
+                put(API_URI + PROFILE_URI)
                         .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
@@ -68,7 +70,7 @@ class ProfileControllerTest extends ControllerTest {
                                         headerWithName("Authorization").description("회원의 토큰")
                                 ),
                                 requestFields(
-                                        fieldWithPath("password").description("회원의 비밀번호"),
+                                        fieldWithPath("nickname").description("회원의 닉네임"),
                                         fieldWithPath("avatar").description("회원의 아바타")
                                 )));
     }

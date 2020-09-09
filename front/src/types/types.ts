@@ -79,6 +79,11 @@ export interface Profile {
   score: number;
 }
 
+export interface ModalVisibleProps {
+  toggleModal: Function;
+  modalVisible: boolean;
+}
+
 // **********************************************************************
 // ************************** Navigation Params *************************
 // **********************************************************************

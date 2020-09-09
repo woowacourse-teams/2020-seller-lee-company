@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useRecoilState } from "recoil/dist";
 import {
   Modal,
   StyleSheet,
@@ -6,28 +8,39 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { useRecoilState } from "recoil/dist";
-import { memberJoinVerifyState } from "../../../states/joinState";
+import { joinModalState } from "../../../states/joinState";
+import theme from "../../../colors";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParam } from "../../../types/types";
+
+type JoinVerifyModalNavigationProp = StackNavigationProp<
+  RootStackParam,
+  "JoinScreen"
+>;
 
 export default function JoinVerifyModal() {
-  const [joinVerifyState, setJoinVerifyState] = useRecoilState(
-    memberJoinVerifyState,
-  );
+  const navigation = useNavigation<JoinVerifyModalNavigationProp>();
+  const [isModalVisible, setJoinModalVisible] = useRecoilState(joinModalState);
+
+  const onPressCloseButton = () => {
+    setJoinModalVisible(false);
+    navigation.navigate("HomeStack");
+  };
 
   return (
     <Modal
       animationType={"fade"}
       transparent={true}
-      visible={!joinVerifyState}
-      onRequestClose={() => setJoinVerifyState(true)}
+      visible={isModalVisible}
+      onRequestClose={onPressCloseButton}
     >
       <View style={styles.container}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}> 중복된 닉네임입니다. </Text>
-          <View style={styles.buttonContainer}>
+          <Text style={styles.modalText}>회원가입에 성공하였습니다.</Text>
+          <View style={styles.emptyContainer}>
             <TouchableHighlight
               style={styles.button}
-              onPress={() => setJoinVerifyState(true)}
+              onPress={onPressCloseButton}
             >
               <Text style={styles.buttonText}>나가기</Text>
             </TouchableHighlight>
@@ -62,11 +75,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-  buttonContainer: {
+  emptyContainer: {
     flexDirection: "row",
   },
   button: {
-    backgroundColor: "#dfd3c3",
+    backgroundColor: theme.secondary,
     borderRadius: 20,
     marginHorizontal: 5,
     padding: 10,

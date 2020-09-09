@@ -1,70 +1,78 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil/dist";
 import {
+  joinNicknameDuplicatedState,
   joinAvatarState,
-  joinCheckPasswordState,
+  joinModalState,
   joinNicknameState,
-  joinPasswordState,
   joinSubmitState,
-  memberJoinVerifyState,
 } from "../../states/joinState";
-import { memberAPI } from "../../api/api";
+import { profileAPI } from "../../api/api";
 import theme from "../../colors";
-import { useNavigation } from "@react-navigation/native";
-import { RootStackParam } from "../../types/types";
-import { verify } from "../../joinValidator";
-import { StackNavigationProp } from "@react-navigation/stack";
-
-type JoinSubmitNavigationProp = StackNavigationProp<
-  RootStackParam,
-  "JoinScreen"
->;
+import {
+  isBlank,
+  isDuplicatedNickname,
+  isValidNickname,
+} from "../../nicknameValidator";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
 }
 
 export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
-  const navigation = useNavigation<JoinSubmitNavigationProp>();
-
   const joinNickname = useRecoilValue(joinNicknameState);
-  const joinPassword = useRecoilValue(joinPasswordState);
-  const joinCheckPassword = useRecoilValue(joinCheckPasswordState);
   const joinAvatar = useRecoilValue(joinAvatarState);
+  const setJoinModalVisible = useSetRecoilState(joinModalState);
+  const setNicknameDuplicateState = useSetRecoilState(
+    joinNicknameDuplicatedState,
+  );
+  const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
 
-  const setJoinSubmit = useSetRecoilState(joinSubmitState);
-  const setJoinVerifyState = useSetRecoilState(memberJoinVerifyState);
+  const isValidateSubmit = () => {
+    if (!joinSubmit) {
+      return !(!isBlank(joinNickname) && !isValidNickname(joinNickname));
+    }
+  };
 
   const join = async () => {
     setJoinSubmit(true);
 
-    if (!verify(joinNickname, joinPassword, joinCheckPassword)) {
+    if (isBlank(joinNickname) || !isValidNickname(joinNickname)) {
       return;
     }
 
+    const data = await isDuplicatedNickname(joinNickname);
+
+    if (data) {
+      setNicknameDuplicateState(true);
+      return;
+    }
     try {
-      const response = await memberAPI.join({
+      const response = await profileAPI.put({
         nickname: joinNickname,
-        password: joinPassword,
         avatar: joinAvatar,
       });
 
-      if (response.status === 201) {
-        navigation.goBack();
-        setJoinVerifyState(true);
-        setTimeout(resetJoinForm, 1000);
+      if (response.status === 204) {
+        resetJoinForm();
+        setJoinModalVisible(true);
       }
     } catch (error) {
       console.log(error);
-      setJoinVerifyState(false);
     } finally {
       setJoinSubmit(false);
     }
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.joinButton} onPress={join}>
+      <TouchableOpacity
+        activeOpacity={isValidateSubmit() ? 0.3 : 1}
+        style={styles.joinButton}
+        onPress={() => {
+          isValidateSubmit() && join();
+        }}
+      >
         <Text style={styles.joinButtonText}>회원가입</Text>
       </TouchableOpacity>
     </View>

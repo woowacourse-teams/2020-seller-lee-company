@@ -30,7 +30,12 @@ export const joinSubmitState = atom({
   default: false,
 });
 
-export const memberJoinVerifyState = atom({
-  key: "memberJoinVerifyState",
-  default: true,
+export const joinNicknameDuplicatedState = atom({
+  key: "duplicateState",
+  default: false,
+});
+
+export const joinModalState = atom({
+  key: "joinModalState",
+  default: false,
 });

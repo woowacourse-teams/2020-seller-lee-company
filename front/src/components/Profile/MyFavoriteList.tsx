@@ -3,7 +3,7 @@ import MyFavoriteItem from "./MyFavoriteItem";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useRecoilState } from "recoil/dist";
 import { favoriteArticleState } from "../../states/articleState";
-import { articlesAPI } from "../../api/api";
+import { favoriteAPI } from "../../api/api";
 import theme from "../../colors";
 
 export default function MyFavoriteList() {
@@ -14,7 +14,7 @@ export default function MyFavoriteList() {
   }, []);
 
   const getFavoriteArticles = async () => {
-    const { data } = await articlesAPI.getFavorites();
+    const { data } = await favoriteAPI.getFavorites();
     setArticles(data);
   };
 

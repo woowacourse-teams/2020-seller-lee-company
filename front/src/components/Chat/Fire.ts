@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import { firebaseSecret } from "../../secret";
+import { Alert } from "react-native";
 
 class Fire {
   static shared: Fire;
@@ -28,7 +29,7 @@ class Fire {
       try {
         firebase.auth().signInAnonymously();
       } catch ({ message }) {
-        alert(message);
+        Alert.alert(message);
       }
     }
   };

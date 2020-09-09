@@ -10,6 +10,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.fixture.MemberFixture.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -47,7 +48,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(CHAT_ROOM_URI)
+                        post(API_URI+CHAT_ROOM_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))
@@ -78,7 +79,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(CHAT_ROOM_URI)
+                        get(API_URI+CHAT_ROOM_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("articleId", "1"))
                 .andExpect(status().isOk())

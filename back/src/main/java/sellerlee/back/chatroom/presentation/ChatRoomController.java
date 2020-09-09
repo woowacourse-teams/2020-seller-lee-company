@@ -1,6 +1,7 @@
 package sellerlee.back.chatroom.presentation;
 
 import static sellerlee.back.chatroom.presentation.ChatRoomController.*;
+import static sellerlee.back.common.PageController.*;
 
 import java.net.URI;
 import java.util.List;
@@ -18,7 +19,7 @@ import sellerlee.back.chatroom.application.ChatRoomResponse;
 import sellerlee.back.chatroom.application.ChatRoomService;
 
 @RestController
-@RequestMapping(CHAT_ROOM_URI)
+@RequestMapping(API_URI + CHAT_ROOM_URI)
 public class ChatRoomController {
     public static final String CHAT_ROOM_URI = "/chat-rooms";
 

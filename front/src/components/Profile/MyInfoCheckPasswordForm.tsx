@@ -1,33 +1,24 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import theme from "../../colors";
-import { isBlank, isSamePassword } from "../../joinValidator";
 import { Feather } from "@expo/vector-icons";
-import {
-  myInfoCheckPasswordState,
-  myInfoPasswordState,
-  myInfoSubmitState,
-} from "../../states/myInfoState";
+import { myInfoSubmitState } from "../../states/myInfoState";
 
 export default function MyInfoCheckPasswordForm() {
   const [focusTextInputState, setFocusTextInputState] = useState(false);
-  const myInfoPassword = useRecoilValue(myInfoPasswordState);
-  const [myInfoCheckPassword, setMyInfoCheckPassword] = useRecoilState(
-    myInfoCheckPasswordState,
-  );
   const myInfoSubmit = useRecoilValue(myInfoSubmitState);
 
   const passwordFormColor = () => {
     if (!focusTextInputState) {
       return "lightgrey";
     }
-    if (
-      isBlank(myInfoCheckPassword) ||
-      !isSamePassword(myInfoPassword, myInfoCheckPassword)
-    ) {
-      return theme.warning;
-    }
+    // if (
+    // isBlank(myInfoCheckPassword) ||
+    // !isSamePassword(myInfoPassword, myInfoCheckPassword)
+    // ) {
+    //   return theme.warning;
+    // }
     return theme.secondary;
   };
 
@@ -37,12 +28,12 @@ export default function MyInfoCheckPasswordForm() {
       paddingVertical: 10,
       borderWidth: 2,
       borderRadius: 100,
-      borderColor: `${passwordFormColor()}`,
+      // borderColor: `${passwordFormColor()}`,
     },
     title: {
       marginLeft: 15,
       marginVertical: 5,
-      color: `${passwordFormColor()}`,
+      // color: `${passwordFormColor()}`,
       fontSize: 14,
       fontWeight: "bold",
     },
@@ -67,41 +58,41 @@ export default function MyInfoCheckPasswordForm() {
   };
 
   const validateMessageOnSubmit = () => {
-    if (isBlank(myInfoCheckPassword)) {
-      return emptyCheckPasswordMessage();
-    }
-    if (!isSamePassword(myInfoPassword, myInfoCheckPassword)) {
-      return invalidCheckPasswordMessage();
-    }
+    // if (isBlank(myInfoCheckPassword)) {
+    //   return emptyCheckPasswordMessage();
+    // }
+    // if (!isSamePassword(myInfoPassword, myInfoCheckPassword)) {
+    //   return invalidCheckPasswordMessage();
+    // }
     return validCheckPasswordMessage();
   };
 
   const validateMessageNotSubmit = () => {
-    if (isBlank(myInfoCheckPassword)) {
-      return <></>;
-    }
-    if (!isSamePassword(myInfoPassword, myInfoCheckPassword)) {
-      return invalidCheckPasswordMessage();
-    }
+    // if (isBlank(myInfoCheckPassword)) {
+    //   return <></>;
+    // }
+    // if (!isSamePassword(myInfoPassword, myInfoCheckPassword)) {
+    //   return invalidCheckPasswordMessage();
+    // }
     return validCheckPasswordMessage();
   };
 
   const validateIconOnSubmit = () => {
-    if (
-      isBlank(myInfoPassword) ||
-      !isSamePassword(myInfoPassword, myInfoCheckPassword)
-    ) {
-      return (
-        <View style={styles.iconContainer}>
-          <Feather
-            name="alert-circle"
-            size={20}
-            color={theme.warning}
-            style={styles.validateIcon}
-          />
-        </View>
-      );
-    }
+    // if (
+    //   isBlank(myInfoPassword) ||
+    //   !isSamePassword(myInfoPassword, myInfoCheckPassword)
+    // ) {
+    //   return (
+    //     <View style={styles.iconContainer}>
+    //       <Feather
+    //         name="alert-circle"
+    //         size={20}
+    //         color={theme.warning}
+    //         style={styles.validateIcon}
+    //       />
+    //     </View>
+    //   );
+    // }
     return (
       <View style={styles.iconContainer}>
         <Feather
@@ -115,21 +106,21 @@ export default function MyInfoCheckPasswordForm() {
   };
 
   const validateIconNotSubmit = () => {
-    if (isBlank(myInfoCheckPassword)) {
-      return <></>;
-    }
-    if (!isSamePassword(myInfoPassword, myInfoCheckPassword)) {
-      return (
-        <View style={styles.iconContainer}>
-          <Feather
-            name="alert-circle"
-            size={20}
-            color={theme.warning}
-            style={styles.validateIcon}
-          />
-        </View>
-      );
-    }
+    // if (isBlank(myInfoCheckPassword)) {
+    //   return <></>;
+    // }
+    // if (!isSamePassword(myInfoPassword, myInfoCheckPassword)) {
+    //     return (
+    //       <View style={styles.iconContainer}>
+    //         <Feather
+    //           name="alert-circle"
+    //           size={20}
+    //           color={theme.warning}
+    //           style={styles.validateIcon}
+    //         />
+    //       </View>
+    //     );
+    //   }
     return (
       <View style={styles.iconContainer}>
         <Feather
@@ -140,6 +131,7 @@ export default function MyInfoCheckPasswordForm() {
         />
       </View>
     );
+    // };
   };
 
   return (
@@ -157,7 +149,7 @@ export default function MyInfoCheckPasswordForm() {
         <TextInput
           onFocus={() => setFocusTextInputState(true)}
           onBlur={() => setFocusTextInputState(false)}
-          onChangeText={setMyInfoCheckPassword}
+          // onChangeText={setMyInfoCheckPassword}
           style={styles.checkPasswordForm}
           placeholder={"비밀번호 확인."}
           secureTextEntry={true}

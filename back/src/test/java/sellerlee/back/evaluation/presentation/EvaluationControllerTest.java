@@ -3,6 +3,7 @@ package sellerlee.back.evaluation.presentation;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.evaluation.presentation.EvaluationController.*;
 import static sellerlee.back.fixture.EvaluationFixture.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -32,7 +33,7 @@ public class EvaluationControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(EVALUATION_URI)
+                        post(API_URI+EVALUATION_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))

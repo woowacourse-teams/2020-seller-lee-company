@@ -4,6 +4,7 @@ import sellerlee.back.security.web.AuthorizationType;
 
 public class TokenResponse {
     private String accessToken;
+    private String state;
     private String tokenType;
 
     private TokenResponse() {
@@ -14,12 +15,26 @@ public class TokenResponse {
         this.tokenType = tokenType;
     }
 
+    public TokenResponse(String accessToken, String state, String tokenType) {
+        this.accessToken = accessToken;
+        this.state = state;
+        this.tokenType = tokenType;
+    }
+
     public static TokenResponse of(String accessToken, AuthorizationType type) {
         return new TokenResponse(accessToken, type.toLowerCase());
     }
 
+    public static TokenResponse of(String accessToken, String state, AuthorizationType type) {
+        return new TokenResponse(accessToken, state, type.toLowerCase());
+    }
+
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public String getState() {
+        return state;
     }
 
     public String getTokenType() {

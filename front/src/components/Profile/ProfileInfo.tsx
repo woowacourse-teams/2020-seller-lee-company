@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
-  memberInfoAvatarState,
   memberProfileState,
+  memberAvatarState,
+  memberNicknameState,
 } from "../../states/memberState";
 
 export default function ProfileInfo() {
   const profile = useRecoilValue(memberProfileState);
-  const [avatar, setAvatar] = useRecoilState(memberInfoAvatarState);
+  const [avatar, setAvatar] = useRecoilState(memberAvatarState);
+  const [nickname, setNickname] = useRecoilState(memberNicknameState);
 
   useEffect(() => {
     setAvatar(profile.avatar);
+    setNickname(profile.nickname);
   }, [profile]);
 
   return (
@@ -24,7 +27,7 @@ export default function ProfileInfo() {
         />
       </View>
       <View style={styles.nicknameContainer}>
-        <Text style={styles.nickname}>{profile.nickname}</Text>
+        <Text style={styles.nickname}>{nickname}</Text>
       </View>
     </View>
   );

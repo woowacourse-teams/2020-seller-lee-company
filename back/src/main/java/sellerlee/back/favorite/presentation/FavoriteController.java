@@ -1,5 +1,6 @@
 package sellerlee.back.favorite.presentation;
 
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
 
 import java.net.URI;
@@ -20,7 +21,7 @@ import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 
 @RestController
-@RequestMapping(FAVORITE_URI)
+@RequestMapping(API_URI + FAVORITE_URI)
 public class FavoriteController {
     public static final String FAVORITE_URI = "/favorites";
 

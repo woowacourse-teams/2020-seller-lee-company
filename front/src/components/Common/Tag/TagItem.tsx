@@ -14,7 +14,7 @@ export default function TagItem({ tag }: TagItemProps) {
   const [tags, setTags] = useRecoilState(tagsState);
 
   const onRemove = (deleteTag: string) =>
-    setTags(tags.filter((tag) => tag !== deleteTag));
+    setTags(tags.filter((tagItem) => tagItem !== deleteTag));
 
   return (
     <View style={styles.container}>
