@@ -40,9 +40,9 @@ dependencies {
     }
 
     // queryDSL
-    compile("com.querydsl:querydsl-core:${queryDSLVersion}")
-    compile("com.querydsl:querydsl-jpa:${queryDSLVersion}")
-    compile("com.querydsl:querydsl-apt:${queryDSLVersion}")
+    implementation "com.querydsl:querydsl-core:${queryDSLVersion}"
+    implementation "com.querydsl:querydsl-jpa:${queryDSLVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDSLVersion}"
     annotationProcessor(
             "com.querydsl:querydsl-apt:${queryDSLVersion}:jpa",
             "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final",
