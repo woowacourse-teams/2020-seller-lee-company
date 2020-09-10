@@ -13,7 +13,7 @@ import { RootStackParam } from "../../types/types";
 
 type AuthButtonNavigationProp = StackNavigationProp<
   RootStackParam,
-  "AuthScreen"
+  "TeaserScreen"
 >;
 
 interface AuthButtonProps {

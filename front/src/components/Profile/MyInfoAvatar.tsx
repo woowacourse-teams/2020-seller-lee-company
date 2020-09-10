@@ -18,7 +18,7 @@ import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
 import { s3Secret } from "../../secret";
-import { loginIdState } from "../../states/loginState";
+import { loginIdState } from "../../states/AuthState";
 import * as Permissions from "expo-permissions";
 import { myInfoAvatarState } from "../../states/myInfoState";
 import { memberAvatarState } from "../../states/memberState";

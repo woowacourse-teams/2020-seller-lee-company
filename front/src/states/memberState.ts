@@ -1,11 +1,6 @@
 import { atom } from "recoil/dist";
 import { Profile } from "../types/types";
 
-export const authorTheCheatState = atom({
-  key: "authorTheCheatState",
-  default: false,
-});
-
 export const memberNicknameState = atom({
   key: "memberNicknameState",
   default: "",

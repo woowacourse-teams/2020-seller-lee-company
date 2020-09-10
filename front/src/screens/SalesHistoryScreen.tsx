@@ -85,6 +85,10 @@ export default function SalesHistoryScreen() {
     setSalesHistoryArticles(data);
   };
 
+  const dynamicTextColor = (focused: boolean) => {
+    return focused ? "black" : "grey";
+  };
+
   const renderLabel = (
     scene: Scene<{ key: string; title: string }> & {
       focused: boolean;
@@ -96,13 +100,7 @@ export default function SalesHistoryScreen() {
     )[0].title;
 
     return (
-      <Text
-        style={{
-          color: scene.focused ? "black" : "grey",
-        }}
-      >
-        {tabLabel}
-      </Text>
+      <Text style={{ color: dynamicTextColor(scene.focused) }}>{tabLabel}</Text>
     );
   };
 

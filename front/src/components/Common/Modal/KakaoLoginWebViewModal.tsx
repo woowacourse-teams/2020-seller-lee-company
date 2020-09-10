@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
-import KakaoLoginWebView from "../../Login/KakaoLoginWebView";
+import KakaoLoginWebView from "../../auth/KakaoLoginWebView";
 import { ModalVisibleProps } from "../../../types/types";
 
 export default function KakaoLoginWebViewModal({

@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   },
   optionContainer: {
     flex: 1,
-    // backgroundColor: "yellow",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
