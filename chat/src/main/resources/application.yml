@@ -1,0 +1,13 @@
+spring:
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate.format_sql: true
+      use_sql_comments: true
+
+server:
+  port: 8000
