@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { KAKAO_LOGIN_API_URI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { DeviceStorage } from "../../auth/DeviceStorage";
-import { memberLoginTrialState } from "../../states/loginState";
+import { LoginTrialState } from "../../states/AuthState";
 import { memberState } from "../../states/memberState";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -29,7 +29,7 @@ export default function KakaoLoginWebView({
 }: KakakoLoginWebViewProp) {
   const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
-  const setLoginTrialState = useSetRecoilState(memberLoginTrialState);
+  const setLoginTrialState = useSetRecoilState(LoginTrialState);
   const setMemberState = useSetRecoilState(memberState);
 
   const INJECTED_JAVASCRIPT = ` (function() {

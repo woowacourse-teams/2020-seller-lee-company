@@ -13,12 +13,6 @@ export type Category =
   | "도서/티켓/음반"
   | "기타 중고물품";
 
-export type AuthorScoreType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-
-export interface ArticleDetailFavoriteProp {
-  articleId: number;
-}
-
 export interface Feed {
   id: number;
   price: number;
@@ -90,7 +84,6 @@ export interface ModalVisibleProps {
 
 export type RootStackParam = {
   TeaserScreen: undefined;
-  AuthScreen: undefined;
   JoinScreen: undefined;
   HomeStack: undefined;
 };

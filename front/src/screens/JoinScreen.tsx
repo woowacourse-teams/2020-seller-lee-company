@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
   joinFormContainer: {
     flex: 1,
     backgroundColor: "white",
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     paddingTop: 30,
   },
   joinContainer: {
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   joinSubmitContainer: {
     justifyContent: "center",
     marginHorizontal: 30,
-    // marginTop: 20,
+    marginTop: 20,
     marginBottom: 80,
   },
 });

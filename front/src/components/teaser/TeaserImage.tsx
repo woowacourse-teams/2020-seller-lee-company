@@ -3,7 +3,7 @@ import { ImageBackground, ImageProps, StyleSheet, View } from "react-native";
 import AuthButton from "../auth/AuthButton";
 import SvgTeaserTitle from "../svg/SvgTeaserTitle";
 import SvgWhale from "../svg/SvgWhale";
-import LoginIndicator from "../Login/LoginIndicator";
+import LoginIndicator from "../auth/LoginIndicator";
 import KakaoLoginWebViewModal from "../Common/Modal/KakaoLoginWebViewModal";
 import LoginVerifyModal from "../Common/Modal/LoginVerifyModal";
 import { useRecoilValue } from "recoil/dist";

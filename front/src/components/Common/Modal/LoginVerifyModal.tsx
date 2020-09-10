@@ -9,22 +9,20 @@ import {
 import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
-import { memberLoginTrialState } from "../../../states/loginState";
+import { LoginTrialState } from "../../../states/AuthState";
 import { memberState } from "../../../states/memberState";
 import { RootStackParam } from "../../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 type LoginVerifyModalNavigationProp = StackNavigationProp<
   RootStackParam,
-  "AuthScreen"
+  "TeaserScreen"
 >;
 
 export default function LoginVerifyModal() {
   const navigation = useNavigation<LoginVerifyModalNavigationProp>();
 
-  const [loginTrialState, setLoginTrialState] = useRecoilState(
-    memberLoginTrialState,
-  );
+  const [loginTrialState, setLoginTrialState] = useRecoilState(LoginTrialState);
   const state = useRecoilValue(memberState);
 
   const onPressCloseButton = () => {
