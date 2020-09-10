@@ -55,3 +55,4 @@ back/out/
 .idea/
 /back/src/main/resources/application-*.yml
 /back/src/test/resources/application-*.yml
+generated/
