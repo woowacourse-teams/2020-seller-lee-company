@@ -52,7 +52,7 @@ export default function FeedHomeScreen() {
   };
 
   useEffect(() => {
-    applyChange();
+    isFocused ? applyChange() : undefined;
   }, [isFocused]);
 
   const initFeed = async () => {

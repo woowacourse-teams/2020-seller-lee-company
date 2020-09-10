@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.*;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.querydsl.core.annotations.QueryProjection;
 import sellerlee.back.article.domain.Article;
 
 public class FeedResponse {
@@ -26,6 +27,11 @@ public class FeedResponse {
         this.favoriteState = favoriteState;
         this.tags = tags;
         this.photos = photos;
+    }
+
+    @QueryProjection
+    public FeedResponse(Article article, Long favoriteCount, boolean favoriteState) {
+        this(article.getId(), article.getPrice(), favoriteCount, favoriteState, article.getTags().getTagNames(), article.getPhotos().toList());
     }
 
     public static FeedResponse of(Article article, Long favoriteCount, boolean favoriteState) {
