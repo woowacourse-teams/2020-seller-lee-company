@@ -36,6 +36,7 @@ import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.TradeStateRequest;
 import sellerlee.back.article.domain.Category;
+import sellerlee.back.article.query.ArticleDao;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest extends ControllerTest {
@@ -44,6 +45,9 @@ class ArticleControllerTest extends ControllerTest {
 
     @MockBean
     private ArticleViewService articleViewService;
+
+    @MockBean
+    private ArticleDao articleDao;
 
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
@@ -85,7 +89,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
-        when(articleViewService.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 

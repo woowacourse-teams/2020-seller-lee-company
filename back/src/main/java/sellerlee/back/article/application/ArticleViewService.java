@@ -47,21 +47,6 @@ public class ArticleViewService {
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }
 
-    public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember) {
-        PageRequest pageRequest = PageRequest.of(FIRST_PAGE, size);
-
-        List<Article> articles = articleRepository.findByIdLessThanAndTradeStateOrderByIdDesc(
-                lastArticleId, TradeState.ON_SALE, pageRequest
-        ).getContent();
-
-        Map<Article, Long> articleAndCount = toArticleAndFavoriteCount(articles);
-        List<Long> favoriteCounts = toFavoriteCounts(articles, articleAndCount);
-        List<Article> favorites = toFavorites(loginMember, articles);
-        List<Boolean> favoriteStates = toFavoriteStates(articles, favorites);
-
-        return FeedResponse.listOf(articles, favoriteCounts, favoriteStates);
-    }
-
     public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
             String category,
             Member loginMember) {
