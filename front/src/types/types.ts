@@ -83,8 +83,15 @@ export interface ModalVisibleProps {
 // **********************************************************************
 
 export type RootStackParam = {
+  // 로그인, 회원가입
   TeaserScreen: undefined;
   JoinScreen: undefined;
+  // 조직 화면
+  GroupHomeScreen: undefined;
+  GroupEnterScreen: undefined;
+  GroupCreateScreen: undefined;
+  GroupEnterCreatedScreen: undefined;
+  // 홈 화면
   HomeStack: undefined;
 };
 
