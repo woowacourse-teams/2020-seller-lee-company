@@ -1,1 +1,5 @@
 rootProject.name = 'back'
+include 'common'
+include 'api'
+include 'chat'
+
