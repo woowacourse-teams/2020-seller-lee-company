@@ -1,0 +1,60 @@
+|===
+|Path|Type|Description
+
+|`+id+`
+|`+Number+`
+|게시글의 ID
+
+|`+title+`
+|`+String+`
+|게시글의 제목
+
+|`+categoryName+`
+|`+String+`
+|게시글의 카테고리
+
+|`+contents+`
+|`+String+`
+|게시글의 내용
+
+|`+price+`
+|`+Number+`
+|게시글의 가격
+
+|`+tradeState+`
+|`+String+`
+|게시글의 판매 상태
+
+|`+tags+`
+|`+Array+`
+|게시글 태그의 리스트
+
+|`+photos+`
+|`+Array+`
+|게시글 사진의 리스트
+
+|`+author.nickname+`
+|`+String+`
+|게시글 작성자의 닉네임
+
+|`+author.avatar+`
+|`+String+`
+|게시글 작성자의 프로필 사진
+
+|`+author.score+`
+|`+Number+`
+|게시글 작성자의 점수
+
+|`+favoriteState+`
+|`+Boolean+`
+|작성자의 게시글 찜 여부
+
+|`+favoriteCount+`
+|`+Number+`
+|게시글의 찜 개수
+
+|`+createdTime+`
+|`+String+`
+|게시글 생성 시간
+
+|===

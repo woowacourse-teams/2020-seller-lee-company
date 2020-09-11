@@ -1,0 +1,25 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 705
+
+{
+  "id" : 51,
+  "title" : "TEST_TITLE",
+  "categoryName" : "디지털/가전",
+  "contents" : "TEST_CONTENTS",
+  "price" : 10000,
+  "tradeState" : "예약중",
+  "tags" : [ "tag 1-1", "tag 1-2" ],
+  "photos" : [ "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4", "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4" ],
+  "author" : {
+    "nickname" : "1111",
+    "avatar" : "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4",
+    "score" : 8.0
+  },
+  "favoriteState" : true,
+  "favoriteCount" : 1,
+  "createdTime" : "2020-09-17T17:47:20.048"
+}
+----

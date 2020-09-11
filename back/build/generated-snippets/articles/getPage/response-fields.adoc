@@ -1,0 +1,28 @@
+|===
+|Path|Type|Description
+
+|`+[].id+`
+|`+Number+`
+|게시글의 ID
+
+|`+[].price+`
+|`+Number+`
+|게시글의 가격
+
+|`+[].favoriteState+`
+|`+Boolean+`
+|게시글의 찜 여부
+
+|`+[].favoriteCount+`
+|`+Number+`
+|게시글의 찜 개수
+
+|`+[].tags+`
+|`+Array+`
+|태그의 리스트
+
+|`+[].photos+`
+|`+Array+`
+|사진의 리스트
+
+|===

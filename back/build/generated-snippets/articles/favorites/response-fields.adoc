@@ -1,0 +1,36 @@
+|===
+|Path|Type|Description
+
+|`+[].id+`
+|`+Number+`
+|게시글의 ID
+
+|`+[].title+`
+|`+String+`
+|게시글의 제목
+
+|`+[].price+`
+|`+Number+`
+|게시글의 가격
+
+|`+[].thumbnail+`
+|`+String+`
+|게시글의 섬네일
+
+|`+[].tradeState+`
+|`+String+`
+|게시글의 거래 상태
+
+|`+[].favoriteCount+`
+|`+Number+`
+|게시글의 좋아요 개수
+
+|`+[].favoriteState+`
+|`+Boolean+`
+|게시글의 좋아요 상태
+
+|`+[].createdTime+`
+|`+String+`
+|게시글의 생성 시간
+
+|===

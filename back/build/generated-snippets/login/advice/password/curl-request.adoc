@@ -1,0 +1,10 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/login' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "nickname" : "seller lee",
+  "password" : "1234"
+}'
+----

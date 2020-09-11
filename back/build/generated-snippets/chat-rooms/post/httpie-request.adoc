@@ -1,0 +1,9 @@
+[source,bash]
+----
+$ echo '{
+  "articleId" : 51,
+  "buyerId" : 51
+}' | http POST 'http://localhost:8080/api/chat-rooms' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:bearer secretsecretsecret'
+----

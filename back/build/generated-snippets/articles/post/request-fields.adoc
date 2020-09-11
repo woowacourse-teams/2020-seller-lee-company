@@ -1,0 +1,28 @@
+|===
+|Path|Type|Description
+
+|`+title+`
+|`+String+`
+|게시글의 제목
+
+|`+category+`
+|`+String+`
+|게시글의 카테고리
+
+|`+contents+`
+|`+String+`
+|게시글의 내용
+
+|`+price+`
+|`+Number+`
+|게시글의 가격
+
+|`+tags+`
+|`+Array+`
+|태그의 리스트
+
+|`+photos+`
+|`+Array+`
+|사진의 리스트
+
+|===

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - FavoriteAcceptanceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>FavoriteAcceptanceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/sellerlee.back.favorite.acceptance.html">sellerlee.back.favorite.acceptance</a> &gt; FavoriteAcceptanceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.166s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">찜 생성</td>
+<td class="success">manageFavorite()[1]</td>
+<td class="success">0.098s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">찜 삭제</td>
+<td class="success">manageFavorite()[2]</td>
+<td class="success">0.068s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>18:03:41.466 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+18:03:41.478 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+18:03:41.506 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+18:03:41.516 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest], using SpringBootContextLoader
+18:03:41.520 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest]: class path resource [sellerlee/back/favorite/acceptance/FavoriteAcceptanceTest-context.xml] does not exist
+18:03:41.520 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest]: class path resource [sellerlee/back/favorite/acceptance/FavoriteAcceptanceTestContext.groovy] does not exist
+18:03:41.521 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:03:41.522 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest]: FavoriteAcceptanceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:03:41.556 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest]
+18:03:41.615 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/nam/workspace/2020-seller-lee-company/back/build/classes/java/main/sellerlee/back/SellerLeeApplication.class]
+18:03:41.616 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration sellerlee.back.SellerLeeApplication for test class sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest
+18:03:41.694 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest]: using defaults.
+18:03:41.694 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+18:03:41.711 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@313391a8, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@217589bc, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1b418eb0, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3c962f91, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1185577a, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1c30049f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@b932da7, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@67461e3, org.springframework.test.context.event.EventPublishingTestExecutionListener@3d71d8d0, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@2179371d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3315d880, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@16cbcc78, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@25cf2129, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4de62b52, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@502a2bb6, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@18ca85c7]
+18:03:41.714 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@34d6e2dd testClass = FavoriteAcceptanceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@495e7022 testClass = FavoriteAcceptanceTest, locations = '{}', classes = '{class sellerlee.back.SellerLeeApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@42046aa3, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@73dc7fdc, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@32fda911, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4c55009c, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]], class annotated with @DirtiesContext [false] with mode [null].
+18:03:41.724 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@34d6e2dd testClass = FavoriteAcceptanceTest, testInstance = sellerlee.back.favorite.acceptance.FavoriteAcceptanceTest@2789a62d, testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@495e7022 testClass = FavoriteAcceptanceTest, locations = '{}', classes = '{class sellerlee.back.SellerLeeApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@42046aa3, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@73dc7fdc, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@32fda911, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4c55009c, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]]].
+18:03:41.739 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.1.RELEASE)
+
+[2020-09-17 18:03:42:740 ] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.StartupInfoLogger.logStarting:55] - Starting FavoriteAcceptanceTest on NamBook-Pro.local with PID 3075 (started by nam in /Users/nam/workspace/2020-seller-lee-company/back)
+[2020-09-17 18:03:42:742 ] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.SpringApplication.logStartupProfileInfo:655] - The following profiles are active: security,test
+[2020-09-17 18:03:43:1660] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127] - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+[2020-09-17 18:03:43:1786] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187] - Finished Spring Data repository scanning in 84ms. Found 7 JPA repository interfaces.
+[2020-09-17 18:03:43:2556] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize:108] - Tomcat initialized with port(s): 0 (http)
+[2020-09-17 18:03:43:2570] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.apache.juli.logging.DirectJDKLog.log:173] - Initializing ProtocolHandler [&quot;http-nio-auto-1&quot;]
+[2020-09-17 18:03:43:2571] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.apache.juli.logging.DirectJDKLog.log:173] - Starting service [Tomcat]
+[2020-09-17 18:03:43:2571] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.apache.juli.logging.DirectJDKLog.log:173] - Starting Servlet engine: [Apache Tomcat/9.0.36]
+[2020-09-17 18:03:44:2679] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.apache.juli.logging.DirectJDKLog.log:173] - Initializing Spring embedded WebApplicationContext
+[2020-09-17 18:03:44:2680] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext:285] - Root WebApplicationContext: initialization completed in 1715 ms
+[2020-09-17 18:03:44:2941] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize:181] - Initializing ExecutorService 'applicationTaskExecutor'
+[2020-09-17 18:03:44:3012] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2020-09-17 18:03:44:3072] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [org.hibernate.Version.logVersion:44] - HHH000412: Hibernate ORM core version 5.4.17.Final
+[2020-09-17 18:03:44:3264] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [org.hibernate.annotations.common.reflection.java.JavaReflectionManager.&lt;clinit&gt;:49] - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+[2020-09-17 18:03:44:3418] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [com.zaxxer.hikari.HikariDataSource.getConnection:110] - HikariPool-1 - Starting...
+[2020-09-17 18:03:45:3631] ?[32m[Test worker]?[0;39m ?[31mWARN ?[0;39m [org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2020-09-17 18:03:45:3670] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [com.zaxxer.hikari.HikariDataSource.getConnection:123] - HikariPool-1 - Start completed.
+[2020-09-17 18:03:45:3730] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [org.hibernate.dialect.Dialect.&lt;init&gt;:172] - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+Hibernate: 
+    
+    drop table if exists article CASCADE 
+Hibernate: 
+    
+    drop table if exists article_favorite_count CASCADE 
+Hibernate: 
+    
+    drop table if exists chat_room CASCADE 
+Hibernate: 
+    
+    drop table if exists evaluation CASCADE 
+Hibernate: 
+    
+    drop table if exists favorite CASCADE 
+Hibernate: 
+    
+    drop table if exists member CASCADE 
+Hibernate: 
+    
+    drop table if exists photo CASCADE 
+Hibernate: 
+    
+    drop table if exists score CASCADE 
+Hibernate: 
+    
+    drop table if exists tag CASCADE 
+Hibernate: 
+    
+    drop table if exists trade CASCADE 
+Hibernate: 
+    
+    create table article (
+       article_id bigint generated by default as identity,
+        created_time timestamp,
+        modified_time timestamp,
+        category varchar(255),
+        contents clob,
+        price bigint,
+        title varchar(255),
+        trade_state varchar(255),
+        member_id bigint,
+        primary key (article_id)
+    )
+Hibernate: 
+    
+    create table article_favorite_count (
+       article_favorite_count_id bigint generated by default as identity,
+        favorite_count bigint,
+        article_id bigint,
+        primary key (article_favorite_count_id)
+    )
+Hibernate: 
+    
+    create table chat_room (
+       chat_room_id bigint generated by default as identity,
+        article_id bigint,
+        member_id bigint,
+        primary key (chat_room_id)
+    )
+Hibernate: 
+    
+    create table evaluation (
+       evaluation_id bigint generated by default as identity,
+        member_id bigint,
+        trade_id bigint,
+        primary key (evaluation_id)
+    )
+Hibernate: 
+    
+    create table favorite (
+       favorite_id bigint generated by default as identity,
+        article_id bigint,
+        member_id bigint,
+        primary key (favorite_id)
+    )
+Hibernate: 
+    
+    create table member (
+       member_id bigint generated by default as identity,
+        avatar varchar(255),
+        kakao_access_token varchar(255),
+        kakao_id varchar(255),
+        kakao_refresh_token varchar(255),
+        nickname varchar(255),
+        push_token varchar(255),
+        score double,
+        state varchar(255),
+        primary key (member_id)
+    )
+Hibernate: 
+    
+    create table photo (
+       article_id bigint not null,
+        photos varchar(255)
+    )
+Hibernate: 
+    
+    create table score (
+       evaluation_id bigint not null,
+        question_id integer,
+        score integer
+    )
+Hibernate: 
+    
+    create table tag (
+       article_id bigint not null,
+        name varchar(255)
+    )
+Hibernate: 
+    
+    create table trade (
+       trade_id bigint generated by default as identity,
+        created_time timestamp,
+        modified_time timestamp,
+        article_id bigint,
+        buyer_id bigint,
+        seller_id bigint,
+        primary key (trade_id)
+    )
+Hibernate: 
+    
+    alter table article 
+       add constraint FK6l9vkfd5ixw8o8kph5rj1k7gu 
+       foreign key (member_id) 
+       references member
+Hibernate: 
+    
+    alter table article_favorite_count 
+       add constraint FKfnp4kiaod6fcngod25e1v4l7g 
+       foreign key (article_id) 
+       references article
+Hibernate: 
+    
+    alter table chat_room 
+       add constraint FKtgoi7b2ml0vwx9gxmqu2tg8mx 
+       foreign key (article_id) 
+       references article
+Hibernate: 
+    
+    alter table chat_room 
+       add constraint FK6x6htd2o9ba2r2wcrs72qau17 
+       foreign key (member_id) 
+       references member
+Hibernate: 
+    
+    alter table evaluation 
+       add constraint FKb9ixvns6joh5jp42jfe9999nj 
+       foreign key (member_id) 
+       references member
+Hibernate: 
+    
+    alter table evaluation 
+       add constraint FKiuqcb9oy6i1cdgg1ciso9ss1p 
+       foreign key (trade_id) 
+       references trade
+Hibernate: 
+    
+    alter table favorite 
+       add constraint FK9cgi9q9dxmh33ee1ndsy9w332 
+       foreign key (article_id) 
+       references article
+Hibernate: 
+    
+    alter table favorite 
+       add constraint FK5w3q9ljpthkixo71hetx3ired 
+       foreign key (member_id) 
+       references member
+Hibernate: 
+    
+    alter table photo 
+       add constraint FKrm4wnmb1hcwhxvrmf2x6gf9ox 
+       foreign key (article_id) 
+       references article
+Hibernate: 
+    
+    alter table score 
+       add constraint FKkdh95651gedmcflfw3rm68fes 
+       foreign key (evaluation_id) 
+       references evaluation
+Hibernate: 
+    
+    alter table tag 
+       add constraint FKhutavxkklg0b3kj7rmcnc9hvf 
+       foreign key (article_id) 
+       references article
+Hibernate: 
+    
+    alter table trade 
+       add constraint FKgftjj3fi8v5yh9lpdrjycv698 
+       foreign key (article_id) 
+       references article
+Hibernate: 
+    
+    alter table trade 
+       add constraint FK9vko5ar4e6a7q1cfnaaudxlvu 
+       foreign key (buyer_id) 
+       references member
+Hibernate: 
+    
+    alter table trade 
+       add constraint FK8tbptehdpyc1sep8ec3miyhui 
+       foreign key (seller_id) 
+       references member
+[2020-09-17 18:03:46:4790] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator.initiateService:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[2020-09-17 18:03:46:4796] ?[32m[task-1]?[0;39m ?[34mINFO ?[0;39m [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory:416] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2020-09-17 18:03:46:5132] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.security.web.DefaultSecurityFilterChain.&lt;init&gt;:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6987cd01, org.springframework.security.web.context.SecurityContextPersistenceFilter@168520c0, org.springframework.security.web.header.HeaderWriterFilter@6b59efb7, org.springframework.security.web.csrf.CsrfFilter@67ebe8b3, org.springframework.security.web.authentication.logout.LogoutFilter@3640bf08, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@35769f40, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3b8ee431, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@519eb69e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2822f713, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35f47847, org.springframework.security.web.session.SessionManagementFilter@9251735, org.springframework.security.web.access.ExceptionTranslationFilter@57d1225e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@451847c4]
+[2020-09-17 18:03:46:5569] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache:615] - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+[2020-09-17 18:03:47:5661] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.handlerMethodsInitialized:351] - 22 mappings in 'requestMappingHandlerMapping'
+[2020-09-17 18:03:47:5665] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.&lt;init&gt;:54] - Adding welcome page: class path resource [static/index.html]
+[2020-09-17 18:03:47:5726] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping.registerHandlers:173] - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+[2020-09-17 18:03:47:5744] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache:297] - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+[2020-09-17 18:03:47:5913] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.apache.juli.logging.DirectJDKLog.log:173] - Starting ProtocolHandler [&quot;http-nio-auto-1&quot;]
+[2020-09-17 18:03:47:5932] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start:220] - Tomcat started on port(s): 51299 (http) with context path ''
+[2020-09-17 18:03:47:5934] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.data.repository.config.DeferredRepositoryInitializationListener.onApplicationEvent:49] - Triggering deferred initialization of Spring Data repositories…
+[2020-09-17 18:03:47:6190] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.data.repository.config.DeferredRepositoryInitializationListener.onApplicationEvent:53] - Spring Data repositories initialized!
+[2020-09-17 18:03:47:6199] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.boot.StartupInfoLogger.logStarted:61] - Started FavoriteAcceptanceTest in 5.884 seconds (JVM running for 6.943)
+[2020-09-17 18:03:47:6314] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.apache.juli.logging.DirectJDKLog.log:173] - Initializing Spring TestDispatcherServlet ''
+[2020-09-17 18:03:47:6314] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.web.servlet.FrameworkServlet.initServletBean:525] - Initializing Servlet ''
+[2020-09-17 18:03:47:6329] ?[32m[Test worker]?[0;39m ?[34mINFO ?[0;39m [org.springframework.web.servlet.FrameworkServlet.initServletBean:547] - Completed initialization in 15 ms
+Hibernate: 
+    select
+        member0_.member_id as member_i1_5_0_,
+        member0_.avatar as avatar2_5_0_,
+        member0_.kakao_access_token as kakao_ac3_5_0_,
+        member0_.kakao_id as kakao_id4_5_0_,
+        member0_.kakao_refresh_token as kakao_re5_5_0_,
+        member0_.nickname as nickname6_5_0_,
+        member0_.push_token as push_tok7_5_0_,
+        member0_.score as score8_5_0_,
+        member0_.state as state9_5_0_ 
+    from
+        member member0_ 
+    where
+        member0_.member_id=?
+[2020-09-17 18:03:47:6363] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [51]
+Hibernate: 
+    insert 
+    into
+        member
+        (member_id, avatar, kakao_access_token, kakao_id, kakao_refresh_token, nickname, push_token, score, state) 
+    values
+        (null, ?, ?, ?, ?, ?, ?, ?, ?)
+[2020-09-17 18:03:47:6383] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [VARCHAR] - [https://avatars1.githubusercontent.com/u/48052622?s=400&amp;u=a6aefc01e1ed6d8407e868a66227716d1813182b&amp;v=4]
+[2020-09-17 18:03:47:6383] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:52] - binding parameter [2] as [VARCHAR] - [null]
+[2020-09-17 18:03:47:6384] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [3] as [VARCHAR] - [51L]
+[2020-09-17 18:03:47:6384] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:52] - binding parameter [4] as [VARCHAR] - [null]
+[2020-09-17 18:03:47:6385] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [5] as [VARCHAR] - [lxxjn0]
+[2020-09-17 18:03:47:6385] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [6] as [VARCHAR] - [ExponentPushToken[1234567-12345678901234]]
+[2020-09-17 18:03:47:6387] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [7] as [DOUBLE] - [8.0]
+[2020-09-17 18:03:47:6387] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [8] as [VARCHAR] - [JOIN]
+[2020-09-17 18:03:47:6520] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler:414] - Mapped to sellerlee.back.article.presentation.ArticleController#create(ArticleRequest, Member)
+[2020-09-17 18:03:48:6592] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.core.log.LogFormatUtils.traceDebug:91] - Read &quot;application/json;charset=UTF-8&quot; to [sellerlee.back.article.application.ArticleRequest@787e4f3f]
+Hibernate: 
+    select
+        member0_.member_id as member_i1_5_,
+        member0_.avatar as avatar2_5_,
+        member0_.kakao_access_token as kakao_ac3_5_,
+        member0_.kakao_id as kakao_id4_5_,
+        member0_.kakao_refresh_token as kakao_re5_5_,
+        member0_.nickname as nickname6_5_,
+        member0_.push_token as push_tok7_5_,
+        member0_.score as score8_5_,
+        member0_.state as state9_5_ 
+    from
+        member member0_ 
+    where
+        member0_.kakao_id=?
+[2020-09-17 18:03:48:6726] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [VARCHAR] - [51L]
+[2020-09-17 18:03:48:6728] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([member_i1_5_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6730] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([avatar2_5_] : [VARCHAR]) - [https://avatars1.githubusercontent.com/u/48052622?s=400&amp;u=a6aefc01e1ed6d8407e868a66227716d1813182b&amp;v=4]
+[2020-09-17 18:03:48:6731] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:50] - extracted value ([kakao_ac3_5_] : [VARCHAR]) - [null]
+[2020-09-17 18:03:48:6732] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([kakao_id4_5_] : [VARCHAR]) - [51L]
+[2020-09-17 18:03:48:6732] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:50] - extracted value ([kakao_re5_5_] : [VARCHAR]) - [null]
+[2020-09-17 18:03:48:6733] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([nickname6_5_] : [VARCHAR]) - [lxxjn0]
+[2020-09-17 18:03:48:6734] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([push_tok7_5_] : [VARCHAR]) - [ExponentPushToken[1234567-12345678901234]]
+[2020-09-17 18:03:48:6735] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([score8_5_] : [DOUBLE]) - [8.0]
+[2020-09-17 18:03:48:6735] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([state9_5_] : [VARCHAR]) - [JOIN]
+Hibernate: 
+    insert 
+    into
+        article
+        (article_id, created_time, modified_time, member_id, category, contents, price, title, trade_state) 
+    values
+        (null, ?, ?, ?, ?, ?, ?, ?, ?)
+[2020-09-17 18:03:48:6790] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [TIMESTAMP] - [2020-09-17T18:03:48.203]
+[2020-09-17 18:03:48:6796] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [TIMESTAMP] - [2020-09-17T18:03:48.203]
+[2020-09-17 18:03:48:6797] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [3] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6798] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [4] as [VARCHAR] - [PC]
+[2020-09-17 18:03:48:6799] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [5] as [CLOB] - [TEST_CONTENTS]
+[2020-09-17 18:03:48:6801] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [6] as [BIGINT] - [10000]
+[2020-09-17 18:03:48:6802] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [7] as [VARCHAR] - [TEST_TITLE]
+[2020-09-17 18:03:48:6803] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [8] as [VARCHAR] - [ON_SALE]
+Hibernate: 
+    insert 
+    into
+        photo
+        (article_id, photos) 
+    values
+        (?, ?)
+[2020-09-17 18:03:48:6813] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6814] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [VARCHAR] - [https://avatars0.githubusercontent.com/u/53935703?s=400&amp;u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&amp;v=4]
+Hibernate: 
+    insert 
+    into
+        photo
+        (article_id, photos) 
+    values
+        (?, ?)
+[2020-09-17 18:03:48:6815] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6816] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [VARCHAR] - [https://avatars0.githubusercontent.com/u/53935703?s=400&amp;u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&amp;v=4]
+Hibernate: 
+    insert 
+    into
+        tag
+        (article_id, name) 
+    values
+        (?, ?)
+[2020-09-17 18:03:48:6818] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6819] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [VARCHAR] - [tag 1-1]
+Hibernate: 
+    insert 
+    into
+        tag
+        (article_id, name) 
+    values
+        (?, ?)
+[2020-09-17 18:03:48:6820] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6820] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [VARCHAR] - [tag 1-2]
+[2020-09-17 18:03:48:6829] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters:265] - Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/json, application/*+json]
+[2020-09-17 18:03:48:6830] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters:295] - Nothing to write: null body
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/articles
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Authorization:&quot;BEARER eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MUwiLCJpYXQiOjE2MDAzMzM0MjcsImV4cCI6MTYwMDM1MTQyN30.N0atF5E2VFcyUlz519hLhm0Mf2nWHwUgxYe0mh24N7g&quot;, Accept:&quot;application/json&quot;, Content-Length:&quot;343&quot;]
+             Body = {&quot;title&quot;:&quot;TEST_TITLE&quot;,&quot;price&quot;:10000,&quot;category&quot;:&quot;디지털/가전&quot;,&quot;contents&quot;:&quot;TEST_CONTENTS&quot;,&quot;tags&quot;:[&quot;tag 1-1&quot;,&quot;tag 1-2&quot;],&quot;photos&quot;:[&quot;https://avatars0.githubusercontent.com/u/53935703?s=400&amp;u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&amp;v=4&quot;,&quot;https://avatars0.githubusercontent.com/u/53935703?s=400&amp;u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&amp;v=4&quot;]}
+    Session Attrs = {}
+
+Handler:
+             Type = sellerlee.back.article.presentation.ArticleController
+           Method = sellerlee.back.article.presentation.ArticleController#create(ArticleRequest, Member)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Location:&quot;/articles/1&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;1; mode=block&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = /articles/1
+          Cookies = []
+[2020-09-17 18:03:48:6849] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler:414] - Mapped to sellerlee.back.favorite.presentation.FavoriteController#create(FavoriteRequest, Member)
+[2020-09-17 18:03:48:6853] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.core.log.LogFormatUtils.traceDebug:91] - Read &quot;application/json;charset=UTF-8&quot; to [sellerlee.back.favorite.application.FavoriteRequest@75a11598]
+Hibernate: 
+    select
+        member0_.member_id as member_i1_5_,
+        member0_.avatar as avatar2_5_,
+        member0_.kakao_access_token as kakao_ac3_5_,
+        member0_.kakao_id as kakao_id4_5_,
+        member0_.kakao_refresh_token as kakao_re5_5_,
+        member0_.nickname as nickname6_5_,
+        member0_.push_token as push_tok7_5_,
+        member0_.score as score8_5_,
+        member0_.state as state9_5_ 
+    from
+        member member0_ 
+    where
+        member0_.kakao_id=?
+[2020-09-17 18:03:48:6854] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [VARCHAR] - [51L]
+[2020-09-17 18:03:48:6855] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([member_i1_5_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6856] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([avatar2_5_] : [VARCHAR]) - [https://avatars1.githubusercontent.com/u/48052622?s=400&amp;u=a6aefc01e1ed6d8407e868a66227716d1813182b&amp;v=4]
+[2020-09-17 18:03:48:6857] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:50] - extracted value ([kakao_ac3_5_] : [VARCHAR]) - [null]
+[2020-09-17 18:03:48:6858] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([kakao_id4_5_] : [VARCHAR]) - [51L]
+[2020-09-17 18:03:48:6858] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:50] - extracted value ([kakao_re5_5_] : [VARCHAR]) - [null]
+[2020-09-17 18:03:48:6859] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([nickname6_5_] : [VARCHAR]) - [lxxjn0]
+[2020-09-17 18:03:48:6860] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([push_tok7_5_] : [VARCHAR]) - [ExponentPushToken[1234567-12345678901234]]
+[2020-09-17 18:03:48:6860] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([score8_5_] : [DOUBLE]) - [8.0]
+[2020-09-17 18:03:48:6861] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([state9_5_] : [VARCHAR]) - [JOIN]
+Hibernate: 
+    insert 
+    into
+        favorite
+        (favorite_id, article_id, member_id) 
+    values
+        (null, ?, ?)
+[2020-09-17 18:03:48:6869] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6870] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [BIGINT] - [1]
+Hibernate: 
+    select
+        articlefav0_.article_favorite_count_id as article_1_1_,
+        articlefav0_.article_id as article_3_1_,
+        articlefav0_.favorite_count as favorite2_1_ 
+    from
+        article_favorite_count articlefav0_ 
+    where
+        articlefav0_.article_id=?
+[2020-09-17 18:03:48:6881] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+Hibernate: 
+    insert 
+    into
+        article_favorite_count
+        (article_favorite_count_id, article_id, favorite_count) 
+    values
+        (null, ?, ?)
+[2020-09-17 18:03:48:6887] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6888] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [BIGINT] - [1]
+Hibernate: 
+    select
+        article0_.article_id as article_1_0_0_,
+        article0_.created_time as created_2_0_0_,
+        article0_.modified_time as modified3_0_0_,
+        article0_.member_id as member_i9_0_0_,
+        article0_.category as category4_0_0_,
+        article0_.contents as contents5_0_0_,
+        article0_.price as price6_0_0_,
+        article0_.title as title7_0_0_,
+        article0_.trade_state as trade_st8_0_0_ 
+    from
+        article article0_ 
+    where
+        article0_.article_id=?
+[2020-09-17 18:03:48:6894] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6902] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([created_2_0_0_] : [TIMESTAMP]) - [2020-09-17T18:03:48.203]
+[2020-09-17 18:03:48:6903] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([modified3_0_0_] : [TIMESTAMP]) - [2020-09-17T18:03:48.203]
+[2020-09-17 18:03:48:6904] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([member_i9_0_0_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6905] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([category4_0_0_] : [VARCHAR]) - [PC]
+[2020-09-17 18:03:48:6912] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([contents5_0_0_] : [CLOB]) - [TEST_CONTENTS]
+[2020-09-17 18:03:48:6913] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([price6_0_0_] : [BIGINT]) - [10000]
+[2020-09-17 18:03:48:6914] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([title7_0_0_] : [VARCHAR]) - [TEST_TITLE]
+[2020-09-17 18:03:48:6915] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([trade_st8_0_0_] : [VARCHAR]) - [ON_SALE]
+[2020-09-17 18:03:48:6936] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters:265] - Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/json, application/*+json]
+[2020-09-17 18:03:48:6936] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters:295] - Nothing to write: null body
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/favorites
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Authorization:&quot;BEARER eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MUwiLCJpYXQiOjE2MDAzMzM0MjcsImV4cCI6MTYwMDM1MTQyN30.N0atF5E2VFcyUlz519hLhm0Mf2nWHwUgxYe0mh24N7g&quot;, Accept:&quot;application/json&quot;, Content-Length:&quot;15&quot;]
+             Body = {&quot;articleId&quot;:1}
+    Session Attrs = {}
+
+Handler:
+             Type = sellerlee.back.favorite.presentation.FavoriteController
+           Method = sellerlee.back.favorite.presentation.FavoriteController#create(FavoriteRequest, Member)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Location:&quot;/favorites/1&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;1; mode=block&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = /favorites/1
+          Cookies = []
+[2020-09-17 18:03:48:6947] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler:414] - Mapped to sellerlee.back.favorite.presentation.FavoriteController#remove(FavoriteRequest, Member)
+[2020-09-17 18:03:48:6950] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.core.log.LogFormatUtils.traceDebug:91] - Read &quot;application/json;charset=UTF-8&quot; to [sellerlee.back.favorite.application.FavoriteRequest@628db728]
+Hibernate: 
+    select
+        member0_.member_id as member_i1_5_,
+        member0_.avatar as avatar2_5_,
+        member0_.kakao_access_token as kakao_ac3_5_,
+        member0_.kakao_id as kakao_id4_5_,
+        member0_.kakao_refresh_token as kakao_re5_5_,
+        member0_.nickname as nickname6_5_,
+        member0_.push_token as push_tok7_5_,
+        member0_.score as score8_5_,
+        member0_.state as state9_5_ 
+    from
+        member member0_ 
+    where
+        member0_.kakao_id=?
+[2020-09-17 18:03:48:6952] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [VARCHAR] - [51L]
+[2020-09-17 18:03:48:6953] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([member_i1_5_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6954] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([avatar2_5_] : [VARCHAR]) - [https://avatars1.githubusercontent.com/u/48052622?s=400&amp;u=a6aefc01e1ed6d8407e868a66227716d1813182b&amp;v=4]
+[2020-09-17 18:03:48:6954] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:50] - extracted value ([kakao_ac3_5_] : [VARCHAR]) - [null]
+[2020-09-17 18:03:48:6955] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([kakao_id4_5_] : [VARCHAR]) - [51L]
+[2020-09-17 18:03:48:6956] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:50] - extracted value ([kakao_re5_5_] : [VARCHAR]) - [null]
+[2020-09-17 18:03:48:6956] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([nickname6_5_] : [VARCHAR]) - [lxxjn0]
+[2020-09-17 18:03:48:6957] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([push_tok7_5_] : [VARCHAR]) - [ExponentPushToken[1234567-12345678901234]]
+[2020-09-17 18:03:48:6959] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([score8_5_] : [DOUBLE]) - [8.0]
+[2020-09-17 18:03:48:6959] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([state9_5_] : [VARCHAR]) - [JOIN]
+Hibernate: 
+    insert 
+    into
+        favorite
+        (favorite_id, article_id, member_id) 
+    values
+        (null, ?, ?)
+[2020-09-17 18:03:48:6961] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6962] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [BIGINT] - [1]
+Hibernate: 
+    select
+        articlefav0_.article_favorite_count_id as article_1_1_,
+        articlefav0_.article_id as article_3_1_,
+        articlefav0_.favorite_count as favorite2_1_ 
+    from
+        article_favorite_count articlefav0_ 
+    where
+        articlefav0_.article_id=?
+[2020-09-17 18:03:48:6965] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6966] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([article_1_1_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6967] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([article_3_1_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6968] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([favorite2_1_] : [BIGINT]) - [1]
+Hibernate: 
+    select
+        article0_.article_id as article_1_0_0_,
+        article0_.created_time as created_2_0_0_,
+        article0_.modified_time as modified3_0_0_,
+        article0_.member_id as member_i9_0_0_,
+        article0_.category as category4_0_0_,
+        article0_.contents as contents5_0_0_,
+        article0_.price as price6_0_0_,
+        article0_.title as title7_0_0_,
+        article0_.trade_state as trade_st8_0_0_ 
+    from
+        article article0_ 
+    where
+        article0_.article_id=?
+[2020-09-17 18:03:48:6969] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6970] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([created_2_0_0_] : [TIMESTAMP]) - [2020-09-17T18:03:48.203]
+[2020-09-17 18:03:48:6971] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([modified3_0_0_] : [TIMESTAMP]) - [2020-09-17T18:03:48.203]
+[2020-09-17 18:03:48:6973] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([member_i9_0_0_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6974] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([category4_0_0_] : [VARCHAR]) - [PC]
+[2020-09-17 18:03:48:6975] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([contents5_0_0_] : [CLOB]) - [TEST_CONTENTS]
+[2020-09-17 18:03:48:6976] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([price6_0_0_] : [BIGINT]) - [10000]
+[2020-09-17 18:03:48:6977] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([title7_0_0_] : [VARCHAR]) - [TEST_TITLE]
+[2020-09-17 18:03:48:6977] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([trade_st8_0_0_] : [VARCHAR]) - [ON_SALE]
+Hibernate: 
+    select
+        favorite0_.favorite_id as favorite1_4_,
+        favorite0_.article_id as article_2_4_,
+        favorite0_.member_id as member_i3_4_ 
+    from
+        favorite favorite0_ 
+    left outer join
+        member member1_ 
+            on favorite0_.member_id=member1_.member_id 
+    left outer join
+        article article2_ 
+            on favorite0_.article_id=article2_.article_id 
+    where
+        member1_.member_id=? 
+        and article2_.article_id=?
+[2020-09-17 18:03:48:6990] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6990] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [BIGINT] - [1]
+[2020-09-17 18:03:48:6991] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([favorite1_4_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6992] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([article_2_4_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6992] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([member_i3_4_] : [BIGINT]) - [1]
+[2020-09-17 18:03:48:6993] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicExtractor.extract:60] - extracted value ([favorite1_4_] : [BIGINT]) - [2]
+Hibernate: 
+    update
+        article_favorite_count 
+    set
+        article_id=?,
+        favorite_count=? 
+    where
+        article_favorite_count_id=?
+[2020-09-17 18:03:48:7000] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+[2020-09-17 18:03:48:7001] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [2] as [BIGINT] - [0]
+[2020-09-17 18:03:48:7002] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [3] as [BIGINT] - [1]
+Hibernate: 
+    delete 
+    from
+        favorite 
+    where
+        favorite_id=?
+[2020-09-17 18:03:48:7007] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [1]
+Hibernate: 
+    delete 
+    from
+        favorite 
+    where
+        favorite_id=?
+[2020-09-17 18:03:48:7010] ?[32m[Test worker]?[0;39m ?[39mTRACE?[0;39m [org.hibernate.type.descriptor.sql.BasicBinder.bind:64] - binding parameter [1] as [BIGINT] - [2]
+[2020-09-17 18:03:48:7011] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters:265] - Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/json, application/*+json]
+[2020-09-17 18:03:48:7012] ?[32m[Test worker]?[0;39m ?[39mDEBUG?[0;39m [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters:295] - Nothing to write: null body
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/favorites
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Authorization:&quot;BEARER eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MUwiLCJpYXQiOjE2MDAzMzM0MjcsImV4cCI6MTYwMDM1MTQyN30.N0atF5E2VFcyUlz519hLhm0Mf2nWHwUgxYe0mh24N7g&quot;, Accept:&quot;application/json&quot;, Content-Length:&quot;15&quot;]
+             Body = {&quot;articleId&quot;:1}
+    Session Attrs = {}
+
+Handler:
+             Type = sellerlee.back.favorite.presentation.FavoriteController
+           Method = sellerlee.back.favorite.presentation.FavoriteController#remove(FavoriteRequest, Member)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 204
+    Error message = null
+          Headers = [X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;1; mode=block&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 6.4.1</a> at 2020. 9. 17 오후 6:03:48</p>
+</div>
+</div>
+</body>
+</html>

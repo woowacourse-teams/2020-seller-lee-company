@@ -1,0 +1,15 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/articles' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: bearer secretsecretsecret' \
+    -H 'Accept: application/json' \
+    -d '{
+  "title" : "TEST_TITLE",
+  "price" : 10000,
+  "category" : "디지털/가전",
+  "contents" : "TEST_CONTENTS",
+  "tags" : [ "tag 1-1", "tag 1-2" ],
+  "photos" : [ "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4", "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4" ]
+}'
+----

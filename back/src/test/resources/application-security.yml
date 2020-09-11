@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: root
+    password: 1234
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: a2c6afdc5e0919f97771ee53192c6e36
+            client-secret: h7m8n2yS2wG3CeVf4qnSnZK5XGWfJ3dq
+
+security:
+  jwt:
+    token:
+      secret-key: sellerleecompanystitchturtlesubwayttoringkouz
+      expire-length: 18000000

@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+nickname+`
+|`+String+`
+|회원의 닉네임
+
+|`+avatar+`
+|`+String+`
+|회원의 아바타
+
+|===

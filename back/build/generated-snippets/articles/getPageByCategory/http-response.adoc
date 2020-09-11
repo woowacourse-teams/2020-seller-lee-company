@@ -1,0 +1,26 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 614
+
+[ {
+  "id" : 52,
+  "title" : "title2",
+  "price" : 1234,
+  "thumbnail" : "https://avatars2.githubusercontent.com/u/31095063?s=400&u=e10e5d42924c8443b43faf9e943ff8aa73d6c79d&v=4",
+  "tradeState" : "판매중",
+  "favoriteCount" : 1,
+  "favoriteState" : true,
+  "createdTime" : "2020-09-17T17:47:20.049"
+}, {
+  "id" : 51,
+  "title" : "TEST_TITLE",
+  "price" : 10000,
+  "thumbnail" : "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4",
+  "tradeState" : "예약중",
+  "favoriteCount" : 2,
+  "favoriteState" : false,
+  "createdTime" : "2020-09-17T17:47:20.048"
+} ]
+----

@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+nickname+`
+|`+String+`
+|사용자가 입력한 닉네임
+
+|`+password+`
+|`+String+`
+|사용자가 입력한 비밀번호
+
+|===

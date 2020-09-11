@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+articleId+`
+|`+Number+`
+|게시글의 ID
+
+|`+buyerId+`
+|`+Number+`
+|구매자(채팅 생성자)의 ID
+
+|===

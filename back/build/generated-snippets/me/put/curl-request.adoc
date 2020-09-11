@@ -1,0 +1,10 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/me' -i -X PUT \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: bearer secretsecretsecret' \
+    -d '{
+  "nickname" : "1111",
+  "avatar" : "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4"
+}'
+----
