@@ -12,19 +12,36 @@ export default function GroupEntranceCode() {
 
   const [isFocused, setIsFocused] = useState(false);
 
+  const getEntranceCodeColor = () => {
+    if (!isFocused) {
+      return "lightgrey";
+    }
+    if (groupEntranceCode.length < 6) {
+      return theme.warning;
+    }
+    return theme.secondary;
+  };
+
   const dynamicStyles = StyleSheet.create({
     entranceCodeContainer: {
       flexDirection: "row",
       paddingVertical: 10,
       borderWidth: 2,
       borderRadius: 100,
-      borderColor: isFocused ? theme.secondary : "lightgrey",
+      borderColor: getEntranceCodeColor(),
     },
     title: {
       marginLeft: 15,
       marginVertical: 5,
-      color: isFocused ? theme.secondary : "lightgrey",
+      color: getEntranceCodeColor(),
       fontSize: 14,
+      fontWeight: "bold",
+    },
+    warningMessage: {
+      marginLeft: 15,
+      marginVertical: 5,
+      color: theme.warning,
+      fontSize: 13,
       fontWeight: "bold",
     },
   });
@@ -37,7 +54,7 @@ export default function GroupEntranceCode() {
           <Feather
             name="hash"
             size={16}
-            color={isFocused ? theme.secondary : "lightgrey"}
+            color={getEntranceCodeColor()}
             style={styles.hashIcon}
           />
         </View>
@@ -52,6 +69,13 @@ export default function GroupEntranceCode() {
           value={groupEntranceCode}
         />
       </View>
+      {groupEntranceCode.length < 6 ? (
+        <Text style={dynamicStyles.warningMessage}>
+          6자리의 입장 코드를 입력해주세요.
+        </Text>
+      ) : (
+        <></>
+      )}
     </View>
   );
 }
