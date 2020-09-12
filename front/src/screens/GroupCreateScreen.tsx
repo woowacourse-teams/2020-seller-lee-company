@@ -11,7 +11,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useResetRecoilState } from "recoil";
-import { groupCreationNameState } from "../states/groupState";
+import {
+  groupCreationNameState,
+  groupNameExistState,
+} from "../states/groupState";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { RootStackParam } from "../types/types";
@@ -26,9 +29,11 @@ type GroupCreateScreenNavigationProp = StackNavigationProp<
 export default function GroupCreateScreen() {
   const navigation = useNavigation<GroupCreateScreenNavigationProp>();
   const resetGroupCreationName = useResetRecoilState(groupCreationNameState);
+  const resetGroupNameExist = useResetRecoilState(groupNameExistState);
 
   const onBack = () => {
     resetGroupCreationName();
+    resetGroupNameExist();
     navigation.goBack();
   };
 

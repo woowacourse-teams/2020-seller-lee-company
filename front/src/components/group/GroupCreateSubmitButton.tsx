@@ -1,7 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilValue } from "recoil";
-import { groupCreationNameState } from "../../states/groupState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  groupCreationNameState,
+  groupNameExistState,
+} from "../../states/groupState";
 import theme from "../../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
@@ -15,6 +18,9 @@ type GroupCreateSubmitButtonNavigationProp = StackNavigationProp<
 export default function GroupCreateSubmitButton() {
   const navigation = useNavigation<GroupCreateSubmitButtonNavigationProp>();
   const groupCreationName = useRecoilValue(groupCreationNameState);
+  const [isGroupNameExist, setIsGroupNameExist] = useRecoilState(
+    groupNameExistState,
+  );
 
   const onCreateGroup = () => {
     alert(
@@ -24,6 +30,7 @@ export default function GroupCreateSubmitButton() {
         "response를 통해 기존에 존재하는 이름일 경우 페이지 잔류, 에러 메시지 출력\n" +
         "생성 가능 이름일 경우 다음 페이지로 이동",
     );
+    setIsGroupNameExist(true);
     // 만약 이름이 이미 존재할 경우 -> groupNameExistState 설정 필요
     navigation.navigate("GroupEnterCreatedScreen");
   };
