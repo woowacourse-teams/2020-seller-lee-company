@@ -31,7 +31,7 @@ export default function GroupCreateSubmitButton() {
   const dynamicStyles = StyleSheet.create({
     submitButton: {
       flex: 1,
-      backgroundColor: theme.primary,
+      backgroundColor: groupCreationName.length === 0 ? "grey" : theme.primary,
       alignItems: "center",
       justifyContent: "center",
       borderRadius: 100,
@@ -41,6 +41,7 @@ export default function GroupCreateSubmitButton() {
   return (
     <View style={styles.container}>
       <TouchableOpacity
+        disabled={groupCreationName.length === 0}
         style={dynamicStyles.submitButton}
         onPress={onCreateGroup}
       >
