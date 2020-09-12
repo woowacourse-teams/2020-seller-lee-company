@@ -69,7 +69,7 @@ export default function GroupEntranceCode() {
           value={groupEntranceCode}
         />
       </View>
-      {groupEntranceCode.length < 6 ? (
+      {isFocused && groupEntranceCode.length < 6 ? (
         <Text style={dynamicStyles.warningMessage}>
           6자리의 입장 코드를 입력해주세요.
         </Text>
