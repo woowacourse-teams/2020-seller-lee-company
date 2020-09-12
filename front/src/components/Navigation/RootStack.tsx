@@ -6,7 +6,7 @@ import JoinScreen from "../../screens/JoinScreen";
 import HomeStack from "./HomeStack";
 import GroupHomeScreen from "../../screens/GroupHomeScreen";
 import GroupCreateScreen from "../../screens/GroupCreateScreen";
-import GroupEnterCreatedScreen from "../../screens/GroupEnterCreatedScreen";
+import GroupCreateCompleteScreen from "../../screens/GroupCreateCompleteScreen";
 import GroupEnterScreen from "../../screens/GroupEnterScreen";
 
 const Stack = createStackNavigator<RootStackParam>();
@@ -20,8 +20,8 @@ export default function RootStack() {
       <Stack.Screen name={"GroupEnterScreen"} component={GroupEnterScreen} />
       <Stack.Screen name={"GroupCreateScreen"} component={GroupCreateScreen} />
       <Stack.Screen
-        name={"GroupEnterCreatedScreen"}
-        component={GroupEnterCreatedScreen}
+        name={"GroupCreateCompleteScreen"}
+        component={GroupCreateCompleteScreen}
       />
       <Stack.Screen
         name={"HomeStack"}

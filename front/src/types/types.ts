@@ -90,7 +90,7 @@ export type RootStackParam = {
   GroupHomeScreen: undefined;
   GroupEnterScreen: undefined;
   GroupCreateScreen: undefined;
-  GroupEnterCreatedScreen: undefined;
+  GroupCreateCompleteScreen: undefined;
   // 홈 화면
   HomeStack: undefined;
 };
