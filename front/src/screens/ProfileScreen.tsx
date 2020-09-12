@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import {
@@ -69,6 +70,17 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.myFavoriteButtonContainer}>
             <MyFavoriteButton />
+          </View>
+          <View style={styles.myFavoriteButtonContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("GroupHomeScreen")}
+              style={{
+                backgroundColor: "yellow",
+                aspectRatio: 2,
+              }}
+            >
+              <Text>조직 테스트</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
