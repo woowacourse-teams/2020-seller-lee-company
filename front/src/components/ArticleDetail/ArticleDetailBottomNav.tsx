@@ -1,13 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import ArticleDetailFavorite from "./ArticleDetailFavorite";
 import { useRecoilValue } from "recoil";
 import { articleSelectedState } from "../../states/articleState";
 import { insertComma } from "../../replacePriceWithComma";
 import theme from "../../colors";
+import { memberNicknameState } from "../../states/memberState";
+import { chatRoomAPI } from "../../api/api";
 
 export default function ArticleDetailBottomNav() {
-  const { price } = useRecoilValue(articleSelectedState);
+  const { author, price } = useRecoilValue(articleSelectedState);
+  const memberNickname = useRecoilValue(memberNicknameState);
+
+  const createChat = (author: any) => {
+    chatRoomAPI.create(author.nickname);
+  };
 
   return (
     <View style={styles.container}>
@@ -15,6 +22,9 @@ export default function ArticleDetailBottomNav() {
         <ArticleDetailFavorite />
       </View>
       <View style={styles.priceContainer}>
+        {memberNickname !== author.nickname ? (
+          <Button title={"채팅하기"} onPress={() => createChat(author)} />
+        ) : undefined}
         <Text style={styles.price}>{`${insertComma(price.toString())}원`}</Text>
       </View>
     </View>

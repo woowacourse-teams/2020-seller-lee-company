@@ -2,8 +2,11 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-// const BASE_URL = "http://15.164.125.244:8080";
-const BASE_URL = "http://localhost:8080";
+// const SERVER_IP = "15.164.125.244";
+const SERVER_IP = "localhost";
+
+const BASE_URL = `http://${SERVER_IP}:8080`;
+const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -18,6 +21,7 @@ const domain = {
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
+  rooms: "/chat/rooms",
 };
 
 interface ArticlesPost {
@@ -265,6 +269,18 @@ export const evaluationAPI = {
 };
 
 export const chatRoomAPI = {
+  create: async (authorNickname: string) => {
+    const token = await DeviceStorage.getToken();
+    return (
+      await axios.post(`${CHAT_BASE_URL}${domain.rooms}`),
+      {
+        data: { authorNickname },
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      }
+    );
+  },
   getBuyers: async (articleId: number) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.api}${domain.chatRoom}`, {
