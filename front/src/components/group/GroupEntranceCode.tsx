@@ -36,7 +36,7 @@ export default function GroupEntranceCode() {
         <View style={styles.iconContainer}>
           <Feather
             name="hash"
-            size={20}
+            size={16}
             color={isFocused ? theme.secondary : "lightgrey"}
             style={styles.hashIcon}
           />
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     marginHorizontal: 5,
   },
 });
