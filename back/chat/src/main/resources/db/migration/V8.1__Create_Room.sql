@@ -1,5 +1,3 @@
-drop table if exists room CASCADE;
-
 create table if not exists room
 (
     room_id       bigint auto_increment primary key,
