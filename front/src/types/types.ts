@@ -104,6 +104,7 @@ export type HomeStackParam = {
   CategoryChoiceScreen: undefined;
   /* 채팅 스크린 */
   ChatScreen: undefined;
+  WholeChatScreen: undefined;
   /* 프로필 스크린 */
   ProfileScreen: undefined;
   SalesHistoryScreen: undefined;
