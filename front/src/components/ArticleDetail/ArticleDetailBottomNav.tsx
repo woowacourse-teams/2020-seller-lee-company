@@ -12,8 +12,8 @@ export default function ArticleDetailBottomNav() {
   const { author, price } = useRecoilValue(articleSelectedState);
   const memberNickname = useRecoilValue(memberNicknameState);
 
-  const createChat = (author: any) => {
-    chatRoomAPI.create(author.nickname);
+  const createChat = async (author: any) => {
+    await chatRoomAPI.create({ sellerId: author.id });
   };
 
   return (

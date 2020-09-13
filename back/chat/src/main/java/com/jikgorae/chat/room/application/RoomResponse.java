@@ -8,15 +8,17 @@ import com.jikgorae.chat.room.domain.Room;
 
 public class RoomResponse {
     private Long roomId;
-    private String name;
+    private Long sellerId;
+    private Long buyerId;
 
-    public RoomResponse(Long roomId, String name) {
+    public RoomResponse(Long roomId, Long sellerId, Long buyerId) {
         this.roomId = roomId;
-        this.name = name;
+        this.sellerId = sellerId;
+        this.buyerId = buyerId;
     }
 
     public static RoomResponse of(Room room) {
-        return new RoomResponse(room.getRoomId(), room.getName());
+        return new RoomResponse(room.getId(), room.getSellerId(), room.getBuyerId());
     }
 
     public static List<RoomResponse> listOf(List<Room> rooms) {
@@ -29,7 +31,11 @@ public class RoomResponse {
         return roomId;
     }
 
-    public String getName() {
-        return name;
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
     }
 }

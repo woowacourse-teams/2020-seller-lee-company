@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories("com.jikgorae.*")
-@EntityScan("com.jikgorae.*")
+@EnableJpaRepositories(basePackages = {"com.jikgorae.common.*", "com.jikgorae.api.*"})
+@EntityScan(basePackages = {"com.jikgorae.common.*", "com.jikgorae.api.*"})
 @EnableJpaAuditing
 @Configuration
 public class JpaConfig {

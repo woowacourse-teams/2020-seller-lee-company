@@ -268,17 +268,21 @@ export const evaluationAPI = {
   },
 };
 
+interface CreateChatRoom {
+  sellerId: number;
+}
+
 export const chatRoomAPI = {
-  create: async (authorNickname: string) => {
+  create: async (data: CreateChatRoom) => {
     const token = await DeviceStorage.getToken();
-    return (
-      await axios.post(`${CHAT_BASE_URL}${domain.rooms}`),
+    return await axios.post(
+      `${CHAT_BASE_URL}${domain.api}${domain.rooms}`,
+      data,
       {
-        data: { authorNickname },
         headers: {
           Authorization: `bearer ${token}`,
         },
-      }
+      },
     );
   },
   getBuyers: async (articleId: number) => {

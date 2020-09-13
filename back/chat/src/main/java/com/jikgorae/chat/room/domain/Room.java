@@ -1,34 +1,51 @@
 package com.jikgorae.chat.room.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.jikgorae.common.BaseTimeEntity;
+import com.jikgorae.common.member.domain.Member;
 
 @Entity
-public class Room {
+public class Room extends BaseTimeEntity {
     @Id
-    @GeneratedValue
-    private Long roomId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "room_id")
+    private Long id;
 
-    private String name;
+    @Column(name = "seller_id")
+    private Long sellerId;
+
+    @Column(name = "buyer_id")
+    private Long buyerId;
 
     protected Room() {
     }
 
-    public Room(Long roomId, String name) {
-        this.roomId = roomId;
-        this.name = name;
+    public Room(Long id, Long sellerId, Long buyerId) {
+        this.id = id;
+        this.sellerId = sellerId;
+        this.buyerId = buyerId;
     }
 
-    public Room(String name) {
-        this(null, name);
+    public Room(Long sellerId, Long buyerId) {
+        this(null, sellerId, buyerId);
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public Long getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
     }
 }

@@ -64,3 +64,5 @@ back/out/
 /back/api/src/main/generated
 
 /back/common/src/main/generated
+
+/back/chat/src/main/resources/application-*.yml

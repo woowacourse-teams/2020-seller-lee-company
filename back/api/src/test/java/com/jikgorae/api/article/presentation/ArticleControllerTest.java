@@ -196,6 +196,7 @@ class ArticleControllerTest extends ControllerTest {
                                         fieldWithPath("tradeState").type(JsonFieldType.STRING).description("게시글의 판매 상태"),
                                         fieldWithPath("tags").type(JsonFieldType.ARRAY).description("게시글 태그의 리스트"),
                                         fieldWithPath("photos").type(JsonFieldType.ARRAY).description("게시글 사진의 리스트"),
+                                        fieldWithPath("author.id").type(JsonFieldType.NUMBER).description("게시글 작성자의 아이디"),
                                         fieldWithPath("author.nickname").type(JsonFieldType.STRING).description("게시글 작성자의 닉네임"),
                                         fieldWithPath("author.avatar").type(JsonFieldType.STRING).description("게시글 작성자의 프로필 사진"),
                                         fieldWithPath("author.score").type(JsonFieldType.NUMBER).description("게시글 작성자의 점수"),

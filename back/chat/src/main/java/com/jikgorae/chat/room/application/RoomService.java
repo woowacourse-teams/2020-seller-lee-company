@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jikgorae.chat.room.domain.Room;
 import com.jikgorae.chat.room.domain.RoomRepository;
+import com.jikgorae.common.member.domain.Member;
 
 @Service
 public class RoomService {
@@ -16,8 +17,8 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
-    public Long create(String name) {
-        return roomRepository.save(new Room(name)).getRoomId();
+    public Long create(RoomCreateRequest request, Long buyerId) {
+        return roomRepository.save(new Room(request.getSellerId(), buyerId)).getId();
     }
 
     public List<RoomResponse> showAll() {
