@@ -6,7 +6,7 @@ import { Score } from "../types/types";
 const SERVER_IP = "localhost";
 
 const BASE_URL = `http://${SERVER_IP}:8080`;
-const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
+export const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -275,15 +275,11 @@ interface CreateChatRoom {
 export const chatRoomAPI = {
   create: async (data: CreateChatRoom) => {
     const token = await DeviceStorage.getToken();
-    return await axios.post(
-      `${CHAT_BASE_URL}${domain.api}${domain.rooms}`,
-      data,
-      {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
+    return await axios.post(`${CHAT_BASE_URL}${domain.rooms}`, data, {
+      headers: {
+        Authorization: `bearer ${token}`,
       },
-    );
+    });
   },
   getBuyers: async (articleId: number) => {
     const token = await DeviceStorage.getToken();

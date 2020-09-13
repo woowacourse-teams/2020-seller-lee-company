@@ -3,10 +3,12 @@ package com.jikgorae.chat.message.application;
 import com.jikgorae.chat.message.domain.MessageType;
 
 public class MessageDto {
-    private final Long roomId;
-    private final MessageType messageType;
-    private final String sender;
-    private final String message;
+    private Long roomId;
+    private MessageType messageType;
+    private String sender;
+    private String message;
+
+    public MessageDto() {}
 
     public MessageDto(Long roomId, MessageType messageType, String sender, String message) {
         this.roomId = roomId;

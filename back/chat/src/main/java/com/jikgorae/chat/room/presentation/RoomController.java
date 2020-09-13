@@ -23,7 +23,7 @@ import com.jikgorae.common.security.core.LoginMember;
 @RestController
 @RequestMapping(ROOM_URI)
 public class RoomController {
-    public static final String ROOM_URI = "/api/chat/rooms";
+    public static final String ROOM_URI = "/chat/rooms";
 
     private final RoomService roomService;
 
