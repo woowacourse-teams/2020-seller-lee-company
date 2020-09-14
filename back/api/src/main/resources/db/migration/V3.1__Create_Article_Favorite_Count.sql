@@ -1,5 +1,3 @@
-drop table if exists article_favorite_count CASCADE;
-
 create table if not exists article_favorite_count
 (
     article_favorite_count_id bigint auto_increment
