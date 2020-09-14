@@ -6,7 +6,7 @@ import { Score } from "../types/types";
 const SERVER_IP = "localhost";
 
 const BASE_URL = `http://${SERVER_IP}:8080`;
-export const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
+export const CHAT_BASE_URL = `http://${SERVER_IP}:9000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 

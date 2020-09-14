@@ -1,19 +1,20 @@
 package com.jikgorae.chat.message.application;
 
+import com.jikgorae.chat.message.domain.Message;
 import com.jikgorae.chat.message.domain.MessageType;
 
-public class MessageDto {
+public class MessageRequest {
     private Long roomId;
     private MessageType messageType;
-    private String sender;
+    private String senderNickname;
     private String message;
 
-    public MessageDto() {}
+    public MessageRequest() {}
 
-    public MessageDto(Long roomId, MessageType messageType, String sender, String message) {
+    public MessageRequest(Long roomId, MessageType messageType, String senderNickname, String message) {
         this.roomId = roomId;
         this.messageType = messageType;
-        this.sender = sender;
+        this.senderNickname = senderNickname;
         this.message = message;
     }
 
@@ -26,10 +27,14 @@ public class MessageDto {
     }
 
     public String getSender() {
-        return sender;
+        return senderNickname;
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public Message toMessage() {
+        return new Message(senderNickname, roomId, message);
     }
 }

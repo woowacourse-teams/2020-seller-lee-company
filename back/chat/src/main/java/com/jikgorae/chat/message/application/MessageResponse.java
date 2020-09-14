@@ -1,0 +1,49 @@
+package com.jikgorae.chat.message.application;
+
+import static java.util.stream.Collectors.*;
+
+import java.util.List;
+
+import com.jikgorae.chat.message.domain.Message;
+
+public class MessageResponse {
+    private String id;
+    private String senderNickname;
+    private Long roomId;
+    private String content;
+
+    public MessageResponse(String id, String senderNickname, Long roomId, String content) {
+        this.id = id;
+        this.senderNickname = senderNickname;
+        this.roomId = roomId;
+        this.content = content;
+    }
+
+    public static MessageResponse of(Message message) {
+        return new MessageResponse(message.getId(), message.getSenderNickname(),
+                message.getRoomId(),
+                message.getContent());
+    }
+
+    public static List<MessageResponse> listOf(List<Message> messages) {
+        return messages.stream()
+                .map(MessageResponse::of)
+                .collect(toList());
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getSenderNickname() {
+        return senderNickname;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+}

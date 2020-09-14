@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,10 +43,22 @@ class ChatRoomServiceTest {
         assertThat(chatRoomId).isEqualTo(1L);
     }
 
+    @DisplayName("이미 채팅방이 존재한다면 해당 채팅방의 Id를 반환한다.")
+    @Test
+    void createChatRoomWhenExist() {
+        when(chatRoomRepository.findOptionalByArticleIdAndSellerIdAndBuyerId(ARTICLE1.getId(),
+                MEMBER1.getId(), MEMBER2.getId())).thenReturn(Optional.of(new ChatRoom(1L, ARTICLE1, MEMBER1,
+                ARTICLE1.getId())));
+
+        Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
+                MEMBER1.getId()), MEMBER2);
+        assertThat(chatRoomId).isEqualTo(1L);
+    }
+
     @DisplayName("특정 게시물의 채팅방들을 조회한다.")
     @Test
     void showChatRoomsOf() {
-        when(chatRoomRepository.findChatRoomsByArticleId(ARTICLE1.getId()))
+        when(chatRoomRepository.findAllByArticleId(ARTICLE1.getId()))
                 .thenReturn(Arrays.asList(new ChatRoom(1L, ARTICLE1, MEMBER1, ARTICLE1.getId()), new ChatRoom(2L, ARTICLE1, MEMBER2,
                         ARTICLE1.getId())));
 
