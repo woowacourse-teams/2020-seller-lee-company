@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.QFeedResponse;
 import com.jikgorae.api.article.domain.TradeState;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -10,8 +10,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.jikgorae.api.security.web.LoginMemberMethodArgumentResolver;
 import com.jikgorae.api.security.web.context.TokenSecurityInterceptor;
-import com.jikgorae.common.security.web.LoginMemberMethodArgumentResolver;
 
 
 @Configuration

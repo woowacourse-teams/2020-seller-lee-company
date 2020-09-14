@@ -18,7 +18,7 @@ export default function ArticleDetailBottomNav() {
     StackNavigationProp<HomeStackParam, "ArticleDetailScreen">
   >();
 
-  const { author, price } = useRecoilValue(articleSelectedState);
+  const { id, author, price } = useRecoilValue(articleSelectedState);
   const memberNickname = useRecoilValue(memberNicknameState);
   const setChatRoom = useSetRecoilState(chatRoomState);
 
@@ -26,6 +26,7 @@ export default function ArticleDetailBottomNav() {
     const {
       headers: { location },
     } = await chatRoomAPI.create({
+      articleId: id,
       sellerId: author.id,
     });
     const locations = location.split("/");

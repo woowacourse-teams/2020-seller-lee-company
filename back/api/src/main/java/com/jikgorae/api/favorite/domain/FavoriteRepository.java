@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jikgorae.api.article.domain.Article;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     Optional<Favorite> findFavoriteByArticleAndMember(Article article, Member member);

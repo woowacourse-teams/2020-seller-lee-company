@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.favorite.application.FavoriteRequest;
 import com.jikgorae.api.favorite.application.FavoriteService;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.security.core.LoginMember;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.security.core.LoginMember;
 
 @RestController
 @RequestMapping(FAVORITE_API_URI)

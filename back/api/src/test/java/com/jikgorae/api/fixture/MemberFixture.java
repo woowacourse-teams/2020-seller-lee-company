@@ -3,8 +3,8 @@ package com.jikgorae.api.fixture;
 import com.jikgorae.api.member.application.LoginRequest;
 import com.jikgorae.api.member.application.MemberRequest;
 import com.jikgorae.api.member.application.ProfileRequest;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.State;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.member.domain.State;
 
 public class MemberFixture {
     private static final String MEMBER_NICKNAME = "seller lee";

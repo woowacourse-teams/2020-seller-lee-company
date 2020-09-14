@@ -10,9 +10,9 @@ import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.MemberRepository;
-import com.jikgorae.common.member.domain.State;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.api.member.domain.State;
 
 @Service
 public class MyOAuth2AuthorizedClientService implements OAuth2AuthorizedClientService {

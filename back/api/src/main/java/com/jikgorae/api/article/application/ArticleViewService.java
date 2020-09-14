@@ -19,7 +19,7 @@ import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 @Service
 public class ArticleViewService {

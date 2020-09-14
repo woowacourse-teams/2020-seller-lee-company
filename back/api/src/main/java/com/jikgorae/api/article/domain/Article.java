@@ -14,9 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import com.jikgorae.api.common.BaseTimeEntity;
+import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
-import com.jikgorae.common.BaseTimeEntity;
-import com.jikgorae.common.member.domain.Member;
 
 @Entity
 public class Article extends BaseTimeEntity {

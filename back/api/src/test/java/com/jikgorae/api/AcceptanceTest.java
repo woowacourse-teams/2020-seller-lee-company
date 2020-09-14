@@ -21,11 +21,11 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.api.member.domain.State;
 import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
 import com.jikgorae.api.security.web.AuthorizationType;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.MemberRepository;
-import com.jikgorae.common.member.domain.State;
 
 @Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

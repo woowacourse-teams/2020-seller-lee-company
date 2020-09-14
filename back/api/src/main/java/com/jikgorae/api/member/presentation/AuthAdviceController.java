@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.jikgorae.common.member.domain.IllegalJoinException;
-import com.jikgorae.common.member.domain.IllegalLoginException;
+import com.jikgorae.api.member.domain.IllegalJoinException;
+import com.jikgorae.api.member.domain.IllegalLoginException;
 
 @ControllerAdvice
 public class AuthAdviceController {

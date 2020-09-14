@@ -17,11 +17,10 @@ const domain = {
   trades: "/trades",
   api: "/api",
   loginNotOAuth: "/login/not-oauth",
-  chatRoom: "/chat-rooms",
+  chatRoom: "/chat/rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
-  rooms: "/chat/rooms",
 };
 
 interface ArticlesPost {
@@ -269,17 +268,22 @@ export const evaluationAPI = {
 };
 
 interface CreateChatRoom {
+  articleId: number;
   sellerId: number;
 }
 
 export const chatRoomAPI = {
   create: async (data: CreateChatRoom) => {
     const token = await DeviceStorage.getToken();
-    return await axios.post(`${CHAT_BASE_URL}${domain.rooms}`, data, {
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.chatRoom}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
   getBuyers: async (articleId: number) => {
     const token = await DeviceStorage.getToken();

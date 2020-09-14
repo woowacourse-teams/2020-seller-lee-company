@@ -1,6 +1,6 @@
 package com.jikgorae.api.article.application;
 
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 public class AuthorResponse {
     private Long id;

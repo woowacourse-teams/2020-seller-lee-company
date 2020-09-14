@@ -7,7 +7,7 @@ import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.Photos;
 import com.jikgorae.api.article.domain.Tags;
 import com.jikgorae.api.article.domain.TradeState;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 public class ArticleRequest {
     private String title;

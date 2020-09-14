@@ -13,8 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.trade.domain.Trade;
-import com.jikgorae.common.member.domain.Member;
 
 @Entity
 public class Evaluation {

@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.jikgorae.api.evaluation.domain.Evaluation;
 import com.jikgorae.api.evaluation.domain.Score;
+import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.trade.domain.Trade;
-import com.jikgorae.common.member.domain.Member;
 
 public class EvaluationRequest {
     private List<Score> scores;

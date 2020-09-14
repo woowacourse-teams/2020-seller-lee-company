@@ -13,7 +13,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.favorite.application.FavoriteCreatedEvent;
 import com.jikgorae.api.favorite.application.FavoriteRemovedEvent;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 @Entity
 public class Favorite extends AbstractAggregateRoot<Favorite> {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jikgorae.api.chatroom.domain.ChatRoom;
 import com.jikgorae.api.chatroom.domain.ChatRoomRepository;
+import com.jikgorae.api.member.domain.Member;
 
 @Service
 public class ChatRoomService {
@@ -15,9 +16,9 @@ public class ChatRoomService {
         this.chatRoomRepository = chatRoomRepository;
     }
 
-    public Long createChatRoom(ChatRoomCreateRequest request) {
-        ChatRoom persist = chatRoomRepository.save(request.toChatRoom());
-        return persist.getId();
+    public Long createChatRoom(ChatRoomCreateRequest request, Member buyer) {
+        ChatRoom chatRoom = chatRoomRepository.save(new ChatRoom(request.getArticleId(), buyer, request.getSellerId()));
+        return chatRoom.getId();
     }
 
     public List<ChatRoomResponse> showChatRoomsOf(Long articleId) {
