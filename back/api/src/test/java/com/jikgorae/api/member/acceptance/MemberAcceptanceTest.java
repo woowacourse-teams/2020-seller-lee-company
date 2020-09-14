@@ -21,20 +21,19 @@ import com.jikgorae.api.member.application.TokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class MemberAcceptanceTest extends AcceptanceTest {
-
     private TokenResponse token;
 
     /**
-     * Feature: 회원 중복 확인
+     * Feature: 회원 관리
      * <p>
-     * Scenario: 회원 닉네임이 중복된 닉네임인지 확인함
+     * Scenario: 회원을 관리한다
      * <p>
      * Given 회원이 등록되어 있다.
      * <p>
      * When 닉네임 중복 확인을 한다.
      * Then 닉네임 중복 여부를 응답받는다.
      */
-    @DisplayName("회원 중복 확인")
+    @DisplayName("회원 관리")
     @TestFactory
     @WithMockUser
     Stream<DynamicTest> manageMember() {
