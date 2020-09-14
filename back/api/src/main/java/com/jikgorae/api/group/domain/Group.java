@@ -1,4 +1,4 @@
-package com.jikgorae.common.group.domain;
+package com.jikgorae.api.group.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +15,14 @@ public class Group {
 
     private String name;
 
-    private Long number;
+    private String code;
 
     protected Group() {
     }
 
-    public Group(Long id, String name, Long number) {
+    public Group(Long id, String name, String code) {
         this.id = id;
         this.name = name;
-        this.number = number;
+        this.code = code;
     }
 }
