@@ -23,15 +23,14 @@ export default function ArticleFormGroupSelect({
   isEditing,
 }: ArticleFormGroupSelectProp) {
   const navigation = useNavigation<ArticleFormGroupSelectNavigationProp>();
-
   const selectedGroup = useRecoilValue(articleSelectedGroupState);
 
   const renderGroup = () => {
-    const newVar = selectedGroup.map((item) => item.name).join(" | ");
+    const groupNames = selectedGroup.map((item) => item.name).join(" | ");
     if (isEditing) {
-      return newVar;
+      return groupNames;
     } else {
-      return selectedGroup.length === 0 ? "조직을 선택하세요." : newVar;
+      return selectedGroup.length === 0 ? "조직을 선택하세요." : groupNames;
     }
   };
 

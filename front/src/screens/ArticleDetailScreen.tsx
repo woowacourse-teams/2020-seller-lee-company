@@ -145,7 +145,7 @@ export default function ArticleDetailScreen() {
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
     setPhotos(data.photos);
-    // 백과 연동되면 수정
+    // 백과 연동 되면 수정될 부분
     setArticleSelected({
       ...data,
       group: [{ id: 1, name: "우아한 테크코스" }],

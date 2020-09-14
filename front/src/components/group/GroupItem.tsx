@@ -1,63 +1,50 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
-import {
-  CompositeNavigationProp,
-  useNavigation,
-} from "@react-navigation/native";
 import { articleSelectedGroupState } from "../../states/articleState";
 import theme from "../../colors";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { Group, HomeStackParam, RootStackParam } from "../../types/types";
+import { Group } from "../../types/types";
 import { groupListState } from "../../states/groupState";
 
-type CategoryItemNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParam, "CategoryChoiceScreen">,
-  StackNavigationProp<RootStackParam, "HomeStack">
->;
-
 interface CategoryItemProps {
-  title: string;
+  groupName: string;
 }
 
-export default function GroupItem({ title }: CategoryItemProps) {
-  const navigation = useNavigation<CategoryItemNavigationProp>();
+export default function GroupItem({ groupName }: CategoryItemProps) {
   const [selectedGroup, setSelectedGroup] = useRecoilState(
     articleSelectedGroupState,
   );
   const myGroups = useRecoilValue(groupListState);
 
+  const exist = () => {
+    return selectedGroup.some((item: Group) => item.name === groupName);
+  };
+
   const onClickGroup = () => {
-    if (selectedGroup.find((item: Group) => item.name === title)) {
-      removeGroup();
+    if (exist()) {
+      remove();
     } else {
-      addGroup();
+      add();
     }
   };
 
-  const addGroup = () => {
+  const add = () => {
     setSelectedGroup(
-      selectedGroup.concat(myGroups.filter((item) => item.name === title)),
+      selectedGroup.concat(myGroups.filter((item) => item.name === groupName)),
     );
   };
 
-  const removeGroup = () => {
-    setSelectedGroup(selectedGroup.filter((item) => item.name !== title));
+  const remove = () => {
+    setSelectedGroup(selectedGroup.filter((item) => item.name !== groupName));
   };
 
   return (
     <View style={styles.container}>
       <Text
-        style={
-          selectedGroup.find((item: Group) => item.name === title)
-            ? styles.selected
-            : styles.nonSelected
-        }
+        style={exist() ? styles.selected : styles.nonSelected}
         onPress={onClickGroup}
       >
-        {selectedGroup.find((item: Group) => item.name === title)
-          ? `V ${title}`
-          : `${title}`}
+        {exist() ? `V ${groupName}` : `${groupName}`}
       </Text>
     </View>
   );
