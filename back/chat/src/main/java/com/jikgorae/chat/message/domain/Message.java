@@ -1,5 +1,6 @@
 package com.jikgorae.chat.message.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +14,11 @@ public class Message {
     private String senderNickname;
     private Long roomId;
     private String content;
+    @CreatedDate
+    private LocalDateTime createdTime;
+
+    private Message() {
+    }
 
     public Message(String id, String senderNickname, Long roomId, String content) {
         this.id = id;
@@ -39,5 +45,9 @@ public class Message {
 
     public String getContent() {
         return content;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 }

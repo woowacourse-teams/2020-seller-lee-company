@@ -22,11 +22,10 @@ public class MessageService {
     public MessageResponse save(MessageRequest request) {
         Message save = messageRepository.save(
                 messageRequestHandlingService.handle(request).toMessage());
-        System.out.println(save.getId() + save.getContent());
         return MessageResponse.of(save);
     }
 
     public List<MessageResponse> showAllIn(Long roomId) {
-        return MessageResponse.listOf(messageRepository.findAllByRoomId(roomId));
+        return MessageResponse.listOf(messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
     }
 }

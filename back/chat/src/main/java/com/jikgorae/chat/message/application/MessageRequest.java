@@ -6,15 +6,15 @@ import com.jikgorae.chat.message.domain.MessageType;
 public class MessageRequest {
     private Long roomId;
     private MessageType messageType;
-    private String senderNickname;
+    private String sender;
     private String message;
 
     public MessageRequest() {}
 
-    public MessageRequest(Long roomId, MessageType messageType, String senderNickname, String message) {
+    public MessageRequest(Long roomId, MessageType messageType, String sender, String message) {
         this.roomId = roomId;
         this.messageType = messageType;
-        this.senderNickname = senderNickname;
+        this.sender = sender;
         this.message = message;
     }
 
@@ -27,7 +27,7 @@ public class MessageRequest {
     }
 
     public String getSender() {
-        return senderNickname;
+        return sender;
     }
 
     public String getMessage() {
@@ -35,6 +35,6 @@ public class MessageRequest {
     }
 
     public Message toMessage() {
-        return new Message(senderNickname, roomId, message);
+        return new Message(sender, roomId, message);
     }
 }

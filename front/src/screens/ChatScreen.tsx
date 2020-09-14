@@ -15,9 +15,10 @@ import { Bubble, GiftedChat, IMessage, Send } from "react-native-gifted-chat";
 import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
-import { CHAT_BASE_URL } from "../api/api";
+import { CHAT_BASE_URL, messageAPI } from "../api/api";
 import { memberAvatarState } from "../states/memberState";
 import SockJS from "sockjs-client";
+
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
 export default function ChatScreen() {
@@ -50,7 +51,34 @@ export default function ChatScreen() {
       );
     };
 
+    const initMessages = async () => {
+      return await messageAPI.showAll(roomId);
+    };
+    console.log(me.nickname);
     initClient();
+    initMessages().then((response) => {
+      const prevMessages = response.data;
+      appendMessage(
+        prevMessages.map(
+          (prevMessage: {
+            id: any;
+            content: any;
+            senderNickname: any;
+            createdTime: any;
+          }) => {
+            return {
+              _id: prevMessage.id,
+              text: prevMessage.content,
+              user: {
+                _id: prevMessage.senderNickname,
+                name: prevMessage.senderNickname,
+              },
+              createAt: prevMessage.createdTime,
+            };
+          },
+        ),
+      );
+    });
 
     return () => stompClient && stompClient.disconnect();
   }, []);

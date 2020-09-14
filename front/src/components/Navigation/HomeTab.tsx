@@ -50,7 +50,7 @@ export default function HomeTab() {
         }}
       />
       <Tab.Screen
-        name={"ChatScreen"}
+        name={"WholeChatScreen"}
         component={WholeChatScreen}
         options={{
           tabBarIcon: ({ color }) => (

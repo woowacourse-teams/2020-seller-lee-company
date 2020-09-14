@@ -132,6 +132,6 @@ export type HomeTabParam = {
   FeedHomeScreen: undefined;
   CategoryHomeSelectedScreen: undefined;
   PostingStack: undefined;
-  ChatScreen: undefined;
+  WholeChatScreen: undefined;
   ProfileScreen: undefined;
 };
