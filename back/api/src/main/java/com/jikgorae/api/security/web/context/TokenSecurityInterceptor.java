@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor;
-import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
+import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.web.AuthorizationType;
 import com.jikgorae.common.security.web.AuthenticationException;
 

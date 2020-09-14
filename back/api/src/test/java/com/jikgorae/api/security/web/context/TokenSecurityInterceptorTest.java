@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
+import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.common.security.web.AuthenticationException;
 
 @SpringBootTest

@@ -18,7 +18,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.security.config.OAuth2SuccessHandler;
-import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
+import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.web.context.TokenSecurityInterceptor;
 import com.jikgorae.common.member.domain.MemberRepository;
 import com.jikgorae.common.security.web.LoginMemberMethodArgumentResolver;
