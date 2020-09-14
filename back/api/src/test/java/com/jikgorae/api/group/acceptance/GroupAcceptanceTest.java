@@ -1,0 +1,73 @@
+package com.jikgorae.api.group.acceptance;
+
+import static com.jikgorae.api.fixture.GroupFixture.*;
+import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.group.presentation.GroupController.*;
+import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
+
+import com.jikgorae.api.AcceptanceTest;
+import com.jikgorae.api.group.application.GroupResponse;
+import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.security.web.AuthorizationType;
+
+public class GroupAcceptanceTest extends AcceptanceTest {
+    private TokenResponse token;
+
+    /**
+     * Feature: 조직 관리
+     * <p>
+     * Scenario: 조직을 관리한다
+     * <p>
+     * Given: 회원이 등록되어 있다
+     * <p>
+     * When: 조직을 등록한다.
+     * Then: 조직이 등록되고 입장 코드를 응답받는다.
+     */
+    @DisplayName("조직 관리")
+    @TestFactory
+    Stream<DynamicTest> manageGroup() {
+        token = joinAndLogin(MEMBER1);
+
+        return Stream.of(
+                dynamicTest("조직 생성", () -> {
+                    GroupResponse groupResponse = createGroup(token);
+                    assertAll(
+                            () -> assertThat(groupResponse.getId()).isNotNull(),
+                            () -> assertThat(groupResponse.getName())
+                                    .isEqualTo(GROUP_REQUEST.getName()),
+                            () -> assertThat(groupResponse.getCode()).hasSize(6)
+                    );
+                })
+        );
+    }
+
+    private GroupResponse createGroup(TokenResponse token) throws Exception {
+        String request = objectMapper.writeValueAsString(GROUP_REQUEST);
+
+        MvcResult mvcResult = mockMvc.perform(
+                post(GROUP_API_URI)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+        return objectMapper.readValue(json, GroupResponse.class);
+    }
+}
