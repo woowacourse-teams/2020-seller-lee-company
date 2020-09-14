@@ -32,6 +32,10 @@ back/api/!**/src/test/**
 back/common/out/
 back/common/build/
 
+# chat
+back/chat/out/
+back/chat/build/
+
 ### STS ###
 back/.apt_generated
 back/.classpath
