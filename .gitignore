@@ -22,16 +22,15 @@ back/.DS_Store
 
 # api
 back/api/.gradle
+back/api/out/
 back/api/build/
 back/!gradle/wrapper/gradle-wrapper.jar
 back/api/!**/src/main/**
 back/api/!**/src/test/**
 
-# api
-back/api/.gradle
-back/api/build/
-back/api/!**/src/main/**
-back/api/!**/src/test/**
+# common
+back/common/out/
+back/common/build/
 
 ### STS ###
 back/.apt_generated
