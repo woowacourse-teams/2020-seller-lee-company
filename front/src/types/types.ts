@@ -25,6 +25,7 @@ export interface Feed {
 export interface Article {
   id: number;
   title: string;
+  group: Group[];
   categoryName: string;
   price: number;
   contents: string;

@@ -29,6 +29,7 @@ import {
   articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
+  articleSelectedGroupState,
   articleSelectedState,
   articleTitleState,
 } from "../states/articleState";
@@ -58,6 +59,9 @@ export default function ArticleFormScreen() {
   const [exitForm, setExitForm] = useRecoilState(articleFormExitState);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
+  const [selectedGroup, setSelectedGroup] = useRecoilState(
+    articleSelectedGroupState,
+  );
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
   );
@@ -95,6 +99,7 @@ export default function ArticleFormScreen() {
         title !== originArticle.title ||
         price !== originArticle.price ||
         contents !== originArticle.contents ||
+        selectedGroup.length !== originArticle.group.length ||
         selectedCategory !== originArticle.categoryName ||
         tags.length !== originArticle.tags.length
       );
@@ -104,6 +109,7 @@ export default function ArticleFormScreen() {
       title !== "" ||
       price !== 0 ||
       contents !== "" ||
+      selectedGroup.length !== 0 ||
       selectedCategory !== "" ||
       tags.length !== 0
     );
@@ -115,6 +121,7 @@ export default function ArticleFormScreen() {
       title === "" ||
       price === 0 ||
       contents === "" ||
+      selectedGroup.length !== 0 ||
       selectedCategory === "" ||
       tags.length === 0
     );
@@ -142,6 +149,7 @@ export default function ArticleFormScreen() {
   }, [exitForm]);
 
   const onSubmit = async () => {
+    // group 추가하기
     const data = {
       title,
       price,
@@ -156,6 +164,7 @@ export default function ArticleFormScreen() {
             ...editingArticle,
             title: data.title,
             price: data.price,
+            //group: [{ id: 1, name: "우아한 테크코스" }],
             categoryName: data.category,
             contents: data.contents,
             tags: data.tags,
@@ -172,6 +181,7 @@ export default function ArticleFormScreen() {
     setArticle(target);
     setPhotos(target.photos);
     setTitle(target.title);
+    setSelectedGroup(target.group);
     setSelectedCategory(target.categoryName);
     setPrice(target.price);
     setContents(target.contents);
