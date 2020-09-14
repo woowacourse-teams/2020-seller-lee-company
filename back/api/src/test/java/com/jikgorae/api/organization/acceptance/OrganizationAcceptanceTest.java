@@ -1,8 +1,9 @@
-package com.jikgorae.api.group.acceptance;
+package com.jikgorae.api.organization.acceptance;
 
+import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
-import static com.jikgorae.api.group.domain.Group.*;
-import static com.jikgorae.api.group.presentation.GroupController.*;
+import static com.jikgorae.api.organization.domain.Organization.*;
+import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,15 +16,14 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
-import com.jikgorae.api.group.application.GroupResponse;
 import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
-public class GroupAcceptanceTest extends AcceptanceTest {
+public class OrganizationAcceptanceTest extends AcceptanceTest {
     private TokenResponse token;
 
     /**
@@ -43,28 +43,27 @@ public class GroupAcceptanceTest extends AcceptanceTest {
 
         return Stream.of(
                 dynamicTest("조직 생성", () -> {
-                    GroupResponse groupResponse = createGroup(token);
+                    OrganizationResponse organizationResponse = createGroup(token);
                     assertAll(
-                            () -> assertThat(groupResponse.getId()).isNotNull(),
-                            () -> assertThat(groupResponse.getName())
+                            () -> assertThat(organizationResponse.getId()).isNotNull(),
+                            () -> assertThat(organizationResponse.getName())
                                     .isEqualTo("직고래"),
-                            () -> assertThat(groupResponse.getCode()).hasSize(CODE_LENGTH)
+                            () -> assertThat(organizationResponse.getCode()).hasSize(CODE_LENGTH)
                     );
                 })
         );
     }
 
-    private GroupResponse createGroup(TokenResponse token) throws Exception {
+    private OrganizationResponse createGroup(TokenResponse token) throws Exception {
         MvcResult mvcResult = mockMvc.perform(
-                post(GROUP_API_URI)
+                post(ORGANIZATION_API_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
-                        .param("name", "직고래")
-                        .accept(MediaType.APPLICATION_JSON))
+                        .param("name", ORGANIZATION_NAME))
                 .andExpect(status().isCreated())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
-        return objectMapper.readValue(json, GroupResponse.class);
+        return objectMapper.readValue(json, OrganizationResponse.class);
     }
 }

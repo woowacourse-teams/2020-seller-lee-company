@@ -1,10 +1,11 @@
 package com.jikgorae.api.fixture;
 
-import com.jikgorae.api.group.domain.Group;
+import com.jikgorae.api.organization.domain.Organization;
 
 public class GroupFixture {
-    public static final String GROUP_NAME = "직고래";
+    public static final String ORGANIZATION_NAME = "직고래";
 
-    public static final Group GROUP1 = new Group(51L, GROUP_NAME, "423502");
-    public static final Group GROUP2 = new Group(51L, "우아한테크코스", "124838");
+    public static final Organization ORGANIZATION1 = new Organization(51L, ORGANIZATION_NAME,
+            "423502");
+    public static final Organization ORGANIZATION2 = new Organization(51L, "우아한테크코스", "124838");
 }
