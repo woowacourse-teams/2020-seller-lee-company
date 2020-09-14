@@ -19,6 +19,7 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import CategoryHomeSelectedScreen from "../../screens/CategoryHomeSelectedScreen";
 import WholeChatScreen from "../../screens/WholeChatScreen";
 import ChatScreen from "../../screens/ChatScreen";
+import GroupChoiceScreen from "../../screens/GroupChoiceScreen";
 
 const Stack = createStackNavigator<HomeStackParam>();
 
@@ -46,6 +47,7 @@ export default function HomeStack() {
         name={"ArticleContentsFormScreen"}
         component={ArticleContentsFormScreen}
       />
+      <Stack.Screen name={"GroupChoiceScreen"} component={GroupChoiceScreen} />
       <Stack.Screen
         name={"CategoryHomeSelectedScreen"}
         component={CategoryHomeSelectedScreen}
