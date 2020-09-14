@@ -43,7 +43,7 @@ class MemberServiceTest {
                 PROFILE_REQUEST.getNickname());
     }
 
-    @DisplayName("중복된 회원정보 수정 요청 시 Exception 발생")
+    @DisplayName("본인 이외의 중복된 닉네임 수정 요청 시 Exception 발생")
     @Test
     void ThrowExceptionUpdate() {
         when(memberRepository.findOptionalMemberByNickname(anyString())).thenReturn(

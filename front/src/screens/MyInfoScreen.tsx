@@ -19,11 +19,11 @@ import {
 import { profileAPI } from "../api/api";
 import {
   myInfoAvatarState,
+  myInfoInitialState,
+  myInfoModalState,
   myInfoNicknameDuplicatedState,
   myInfoNicknameState,
   myInfoSubmitState,
-  myInfoInitialState,
-  myInfoModalState,
 } from "../states/myInfoState";
 import {
   isBlank,
@@ -31,7 +31,11 @@ import {
   isValidNickname,
 } from "../nicknameValidator";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { memberAvatarState, memberNicknameState } from "../states/memberState";
+import {
+  memberAvatarState,
+  memberNicknameState,
+  memberProfileState,
+} from "../states/memberState";
 import MyInfoModal from "../components/Common/Modal/MyInfoModal";
 
 type MyInfoScreenNavigationProp = CompositeNavigationProp<
@@ -46,9 +50,9 @@ export default function MyInfoScreen() {
   const setNicknameDuplicatedState = useSetRecoilState(
     myInfoNicknameDuplicatedState,
   );
+  const { nickname: originNickname } = useRecoilValue(memberProfileState);
   const myInfoNickname = useRecoilValue(myInfoNicknameState);
   const myInfoAvatar = useRecoilValue(myInfoAvatarState);
-  const [myInfoSubmit, setMyInfoSubmit] = useRecoilState(myInfoSubmitState);
 
   const [memberNickname, setMemberNickname] = useRecoilState(
     memberNicknameState,
@@ -60,17 +64,16 @@ export default function MyInfoScreen() {
   const resetMyInfoNickname = useResetRecoilState(myInfoNicknameState);
 
   const onPressCompleteButton = async () => {
-    setMyInfoSubmit(true);
-
     if (isBlank(myInfoNickname) || !isValidNickname(myInfoNickname)) {
       return;
     }
 
-    const data = await isDuplicatedNickname(myInfoNickname);
-
-    if (data) {
-      setNicknameDuplicatedState(true);
-      return;
+    if (myInfoNickname !== originNickname) {
+      const data = await isDuplicatedNickname(myInfoNickname);
+      if (data) {
+        setNicknameDuplicatedState(true);
+        return;
+      }
     }
 
     await profileAPI.put({ nickname: myInfoNickname, avatar: myInfoAvatar });
@@ -150,7 +153,7 @@ export default function MyInfoScreen() {
         />
       ),
     });
-  }, [myInfoSubmit, myInfoNickname]);
+  }, [myInfoNickname, myInfoAvatar]);
 
   return (
     <View style={styles.container}>

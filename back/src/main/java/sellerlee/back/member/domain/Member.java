@@ -58,6 +58,10 @@ public class Member {
         return id.equals(member.id);
     }
 
+    public boolean isSameNickname(String nickname) {
+        return this.nickname.equals(nickname);
+    }
+
     public Member login(String nickname, String avatar, String kakaoAccessToken,
             String kakaoRefreshToken) {
         this.nickname = nickname;
