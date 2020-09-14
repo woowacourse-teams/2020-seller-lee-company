@@ -6,7 +6,6 @@ import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtra
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 import java.util.stream.Stream;
 
@@ -53,22 +52,9 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("nickname", MEMBER1.getNickname()))
-                .andDo(print())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
         return objectMapper.readValue(json, Boolean.class);
-
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //                 .when()
-        //                 .param("nickname", MEMBER1.getNickname())
-        //                 .get(API_URI+MEMBER_URI)
-        //                 .then()
-        //                 .log().all()
-        //                 .extract().jsonPath().getBoolean(".");
-        // @formatter:on
     }
 }

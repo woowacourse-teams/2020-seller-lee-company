@@ -67,21 +67,6 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                 .andReturn();
 
         return mvcResult.getResponse().getHeader("Location");
-
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-        //                 .body(objectMapper.writeValueAsString(request))
-        //         .when()
-        //                 .post(API_URI+FAVORITE_URI)
-        //         .then()
-        //                 .log().all()
-        //                 .statusCode(HttpStatus.CREATED.value())
-        //                 .extract()
-        //                 .header(HttpHeaders.LOCATION);
-        // @formatter:on
     }
 
     private void deleteFavorite(Long articleId) throws Exception {
@@ -96,17 +81,5 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        //         .body(objectMapper.writeValueAsString(request))
-        // .when()
-        //         .delete(API_URI+FAVORITE_URI)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.NO_CONTENT.value());
-        // @formatter:on
     }
 }

@@ -4,7 +4,6 @@ import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
@@ -68,20 +67,7 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andDo(print())
                 .andExpect(status().isCreated());
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        //         .body(request)
-        // .when()
-        //         .post(API_URI+CHAT_ROOM_URI)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.CREATED.value());
-        // @formatter:on
     }
 
     private List<ChatRoomResponse> showAllChatRoomsOfArticle(Long articleId) throws Exception {
@@ -91,7 +77,6 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("articleId", String.valueOf(articleId)))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -99,18 +84,5 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
 
         return objectMapper.readValue(json, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, ChatRoomResponse.class));
-
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //         .when()
-        //                 .param("articleId", articleId)
-        //                 .get(API_URI+CHAT_ROOM_URI)
-        //         .then()
-        //                 .log().all()
-        //                 .extract()
-        //                 .jsonPath().getList(".", ChatRoomResponse.class);
-        // @formatter:on
     }
 }
