@@ -1,6 +1,5 @@
 package com.jikgorae.api.group.acceptance;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.group.presentation.GroupController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -47,7 +46,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
                     assertAll(
                             () -> assertThat(groupResponse.getId()).isNotNull(),
                             () -> assertThat(groupResponse.getName())
-                                    .isEqualTo(GROUP_REQUEST.getName()),
+                                    .isEqualTo("직고래"),
                             () -> assertThat(groupResponse.getCode()).hasSize(6)
                     );
                 })
@@ -55,15 +54,12 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     private GroupResponse createGroup(TokenResponse token) throws Exception {
-        String request = objectMapper.writeValueAsString(GROUP_REQUEST);
-
         MvcResult mvcResult = mockMvc.perform(
                 post(GROUP_API_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
+                        .param("name", "직고래")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andReturn();
 
