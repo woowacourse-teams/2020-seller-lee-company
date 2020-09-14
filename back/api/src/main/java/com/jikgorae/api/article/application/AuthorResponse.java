@@ -1,8 +1,9 @@
 package com.jikgorae.api.article.application;
 
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 public class AuthorResponse {
+    private Long id;
     private String nickname;
     private String avatar;
     private Double score;
@@ -10,14 +11,19 @@ public class AuthorResponse {
     private AuthorResponse() {
     }
 
-    private AuthorResponse(String nickname, String avatar, Double score) {
+    private AuthorResponse(Long id, String nickname, String avatar, Double score) {
+        this.id = id;
         this.nickname = nickname;
         this.avatar = avatar;
         this.score = score;
     }
 
     public static AuthorResponse of(Member member) {
-        return new AuthorResponse(member.getNickname(), member.getAvatar(), member.getScore());
+        return new AuthorResponse(member.getId(), member.getNickname(), member.getAvatar(), member.getScore());
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNickname() {

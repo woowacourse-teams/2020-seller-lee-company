@@ -24,8 +24,8 @@ import com.jikgorae.api.article.application.ArticleViewService;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.query.ArticleDao;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.security.core.LoginMember;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.security.core.LoginMember;
 
 @RestController
 @RequestMapping(ARTICLE_API_URI)

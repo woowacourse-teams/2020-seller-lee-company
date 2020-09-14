@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.application.ChatRoomResponse;
 import com.jikgorae.api.chatroom.application.ChatRoomService;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.security.core.LoginMember;
 
 @RestController
 @RequestMapping(CHAT_ROOM_API_URI)
 public class ChatRoomController {
-    public static final String CHAT_ROOM_API_URI = "/api/chat-rooms";
+    public static final String CHAT_ROOM_API_URI = "/api/chat/rooms";
 
     private final ChatRoomService chatRoomService;
 
@@ -29,8 +31,8 @@ public class ChatRoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateRequest request) {
-        Long chatRoomId = chatRoomService.createChatRoom(request);
+    public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateRequest request, @LoginMember Member buyer) {
+        Long chatRoomId = chatRoomService.createChatRoom(request, buyer);
 
         return ResponseEntity
                 .created(URI.create(CHAT_ROOM_API_URI + "/" + chatRoomId))

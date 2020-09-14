@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jikgorae.common.member.domain.IllegalJoinException;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.MemberRepository;
-import com.jikgorae.common.member.domain.State;
+import com.jikgorae.api.member.domain.IllegalJoinException;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.api.member.domain.State;
 
 @Service
 public class MemberService {

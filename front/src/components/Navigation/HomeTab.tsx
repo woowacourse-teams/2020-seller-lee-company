@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeTabParam } from "../../types/types";
-import ChatScreen from "../../screens/ChatScreen";
+import WholeChatScreen from "../../screens/WholeChatScreen";
 import CategoryHomeSelectedScreen from "../../screens/CategoryHomeSelectedScreen";
 import FeedHomeScreen from "../../screens/FeedHomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
@@ -51,7 +51,7 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name={"ChatScreen"}
-        component={ChatScreen}
+        component={WholeChatScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="message-circle" size={24} color={color} />

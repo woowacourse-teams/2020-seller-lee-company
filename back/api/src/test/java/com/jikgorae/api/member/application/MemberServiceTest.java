@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jikgorae.common.member.domain.MemberRepository;
+import com.jikgorae.api.member.domain.MemberRepository;
 
 @ExtendWith(value = MockitoExtension.class)
 class MemberServiceTest {

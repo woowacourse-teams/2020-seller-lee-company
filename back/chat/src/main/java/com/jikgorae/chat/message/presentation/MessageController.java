@@ -18,9 +18,9 @@ public class MessageController {
         this.messageDtoHandlingService = messageDtoHandlingService;
     }
 
-    @MessageMapping("/chat/message")
+    @MessageMapping("/chat/messages")
     public void message(MessageDto request) {
         MessageDto response = messageDtoHandlingService.handle(request);
-        messagingTemplate.convertAndSend("/sub/chat/room/" + request.getRoomId(), response);
+        messagingTemplate.convertAndSend("/sub/chat/rooms/" + request.getRoomId(), response);
     }
 }

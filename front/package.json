@@ -47,7 +47,9 @@
     "react-native-tab-view": "^2.15.1",
     "react-native-web": "~0.11.7",
     "react-native-webview": "^10.8.0",
-    "recoil": "^0.0.10"
+    "recoil": "^0.0.10",
+    "sockjs-client": "^1.5.0",
+    "stompjs": "^2.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
@@ -56,6 +58,7 @@
     "@types/react": "~16.9.41",
     "@types/react-native": "~0.62.13",
     "@types/react-native-star-rating": "^1.1.1",
+    "@types/sockjs-client": "^1.1.1",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-typescript": "^8.0.2",

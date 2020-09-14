@@ -1,4 +1,4 @@
-package com.jikgorae.common.security.web;
+package com.jikgorae.api.security.web;
 
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException() {

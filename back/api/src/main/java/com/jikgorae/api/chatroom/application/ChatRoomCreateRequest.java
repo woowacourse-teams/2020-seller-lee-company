@@ -1,28 +1,22 @@
 package com.jikgorae.api.chatroom.application;
 
-import com.jikgorae.api.chatroom.domain.ChatRoom;
-
 public class ChatRoomCreateRequest {
     private Long articleId;
-    private Long buyerId;
+    private Long sellerId;
 
     private ChatRoomCreateRequest() {
     }
 
-    public ChatRoomCreateRequest(Long articleId, Long buyerId) {
+    public ChatRoomCreateRequest(Long articleId, Long sellerId) {
         this.articleId = articleId;
-        this.buyerId = buyerId;
-    }
-
-    public ChatRoom toChatRoom() {
-        return new ChatRoom(articleId, buyerId);
+        this.sellerId = sellerId;
     }
 
     public Long getArticleId() {
         return articleId;
     }
 
-    public Long getBuyerId() {
-        return buyerId;
+    public Long getSellerId() {
+        return sellerId;
     }
 }

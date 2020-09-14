@@ -1,4 +1,4 @@
 alter table member
-    add avatar varchar(255) null;
+    add if not exists avatar varchar(255) null;
 alter table member
-    add nickname varchar(255) null;
+    add if not exists nickname varchar(255) null;

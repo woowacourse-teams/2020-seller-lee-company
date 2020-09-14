@@ -7,13 +7,40 @@ import { insertComma } from "../../replacePriceWithComma";
 import theme from "../../colors";
 import { memberNicknameState } from "../../states/memberState";
 import { chatRoomAPI } from "../../api/api";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeStackParam } from "../../types/types";
+import { useSetRecoilState } from "recoil/dist";
+import { chatRoomState } from "../../states/chatRoomState";
 
 export default function ArticleDetailBottomNav() {
-  const { author, price } = useRecoilValue(articleSelectedState);
-  const memberNickname = useRecoilValue(memberNicknameState);
+  const navigation = useNavigation<
+    StackNavigationProp<HomeStackParam, "ArticleDetailScreen">
+  >();
 
-  const createChat = (author: any) => {
-    chatRoomAPI.create(author.nickname);
+  const { id, author, price } = useRecoilValue(articleSelectedState);
+  const memberNickname = useRecoilValue(memberNicknameState);
+  const setChatRoom = useSetRecoilState(chatRoomState);
+
+  const createChat = async (author: any) => {
+    const {
+      headers: { location },
+    } = await chatRoomAPI.create({
+      articleId: id,
+      sellerId: author.id,
+    });
+    const locations = location.split("/");
+    const roomId = locations[locations.length - 1];
+    setChatRoom({
+      roomId,
+      me: { nickname: memberNickname },
+      opponent: {
+        avatar: author.avatar,
+        id: author.id,
+        nickname: author.nickname,
+      },
+    });
+    navigation.navigate("ChatScreen");
   };
 
   return (

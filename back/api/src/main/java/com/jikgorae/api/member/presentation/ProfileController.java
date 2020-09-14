@@ -13,8 +13,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jikgorae.api.member.application.MemberService;
 import com.jikgorae.api.member.application.ProfileRequest;
 import com.jikgorae.api.member.application.ProfileResponse;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.security.core.LoginMember;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.security.core.LoginMember;
 
 @RestController
 @RequestMapping(PROFILE_API_URI)

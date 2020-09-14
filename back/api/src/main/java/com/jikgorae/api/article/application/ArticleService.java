@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
+import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
-import com.jikgorae.common.member.domain.Member;
 
 @Service
 public class ArticleService {

@@ -1,6 +1,3 @@
-drop table if exists evaluation CASCADE;
-drop table if exists score CASCADE;
-
 create table if not exists evaluation
 (
     evaluation_id bigint auto_increment  primary key,

@@ -1,5 +1,3 @@
-drop table if exists trade CASCADE;
-
 create table if not exists trade
 (
     trade_id      bigint auto_increment

@@ -1,5 +1,3 @@
-drop table if exists chat_room CASCADE;
-
 create table if not exists chat_room
 (
     chat_room_id bigint auto_increment

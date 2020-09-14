@@ -1,4 +1,4 @@
-package com.jikgorae.common.member.domain;
+package com.jikgorae.api.member.domain;
 
 import java.util.Optional;
 

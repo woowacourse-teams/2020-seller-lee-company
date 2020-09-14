@@ -1,9 +1,3 @@
-drop table if exists article CASCADE;
-drop table if exists favorite CASCADE;
-drop table if exists member CASCADE;
-drop table if exists photo CASCADE;
-drop table if exists tag CASCADE;
-
 create table if not exists member
 (
     member_id bigint auto_increment

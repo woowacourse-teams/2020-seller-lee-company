@@ -4,9 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.State;
-
 class MemberTest {
     @Test
     void update() {
