@@ -31,7 +31,7 @@ class GroupControllerTest extends ControllerTest {
 
         mockMvc.perform(
                 post(GROUP_API_URI)
-                        .param(GROUP_NAME)
+                        .param("name", GROUP_NAME)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
