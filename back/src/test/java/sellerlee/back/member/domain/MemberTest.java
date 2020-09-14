@@ -17,13 +17,16 @@ class MemberTest {
 
     @Test
     void isSameId() {
-        Member member = new Member(51L);
-        assertThat(MEMBER1.isSameId(member)).isTrue();
+        Long id = 51L;
+        Member member1 = new Member(id);
+        Member member2 = new Member(id);
+        assertThat(member1.isSameId(member2)).isTrue();
     }
 
     @Test
     void isSameNickname() {
         String nickname = "lxxjn0";
-        assertThat(MEMBER1.isSameNickname(nickname)).isTrue();
+        Member member = new Member(51L, null, nickname, null, null, null, null, null);
+        assertThat(member.isSameNickname(nickname)).isTrue();
     }
 }

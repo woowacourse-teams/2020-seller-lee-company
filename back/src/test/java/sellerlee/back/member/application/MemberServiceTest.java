@@ -47,9 +47,9 @@ class MemberServiceTest {
     @Test
     void ThrowExceptionUpdate() {
         when(memberRepository.findOptionalMemberByNickname(anyString())).thenReturn(
-                Optional.of(MEMBER1));
+                Optional.of(MEMBER2));
 
-        assertThatThrownBy(() -> memberService.update(MEMBER1, PROFILE_REQUEST)).isInstanceOf(
+        assertThatThrownBy(() -> memberService.update(MEMBER2, PROFILE_REQUEST)).isInstanceOf(
                 IllegalArgumentException.class);
     }
 }
