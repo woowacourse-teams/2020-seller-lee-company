@@ -43,7 +43,7 @@ dependencies {
 }
 
 sourceSets {
-    main.java.srcDirs += [ generated ]
+    main.java.srcDirs += [generated]
 }
 
 tasks.withType(JavaCompile) {
