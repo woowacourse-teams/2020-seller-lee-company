@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -20,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
@@ -46,7 +46,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.post(ChatRoomController.CHAT_ROOM_API_URI)
+                        post(ChatRoomController.CHAT_ROOM_API_URI)
                                 .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))
@@ -77,7 +77,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.get(ChatRoomController.CHAT_ROOM_API_URI)
+                        get(ChatRoomController.CHAT_ROOM_API_URI)
                                 .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
                                 .param("articleId", "1"))
                 .andExpect(status().isOk())

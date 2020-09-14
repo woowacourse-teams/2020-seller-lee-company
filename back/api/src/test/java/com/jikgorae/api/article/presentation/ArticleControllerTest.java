@@ -9,10 +9,10 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
@@ -22,9 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
@@ -58,7 +56,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.post(ArticleController.ARTICLE_API_URI)
+                        post(ArticleController.ARTICLE_API_URI)
                                 .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -95,7 +93,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI)
+                        get(ArticleController.ARTICLE_API_URI)
                                 .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
@@ -133,7 +131,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI)
+                        get(ArticleController.ARTICLE_API_URI)
                                 .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE))
@@ -174,7 +172,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        RestDocumentationRequestBuilders.get(ArticleController.ARTICLE_API_URI + "/{id}", ARTICLE1.getId())
+                        get(ArticleController.ARTICLE_API_URI + "/{id}", ARTICLE1.getId())
                                 .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
@@ -229,7 +227,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI)
+                        get(ArticleController.ARTICLE_API_URI)
                                 .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
