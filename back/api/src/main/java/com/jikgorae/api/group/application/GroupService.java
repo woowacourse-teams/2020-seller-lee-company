@@ -14,7 +14,10 @@ public class GroupService {
     }
 
     public Group create(String groupName) {
-        boolean exist = groupRepository.existsByName("직고래");
+        if (groupRepository.existsByName(groupName)) {
+            throw new IllegalArgumentException("이미 존재하는 조직입니다.");
+        }
+
         return new Group(51L, "직고래", "423502");
     }
 }

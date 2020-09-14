@@ -40,4 +40,14 @@ class GroupServiceTest {
                 () -> assertThat(group.getCode()).hasSize(6)
         );
     }
+
+    @DisplayName("이미 존재하는 조직의 경우 IllegalArgumentException 예외 발생")
+    @Test
+    void create_Exception() {
+        when(groupRepository.existsByName(anyString())).thenReturn(true);
+
+        assertThatThrownBy(() -> groupService.create(GROUP_NAME))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("이미 존재하는 조직입니다.");
+    }
 }
