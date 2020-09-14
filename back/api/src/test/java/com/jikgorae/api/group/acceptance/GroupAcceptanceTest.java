@@ -1,6 +1,7 @@
 package com.jikgorae.api.group.acceptance;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.group.domain.Group.*;
 import static com.jikgorae.api.group.presentation.GroupController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
@@ -47,7 +48,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
                             () -> assertThat(groupResponse.getId()).isNotNull(),
                             () -> assertThat(groupResponse.getName())
                                     .isEqualTo("직고래"),
-                            () -> assertThat(groupResponse.getCode()).hasSize(6)
+                            () -> assertThat(groupResponse.getCode()).hasSize(CODE_LENGTH)
                     );
                 })
         );
