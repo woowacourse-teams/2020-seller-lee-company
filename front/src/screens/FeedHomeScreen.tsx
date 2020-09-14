@@ -10,8 +10,8 @@ import {
   View,
 } from "react-native";
 import {
-  useIsFocused,
   CompositeNavigationProp,
+  useIsFocused,
   useNavigation,
 } from "@react-navigation/native";
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";

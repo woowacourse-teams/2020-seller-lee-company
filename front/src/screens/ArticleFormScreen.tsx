@@ -39,6 +39,7 @@ import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleFormContents from "../components/Article/ArticleFormContents";
 import { defaultArticle } from "../data/defaultArticle";
+import ArticleFormGroupSelect from "../components/Article/ArticleFormGroupSelect";
 
 type ArticleFormScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
@@ -245,6 +246,9 @@ export default function ArticleFormScreen() {
             <View style={styles.touchableWithoutFeedbackContainer}>
               <View style={styles.titleFormContainer}>
                 <ArticleFormTitle />
+              </View>
+              <View style={styles.selectCategoryContainer}>
+                <ArticleFormGroupSelect isEditing={isEditing} />
               </View>
               <View style={styles.selectCategoryContainer}>
                 <ArticleFormCategorySelect isEditing={isEditing} />

@@ -78,6 +78,11 @@ export interface ModalVisibleProps {
   modalVisible: boolean;
 }
 
+export interface Group {
+  id: number;
+  name: string;
+}
+
 // **********************************************************************
 // ************************** Navigation Params *************************
 // **********************************************************************
@@ -109,6 +114,7 @@ export type HomeStackParam = {
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  GroupChoiceScreen: undefined;
   /* 채팅 스크린 */
   ChatScreen: undefined;
   WholeChatScreen: undefined;
@@ -126,6 +132,7 @@ export type PostingStackParam = {
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  GroupChoiceScreen: undefined;
 };
 
 export type HomeTabParam = {
