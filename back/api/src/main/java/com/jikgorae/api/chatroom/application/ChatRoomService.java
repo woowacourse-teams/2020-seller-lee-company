@@ -24,12 +24,19 @@ public class ChatRoomService {
             return chatRoom.get().getId();
         }
 
-        ChatRoom created = chatRoomRepository.save(new ChatRoom(request.getArticleId(), buyer, request.getSellerId()));
+        ChatRoom created = chatRoomRepository.save(
+                new ChatRoom(request.getArticleId(), buyer, request.getSellerId()));
         return created.getId();
     }
 
     public List<ChatRoomResponse> showChatRoomsOf(Long articleId) {
         List<ChatRoom> responses = chatRoomRepository.findAllByArticleId(articleId);
+        return ChatRoomResponse.listOf(responses);
+    }
+
+    public List<ChatRoomResponse> showAllChatRooms(Member member) {
+        List<ChatRoom> responses = chatRoomRepository.findAllByBuyerOrSellerId(member,
+                member.getId());
         return ChatRoomResponse.listOf(responses);
     }
 }

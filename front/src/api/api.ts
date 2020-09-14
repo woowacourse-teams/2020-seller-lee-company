@@ -297,6 +297,14 @@ export const chatRoomAPI = {
       },
     });
   },
+  showAllByLoginMember: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRooms}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 export const messageAPI = {

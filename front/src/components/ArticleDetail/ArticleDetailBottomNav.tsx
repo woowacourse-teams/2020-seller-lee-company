@@ -34,11 +34,6 @@ export default function ArticleDetailBottomNav() {
     setChatRoom({
       roomId,
       me: { nickname: memberNickname },
-      opponent: {
-        avatar: author.avatar,
-        id: author.id,
-        nickname: author.nickname,
-      },
     });
     navigation.navigate("ChatScreen");
   };

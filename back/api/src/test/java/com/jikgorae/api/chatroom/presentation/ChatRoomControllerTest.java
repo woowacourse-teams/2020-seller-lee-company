@@ -72,7 +72,7 @@ class ChatRoomControllerTest extends ControllerTest {
     @Test
     void showChatRoomOfArticle() throws Exception {
         when(chatRoomService.showChatRoomsOf(1L)).thenReturn(Collections.singletonList(
-                new ChatRoomResponse(MEMBER1.getAvatar(), MEMBER1.getNickname())));
+                new ChatRoomResponse(1L, MEMBER1.getAvatar(), MEMBER1.getNickname())));
 
         // @formatter:off
         mockMvc

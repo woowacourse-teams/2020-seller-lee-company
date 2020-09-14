@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useRecoilValue } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
@@ -18,13 +23,28 @@ import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
 import { memberAvatarState } from "../states/memberState";
 import SockJS from "sockjs-client";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeStackParam, RootStackParam } from "../types/types";
 
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
+type ChatScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ChatScreen">,
+  CompositeNavigationProp<
+    StackNavigationProp<RootStackParam, "ChatStack">,
+    StackNavigationProp<RootStackParam, "HomeStack">
+  >
+>;
+
 export default function ChatScreen() {
-  const { roomId, opponent, me } = useRecoilValue(chatRoomState);
+  const { roomId, me } = useRecoilValue(chatRoomState);
   const [messages, setMessages] = useState([]);
   const memberAvatar = useRecoilValue(memberAvatarState);
+  const navigation = useNavigation<ChatScreenNavigationProp>();
 
   const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
   const stompClient = Stomp.over(socket);
@@ -39,6 +59,12 @@ export default function ChatScreen() {
     const message = JSON.parse(response.body);
     message ? appendMessage(message) : undefined;
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   useEffect(() => {
     const initClient = () => {

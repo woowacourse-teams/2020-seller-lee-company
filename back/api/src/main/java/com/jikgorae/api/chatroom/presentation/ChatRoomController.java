@@ -39,12 +39,19 @@ public class ChatRoomController {
                 .build();
     }
 
-    @GetMapping
+    @GetMapping(params = "articleId")
     public ResponseEntity<List<ChatRoomResponse>> showAllChatRoomOfArticle(
             @RequestParam Long articleId) {
         List<ChatRoomResponse> responses = chatRoomService.showChatRoomsOf(articleId);
 
         return ResponseEntity
                 .ok(responses);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ChatRoomResponse>> showAllChatRoom(@LoginMember Member member) {
+        List<ChatRoomResponse> responses = chatRoomService.showAllChatRooms(member);
+
+        return ResponseEntity.ok(responses);
     }
 }
