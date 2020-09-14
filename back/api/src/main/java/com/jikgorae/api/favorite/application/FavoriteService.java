@@ -11,7 +11,7 @@ import com.jikgorae.api.article.application.ArticleViewService;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 @Service
 public class FavoriteService {

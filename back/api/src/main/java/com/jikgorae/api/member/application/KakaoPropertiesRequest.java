@@ -1,6 +1,6 @@
 package com.jikgorae.api.member.application;
 
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 public class KakaoPropertiesRequest {
     private String nickname;

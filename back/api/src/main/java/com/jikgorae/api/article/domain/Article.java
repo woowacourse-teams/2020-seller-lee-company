@@ -7,7 +7,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import com.jikgorae.api.common.BaseTimeEntity;
+import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
-import com.jikgorae.common.BaseTimeEntity;
-import com.jikgorae.common.member.domain.Member;
 
 @Entity
 public class Article extends BaseTimeEntity {
@@ -45,7 +44,7 @@ public class Article extends BaseTimeEntity {
     @Embedded
     private Photos photos;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member author;
 

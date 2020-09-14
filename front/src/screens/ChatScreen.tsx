@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil/dist";
+import { chatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
   Platform,
@@ -8,27 +10,65 @@ import {
   Text,
   View,
 } from "react-native";
-import { Bubble, GiftedChat, Send } from "react-native-gifted-chat";
-import { useRecoilValue } from "recoil/dist";
-import Fire from "../components/Chat/Fire";
+
+import { Bubble, GiftedChat, IMessage, Send } from "react-native-gifted-chat";
+import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
-import { memberAvatarState, memberNicknameState } from "../states/memberState";
-import { Feather } from "@expo/vector-icons";
+import { CHAT_BASE_URL } from "../api/api";
+import { memberAvatarState } from "../states/memberState";
+import SockJS from "sockjs-client";
+
+const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
 export default function ChatScreen() {
+  const { roomId, opponent, me } = useRecoilValue(chatRoomState);
   const [messages, setMessages] = useState([]);
-  const memberNickname: string = useRecoilValue(memberNicknameState);
   const memberAvatar = useRecoilValue(memberAvatarState);
 
-  useEffect(() => {
-    Fire.shared.on((message: never[]) => {
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, message),
-      );
-    });
-    return () => Fire.shared.off();
+  const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
+  const stompClient = Stomp.over(socket);
+
+  const appendMessage = useCallback((message = []) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, message),
+    );
   }, []);
+
+  const receiveMessage = (response: { body: string }) => {
+    const message = JSON.parse(response.body);
+    message ? appendMessage(message) : undefined;
+  };
+
+  useEffect(() => {
+    const initClient = () => {
+      stompClient.connect({}, () =>
+        stompClient.subscribe(
+          `/sub/api/chat/rooms/${roomId}`,
+          receiveMessage,
+          {},
+        ),
+      );
+    };
+
+    initClient();
+
+    return () => stompClient && stompClient.disconnect();
+  }, []);
+
+  const onSend = (sendMessages: IMessage[]) => {
+    stompClient.send(
+      "/pub/chat/messages",
+      {},
+      JSON.stringify({
+        roomId,
+        messageType: "TALK",
+        sender: me.nickname,
+        message: sendMessages[0].text,
+      }),
+    );
+    appendMessage(sendMessages);
+  };
 
   // @ts-ignore
   const renderSend = (props) => {
@@ -50,7 +90,7 @@ export default function ChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {memberNickname === props.currentMessage.user.name ||
+        {me.nickname === props.currentMessage.user.name ||
         props.currentMessage.user.name ===
           props.previousMessage.user?.name ? undefined : (
           <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
@@ -91,12 +131,12 @@ export default function ChatScreen() {
         <GiftedChat
           messages={messages}
           placeholder={"메세지를 입력해주세요."}
-          onSend={Fire.shared.send}
+          onSend={(sendMessages) => onSend(sendMessages)}
           showUserAvatar
           alwaysShowSend
           user={{
-            name: memberNickname,
-            _id: memberNickname,
+            name: me.nickname,
+            _id: me.nickname,
             avatar: memberAvatar,
           }}
           renderSend={renderSend}

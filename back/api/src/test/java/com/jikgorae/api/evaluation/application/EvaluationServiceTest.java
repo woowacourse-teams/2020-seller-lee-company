@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.jikgorae.api.evaluation.domain.Evaluation;
 import com.jikgorae.api.evaluation.domain.EvaluationRepository;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 @ExtendWith(value = MockitoExtension.class)
 public class EvaluationServiceTest {
