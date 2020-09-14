@@ -1,6 +1,9 @@
+import { Group } from "../types/types";
+
 export const defaultArticle = {
   id: 0,
   title: "",
+  group: [] as Group[],
   categoryName: "",
   contents: "",
   price: 0,
