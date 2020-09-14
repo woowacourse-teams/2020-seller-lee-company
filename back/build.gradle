@@ -22,15 +22,3 @@ subprojects {
         mavenCentral()
     }
 }
-
-project(':api') {
-    dependencies {
-        implementation project(':common')
-    }
-}
-
-project(':chat') {
-    dependencies {
-        implementation project(':common')
-    }
-}

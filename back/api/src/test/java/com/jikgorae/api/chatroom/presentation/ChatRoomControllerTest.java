@@ -38,7 +38,7 @@ class ChatRoomControllerTest extends ControllerTest {
     void createChatRoom() throws Exception {
         ChatRoomCreateRequest createRequest = new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId());
-        when(chatRoomService.createChatRoom(any()))
+        when(chatRoomService.createChatRoom(any(), any()))
                 .thenReturn(1L);
 
         String request = objectMapper.writeValueAsString(createRequest);
@@ -60,7 +60,7 @@ class ChatRoomControllerTest extends ControllerTest {
                                 ),
                                 requestFields(
                                         fieldWithPath("articleId").type(JsonFieldType.NUMBER).description("게시글의 ID"),
-                                        fieldWithPath("buyerId").type(JsonFieldType.NUMBER).description("구매자(채팅 생성자)의 ID")
+                                        fieldWithPath("sellerId").type(JsonFieldType.NUMBER).description("판매자의 ID")
                                 ),
                                 responseHeaders(
                                         headerWithName("Location").description("생성된 채팅방의 ID가 담긴 URI")

@@ -1,2 +1,2 @@
 alter table member
-    drop column email;
+    drop column if exists email;

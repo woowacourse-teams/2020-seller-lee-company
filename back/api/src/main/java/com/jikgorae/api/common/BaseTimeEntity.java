@@ -1,4 +1,4 @@
-package com.jikgorae.common;
+package com.jikgorae.api.common;
 
 import java.time.LocalDateTime;
 

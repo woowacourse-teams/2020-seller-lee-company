@@ -2,7 +2,6 @@ package com.jikgorae.api.favorite.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +13,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.favorite.application.FavoriteCreatedEvent;
 import com.jikgorae.api.favorite.application.FavoriteRemovedEvent;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 @Entity
 public class Favorite extends AbstractAggregateRoot<Favorite> {
@@ -23,11 +22,11 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
     @Column(name = "favorite_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 

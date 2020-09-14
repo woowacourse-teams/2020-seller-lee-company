@@ -1,7 +1,7 @@
 package com.jikgorae.api.security.web.context;
 
 import static com.jikgorae.api.member.presentation.AuthController.*;
-import static com.jikgorae.common.security.web.LoginMemberMethodArgumentResolver.*;
+import static com.jikgorae.api.security.web.LoginMemberMethodArgumentResolver.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +13,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor;
 import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
+import com.jikgorae.api.security.web.AuthenticationException;
 import com.jikgorae.api.security.web.AuthorizationType;
-import com.jikgorae.common.security.web.AuthenticationException;
 
 @Component
 public class TokenSecurityInterceptor implements HandlerInterceptor {

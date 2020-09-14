@@ -1,4 +1,4 @@
-package com.jikgorae.common.member.domain;
+package com.jikgorae.api.member.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

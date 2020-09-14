@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.member.domain.Member;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findByIdLessThanAndTradeStateOrderByIdDesc(Long lastArticleId,

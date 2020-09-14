@@ -6,7 +6,7 @@ import { Score } from "../types/types";
 const SERVER_IP = "localhost";
 
 const BASE_URL = `http://${SERVER_IP}:8080`;
-const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
+export const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -17,11 +17,10 @@ const domain = {
   trades: "/trades",
   api: "/api",
   loginNotOAuth: "/login/not-oauth",
-  chatRoom: "/chat-rooms",
+  chatRoom: "/chat/rooms",
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
-  rooms: "/chat/rooms",
 };
 
 interface ArticlesPost {
@@ -268,17 +267,22 @@ export const evaluationAPI = {
   },
 };
 
+interface CreateChatRoom {
+  articleId: number;
+  sellerId: number;
+}
+
 export const chatRoomAPI = {
-  create: async (authorNickname: string) => {
+  create: async (data: CreateChatRoom) => {
     const token = await DeviceStorage.getToken();
-    return (
-      await axios.post(`${CHAT_BASE_URL}${domain.rooms}`),
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.chatRoom}`,
+      data,
       {
-        data: { authorNickname },
         headers: {
           Authorization: `bearer ${token}`,
         },
-      }
+      },
     );
   },
   getBuyers: async (articleId: number) => {

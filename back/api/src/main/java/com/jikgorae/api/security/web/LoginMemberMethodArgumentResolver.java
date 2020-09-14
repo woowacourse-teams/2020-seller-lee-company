@@ -1,4 +1,4 @@
-package com.jikgorae.common.security.web;
+package com.jikgorae.api.security.web;
 
 import static org.springframework.web.context.request.RequestAttributes.*;
 
@@ -10,9 +10,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.jikgorae.common.member.domain.IllegalLoginException;
-import com.jikgorae.common.member.domain.MemberRepository;
-import com.jikgorae.common.security.core.LoginMember;
+import com.jikgorae.api.member.domain.IllegalLoginException;
+import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.api.security.core.LoginMember;
 
 @Component
 public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentResolver {

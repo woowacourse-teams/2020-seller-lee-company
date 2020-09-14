@@ -1,4 +1,4 @@
-package com.jikgorae.common.security.core;
+package com.jikgorae.api.security.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

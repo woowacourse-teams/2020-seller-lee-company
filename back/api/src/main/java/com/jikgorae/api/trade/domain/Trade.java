@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.jikgorae.api.article.domain.Article;
-import com.jikgorae.common.BaseTimeEntity;
-import com.jikgorae.common.member.domain.Member;
+import com.jikgorae.api.common.BaseTimeEntity;
+import com.jikgorae.api.member.domain.Member;
 
 @Entity
 public class Trade extends BaseTimeEntity {

@@ -20,9 +20,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.member.domain.RefreshTokenException;
 import com.jikgorae.api.security.web.AuthorizationType;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.RefreshTokenException;
 
 @Component
 public class KakaoService {
