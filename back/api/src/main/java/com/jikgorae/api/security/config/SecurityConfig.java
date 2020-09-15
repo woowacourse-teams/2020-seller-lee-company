@@ -19,11 +19,11 @@ import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.filter.JwtAuthenticationFilter;
 import com.jikgorae.api.security.oauth2.provider.CustomOAuth2Provider;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.oauth2.service.CustomOAuth2AuthorizedClientService;
-import com.jikgorae.common.member.domain.MemberRepository;
 
 @Configuration
 @EnableWebSecurity

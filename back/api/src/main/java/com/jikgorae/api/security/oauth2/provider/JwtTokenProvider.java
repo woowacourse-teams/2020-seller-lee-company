@@ -17,10 +17,10 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 
+import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor;
 import com.jikgorae.api.security.web.AuthorizationType;
-import com.jikgorae.common.member.domain.Member;
-import com.jikgorae.common.member.domain.MemberRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -74,25 +74,22 @@ public class JwtTokenProvider {
         Member member = memberRepository.findOptionalMemberByKakaoId(credential)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
-        Map<String, Object> dummyAttribute = createDummyAttribute(member);
+        Map<String, Object> attribute = createAttribute(member);
 
-        OAuth2User dummyMember = new DefaultOAuth2User(
+        OAuth2User AuthenticatedMember = new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(member.getRole())),
-                dummyAttribute, "kakaoId");
+                attribute, "kakaoId");
 
-        return new OAuth2AuthenticationToken(dummyMember,
+        return new OAuth2AuthenticationToken(AuthenticatedMember,
                 Collections.singleton(new SimpleGrantedAuthority(member.getRole())),
                 "kakao");
     }
 
-    private Map<String, Object> createDummyAttribute(Member member) {
-        Map<String, Object> dummyAttribute = new HashMap<>();
+    private Map<String, Object> createAttribute(Member member) {
+        Map<String, Object> attribute = new HashMap<>();
 
-        dummyAttribute.put("kakaoId", member.getKakaoId());
-        dummyAttribute.put("nickname", member.getNickname());
-        dummyAttribute.put("avatar", member.getAvatar());
-        dummyAttribute.put("state", member.getState());
-        return dummyAttribute;
+        attribute.put("kakaoId", member.getKakaoId());
+        return attribute;
     }
 
     public String resolveToken(HttpServletRequest request) {
