@@ -20,3 +20,8 @@ export const memberState = atom({
   key: "memberState",
   default: "",
 });
+
+export const memberIdState = atom({
+  key: "memberIdState",
+  default: 0,
+});

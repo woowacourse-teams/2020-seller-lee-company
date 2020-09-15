@@ -21,7 +21,7 @@ import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
-import { memberAvatarState } from "../states/memberState";
+import { memberIdState } from "../states/memberState";
 import SockJS from "sockjs-client";
 import {
   CompositeNavigationProp,
@@ -43,7 +43,7 @@ type ChatScreenNavigationProp = CompositeNavigationProp<
 export default function ChatScreen() {
   const { roomId, me } = useRecoilValue(chatRoomState);
   const [messages, setMessages] = useState([]);
-  const memberAvatar = useRecoilValue(memberAvatarState);
+  const memberId = useRecoilValue(memberIdState);
   const navigation = useNavigation<ChatScreenNavigationProp>();
 
   const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
@@ -80,26 +80,26 @@ export default function ChatScreen() {
     const initMessages = async () => {
       return await messageAPI.showAll(roomId);
     };
-    console.log(me.nickname);
     initClient();
     initMessages().then((response) => {
-      const prevMessages = response.data;
+      const messageHistory = response.data;
       appendMessage(
-        prevMessages.map(
+        messageHistory.map(
           (prevMessage: {
-            id: any;
-            content: any;
-            senderNickname: any;
-            createdTime: any;
+            id: number;
+            content: string;
+            senderId: number;
+            senderNickname: string;
+            createdTime: string;
           }) => {
             return {
               _id: prevMessage.id,
               text: prevMessage.content,
               user: {
-                _id: prevMessage.senderNickname,
+                _id: prevMessage.senderId,
                 name: prevMessage.senderNickname,
               },
-              createAt: prevMessage.createdTime,
+              createdAt: Date.parse(prevMessage.createdTime),
             };
           },
         ),
@@ -116,7 +116,8 @@ export default function ChatScreen() {
       JSON.stringify({
         roomId,
         messageType: "TALK",
-        sender: me.nickname,
+        senderId: memberId,
+        senderNickname: me.nickname,
         message: sendMessages[0].text,
       }),
     );
@@ -188,9 +189,8 @@ export default function ChatScreen() {
           showUserAvatar
           alwaysShowSend
           user={{
+            _id: memberId,
             name: me.nickname,
-            _id: me.nickname,
-            avatar: memberAvatar,
           }}
           renderSend={renderSend}
           renderLoading={renderLoading}

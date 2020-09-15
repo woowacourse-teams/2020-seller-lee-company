@@ -1,7 +1,6 @@
 package com.jikgorae.chat.message.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -11,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Message {
     @Id
     private String id;
+    private Long senderId;
     private String senderNickname;
     private Long roomId;
     private String content;
@@ -20,19 +20,24 @@ public class Message {
     private Message() {
     }
 
-    public Message(String id, String senderNickname, Long roomId, String content) {
+    public Message(String id, Long senderId, String senderNickname, Long roomId, String content) {
         this.id = id;
+        this.senderId = senderId;
         this.senderNickname = senderNickname;
         this.roomId = roomId;
         this.content = content;
     }
 
-    public Message(String senderNickname, Long roomId, String content) {
-        this(null, senderNickname, roomId, content);
+    public Message(Long senderId, String senderNickname, Long roomId, String content) {
+        this(null, senderId, senderNickname, roomId, content);
     }
 
     public String getId() {
         return id;
+    }
+
+    public Long getSenderId() {
+        return senderId;
     }
 
     public String getSenderNickname() {

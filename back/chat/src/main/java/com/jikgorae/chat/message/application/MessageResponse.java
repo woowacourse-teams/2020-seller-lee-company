@@ -9,14 +9,17 @@ import com.jikgorae.chat.message.domain.Message;
 
 public class MessageResponse {
     private String id;
+    private Long senderId;
     private String senderNickname;
     private Long roomId;
     private String content;
     private LocalDateTime createdTime;
 
-    public MessageResponse(String id, String senderNickname, Long roomId, String content,
+    public MessageResponse(String id, Long senderId, String senderNickname, Long roomId,
+            String content,
             LocalDateTime createdTime) {
         this.id = id;
+        this.senderId = senderId;
         this.senderNickname = senderNickname;
         this.roomId = roomId;
         this.content = content;
@@ -24,8 +27,9 @@ public class MessageResponse {
     }
 
     public static MessageResponse of(Message message) {
-        return new MessageResponse(message.getId(), message.getSenderNickname(),
-                message.getRoomId(), message.getContent(), message.getCreatedTime());
+        return new MessageResponse(message.getId(), message.getSenderId(),
+                message.getSenderNickname(), message.getRoomId(), message.getContent(),
+                message.getCreatedTime());
     }
 
     public static List<MessageResponse> listOf(List<Message> messages) {
@@ -36,6 +40,10 @@ public class MessageResponse {
 
     public String getId() {
         return id;
+    }
+
+    public Long getSenderId() {
+        return senderId;
     }
 
     public String getSenderNickname() {
