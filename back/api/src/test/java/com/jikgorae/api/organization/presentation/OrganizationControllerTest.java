@@ -36,7 +36,7 @@ class OrganizationControllerTest extends ControllerTest {
     void create() throws Exception {
         String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
 
-        when(organizationService.create(ORGANIZATION_REQUEST)).thenReturn(ORGANIZATION1);
+        when(organizationService.create(any())).thenReturn(ORGANIZATION1);
 
         // @formatter:off
         mockMvc
