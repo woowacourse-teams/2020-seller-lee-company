@@ -1,2 +1,2 @@
 alter table member
-    add role varchar(255) not null;
+    add if not exists role varchar(255) not null;
