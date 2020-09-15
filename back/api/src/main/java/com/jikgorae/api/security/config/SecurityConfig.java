@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/oauth2/**", "/api/**").permitAll()
+                    .antMatchers("/", "/oauth2/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .oauth2Login().loginPage("/oauth2/authorization/kakao")
