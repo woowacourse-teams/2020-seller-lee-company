@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jikgorae.api.member.application.TokenResponse;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
@@ -47,7 +46,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         res.setStatus(HttpStatus.OK.value());
         res.getWriter()
                 .write(objectMapper.writeValueAsString(
-                        TokenResponse.of(member.getNickname(), token, AuthorizationType.BEARER)));
-
+                        AuthTokenResponse.of(member.getNickname(), token,
+                                AuthorizationType.BEARER)));
     }
 }

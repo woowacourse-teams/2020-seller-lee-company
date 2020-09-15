@@ -24,14 +24,14 @@ import com.jikgorae.api.article.application.ArticleResponse;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
-import com.jikgorae.api.member.application.TokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
+import sellerlee.back.member.application.AuthTokenResponse;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 4L;
     public static final int ARTICLE_SIZE = 2;
 
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 게시글 관리
@@ -61,6 +61,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("게시글 관리")
     @TestFactory
+    @WithMockUser
     Stream<DynamicTest> manageArticle() throws Exception {
         token = joinAndLogin(MEMBER1);
 
