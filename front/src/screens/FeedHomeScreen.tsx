@@ -16,7 +16,7 @@ import {
 } from "@react-navigation/native";
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
-import {articlesAPI, memberAPI} from "../api/api";
+import {articlesAPI, favoriteAPI, memberAPI} from "../api/api";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
@@ -49,7 +49,7 @@ export default function FeedHomeScreen() {
 
   useEffect(() => {
     initFeed();
-    registerPushToken();
+    requestNotificationPermission();
   }, []);
 
   useEffect(() => navigation.setOptions({ headerShown: false }), [navigation]);
@@ -58,17 +58,13 @@ export default function FeedHomeScreen() {
     isFocused ? applyChange() : undefined;
   }, [isFocused]);
 
-  const registerPushToken = async () => {
-    const pushToken = await requestPermission();
-    await memberAPI.putByPushToken({ pushToken });
-  };
-
-  const requestPermission = async () => {
+  const requestNotificationPermission = async () => {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     if (status !== PermissionStatus.GRANTED) {
       return;
     }
-    return (await Notifications.getExpoPushTokenAsync()).data;
+    const pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+    await memberAPI.putByPushToken({ pushToken });
   };
 
   const applyChange = async () => {
