@@ -313,4 +313,9 @@ export const messageAPI = {
       `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
     );
   },
+  showNew: async (roomId: number) => {
+    return await axios.get(
+      `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}/new`,
+    );
+  },
 };

@@ -28,4 +28,8 @@ public class MessageService {
     public List<MessageResponse> showAllIn(Long roomId) {
         return MessageResponse.listOf(messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
     }
+
+    public MessageResponse showLastIn(Long roomId) {
+        return MessageResponse.of(messageRepository.findTopByRoomIdOrderByCreatedTimeDesc(roomId));
+    }
 }

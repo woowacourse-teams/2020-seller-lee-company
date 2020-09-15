@@ -34,4 +34,9 @@ public class MessageController {
     public ResponseEntity<List<MessageResponse>> showAllIn(@PathVariable Long roomId) {
         return ResponseEntity.ok(messageService.showAllIn(roomId));
     }
+
+    @GetMapping("/chat/rooms/{roomId}/messages/new")
+    public ResponseEntity<MessageResponse> showLastIn(@PathVariable Long roomId) {
+        return ResponseEntity.ok(messageService.showLastIn(roomId));
+    }
 }
