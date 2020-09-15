@@ -4,8 +4,11 @@ import { FlatList } from "react-native";
 import { chatRoomAPI } from "../api/api";
 
 import ChatRoomItem from "../components/Chat/ChatRoomItem";
+import { useRecoilValue } from "recoil/dist";
+import { memberIdState } from "../states/memberState";
 
 export default function ChatRoomListScreen() {
+  const memberId = useRecoilValue(memberIdState);
   const [chatRooms, setChatRooms] = useState([
     {
       roomId: 0,

@@ -4,41 +4,43 @@ import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
-import com.jikgorae.api.chatroom.domain.ChatRoom;
+import com.jikgorae.api.chatroom.domain.Opponent;
+import com.jikgorae.api.chatroom.query.ChatRoomInfo;
+import com.jikgorae.api.member.domain.Member;
 
 public class ChatRoomResponse {
-    private Long roomId;
-    private String avatar;
-    private String nickname;
+    private Long id;
+    private ArticleInfo articleInfo;
+    private Opponent opponent;
 
-    private ChatRoomResponse() {
+    public ChatRoomResponse(Long id, ArticleInfo articleInfo,
+            Opponent opponent) {
+        this.id = id;
+        this.articleInfo = articleInfo;
+        this.opponent = opponent;
     }
 
-    public ChatRoomResponse(Long roomId, String avatar, String nickname) {
-        this.roomId = roomId;
-        this.avatar = avatar;
-        this.nickname = nickname;
+    public static ChatRoomResponse of(ChatRoomInfo chatRoomInfo, Member loginMember) {
+        return new ChatRoomResponse(chatRoomInfo.getId(), chatRoomInfo.getArticleInfo(),
+                Opponent.of(chatRoomInfo.getBuyer(), chatRoomInfo.getSeller(), loginMember));
     }
 
-    public static ChatRoomResponse of(ChatRoom chatRoom) {
-        return new ChatRoomResponse(chatRoom.getId(), chatRoom.getBuyer().getAvatar(), chatRoom.getBuyer().getNickname());
-    }
-
-    public static List<ChatRoomResponse> listOf(List<ChatRoom> chatRooms) {
-        return chatRooms.stream()
-                .map(ChatRoomResponse::of)
+    public static List<ChatRoomResponse> listOf(List<ChatRoomInfo> chatRoomInfos,
+            Member loginMember) {
+        return chatRoomInfos.stream()
+                .map(chatRoomInfo -> ChatRoomResponse.of(chatRoomInfo, loginMember))
                 .collect(toList());
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public Long getId() {
+        return id;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public ArticleInfo getArticleInfo() {
+        return articleInfo;
     }
 
-    public String getNickname() {
-        return nickname;
+    public Opponent getOpponent() {
+        return opponent;
     }
 }
