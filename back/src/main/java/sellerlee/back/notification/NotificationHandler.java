@@ -1,6 +1,7 @@
 package sellerlee.back.notification;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -14,40 +15,29 @@ import io.github.jav.exposerversdk.PushClient;
 import io.github.jav.exposerversdk.PushClientException;
 
 public class NotificationHandler {
-    public void push(String pushToken) throws PushClientException, InterruptedException {
-        // String title = "";
-        String message = "터틀님이 회원님의 게시글을 좋아합니다.";
+    private static final String ARTICLE_FAVORITE_MESSAGE = "님이 회원님의 게시글을 찜 했습니다.";
 
-        if (!PushClient.isExponentPushToken(pushToken))
-            throw new Error("Token:" + pushToken + " is not a valid token.");
+    public void send(String senderNickname, String pushToken) throws
+            PushClientException,
+            InterruptedException {
+        validatePushToken(pushToken);
 
-        ExpoPushMessage expoPushMessage = new ExpoPushMessage();
-        expoPushMessage.getTo().add(pushToken);
-        // expoPushMessage.setTitle(title);
-        expoPushMessage.setBody(message);
+        ExpoPushMessage expoPushMessage = new ExpoPushMessage(pushToken);
+        expoPushMessage.setBody(senderNickname + ARTICLE_FAVORITE_MESSAGE);
 
-        List<ExpoPushMessage> expoPushMessages = new ArrayList<>();
-        expoPushMessages.add(expoPushMessage);
-
+        List<ExpoPushMessage> expoPushMessages = Collections.singletonList(expoPushMessage);
         PushClient client = new PushClient();
         List<List<ExpoPushMessage>> chunks = client.chunkPushNotifications(expoPushMessages);
 
         List<CompletableFuture<List<ExpoPushTicket>>> messageRepliesFutures = new ArrayList<>();
-
-        for (List<ExpoPushMessage> chunk : chunks) {
-            messageRepliesFutures.add(client.sendPushNotificationsAsync(chunk));
-        }
+        chunks.forEach(c -> messageRepliesFutures.add(client.sendPushNotificationsAsync(c)));
 
         // Wait for each completable future to finish
         List<ExpoPushTicket> allTickets = new ArrayList<>();
         for (CompletableFuture<List<ExpoPushTicket>> messageReplyFuture : messageRepliesFutures) {
             try {
-                for (ExpoPushTicket ticket : messageReplyFuture.get()) {
-                    allTickets.add(ticket);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+                allTickets.addAll(messageReplyFuture.get());
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
@@ -85,7 +75,7 @@ public class NotificationHandler {
             System.out.print("Waiting for " + wait + " seconds. " + i + "s\r");
             Thread.sleep(1000);
         }
-        System.out.println("Fetching reciepts...");
+        System.out.println("Fetching receipts...");
 
         List<String> ticketIds = (client.getTicketIdsFromPairs(okTicketMessages));
         CompletableFuture<List<ExpoPushReceipt>> receiptFutures = client.getPushNotificationReceiptsAsync(
@@ -94,14 +84,12 @@ public class NotificationHandler {
         List<ExpoPushReceipt> receipts = new ArrayList<>();
         try {
             receipts = receiptFutures.get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
 
         System.out.println(
-                "Recieved " + receipts.size() + " receipts:");
+                "Received " + receipts.size() + " receipts:");
 
         for (ExpoPushReceipt reciept : receipts) {
             System.out.println(
@@ -111,7 +99,10 @@ public class NotificationHandler {
                             reciept.getStatus());
 
         }
+    }
 
-        System.exit(0);
+    private void validatePushToken(String pushToken) {
+        if (!PushClient.isExponentPushToken(pushToken))
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다. : " + pushToken);
     }
 }
