@@ -7,9 +7,9 @@ import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jikgorae.api.organization.application.OrganizationRequest;
 import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.organization.application.OrganizationService;
 import com.jikgorae.api.organization.domain.Organization;
@@ -25,9 +25,10 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-    @PostMapping(params = "name")
-    public ResponseEntity<OrganizationResponse> create(@RequestParam String name) {
-        Organization organization = organizationService.create(name);
+    @PostMapping
+    public ResponseEntity<OrganizationResponse> create(OrganizationRequest request) {
+        Organization organization = organizationService.create(request);
+
         return ResponseEntity
                 .created(URI.create(ORGANIZATION_API_URI + "/" + organization.getId()))
                 .body(OrganizationResponse.of(organization));

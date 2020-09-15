@@ -35,7 +35,7 @@ class OrganizationServiceTest {
         when(organizationRepository.findAll()).thenReturn(Lists.emptyList());
         when(organizationRepository.save(any())).thenReturn(ORGANIZATION1);
 
-        Organization organization = organizationService.create(ORGANIZATION_NAME);
+        Organization organization = organizationService.create(ORGANIZATION_REQUEST);
 
         assertAll(
                 () -> assertThat(organization.getId()).isNotNull(),
@@ -49,7 +49,7 @@ class OrganizationServiceTest {
     void create_Name_Exception() {
         when(organizationRepository.findAll()).thenReturn(Lists.newArrayList(ORGANIZATION1));
 
-        assertThatThrownBy(() -> organizationService.create(ORGANIZATION_NAME))
+        assertThatThrownBy(() -> organizationService.create(ORGANIZATION_REQUEST))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("이미 존재하는 조직입니다.");
     }

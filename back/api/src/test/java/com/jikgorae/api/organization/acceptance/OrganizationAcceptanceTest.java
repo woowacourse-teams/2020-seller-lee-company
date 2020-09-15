@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
@@ -55,11 +56,15 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
     }
 
     private OrganizationResponse createGroup(TokenResponse token) throws Exception {
+        String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
+
         MvcResult mvcResult = mockMvc.perform(
                 post(ORGANIZATION_API_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
-                        .param("name", ORGANIZATION_NAME))
+                        .content(request)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andReturn();
 

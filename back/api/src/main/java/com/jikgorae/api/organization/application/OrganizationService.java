@@ -22,7 +22,8 @@ public class OrganizationService {
     }
 
     @Transactional
-    public Organization create(String groupName) {
+    public Organization create(OrganizationRequest request) {
+        String groupName = request.getName();
         List<Organization> organizations = organizationRepository.findAll();
 
         if (existsByName(organizations, groupName)) {
