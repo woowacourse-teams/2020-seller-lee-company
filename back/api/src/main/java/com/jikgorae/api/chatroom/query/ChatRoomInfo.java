@@ -2,7 +2,6 @@ package com.jikgorae.api.chatroom.query;
 
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.chatroom.application.ArticleInfo;
-import com.jikgorae.api.chatroom.domain.Opponent;
 import com.jikgorae.api.member.domain.Member;
 import com.querydsl.core.annotations.QueryProjection;
 

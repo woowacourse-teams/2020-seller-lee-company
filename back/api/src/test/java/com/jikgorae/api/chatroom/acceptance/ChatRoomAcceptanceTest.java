@@ -2,12 +2,10 @@ package com.jikgorae.api.chatroom.acceptance;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
@@ -15,12 +13,10 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
-import com.jikgorae.api.chatroom.query.ChatRoomInfo;
 import com.jikgorae.api.chatroom.presentation.ChatRoomController;
 import com.jikgorae.api.member.application.TokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;

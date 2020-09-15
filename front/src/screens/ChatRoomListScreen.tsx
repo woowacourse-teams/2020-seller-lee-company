@@ -4,17 +4,9 @@ import { FlatList } from "react-native";
 import { chatRoomAPI } from "../api/api";
 
 import ChatRoomItem from "../components/Chat/ChatRoomItem";
-import { useRecoilValue } from "recoil/dist";
-import { memberIdState } from "../states/memberState";
 
 export default function ChatRoomListScreen() {
-  const memberId = useRecoilValue(memberIdState);
-  const [chatRooms, setChatRooms] = useState([
-    {
-      roomId: 0,
-      nickname: "",
-    },
-  ]);
+  const [chatRooms, setChatRooms] = useState([]);
 
   useEffect(() => {
     const initChatRoomList = async () => {
@@ -27,9 +19,7 @@ export default function ChatRoomListScreen() {
   return (
     <FlatList
       data={chatRooms}
-      renderItem={({ item }) => (
-        <ChatRoomItem roomId={item.roomId} title={item.nickname} />
-      )}
+      renderItem={({ item }) => <ChatRoomItem chatRoom={item} />}
       keyExtractor={(item, index) => `${index}`}
     />
   );

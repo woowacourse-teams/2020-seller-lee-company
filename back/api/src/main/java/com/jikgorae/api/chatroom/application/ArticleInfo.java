@@ -6,15 +6,15 @@ public class ArticleInfo {
     private Long id;
     private String title;
     private Long price;
-    private String thumnail;
+    private String thumbnail;
     private String tradeState;
 
-    public ArticleInfo(Long id, String title, Long price, String thumnail,
+    public ArticleInfo(Long id, String title, Long price, String thumbnail,
             String tradeState) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.thumnail = thumnail;
+        this.thumbnail = thumbnail;
         this.tradeState = tradeState;
     }
 
@@ -36,8 +36,8 @@ public class ArticleInfo {
         return price;
     }
 
-    public String getThumnail() {
-        return thumnail;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
     public String getTradeState() {

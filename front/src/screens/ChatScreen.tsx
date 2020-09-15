@@ -16,11 +16,11 @@ import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
-import { memberIdState } from "../states/memberState";
+import { memberIdState, memberNicknameState } from "../states/memberState";
 import SockJS from "sockjs-client";
 
 import ArticleCardImage from "../components/Common/ArticleCommon/ArticleCardImage";
-import { articleSelectedState } from "../states/articleState";
+
 import { insertComma } from "../replacePriceWithComma";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import {
@@ -28,6 +28,7 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { HomeStackParam, RootStackParam } from "../types/types";
+import ChatTradeState from "../components/Chat/ChatTradeState";
 
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
@@ -37,10 +38,10 @@ type ChatScreenNavigationProp = CompositeNavigationProp<
 >;
 
 export default function ChatScreen() {
-  const { roomId, me } = useRecoilValue(chatRoomState);
+  const { id, articleInfo, opponent } = useRecoilValue(chatRoomState);
   const [messages, setMessages] = useState([]);
   const memberId = useRecoilValue(memberIdState);
-  const articleState = useRecoilValue(articleSelectedState);
+  const memberNickname = useRecoilValue(memberNicknameState);
   const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
   const stompClient = Stomp.over(socket);
   const navigation = useNavigation<ChatScreenNavigationProp>();
@@ -59,16 +60,12 @@ export default function ChatScreen() {
   useEffect(() => {
     const initClient = () => {
       stompClient.connect({}, () =>
-        stompClient.subscribe(
-          `/sub/api/chat/rooms/${roomId}`,
-          receiveMessage,
-          {},
-        ),
+        stompClient.subscribe(`/sub/api/chat/rooms/${id}`, receiveMessage, {}),
       );
     };
 
     const initMessages = async () => {
-      return await messageAPI.showAll(roomId);
+      return await messageAPI.showAll(id);
     };
     initClient();
     initMessages().then((response) => {
@@ -104,10 +101,10 @@ export default function ChatScreen() {
       "/pub/chat/messages",
       {},
       JSON.stringify({
-        roomId,
+        roomId: id,
         messageType: "TALK",
         senderId: memberId,
-        senderNickname: me.nickname,
+        senderNickname: memberNickname,
         message: sendMessages[0].text,
       }),
     );
@@ -134,7 +131,7 @@ export default function ChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {me.nickname === props.currentMessage.user.name ||
+        {memberNickname === props.currentMessage.user.name ||
         props.currentMessage.user.name ===
           props.previousMessage.user?.name ? undefined : (
           <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
@@ -172,19 +169,22 @@ export default function ChatScreen() {
           backImage={() => <Feather name="chevron-left" size={24} />}
         />
         <View style={styles.opponentContainer}>
-          <Text style={styles.opponent}>상대방님과 의 채팅</Text>
+          <Text style={styles.opponent}>{opponent.nickname}님과의 채팅</Text>
         </View>
       </View>
       <View style={styles.articleContainer}>
         <View style={styles.articleImageContainer}>
-          <ArticleCardImage thumbnail={articleState.photos[0]} />
+          <ArticleCardImage thumbnail={articleInfo.thumbnail} />
         </View>
         <View style={styles.articleInfoContainer}>
-          <Text style={styles.articleTitle}>{articleState.title}</Text>
-          <View style={styles.articlePriceContainer}>
-            <Text style={styles.articlePrice}>{`${insertComma(
-              articleState.price.toString(),
-            )}원`}</Text>
+          <Text style={styles.articleTitle}>{articleInfo.title}</Text>
+          <View style={styles.articlePriceAndTradeStateContainer}>
+            <ChatTradeState tradeState={articleInfo.tradeState} />
+            <View style={styles.articlePriceContainer}>
+              <Text style={styles.articlePrice}>{`${insertComma(
+                articleInfo.price.toString(),
+              )}원`}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -197,7 +197,7 @@ export default function ChatScreen() {
           alwaysShowSend
           user={{
             _id: memberId,
-            name: me.nickname,
+            name: memberNickname,
           }}
           renderSend={renderSend}
           renderLoading={renderLoading}
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     marginRight: 24,
   },
   opponent: {
-    fontSize: 20,
+    fontSize: 18,
     color: "black",
   },
   articleContainer: {
@@ -262,6 +262,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "black",
+  },
+  articlePriceAndTradeStateContainer: {
+    flex: 1,
+    flexDirection: "row",
   },
   articlePriceContainer: {
     flex: 1,

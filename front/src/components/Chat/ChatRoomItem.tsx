@@ -19,27 +19,37 @@ type ChatRoomItemNavigationProp = CompositeNavigationProp<
 >;
 
 interface ChatRoomItemProps {
-  roomId: number;
-  title: string;
+  chatRoom: {
+    id: number;
+    articleInfo: {
+      id: number;
+      title: string;
+      price: number;
+      thumbnail: string;
+      tradeState: string;
+    };
+    opponent: {
+      id: number;
+      nickname: string;
+      avatar: string;
+    };
+  };
 }
 
-export default function ChatRoomItem({ roomId, title }: ChatRoomItemProps) {
+export default function ChatRoomItem({ chatRoom }: ChatRoomItemProps) {
   const navigation = useNavigation<ChatRoomItemNavigationProp>();
   const setChatRoom = useSetRecoilState(chatRoomState);
   const nickname = useRecoilValue(memberNicknameState);
 
   const onClickChatRoom = () => {
-    setChatRoom({
-      me: { nickname },
-      roomId,
-    });
+    setChatRoom(chatRoom);
     navigation.navigate("ChatScreen");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.item} onPress={onClickChatRoom}>
-        {`${title}`}
+        {`${chatRoom.opponent.nickname}`}
       </Text>
     </View>
   );

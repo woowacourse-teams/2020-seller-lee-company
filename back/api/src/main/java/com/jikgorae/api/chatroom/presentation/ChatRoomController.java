@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.application.ChatRoomResponse;
-import com.jikgorae.api.chatroom.query.ChatRoomInfo;
 import com.jikgorae.api.chatroom.application.ChatRoomService;
 import com.jikgorae.api.chatroom.query.ChatRoomDao;
 import com.jikgorae.api.member.domain.Member;

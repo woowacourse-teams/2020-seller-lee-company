@@ -6,8 +6,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.jikgorae.api.chatroom.domain.ChatRoom;
 import com.jikgorae.api.chatroom.domain.ChatRoomRepository;
-import com.jikgorae.api.chatroom.query.ChatRoomInfo;
 
 @ExtendWith(value = MockitoExtension.class)
 class ChatRoomServiceTest {

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.jikgorae.chat.message.domain.Message;
-import com.jikgorae.chat.message.domain.MessageRequestHandlingService;
 import com.jikgorae.chat.message.domain.MessageRepository;
+import com.jikgorae.chat.message.domain.MessageRequestHandlingService;
 
 @Service
 public class MessageService {
