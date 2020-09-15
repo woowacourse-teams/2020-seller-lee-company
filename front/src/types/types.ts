@@ -93,8 +93,6 @@ export type RootStackParam = {
   GroupCreateCompleteScreen: undefined;
   // 홈 화면
   HomeStack: undefined;
-  // 채팅 화면
-  ChatStack: undefined;
 };
 
 export type HomeStackParam = {
@@ -135,12 +133,6 @@ export type HomeTabParam = {
   FeedHomeScreen: undefined;
   CategoryHomeSelectedScreen: undefined;
   PostingStack: undefined;
-  ChatStack: undefined;
-  ProfileScreen: undefined;
-};
-
-export type ChatStackParam = {
   ChatRoomListScreen: undefined;
-  ChatScreen: undefined;
-  WholeChatScreen: undefined;
+  ProfileScreen: undefined;
 };

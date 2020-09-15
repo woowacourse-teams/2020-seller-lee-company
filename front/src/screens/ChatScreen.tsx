@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
@@ -23,31 +18,32 @@ import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
 import { memberIdState } from "../states/memberState";
 import SockJS from "sockjs-client";
+
+import ArticleCardImage from "../components/Common/ArticleCommon/ArticleCardImage";
+import { articleSelectedState } from "../states/articleState";
+import { insertComma } from "../replacePriceWithComma";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import {
   CompositeNavigationProp,
   useNavigation,
 } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeStackParam, RootStackParam } from "../types/types";
 
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
 type ChatScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ChatScreen">,
-  CompositeNavigationProp<
-    StackNavigationProp<RootStackParam, "ChatStack">,
-    StackNavigationProp<RootStackParam, "HomeStack">
-  >
+  StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
 export default function ChatScreen() {
   const { roomId, me } = useRecoilValue(chatRoomState);
   const [messages, setMessages] = useState([]);
   const memberId = useRecoilValue(memberIdState);
-  const navigation = useNavigation<ChatScreenNavigationProp>();
-
+  const articleState = useRecoilValue(articleSelectedState);
   const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
   const stompClient = Stomp.over(socket);
+  const navigation = useNavigation<ChatScreenNavigationProp>();
 
   const appendMessage = useCallback((message = []) => {
     setMessages((previousMessages) =>
@@ -59,12 +55,6 @@ export default function ChatScreen() {
     const message = JSON.parse(response.body);
     message ? appendMessage(message) : undefined;
   };
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, [navigation]);
 
   useEffect(() => {
     const initClient = () => {
@@ -175,11 +165,28 @@ export default function ChatScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Chatting</Text>
-        {/*<Text style={styles.description}>*/}
-        {/*  모든 사용자들이 채팅하는 곳입니다.*/}
-        {/*</Text>*/}
+      <View style={styles.navigationContainer}>
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => <Feather name="chevron-left" size={24} />}
+        />
+        <View style={styles.opponentContainer}>
+          <Text style={styles.opponent}>상대방님과 의 채팅</Text>
+        </View>
+      </View>
+      <View style={styles.articleContainer}>
+        <View style={styles.articleImageContainer}>
+          <ArticleCardImage thumbnail={articleState.photos[0]} />
+        </View>
+        <View style={styles.articleInfoContainer}>
+          <Text style={styles.articleTitle}>{articleState.title}</Text>
+          <View style={styles.articlePriceContainer}>
+            <Text style={styles.articlePrice}>{`${insertComma(
+              articleState.price.toString(),
+            )}원`}</Text>
+          </View>
+        </View>
       </View>
       <View style={styles.chatContainer}>
         <GiftedChat
@@ -214,18 +221,58 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
   },
-  titleContainer: {
+  navigationContainer: {
+    flex: 0.8,
+    flexDirection: "row",
+    backgroundColor: "white",
+    paddingHorizontal: 25,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.border,
+  },
+  opponentContainer: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "white",
+    alignItems: "center",
+    marginRight: 24,
+  },
+  opponent: {
+    fontSize: 20,
+    color: "black",
+  },
+  articleContainer: {
+    flex: 1.8,
+    flexDirection: "row",
+    backgroundColor: "rgb(250,250,250)",
     paddingHorizontal: 30,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
   },
-  title: {
+  articleImageContainer: {
+    aspectRatio: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 15,
+  },
+  articleInfoContainer: {
+    flex: 1,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  articleTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: theme.primary,
+    color: "black",
+  },
+  articlePriceContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+  articlePrice: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: theme.others,
   },
   description: {
     fontSize: 16,

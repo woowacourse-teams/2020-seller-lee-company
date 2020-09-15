@@ -8,14 +8,14 @@ import {
 
 import theme from "../../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ChatStackParam, RootStackParam } from "../../types/types";
+import { HomeStackParam, RootStackParam } from "../../types/types";
 
 import { chatRoomState } from "../../states/chatRoomState";
 import { memberNicknameState } from "../../states/memberState";
 
 type ChatRoomItemNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<ChatStackParam, "ChatRoomListScreen">,
-  StackNavigationProp<RootStackParam, "ChatStack">
+  StackNavigationProp<HomeStackParam, "ChatRoomListScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
 interface ChatRoomItemProps {
