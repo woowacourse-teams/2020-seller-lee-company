@@ -12,10 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.evaluation.presentation.EvaluationController;
 import com.jikgorae.api.fixture.MemberFixture;
@@ -35,8 +33,7 @@ public class EvaluationAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("평가를 관리한다")
     @TestFactory
-    @WithMockUser
-    Stream<DynamicTest> manageEvaluation() throws JsonProcessingException {
+    Stream<DynamicTest> manageEvaluation() {
         token = joinAndLogin(MemberFixture.MEMBER1);
 
         return Stream.of(

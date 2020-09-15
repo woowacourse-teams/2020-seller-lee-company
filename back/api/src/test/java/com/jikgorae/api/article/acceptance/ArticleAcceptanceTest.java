@@ -16,7 +16,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -63,7 +62,6 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("게시글 관리")
     @TestFactory
-    @WithMockUser
     Stream<DynamicTest> manageArticle() throws Exception {
         token = joinAndLogin(MEMBER1);
 
@@ -97,9 +95,8 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
                     assertThat(articleResponse.getTradeState()).isEqualTo("예약중");
                 }),
-                dynamicTest("게시글 삭제", () -> {
-                    deleteArticle(articleId);
-                }));
+                dynamicTest("게시글 삭제", () -> deleteArticle(articleId))
+        );
     }
 
     private List<FeedResponse> showPage(Long articleId) throws Exception {
@@ -249,7 +246,8 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         TradeStateRequest tradeStateRequest = new TradeStateRequest(tradeState);
 
         mockMvc.perform(
-                put(ArticleController.ARTICLE_API_URI + "/" + articleId + ArticleController.TRADE_STATE_URI)
+                put(ArticleController.ARTICLE_API_URI + "/" + articleId
+                        + ArticleController.TRADE_STATE_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .accept(MediaType.APPLICATION_JSON_VALUE)
