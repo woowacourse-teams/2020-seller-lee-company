@@ -2,7 +2,6 @@ package com.jikgorae.api.member.presentation;
 
 import static com.jikgorae.api.member.presentation.AuthController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
-import static com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -44,7 +43,6 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("채팅방 관리")
     @TestFactory
-    @WithMockUser
     Stream<DynamicTest> manageChatRoom() throws Exception {
         token = joinAndLogin(MEMBER1);
         Long articleId = extractId(createArticle(token));

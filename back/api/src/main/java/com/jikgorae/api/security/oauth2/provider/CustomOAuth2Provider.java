@@ -15,7 +15,7 @@ public enum CustomOAuth2Provider {
                     .tokenUri(TOKEN_URI)
                     .userInfoUri(USER_INFO_URI)
                     .userNameAttributeName("id")
-                    .clientName("Kakao");
+                    .clientName("kakao");
 
             return builder;
         }

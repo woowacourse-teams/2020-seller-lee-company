@@ -20,18 +20,24 @@ front/.DS_Store
 back/.DS_Store
 .DS_Store
 
+# back
+back/.gradle
+
 # api
 back/api/.gradle
+back/api/out/
 back/api/build/
 back/!gradle/wrapper/gradle-wrapper.jar
 back/api/!**/src/main/**
 back/api/!**/src/test/**
 
-# api
-back/api/.gradle
-back/api/build/
-back/api/!**/src/main/**
-back/api/!**/src/test/**
+# common
+back/common/out/
+back/common/build/
+
+# chat
+back/chat/out/
+back/chat/build/
 
 ### STS ###
 back/.apt_generated

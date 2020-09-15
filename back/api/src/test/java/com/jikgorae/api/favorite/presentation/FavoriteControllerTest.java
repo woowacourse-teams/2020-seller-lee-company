@@ -23,7 +23,6 @@ import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.favorite.application.FavoriteRequest;
 import com.jikgorae.api.favorite.application.FavoriteService;
-import com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest;
 
 @WebMvcTest(controllers = FavoriteController.class)
 class FavoriteControllerTest extends ControllerTest {
@@ -41,7 +40,7 @@ class FavoriteControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders.get(FavoriteController.FAVORITE_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER))
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(document("articles/favorites",
                         preprocessRequest(prettyPrint()),
@@ -73,7 +72,7 @@ class FavoriteControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders.post(FavoriteController.FAVORITE_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
                 .andExpect(header().exists(HttpHeaders.LOCATION))
@@ -89,7 +88,7 @@ class FavoriteControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders.delete(FavoriteController.FAVORITE_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
                 .andExpect(status().isNoContent());

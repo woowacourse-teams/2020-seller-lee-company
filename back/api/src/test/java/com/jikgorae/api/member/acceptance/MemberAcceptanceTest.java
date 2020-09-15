@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
@@ -36,7 +35,6 @@ public class MemberAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("회원 중복 확인")
     @TestFactory
-    @WithMockUser
     Stream<DynamicTest> manageMember() {
         token = joinAndLogin(MEMBER1);
 

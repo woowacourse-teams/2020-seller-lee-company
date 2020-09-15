@@ -41,12 +41,6 @@ export default function ValidateMessage({
     }
   }
 
-  if (!isBlank(nickname) && isValidNickname(nickname) && !duplicatedState) {
-    validateMessage = (
-      <Text style={styles.validMessage}>사용 가능한 닉네임입니다.</Text>
-    );
-  }
-
   return <View>{validateMessage}</View>;
 }
 

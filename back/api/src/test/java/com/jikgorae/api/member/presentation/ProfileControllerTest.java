@@ -3,7 +3,6 @@ package com.jikgorae.api.member.presentation;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.member.presentation.ProfileController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
-import static com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;

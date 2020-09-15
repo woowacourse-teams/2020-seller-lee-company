@@ -18,6 +18,7 @@ import theme from "../colors";
 import { CHAT_BASE_URL } from "../api/api";
 import { memberAvatarState } from "../states/memberState";
 import SockJS from "sockjs-client";
+
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
 export default function ChatScreen() {

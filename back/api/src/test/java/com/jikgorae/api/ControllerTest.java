@@ -1,6 +1,8 @@
 package com.jikgorae.api;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
+import static com.jikgorae.api.security.web.AuthorizationType.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -19,20 +21,20 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.config.OAuth2SuccessHandler;
-import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
+import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.web.LoginMemberMethodArgumentResolver;
-import com.jikgorae.api.security.web.context.TokenSecurityInterceptor;
 
 @ExtendWith(RestDocumentationExtension.class)
 public class ControllerTest {
+    protected static final String TEST_TOKEN_SECRET_KEY = "secretsecretsecret";
+    protected static final String TEST_AUTHORIZATION_HEADER =
+            String.join(TOKEN_DELIMITER, BEARER.toLowerCase(), TEST_TOKEN_SECRET_KEY);
+
     @MockBean
     protected MemberRepository memberRepository;
 
     @MockBean
     protected JwtTokenProvider jwtTokenProvider;
-
-    @MockBean
-    protected TokenSecurityInterceptor tokenSecurityInterceptor;
 
     @MockBean
     protected LoginMemberMethodArgumentResolver resolver;
@@ -46,7 +48,7 @@ public class ControllerTest {
 
     @BeforeEach
     protected void setUp(WebApplicationContext webApplicationContext,
-            RestDocumentationContextProvider restDocumentation) throws Exception {
+            RestDocumentationContextProvider restDocumentation) {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .apply(documentationConfiguration(restDocumentation))
@@ -54,7 +56,6 @@ public class ControllerTest {
                 .build();
         objectMapper = new ObjectMapper();
 
-        when(tokenSecurityInterceptor.preHandle(any(), any(), any())).thenReturn(true);
         when(resolver.supportsParameter(any())).thenReturn(true);
         when(resolver.resolveArgument(any(), any(), any(), any())).thenReturn(MEMBER1);
     }
