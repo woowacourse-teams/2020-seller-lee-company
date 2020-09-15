@@ -222,6 +222,14 @@ export const favoriteAPI = {
       },
     );
   },
+  getPush: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.favorites}/push`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   delete: async (data: FavoriteDelete) => {
     const token = await DeviceStorage.getToken();
     return await axios.delete(`${BASE_URL}${domain.api}${domain.favorites}`, {
