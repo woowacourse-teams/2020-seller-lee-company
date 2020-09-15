@@ -15,15 +15,36 @@ import io.github.jav.exposerversdk.PushClient;
 import io.github.jav.exposerversdk.PushClientException;
 
 public class NotificationHandler {
-    private static final String ARTICLE_FAVORITE_MESSAGE = "님이 회원님의 게시글을 찜 했습니다.";
+    private final String senderNickname;
+    private final String pushToken;
+    private final NotificationType notificationType;
 
-    public void send(String senderNickname, String pushToken) throws
-            PushClientException,
-            InterruptedException {
+    public NotificationHandler(String senderNickname, String pushToken,
+            NotificationType notificationType) {
+        this.senderNickname = senderNickname;
         validatePushToken(pushToken);
+        this.pushToken = pushToken;
+        this.notificationType = notificationType;
+    }
 
-        ExpoPushMessage expoPushMessage = new ExpoPushMessage(pushToken);
-        expoPushMessage.setBody(senderNickname + ARTICLE_FAVORITE_MESSAGE);
+    private void validatePushToken(String pushToken) {
+        if (!PushClient.isExponentPushToken(pushToken))
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다. : " + pushToken);
+    }
+
+    public void send() {
+        try {
+            sendMessage();
+        } catch (PushClientException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendMessage() throws
+            PushClientException,
+            ExecutionException,
+            InterruptedException {
+        ExpoPushMessage expoPushMessage = getExpoPushMessage();
 
         List<ExpoPushMessage> expoPushMessages = Collections.singletonList(expoPushMessage);
         PushClient client = new PushClient();
@@ -35,11 +56,7 @@ public class NotificationHandler {
         // Wait for each completable future to finish
         List<ExpoPushTicket> allTickets = new ArrayList<>();
         for (CompletableFuture<List<ExpoPushTicket>> messageReplyFuture : messageRepliesFutures) {
-            try {
-                allTickets.addAll(messageReplyFuture.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+            allTickets.addAll(messageReplyFuture.get());
         }
 
         List<ExpoPushMessageTicketPair<ExpoPushMessage>> zippedMessagesTickets = client.zipMessagesTickets(
@@ -78,31 +95,23 @@ public class NotificationHandler {
         System.out.println("Fetching receipts...");
 
         List<String> ticketIds = (client.getTicketIdsFromPairs(okTicketMessages));
-        CompletableFuture<List<ExpoPushReceipt>> receiptFutures = client.getPushNotificationReceiptsAsync(
-                ticketIds);
+        CompletableFuture<List<ExpoPushReceipt>> receiptFutures
+                = client.getPushNotificationReceiptsAsync(ticketIds);
 
-        List<ExpoPushReceipt> receipts = new ArrayList<>();
-        try {
-            receipts = receiptFutures.get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        List<ExpoPushReceipt> receipts = receiptFutures.get();
 
-        System.out.println(
-                "Received " + receipts.size() + " receipts:");
+        System.out.println("Received " + receipts.size() + " receipts:");
 
         for (ExpoPushReceipt reciept : receipts) {
             System.out.println(
-                    "Receipt for id: " +
-                            reciept.getId() +
-                            " had status: " +
-                            reciept.getStatus());
+                    "Receipt for id: " + reciept.getId() + " had status: " + reciept.getStatus());
 
         }
     }
 
-    private void validatePushToken(String pushToken) {
-        if (!PushClient.isExponentPushToken(pushToken))
-            throw new IllegalArgumentException("토큰이 유효하지 않습니다. : " + pushToken);
+    private ExpoPushMessage getExpoPushMessage() {
+        ExpoPushMessage expoPushMessage = new ExpoPushMessage(pushToken);
+        expoPushMessage.setBody(notificationType.concat(senderNickname));
+        return expoPushMessage;
     }
 }

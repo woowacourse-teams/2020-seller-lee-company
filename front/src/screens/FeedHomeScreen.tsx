@@ -16,7 +16,7 @@ import {
 } from "@react-navigation/native";
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
-import {articlesAPI, favoriteAPI, memberAPI} from "../api/api";
+import {articlesAPI, memberAPI} from "../api/api";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";

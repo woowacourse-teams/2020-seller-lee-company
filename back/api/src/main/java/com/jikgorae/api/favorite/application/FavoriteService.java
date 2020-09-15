@@ -33,6 +33,12 @@ public class FavoriteService {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
         Favorite saved = favoriteRepository.save(favorite.create());
 
+        Article article = articleViewService.show(request.getArticleId());
+        NotificationHandler handler = new NotificationHandler(
+                loginMember.getNickname(),
+                article.getAuthor().getPushToken(),
+                NotificationType.FAVORITE);
+        handler.send();
         return saved.getId();
     }
 
