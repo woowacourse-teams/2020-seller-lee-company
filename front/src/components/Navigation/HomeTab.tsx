@@ -9,7 +9,8 @@ import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import PostingStack from "./PostingStack";
 import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
-import ChatRoomListScreen from "../../screens/ChatRoomListScreen";
+
+import SelectChatScreen from "../../screens/SelectChatScreen";
 
 const Tab = createBottomTabNavigator<HomeTabParam>();
 
@@ -51,8 +52,8 @@ export default function HomeTab() {
         }}
       />
       <Tab.Screen
-        name={"ChatRoomListScreen"}
-        component={ChatRoomListScreen}
+        name={"SelectChatScreen"}
+        component={SelectChatScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="message-circle" size={24} color={color} />

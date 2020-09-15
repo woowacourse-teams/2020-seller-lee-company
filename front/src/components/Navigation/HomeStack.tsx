@@ -19,7 +19,7 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import CategoryHomeSelectedScreen from "../../screens/CategoryHomeSelectedScreen";
 import WholeChatScreen from "../../screens/WholeChatScreen";
 import ChatScreen from "../../screens/ChatScreen";
-import ChatRoomListScreen from "../../screens/ChatRoomListScreen";
+import SelectChatScreen from "../../screens/SelectChatScreen";
 
 const Stack = createStackNavigator<HomeStackParam>();
 
@@ -59,10 +59,7 @@ export default function HomeStack() {
         name={"CategoryHomeScreen"}
         component={CategoryHomeScreen}
       />
-      <Stack.Screen
-        name={"ChatRoomListScreen"}
-        component={ChatRoomListScreen}
-      />
+      <Stack.Screen name={"SelectChatScreen"} component={SelectChatScreen} />
       <Stack.Screen
         name={"ChatScreen"}
         component={ChatScreen}

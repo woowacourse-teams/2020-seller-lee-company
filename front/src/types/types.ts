@@ -110,7 +110,7 @@ export type HomeStackParam = {
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
   /* 채팅 스크린 */
-  ChatRoomListScreen: undefined;
+  SelectChatScreen: undefined;
   ChatScreen: undefined;
   WholeChatScreen: undefined;
   /* 프로필 스크린 */
@@ -133,6 +133,6 @@ export type HomeTabParam = {
   FeedHomeScreen: undefined;
   CategoryHomeSelectedScreen: undefined;
   PostingStack: undefined;
-  ChatRoomListScreen: undefined;
+  SelectChatScreen: undefined;
   ProfileScreen: undefined;
 };

@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSetRecoilState } from "recoil/dist";
 import {
   CompositeNavigationProp,
   useNavigation,
@@ -11,10 +11,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeStackParam, RootStackParam } from "../../types/types";
 
 import { chatRoomState } from "../../states/chatRoomState";
-import { memberNicknameState } from "../../states/memberState";
+import ArticleCardImage from "../Common/ArticleCommon/ArticleCardImage";
 
 type ChatRoomItemNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParam, "ChatRoomListScreen">,
+  StackNavigationProp<HomeStackParam, "SelectChatScreen">,
   StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
@@ -39,7 +39,6 @@ interface ChatRoomItemProps {
 export default function ChatRoomItem({ chatRoom }: ChatRoomItemProps) {
   const navigation = useNavigation<ChatRoomItemNavigationProp>();
   const setChatRoom = useSetRecoilState(chatRoomState);
-  const nickname = useRecoilValue(memberNicknameState);
 
   const onClickChatRoom = () => {
     setChatRoom(chatRoom);
@@ -47,23 +46,41 @@ export default function ChatRoomItem({ chatRoom }: ChatRoomItemProps) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.item} onPress={onClickChatRoom}>
-        {`${chatRoom.opponent.nickname}`}
-      </Text>
-    </View>
+    <TouchableOpacity style={styles.container} onPress={onClickChatRoom}>
+      <View style={styles.articleThumbnailContainer}>
+        <ArticleCardImage thumbnail={chatRoom.articleInfo.thumbnail} />
+      </View>
+      <View style={styles.opponentContainer}>
+        <Text style={styles.opponentNickname}>
+          {`${chatRoom.opponent.nickname}`}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: "row",
     backgroundColor: "white",
-    paddingHorizontal: 30,
-    paddingVertical: 15,
+    aspectRatio: 5,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
   },
-  item: {
+  articleThumbnailContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    marginVertical: 10,
+    marginHorizontal: 20,
+  },
+  opponentContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  opponentNickname: {
     fontSize: 16,
     color: "black",
   },

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useResetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
@@ -26,6 +26,7 @@ import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import {
   CompositeNavigationProp,
   useNavigation,
+  useIsFocused,
 } from "@react-navigation/native";
 import { HomeStackParam, RootStackParam } from "../types/types";
 import ChatTradeState from "../components/Chat/ChatTradeState";
@@ -38,13 +39,15 @@ type ChatScreenNavigationProp = CompositeNavigationProp<
 >;
 
 export default function ChatScreen() {
+  const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
+  const stompClient = Stomp.over(socket);
+  const navigation = useNavigation<ChatScreenNavigationProp>();
   const { id, articleInfo, opponent } = useRecoilValue(chatRoomState);
   const [messages, setMessages] = useState([]);
   const memberId = useRecoilValue(memberIdState);
   const memberNickname = useRecoilValue(memberNicknameState);
-  const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
-  const stompClient = Stomp.over(socket);
-  const navigation = useNavigation<ChatScreenNavigationProp>();
+  const isFocused = useIsFocused();
+  const resetChatRoom = useResetRecoilState(chatRoomState);
 
   const appendMessage = useCallback((message = []) => {
     setMessages((previousMessages) =>
@@ -110,6 +113,12 @@ export default function ChatScreen() {
     );
     appendMessage(sendMessages);
   };
+
+  useEffect(() => {
+    if (!isFocused) {
+      resetChatRoom();
+    }
+  }, [isFocused]);
 
   // @ts-ignore
   const renderSend = (props) => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 
-import { chatRoomAPI } from "../api/api";
+import { chatRoomAPI } from "../../api/api";
 
-import ChatRoomItem from "../components/Chat/ChatRoomItem";
+import ChatRoomItem from "./ChatRoomItem";
 
-export default function ChatRoomListScreen() {
+export default function ChatRoomList() {
   const [chatRooms, setChatRooms] = useState([]);
 
   useEffect(() => {
