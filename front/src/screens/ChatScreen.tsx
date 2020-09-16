@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
@@ -8,6 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -15,19 +16,43 @@ import { Bubble, GiftedChat, IMessage, Send } from "react-native-gifted-chat";
 import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
-import { CHAT_BASE_URL } from "../api/api";
-import { memberAvatarState } from "../states/memberState";
+import { CHAT_BASE_URL, messageAPI } from "../api/api";
+import {
+  memberAvatarState,
+  memberIdState,
+  memberNicknameState,
+} from "../states/memberState";
 import SockJS from "sockjs-client";
+
+import ArticleCardImage from "../components/Common/ArticleCommon/ArticleCardImage";
+
+import { insertComma } from "../replacePriceWithComma";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HomeStackParam, RootStackParam } from "../types/types";
+import ChatTradeState from "../components/Chat/ChatTradeState";
+import { articleSelectedIdState } from "../states/articleState";
 
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
-export default function ChatScreen() {
-  const { roomId, opponent, me } = useRecoilValue(chatRoomState);
-  const [messages, setMessages] = useState([]);
-  const memberAvatar = useRecoilValue(memberAvatarState);
+type ChatScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "ChatScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
+export default function ChatScreen() {
   const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
   const stompClient = Stomp.over(socket);
+  const navigation = useNavigation<ChatScreenNavigationProp>();
+  const { id, articleInfo, opponent } = useRecoilValue(chatRoomState);
+  const [messages, setMessages] = useState([]);
+  const memberId = useRecoilValue(memberIdState);
+  const memberNickname = useRecoilValue(memberNicknameState);
+  const memberAvatar = useRecoilValue(memberAvatarState);
+  const setArticleId = useSetRecoilState(articleSelectedIdState);
 
   const appendMessage = useCallback((message = []) => {
     setMessages((previousMessages) =>
@@ -43,15 +68,40 @@ export default function ChatScreen() {
   useEffect(() => {
     const initClient = () => {
       stompClient.connect({}, () =>
-        stompClient.subscribe(
-          `/sub/api/chat/rooms/${roomId}`,
-          receiveMessage,
-          {},
-        ),
+        stompClient.subscribe(`/sub/api/chat/rooms/${id}`, receiveMessage, {}),
       );
     };
 
+    const initMessages = async () => {
+      return await messageAPI.showAll(id);
+    };
     initClient();
+    initMessages().then((response) => {
+      const messageHistory = response.data;
+      appendMessage(
+        messageHistory.map(
+          (prevMessage: {
+            id: number;
+            content: string;
+            senderId: number;
+            senderNickname: string;
+            senderAvatar: string;
+            createdTime: string;
+          }) => {
+            return {
+              _id: prevMessage.id,
+              text: prevMessage.content,
+              user: {
+                _id: prevMessage.senderId,
+                name: prevMessage.senderNickname,
+                avatar: prevMessage.senderAvatar,
+              },
+              createdAt: Date.parse(prevMessage.createdTime),
+            };
+          },
+        ),
+      );
+    });
 
     return () => stompClient && stompClient.disconnect();
   }, []);
@@ -61,9 +111,11 @@ export default function ChatScreen() {
       "/pub/chat/messages",
       {},
       JSON.stringify({
-        roomId,
+        roomId: id,
         messageType: "TALK",
-        sender: me.nickname,
+        senderId: memberId,
+        senderNickname: memberNickname,
+        senderAvatar: memberAvatar,
         message: sendMessages[0].text,
       }),
     );
@@ -90,7 +142,7 @@ export default function ChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {me.nickname === props.currentMessage.user.name ||
+        {memberNickname === props.currentMessage.user.name ||
         props.currentMessage.user.name ===
           props.previousMessage.user?.name ? undefined : (
           <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
@@ -119,14 +171,39 @@ export default function ChatScreen() {
     );
   };
 
+  const goToArticle = () => {
+    setArticleId(articleInfo.id);
+    navigation.navigate("ArticleDetailScreen");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Chatting</Text>
-        {/*<Text style={styles.description}>*/}
-        {/*  모든 사용자들이 채팅하는 곳입니다.*/}
-        {/*</Text>*/}
+      <View style={styles.navigationContainer}>
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => <Feather name="chevron-left" size={24} />}
+        />
+        <View style={styles.opponentContainer}>
+          <Text style={styles.opponent}>{opponent.nickname}님과의 채팅</Text>
+        </View>
       </View>
+      <TouchableOpacity style={styles.articleContainer} onPress={goToArticle}>
+        <View style={styles.articleImageContainer}>
+          <ArticleCardImage thumbnail={articleInfo.thumbnail} />
+        </View>
+        <View style={styles.articleInfoContainer}>
+          <Text style={styles.articleTitle}>{articleInfo.title}</Text>
+          <View style={styles.articlePriceAndTradeStateContainer}>
+            <ChatTradeState tradeState={articleInfo.tradeState} />
+            <View style={styles.articlePriceContainer}>
+              <Text style={styles.articlePrice}>{`${insertComma(
+                articleInfo.price.toString(),
+              )}원`}</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
@@ -135,8 +212,8 @@ export default function ChatScreen() {
           showUserAvatar
           alwaysShowSend
           user={{
-            name: me.nickname,
-            _id: me.nickname,
+            _id: memberId,
+            name: memberNickname,
             avatar: memberAvatar,
           }}
           renderSend={renderSend}
@@ -161,18 +238,62 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
   },
-  titleContainer: {
+  navigationContainer: {
+    flex: 0.8,
+    flexDirection: "row",
+    backgroundColor: "white",
+    paddingHorizontal: 25,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.border,
+  },
+  opponentContainer: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "white",
+    alignItems: "center",
+    marginRight: 24,
+  },
+  opponent: {
+    fontSize: 18,
+    color: "black",
+  },
+  articleContainer: {
+    flex: 1.8,
+    flexDirection: "row",
+    backgroundColor: "rgb(250,250,250)",
     paddingHorizontal: 30,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
   },
-  title: {
+  articleImageContainer: {
+    aspectRatio: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 15,
+  },
+  articleInfoContainer: {
+    flex: 1,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  articleTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: theme.primary,
+    color: "black",
+  },
+  articlePriceAndTradeStateContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  articlePriceContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+  articlePrice: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: theme.others,
   },
   description: {
     fontSize: 16,

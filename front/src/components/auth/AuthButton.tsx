@@ -6,7 +6,11 @@ import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
-import { memberNicknameState, memberState } from "../../states/memberState";
+import {
+  memberIdState,
+  memberNicknameState,
+  memberState,
+} from "../../states/memberState";
 import { loadingState } from "../../states/loadingState";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
@@ -25,6 +29,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
   const setMemberState = useSetRecoilState(memberState);
+  const setMemberId = useSetRecoilState(memberIdState);
 
   const onPressButton = async () => {
     setIsLoading(true);
@@ -33,6 +38,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
     if (token) {
       try {
         const { data } = await profileAPI.get();
+        setMemberId(data.id);
         if (data.state === "NOT_JOIN") {
           setMemberState(data.state);
           return navigation.navigate("JoinScreen");

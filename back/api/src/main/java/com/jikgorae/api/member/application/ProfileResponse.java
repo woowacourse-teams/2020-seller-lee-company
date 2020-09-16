@@ -3,6 +3,7 @@ package com.jikgorae.api.member.application;
 import com.jikgorae.api.member.domain.Member;
 
 public class ProfileResponse {
+    private Long id;
     private String nickname;
     private String avatar;
     private String state;
@@ -11,7 +12,8 @@ public class ProfileResponse {
     private ProfileResponse() {
     }
 
-    public ProfileResponse(String nickname, String avatar, String state, Double score) {
+    public ProfileResponse(Long id, String nickname, String avatar, String state, Double score) {
+        this.id = id;
         this.nickname = nickname;
         this.avatar = avatar;
         this.state = state;
@@ -20,11 +22,16 @@ public class ProfileResponse {
 
     public static ProfileResponse of(Member member) {
         return new ProfileResponse(
+                member.getId(),
                 member.getNickname(),
                 member.getAvatar(),
                 member.getState().name(),
                 member.getScore()
         );
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNickname() {
