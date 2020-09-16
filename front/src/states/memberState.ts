@@ -8,7 +8,7 @@ export const memberNicknameState = atom({
 
 export const memberAvatarState = atom({
   key: "memberAvatarState",
-  default: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
+  default: "",
 });
 
 export const memberProfileState = atom({
