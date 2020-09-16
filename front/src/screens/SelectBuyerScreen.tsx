@@ -49,8 +49,8 @@ export default function SelectBuyerScreen() {
       },
     });
 
-    const loadBuyers = async (articleId: number) => {
-      const { data } = await chatRoomAPI.getBuyers(articleId);
+    const loadBuyers = async (selectedArticleId: number) => {
+      const { data } = await chatRoomAPI.getBuyers(selectedArticleId);
       setBuyers(data);
     };
     loadBuyers(articleId);

@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import com.querydsl.core.annotations.QueryInit;
 import sellerlee.back.common.domain.BaseTimeEntity;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.web.AuthorizationException;

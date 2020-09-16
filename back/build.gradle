@@ -5,6 +5,21 @@ plugins {
     id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// QueryDSL Version
+def queryDSLVersion = '4.2.2'
+// QueryDSL PATH
+def generated = "src/main/generated"
+
 group = 'sellerlee'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -19,13 +34,26 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    // queryDSL
+    implementation "com.querydsl:querydsl-core:${queryDSLVersion}"
+    implementation "com.querydsl:querydsl-jpa:${queryDSLVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDSLVersion}"
+    annotationProcessor(
+            "com.querydsl:querydsl-apt:${queryDSLVersion}:jpa",
+            "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final",
+            "javax.annotation:javax.annotation-api",
+    )
     // documentation
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    //httpClientBuilder
+    implementation 'org.apache.httpcomponents:httpclient:4.5'
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     // apache
@@ -38,6 +66,20 @@ dependencies {
     testImplementation 'com.h2database:h2'
     // rest assured
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
+    // security test
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+    file(generated).deleteDir()
 }
 
 test {

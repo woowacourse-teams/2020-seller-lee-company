@@ -14,16 +14,29 @@ import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
+  useSetRecoilState,
 } from "recoil/dist";
-import { memberInfoAvatarState } from "../states/memberState";
 import { profileAPI } from "../api/api";
 import {
-  myInfoCheckPasswordState,
-  myInfoPasswordState,
+  myInfoAvatarState,
+  myInfoInitialState,
+  myInfoModalState,
+  myInfoNicknameDuplicatedState,
+  myInfoNicknameState,
   myInfoSubmitState,
 } from "../states/myInfoState";
-import { isBlank, isSamePassword, isValidPassword } from "../joinValidator";
+import {
+  isBlank,
+  isDuplicatedNickname,
+  isValidNickname,
+} from "../nicknameValidator";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {
+  memberAvatarState,
+  memberNicknameState,
+  memberProfileState,
+} from "../states/memberState";
+import MyInfoModal from "../components/Common/Modal/MyInfoModal";
 
 type MyInfoScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "MyInfoScreen">,
@@ -33,38 +46,55 @@ type MyInfoScreenNavigationProp = CompositeNavigationProp<
 export default function MyInfoScreen() {
   const navigation = useNavigation<MyInfoScreenNavigationProp>();
 
-  const [myInfoSubmit, setMyInfoSubmit] = useRecoilState(myInfoSubmitState);
-
-  const avatar = useRecoilValue(memberInfoAvatarState);
-  const myInfoPassword = useRecoilValue(myInfoPasswordState);
-  const myInfoCheckPassword = useRecoilValue(myInfoCheckPasswordState);
-
-  const resetMyInfoPassword = useResetRecoilState(myInfoPasswordState);
-  const resetMyInfoCheckPassword = useResetRecoilState(
-    myInfoCheckPasswordState,
+  const setMyInfoInitialState = useSetRecoilState(myInfoInitialState);
+  const setNicknameDuplicatedState = useSetRecoilState(
+    myInfoNicknameDuplicatedState,
   );
+  const { nickname: originNickname } = useRecoilValue(memberProfileState);
+  const myInfoNickname = useRecoilValue(myInfoNicknameState);
+  const myInfoAvatar = useRecoilValue(myInfoAvatarState);
+
+  const [memberNickname, setMemberNickname] = useRecoilState(
+    memberNicknameState,
+  );
+  const [memberAvatar, setMemberAvatar] = useRecoilState(memberAvatarState);
+  const setMyInfoModalState = useSetRecoilState(myInfoModalState);
+
   const resetMyInfoSubmit = useResetRecoilState(myInfoSubmitState);
+  const resetMyInfoNickname = useResetRecoilState(myInfoNicknameState);
 
   const onPressCompleteButton = async () => {
-    setMyInfoSubmit(true);
-    await profileAPI.put({ password: myInfoPassword, avatar });
+    if (isBlank(myInfoNickname) || !isValidNickname(myInfoNickname)) {
+      return;
+    }
+
+    if (myInfoNickname !== originNickname) {
+      const data = await isDuplicatedNickname(myInfoNickname);
+      if (data) {
+        setNicknameDuplicatedState(true);
+        return;
+      }
+    }
+
+    await profileAPI.put({ nickname: myInfoNickname, avatar: myInfoAvatar });
+    setMemberNickname(myInfoNickname);
+    setMemberAvatar(myInfoAvatar);
     resetForm();
-    navigation.goBack();
+    setMyInfoModalState(true);
   };
 
   const resetForm = () => {
-    resetMyInfoPassword();
-    resetMyInfoCheckPassword();
+    resetMyInfoNickname();
     resetMyInfoSubmit();
   };
 
   const isValidateSubmit = () => {
-    return (
-      !isBlank(myInfoPassword) &&
-      !isBlank(myInfoCheckPassword) &&
-      isValidPassword(myInfoPassword) &&
-      isSamePassword(myInfoPassword, myInfoCheckPassword)
-    );
+    if (memberNickname === myInfoNickname && memberAvatar === myInfoAvatar) {
+      setMyInfoInitialState(true);
+      return false;
+    }
+    setMyInfoInitialState(false);
+    return !isBlank(myInfoNickname) && isValidNickname(myInfoNickname);
   };
 
   const submitButtonColor = () => {
@@ -123,10 +153,11 @@ export default function MyInfoScreen() {
         />
       ),
     });
-  }, [myInfoPassword, myInfoCheckPassword, myInfoSubmit]);
+  }, [myInfoNickname, myInfoAvatar]);
 
   return (
     <View style={styles.container}>
+      <MyInfoModal />
       <KeyboardAwareScrollView
         contentContainerStyle={styles.keyboardAwareScrollView}
         enableOnAndroid={true}

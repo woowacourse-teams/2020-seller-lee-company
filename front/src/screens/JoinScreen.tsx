@@ -16,13 +16,12 @@ import Join from "../components/join/Join";
 import { useResetRecoilState } from "recoil/dist";
 import {
   joinAvatarState,
-  joinCheckPasswordState,
   joinNicknameState,
-  joinPasswordState,
   joinSubmitState,
 } from "../states/joinState";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import JoinSubmit from "../components/join/JoinSubmit";
+import JoinVerifyModal from "../components/Common/Modal/JoinVerifyModal";
 
 type JoinScreenNavigationProp = StackNavigationProp<
   RootStackParam,
@@ -33,15 +32,11 @@ export default function JoinScreen() {
   const navigation = useNavigation<JoinScreenNavigationProp>();
 
   const resetJoinNickname = useResetRecoilState(joinNicknameState);
-  const resetJoinPassword = useResetRecoilState(joinPasswordState);
-  const resetJoinCheckPassword = useResetRecoilState(joinCheckPasswordState);
   const resetJoinAvatar = useResetRecoilState(joinAvatarState);
   const resetJoinSubmit = useResetRecoilState(joinSubmitState);
 
   const resetJoinValue = () => {
     resetJoinNickname();
-    resetJoinPassword();
-    resetJoinCheckPassword();
     resetJoinAvatar();
     resetJoinSubmit();
   };
@@ -74,6 +69,7 @@ export default function JoinScreen() {
 
   return (
     <View style={styles.container}>
+      <JoinVerifyModal />
       <KeyboardAwareScrollView
         contentContainerStyle={styles.keyboardAwareScrollView}
         extraScrollHeight={Platform.OS === "ios" ? -160 : 0}
@@ -95,8 +91,10 @@ export default function JoinScreen() {
               <View style={styles.joinContainer}>
                 <Join />
               </View>
-              <View style={styles.joinSubmitContainer}>
-                <JoinSubmit resetJoinForm={resetJoinValue} />
+              <View style={styles.joinSubmitFlexDirection}>
+                <View style={styles.joinSubmitContainer}>
+                  <JoinSubmit resetJoinForm={resetJoinValue} />
+                </View>
               </View>
             </View>
           </ImageBackground>
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleContainer: {
-    aspectRatio: 1.5,
+    aspectRatio: 1,
     justifyContent: "center",
     marginHorizontal: 30,
     paddingLeft: 15,
@@ -139,9 +137,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginBottom: 40,
   },
+  joinSubmitFlexDirection: {
+    flex: 1,
+    flexDirection: "column-reverse",
+  },
   joinSubmitContainer: {
     justifyContent: "center",
     marginHorizontal: 30,
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 80,
   },
 });

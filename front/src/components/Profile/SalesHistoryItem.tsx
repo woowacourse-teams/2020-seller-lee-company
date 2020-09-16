@@ -27,9 +27,9 @@ export default function SalesHistoryItem({
 }: OnSaleHistoryListProps) {
   const [articles, setArticles] = useRecoilState(articleSalesHistoryState);
 
-  const onClickTradeState = async (tradeState: string) => {
-    await articlesAPI.putByTradeState(id, { tradeState });
-    if (tradeState === "COMPLETED") {
+  const onClickTradeState = async (tradeStateProp: string) => {
+    await articlesAPI.putByTradeState(id, { tradeState: tradeStateProp });
+    if (tradeStateProp === "COMPLETED") {
       setArticles(articles.filter((article) => article.id !== id));
     }
   };

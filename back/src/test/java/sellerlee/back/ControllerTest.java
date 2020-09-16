@@ -17,6 +17,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import sellerlee.back.member.domain.MemberRepository;
+import sellerlee.back.security.config.OAuth2SuccessHandler;
 import sellerlee.back.security.oauth2.token.JwtTokenProvider;
 import sellerlee.back.security.web.LoginMemberMethodArgumentResolver;
 import sellerlee.back.security.web.context.TokenSecurityInterceptor;
@@ -34,6 +35,9 @@ public class ControllerTest {
 
     @MockBean
     protected LoginMemberMethodArgumentResolver resolver;
+
+    @MockBean
+    protected OAuth2SuccessHandler OAuth2SuccessHandler;
 
     protected MockMvc mockMvc;
 

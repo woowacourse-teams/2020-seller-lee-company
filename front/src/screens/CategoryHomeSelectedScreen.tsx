@@ -8,23 +8,10 @@ import {
   View,
 } from "react-native";
 
-import {
-  CompositeNavigationProp,
-  useNavigation,
-} from "@react-navigation/native";
 import HomeCategoryList from "../components/Category/HomeCategoryList";
-import { HomeStackParam, RootStackParam } from "../types/types";
-import { StackNavigationProp } from "@react-navigation/stack";
 import theme from "../colors";
 
-type HomeCategorySelectScreenNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParam, "CategoryHomeSelectedScreen">,
-  StackNavigationProp<RootStackParam, "HomeStack">
->;
-
 export default function CategoryHomeSelectedScreen() {
-  const navigation = useNavigation<HomeCategorySelectScreenNavigationProp>();
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>

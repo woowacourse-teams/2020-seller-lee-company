@@ -6,42 +6,29 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
+import theme from "../../../colors";
 import { useNavigation } from "@react-navigation/native";
-import { useRecoilState } from "recoil/dist";
-import {
-  memberLoginTrialState,
-  memberLoginVerifyState,
-} from "../../../states/loginState";
+import { useRecoilState, useRecoilValue } from "recoil/dist";
+import { LoginTrialState } from "../../../states/AuthState";
+import { memberState } from "../../../states/memberState";
 import { RootStackParam } from "../../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-interface LoginVerifyModalProps {
-  resetMemberLoginValue: Function;
-}
-
 type LoginVerifyModalNavigationProp = StackNavigationProp<
   RootStackParam,
-  "AuthScreen"
+  "TeaserScreen"
 >;
 
-export default function LoginVerifyModal({
-  resetMemberLoginValue,
-}: LoginVerifyModalProps) {
+export default function LoginVerifyModal() {
   const navigation = useNavigation<LoginVerifyModalNavigationProp>();
 
-  const [loginTrialState, setLoginTrialState] = useRecoilState(
-    memberLoginTrialState,
-  );
-  const [loginVerifyState, setLoginVerifyState] = useRecoilState(
-    memberLoginVerifyState,
-  );
+  const [loginTrialState, setLoginTrialState] = useRecoilState(LoginTrialState);
+  const state = useRecoilValue(memberState);
 
   const onPressCloseButton = () => {
     setLoginTrialState(false);
 
-    if (loginVerifyState) {
-      resetMemberLoginValue();
-      // TODO LoginScreen을 Home으로 변경해야 함
+    if (state === "JOIN") {
       navigation.navigate("HomeStack");
     }
   };
@@ -51,12 +38,12 @@ export default function LoginVerifyModal({
       animationType={"fade"}
       transparent={true}
       visible={loginTrialState}
-      onRequestClose={() => setLoginVerifyState(false)}
+      onRequestClose={onPressCloseButton}
     >
       <View style={styles.container}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            {loginVerifyState
+            {state === "JOIN"
               ? "로그인에 성공하였습니다."
               : "로그인에 실패하였습니다."}
           </Text>
@@ -102,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   button: {
-    backgroundColor: "#dfd3c3",
+    backgroundColor: theme.secondary,
     borderRadius: 20,
     marginHorizontal: 5,
     padding: 10,

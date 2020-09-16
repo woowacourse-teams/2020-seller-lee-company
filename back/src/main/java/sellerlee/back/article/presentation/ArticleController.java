@@ -1,6 +1,7 @@
 package sellerlee.back.article.presentation;
 
 import static sellerlee.back.article.presentation.ArticleController.*;
+import static sellerlee.back.common.PageController.*;
 
 import java.net.URI;
 import java.util.List;
@@ -23,21 +24,25 @@ import sellerlee.back.article.application.ArticleService;
 import sellerlee.back.article.application.ArticleViewService;
 import sellerlee.back.article.application.FeedResponse;
 import sellerlee.back.article.application.TradeStateRequest;
+import sellerlee.back.article.query.ArticleDao;
 import sellerlee.back.member.domain.Member;
 import sellerlee.back.security.core.LoginMember;
 
 @RestController
-@RequestMapping(ARTICLE_URI)
+@RequestMapping(API_URI + ARTICLE_URI)
 public class ArticleController {
     public static final String ARTICLE_URI = "/articles";
     public static final String TRADE_STATE_URI = "/trade-state";
 
     private final ArticleService articleService;
     private final ArticleViewService articleViewService;
+    private final ArticleDao articleDao;
 
-    public ArticleController(ArticleService articleService, ArticleViewService articleViewService) {
+    public ArticleController(ArticleService articleService, ArticleViewService articleViewService,
+            ArticleDao articleDao) {
         this.articleService = articleService;
         this.articleViewService = articleViewService;
+        this.articleDao = articleDao;
     }
 
     @PostMapping
@@ -52,8 +57,7 @@ public class ArticleController {
     @GetMapping(params = {"lastArticleId", "size"})
     public ResponseEntity<List<FeedResponse>> showPage(@RequestParam Long lastArticleId,
             @RequestParam int size, @LoginMember Member loginMember) {
-        List<FeedResponse> responses = articleViewService.showPage(lastArticleId, size,
-                loginMember);
+        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember);
         return ResponseEntity.ok(responses);
     }
 

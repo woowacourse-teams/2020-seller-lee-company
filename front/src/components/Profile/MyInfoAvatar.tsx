@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import colors from "../../colors";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
-import { memberInfoAvatarState } from "../../states/memberState";
 import {
   launchImageLibraryAsync,
   MediaTypeOptions,
@@ -12,21 +18,27 @@ import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
 import { s3Secret } from "../../secret";
-import { loginIdState } from "../../states/loginState";
 import * as Permissions from "expo-permissions";
+import { myInfoAvatarState } from "../../states/myInfoState";
+import {
+  memberAvatarState,
+  memberNicknameState,
+} from "../../states/memberState";
 
 export default function MyInfoAvatar() {
-  const memberId = useRecoilValue(loginIdState);
-  const [avatar, setAvatar] = useRecoilState(memberInfoAvatarState);
+  const memberNickname = useRecoilValue(memberNicknameState);
+  const [myInfoAvatar, setMyInfoAvatar] = useRecoilState(myInfoAvatarState);
+  const memberAvatar = useRecoilValue(memberAvatarState);
 
   useEffect(() => {
     requestPermission();
-  }, []);
+    setMyInfoAvatar(memberAvatar);
+  }, [memberAvatar]);
 
   const requestPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status !== PermissionStatus.GRANTED) {
-      alert("사진 업로드 위해 갤러리 접근 권한이 필요합니다.");
+      Alert.alert("사진 업로드 위해 갤러리 접근 권한이 필요합니다.");
     }
   };
 
@@ -37,15 +49,18 @@ export default function MyInfoAvatar() {
       quality: 0.3,
     });
     if (!result.cancelled) {
+      const date = new Date();
+      const format = "YYYY.MM.DD_HH:mm:ss";
+      const now = moment(date).format(format);
       const file = {
         uri: result.uri,
-        name: memberId + "_" + moment.now() + ".jpeg",
+        name: memberNickname + "_" + now + ".jpeg",
         type: "image/jpeg",
       };
 
       const options = {
         keyPrefix: "images/",
-        bucket: "seller-lee-bucket",
+        bucket: "seller-lee",
         region: "ap-northeast-2",
         accessKey: s3Secret.accessKey,
         secretKey: s3Secret.secretKey,
@@ -53,7 +68,7 @@ export default function MyInfoAvatar() {
       };
 
       const response = await RNS3.put(file, options);
-      setAvatar(response.body.postResponse.location);
+      setMyInfoAvatar(response.body.postResponse.location);
     }
   };
 
@@ -62,7 +77,7 @@ export default function MyInfoAvatar() {
       <View style={styles.imageContainer}>
         <Image
           style={styles.avatar}
-          source={{ uri: avatar }}
+          source={{ uri: myInfoAvatar }}
           defaultSource={require("../../../assets/user.png")}
         />
       </View>

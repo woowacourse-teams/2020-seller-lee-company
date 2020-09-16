@@ -9,6 +9,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static sellerlee.back.common.PageController.*;
 import static sellerlee.back.favorite.presentation.FavoriteController.*;
 import static sellerlee.back.fixture.ArticleFixture.*;
 import static sellerlee.back.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -41,7 +42,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(FAVORITE_URI)
+                        get(API_URI + FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(document("articles/favorites",
@@ -73,7 +74,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        post(FAVORITE_URI)
+                        post(API_URI+FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
@@ -89,7 +90,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(FAVORITE_URI)
+                        delete(API_URI+FAVORITE_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))

@@ -5,23 +5,15 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { useRecoilValue } from "recoil/dist";
-import { memberProfileState } from "../../states/memberState";
-import MyInfoPasswordForm from "./MyInfoPasswordForm";
-import MyInfoCheckPasswordForm from "./MyInfoCheckPasswordForm";
+import MyInfoNicknameForm from "./MyInfoNicknameForm";
 import theme from "../../colors";
 
 export default function MyInfoForm() {
-  const { nickname } = useRecoilValue(memberProfileState);
-
   return (
     <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.itemContainer}>
-          <MyInfoPasswordForm />
-        </View>
-        <View style={styles.itemContainer}>
-          <MyInfoCheckPasswordForm />
+          <MyInfoNicknameForm />
         </View>
       </View>
     </TouchableWithoutFeedback>
