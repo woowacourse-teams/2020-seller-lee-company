@@ -4,23 +4,37 @@ import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { selectedGroupsInArticleFormState } from "../../states/articleState";
 import theme from "../../colors";
 import { Group } from "../../types/types";
-import { groupListState } from "../../states/groupState";
+import {
+  groupListState,
+  selectedGroupInFeedsState,
+} from "../../states/groupState";
 
-interface CategoryItemProps {
-  groupName: string;
+interface GroupItemProps {
+  isGroupFiltering: boolean;
+  group: Group;
 }
 
-export default function GroupItem({ groupName }: CategoryItemProps) {
-  const [selectedGroup, setSelectedGroup] = useRecoilState(
-    selectedGroupsInArticleFormState,
+export default function GroupItem({ isGroupFiltering, group }: GroupItemProps) {
+  const [
+    selectedGroupsInArticleForm,
+    setSelectedGroupsInArticleForm,
+  ] = useRecoilState(selectedGroupsInArticleFormState);
+  const [selectedGroupInFeeds, setSelectedGroupInFeeds] = useRecoilState(
+    selectedGroupInFeedsState,
   );
   const myGroups = useRecoilValue(groupListState);
 
   const exist = () => {
-    return selectedGroup.some((item: Group) => item.name === groupName);
+    return selectedGroupsInArticleForm.some(
+      (item: Group) => item.name === group.name,
+    );
   };
 
-  const onClickGroup = () => {
+  const onClickFilterGroup = () => {
+    setSelectedGroupInFeeds(group);
+  };
+
+  const onClickArticleFormGroup = () => {
     if (exist()) {
       remove();
     } else {
@@ -29,23 +43,46 @@ export default function GroupItem({ groupName }: CategoryItemProps) {
   };
 
   const add = () => {
-    setSelectedGroup(
-      selectedGroup.concat(myGroups.filter((item) => item.name === groupName)),
+    setSelectedGroupsInArticleForm(
+      selectedGroupsInArticleForm.concat(
+        myGroups.filter((item) => item.name === group.name),
+      ),
     );
   };
 
   const remove = () => {
-    setSelectedGroup(selectedGroup.filter((item) => item.name !== groupName));
+    setSelectedGroupsInArticleForm(
+      selectedGroupsInArticleForm.filter((item) => item.name !== group.name),
+    );
+  };
+
+  const getFilterGroupItem = () => {
+    return (
+      <Text
+        style={
+          selectedGroupInFeeds === group ? styles.selected : styles.nonSelected
+        }
+        onPress={onClickFilterGroup}
+      >
+        {group.name}
+      </Text>
+    );
+  };
+
+  const getArticleFormGroupItem = () => {
+    return (
+      <Text
+        style={exist() ? styles.selected : styles.nonSelected}
+        onPress={onClickArticleFormGroup}
+      >
+        {exist() ? `V ${group.name}` : `${group.name}`}
+      </Text>
+    );
   };
 
   return (
     <View style={styles.container}>
-      <Text
-        style={exist() ? styles.selected : styles.nonSelected}
-        onPress={onClickGroup}
-      >
-        {exist() ? `V ${groupName}` : `${groupName}`}
-      </Text>
+      {isGroupFiltering ? getFilterGroupItem() : getArticleFormGroupItem()}
     </View>
   );
 }

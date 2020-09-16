@@ -24,6 +24,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import GroupList from "../components/group/GroupList";
 import { selectedGroupInFeedsState } from "../states/groupState";
+import { Feather } from "@expo/vector-icons";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -105,9 +106,10 @@ export default function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
+        <Text style={styles.title}>{selectedGroup.name}</Text>
         <Menu>
           <MenuTrigger>
-            <Text style={styles.title}>{selectedGroup.name}</Text>
+            <Feather name="chevron-down" size={24} color="grey" />
           </MenuTrigger>
           <MenuOptions
             optionsContainerStyle={styles.menuOptionsContainer}
@@ -155,16 +157,19 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: "white",
     paddingHorizontal: 30,
+    paddingTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
+    flexDirection: "row",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: theme.primary,
+    paddingRight: 5,
   },
   description: {
     fontSize: 16,

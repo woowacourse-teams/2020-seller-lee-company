@@ -27,7 +27,7 @@ export const groupListState = atom({
 
 export const selectedGroupInFeedsState = atom({
   key: "selectedGroupInFeedsState",
-  default: {
+  default: <Group>{
     id: 0,
     name: "",
   },

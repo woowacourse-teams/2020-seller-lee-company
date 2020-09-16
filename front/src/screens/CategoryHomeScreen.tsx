@@ -68,7 +68,12 @@ export default function CategoryHomeScreen() {
       headerRight: () => (
         <Menu>
           <MenuTrigger>
-            <Feather name="filter" size={24} color={theme.primary} />
+            <Feather
+              name="filter"
+              size={22}
+              color={"Darkgrey"}
+              style={styles.filterIcon}
+            />
           </MenuTrigger>
           <MenuOptions
             optionsContainerStyle={styles.menuOptionsContainer}
@@ -191,7 +196,12 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.border,
     borderBottomWidth: 1,
   },
-  menuOptionsContainer: {},
+  filterIcon: {
+    marginRight: 15,
+  },
+  menuOptionsContainer: {
+    width: 150,
+  },
   menuCustomText: {
     textAlign: "center",
     margin: 10,
