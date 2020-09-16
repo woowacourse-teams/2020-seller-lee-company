@@ -78,6 +78,10 @@ public class JwtTokenProvider {
 
         Map<String, Object> attribute = createAttribute(member);
 
+        if (member.hasNotRole()) {
+            member.addRole("ROLE_USER");
+        }
+
         OAuth2User AuthenticatedMember = new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(member.getRole())),
                 attribute, "kakaoId");

@@ -28,18 +28,13 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   const onPressButton = async () => {
     setIsLoading(true);
     const token = await DeviceStorage.getToken();
-    console.log(token);
 
     if (token) {
       try {
-        console.log("1");
         const { data } = await profileAPI.join();
-        console.log("await: " + data);
         isJoinMember(data.nickname);
       } catch (error) {
-        console.log("2");
         toggleModal();
-        console.log(error.response.data.message);
       }
     } else {
       toggleModal();
@@ -48,8 +43,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   };
 
   const isJoinMember = (nickname: string) => {
-    console.log("nickname: " + nickname);
-    if (nickname == null) {
+    if (nickname === "") {
       setMemberNickname(nickname);
       return navigation.navigate("JoinScreen");
     }
