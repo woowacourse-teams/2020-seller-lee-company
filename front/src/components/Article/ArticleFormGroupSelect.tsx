@@ -8,7 +8,7 @@ import {
 import { useRecoilValue } from "recoil";
 import { HomeStackParam, RootStackParam } from "../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { articleSelectedGroupState } from "../../states/articleState";
+import { selectedGroupsInArticleFormState } from "../../states/articleState";
 
 type ArticleFormGroupSelectNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
@@ -23,7 +23,7 @@ export default function ArticleFormGroupSelect({
   isEditing,
 }: ArticleFormGroupSelectProp) {
   const navigation = useNavigation<ArticleFormGroupSelectNavigationProp>();
-  const selectedGroup = useRecoilValue(articleSelectedGroupState);
+  const selectedGroup = useRecoilValue(selectedGroupsInArticleFormState);
 
   const renderGroup = () => {
     const groupNames = selectedGroup.map((item) => item.name).join(" | ");

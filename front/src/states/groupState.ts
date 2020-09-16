@@ -24,3 +24,11 @@ export const groupListState = atom({
     { id: 3, name: "셀러리 컴퍼니" },
   ],
 });
+
+export const selectedGroupInFeedsState = atom({
+  key: "selectedGroupInFeedsState",
+  default: <Group>{
+    id: 0,
+    name: "",
+  },
+});
