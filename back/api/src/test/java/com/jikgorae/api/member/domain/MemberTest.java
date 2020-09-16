@@ -11,6 +11,5 @@ class MemberTest {
         member.update("가물치연못", null);
 
         assertThat(member.getNickname()).isEqualTo("가물치연못");
-        assertThat(member.getState()).isEqualTo(State.JOIN);
     }
 }

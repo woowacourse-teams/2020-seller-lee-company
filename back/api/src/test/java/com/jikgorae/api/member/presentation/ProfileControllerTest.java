@@ -43,7 +43,6 @@ class ProfileControllerTest extends ControllerTest {
                                 responseFields(
                                         fieldWithPath("nickname").description("회원의 닉네임"),
                                         fieldWithPath("avatar").description("회원의 아바타"),
-                                        fieldWithPath("state").description("회원가입 여부"),
                                         fieldWithPath("score").description("회원의 정보")
                                 )));
     }

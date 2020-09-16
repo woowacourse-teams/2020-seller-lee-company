@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -23,7 +22,6 @@ import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.filter.JwtAuthenticationFilter;
 import com.jikgorae.api.security.oauth2.provider.CustomOAuth2Provider;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
-import com.jikgorae.api.security.oauth2.service.CustomOAuth2AuthorizedClientService;
 
 @Configuration
 @EnableWebSecurity
@@ -75,11 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         );
 
         return new InMemoryClientRegistrationRepository(registrations);
-    }
-
-    @Bean
-    public OAuth2AuthorizedClientService authorizedClientService() {
-        return new CustomOAuth2AuthorizedClientService(memberRepository);
     }
 
     // 판매내역->판매완료로 변경할때 PUT 요청에 '//'가 들어가면 위험해서 안된다는 에러로 인해 추가
