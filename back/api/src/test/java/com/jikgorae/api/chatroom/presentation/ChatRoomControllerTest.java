@@ -15,6 +15,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,8 +24,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.application.ChatRoomService;
+import com.jikgorae.api.chatroom.query.ChatRoomDao;
 
-@WebMvcTest(controllers = ChatRoomController.class)
+@WebMvcTest(controllers = ChatRoomController.class, excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value=ChatRoomDao.class)})
 class ChatRoomControllerTest extends ControllerTest {
     @MockBean
     private ChatRoomService chatRoomService;
