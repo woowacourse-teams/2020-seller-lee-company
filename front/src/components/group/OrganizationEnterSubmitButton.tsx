@@ -3,39 +3,47 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../colors";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import {
-  groupCreationNameState,
-  groupEntranceCodeState,
-} from "../../states/groupState";
+  organizationCreationNameState,
+  organizationEntranceCodeState,
+} from "../../states/organizationState";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
 import { useNavigation } from "@react-navigation/native";
 
-type GroupEnterSubmitButtonRouteName =
-  | "GroupEnterScreen"
-  | "GroupCreateCompleteScreen";
+type OrganizationEnterSubmitButtonRouteName =
+  | "OrganizationEnterScreen"
+  | "OrganizationCreateCompleteScreen";
 
-type GroupEnterSubmitButtonNavigationProp = StackNavigationProp<
+type OrganizationEnterSubmitButtonNavigationProp = StackNavigationProp<
   RootStackParam,
-  GroupEnterSubmitButtonRouteName
+  OrganizationEnterSubmitButtonRouteName
 >;
 
-export default function GroupEnterSubmitButton() {
+export default function OrganizationEnterSubmitButton() {
   const VALID_ENTRANCE_CODE_LENGTH = 6;
 
-  const navigation = useNavigation<GroupEnterSubmitButtonNavigationProp>();
+  const navigation = useNavigation<
+    OrganizationEnterSubmitButtonNavigationProp
+  >();
 
-  const groupEntranceCode = useRecoilValue(groupEntranceCodeState);
-  const resetGroupEntranceCode = useResetRecoilState(groupEntranceCodeState);
-  const resetGroupCreationName = useResetRecoilState(groupCreationNameState);
+  const organizationEntranceCode = useRecoilValue(
+    organizationEntranceCodeState,
+  );
+  const resetOrganizationEntranceCode = useResetRecoilState(
+    organizationEntranceCodeState,
+  );
+  const resetOrganizationCreationName = useResetRecoilState(
+    organizationCreationNameState,
+  );
 
   const isInvalidEntranceCode = () => {
-    return groupEntranceCode.length !== VALID_ENTRANCE_CODE_LENGTH;
+    return organizationEntranceCode.length !== VALID_ENTRANCE_CODE_LENGTH;
   };
 
-  const onEnterGroup = () => {
+  const onEnterOrganization = () => {
     alert("그룹 코드를 통해 조직 입장 요청을 보낸다.");
-    resetGroupEntranceCode();
-    resetGroupCreationName();
+    resetOrganizationEntranceCode();
+    resetOrganizationCreationName();
     navigation.reset({
       index: 0,
       routes: [{ name: "HomeStack" }],
@@ -57,7 +65,7 @@ export default function GroupEnterSubmitButton() {
       <TouchableOpacity
         disabled={isInvalidEntranceCode()}
         style={dynamicStyles.submitButton}
-        onPress={onEnterGroup}
+        onPress={onEnterOrganization}
       >
         <Text style={styles.enterSubmitText}>입장하기</Text>
       </TouchableOpacity>

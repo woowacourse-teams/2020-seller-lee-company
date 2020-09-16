@@ -12,28 +12,32 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useResetRecoilState } from "recoil";
 import {
-  groupCreationNameState,
-  groupNameExistState,
-} from "../states/groupState";
+  organizationCreationNameState,
+  organizationNameExistState,
+} from "../states/organizationState";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { RootStackParam } from "../types/types";
-import GroupCreationName from "../components/group/GroupCreationName";
-import GroupCreateSubmitButton from "../components/group/GroupCreateSubmitButton";
+import OrganizationCreationName from "../components/group/OrganizationCreationName";
+import OrganizationCreateSubmitButton from "../components/group/OrganizationCreateSubmitButton";
 
-type GroupCreateScreenNavigationProp = StackNavigationProp<
+type OrganizationCreateScreenNavigationProp = StackNavigationProp<
   RootStackParam,
-  "GroupCreateScreen"
+  "OrganizationCreateScreen"
 >;
 
-export default function GroupCreateScreen() {
-  const navigation = useNavigation<GroupCreateScreenNavigationProp>();
-  const resetGroupCreationName = useResetRecoilState(groupCreationNameState);
-  const resetGroupNameExist = useResetRecoilState(groupNameExistState);
+export default function OrganizationCreateScreen() {
+  const navigation = useNavigation<OrganizationCreateScreenNavigationProp>();
+  const resetOrganizationCreationName = useResetRecoilState(
+    organizationCreationNameState,
+  );
+  const resetOrganizationNameExist = useResetRecoilState(
+    organizationNameExistState,
+  );
 
   const onBack = () => {
-    resetGroupCreationName();
-    resetGroupNameExist();
+    resetOrganizationCreationName();
+    resetOrganizationNameExist();
     navigation.goBack();
   };
 
@@ -70,11 +74,11 @@ export default function GroupCreateScreen() {
               </Text>
             </View>
             <View style={styles.groupCreationNameContainer}>
-              <GroupCreationName />
+              <OrganizationCreationName />
             </View>
           </View>
           <View style={styles.groupCreateSubmitButton}>
-            <GroupCreateSubmitButton />
+            <OrganizationCreateSubmitButton />
           </View>
         </View>
       </TouchableWithoutFeedback>

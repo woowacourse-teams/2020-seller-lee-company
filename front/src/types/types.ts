@@ -87,10 +87,10 @@ export type RootStackParam = {
   TeaserScreen: undefined;
   JoinScreen: undefined;
   // 조직 화면
-  GroupHomeScreen: undefined;
-  GroupEnterScreen: undefined;
-  GroupCreateScreen: undefined;
-  GroupCreateCompleteScreen: undefined;
+  OrganizationHomeScreen: undefined;
+  OrganizationEnterScreen: undefined;
+  OrganizationCreateScreen: undefined;
+  OrganizationCreateCompleteScreen: undefined;
   // 홈 화면
   HomeStack: undefined;
 };

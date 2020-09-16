@@ -12,24 +12,30 @@ import {
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
-import GroupEnterSubmitButton from "../components/group/GroupEnterSubmitButton";
+import OrganizationEnterSubmitButton from "../components/group/OrganizationEnterSubmitButton";
 import { useRecoilValue } from "recoil";
 import {
-  groupCreationNameState,
-  groupEntranceCodeState,
-} from "../states/groupState";
+  organizationCreationNameState,
+  organizationEntranceCodeState,
+} from "../states/organizationState";
 import theme from "../colors";
 
-type GroupCreateCompleteScreenNavigationProp = StackNavigationProp<
+type OrganizationCreateCompleteScreenNavigationProp = StackNavigationProp<
   RootStackParam,
-  "GroupCreateCompleteScreen"
+  "OrganizationCreateCompleteScreen"
 >;
 
-export default function GroupCreateCompleteScreen() {
-  const navigation = useNavigation<GroupCreateCompleteScreenNavigationProp>();
+export default function OrganizationCreateCompleteScreen() {
+  const navigation = useNavigation<
+    OrganizationCreateCompleteScreenNavigationProp
+  >();
 
-  const groupCreationName = useRecoilValue(groupCreationNameState);
-  const groupEntranceCode = useRecoilValue(groupEntranceCodeState);
+  const organizationCreationName = useRecoilValue(
+    organizationCreationNameState,
+  );
+  const organizationEntranceCode = useRecoilValue(
+    organizationEntranceCodeState,
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -39,9 +45,9 @@ export default function GroupCreateCompleteScreen() {
 
   const putBlankOnCenterEntranceCode = () => {
     return (
-      groupEntranceCode.slice(0, 3) +
+      organizationEntranceCode.slice(0, 3) +
       " " +
-      groupEntranceCode.slice(3, groupEntranceCode.length)
+      organizationEntranceCode.slice(3, organizationEntranceCode.length)
     );
   };
 
@@ -58,7 +64,9 @@ export default function GroupCreateCompleteScreen() {
             </View>
             <View style={styles.groupDetailContainer}>
               <Text style={styles.groupDetail}>생성된 조직의 이름은</Text>
-              <Text style={styles.groupDetailEdge}>{groupCreationName}</Text>
+              <Text style={styles.groupDetailEdge}>
+                {organizationCreationName}
+              </Text>
               <Text style={styles.groupDetail}>입장 코드는</Text>
               <Text style={styles.groupDetailEdge}>
                 {putBlankOnCenterEntranceCode()}
@@ -67,7 +75,7 @@ export default function GroupCreateCompleteScreen() {
             </View>
           </View>
           <View style={styles.groupEnterSubmitButton}>
-            <GroupEnterSubmitButton />
+            <OrganizationEnterSubmitButton />
           </View>
         </View>
       </TouchableWithoutFeedback>

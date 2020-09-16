@@ -13,22 +13,24 @@ import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../types/types";
 import { Feather } from "@expo/vector-icons";
-import GroupEntranceCode from "../components/group/GroupEntranceCode";
-import GroupEnterSubmitButton from "../components/group/GroupEnterSubmitButton";
+import OrganizationEntranceCode from "../components/group/OrganizationEntranceCode";
+import OrganizationEnterSubmitButton from "../components/group/OrganizationEnterSubmitButton";
 import { useResetRecoilState } from "recoil";
-import { groupEntranceCodeState } from "../states/groupState";
+import { organizationEntranceCodeState } from "../states/organizationState";
 
-type GroupEnterScreenNavigationProp = StackNavigationProp<
+type OrganizationEnterScreenNavigationProp = StackNavigationProp<
   RootStackParam,
-  "GroupEnterScreen"
+  "OrganizationEnterScreen"
 >;
 
-export default function GroupEnterScreen() {
-  const navigation = useNavigation<GroupEnterScreenNavigationProp>();
-  const resetGroupEntranceCode = useResetRecoilState(groupEntranceCodeState);
+export default function OrganizationEnterScreen() {
+  const navigation = useNavigation<OrganizationEnterScreenNavigationProp>();
+  const resetOrganizationEntranceCode = useResetRecoilState(
+    organizationEntranceCodeState,
+  );
 
   const onBack = () => {
-    resetGroupEntranceCode();
+    resetOrganizationEntranceCode();
     navigation.goBack();
   };
 
@@ -65,11 +67,11 @@ export default function GroupEnterScreen() {
               </Text>
             </View>
             <View style={styles.groupEntranceCodeContainer}>
-              <GroupEntranceCode />
+              <OrganizationEntranceCode />
             </View>
           </View>
           <View style={styles.groupEnterSubmitButton}>
-            <GroupEnterSubmitButton />
+            <OrganizationEnterSubmitButton />
           </View>
         </View>
       </TouchableWithoutFeedback>
