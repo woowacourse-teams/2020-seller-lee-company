@@ -1,7 +1,6 @@
 package com.jikgorae.api.member.domain;
 
 import static org.assertj.core.api.Assertions.*;
-import static sellerlee.back.fixture.MemberFixture.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +25,7 @@ class MemberTest {
     @Test
     void isSameNickname() {
         String nickname = "lxxjn0";
-        Member member = new Member(51L, null, nickname, null, null, null, null, null);
+        Member member = new Member(51L,"", nickname, null, null, null, null, null, null);
         assertThat(member.isSameNickname(nickname)).isTrue();
     }
 }
