@@ -1,5 +1,7 @@
 package sellerlee.back.member.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -59,6 +61,9 @@ public class Member {
     }
 
     public boolean isSameNickname(String nickname) {
+        if (Objects.isNull(this.nickname)) {
+            return false;
+        }
         return this.nickname.equals(nickname);
     }
 
