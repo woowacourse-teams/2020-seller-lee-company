@@ -22,8 +22,8 @@ export const articleContentsState = atom({
   default: "",
 });
 
-export const articleSelectedGroupState = atom({
-  key: "articleSelectedGroupState",
+export const selectedGroupsInArticleFormState = atom({
+  key: "selectedGroupsInArticleFormState",
   default: <Group[]>[],
 });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
-import { articleSelectedGroupState } from "../../states/articleState";
+import { selectedGroupsInArticleFormState } from "../../states/articleState";
 import theme from "../../colors";
 import { Group } from "../../types/types";
 import { groupListState } from "../../states/groupState";
@@ -12,7 +12,7 @@ interface CategoryItemProps {
 
 export default function GroupItem({ groupName }: CategoryItemProps) {
   const [selectedGroup, setSelectedGroup] = useRecoilState(
-    articleSelectedGroupState,
+    selectedGroupsInArticleFormState,
   );
   const myGroups = useRecoilValue(groupListState);
 

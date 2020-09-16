@@ -9,13 +9,13 @@ import { Feather } from "@expo/vector-icons";
 import { HomeStackParam, RootStackParam } from "../types/types";
 import GroupList from "../components/group/GroupList";
 
-type CategoryChoiceScreenNavigationProp = CompositeNavigationProp<
+type GroupChoiceScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "GroupChoiceScreen">,
   StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
 export default function GroupChoiceScreen() {
-  const navigation = useNavigation<CategoryChoiceScreenNavigationProp>();
+  const navigation = useNavigation<GroupChoiceScreenNavigationProp>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,7 +40,7 @@ export default function GroupChoiceScreen() {
 
   return (
     <View style={styles.container}>
-      <GroupList />
+      <GroupList isGroupFiltering={false} />
     </View>
   );
 }

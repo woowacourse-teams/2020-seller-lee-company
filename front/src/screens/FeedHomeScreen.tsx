@@ -21,6 +21,8 @@ import { useRecoilState } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
+import GroupList from "../components/group/GroupList";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -101,8 +103,17 @@ export default function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Feeds</Text>
-        {/*<Text style={styles.description}>최근에 등록된 게시글입니다.</Text>*/}
+        <Menu>
+          <MenuTrigger>
+            <Text style={styles.title}>Feeds</Text>
+          </MenuTrigger>
+          <MenuOptions
+            optionsContainerStyle={styles.menuOptionsContainer}
+            customStyles={{ optionText: styles.menuCustomText }}
+          >
+            <GroupList isGroupFiltering={true} />
+          </MenuOptions>
+        </Menu>
       </View>
       <View style={styles.flatListContainer}>
         <FlatList
@@ -168,5 +179,10 @@ const styles = StyleSheet.create({
   feedArticleCardContainer: {
     backgroundColor: "transparent",
     marginBottom: 15,
+  },
+  menuOptionsContainer: {},
+  menuCustomText: {
+    textAlign: "center",
+    margin: 10,
   },
 });
