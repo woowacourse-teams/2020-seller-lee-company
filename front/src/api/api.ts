@@ -2,11 +2,12 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-// const SERVER_IP = "15.164.125.244";
-const SERVER_IP = "localhost";
+// const DEPLOY_SERVER_IP = "15.164.125.244";
+// const QA_SERVER_IP = "192.168.0.7";
+const LOCAL_SERVER_IP = "localhost";
 
-const BASE_URL = `http://${SERVER_IP}:8080`;
-export const CHAT_BASE_URL = `http://${SERVER_IP}:9000`;
+const BASE_URL = `http://${LOCAL_SERVER_IP}:8080`;
+export const CHAT_BASE_URL = `http://${LOCAL_SERVER_IP}:9000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
