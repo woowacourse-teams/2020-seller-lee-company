@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSetRecoilState } from "recoil/dist";
 import {
   CompositeNavigationProp,
@@ -65,8 +65,12 @@ export default function ChatRoomItem({ chatRoom }: ChatRoomItemProps) {
 
   return (
     <TouchableOpacity style={styles.container} onPress={onClickChatRoom}>
-      <View style={styles.articleThumbnailContainer}>
-        <ArticleCardImage thumbnail={chatRoom.articleInfo.thumbnail} />
+      <View style={styles.opponentAvatarContainer}>
+        <Image
+          source={{ uri: chatRoom.opponent.avatar }}
+          style={styles.avatar}
+          defaultSource={require("../../../assets/user.png")}
+        />
       </View>
       <View style={styles.opponentContainer}>
         <View style={styles.opponentTopContainer}>
@@ -78,6 +82,8 @@ export default function ChatRoomItem({ chatRoom }: ChatRoomItemProps) {
           )}`}</Text>
         </View>
         <Text style={styles.lastMessage}>{`${lastMessage.content}`}</Text>
+      </View>
+      <View style={styles.articleThumbnailContainer}>
         <ArticleCardImage thumbnail={chatRoom.articleInfo.thumbnail} />
       </View>
     </TouchableOpacity>
@@ -93,12 +99,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
   },
-  articleThumbnailContainer: {
-    flex: 1,
+  avatar: {
+    aspectRatio: 1,
+    resizeMode: "cover",
+    borderRadius: 100,
+  },
+  opponentAvatarContainer: {
+    aspectRatio: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
-    marginVertical: 10,
-    marginHorizontal: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
   opponentContainer: {
     flex: 5,
@@ -120,7 +131,13 @@ const styles = StyleSheet.create({
     color: "rgb(80,80,80)",
   },
   lastMessage: {
+    paddingVertical: 5,
     fontSize: 16,
     color: "rgb(80,80,80)",
+  },
+  articleThumbnailContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
   },
 });

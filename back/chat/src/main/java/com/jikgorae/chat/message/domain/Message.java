@@ -12,6 +12,7 @@ public class Message {
     private String id;
     private Long senderId;
     private String senderNickname;
+    private String senderAvatar;
     private Long roomId;
     private String content;
     @CreatedDate
@@ -20,16 +21,17 @@ public class Message {
     private Message() {
     }
 
-    public Message(String id, Long senderId, String senderNickname, Long roomId, String content) {
+    public Message(String id, Long senderId, String senderNickname, String senderAvatar, Long roomId, String content) {
         this.id = id;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
+        this.senderAvatar = senderAvatar;
         this.roomId = roomId;
         this.content = content;
     }
 
-    public Message(Long senderId, String senderNickname, Long roomId, String content) {
-        this(null, senderId, senderNickname, roomId, content);
+    public Message(Long senderId, String senderNickname, String senderAvatar, Long roomId, String content) {
+        this(null, senderId, senderNickname, senderAvatar, roomId, content);
     }
 
     public String getId() {
@@ -42,6 +44,10 @@ public class Message {
 
     public String getSenderNickname() {
         return senderNickname;
+    }
+
+    public String getSenderAvatar() {
+        return senderAvatar;
     }
 
     public Long getRoomId() {

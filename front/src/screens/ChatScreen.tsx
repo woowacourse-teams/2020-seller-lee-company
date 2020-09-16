@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
@@ -8,6 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -16,7 +17,11 @@ import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
-import { memberIdState, memberNicknameState } from "../states/memberState";
+import {
+  memberAvatarState,
+  memberIdState,
+  memberNicknameState,
+} from "../states/memberState";
 import SockJS from "sockjs-client";
 
 import ArticleCardImage from "../components/Common/ArticleCommon/ArticleCardImage";
@@ -26,10 +31,10 @@ import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import {
   CompositeNavigationProp,
   useNavigation,
-  useIsFocused,
 } from "@react-navigation/native";
 import { HomeStackParam, RootStackParam } from "../types/types";
 import ChatTradeState from "../components/Chat/ChatTradeState";
+import { articleSelectedIdState } from "../states/articleState";
 
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
@@ -46,8 +51,8 @@ export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
   const memberId = useRecoilValue(memberIdState);
   const memberNickname = useRecoilValue(memberNicknameState);
-  const isFocused = useIsFocused();
-  const resetChatRoom = useResetRecoilState(chatRoomState);
+  const memberAvatar = useRecoilValue(memberAvatarState);
+  const setArticleId = useSetRecoilState(articleSelectedIdState);
 
   const appendMessage = useCallback((message = []) => {
     setMessages((previousMessages) =>
@@ -80,6 +85,7 @@ export default function ChatScreen() {
             content: string;
             senderId: number;
             senderNickname: string;
+            senderAvatar: string;
             createdTime: string;
           }) => {
             return {
@@ -88,6 +94,7 @@ export default function ChatScreen() {
               user: {
                 _id: prevMessage.senderId,
                 name: prevMessage.senderNickname,
+                avatar: prevMessage.senderAvatar,
               },
               createdAt: Date.parse(prevMessage.createdTime),
             };
@@ -108,17 +115,12 @@ export default function ChatScreen() {
         messageType: "TALK",
         senderId: memberId,
         senderNickname: memberNickname,
+        senderAvatar: memberAvatar,
         message: sendMessages[0].text,
       }),
     );
     appendMessage(sendMessages);
   };
-
-  useEffect(() => {
-    if (!isFocused) {
-      resetChatRoom();
-    }
-  }, [isFocused]);
 
   // @ts-ignore
   const renderSend = (props) => {
@@ -169,6 +171,11 @@ export default function ChatScreen() {
     );
   };
 
+  const goToArticle = () => {
+    setArticleId(articleInfo.id);
+    navigation.navigate("ArticleDetailScreen");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navigationContainer}>
@@ -181,7 +188,7 @@ export default function ChatScreen() {
           <Text style={styles.opponent}>{opponent.nickname}님과의 채팅</Text>
         </View>
       </View>
-      <View style={styles.articleContainer}>
+      <TouchableOpacity style={styles.articleContainer} onPress={goToArticle}>
         <View style={styles.articleImageContainer}>
           <ArticleCardImage thumbnail={articleInfo.thumbnail} />
         </View>
@@ -196,7 +203,7 @@ export default function ChatScreen() {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
@@ -207,6 +214,7 @@ export default function ChatScreen() {
           user={{
             _id: memberId,
             name: memberNickname,
+            avatar: memberAvatar,
           }}
           renderSend={renderSend}
           renderLoading={renderLoading}
