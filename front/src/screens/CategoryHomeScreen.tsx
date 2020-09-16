@@ -26,8 +26,8 @@ import { Feather } from "@expo/vector-icons";
 import { categoryIcons } from "../data/categoryData";
 import theme from "../colors";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
-import GroupList from "../components/group/GroupList";
-import { selectedGroupInFeedsState } from "../states/groupState";
+import GroupList from "../components/organization/OrganizationList";
+import { selectedOrganizationInFeedsState } from "../states/organizationState";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -48,7 +48,7 @@ export default function CategoryHomeScreen() {
   const resetCategory = useResetRecoilState(articleSelectedCategoryState);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
-  const selectedGroup = useRecoilValue(selectedGroupInFeedsState);
+  const selectedGroup = useRecoilValue(selectedOrganizationInFeedsState);
 
   useEffect(() => {
     const applyChange = async () => {

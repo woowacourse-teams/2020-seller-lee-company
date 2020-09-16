@@ -22,8 +22,8 @@ import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
-import GroupList from "../components/group/GroupList";
-import { selectedGroupInFeedsState } from "../states/groupState";
+import GroupList from "../components/organization/OrganizationList";
+import { selectedOrganizationInFeedsState } from "../states/organizationState";
 import { Feather } from "@expo/vector-icons";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
@@ -42,7 +42,7 @@ export default function FeedHomeScreen() {
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
-  const selectedGroup = useRecoilValue(selectedGroupInFeedsState);
+  const selectedGroup = useRecoilValue(selectedOrganizationInFeedsState);
 
   useLayoutEffect(() => {
     navigation.setOptions({

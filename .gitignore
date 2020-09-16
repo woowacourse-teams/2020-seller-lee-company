@@ -30,14 +30,19 @@ back/api/build/
 back/!gradle/wrapper/gradle-wrapper.jar
 back/api/!**/src/main/**
 back/api/!**/src/test/**
+back/api/src/main/resources/application-*.yml
+back/api/src/test/resources/application-*.yml
+back/api/src/main/generated
 
 # common
 back/common/out/
 back/common/build/
+back/common/src/main/generated
 
 # chat
 back/chat/out/
 back/chat/build/
+back/chat/src/main/resources/application-*.yml
 
 ### STS ###
 back/.apt_generated
@@ -65,10 +70,3 @@ back/out/
 ### VS Code ###
 .vscode/
 .idea/
-/back/api/src/main/resources/application-*.yml
-/back/api/src/test/resources/application-*.yml
-/back/api/src/main/generated
-
-/back/common/src/main/generated
-
-/back/chat/src/main/resources/application-*.yml

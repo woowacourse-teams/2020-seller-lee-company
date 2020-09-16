@@ -1,9 +1,9 @@
-import { Group } from "../types/types";
+import { Organization } from "../types/types";
 
 export const defaultArticle = {
   id: 0,
   title: "",
-  group: [] as Group[],
+  group: [] as Organization[],
   categoryName: "",
   contents: "",
   price: 0,

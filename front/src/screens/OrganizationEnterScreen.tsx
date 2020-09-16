@@ -10,30 +10,27 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useResetRecoilState } from "recoil";
-import {
-  groupCreationNameState,
-  groupNameExistState,
-} from "../states/groupState";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
-import { Feather } from "@expo/vector-icons";
 import { RootStackParam } from "../types/types";
-import GroupCreationName from "../components/group/GroupCreationName";
-import GroupCreateSubmitButton from "../components/group/GroupCreateSubmitButton";
+import { Feather } from "@expo/vector-icons";
+import OrganizationEntranceCode from "../components/organization/OrganizationEntranceCode";
+import OrganizationEnterSubmitButton from "../components/organization/OrganizationEnterSubmitButton";
+import { useResetRecoilState } from "recoil";
+import { organizationEntranceCodeState } from "../states/organizationState";
 
-type GroupCreateScreenNavigationProp = StackNavigationProp<
+type OrganizationEnterScreenNavigationProp = StackNavigationProp<
   RootStackParam,
-  "GroupCreateScreen"
+  "OrganizationEnterScreen"
 >;
 
-export default function GroupCreateScreen() {
-  const navigation = useNavigation<GroupCreateScreenNavigationProp>();
-  const resetGroupCreationName = useResetRecoilState(groupCreationNameState);
-  const resetGroupNameExist = useResetRecoilState(groupNameExistState);
+export default function OrganizationEnterScreen() {
+  const navigation = useNavigation<OrganizationEnterScreenNavigationProp>();
+  const resetOrganizationEntranceCode = useResetRecoilState(
+    organizationEntranceCodeState,
+  );
 
   const onBack = () => {
-    resetGroupCreationName();
-    resetGroupNameExist();
+    resetOrganizationEntranceCode();
     navigation.goBack();
   };
 
@@ -62,19 +59,19 @@ export default function GroupCreateScreen() {
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
         <View style={styles.contentContainer}>
-          <View style={styles.titleAndNameContainer}>
+          <View style={styles.titleAndCodeContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>조직 생성</Text>
+              <Text style={styles.title}>조직 입장</Text>
               <Text style={styles.description}>
-                생성할 조직의 이름을 입력해주세요.
+                입장할 조직의 코드를 입력해주세요.
               </Text>
             </View>
-            <View style={styles.groupCreationNameContainer}>
-              <GroupCreationName />
+            <View style={styles.groupEntranceCodeContainer}>
+              <OrganizationEntranceCode />
             </View>
           </View>
-          <View style={styles.groupCreateSubmitButton}>
-            <GroupCreateSubmitButton />
+          <View style={styles.groupEnterSubmitButton}>
+            <OrganizationEnterSubmitButton />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -92,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
   },
-  titleAndNameContainer: {
+  titleAndCodeContainer: {
     justifyContent: "center",
     marginHorizontal: 30,
     marginTop: 120,
@@ -108,10 +105,10 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
   },
-  groupCreationNameContainer: {
+  groupEntranceCodeContainer: {
     marginTop: 40,
   },
-  groupCreateSubmitButton: {
+  groupEnterSubmitButton: {
     justifyContent: "center",
     marginHorizontal: 30,
     marginBottom: 40,

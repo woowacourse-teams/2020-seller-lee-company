@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  groupCreationNameState,
-  groupNameExistState,
-} from "../../states/groupState";
-import theme from "../../colors";
 import { Feather } from "@expo/vector-icons";
+import { useRecoilState } from "recoil";
+import { organizationEntranceCodeState } from "../../states/organizationState";
+import theme from "../../colors";
 
-export default function GroupCreationName() {
-  const [groupCreationName, setGroupCreationName] = useRecoilState(
-    groupCreationNameState,
-  );
-  const isGroupNameExist = useRecoilValue(groupNameExistState);
+export default function OrganizationEntranceCode() {
+  const [
+    organizationEntranceCode,
+    setOrganizationEntranceCode,
+  ] = useRecoilState(organizationEntranceCodeState);
 
   const [isFocused, setIsFocused] = useState(false);
 
-  const getCreationNameColor = () => {
-    if (!isFocused && !isGroupNameExist) {
+  const getEntranceCodeColor = () => {
+    if (!isFocused) {
       return "lightgrey";
     }
-    if (isGroupNameExist) {
+    if (organizationEntranceCode.length < 6) {
       return theme.warning;
     }
     return theme.secondary;
@@ -32,12 +29,12 @@ export default function GroupCreationName() {
       paddingVertical: 10,
       borderWidth: 2,
       borderRadius: 100,
-      borderColor: getCreationNameColor(),
+      borderColor: getEntranceCodeColor(),
     },
     title: {
       marginLeft: 15,
       marginVertical: 5,
-      color: getCreationNameColor(),
+      color: getEntranceCodeColor(),
       fontSize: 14,
       fontWeight: "bold",
     },
@@ -52,30 +49,30 @@ export default function GroupCreationName() {
 
   return (
     <View style={styles.container}>
-      <Text style={dynamicStyles.title}>조직 이름</Text>
+      <Text style={dynamicStyles.title}>입장 코드</Text>
       <View style={dynamicStyles.entranceCodeContainer}>
         <View style={styles.iconContainer}>
           <Feather
-            name="users"
+            name="hash"
             size={16}
-            color={getCreationNameColor()}
-            style={styles.usersIcon}
+            color={getEntranceCodeColor()}
+            style={styles.hashIcon}
           />
         </View>
         <TextInput
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           style={styles.textInput}
-          placeholder={"15자리 이내의 이름을 입력해주세요"}
-          keyboardType={"default"}
-          onChangeText={(text) => setGroupCreationName(text)}
-          maxLength={15}
-          value={groupCreationName}
+          placeholder={"6자리의 입장코드를 입력해주세요"}
+          keyboardType={"number-pad"}
+          onChangeText={(text) => setOrganizationEntranceCode(text)}
+          maxLength={6}
+          value={organizationEntranceCode}
         />
       </View>
-      {isGroupNameExist ? (
+      {isFocused && organizationEntranceCode.length < 6 ? (
         <Text style={dynamicStyles.warningMessage}>
-          이미 존재하는 그룹 명입니다.
+          6자리의 입장 코드를 입력해주세요.
         </Text>
       ) : (
         <></>
@@ -93,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  usersIcon: {
+  hashIcon: {
     marginLeft: 10,
   },
   textInput: {

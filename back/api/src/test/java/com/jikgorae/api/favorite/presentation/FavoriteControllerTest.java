@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -17,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
@@ -39,7 +39,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.get(FavoriteController.FAVORITE_API_URI)
+                        get(FavoriteController.FAVORITE_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(document("articles/favorites",
@@ -71,7 +71,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.post(FavoriteController.FAVORITE_API_URI)
+                        post(FavoriteController.FAVORITE_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
@@ -87,7 +87,7 @@ class FavoriteControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        MockMvcRequestBuilders.delete(FavoriteController.FAVORITE_API_URI)
+                        delete(FavoriteController.FAVORITE_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))

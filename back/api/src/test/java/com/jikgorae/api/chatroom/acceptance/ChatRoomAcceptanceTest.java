@@ -3,8 +3,8 @@ package com.jikgorae.api.chatroom.acceptance;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import java.util.stream.Stream;
 
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
@@ -53,25 +51,12 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
         String request = objectMapper.writeValueAsString(new ChatRoomCreateRequest(articleId, 1L));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post(ChatRoomController.CHAT_ROOM_API_URI)
+                post(ChatRoomController.CHAT_ROOM_API_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andDo(print())
                 .andExpect(status().isCreated());
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        //         .body(request)
-        // .when()
-        //         .post(API_URI+CHAT_ROOM_URI)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.CREATED.value());
-        // @formatter:on
     }
 }

@@ -7,15 +7,15 @@ import {
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { HomeStackParam, RootStackParam } from "../types/types";
-import GroupList from "../components/group/GroupList";
+import OrganizationList from "../components/organization/OrganizationList";
 
-type GroupChoiceScreenNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParam, "GroupChoiceScreen">,
+type OrganizationChoiceScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "OrganizationChoiceScreen">,
   StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
-export default function GroupChoiceScreen() {
-  const navigation = useNavigation<GroupChoiceScreenNavigationProp>();
+export default function OrganizationChoiceScreen() {
+  const navigation = useNavigation<OrganizationChoiceScreenNavigationProp>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,7 +40,7 @@ export default function GroupChoiceScreen() {
 
   return (
     <View style={styles.container}>
-      <GroupList isGroupFiltering={false} />
+      <OrganizationList isGroupFiltering={false} />
     </View>
   );
 }

@@ -1,9 +1,8 @@
-package com.jikgorae.api.chatroom.presentation;
+package com.jikgorae.api.organization.presentation;
 
-import static com.jikgorae.api.fixture.ArticleFixture.*;
-import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.GroupFixture.*;
+import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -20,49 +19,47 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.jikgorae.api.ControllerTest;
-import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
-import com.jikgorae.api.chatroom.application.ChatRoomService;
-import com.jikgorae.api.chatroom.query.ChatRoomDao;
+import com.jikgorae.api.organization.application.OrganizationService;
+import com.jikgorae.api.organization.domain.OrganizationRepository;
 
-@WebMvcTest(controllers = ChatRoomController.class)
-class ChatRoomControllerTest extends ControllerTest {
+@WebMvcTest(controllers = OrganizationController.class)
+class OrganizationControllerTest extends ControllerTest {
     @MockBean
-    private ChatRoomDao chatRoomDao;
+    private OrganizationService organizationService;
 
     @MockBean
-    private ChatRoomService chatRoomService;
+    private OrganizationRepository organizationRepository;
 
-    @DisplayName("ChatRoom에 POST 요청시 Status Code는 Created이다.")
+    @DisplayName("조직 생성 시 HTTP STATUS는 CREATE이고 랜덤한 6자리 입장 코드를 반환")
     @Test
-    void createChatRoom() throws Exception {
-        ChatRoomCreateRequest createRequest = new ChatRoomCreateRequest(ARTICLE1.getId(),
-                MEMBER1.getId());
-        when(chatRoomService.createChatRoom(any(), any()))
-                .thenReturn(1L);
+    void create() throws Exception {
+        String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
 
-        String request = objectMapper.writeValueAsString(createRequest);
+        when(organizationService.create(any())).thenReturn(ORGANIZATION1);
 
         // @formatter:off
         mockMvc
                 .perform(
-                        post(ChatRoomController.CHAT_ROOM_API_URI)
+                        post(ORGANIZATION_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
-                                .contentType(MediaType.APPLICATION_JSON))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(
-                        document("chat-rooms/post",
+                        document("organizations/create",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 requestHeaders(
                                         headerWithName("Authorization").description("회원의 토큰")
                                 ),
                                 requestFields(
-                                        fieldWithPath("articleId").type(JsonFieldType.NUMBER).description("게시글의 ID"),
-                                        fieldWithPath("sellerId").type(JsonFieldType.NUMBER).description("판매자의 ID")
+                                        fieldWithPath("name").description("조직의 이름")
                                 ),
-                                responseHeaders(
-                                        headerWithName("Location").description("생성된 채팅방의 ID가 담긴 URI")
+                                responseFields(
+                                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("조직의 id"),
+                                        fieldWithPath("name").type(JsonFieldType.STRING).description("조직의 이름"),
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("조직의 입장 코드")
                                 )));
         // @formatter:on
     }

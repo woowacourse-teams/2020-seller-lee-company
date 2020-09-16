@@ -6,23 +6,23 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
 import { useNavigation } from "@react-navigation/native";
 
-type GroupEnterButtonNavigationProp = StackNavigationProp<
+type OrganizationCreateButtonNavigationProp = StackNavigationProp<
   RootStackParam,
-  "GroupHomeScreen"
+  "OrganizationHomeScreen"
 >;
 
-export default function GroupEnterButton() {
-  const navigation = useNavigation<GroupEnterButtonNavigationProp>();
+export default function OrganizationCreateButton() {
+  const navigation = useNavigation<OrganizationCreateButtonNavigationProp>();
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => navigation.navigate("GroupEnterScreen")}
+        onPress={() => navigation.navigate("OrganizationCreateScreen")}
       >
-        <Feather name="log-in" size={32} color={theme.primary} />
+        <Feather name="plus" size={32} color={theme.primary} />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>조직 입장</Text>
+          <Text style={styles.title}>조직 생성</Text>
         </View>
       </TouchableOpacity>
     </View>

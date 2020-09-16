@@ -12,16 +12,16 @@ import { RootStackParam } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue } from "recoil";
 import { memberNicknameState } from "../states/memberState";
-import GroupEnterButton from "../components/group/GroupEnterButton";
-import GroupCreateButton from "../components/group/GroupCreateButton";
+import OrganizationEnterButton from "../components/organization/OrganizationEnterButton";
+import OrganizationCreateButton from "../components/organization/OrganizationCreateButton";
 
-type GroupHomeScreenNavigationProp = StackNavigationProp<
+type OrganizationHomeScreenNavigationProp = StackNavigationProp<
   RootStackParam,
-  "GroupHomeScreen"
+  "OrganizationHomeScreen"
 >;
 
-export default function GroupHomeScreen() {
-  const navigation = useNavigation<GroupHomeScreenNavigationProp>();
+export default function OrganizationHomeScreen() {
+  const navigation = useNavigation<OrganizationHomeScreenNavigationProp>();
   const memberNickname = useRecoilValue(memberNicknameState);
 
   useLayoutEffect(() => {
@@ -40,10 +40,10 @@ export default function GroupHomeScreen() {
       </View>
       <View style={styles.buttonsContainer}>
         <View style={styles.groupEnterButtonContainer}>
-          <GroupEnterButton />
+          <OrganizationEnterButton />
         </View>
         <View style={styles.groupCreateButtonContainer}>
-          <GroupCreateButton />
+          <OrganizationCreateButton />
         </View>
       </View>
     </SafeAreaView>

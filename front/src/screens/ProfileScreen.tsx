@@ -73,7 +73,7 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.myFavoriteButtonContainer}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("GroupHomeScreen")}
+              onPress={() => navigation.navigate("OrganizationHomeScreen")}
               style={{
                 backgroundColor: "yellow",
                 aspectRatio: 2,
