@@ -1,5 +1,7 @@
 package com.jikgorae.api.security.config;
 
+import static com.jikgorae.api.member.presentation.ProfileController.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,24 +20,29 @@ import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.filter.JwtAuthenticationFilter;
+import com.jikgorae.api.security.handler.OAuth2FailureHandler;
+import com.jikgorae.api.security.handler.OAuth2SuccessHandler;
 import com.jikgorae.api.security.oauth2.provider.CustomOAuth2Provider;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
+import com.jikgorae.api.security.oauth2.service.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final OAuth2SuccessHandler OAuth2SuccessHandler;
-    private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final OAuth2FailureHandler oAuth2FailureHandler;
 
-    public SecurityConfig(
-            com.jikgorae.api.security.config.OAuth2SuccessHandler OAuth2SuccessHandler,
-            MemberRepository memberRepository, JwtTokenProvider jwtTokenProvider) {
-        this.OAuth2SuccessHandler = OAuth2SuccessHandler;
-        this.memberRepository = memberRepository;
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider,
+            CustomOAuth2UserService customOAuth2UserService,
+            OAuth2SuccessHandler oAuth2SuccessHandler,
+            OAuth2FailureHandler oAuth2FailureHandler) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2SuccessHandler = oAuth2SuccessHandler;
+        this.oAuth2FailureHandler = oAuth2FailureHandler;
     }
 
     @Override
@@ -49,11 +56,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/oauth2/**").permitAll()
+                    .antMatchers("/", "/oauth2/**",JOIN).permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .oauth2Login().loginPage("/oauth2/authorization/kakao")
-                    .successHandler(OAuth2SuccessHandler)
+                    .userInfoEndpoint()
+                        .userService(customOAuth2UserService)
+                .and()
+                    .successHandler(oAuth2SuccessHandler)
+                    .failureHandler(oAuth2FailureHandler)
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         OAuth2LoginAuthenticationFilter.class);

@@ -4,19 +4,18 @@ import { StyleSheet, View } from "react-native";
 import { KAKAO_LOGIN_API_URI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { DeviceStorage } from "../../auth/DeviceStorage";
-import { LoginTrialState } from "../../states/AuthState";
-import { memberState } from "../../states/memberState";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
+import { memberNicknameState } from "../../states/memberState";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
 }
 
 interface response {
+  nickname: string;
   accessToken: string;
-  state: string;
 }
 
 type KakaoLoginWebViewNavigationProp = StackNavigationProp<
@@ -29,8 +28,7 @@ export default function KakaoLoginWebView({
 }: KakakoLoginWebViewProp) {
   const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
-  const setLoginTrialState = useSetRecoilState(LoginTrialState);
-  const setMemberState = useSetRecoilState(memberState);
+  const setMemberNicknameState = useSetRecoilState(memberNicknameState);
 
   const INJECTED_JAVASCRIPT = ` (function() {
       document.getElementsByTagName('pre')[0].style.display="none";
@@ -39,16 +37,17 @@ export default function KakaoLoginWebView({
       true;`;
 
   const loginAccess = async (data: string) => {
-    const { accessToken, state }: response = JSON.parse(data);
-    setMemberState(state);
+    const { nickname, accessToken }: response = JSON.parse(data);
+    console.log("WebView nickname: " + nickname);
+    setMemberNicknameState(nickname);
 
     if (accessToken) {
       toggleModal();
-      setLoginTrialState(true);
       await DeviceStorage.storeToken(accessToken);
-      if (state === "NOT_JOIN") {
-        navigation.navigate("JoinScreen");
+      if (nickname) {
+        return navigation.navigate("JoinScreen");
       }
+      navigation.navigate("HomeStack");
     } else {
       console.log("not aceess token");
     }

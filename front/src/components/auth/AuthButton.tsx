@@ -6,7 +6,7 @@ import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
-import { memberNicknameState, memberState } from "../../states/memberState";
+import { memberNicknameState } from "../../states/memberState";
 import { loadingState } from "../../states/loadingState";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
@@ -24,22 +24,20 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   const navigation = useNavigation<AuthButtonNavigationProp>();
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
-  const setMemberState = useSetRecoilState(memberState);
 
   const onPressButton = async () => {
     setIsLoading(true);
     const token = await DeviceStorage.getToken();
+    console.log(token);
 
     if (token) {
       try {
-        const { data } = await profileAPI.get();
-        if (data.state === "NOT_JOIN") {
-          setMemberState(data.state);
-          return navigation.navigate("JoinScreen");
-        }
-        setMemberNickname(data.nickname);
-        navigation.navigate("HomeStack");
+        console.log("1");
+        const { data } = await profileAPI.join();
+        console.log("await: " + data);
+        isJoinMember(data.nickname);
       } catch (error) {
+        console.log("2");
         toggleModal();
         console.log(error.response.data.message);
       }
@@ -47,6 +45,16 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
       toggleModal();
     }
     setIsLoading(false);
+  };
+
+  const isJoinMember = (nickname: string) => {
+    console.log("nickname: " + nickname);
+    if (nickname == null) {
+      setMemberNickname(nickname);
+      return navigation.navigate("JoinScreen");
+    }
+    setMemberNickname(nickname);
+    navigation.navigate("HomeStack");
   };
 
   return (
