@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSetRecoilState } from "recoil/dist";
 import {
   CompositeNavigationProp,
   useNavigation,
-  useIsFocused,
 } from "@react-navigation/native";
 import theme from "../../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeStackParam, RootStackParam } from "../../types/types";
 import { chatRoomState } from "../../states/chatRoomState";
 import ArticleCardImage from "../Common/ArticleCommon/ArticleCardImage";
-import { messageAPI } from "../../api/api";
 import calculateDiffTime from "../../calculateDiffTime";
 
 type ChatRoomItemNavigationProp = CompositeNavigationProp<
@@ -35,28 +33,18 @@ interface ChatRoomItemProps {
       avatar: string;
     };
   };
+  lastMessage: {
+    createdTime: string;
+    content: string;
+  };
 }
 
-export default function ChatRoomItem({ chatRoom }: ChatRoomItemProps) {
+export default function ChatRoomItem({
+  chatRoom,
+  lastMessage,
+}: ChatRoomItemProps) {
   const navigation = useNavigation<ChatRoomItemNavigationProp>();
   const setChatRoom = useSetRecoilState(chatRoomState);
-  const [lastMessage, setLastMessage] = useState({
-    content: "",
-    createdTime: "",
-  });
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    const getNewMessage = async () => await messageAPI.showNew(chatRoom.id);
-    if (isFocused) {
-      getNewMessage().then((response) => {
-        setLastMessage({
-          content: response.data.content,
-          createdTime: response.data.createdTime,
-        });
-      });
-    }
-  }, [isFocused]);
 
   const onClickChatRoom = () => {
     setChatRoom(chatRoom);
