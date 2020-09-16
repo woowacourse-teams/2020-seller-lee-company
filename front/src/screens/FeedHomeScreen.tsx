@@ -17,12 +17,13 @@ import {
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI } from "../api/api";
-import { useRecoilState } from "recoil/dist";
+import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import GroupList from "../components/group/GroupList";
+import { selectedGroupInFeedsState } from "../states/groupState";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -40,6 +41,7 @@ export default function FeedHomeScreen() {
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+  const selectedGroup = useRecoilValue(selectedGroupInFeedsState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -105,7 +107,7 @@ export default function FeedHomeScreen() {
       <View style={styles.titleContainer}>
         <Menu>
           <MenuTrigger>
-            <Text style={styles.title}>Feeds</Text>
+            <Text style={styles.title}>{selectedGroup.name}</Text>
           </MenuTrigger>
           <MenuOptions
             optionsContainerStyle={styles.menuOptionsContainer}

@@ -13,6 +13,7 @@ interface GroupListProps {
   isGroupFiltering: boolean;
 }
 // 게시글 생성 수정시 그룹 선택 창을 스크린에서 다른 걸로 바꾼다면 재사용될 가능성 있어서 우선 같이 둠
+// 코드 리팩토링 예정 ㅠㅠ
 export default function GroupList({ isGroupFiltering }: GroupListProps) {
   const myGroupList = useRecoilValue(groupListState);
   const setSelectedGroup = useSetRecoilState(selectedGroupInFeedsState);
@@ -29,7 +30,15 @@ export default function GroupList({ isGroupFiltering }: GroupListProps) {
   }
 
   return isGroupFiltering ? (
-    <View>{myGroupList.map((item) => getMenuOption(item))}</View>
+    <View>
+      <MenuOption
+        onSelect={() => {
+          setSelectedGroup({ id: 0, name: "전체" });
+        }}
+        text="전체"
+      />
+      {myGroupList.map((item) => getMenuOption(item))}
+    </View>
   ) : (
     <FlatList
       data={myGroupList}
