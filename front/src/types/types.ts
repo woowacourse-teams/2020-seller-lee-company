@@ -25,7 +25,7 @@ export interface Feed {
 export interface Article {
   id: number;
   title: string;
-  group: Group[];
+  group: Organization[];
   categoryName: string;
   price: number;
   contents: string;
@@ -79,9 +79,10 @@ export interface ModalVisibleProps {
   modalVisible: boolean;
 }
 
-export interface Group {
+export interface Organization {
   id: number;
   name: string;
+  code: string;
 }
 
 // **********************************************************************

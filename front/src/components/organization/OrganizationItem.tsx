@@ -3,15 +3,15 @@ import { StyleSheet, Text, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { selectedGroupsInArticleFormState } from "../../states/articleState";
 import theme from "../../colors";
-import { Group } from "../../types/types";
+import { Organization } from "../../types/types";
 import {
-  groupListState,
-  selectedGroupInFeedsState,
-} from "../../states/groupState";
+  organizationListState,
+  selectedOrganizationInFeedsState,
+} from "../../states/organizationState";
 
 interface GroupItemProps {
   isGroupFiltering: boolean;
-  group: Group;
+  group: Organization;
 }
 
 export default function OrganizationItem({
@@ -23,13 +23,13 @@ export default function OrganizationItem({
     setSelectedGroupsInArticleForm,
   ] = useRecoilState(selectedGroupsInArticleFormState);
   const [selectedGroupInFeeds, setSelectedGroupInFeeds] = useRecoilState(
-    selectedGroupInFeedsState,
+    selectedOrganizationInFeedsState,
   );
-  const myGroups = useRecoilValue(groupListState);
+  const myGroups = useRecoilValue(organizationListState);
 
   const exist = () => {
     return selectedGroupsInArticleForm.some(
-      (item: Group) => item.name === group.name,
+      (item: Organization) => item.name === group.name,
     );
   };
 

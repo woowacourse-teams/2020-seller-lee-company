@@ -2,14 +2,14 @@ import React from "react";
 import { FlatList } from "react-native";
 import OrganizationItem from "./OrganizationItem";
 import { useRecoilValue } from "recoil/dist";
-import { groupListState } from "../../states/groupState";
+import { organizationListState } from "../../states/organizationState";
 
 interface GroupListProps {
   isGroupFiltering: boolean;
 }
 
 export default function OrganizationList({ isGroupFiltering }: GroupListProps) {
-  const myGroupList = useRecoilValue(groupListState);
+  const myGroupList = useRecoilValue(organizationListState);
 
   return (
     <FlatList
