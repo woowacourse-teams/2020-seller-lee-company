@@ -21,6 +21,7 @@ const domain = {
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
+  organizations: "/organizations",
 };
 
 interface ArticlesPost {
@@ -295,5 +296,24 @@ export const chatRoomAPI = {
         Authorization: `bearer ${token}`,
       },
     });
+  },
+};
+
+interface CreateOrganization {
+  name: string;
+}
+
+export const organizationAPI = {
+  create: async (data: CreateOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.organizations}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
   },
 };
