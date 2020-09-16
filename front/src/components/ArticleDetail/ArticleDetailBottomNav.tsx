@@ -18,7 +18,9 @@ export default function ArticleDetailBottomNav() {
     StackNavigationProp<HomeStackParam, "ArticleDetailScreen">
   >();
 
-  const { id, author, price } = useRecoilValue(articleSelectedState);
+  const { id, title, tradeState, author, price, photos } = useRecoilValue(
+    articleSelectedState,
+  );
   const memberNickname = useRecoilValue(memberNicknameState);
   const setChatRoom = useSetRecoilState(chatRoomState);
 
@@ -32,8 +34,14 @@ export default function ArticleDetailBottomNav() {
     const locations = location.split("/");
     const roomId = locations[locations.length - 1];
     setChatRoom({
-      roomId,
-      me: { nickname: memberNickname },
+      id: roomId,
+      articleInfo: {
+        id,
+        price: price,
+        thumbnail: photos[0],
+        title: title,
+        tradeState: tradeState,
+      },
       opponent: {
         avatar: author.avatar,
         id: author.id,

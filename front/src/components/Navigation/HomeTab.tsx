@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeTabParam } from "../../types/types";
-import WholeChatScreen from "../../screens/WholeChatScreen";
+
 import CategoryHomeSelectedScreen from "../../screens/CategoryHomeSelectedScreen";
 import FeedHomeScreen from "../../screens/FeedHomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
@@ -9,6 +9,8 @@ import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import PostingStack from "./PostingStack";
 import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
+
+import SelectChatScreen from "../../screens/SelectChatScreen";
 
 const Tab = createBottomTabNavigator<HomeTabParam>();
 
@@ -50,8 +52,8 @@ export default function HomeTab() {
         }}
       />
       <Tab.Screen
-        name={"ChatScreen"}
-        component={WholeChatScreen}
+        name={"SelectChatScreen"}
+        component={SelectChatScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="message-circle" size={24} color={color} />

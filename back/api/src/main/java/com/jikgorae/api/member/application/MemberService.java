@@ -21,7 +21,7 @@ public class MemberService {
 
     @Transactional
     public void update(Member loginMember, ProfileRequest request) throws JsonProcessingException {
-        if (findNickname(request.getNickname())) {
+        if (!loginMember.isSameNickname(request.getNickname()) && findNickname(request.getNickname())) {
             throwUpdateException(loginMember);
         }
         loginMember.update(request.getNickname(), request.getAvatar());

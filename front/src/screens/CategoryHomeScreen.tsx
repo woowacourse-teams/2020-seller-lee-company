@@ -25,6 +25,9 @@ import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { categoryIcons } from "../data/categoryData";
 import theme from "../colors";
+import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
+import GroupList from "../components/group/GroupList";
+import { selectedGroupInFeedsState } from "../states/groupState";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -45,6 +48,7 @@ export default function CategoryHomeScreen() {
   const resetCategory = useResetRecoilState(articleSelectedCategoryState);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+  const selectedGroup = useRecoilValue(selectedGroupInFeedsState);
 
   useEffect(() => {
     const applyChange = async () => {
@@ -61,7 +65,24 @@ export default function CategoryHomeScreen() {
     navigation.setOptions({
       title: `${getCategoryIcon().icon} ${category}`,
       headerTitleAlign: "left",
-      headerRight: () => <></>,
+      headerRight: () => (
+        <Menu>
+          <MenuTrigger>
+            <Feather
+              name="filter"
+              size={22}
+              color={"Darkgrey"}
+              style={styles.filterIcon}
+            />
+          </MenuTrigger>
+          <MenuOptions
+            optionsContainerStyle={styles.menuOptionsContainer}
+            customStyles={{ optionText: styles.menuCustomText }}
+          >
+            <GroupList isGroupFiltering={true} />
+          </MenuOptions>
+        </Menu>
+      ),
       headerLeft: () => {
         resetCategory();
         return (
@@ -174,5 +195,15 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomColor: theme.border,
     borderBottomWidth: 1,
+  },
+  filterIcon: {
+    marginRight: 15,
+  },
+  menuOptionsContainer: {
+    width: 150,
+  },
+  menuCustomText: {
+    textAlign: "center",
+    margin: 10,
   },
 });

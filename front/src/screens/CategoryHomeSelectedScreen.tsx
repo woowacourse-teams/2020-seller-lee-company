@@ -52,4 +52,8 @@ const styles = StyleSheet.create({
   homeCategoryListContainer: {
     flex: 12,
   },
+  feedArticleCardContainer: {
+    backgroundColor: "transparent",
+    marginBottom: 15,
+  },
 });

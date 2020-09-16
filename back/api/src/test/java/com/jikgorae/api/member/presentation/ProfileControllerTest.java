@@ -3,7 +3,6 @@ package com.jikgorae.api.member.presentation;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.member.presentation.ProfileController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
-import static com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -42,6 +41,7 @@ class ProfileControllerTest extends ControllerTest {
                                         headerWithName("Authorization").description("회원의 토큰")
                                 ),
                                 responseFields(
+                                        fieldWithPath("id").description("회원의 아이디"),
                                         fieldWithPath("nickname").description("회원의 닉네임"),
                                         fieldWithPath("avatar").description("회원의 아바타"),
                                         fieldWithPath("state").description("회원가입 여부"),

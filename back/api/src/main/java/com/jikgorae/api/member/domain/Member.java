@@ -1,5 +1,7 @@
 package com.jikgorae.api.member.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,6 +27,8 @@ public class Member {
 
     private String kakaoRefreshToken;
 
+    private String role;
+
     @Enumerated(EnumType.STRING)
     private State state;
 
@@ -34,28 +38,38 @@ public class Member {
     }
 
     public Member(Long id, String kakaoId, String nickname, String avatar,
-            String kakaoAccessToken, String kakaoRefreshToken, State state, Double score) {
+            String kakaoAccessToken, String kakaoRefreshToken, String role, State state,
+            Double score) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.avatar = avatar;
         this.kakaoAccessToken = kakaoAccessToken;
         this.kakaoRefreshToken = kakaoRefreshToken;
+        this.role = role;
         this.state = state;
         this.score = score;
     }
 
     public Member(String kakaoId, String nickname, String avatar, String kakaoAccessToken,
-            String kakaoRefreshToken, State state, Double score) {
-        this(null, kakaoId, nickname, avatar, kakaoAccessToken, kakaoRefreshToken, state, score);
+            String kakaoRefreshToken, String role, State state, Double score) {
+        this(null, kakaoId, nickname, avatar, kakaoAccessToken, kakaoRefreshToken, role, state,
+                score);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null, null, null);
     }
 
     public boolean isSameId(Member member) {
         return id.equals(member.id);
+    }
+
+    public boolean isSameNickname(String nickname) {
+        if (Objects.isNull(this.nickname)) {
+            return false;
+        }
+        return this.nickname.equals(nickname);
     }
 
     public Member login(String nickname, String avatar, String kakaoAccessToken,
@@ -105,6 +119,10 @@ public class Member {
 
     public String getKakaoRefreshToken() {
         return kakaoRefreshToken;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public State getState() {

@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
-import com.jikgorae.api.security.oauth2.token.JwtTokenProvider;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 @Component

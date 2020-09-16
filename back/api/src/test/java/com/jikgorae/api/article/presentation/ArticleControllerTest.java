@@ -33,7 +33,6 @@ import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.query.ArticleDao;
-import com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest;
 
 @WebMvcTest(controllers = ArticleController.class)
 class ArticleControllerTest extends ControllerTest {
@@ -57,7 +56,7 @@ class ArticleControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         post(ArticleController.ARTICLE_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
@@ -94,7 +93,7 @@ class ArticleControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         get(ArticleController.ARTICLE_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
                 .andExpect(status().isOk())
@@ -132,7 +131,7 @@ class ArticleControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         get(ArticleController.ARTICLE_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE))
                                 .param("category", Category.ETC.getCategoryName()))
@@ -173,7 +172,7 @@ class ArticleControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         get(ArticleController.ARTICLE_API_URI + "/{id}", ARTICLE1.getId())
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER))
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
                         document("articles/get",
@@ -212,7 +211,7 @@ class ArticleControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         delete(ArticleController.ARTICLE_API_URI + "/" + ARTICLE1.getId())
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER))
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
     }

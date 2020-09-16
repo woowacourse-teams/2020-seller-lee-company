@@ -33,6 +33,7 @@ back/api/!**/src/test/**
 back/api/src/main/resources/application-*.yml
 back/api/src/test/resources/application-*.yml
 back/api/src/main/generated
+
 # common
 back/common/out/
 back/common/build/
