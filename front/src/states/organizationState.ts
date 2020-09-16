@@ -14,3 +14,12 @@ export const organizationNameExistState = atom({
   key: "organizationNameExistState",
   default: false,
 });
+
+export const organizationState = atom({
+  key: "organizationState",
+  default: {
+    id: 0,
+    name: "",
+    code: "",
+  },
+});

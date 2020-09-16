@@ -18,8 +18,8 @@ import {
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { RootStackParam } from "../types/types";
-import OrganizationCreationName from "../components/group/OrganizationCreationName";
-import OrganizationCreateSubmitButton from "../components/group/OrganizationCreateSubmitButton";
+import OrganizationCreationName from "../components/organization/OrganizationCreationName";
+import OrganizationCreateSubmitButton from "../components/organization/OrganizationCreateSubmitButton";
 
 type OrganizationCreateScreenNavigationProp = StackNavigationProp<
   RootStackParam,

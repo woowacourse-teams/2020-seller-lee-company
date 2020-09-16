@@ -12,12 +12,9 @@ import {
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
-import OrganizationEnterSubmitButton from "../components/group/OrganizationEnterSubmitButton";
+import OrganizationEnterSubmitButton from "../components/organization/OrganizationEnterSubmitButton";
 import { useRecoilValue } from "recoil";
-import {
-  organizationCreationNameState,
-  organizationEntranceCodeState,
-} from "../states/organizationState";
+import { organizationState } from "../states/organizationState";
 import theme from "../colors";
 
 type OrganizationCreateCompleteScreenNavigationProp = StackNavigationProp<
@@ -30,12 +27,7 @@ export default function OrganizationCreateCompleteScreen() {
     OrganizationCreateCompleteScreenNavigationProp
   >();
 
-  const organizationCreationName = useRecoilValue(
-    organizationCreationNameState,
-  );
-  const organizationEntranceCode = useRecoilValue(
-    organizationEntranceCodeState,
-  );
+  const organizationValue = useRecoilValue(organizationState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -45,9 +37,9 @@ export default function OrganizationCreateCompleteScreen() {
 
   const putBlankOnCenterEntranceCode = () => {
     return (
-      organizationEntranceCode.slice(0, 3) +
+      organizationValue.code.slice(0, 3) +
       " " +
-      organizationEntranceCode.slice(3, organizationEntranceCode.length)
+      organizationValue.code.slice(3, organizationValue.code.length)
     );
   };
 
@@ -65,7 +57,7 @@ export default function OrganizationCreateCompleteScreen() {
             <View style={styles.groupDetailContainer}>
               <Text style={styles.groupDetail}>생성된 조직의 이름은</Text>
               <Text style={styles.groupDetailEdge}>
-                {organizationCreationName}
+                {organizationValue.name}
               </Text>
               <Text style={styles.groupDetail}>입장 코드는</Text>
               <Text style={styles.groupDetailEdge}>

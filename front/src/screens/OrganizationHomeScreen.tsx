@@ -12,8 +12,8 @@ import { RootStackParam } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue } from "recoil";
 import { memberNicknameState } from "../states/memberState";
-import OrganizationEnterButton from "../components/group/OrganizationEnterButton";
-import OrganizationCreateButton from "../components/group/OrganizationCreateButton";
+import OrganizationEnterButton from "../components/organization/OrganizationEnterButton";
+import OrganizationCreateButton from "../components/organization/OrganizationCreateButton";
 
 type OrganizationHomeScreenNavigationProp = StackNavigationProp<
   RootStackParam,

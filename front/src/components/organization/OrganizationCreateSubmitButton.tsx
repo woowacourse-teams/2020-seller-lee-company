@@ -1,15 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   organizationCreationNameState,
-  organizationEntranceCodeState,
   organizationNameExistState,
+  organizationState,
 } from "../../states/organizationState";
 import theme from "../../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
 import { useNavigation } from "@react-navigation/native";
+import { organizationAPI } from "../../api/api";
 
 type OrganizationCreateSubmitButtonNavigationProp = StackNavigationProp<
   RootStackParam,
@@ -23,25 +24,29 @@ export default function OrganizationCreateSubmitButton() {
   const organizationCreationName = useRecoilValue(
     organizationCreationNameState,
   );
-  const [isOrganizationNameExist, setIsOrganizationNameExist] = useRecoilState(
+  const setIsOrganizationNameExist = useSetRecoilState(
     organizationNameExistState,
   );
-  const setOrganizationEntranceCode = useSetRecoilState(
-    organizationEntranceCodeState,
-  );
+  const setOrganization = useSetRecoilState(organizationState);
 
-  const onCreateOrganization = () => {
-    alert(
-      `그룹 이름 : ${organizationCreationName}` +
-        "\n\n" +
-        "여기서 그룹 생성 api에 호출\n" +
-        "response를 통해 기존에 존재하는 이름일 경우 페이지 잔류, 에러 메시지 출력\n" +
-        "생성 가능 이름일 경우 다음 페이지로 이동",
-    );
-    setIsOrganizationNameExist(false);
-    setOrganizationEntranceCode("445079");
-    // 만약 이름이 이미 존재할 경우 -> groupNameExistState 설정 필요
-    navigation.navigate("OrganizationCreateCompleteScreen");
+  const onCreateOrganization = async () => {
+    const { data, status } = await organizationAPI.create({
+      name: organizationCreationName,
+    });
+
+    if (status === 201) {
+      setIsOrganizationNameExist(false);
+      setOrganization({
+        id: data.id,
+        name: data.name,
+        code: data.code,
+      });
+      navigation.navigate("OrganizationCreateCompleteScreen");
+    } else {
+      console.warn("=== OrganizationCreateSubmitButton Error ===");
+      console.warn(status);
+      setIsOrganizationNameExist(true);
+    }
   };
 
   const dynamicStyles = StyleSheet.create({

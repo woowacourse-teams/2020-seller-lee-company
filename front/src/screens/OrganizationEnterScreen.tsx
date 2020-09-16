@@ -13,8 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../types/types";
 import { Feather } from "@expo/vector-icons";
-import OrganizationEntranceCode from "../components/group/OrganizationEntranceCode";
-import OrganizationEnterSubmitButton from "../components/group/OrganizationEnterSubmitButton";
+import OrganizationEntranceCode from "../components/organization/OrganizationEntranceCode";
+import OrganizationEnterSubmitButton from "../components/organization/OrganizationEnterSubmitButton";
 import { useResetRecoilState } from "recoil";
 import { organizationEntranceCodeState } from "../states/organizationState";
 
