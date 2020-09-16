@@ -104,7 +104,7 @@ class ChatRoomControllerTest extends ControllerTest {
         // @formatter:on
     }
 
-    @DisplayName("로그인한 멤버의 ChatRoom 전체 GET 요청시 Status Code는 OK다.")
+    @DisplayName("ChatRoom 전체 DELETE 요청시 Status Code는 NO-CONTENT다.")
     @Test
     void delete() throws Exception {
         Long roomId = 1L;
