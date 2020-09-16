@@ -36,7 +36,7 @@ class ChatRoomServiceTest {
         when(chatRoomRepository.save(any())).thenReturn(new ChatRoom(1L, ARTICLE1, MEMBER1,
                 ARTICLE1.getId()));
 
-        Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
+        Long chatRoomId = chatRoomService.create(new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId()), MEMBER2);
         assertThat(chatRoomId).isEqualTo(1L);
     }
@@ -48,7 +48,7 @@ class ChatRoomServiceTest {
                 MEMBER1.getId(), MEMBER2.getId())).thenReturn(Optional.of(new ChatRoom(1L, ARTICLE1, MEMBER1,
                 ARTICLE1.getId())));
 
-        Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
+        Long chatRoomId = chatRoomService.create(new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId()), MEMBER2);
         assertThat(chatRoomId).isEqualTo(1L);
     }

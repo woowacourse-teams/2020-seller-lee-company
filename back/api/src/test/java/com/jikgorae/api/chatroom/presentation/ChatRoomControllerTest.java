@@ -37,7 +37,7 @@ class ChatRoomControllerTest extends ControllerTest {
     void createChatRoom() throws Exception {
         ChatRoomCreateRequest createRequest = new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId());
-        when(chatRoomService.createChatRoom(any(), any()))
+        when(chatRoomService.create(any(), any()))
                 .thenReturn(1L);
 
         String request = objectMapper.writeValueAsString(createRequest);
