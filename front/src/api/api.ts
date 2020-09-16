@@ -6,7 +6,7 @@ import { Score } from "../types/types";
 const SERVER_IP = "localhost";
 
 const BASE_URL = `http://${SERVER_IP}:8080`;
-export const CHAT_BASE_URL = `http://${SERVER_IP}:8000`;
+export const CHAT_BASE_URL = `http://${SERVER_IP}:9000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -17,7 +17,8 @@ const domain = {
   trades: "/trades",
   api: "/api",
   loginNotOAuth: "/login/not-oauth",
-  chatRoom: "/chat/rooms",
+  chatRooms: "/chat/rooms",
+  messages: "/messages",
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
@@ -276,7 +277,7 @@ export const chatRoomAPI = {
   create: async (data: CreateChatRoom) => {
     const token = await DeviceStorage.getToken();
     return await axios.post(
-      `${BASE_URL}${domain.api}${domain.chatRoom}`,
+      `${BASE_URL}${domain.api}${domain.chatRooms}`,
       data,
       {
         headers: {
@@ -287,7 +288,7 @@ export const chatRoomAPI = {
   },
   getBuyers: async (articleId: number) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRoom}`, {
+    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRooms}`, {
       params: {
         articleId,
       },
@@ -295,5 +296,26 @@ export const chatRoomAPI = {
         Authorization: `bearer ${token}`,
       },
     });
+  },
+  showAllByLoginMember: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRooms}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+export const messageAPI = {
+  showAll: async (roomId: number) => {
+    return await axios.get(
+      `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
+    );
+  },
+  showNew: async (roomId: number) => {
+    return await axios.get(
+      `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}/new`,
+    );
   },
 };

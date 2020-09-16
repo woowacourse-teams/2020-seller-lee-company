@@ -9,25 +9,24 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.Collections;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
-import com.jikgorae.api.chatroom.application.ChatRoomResponse;
 import com.jikgorae.api.chatroom.application.ChatRoomService;
+import com.jikgorae.api.chatroom.query.ChatRoomDao;
 
-@WebMvcTest(controllers = ChatRoomController.class)
+@WebMvcTest(controllers = ChatRoomController.class, excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value=ChatRoomDao.class)})
 class ChatRoomControllerTest extends ControllerTest {
     @MockBean
     private ChatRoomService chatRoomService;
@@ -64,33 +63,6 @@ class ChatRoomControllerTest extends ControllerTest {
                                 responseHeaders(
                                         headerWithName("Location").description("생성된 채팅방의 ID가 담긴 URI")
                                 )));
-        // @formatter:on
-    }
-
-    @DisplayName("특정 게시글의 채팅방 GET 요청시 Status Code는 OK이다.")
-    @Test
-    void showChatRoomOfArticle() throws Exception {
-        when(chatRoomService.showChatRoomsOf(1L)).thenReturn(Collections.singletonList(
-                new ChatRoomResponse(MEMBER1.getAvatar(), MEMBER1.getNickname())));
-
-        // @formatter:off
-        mockMvc
-                .perform(
-                        MockMvcRequestBuilders.get(ChatRoomController.CHAT_ROOM_API_URI)
-                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
-                                .param("articleId", "1"))
-                .andExpect(status().isOk())
-                .andDo(
-                        document("chat-rooms/",
-                                preprocessRequest(prettyPrint()),
-                                preprocessResponse(prettyPrint()),
-                                requestHeaders(
-                                        headerWithName("Authorization").description("회원의 토큰")
-                                ),
-                                requestParameters(
-                                        parameterWithName("articleId").description("게시글의 ID")
-                                )
-                        ));
         // @formatter:on
     }
 }

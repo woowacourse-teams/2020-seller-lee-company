@@ -6,8 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,17 +41,15 @@ class ChatRoomServiceTest {
         assertThat(chatRoomId).isEqualTo(1L);
     }
 
-    @DisplayName("특정 게시물의 채팅방들을 조회한다.")
+    @DisplayName("이미 채팅방이 존재한다면 해당 채팅방의 Id를 반환한다.")
     @Test
-    void showChatRoomsOf() {
-        when(chatRoomRepository.findChatRoomsByArticleId(ARTICLE1.getId()))
-                .thenReturn(Arrays.asList(new ChatRoom(1L, ARTICLE1, MEMBER1, ARTICLE1.getId()), new ChatRoom(2L, ARTICLE1, MEMBER2,
-                        ARTICLE1.getId())));
+    void createChatRoomWhenExist() {
+        when(chatRoomRepository.findOptionalByArticleIdAndSellerIdAndBuyerId(ARTICLE1.getId(),
+                MEMBER1.getId(), MEMBER2.getId())).thenReturn(Optional.of(new ChatRoom(1L, ARTICLE1, MEMBER1,
+                ARTICLE1.getId())));
 
-        List<ChatRoomResponse> responses = chatRoomService.showChatRoomsOf(ARTICLE1.getId());
-
-        assertThat(responses.size()).isEqualTo(2);
-        assertThat(responses.get(0).getNickname()).isEqualTo(MEMBER1.getNickname());
-        assertThat(responses.get(1).getNickname()).isEqualTo(MEMBER2.getNickname());
+        Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
+                MEMBER1.getId()), MEMBER2);
+        assertThat(chatRoomId).isEqualTo(1L);
     }
 }

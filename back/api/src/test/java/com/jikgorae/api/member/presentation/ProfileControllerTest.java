@@ -41,6 +41,7 @@ class ProfileControllerTest extends ControllerTest {
                                         headerWithName("Authorization").description("회원의 토큰")
                                 ),
                                 responseFields(
+                                        fieldWithPath("id").description("회원의 아이디"),
                                         fieldWithPath("nickname").description("회원의 닉네임"),
                                         fieldWithPath("avatar").description("회원의 아바타"),
                                         fieldWithPath("state").description("회원가입 여부"),
