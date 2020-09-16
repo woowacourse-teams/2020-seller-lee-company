@@ -43,7 +43,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   };
 
   const isJoinMember = (nickname: string) => {
-    if (nickname === "") {
+    if (nickname === null) {
       setMemberNickname(nickname);
       return navigation.navigate("JoinScreen");
     }

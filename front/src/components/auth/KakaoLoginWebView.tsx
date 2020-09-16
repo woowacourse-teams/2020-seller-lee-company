@@ -1,13 +1,11 @@
 import React from "react";
 import { WebView } from "react-native-webview";
 import { StyleSheet, View } from "react-native";
-import { KAKAO_LOGIN_API_URI, profileAPI } from "../../api/api";
-import { useSetRecoilState } from "recoil/dist";
+import { KAKAO_LOGIN_API_URI } from "../../api/api";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
-import { memberNicknameState } from "../../states/memberState";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
@@ -28,27 +26,24 @@ export default function KakaoLoginWebView({
 }: KakakoLoginWebViewProp) {
   const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
-  const setMemberNicknameState = useSetRecoilState(memberNicknameState);
-
   const INJECTED_JAVASCRIPT = ` (function() {
       document.getElementsByTagName('pre')[0].style.display="none";
       window.ReactNativeWebView.postMessage(document.getElementsByTagName('pre')[0].innerHTML);
       })();
       true;`;
 
-  const loginAccess = async (kakaoResponse: string) => {
-    const { accessToken }: response = JSON.parse(kakaoResponse);
+  const loginAccess = async (data: string) => {
+    const { nickname, accessToken }: response = JSON.parse(data);
 
     if (accessToken) {
       toggleModal();
       await DeviceStorage.storeToken(accessToken);
-      const { data } = await profileAPI.get();
 
-      if (data.nickname !== "") {
-        navigation.navigate("HomeStack");
+      if (nickname === null) {
+        navigation.navigate("JoinScreen");
         return;
       }
-      navigation.navigate("JoinScreen");
+      navigation.navigate("HomeStack");
     } else {
       console.log("not aceess token");
     }
