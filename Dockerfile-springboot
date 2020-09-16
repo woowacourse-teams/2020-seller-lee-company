@@ -4,7 +4,7 @@ VOLUME /tmp
 
 EXPOSE 8080
 
-ARG JAR_FILE=back/build/libs/back-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=back/api/build/libs/api-0.0.1-SNAPSHOT.jar
 
 ADD ${JAR_FILE} seller-lee-springboot.jar
 

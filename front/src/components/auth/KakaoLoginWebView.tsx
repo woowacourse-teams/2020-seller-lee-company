@@ -1,11 +1,15 @@
 import React from "react";
 import { WebView } from "react-native-webview";
 import { StyleSheet, View } from "react-native";
-import { KAKAO_LOGIN_API_URI } from "../../api/api";
+import { KAKAO_LOGIN_API_URI, profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { LoginTrialState } from "../../states/AuthState";
-import { memberState } from "../../states/memberState";
+import {
+  memberIdState,
+  memberNicknameState,
+  memberState,
+} from "../../states/memberState";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
@@ -31,6 +35,8 @@ export default function KakaoLoginWebView({
 
   const setLoginTrialState = useSetRecoilState(LoginTrialState);
   const setMemberState = useSetRecoilState(memberState);
+  const setMemberNickname = useSetRecoilState(memberNicknameState);
+  const setMemberId = useSetRecoilState(memberIdState);
 
   const INJECTED_JAVASCRIPT = ` (function() {
       document.getElementsByTagName('pre')[0].style.display="none";
@@ -48,6 +54,11 @@ export default function KakaoLoginWebView({
       await DeviceStorage.storeToken(accessToken);
       if (state === "NOT_JOIN") {
         navigation.navigate("JoinScreen");
+      }
+      if (state === "JOIN") {
+        const { data } = await profileAPI.get();
+        setMemberId(data.id);
+        setMemberNickname(data.nickname);
       }
     } else {
       console.log("not aceess token");

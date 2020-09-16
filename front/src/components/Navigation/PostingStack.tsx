@@ -4,6 +4,7 @@ import { PostingStackParam } from "../../types/types";
 import CategoryChoiceScreen from "../../screens/CategoryChoiceScreen";
 import ArticleFormScreen from "../../screens/ArticleFormScreen";
 import ArticleContentsFormScreen from "../../screens/ArticleContentsFormScreen";
+import GroupChoiceScreen from "../../screens/GroupChoiceScreen";
 
 const Stack = createStackNavigator<PostingStackParam>();
 
@@ -22,6 +23,7 @@ export default function PostingStack() {
         name={"CategoryChoiceScreen"}
         component={CategoryChoiceScreen}
       />
+      <Stack.Screen name={"GroupChoiceScreen"} component={GroupChoiceScreen} />
     </Stack.Navigator>
   );
 }
