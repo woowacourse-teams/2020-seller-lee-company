@@ -9,6 +9,9 @@ public class ArticleInfo {
     private String thumbnail;
     private String tradeState;
 
+    private ArticleInfo() {
+    }
+
     public ArticleInfo(Long id, String title, Long price, String thumbnail,
             String tradeState) {
         this.id = id;
