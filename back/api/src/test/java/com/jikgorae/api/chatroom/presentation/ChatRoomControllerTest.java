@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.application.ChatRoomService;
-import com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest;
 
 @WebMvcTest(controllers = ChatRoomController.class)
 class ChatRoomControllerTest extends ControllerTest {
@@ -43,7 +42,7 @@ class ChatRoomControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders.post(ChatRoomController.CHAT_ROOM_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())

@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.evaluation.application.EvaluationService;
-import com.jikgorae.api.security.web.context.TokenSecurityInterceptorTest;
 
 @WebMvcTest(controllers = EvaluationController.class)
 public class EvaluationControllerTest extends ControllerTest {
@@ -32,7 +31,7 @@ public class EvaluationControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders.post(EvaluationController.EVALUATION_API_URI)
-                                .header(AUTHORIZATION, TokenSecurityInterceptorTest.TEST_AUTHORIZATION_HEADER)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());

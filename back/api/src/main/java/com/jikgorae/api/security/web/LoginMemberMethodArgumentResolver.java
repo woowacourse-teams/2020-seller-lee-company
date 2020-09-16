@@ -1,9 +1,10 @@
 package com.jikgorae.api.security.web;
 
-import static org.springframework.web.context.request.RequestAttributes.*;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -16,8 +17,6 @@ import com.jikgorae.api.security.core.LoginMember;
 
 @Component
 public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    public static final String MEMBER_KAKAO_ID_ATTRIBUTE = "authorizedKakaoId";
-
     private final MemberRepository memberRepository;
 
     public LoginMemberMethodArgumentResolver(MemberRepository memberRepository) {
@@ -30,9 +29,11 @@ public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentR
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        String kakaoId = (String)webRequest.getAttribute(MEMBER_KAKAO_ID_ATTRIBUTE, SCOPE_REQUEST);
+    public Object resolveArgument(@NonNull MethodParameter parameter,
+            ModelAndViewContainer mavContainer,
+            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        String kakaoId = Objects.requireNonNull(webRequest.getUserPrincipal(),
+                "인증된 사용자가 존재하지 않습니다.").getName();
 
         if (StringUtils.isBlank(kakaoId)) {
             return new AuthenticationException("인증된 사용자가 존재하지 않습니다.");

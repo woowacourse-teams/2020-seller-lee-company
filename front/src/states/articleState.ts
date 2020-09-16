@@ -1,6 +1,6 @@
 import { atom } from "recoil/dist";
 import { defaultArticle } from "../data/defaultArticle";
-import { ArticleCardProps } from "../types/types";
+import { ArticleCardProps, Group } from "../types/types";
 
 export const articleTitleState = atom({
   key: "articleTitleState",
@@ -20,6 +20,11 @@ export const articlePhotosState = atom({
 export const articleContentsState = atom({
   key: "articleContentsState",
   default: "",
+});
+
+export const articleSelectedGroupState = atom({
+  key: "articleSelectedGroupState",
+  default: <Group[]>[],
 });
 
 export const articleSelectedCategoryState = atom({
