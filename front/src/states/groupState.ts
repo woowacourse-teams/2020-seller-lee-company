@@ -1,4 +1,3 @@
-export const groupListState = atom({
 import { atom } from "recoil";
 import { Group } from "../types/types";
 
@@ -16,6 +15,7 @@ export const groupNameExistState = atom({
   key: "groupNameExistState",
   default: false,
 });
+export const groupListState = atom({
   key: "groupListExistState",
   default: <Group[]>[
     { id: 1, name: "우아한 테크코스" },

@@ -14,7 +14,10 @@ interface GroupItemProps {
   group: Group;
 }
 
-export default function GroupItem({ isGroupFiltering, group }: GroupItemProps) {
+export default function OrganizationItem({
+  isGroupFiltering,
+  group,
+}: GroupItemProps) {
   const [
     selectedGroupsInArticleForm,
     setSelectedGroupsInArticleForm,

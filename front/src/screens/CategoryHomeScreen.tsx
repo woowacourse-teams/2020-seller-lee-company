@@ -26,7 +26,7 @@ import { Feather } from "@expo/vector-icons";
 import { categoryIcons } from "../data/categoryData";
 import theme from "../colors";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
-import GroupList from "../components/group/GroupList";
+import GroupList from "../components/organization/OrganizationList";
 import { selectedGroupInFeedsState } from "../states/groupState";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<

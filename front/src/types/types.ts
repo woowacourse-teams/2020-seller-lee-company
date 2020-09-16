@@ -115,7 +115,7 @@ export type HomeStackParam = {
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
-  GroupChoiceScreen: undefined;
+  OrganizationChoiceScreen: undefined;
   /* 채팅 스크린 */
   SelectChatScreen: undefined;
   ChatScreen: undefined;
@@ -134,7 +134,7 @@ export type PostingStackParam = {
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
-  GroupChoiceScreen: undefined;
+  OrganizationChoiceScreen: undefined;
 };
 
 export type HomeTabParam = {

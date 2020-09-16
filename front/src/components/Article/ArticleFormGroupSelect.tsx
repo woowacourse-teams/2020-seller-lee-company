@@ -37,7 +37,7 @@ export default function ArticleFormGroupSelect({
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => navigation.navigate("GroupChoiceScreen")}
+      onPress={() => navigation.navigate("OrganizationChoiceScreen")}
     >
       <Text style={styles.buttonText}>{renderGroup()}</Text>
       <Feather
