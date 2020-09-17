@@ -11,7 +11,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue } from "recoil";
-import { memberNicknameState } from "../states/memberState";
+import { memberProfileState } from "../states/memberState";
 import OrganizationEnterButton from "../components/organization/OrganizationEnterButton";
 import OrganizationCreateButton from "../components/organization/OrganizationCreateButton";
 
@@ -22,7 +22,7 @@ type OrganizationHomeScreenNavigationProp = StackNavigationProp<
 
 export default function OrganizationHomeScreen() {
   const navigation = useNavigation<OrganizationHomeScreenNavigationProp>();
-  const memberNickname = useRecoilValue(memberNicknameState);
+  const { nickname } = useRecoilValue(memberProfileState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -33,7 +33,7 @@ export default function OrganizationHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{memberNickname}님 반갑습니다 🥳</Text>
+        <Text style={styles.title}>{nickname}님 반갑습니다 🥳</Text>
         <Text style={styles.description}>
           거래를 시작할 조직을 추가해주세요.
         </Text>

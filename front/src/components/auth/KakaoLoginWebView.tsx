@@ -1,13 +1,17 @@
 import React from "react";
 import { WebView } from "react-native-webview";
 import { StyleSheet, View } from "react-native";
-import { KAKAO_LOGIN_API_URI } from "../../api/api";
+import { KAKAO_LOGIN_API_URI, organizationAPI } from "../../api/api";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
-import { useSetRecoilState } from "recoil";
-import { memberNicknameState } from "../../states/memberState";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  memberNicknameState,
+  memberProfileState,
+} from "../../states/memberState";
+import { organizationListState } from "../../states/organizationState";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
@@ -29,6 +33,10 @@ export default function KakaoLoginWebView({
   const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
   const setMemberNicknameState = useSetRecoilState(memberNicknameState);
+  const [organizationList, setOrganizationList] = useRecoilState(
+    organizationListState,
+  );
+  const setProfile = useSetRecoilState(memberProfileState);
 
   const INJECTED_JAVASCRIPT = ` (function() {
       document.getElementsByTagName('pre')[0].style.display="none";
@@ -36,9 +44,25 @@ export default function KakaoLoginWebView({
       })();
       true;`;
 
+  const navigateByOrganizationList = async () => {
+    try {
+      const { data, status } = await organizationAPI.showAll();
+
+      if (status === 200 && data.length !== 0) {
+        setOrganizationList(data);
+        return navigation.navigate("HomeStack");
+      }
+      return navigation.navigate("OrganizationHomeScreen");
+    } catch (error) {
+      console.warn("KakaoLoginWebView: organizationAPI showAll error");
+      console.warn(error);
+    }
+  };
+
   const loginAccess = async (data: string) => {
     const { nickname, accessToken }: response = JSON.parse(data);
     setMemberNicknameState(nickname);
+    setProfile({ avatar: "", nickname, score: 0 });
 
     if (accessToken) {
       toggleModal();
@@ -48,7 +72,7 @@ export default function KakaoLoginWebView({
         navigation.navigate("JoinScreen");
         return;
       }
-      navigation.navigate("HomeStack");
+      await navigateByOrganizationList();
     } else {
       console.log("not aceess token");
     }

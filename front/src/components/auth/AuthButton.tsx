@@ -6,7 +6,10 @@ import colors from "../../colors";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { organizationAPI, profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
-import { memberNicknameState } from "../../states/memberState";
+import {
+  memberNicknameState,
+  memberProfileState,
+} from "../../states/memberState";
 import { loadingState } from "../../states/loadingState";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
@@ -26,6 +29,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
   const setOrganizationList = useSetRecoilState(organizationListState);
+  const setProfile = useSetRecoilState(memberProfileState);
 
   const onPressButton = async () => {
     setIsLoading(true);
@@ -37,7 +41,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
         await isJoinMember(data.nickname);
       } catch (error) {
         toggleModal();
-        console.log(error.response.data.message);
+        console.warn(error.response.data.message);
       }
     } else {
       toggleModal();
@@ -47,6 +51,8 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
 
   const isJoinMember = async (nickname: string) => {
     setMemberNickname(nickname);
+    setProfile({ avatar: "", score: 0, nickname });
+
     if (nickname === null) {
       return navigation.navigate("JoinScreen");
     }
