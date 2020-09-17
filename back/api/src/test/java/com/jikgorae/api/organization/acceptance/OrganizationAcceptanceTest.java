@@ -39,12 +39,12 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("조직 관리")
     @TestFactory
-    Stream<DynamicTest> manageGroup() {
+    Stream<DynamicTest> manageOrganization() {
         token = joinAndLogin(MEMBER1);
 
         return Stream.of(
                 dynamicTest("조직 생성", () -> {
-                    OrganizationResponse organizationResponse = createGroup(token);
+                    OrganizationResponse organizationResponse = createOrganization(token);
                     assertAll(
                             () -> assertThat(organizationResponse.getId()).isNotNull(),
                             () -> assertThat(organizationResponse.getName())
@@ -55,7 +55,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
         );
     }
 
-    private OrganizationResponse createGroup(TokenResponse token) throws Exception {
+    private OrganizationResponse createOrganization(TokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
 
         MvcResult mvcResult = mockMvc.perform(
