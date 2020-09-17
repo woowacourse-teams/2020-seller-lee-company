@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.member.application.TokenResponse;
@@ -29,15 +30,15 @@ public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
 
         return Stream.of(
                 dynamicTest("회원/조직 추가", () -> {
-                    createMemberOrganization(token);
+                    Long memberOrganizationId = extractId(createMemberOrganization(token));
                 })
         );
     }
 
-    private void createMemberOrganization(TokenResponse token) throws Exception {
+    private String createMemberOrganization(TokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_ORGANIZATION_REQUEST);
 
-        mockMvc
+        MvcResult mvcResult = mockMvc
                 .perform(
                         post(MEMBER_ORGANIZATION_API_URI)
                                 .header(AUTHORIZATION,
@@ -46,6 +47,9 @@ public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
                                 .content(request)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        return mvcResult.getRequest().getHeader(LOCATION);
     }
 }

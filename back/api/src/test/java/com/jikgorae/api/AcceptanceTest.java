@@ -29,6 +29,7 @@ import com.jikgorae.api.security.web.AuthorizationType;
 @Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
+    protected static final String LOCATION = "Location";
     private static final int ID_INDEX_OF_LOCATION = 3;
     private static final String DELIMITER = "/";
 
@@ -75,7 +76,7 @@ public class AcceptanceTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        return mvcResult.getResponse().getHeader("Location");
+        return mvcResult.getResponse().getHeader(LOCATION);
     }
 
     protected TokenResponse joinAndLogin(Member member) {
