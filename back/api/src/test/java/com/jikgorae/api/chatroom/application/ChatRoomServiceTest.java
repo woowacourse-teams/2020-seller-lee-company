@@ -32,24 +32,32 @@ class ChatRoomServiceTest {
 
     @DisplayName("채팅방 생성시 Id가 생성된다.")
     @Test
-    void createChatRoom() {
+    void create() {
         when(chatRoomRepository.save(any())).thenReturn(new ChatRoom(1L, ARTICLE1, MEMBER1,
                 ARTICLE1.getId()));
 
-        Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
+        Long chatRoomId = chatRoomService.create(new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId()), MEMBER2);
         assertThat(chatRoomId).isEqualTo(1L);
     }
 
     @DisplayName("이미 채팅방이 존재한다면 해당 채팅방의 Id를 반환한다.")
     @Test
-    void createChatRoomWhenExist() {
+    void createWhenExist() {
         when(chatRoomRepository.findOptionalByArticleIdAndSellerIdAndBuyerId(ARTICLE1.getId(),
                 MEMBER1.getId(), MEMBER2.getId())).thenReturn(Optional.of(new ChatRoom(1L, ARTICLE1, MEMBER1,
                 ARTICLE1.getId())));
 
-        Long chatRoomId = chatRoomService.createChatRoom(new ChatRoomCreateRequest(ARTICLE1.getId(),
+        Long chatRoomId = chatRoomService.create(new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId()), MEMBER2);
         assertThat(chatRoomId).isEqualTo(1L);
+    }
+
+    @DisplayName("채팅방을 삭제한다.")
+    @Test
+    void delete() {
+        Long chatRoomId = 1L;
+        chatRoomService.delete(chatRoomId);
+        verify(chatRoomRepository).deleteById(chatRoomId);
     }
 }

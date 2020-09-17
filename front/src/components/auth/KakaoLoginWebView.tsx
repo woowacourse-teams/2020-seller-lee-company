@@ -8,6 +8,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
+  memberAvatarState,
+  memberIdState,
   memberNicknameState,
   memberProfileState,
 } from "../../states/memberState";
@@ -33,6 +35,8 @@ export default function KakaoLoginWebView({
   const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
   const setMemberNicknameState = useSetRecoilState(memberNicknameState);
+  const setMemberId = useSetRecoilState(memberIdState);
+  const setMemberAvatar = useSetRecoilState(memberAvatarState);
   const [organizationList, setOrganizationList] = useRecoilState(
     organizationListState,
   );
@@ -63,8 +67,10 @@ export default function KakaoLoginWebView({
   };
 
   const loginAccess = async (data: string) => {
-    const { nickname, accessToken }: response = JSON.parse(data);
+    const { id, nickname, avatar, accessToken }: response = JSON.parse(data);
+    setMemberId(id);
     setMemberNicknameState(nickname);
+    setMemberAvatar(avatar);
     setProfile({ avatar: "", nickname, score: 0 });
 
     if (accessToken) {
@@ -75,7 +81,7 @@ export default function KakaoLoginWebView({
         navigation.navigate("JoinScreen");
         return;
       }
-      await navigateByOrganizationList();
+      navigation.navigate("HomeStack");
     } else {
       console.log("not aceess token");
     }

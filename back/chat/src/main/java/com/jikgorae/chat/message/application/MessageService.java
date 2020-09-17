@@ -1,5 +1,6 @@
 package com.jikgorae.chat.message.application;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -26,10 +27,13 @@ public class MessageService {
     }
 
     public List<MessageResponse> showAllIn(Long roomId) {
-        return MessageResponse.listOf(messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
+        return MessageResponse.listOf(
+                messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
     }
 
     public MessageResponse showLastIn(Long roomId) {
-        return MessageResponse.of(messageRepository.findTopByRoomIdOrderByCreatedTimeDesc(roomId));
+        return MessageResponse.of(messageRepository.findTopByRoomIdOrderByCreatedTimeDesc(roomId)
+                .orElse(new Message("", 0L, "", 0L, "",
+                        LocalDateTime.of(2010, 1, 1, 1, 1, 1, 1))));
     }
 }

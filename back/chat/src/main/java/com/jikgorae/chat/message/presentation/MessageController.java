@@ -15,7 +15,8 @@ import com.jikgorae.chat.message.application.MessageResponse;
 import com.jikgorae.chat.message.application.MessageService;
 
 @Controller
-public class MessageController {
+public class
+MessageController {
     private final SimpMessageSendingOperations messagingTemplate;
     private final MessageService messageService;
 

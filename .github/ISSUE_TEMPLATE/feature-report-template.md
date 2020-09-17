@@ -1,8 +1,8 @@
 ---
-name: 기능 이슈 템플릿
+name: Feature Report Template
 about: 기능 개발 관련 이슈
 title: ''
-labels: 'type: enhancement'
+labels: ''
 assignees: ''
 
 ---

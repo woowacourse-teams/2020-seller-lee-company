@@ -7,7 +7,7 @@ import { Score } from "../types/types";
 const LOCAL_SERVER_IP = "localhost";
 
 const BASE_URL = `http://${LOCAL_SERVER_IP}:8080`;
-export const CHAT_BASE_URL = `http://${LOCAL_SERVER_IP}:9000`;
+export const CHAT_BASE_URL = `http://${LOCAL_SERVER_IP}:8000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -308,6 +308,17 @@ export const chatRoomAPI = {
         Authorization: `bearer ${token}`,
       },
     });
+  },
+  delete: async (id: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.chatRooms}/${id}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
   },
 };
 

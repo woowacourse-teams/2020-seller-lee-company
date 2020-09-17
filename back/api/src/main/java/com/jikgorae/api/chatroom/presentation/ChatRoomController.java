@@ -6,7 +6,9 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +36,8 @@ public class ChatRoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateRequest request, @LoginMember Member buyer) {
-        Long chatRoomId = chatRoomService.createChatRoom(request, buyer);
+    public ResponseEntity<Void> create(@RequestBody ChatRoomCreateRequest request, @LoginMember Member buyer) {
+        Long chatRoomId = chatRoomService.create(request, buyer);
 
         return ResponseEntity
                 .created(URI.create(CHAT_ROOM_API_URI + "/" + chatRoomId))
@@ -43,9 +45,15 @@ public class ChatRoomController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ChatRoomResponse>> showAllChatRoom(@LoginMember Member member) {
+    public ResponseEntity<List<ChatRoomResponse>> showAll(@LoginMember Member member) {
         List<ChatRoomResponse> responses = ChatRoomResponse.listOf(chatRoomDao.showAll(member), member);
 
         return ResponseEntity.ok(responses);
+    }
+
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<Void> delete(@PathVariable Long roomId) {
+        chatRoomService.delete(roomId);
+        return ResponseEntity.noContent().build();
     }
 }

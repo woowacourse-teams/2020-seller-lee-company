@@ -22,8 +22,8 @@ public enum CustomOAuth2Provider {
     };
 
     private static final String LOCAL_SERVER = "http://localhost:8080";
-    private static final String DEPLOY_SERVER = "http://15.164.125.244:8080";
-    private static final String QA_SERVER = "http://192.168.0.7:8080";
+     // private static final String DEPLOY_SERVER = "http://15.164.125.244:8080";
+    // private static final String QA_SERVER = "http://192.168.0.7:8080";
 
     private static final String BASE_URL = LOCAL_SERVER;
     private static final String DEFAULT_LOGIN_REDIRECT_URL = BASE_URL + "/login/oauth2/code/kakao";

@@ -7,6 +7,8 @@ import { DeviceStorage } from "../../auth/DeviceStorage";
 import { organizationAPI, profileAPI } from "../../api/api";
 import { useSetRecoilState } from "recoil/dist";
 import {
+  memberAvatarState,
+  memberIdState,
   memberNicknameState,
   memberProfileState,
 } from "../../states/memberState";
@@ -28,6 +30,8 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   const navigation = useNavigation<AuthButtonNavigationProp>();
   const setIsLoading = useSetRecoilState(loadingState);
   const setMemberNickname = useSetRecoilState(memberNicknameState);
+  const setMemberId = useSetRecoilState(memberIdState);
+  const setMemberAvatar = useSetRecoilState(memberAvatarState);
   const setOrganizationList = useSetRecoilState(organizationListState);
   const setProfile = useSetRecoilState(memberProfileState);
 
@@ -38,6 +42,8 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
     if (token) {
       try {
         const { data } = await profileAPI.get();
+        setMemberId(data.id);
+        setMemberAvatar(data.avatar);
         await isJoinMember(data.nickname);
       } catch (error) {
         toggleModal();
