@@ -20,7 +20,9 @@ interface KakakoLoginWebViewProp {
 }
 
 interface response {
+  id: number;
   nickname: string;
+  avatar: string;
   accessToken: string;
 }
 
