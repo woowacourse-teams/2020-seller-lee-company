@@ -1,7 +1,5 @@
 package com.jikgorae.api.security.config;
 
-import static com.jikgorae.api.member.presentation.ProfileController.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("!/h2-console/**"))
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/oauth2/**", JOIN).permitAll()
+                    .antMatchers("/", "/oauth2/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .oauth2Login().loginPage("/oauth2/authorization/kakao")

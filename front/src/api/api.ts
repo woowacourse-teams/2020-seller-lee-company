@@ -23,7 +23,6 @@ const domain = {
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
-  join: "/join",
   organizations: "/organizations",
 };
 
@@ -164,14 +163,6 @@ interface ProfilePost {
 }
 
 export const profileAPI = {
-  join: async () => {
-    const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.join}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
-  },
   get: async () => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.api}${domain.profiles}`, {

@@ -48,8 +48,12 @@ public class Member {
         this(id, null, null, null, null, null);
     }
 
+    public boolean isSameId(Member member) {
+        return id.equals(member.id);
+    }
+
     public boolean isNotSameId(Member member) {
-        return !id.equals(member.id);
+        return !isSameId(member);
     }
 
     public boolean isSameNickname(String nickname) {
