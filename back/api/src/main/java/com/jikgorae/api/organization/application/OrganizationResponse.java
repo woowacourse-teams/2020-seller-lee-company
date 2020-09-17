@@ -1,6 +1,7 @@
 package com.jikgorae.api.organization.application;
 
 import com.jikgorae.api.organization.domain.Organization;
+import com.querydsl.core.annotations.QueryProjection;
 
 public class OrganizationResponse {
     private Long id;
@@ -14,6 +15,11 @@ public class OrganizationResponse {
         this.id = id;
         this.name = name;
         this.code = code;
+    }
+
+    @QueryProjection
+    public OrganizationResponse(Organization organization) {
+        this(organization.getId(), organization.getName(), organization.getCode());
     }
 
     public static OrganizationResponse of(Organization organization) {
