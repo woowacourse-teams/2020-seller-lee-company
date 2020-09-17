@@ -16,13 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.memberOrganization.application.MemberOrganizationRequest;
 import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
-    private TokenResponse token;
+    private AuthTokenResponse token;
     private OrganizationResponse organizationResponse;
 
     /**
@@ -49,7 +49,7 @@ public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
         );
     }
 
-    private String createMemberOrganization(TokenResponse token) throws Exception {
+    private String createMemberOrganization(AuthTokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(
                 new MemberOrganizationRequest(organizationResponse.getCode()));
 

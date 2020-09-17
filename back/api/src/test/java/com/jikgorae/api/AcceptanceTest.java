@@ -91,7 +91,7 @@ public class AcceptanceTest {
                 AuthorizationType.BEARER);
     }
 
-    protected OrganizationResponse createOrganization(TokenResponse token) throws Exception {
+    protected OrganizationResponse createOrganization(AuthTokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
 
         MvcResult mvcResult = mockMvc.perform(
