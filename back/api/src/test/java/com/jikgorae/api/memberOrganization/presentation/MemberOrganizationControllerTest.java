@@ -18,19 +18,23 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 
 import com.jikgorae.api.ControllerTest;
+import com.jikgorae.api.memberOrganization.application.MemberOrganizationRegisterService;
 import com.jikgorae.api.memberOrganization.application.MemberOrganizationService;
 
 @WebMvcTest(controllers = MemberOrganizationController.class)
 class MemberOrganizationControllerTest extends ControllerTest {
     @MockBean
-    private MemberOrganizationService memberOrganizationService;
+    private MemberOrganizationService service;
+
+    @MockBean
+    private MemberOrganizationRegisterService registerService;
 
     @DisplayName("회원/조직 연관 관계를 생성한다.")
     @Test
     void create() throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_ORGANIZATION_REQUEST);
 
-        when(memberOrganizationService.create(any())).thenReturn(MEMBER_ORGANIZATION1.getId());
+        when(registerService.register(any(), any())).thenReturn(MEMBER_ORGANIZATION1.getId());
 
         // @formatter:off
         mockMvc

@@ -2,9 +2,13 @@ package com.jikgorae.api.memberOrganization.application;
 
 import org.springframework.stereotype.Service;
 
+import com.jikgorae.api.memberOrganization.domain.MemberOrganizationRepository;
+
 @Service
 public class MemberOrganizationService {
-    public Long create(MemberOrganizationRequest request) {
-        return 51L;
+    private final MemberOrganizationRepository memberOrganizationRepository;
+
+    public MemberOrganizationService(MemberOrganizationRepository memberOrganizationRepository) {
+        this.memberOrganizationRepository = memberOrganizationRepository;
     }
 }
