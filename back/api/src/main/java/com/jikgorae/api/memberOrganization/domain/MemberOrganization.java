@@ -35,6 +35,12 @@ public class MemberOrganization {
         this.organization = organization;
     }
 
+    public MemberOrganization(Member member,
+            Organization organization) {
+        this.member = member;
+        this.organization = organization;
+    }
+
     public Long getId() {
         return id;
     }
