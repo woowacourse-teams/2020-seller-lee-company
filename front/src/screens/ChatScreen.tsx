@@ -20,8 +20,8 @@ import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
 import {
   memberAvatarState,
-  memberIdState,
   memberNicknameState,
+  memberIdState,
 } from "../states/memberState";
 import SockJS from "sockjs-client";
 
@@ -57,20 +57,31 @@ export default function ChatScreen() {
   const setArticleId = useSetRecoilState(articleSelectedIdState);
 
   const appendMessage = useCallback((message = []) => {
+    if (message.senderId === memberId) {
+      return;
+    }
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, message),
     );
   }, []);
 
   const receiveMessage = (response: { body: string }) => {
-    const message = JSON.parse(response.body);
+    const receive = JSON.parse(response.body);
+    const message = {
+      ...receive,
+      _id: receive.id,
+      user: {
+        _id: receive.senderId,
+        nickname: receive.senderNickname,
+      },
+    };
     message ? appendMessage(message) : undefined;
   };
 
   useEffect(() => {
     const initClient = () => {
       stompClient.connect({}, () =>
-        stompClient.subscribe(`/sub/api/chat/rooms/${id}`, receiveMessage, {}),
+        stompClient.subscribe(`/sub/chat/rooms/${id}`, receiveMessage, {}),
       );
     };
 
@@ -141,11 +152,6 @@ export default function ChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {memberNickname === props.currentMessage.user.name ||
-        props.currentMessage.user.name ===
-          props.previousMessage.user?.name ? undefined : (
-          <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
-        )}
         <Bubble
           {...props}
           containerStyle={styles.bubbleContainer}
@@ -227,7 +233,9 @@ export default function ChatScreen() {
                     // @ts-ignore
                     imageStyle[position],
                   ])}
-                  source={{ uri: memberAvatar }}
+                  source={{
+                    uri: memberAvatar === "" ? undefined : memberAvatar,
+                  }}
                   defaultSource={require("../../assets/user.png")}
                 />
               );
@@ -239,7 +247,9 @@ export default function ChatScreen() {
                     // @ts-ignore
                     imageStyle[position],
                   ])}
-                  source={{ uri: opponent.avatar }}
+                  source={{
+                    uri: opponent.avatar === "" ? undefined : opponent.avatar,
+                  }}
                   defaultSource={require("../../assets/user.png")}
                 />
               );

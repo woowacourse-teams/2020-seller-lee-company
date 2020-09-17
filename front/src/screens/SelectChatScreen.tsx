@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import theme from "../colors";
 import ChatRoomList from "../components/Chat/ChatRoomList";
-import WholeChatScreen from "./WholeChatScreen";
+import OrganizationChatList from "../components/Chat/OrganizationChatList";
 
 export default function SelectChatScreen() {
   const selectChatTabs = [
@@ -25,7 +25,7 @@ export default function SelectChatScreen() {
 
   const renderScene = SceneMap({
     ChatRoomList: ChatRoomList,
-    WholeChat: WholeChatScreen,
+    WholeChat: OrganizationChatList,
   });
 
   const onTabChange = (idx: number) => {

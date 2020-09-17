@@ -19,6 +19,7 @@ const domain = {
   api: "/api",
   loginNotOAuth: "/login/not-oauth",
   chatRooms: "/chat/rooms",
+  wholeChatRooms: "/chat/organizations/",
   messages: "/messages",
   evaluation: "/evaluations",
   favorites: "/favorites",
@@ -326,6 +327,11 @@ export const messageAPI = {
   showAll: async (roomId: number) => {
     return await axios.get(
       `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
+    );
+  },
+  showAllInOrganization: async (organizationId: number) => {
+    return await axios.get(
+      `${CHAT_BASE_URL}${domain.wholeChatRooms}/${organizationId}${domain.messages}`,
     );
   },
   showNew: async (roomId: number) => {

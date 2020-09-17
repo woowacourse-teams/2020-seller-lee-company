@@ -8,7 +8,7 @@ interface PhotoBoxProps {
 export default function PhotoBox({ photo }: PhotoBoxProps) {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: photo ? photo : "" }} style={styles.image} />
+      <Image source={{ uri: photo ? photo : undefined }} style={styles.image} />
     </View>
   );
 }

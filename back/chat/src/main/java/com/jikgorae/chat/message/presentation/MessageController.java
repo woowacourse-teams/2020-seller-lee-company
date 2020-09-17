@@ -1,7 +1,6 @@
 package com.jikgorae.chat.message.presentation;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -15,8 +14,7 @@ import com.jikgorae.chat.message.application.MessageResponse;
 import com.jikgorae.chat.message.application.MessageService;
 
 @Controller
-public class
-MessageController {
+public class MessageController {
     private final SimpMessageSendingOperations messagingTemplate;
     private final MessageService messageService;
 
@@ -32,13 +30,24 @@ MessageController {
         messagingTemplate.convertAndSend("/sub/chat/rooms/" + request.getRoomId(), response);
     }
 
+    @MessageMapping("/chat/organization/messages")
+    public void messageInOrganization(MessageRequest request) {
+        MessageResponse response = messageService.saveToOrganization(request);
+        messagingTemplate.convertAndSend("/sub/chat/organizations/" + request.getRoomId(), response);
+    }
+
     @GetMapping("/chat/rooms/{roomId}/messages")
-    public ResponseEntity<List<MessageResponse>> showAllIn(@PathVariable Long roomId) {
-        return ResponseEntity.ok(messageService.showAllIn(roomId));
+    public ResponseEntity<List<MessageResponse>> showAll(@PathVariable Long roomId) {
+        return ResponseEntity.ok(messageService.showAll(roomId));
+    }
+
+    @GetMapping("/chat/organizations/{organizationId}/messages")
+    public ResponseEntity<List<MessageResponse>> showAllInOrganization(@PathVariable Long organizationId) {
+        return ResponseEntity.ok(messageService.showAllInOrganization(organizationId));
     }
 
     @GetMapping("/chat/rooms/{roomId}/messages/new")
-    public ResponseEntity<MessageResponse> showLastIn(@PathVariable Long roomId) {
-        return ResponseEntity.ok(messageService.showLastIn(roomId));
+    public ResponseEntity<MessageResponse> showLast(@PathVariable Long roomId) {
+        return ResponseEntity.ok(messageService.showLast(roomId));
     }
 }

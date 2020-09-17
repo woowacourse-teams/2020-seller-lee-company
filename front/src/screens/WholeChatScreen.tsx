@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil/dist";
+import { wholeChatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
+  Image,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -8,27 +11,123 @@ import {
   Text,
   View,
 } from "react-native";
-import { Bubble, GiftedChat, Send } from "react-native-gifted-chat";
-import { useRecoilValue } from "recoil/dist";
-import Fire from "../components/Chat/Fire";
+
+import { Bubble, GiftedChat, IMessage, Send } from "react-native-gifted-chat";
+import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
 import theme from "../colors";
-import { memberAvatarState, memberNicknameState } from "../states/memberState";
-import { Feather } from "@expo/vector-icons";
+import { CHAT_BASE_URL, messageAPI } from "../api/api";
+import SockJS from "sockjs-client";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { HomeStackParam, RootStackParam } from "../types/types";
+
+import {
+  memberAvatarState,
+  memberIdState,
+  memberNicknameState,
+} from "../states/memberState";
+
+const Stomp = require("stompjs/lib/stomp.js").Stomp;
+
+type WholeChatScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParam, "WholeChatScreen">,
+  StackNavigationProp<RootStackParam, "HomeStack">
+>;
 
 export default function WholeChatScreen() {
+  const socket = new SockJS(`${CHAT_BASE_URL}/chat`);
+  const stompClient = Stomp.over(socket);
+  const navigation = useNavigation<WholeChatScreenNavigationProp>();
+  const { id, name } = useRecoilValue(wholeChatRoomState);
   const [messages, setMessages] = useState([]);
-  const memberNickname: string = useRecoilValue(memberNicknameState);
+  const memberId = useRecoilValue(memberIdState);
+  const memberNickname = useRecoilValue(memberNicknameState);
   const memberAvatar = useRecoilValue(memberAvatarState);
 
+  const appendMessage = useCallback((message = []) => {
+    if (message.senderId === memberId) {
+      return;
+    }
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, message),
+    );
+  }, []);
+
+  const receiveMessage = (response: { body: string }) => {
+    const receive = JSON.parse(response.body);
+    const message = {
+      ...receive,
+      _id: receive.id,
+      user: {
+        _id: receive.senderId,
+        nickname: receive.senderNickname,
+      },
+    };
+    message ? appendMessage(message) : undefined;
+  };
+
   useEffect(() => {
-    Fire.shared.on((message: never[]) => {
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, message),
+    const initClient = () => {
+      stompClient.connect({}, () =>
+        stompClient.subscribe(
+          `/sub/chat/organizations/${id}`,
+          receiveMessage,
+          {},
+        ),
+      );
+    };
+
+    const initMessages = async () => {
+      return await messageAPI.showAllInOrganization(id);
+    };
+
+    initClient();
+    initMessages().then((response) => {
+      const messageHistory = response.data;
+      appendMessage(
+        messageHistory.map(
+          (prevMessage: {
+            id: number;
+            content: string;
+            senderId: number;
+            senderNickname: string;
+            createdTime: string;
+          }) => {
+            return {
+              _id: prevMessage.id,
+              text: prevMessage.content,
+              user: {
+                _id: prevMessage.senderId,
+                name: prevMessage.senderNickname,
+              },
+              createdAt: Date.parse(prevMessage.createdTime),
+            };
+          },
+        ),
       );
     });
-    return () => Fire.shared.off();
+
+    return () => stompClient && stompClient.disconnect();
   }, []);
+
+  const onSend = (sendMessages: IMessage[]) => {
+    stompClient.send(
+      "/pub/chat/organization/messages",
+      {},
+      JSON.stringify({
+        roomId: id,
+        messageType: "TALK",
+        senderId: memberId,
+        senderNickname: memberNickname,
+        message: sendMessages[0].text,
+      }),
+    );
+    appendMessage(sendMessages);
+  };
 
   // @ts-ignore
   const renderSend = (props) => {
@@ -50,11 +149,6 @@ export default function WholeChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {memberNickname === props.currentMessage.user.name ||
-        props.currentMessage.user.name ===
-          props.previousMessage.user?.name ? undefined : (
-          <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
-        )}
         <Bubble
           {...props}
           containerStyle={styles.bubbleContainer}
@@ -81,21 +175,46 @@ export default function WholeChatScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.navigationContainer}>
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => <Feather name="chevron-left" size={24} />}
+        />
+        <View style={styles.opponentContainer}>
+          <Text style={styles.opponent}>{name}</Text>
+        </View>
+      </View>
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
           placeholder={"메세지를 입력해주세요."}
-          onSend={Fire.shared.send}
+          onSend={(sendMessages) => onSend(sendMessages)}
           showUserAvatar
           alwaysShowSend
           user={{
+            _id: memberId,
             name: memberNickname,
-            _id: memberNickname,
-            avatar: memberAvatar,
           }}
+          renderUsernameOnMessage={true}
           renderSend={renderSend}
           renderLoading={renderLoading}
           renderBubble={renderBubble}
+          renderAvatar={({ position, imageStyle }) => {
+            if (position === "right") {
+              return (
+                <Image
+                  style={StyleSheet.flatten([
+                    styles.image,
+                    // @ts-ignore
+                    imageStyle[position],
+                  ])}
+                  source={{ uri: memberAvatar ? memberAvatar : undefined }}
+                  defaultSource={require("../../assets/user.png")}
+                />
+              );
+            }
+          }}
           renderAvatarOnTop={true}
           dateFormat="YYYY년 MM월 DD일"
           scrollToBottom
@@ -115,18 +234,61 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
   },
-  titleContainer: {
+  navigationContainer: {
+    flex: 0.8,
+    flexDirection: "row",
+    backgroundColor: "white",
+    paddingHorizontal: 25,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.border,
+  },
+  opponentContainer: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "white",
+    alignItems: "center",
+  },
+  opponent: {
+    fontSize: 18,
+    color: "black",
+  },
+  articleContainer: {
+    flex: 1.8,
+    flexDirection: "row",
+    backgroundColor: "rgb(250,250,250)",
     paddingHorizontal: 30,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
   },
-  title: {
+  articleImageContainer: {
+    aspectRatio: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 15,
+  },
+  articleInfoContainer: {
+    flex: 1,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  articleTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: theme.primary,
+    color: "black",
+  },
+  articlePriceAndTradeStateContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  articlePriceContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+  articlePrice: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: theme.others,
   },
   description: {
     fontSize: 16,
@@ -153,7 +315,9 @@ const styles = StyleSheet.create({
   },
   userName: {
     flex: 1,
-    padding: 7,
+    backgroundColor: "blue",
+    alignItems: "center",
+    justifyContent: "center",
   },
   emptySpace: {
     flex: 1,
@@ -162,5 +326,10 @@ const styles = StyleSheet.create({
   avatar: {},
   userInfoContainer: {
     width: 50,
+  },
+  image: {
+    height: 36,
+    width: 36,
+    borderRadius: 18,
   },
 });

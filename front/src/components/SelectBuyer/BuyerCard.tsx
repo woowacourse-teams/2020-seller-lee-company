@@ -9,7 +9,10 @@ export default function BuyerCard({ avatar, nickname }: Buyer) {
       style={styles.container}
       onPress={() => Alert.alert("구매자 평가 화면으로 이동")}
     >
-      <Image style={styles.image} source={{ uri: avatar }} />
+      <Image
+        style={styles.image}
+        source={{ uri: avatar ? avatar : undefined }}
+      />
       <Text style={styles.nickname}>{nickname}</Text>
     </TouchableOpacity>
   );

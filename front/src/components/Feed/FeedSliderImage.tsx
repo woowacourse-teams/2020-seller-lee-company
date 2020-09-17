@@ -24,7 +24,10 @@ export default function FeedSliderImage({ photos }: FeedSliderImageProp) {
           style={styles.container}
           key={index}
         >
-          <Image source={{ uri: photo }} style={styles.image} />
+          <Image
+            source={{ uri: photo ? photo : undefined }}
+            style={styles.image}
+          />
         </TouchableOpacity>
       ))}
     </Swiper>
