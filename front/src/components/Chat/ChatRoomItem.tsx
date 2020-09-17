@@ -33,7 +33,7 @@ interface ChatRoomItemProps {
       avatar: string;
     };
   };
-  lastMessage: {
+  newMessage: {
     createdTime: string;
     content: string;
   };
@@ -41,7 +41,7 @@ interface ChatRoomItemProps {
 
 export default function ChatRoomItem({
   chatRoom,
-  lastMessage,
+  newMessage,
 }: ChatRoomItemProps) {
   const navigation = useNavigation<ChatRoomItemNavigationProp>();
   const setChatRoom = useSetRecoilState(chatRoomState);
@@ -66,10 +66,10 @@ export default function ChatRoomItem({
             {`${chatRoom.opponent.nickname}`}
           </Text>
           <Text style={styles.diffTime}>{`${calculateDiffTime(
-            lastMessage.createdTime,
+            newMessage.createdTime,
           )}`}</Text>
         </View>
-        <Text style={styles.lastMessage}>{`${lastMessage.content}`}</Text>
+        <Text style={styles.lastMessage}>{`${newMessage.content}`}</Text>
       </View>
       <View style={styles.articleThumbnailContainer}>
         <ArticleCardImage thumbnail={chatRoom.articleInfo.thumbnail} />

@@ -21,17 +21,18 @@ public class Message {
     private Message() {
     }
 
-    public Message(String id, Long senderId, String senderNickname, String senderAvatar, Long roomId, String content) {
+    public Message(String id, Long senderId, String senderNickname, String senderAvatar, Long roomId, String content, LocalDateTime createdTime) {
         this.id = id;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
         this.senderAvatar = senderAvatar;
         this.roomId = roomId;
         this.content = content;
+        this.createdTime = createdTime;
     }
 
     public Message(Long senderId, String senderNickname, String senderAvatar, Long roomId, String content) {
-        this(null, senderId, senderNickname, senderAvatar, roomId, content);
+        this(null, senderId, senderNickname, senderAvatar, roomId, content, LocalDateTime.MIN);
     }
 
     public String getId() {
