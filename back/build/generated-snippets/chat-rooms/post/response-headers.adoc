@@ -1,7 +1,0 @@
-|===
-|Name|Description
-
-|`+Location+`
-|생성된 채팅방의 ID가 담긴 URI
-
-|===

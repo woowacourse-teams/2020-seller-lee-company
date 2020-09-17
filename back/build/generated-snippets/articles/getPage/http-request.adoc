@@ -1,7 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /api/articles?lastArticleId=4&size=2 HTTP/1.1
-Authorization: bearer secretsecretsecret
-Host: localhost:8080
-
-----

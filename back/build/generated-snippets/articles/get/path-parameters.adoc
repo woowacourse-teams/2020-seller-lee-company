@@ -1,8 +1,0 @@
-.+/api/articles/{id}+
-|===
-|Parameter|Description
-
-|`+id+`
-|게시글의 ID
-
-|===

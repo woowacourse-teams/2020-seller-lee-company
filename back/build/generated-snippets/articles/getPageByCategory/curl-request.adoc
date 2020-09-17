@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/articles?lastArticleId=4&size=2&category=%EA%B8%B0%ED%83%80+%EC%A4%91%EA%B3%A0%EB%AC%BC%ED%92%88' -i -X GET \
-    -H 'Authorization: bearer secretsecretsecret'
-----

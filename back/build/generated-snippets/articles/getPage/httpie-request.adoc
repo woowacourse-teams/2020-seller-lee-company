@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ http GET 'http://localhost:8080/api/articles?lastArticleId=4&size=2' \
-    'Authorization:bearer secretsecretsecret'
-----

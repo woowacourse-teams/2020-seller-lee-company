@@ -1,7 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "nickname" : "lxxjn0",
-  "password" : "0000"
-}
-----
