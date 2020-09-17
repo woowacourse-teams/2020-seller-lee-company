@@ -4,11 +4,11 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.google.common.base.Strings;
 
 @Entity
 public class Member {
@@ -23,14 +23,7 @@ public class Member {
 
     private String avatar;
 
-    private String kakaoAccessToken;
-
-    private String kakaoRefreshToken;
-
     private String role;
-
-    @Enumerated(EnumType.STRING)
-    private State state;
 
     private Double score;
 
@@ -38,31 +31,29 @@ public class Member {
     }
 
     public Member(Long id, String kakaoId, String nickname, String avatar,
-            String kakaoAccessToken, String kakaoRefreshToken, String role, State state,
-            Double score) {
+            String role, Double score) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.avatar = avatar;
-        this.kakaoAccessToken = kakaoAccessToken;
-        this.kakaoRefreshToken = kakaoRefreshToken;
         this.role = role;
-        this.state = state;
         this.score = score;
     }
 
-    public Member(String kakaoId, String nickname, String avatar, String kakaoAccessToken,
-            String kakaoRefreshToken, String role, State state, Double score) {
-        this(null, kakaoId, nickname, avatar, kakaoAccessToken, kakaoRefreshToken, role, state,
-                score);
+    public Member(String kakaoId, String nickname, String avatar, String role, Double score) {
+        this(null, kakaoId, nickname, avatar, role, score);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null, null, null, null);
+        this(id, null, null, null, null, null);
     }
 
     public boolean isSameId(Member member) {
         return id.equals(member.id);
+    }
+
+    public boolean isNotSameId(Member member) {
+        return !isSameId(member);
     }
 
     public boolean isSameNickname(String nickname) {
@@ -72,29 +63,17 @@ public class Member {
         return this.nickname.equals(nickname);
     }
 
-    public Member login(String nickname, String avatar, String kakaoAccessToken,
-            String kakaoRefreshToken) {
-        this.nickname = nickname;
-        this.avatar = avatar;
-        this.kakaoAccessToken = kakaoAccessToken;
-        this.kakaoRefreshToken = kakaoRefreshToken;
-
-        return this;
-    }
-
     public void update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;
-        this.state = State.JOIN;
     }
 
-    public void updateToken(String kakaoAccessToken, String kakaoRefreshToken) {
-        this.kakaoAccessToken = kakaoAccessToken;
-        this.kakaoRefreshToken = kakaoRefreshToken;
+    public void addRole(String role) {
+        this.role = role;
     }
 
-    public void updateToken(String kakaoAccessToken) {
-        updateToken(kakaoAccessToken, this.kakaoRefreshToken);
+    public boolean hasNotRole() {
+        return Strings.isNullOrEmpty(role);
     }
 
     public Long getId() {
@@ -113,20 +92,8 @@ public class Member {
         return avatar;
     }
 
-    public String getKakaoAccessToken() {
-        return kakaoAccessToken;
-    }
-
-    public String getKakaoRefreshToken() {
-        return kakaoRefreshToken;
-    }
-
     public String getRole() {
         return role;
-    }
-
-    public State getState() {
-        return state;
     }
 
     public Double getScore() {

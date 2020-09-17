@@ -20,8 +20,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.member.domain.MemberRepository;
-import com.jikgorae.api.security.config.OAuth2SuccessHandler;
+import com.jikgorae.api.security.handler.OAuth2SuccessHandler;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
+import com.jikgorae.api.security.oauth2.service.CustomOAuth2UserService;
 import com.jikgorae.api.security.web.LoginMemberMethodArgumentResolver;
 
 @ExtendWith(RestDocumentationExtension.class)
@@ -38,6 +39,9 @@ public class ControllerTest {
 
     @MockBean
     protected LoginMemberMethodArgumentResolver resolver;
+
+    @MockBean
+    protected CustomOAuth2UserService customOAuth2UserService;
 
     @MockBean
     protected OAuth2SuccessHandler OAuth2SuccessHandler;

@@ -145,26 +145,7 @@ interface VerifyNickname {
   nickname: string;
 }
 
-//todo 여기부터
-interface MemberLogin {
-  nickname: string;
-  password: string;
-}
-
-interface MemberJoin {
-  nickname: string;
-  password: string;
-  avatar: string;
-}
-
-//todo 여기까지
-
 export const memberAPI = {
-  //todo 여기부터
-  login: async (data: MemberLogin) =>
-    await axios.post(`${BASE_URL}${domain.loginNotOAuth}`, data),
-  join: async (data: MemberJoin) =>
-    await axios.post(`${BASE_URL}${domain.members}`, data),
   findNickname: async (params: VerifyNickname) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.api}${domain.members}`, {
