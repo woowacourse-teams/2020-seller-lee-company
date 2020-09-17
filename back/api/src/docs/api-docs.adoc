@@ -51,3 +51,9 @@ operation::articles/update[snippets='http-request,request-body']
 === 채팅방 생성
 
 operation::chat-rooms/post[snippets='http-request,http-response,request-fields,request-body,response-headers']
+
+== 조직 관리
+
+=== 조직 생성
+
+operation::organizations/create[snippets='http-request,request-headers,request-body,request-fields,http-response,response-body,response-fields']

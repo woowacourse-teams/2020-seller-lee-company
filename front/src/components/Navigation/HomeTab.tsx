@@ -1,7 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeTabParam } from "../../types/types";
-
 import CategoryHomeSelectedScreen from "../../screens/CategoryHomeSelectedScreen";
 import FeedHomeScreen from "../../screens/FeedHomeScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
@@ -9,7 +8,6 @@ import { Feather } from "@expo/vector-icons";
 import theme from "../../colors";
 import PostingStack from "./PostingStack";
 import ArticleFormOptionsModal from "../Article/ArticleFormOptionsModal";
-
 import SelectChatScreen from "../../screens/SelectChatScreen";
 
 const Tab = createBottomTabNavigator<HomeTabParam>();

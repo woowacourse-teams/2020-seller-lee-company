@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
@@ -107,25 +106,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                                 token.getAccessToken()))
                         .param("lastArticleId", String.valueOf(articleId))
                         .param("size", String.valueOf(ARTICLE_SIZE)))
-                .andDo(print())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
 
         return objectMapper.readValue(json, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, FeedResponse.class));
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //         .when()
-        //                 .param("lastArticleId", articleId)
-        //                 .param("size", ARTICLE_SIZE)
-        //                 .get(API_URI+ARTICLE_URI)
-        //         .then()
-        //                 .log().all()
-        //                 .extract().jsonPath().getList(".", FeedResponse.class);
-        // @formatter:on
     }
 
     private List<ArticleCardResponse> showPageByCategory(Long articleId) throws
@@ -138,27 +124,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                         .param("lastArticleId", String.valueOf(articleId))
                         .param("size", String.valueOf(ARTICLE_SIZE))
                         .param("category", ARTICLE_REQUEST.getCategory()))
-                .andDo(print())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
 
         return objectMapper.readValue(json, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, ArticleResponse.class));
-
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //                 .when()
-        //                 .param("lastArticleId", articleId)
-        //                 .param("size", ARTICLE_SIZE)
-        //                 .param("category", ARTICLE_REQUEST.getCategory())
-        //                 .get(API_URI + ARTICLE_URI)
-        //                 .then()
-        //                 .log().all()
-        //                 .extract().jsonPath().getList(".", ArticleCardResponse.class);
-        // @formatter:on
     }
 
     private ArticleResponse showArticle(Long articleId) throws Exception {
@@ -167,26 +138,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 get(ArticleController.ARTICLE_API_URI + "/" + articleId)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken())))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
 
         return objectMapper.readValue(json, ArticleResponse.class);
-
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //         .when()
-        //                 .get(url)
-        //         .then()
-        //                 .log().all()
-        //                 .statusCode(HttpStatus.OK.value())
-        //                 .extract()
-        //                 .jsonPath().getObject(".", ArticleResponse.class);
-        // @formatter:on
     }
 
     private void deleteArticle(Long articleId) throws Exception {
@@ -195,18 +152,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                 delete(ArticleController.ARTICLE_API_URI + "/" + articleId)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken())))
-                .andDo(print())
                 .andExpect(status().isNoContent());
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        // .when()
-        //         .delete(url)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.NO_CONTENT.value());
-        // @formatter:on
     }
 
     private List<ArticleCardResponse> showSalesHistory() throws Exception {
@@ -217,27 +163,12 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("tradeState", tradeState))
-                .andDo(print())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
 
         return objectMapper.readValue(json, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, ArticleCardResponse.class));
-
-        // @formatter:off
-        // return
-        //         given()
-        //                 .auth().oauth2(token.getAccessToken())
-        //         .when()
-        //             .param("tradeState", tradeState)
-        //             .get(url)
-        //         .then()
-        //                 .log().all()
-        //                 .statusCode(HttpStatus.OK.value())
-        //                 .extract()
-        //                 .jsonPath().getList(".", ArticleCardResponse.class);
-        // @formatter:on
     }
 
     private void updateTradeState(Long articleId) throws Exception {
@@ -253,20 +184,6 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                         .accept(MediaType.APPLICATION_JSON_VALUE)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(tradeStateRequest)))
-                .andDo(print())
                 .andExpect(status().isNoContent());
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        // .when()
-        //         .body(tradeStateRequest)
-        //         .accept(MediaType.APPLICATION_JSON_VALUE)
-        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        //         .put(url)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.NO_CONTENT.value());
-        // @formatter:on
     }
 }

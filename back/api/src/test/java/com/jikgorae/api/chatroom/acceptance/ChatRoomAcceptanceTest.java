@@ -5,7 +5,6 @@ import static com.jikgorae.api.fixture.MemberFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.http.HttpHeaders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
@@ -73,21 +72,8 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                                 token.getAccessToken()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andDo(print())
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getHeader(LOCATION);
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        //         .body(request)
-        // .when()
-        //         .post(API_URI+CHAT_ROOM_URI)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.CREATED.value());
-        // @formatter:on
     }
 
     private List<ChatRoomResponse> showAllChatRoom() throws Exception {
@@ -95,7 +81,6 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                 .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                         token.getAccessToken()))
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
@@ -108,7 +93,6 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
                 MockMvcRequestBuilders.delete(CHAT_ROOM_API_URI + "/" + chatRoomId)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken())))
-                .andDo(print())
                 .andExpect(status().isNoContent());
     }
 }

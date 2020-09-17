@@ -3,29 +3,25 @@ package com.jikgorae.api.member.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jikgorae.api.member.domain.IllegalJoinException;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
-import com.jikgorae.api.member.domain.State;
 
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final KakaoService kakaoService;
 
-    public MemberService(MemberRepository memberRepository, KakaoService kakaoService) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.kakaoService = kakaoService;
     }
 
     @Transactional
-    public void update(Member loginMember, ProfileRequest request) throws JsonProcessingException {
-        if (!loginMember.isSameNickname(request.getNickname()) && findNickname(request.getNickname())) {
+    public void update(Member loginMember, ProfileRequest request) {
+        if (!loginMember.isSameNickname(request.getNickname()) && findNickname(
+                request.getNickname())) {
             throwUpdateException(loginMember);
         }
         loginMember.update(request.getNickname(), request.getAvatar());
-        kakaoService.updateProfile(loginMember);
     }
 
     public boolean findNickname(String verifyNickname) {
@@ -33,7 +29,7 @@ public class MemberService {
     }
 
     private void throwUpdateException(Member loginMember) {
-        if (loginMember.getState().equals(State.NOT_JOIN)) {
+        if (loginMember.getNickname() == null || loginMember.getNickname().length() == 0) {
             throw new IllegalJoinException("중복된 이름으로 회원가입 할 수 없습니다.");
         }
         throw new IllegalArgumentException("중복된 이름으로 변경할 수 없습니다.");

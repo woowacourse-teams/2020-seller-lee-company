@@ -18,7 +18,8 @@ public enum TradeState {
                 .filter(v -> v.tradeState.equals(tradeState))
                 .findFirst()
                 .orElseThrow(() ->
-                        new IllegalArgumentException(String.format("잘못된 State : %s.", tradeState)));
+                        new IllegalArgumentException(
+                                String.format("잘못된 TradeState : %s.", tradeState)));
     }
 
     public boolean isCompleted() {

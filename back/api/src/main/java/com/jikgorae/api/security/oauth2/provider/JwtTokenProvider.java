@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -72,9 +73,14 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         String credential = getPayload(token);
         Member member = memberRepository.findOptionalMemberByKakaoId(credential)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+                .orElseThrow(
+                        () -> new AuthenticationCredentialsNotFoundException("존재하지 않는 회원입니다."));
 
         Map<String, Object> attribute = createAttribute(member);
+
+        if (member.hasNotRole()) {
+            member.addRole("ROLE_USER");
+        }
 
         OAuth2User AuthenticatedMember = new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(member.getRole())),
