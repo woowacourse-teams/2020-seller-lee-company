@@ -1,7 +1,0 @@
-|===
-|Name|Description
-
-|`+Authorization+`
-|회원의 토큰
-
-|===

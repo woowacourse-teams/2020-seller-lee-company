@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/me' -i -X GET \
-    -H 'Authorization: bearer secretsecretsecret'
-----

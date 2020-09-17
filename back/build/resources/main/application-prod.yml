@@ -1,8 +1,0 @@
-spring:
-  profiles:
-    include:
-      - common
-      - security
-
-  datasource:
-    url: jdbc:mariadb://192.168.1.23:3306/sl_db

@@ -1,7 +1,0 @@
-|===
-|Name|Description
-
-|`+Location+`
-|생성된 게시글의 ID가 담긴 URI
-
-|===
