@@ -46,4 +46,16 @@ class MemberOrganizationRegisterServiceTest {
 
         assertThat(memberOrganizationId).isEqualTo(51L);
     }
+
+    @DisplayName("존재하지 않는 입장 코드를 입력시 예외 발생")
+    @Test
+    void register_Exception() {
+        when(organizationRepository.findOptionalByCode(anyString())).thenThrow(
+                new IllegalArgumentException("입장 코드와 일치하는 조직이 존재하지 않습니다."));
+
+        assertThatThrownBy(() -> memberOrganizationRegisterService.register(MEMBER1,
+                MEMBER_ORGANIZATION_REQUEST))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("입장 코드와 일치하는 조직이 존재하지 않습니다.");
+    }
 }
