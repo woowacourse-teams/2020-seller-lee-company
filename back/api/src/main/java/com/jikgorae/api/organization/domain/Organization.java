@@ -28,9 +28,12 @@ public class Organization {
         this.code = code;
     }
 
+    public Organization(Long id) {
+        this(id, null, null);
+    }
+
     public Organization(String name, String code) {
-        this.name = name;
-        this.code = code;
+        this(null, name, code);
     }
 
     public Long getId() {

@@ -8,9 +8,11 @@ import com.jikgorae.api.article.domain.Photos;
 import com.jikgorae.api.article.domain.Tags;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.organization.domain.Organizations;
 
 public class ArticleRequest {
     private String title;
+    private List<Long> organizations;
     private Long price;
     private String category;
     private String contents;
@@ -20,9 +22,11 @@ public class ArticleRequest {
     private ArticleRequest() {
     }
 
-    public ArticleRequest(String title, Long price, String category, String contents,
+    public ArticleRequest(String title, List<Long> organizations, Long price, String category,
+            String contents,
             List<String> tags, List<String> photos) {
         this.title = title;
+        this.organizations = organizations;
         this.price = price;
         this.category = category;
         this.contents = contents;
@@ -33,6 +37,7 @@ public class ArticleRequest {
     public Article toArticleWithLoginMember(Member loginMember) {
         return new Article(
                 title,
+                Organizations.of(organizations),
                 Tags.of(tags),
                 Category.fromString(category),
                 contents,

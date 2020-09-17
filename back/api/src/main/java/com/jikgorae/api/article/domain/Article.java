@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 
 import com.jikgorae.api.common.BaseTimeEntity;
 import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.organization.domain.Organizations;
 import com.jikgorae.api.security.web.AuthorizationException;
 
 @Entity
@@ -51,7 +52,8 @@ public class Article extends BaseTimeEntity {
     protected Article() {
     }
 
-    public Article(Long id, String title, Tags tags, Category category, String contents, Long price,
+    public Article(Long id, String title, Organizations organizations, Tags tags, Category category,
+            String contents, Long price,
             TradeState tradeState, Photos photos, Member author, LocalDateTime createdTime,
             LocalDateTime modifiedTime) {
         this.id = id;
@@ -67,18 +69,22 @@ public class Article extends BaseTimeEntity {
         this.modifiedTime = modifiedTime;
     }
 
-    public Article(Long id, String title, Tags tags, Category category, String contents, Long price,
+    public Article(Long id, String title, Organizations organizations, Tags tags, Category category,
+            String contents, Long price,
             TradeState tradeState, Photos photos, Member author) {
-        this(id, title, tags, category, contents, price, tradeState, photos, author, null, null);
+        this(id, title, organizations, tags, category, contents, price, tradeState, photos, author,
+                null, null);
     }
 
-    public Article(String title, Tags tags, Category category, String contents, Long price,
+    public Article(String title, Organizations organizations, Tags tags, Category category,
+            String contents, Long price,
             TradeState tradeState, Photos photos, Member author) {
-        this(null, title, tags, category, contents, price, tradeState, photos, author);
+        this(null, title, organizations, tags, category, contents, price, tradeState, photos,
+                author);
     }
 
     public Article(Long id) {
-        this(id, null, null, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null, null, null, null);
     }
 
     public void update(Article article) {
