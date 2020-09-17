@@ -81,12 +81,6 @@ export default function WholeChatScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Chatting</Text>
-        {/*<Text style={styles.description}>*/}
-        {/*  모든 사용자들이 채팅하는 곳입니다.*/}
-        {/*</Text>*/}
-      </View>
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
