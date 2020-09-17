@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import io.restassured.RestAssured;
 
+@Disabled
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class SecurityConfigTest {
     @BeforeEach
