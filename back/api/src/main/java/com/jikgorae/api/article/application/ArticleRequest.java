@@ -51,6 +51,10 @@ public class ArticleRequest {
         return title;
     }
 
+    public List<Long> getOrganizations() {
+        return organizations;
+    }
+
     public Long getPrice() {
         return price;
     }

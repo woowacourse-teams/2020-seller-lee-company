@@ -22,7 +22,7 @@ public class ArticleService {
 
     public Long create(ArticleRequest request, Member loginMember) {
         Article article = articleRepository.save(request.toArticleWithLoginMember(loginMember));
-
+        // 생성됐다면 articleOrganization도 post 되어야 함 -> event
         return article.getId();
     }
 
