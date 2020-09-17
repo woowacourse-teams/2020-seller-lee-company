@@ -18,11 +18,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.favorite.application.FavoriteRequest;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class FavoriteAcceptanceTest extends AcceptanceTest {
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 찜 관리

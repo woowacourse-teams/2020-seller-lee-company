@@ -1,0 +1,13 @@
+|===
+|Parameter|Description
+
+|`+lastArticleId+`
+|마지막 게시글의 ID
+
+|`+size+`
+|가져올 페이지의 크기(게시물 수)
+
+|`+category+`
+|가져올 페이지의 카테고리
+
+|===

@@ -1,0 +1,7 @@
+|===
+|Parameter|Description
+
+|`+articleId+`
+|게시글의 ID
+
+|===

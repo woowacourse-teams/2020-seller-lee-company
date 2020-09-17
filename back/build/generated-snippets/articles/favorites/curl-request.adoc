@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/favorites' -i -X GET \
+    -H 'Authorization: bearer secretsecretsecret'
+----

@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    include:
+      - common
+      - security
+
+  datasource:
+    url: jdbc:mariadb://seller_lee_database:3306/sl_db

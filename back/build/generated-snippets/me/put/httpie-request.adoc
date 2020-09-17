@@ -1,0 +1,9 @@
+[source,bash]
+----
+$ echo '{
+  "nickname" : "1111",
+  "avatar" : "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4"
+}' | http PUT 'http://localhost:8080/api/me' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:bearer secretsecretsecret'
+----

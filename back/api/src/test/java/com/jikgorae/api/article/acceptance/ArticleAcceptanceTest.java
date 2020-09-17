@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -24,14 +25,14 @@ import com.jikgorae.api.article.application.ArticleResponse;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 4L;
     public static final int ARTICLE_SIZE = 2;
 
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 게시글 관리
@@ -61,6 +62,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("게시글 관리")
     @TestFactory
+    @WithMockUser
     Stream<DynamicTest> manageArticle() throws Exception {
         token = joinAndLogin(MEMBER1);
 

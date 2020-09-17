@@ -1,0 +1,7 @@
+[source,options="nowrap"]
+----
+{
+  "nickname" : "1111",
+  "avatar" : "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4"
+}
+----

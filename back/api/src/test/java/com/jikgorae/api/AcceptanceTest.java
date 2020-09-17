@@ -20,7 +20,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.article.presentation.ArticleController;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
@@ -62,7 +62,7 @@ public class AcceptanceTest {
         return Long.parseLong(id);
     }
 
-    protected String createArticle(TokenResponse token) throws Exception {
+    protected String createArticle(AuthTokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
 
         MvcResult mvcResult = mockMvc.perform(
@@ -78,10 +78,10 @@ public class AcceptanceTest {
         return mvcResult.getResponse().getHeader("Location");
     }
 
-    protected TokenResponse joinAndLogin(Member member) {
+    protected AuthTokenResponse joinAndLogin(Member member) {
         memberRepository.save(member);
 
-        return TokenResponse.of(member.getNickname(),
+        return AuthTokenResponse.of(member.getNickname(),
                 jwtTokenProvider.createToken(member.getKakaoId()),
                 AuthorizationType.BEARER);
     }

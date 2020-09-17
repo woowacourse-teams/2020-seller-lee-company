@@ -145,6 +145,10 @@ interface VerifyNickname {
   nickname: string;
 }
 
+interface MemberPutByPushToken {
+  pushToken: string | undefined;
+}
+
 export const memberAPI = {
   findNickname: async (params: VerifyNickname) => {
     const token = await DeviceStorage.getToken();
@@ -152,6 +156,14 @@ export const memberAPI = {
       params,
       headers: {
         Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  putByPushToken: async (data: MemberPutByPushToken) => {
+    const authToken = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.api}${domain.members}`, data, {
+      headers: {
+        Authorization: `bearer ${authToken}`,
       },
     });
   },
@@ -209,6 +221,14 @@ export const favoriteAPI = {
         },
       },
     );
+  },
+  getPush: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.favorites}/push`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
   },
   delete: async (data: FavoriteDelete) => {
     const token = await DeviceStorage.getToken();

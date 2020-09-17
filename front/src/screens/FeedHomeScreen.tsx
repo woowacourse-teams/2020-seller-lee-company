@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -16,11 +16,14 @@ import {
 } from "@react-navigation/native";
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
-import { articlesAPI } from "../api/api";
+import { articlesAPI, memberAPI } from "../api/api";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
+import * as Permissions from "expo-permissions";
+import { PermissionStatus } from "expo-permissions";
+import * as Notifications from "expo-notifications";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import GroupList from "../components/organization/OrganizationList";
 import { selectedOrganizationInFeedsState } from "../states/organizationState";
@@ -44,21 +47,30 @@ export default function FeedHomeScreen() {
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
   const selectedGroup = useRecoilValue(selectedOrganizationInFeedsState);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
+  useEffect(() => {
     initFeed();
-  }, [navigation]);
+    requestNotificationPermission();
+  }, []);
+
+  useEffect(() => navigation.setOptions({ headerShown: false }), [navigation]);
+
+  useEffect(() => {
+    isFocused ? applyChange() : undefined;
+  }, [isFocused]);
+
+  const requestNotificationPermission = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status !== PermissionStatus.GRANTED) {
+      return;
+    }
+    const pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+    await memberAPI.putByPushToken({ pushToken });
+  };
 
   const applyChange = async () => {
     initFeed();
     setIsModified(false);
   };
-
-  useEffect(() => {
-    isFocused ? applyChange() : undefined;
-  }, [isFocused]);
 
   const initFeed = async () => {
     const { data } = await articlesAPI.get({

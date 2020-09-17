@@ -34,4 +34,9 @@ public class MemberService {
         }
         throw new IllegalArgumentException("중복된 이름으로 변경할 수 없습니다.");
     }
+
+    @Transactional
+    public void updatePushToken(Member loginMember, PushTokenRequest request) {
+        loginMember.updatePushToken(request.getPushToken());
+    }
 }

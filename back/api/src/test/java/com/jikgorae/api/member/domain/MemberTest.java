@@ -35,7 +35,7 @@ class MemberTest {
     @Test
     void isSameNickname() {
         String nickname = "lxxjn0";
-        Member member = new Member(51L, "", nickname, null, null, null);
+        Member member = new Member(51L, "", nickname, null, null, null, null);
         assertThat(member.isSameNickname(nickname)).isTrue();
     }
 }

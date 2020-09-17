@@ -1,0 +1,9 @@
+[source,bash]
+----
+$ echo '{
+  "nickname" : "lxxjn0",
+  "password" : "0000"
+}' | http POST 'http://localhost:8080/login' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----

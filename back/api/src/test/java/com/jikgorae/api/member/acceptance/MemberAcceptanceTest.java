@@ -15,11 +15,11 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class MemberAcceptanceTest extends AcceptanceTest {
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 회원 관리
@@ -44,7 +44,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                 ));
     }
 
-    private Boolean findNickname(TokenResponse token) throws Exception {
+    private Boolean findNickname(AuthTokenResponse token) throws Exception {
         MvcResult mvcResult = mockMvc.perform(
                 get(MEMBER_API_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,

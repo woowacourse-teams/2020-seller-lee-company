@@ -1,0 +1,7 @@
+[source,http,options="nowrap"]
+----
+GET /api/articles?lastArticleId=4&size=2&category=%EA%B8%B0%ED%83%80+%EC%A4%91%EA%B3%A0%EB%AC%BC%ED%92%88 HTTP/1.1
+Authorization: bearer secretsecretsecret
+Host: localhost:8080
+
+----
