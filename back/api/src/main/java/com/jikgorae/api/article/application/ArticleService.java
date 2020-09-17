@@ -4,8 +4,10 @@ import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.jikgorae.api.article.application.event.ArticleCreatedEvent;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
@@ -15,14 +17,16 @@ import com.jikgorae.api.security.web.AuthorizationException;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final ApplicationEventPublisher publisher;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, ApplicationEventPublisher publisher) {
         this.articleRepository = articleRepository;
+        this.publisher = publisher;
     }
 
     public Long create(ArticleRequest request, Member loginMember) {
         Article article = articleRepository.save(request.toArticleWithLoginMember(loginMember));
-        // 생성됐다면 articleOrganization도 post 되어야 함 -> event
+        publisher.publishEvent(new ArticleCreatedEvent(article));
         return article.getId();
     }
 
