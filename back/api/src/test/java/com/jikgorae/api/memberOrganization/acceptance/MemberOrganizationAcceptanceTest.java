@@ -1,7 +1,6 @@
 package com.jikgorae.api.memberOrganization.acceptance;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
-import static com.jikgorae.api.fixture.MemberOrganizationFixture.*;
 import static com.jikgorae.api.memberOrganization.presentation.MemberOrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.junit.jupiter.api.DynamicTest.*;
@@ -18,10 +17,13 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.memberOrganization.application.MemberOrganizationRequest;
+import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
     private TokenResponse token;
+    private OrganizationResponse organizationResponse;
 
     /**
      * Feature: 회원/조직 연관관계 관리
@@ -36,18 +38,20 @@ public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("회원/조직 연관관계 관리")
     @TestFactory
-    Stream<DynamicTest> manageMemberOrganization() {
+    Stream<DynamicTest> manageMemberOrganization() throws Exception {
         token = joinAndLogin(MEMBER1);
-        
+        organizationResponse = createOrganization(token);
+
         return Stream.of(
                 dynamicTest("회원/조직 추가", () -> {
-                    Long memberOrganizationId = extractId(createMemberOrganization(token));
+                    createMemberOrganization(token);
                 })
         );
     }
 
     private String createMemberOrganization(TokenResponse token) throws Exception {
-        String request = objectMapper.writeValueAsString(MEMBER_ORGANIZATION_REQUEST);
+        String request = objectMapper.writeValueAsString(
+                new MemberOrganizationRequest(organizationResponse.getCode()));
 
         MvcResult mvcResult = mockMvc
                 .perform(
