@@ -148,7 +148,7 @@ export default function ArticleDetailScreen() {
     // 백과 연동 되면 수정될 부분
     setArticleSelected({
       ...data,
-      group: [{ id: 1, name: "우아한 테크코스" }],
+      organization: [{ id: 1, name: "우아한 테크코스" }],
     });
   };
 

@@ -1,5 +1,6 @@
 package com.jikgorae.api.article.application.event;
 
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -15,7 +16,7 @@ public class ArticleCreatedEventListener {
         this.articleOrganizationService = articleOrganizationService;
     }
 
-    @TransactionalEventListener
+    @EventListener
     public void handle(ArticleCreatedEvent event){
         Article article = event.getArticle();
         articleOrganizationService.create(article, article.getOrganizations());

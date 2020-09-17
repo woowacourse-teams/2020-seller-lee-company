@@ -13,7 +13,7 @@ import com.jikgorae.api.organization.domain.Organization;
 
 public class ArticleRequest {
     private String title;
-    private List<Long> organizationIds;
+    private List<Organization> organizations;
     private Long price;
     private String category;
     private String contents;
@@ -23,11 +23,11 @@ public class ArticleRequest {
     private ArticleRequest() {
     }
 
-    public ArticleRequest(String title, List<Long> organizationIds, Long price, String category,
+    public ArticleRequest(String title, List<Organization> organizations, Long price, String category,
             String contents,
             List<String> tags, List<String> photos) {
         this.title = title;
-        this.organizationIds = organizationIds;
+        this.organizations = organizations;
         this.price = price;
         this.category = category;
         this.contents = contents;
@@ -36,8 +36,6 @@ public class ArticleRequest {
     }
 
     public Article toArticleWithLoginMember(Member loginMember) {
-        List<Organization> organizations = organizationIds.stream().map(Organization::new)
-                .collect(Collectors.toList());
         return new Article(
                 title,
                 organizations,
@@ -54,8 +52,8 @@ public class ArticleRequest {
         return title;
     }
 
-    public List<Long> getOrganizationIds() {
-        return organizationIds;
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 
     public Long getPrice() {
