@@ -2,6 +2,7 @@ package com.jikgorae.chat.message.application;
 
 import com.jikgorae.chat.message.domain.Message;
 import com.jikgorae.chat.message.domain.MessageType;
+import com.jikgorae.chat.message.domain.WholeMessage;
 
 public class MessageRequest {
     private Long roomId;
@@ -44,5 +45,9 @@ public class MessageRequest {
 
     public Message toMessage() {
         return new Message(senderId, senderNickname, roomId, message);
+    }
+
+    public WholeMessage toWholeMessage() {
+        return new WholeMessage(senderId, senderNickname, roomId, message);
     }
 }

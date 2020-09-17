@@ -50,7 +50,7 @@ export default function ChatRoomList() {
       };
       initChatRoomList();
 
-      const polling = setInterval(initChatRoomList, 6000);
+      const polling = setInterval(initChatRoomList, 30000);
       return () => {
         clearInterval(polling);
       };

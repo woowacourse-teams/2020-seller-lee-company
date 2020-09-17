@@ -1,21 +1,20 @@
-package com.jikgorae.api.favorite.infra;
+package com.jikgorae.api.favorite.application;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountService;
-import com.jikgorae.api.favorite.application.FavoriteRemovedEvent;
 
 @Component
-public class FavoriteRemovedListener implements ApplicationListener<FavoriteRemovedEvent> {
+public class FavoriteCountDecreaseListener implements ApplicationListener<FavoriteCountDecreaseEvent> {
     private final ArticleFavoriteCountService articleFavoriteCountService;
 
-    public FavoriteRemovedListener(ArticleFavoriteCountService articleFavoriteCountService) {
+    public FavoriteCountDecreaseListener(ArticleFavoriteCountService articleFavoriteCountService) {
         this.articleFavoriteCountService = articleFavoriteCountService;
     }
 
     @Override
-    public void onApplicationEvent(FavoriteRemovedEvent event) {
+    public void onApplicationEvent(FavoriteCountDecreaseEvent event) {
         articleFavoriteCountService.decrease(event.getFavorite().getArticle());
     }
 }
