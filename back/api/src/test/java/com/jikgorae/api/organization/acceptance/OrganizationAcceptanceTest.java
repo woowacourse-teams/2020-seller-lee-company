@@ -35,6 +35,8 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
      * <p>
      * Then: 조직이 등록되고 입장 코드를 응답받는다.
      * <p>
+     * Given: 회원이 조직을 등록하였다.
+     * <p>
      * When: 회원이 등록한 조직을 조회한다.
      * <p>
      * Then: 등록된 조직이 반환된다.
@@ -47,6 +49,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
 
         return Stream.of(
                 dynamicTest("회원이 가입한 조직 조회", () -> {
+                    createMemberOrganization(organizationResponse, token);
                     List<OrganizationResponse> organizationResponses = showAll(token);
                     assertThat(organizationResponses).containsExactly(organizationResponse);
                 })
@@ -64,6 +67,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
+
         return objectMapper.readValue(json, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, OrganizationResponse.class));
     }
