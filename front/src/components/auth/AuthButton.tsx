@@ -61,7 +61,10 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
     try {
       if (status === 200 && data.length !== 0) {
         setOrganizationList(data);
-        return navigation.navigate("HomeStack");
+        return navigation.reset({
+          index: 0,
+          routes: [{ name: "HomeStack" }],
+        });
       } else {
         return navigation.navigate("OrganizationHomeScreen");
       }

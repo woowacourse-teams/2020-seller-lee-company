@@ -50,7 +50,10 @@ export default function KakaoLoginWebView({
 
       if (status === 200 && data.length !== 0) {
         setOrganizationList(data);
-        return navigation.navigate("HomeStack");
+        return navigation.reset({
+          index: 0,
+          routes: [{ name: "HomeStack" }],
+        });
       }
       return navigation.navigate("OrganizationHomeScreen");
     } catch (error) {

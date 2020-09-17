@@ -7,13 +7,14 @@ import {
   Text,
   View,
 } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../types/types";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue } from "recoil";
 import { memberProfileState } from "../states/memberState";
 import OrganizationEnterButton from "../components/organization/OrganizationEnterButton";
 import OrganizationCreateButton from "../components/organization/OrganizationCreateButton";
+import { Feather } from "@expo/vector-icons";
 
 type OrganizationHomeScreenNavigationProp = StackNavigationProp<
   RootStackParam,
@@ -26,7 +27,22 @@ export default function OrganizationHomeScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: false,
+      headerTransparent: true,
+      headerTitle: "",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={() => navigation.goBack()}
+          backImage={() => (
+            <Feather name="chevron-left" size={24} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
     });
   }, [navigation]);
 
