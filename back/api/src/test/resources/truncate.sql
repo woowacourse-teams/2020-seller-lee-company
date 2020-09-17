@@ -5,6 +5,8 @@ TRUNCATE TABLE article_favorite_count;
 TRUNCATE TABLE chat_room;
 TRUNCATE TABLE favorite;
 TRUNCATE TABLE member;
+TRUNCATE TABLE organization;
+TRUNCATE TABLE member_organization;
 TRUNCATE TABLE photo;
 TRUNCATE TABLE tag;
 TRUNCATE TABLE trade;
@@ -19,6 +21,10 @@ ALTER TABLE favorite
     ALTER COLUMN favorite_id RESTART WITH 1;
 ALTER TABLE member
     ALTER COLUMN member_id RESTART WITH 1;
+ALTER TABLE organization
+    ALTER COLUMN organization_id RESTART WITH 1;
+ALTER TABLE member_organization
+    ALTER COLUMN member_organization_id RESTART WITH 1;
 ALTER TABLE trade
     ALTER COLUMN trade_id RESTART WITH 1;
 

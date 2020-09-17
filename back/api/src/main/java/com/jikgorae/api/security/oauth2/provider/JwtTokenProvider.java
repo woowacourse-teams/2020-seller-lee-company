@@ -74,7 +74,8 @@ public class JwtTokenProvider {
         String credential = getPayload(token);
         Member member = memberRepository.findOptionalMemberByKakaoId(credential)
                 .orElseThrow(
-                        () -> new AuthenticationCredentialsNotFoundException("존재하지 않는 회원입니다."));
+                        () -> new AuthenticationCredentialsNotFoundException(
+                                "credential error: 존재하지 않는 회원입니다."));
 
         Map<String, Object> attribute = createAttribute(member);
 

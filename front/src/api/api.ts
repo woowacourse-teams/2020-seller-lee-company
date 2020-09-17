@@ -24,6 +24,7 @@ const domain = {
   favorites: "/favorites",
   profiles: "/me",
   organizations: "/organizations",
+  memberOrganization: "/member-organizations",
 };
 
 interface ArticlesPost {
@@ -145,6 +146,10 @@ interface VerifyNickname {
   nickname: string;
 }
 
+interface MemberPutByPushToken {
+  pushToken: string | undefined;
+}
+
 export const memberAPI = {
   findNickname: async (params: VerifyNickname) => {
     const token = await DeviceStorage.getToken();
@@ -152,6 +157,14 @@ export const memberAPI = {
       params,
       headers: {
         Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  putByPushToken: async (data: MemberPutByPushToken) => {
+    const authToken = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.api}${domain.members}`, data, {
+      headers: {
+        Authorization: `bearer ${authToken}`,
       },
     });
   },
@@ -209,6 +222,14 @@ export const favoriteAPI = {
         },
       },
     );
+  },
+  getPush: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.favorites}/push`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
   },
   delete: async (data: FavoriteDelete) => {
     const token = await DeviceStorage.getToken();
@@ -323,6 +344,25 @@ export const organizationAPI = {
     const token = await DeviceStorage.getToken();
     return await axios.post(
       `${BASE_URL}${domain.api}${domain.organizations}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+};
+
+interface RegisterMemberOrganization {
+  code: string;
+}
+
+export const memberOrganizationAPI = {
+  register: async (data: RegisterMemberOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
       data,
       {
         headers: {

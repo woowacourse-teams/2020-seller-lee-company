@@ -2,17 +2,17 @@ package com.jikgorae.api.member.application;
 
 import com.jikgorae.api.security.web.AuthorizationType;
 
-public class TokenResponse {
+public class AuthTokenResponse {
     private Long id;
     private String nickname;
     private String avatar;
     private String accessToken;
     private String tokenType;
 
-    private TokenResponse() {
+    private AuthTokenResponse() {
     }
 
-    private TokenResponse(Long id, String nickname, String avatar, String accessToken,
+    private AuthTokenResponse(Long id, String nickname, String avatar, String accessToken,
             String tokenType) {
         this.id = id;
         this.nickname = nickname;
@@ -21,8 +21,8 @@ public class TokenResponse {
         this.tokenType = tokenType;
     }
 
-    public static TokenResponse of(Long id, String nickname, String avatar, String accessToken, AuthorizationType type) {
-        return new TokenResponse(id, nickname, avatar, accessToken, type.toLowerCase());
+    public static AuthTokenResponse of(Long id, String nickname, String avatar, String accessToken, AuthorizationType type) {
+        return new AuthTokenResponse(id, nickname, avatar, accessToken, type.toLowerCase());
     }
 
     public Long getId() {

@@ -29,9 +29,9 @@ import {
   articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
-  selectedGroupsInArticleFormState,
   articleSelectedState,
   articleTitleState,
+  selectedOrganizationsInArticleFormState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
 import { Article, HomeStackParam, RootStackParam } from "../types/types";
@@ -60,7 +60,7 @@ export default function ArticleFormScreen() {
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedGroup, setSelectedGroup] = useRecoilState(
-    selectedGroupsInArticleFormState,
+    selectedOrganizationsInArticleFormState,
   );
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
@@ -99,7 +99,7 @@ export default function ArticleFormScreen() {
         title !== originArticle.title ||
         price !== originArticle.price ||
         contents !== originArticle.contents ||
-        selectedGroup.length !== originArticle.group.length ||
+        selectedGroup.length !== originArticle.organization.length ||
         selectedCategory !== originArticle.categoryName ||
         tags.length !== originArticle.tags.length
       );
@@ -181,7 +181,7 @@ export default function ArticleFormScreen() {
     setArticle(target);
     setPhotos(target.photos);
     setTitle(target.title);
-    setSelectedGroup(target.group);
+    setSelectedGroup(target.organization);
     setSelectedCategory(target.categoryName);
     setPrice(target.price);
     setContents(target.contents);

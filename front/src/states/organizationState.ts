@@ -16,9 +16,14 @@ export const organizationNameExistState = atom({
   default: false,
 });
 
+export const organizationExistState = atom({
+  key: "organizationExistState",
+  default: true,
+});
+
 export const organizationState = atom({
   key: "organizationState",
-  default: {
+  default: <Organization>{
     id: 0,
     name: "",
     code: "",
@@ -39,5 +44,6 @@ export const selectedOrganizationInFeedsState = atom({
   default: <Organization>{
     id: 0,
     name: "",
+    code: "",
   },
 });

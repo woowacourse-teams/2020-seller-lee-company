@@ -19,11 +19,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.application.ChatRoomResponse;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ChatRoomAcceptanceTest extends AcceptanceTest {
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 채팅 관리
@@ -36,11 +36,8 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
      * When 채팅방을 만든다.
      * Then 채팅방이 추가되었다.
      * <p>
-     * When 로그인한 멤버의 전체 채팅방을 조회한다.
+     * When 특정 게시글에 존재하는 채팅방들을 조회한다.
      * Then 채팅방들이 조회된다.
-     * <p>
-     * When 채팅방을 삭제한다.
-     * Then 채팅방이 삭제된다.
      */
     @DisplayName("채팅방 관리")
     @TestFactory
