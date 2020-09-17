@@ -3,28 +3,22 @@ import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 
 import OrganizationItem from "./OrganizationItem";
+import { organizationAPI } from "../../api/api";
 
 export default function OrganizationChatList() {
-  const [organizations, setOrganizations] = useState([]);
+  const [organizations, setOrganizations] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
 
   useEffect(() => {
-    const initOrganizations = [
-      {
-        id: 1,
-        name: "a",
-      },
-      {
-        id: 2,
-        name: "b",
-      },
-      {
-        id: 3,
-        name: "c",
-      },
-    ];
-
-    // @ts-ignore
-    setOrganizations(initOrganizations);
+    const initOrganizations = async () => {
+      const { data } = await organizationAPI.showAll();
+      setOrganizations(data);
+    };
+    initOrganizations();
   }, []);
 
   return (

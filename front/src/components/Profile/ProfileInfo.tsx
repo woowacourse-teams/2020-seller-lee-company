@@ -21,7 +21,7 @@ export default function ProfileInfo() {
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
         <Image
-          source={{ uri: avatar }}
+          source={{ uri: avatar ? avatar : undefined }}
           style={styles.avatar}
           defaultSource={require("../../../assets/user.png")}
         />

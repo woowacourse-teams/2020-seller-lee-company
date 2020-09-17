@@ -132,7 +132,10 @@ export default function Photo() {
                   <Feather name="x-circle" size={24} color="black" />
                 </TouchableOpacity>
               </View>
-              <Image style={styles.photo} source={{ uri: item }} />
+              <Image
+                style={styles.photo}
+                source={{ uri: item ? item : undefined }}
+              />
             </View>
           )}
           contentContainerStyle={styles.photoListContents}

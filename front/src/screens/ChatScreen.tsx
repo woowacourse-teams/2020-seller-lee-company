@@ -233,7 +233,9 @@ export default function ChatScreen() {
                     // @ts-ignore
                     imageStyle[position],
                   ])}
-                  source={{ uri: memberAvatar }}
+                  source={{
+                    uri: memberAvatar === "" ? undefined : memberAvatar,
+                  }}
                   defaultSource={require("../../assets/user.png")}
                 />
               );
@@ -245,7 +247,9 @@ export default function ChatScreen() {
                     // @ts-ignore
                     imageStyle[position],
                   ])}
-                  source={{ uri: opponent.avatar }}
+                  source={{
+                    uri: opponent.avatar === "" ? undefined : opponent.avatar,
+                  }}
                   defaultSource={require("../../assets/user.png")}
                 />
               );

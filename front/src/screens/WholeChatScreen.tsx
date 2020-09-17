@@ -209,7 +209,7 @@ export default function WholeChatScreen() {
                     // @ts-ignore
                     imageStyle[position],
                   ])}
-                  source={{ uri: memberAvatar }}
+                  source={{ uri: memberAvatar ? memberAvatar : undefined }}
                   defaultSource={require("../../assets/user.png")}
                 />
               );

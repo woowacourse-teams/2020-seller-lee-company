@@ -55,7 +55,11 @@ export default function ChatRoomItem({
     <TouchableOpacity style={styles.container} onPress={onClickChatRoom}>
       <View style={styles.opponentAvatarContainer}>
         <Image
-          source={{ uri: chatRoom.opponent.avatar }}
+          source={{
+            uri: chatRoom.opponent.avatar
+              ? chatRoom.opponent.avatar
+              : undefined,
+          }}
           style={styles.avatar}
           defaultSource={require("../../../assets/user.png")}
         />
