@@ -69,6 +69,7 @@ class ArticleControllerTest extends ControllerTest {
                                 ),
                                 requestFields(
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("게시글의 제목"),
+                                        fieldWithPath("[].organizations").type(JsonFieldType.ARRAY).description("게시글이 속한 조직"),
                                         fieldWithPath("category").type(JsonFieldType.STRING).description("게시글의 카테고리"),
                                         fieldWithPath("contents").type(JsonFieldType.STRING).description("게시글의 내용"),
                                         fieldWithPath("price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
