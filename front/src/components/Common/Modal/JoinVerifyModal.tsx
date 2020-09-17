@@ -24,7 +24,7 @@ export default function JoinVerifyModal() {
 
   const onPressCloseButton = () => {
     setJoinModalVisible(false);
-    navigation.navigate("HomeStack");
+    navigation.navigate("OrganizationHomeScreen");
   };
 
   return (

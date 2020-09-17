@@ -2,10 +2,11 @@ package com.jikgorae.api;
 
 import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.GroupFixture.*;
+import static com.jikgorae.api.memberOrganization.presentation.MemberOrganizationController.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -29,6 +30,7 @@ import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.api.memberOrganization.application.MemberOrganizationRequest;
 import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.web.AuthorizationType;
@@ -108,5 +110,25 @@ public class AcceptanceTest {
 
         String json = mvcResult.getResponse().getContentAsString();
         return objectMapper.readValue(json, OrganizationResponse.class);
+    }
+
+    protected String createMemberOrganization(OrganizationResponse organizationResponse,
+            AuthTokenResponse token) throws Exception {
+        String request = objectMapper.writeValueAsString(
+                new MemberOrganizationRequest(organizationResponse.getCode()));
+
+        MvcResult mvcResult = mockMvc
+                .perform(
+                        post(MEMBER_ORGANIZATION_API_URI)
+                                .header(AUTHORIZATION,
+                                        String.format("%s %s", AuthorizationType.BEARER,
+                                                token.getAccessToken()))
+                                .content(request)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        return mvcResult.getRequest().getHeader(LOCATION);
     }
 }

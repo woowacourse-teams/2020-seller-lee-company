@@ -5,12 +5,13 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import {
   organizationCreationNameState,
   organizationExistState,
+  organizationListState,
   organizationState,
 } from "../../states/organizationState";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
 import { useNavigation } from "@react-navigation/native";
-import { memberOrganizationAPI } from "../../api/api";
+import { memberOrganizationAPI, organizationAPI } from "../../api/api";
 
 type OrganizationEnterSubmitButtonRouteName =
   | "OrganizationEnterScreen"
@@ -28,7 +29,9 @@ export default function OrganizationEnterSubmitButton() {
     OrganizationEnterSubmitButtonNavigationProp
   >();
 
+  const setOrganizationList = useSetRecoilState(organizationListState);
   const { code } = useRecoilValue(organizationState);
+
   const setOrganizationExist = useSetRecoilState(organizationExistState);
 
   const resetOrganization = useResetRecoilState(organizationState);
@@ -40,12 +43,28 @@ export default function OrganizationEnterSubmitButton() {
     return code.length !== VALID_ENTRANCE_CODE_LENGTH;
   };
 
+  const getOrganizationList = async () => {
+    try {
+      const { data, status } = await organizationAPI.showAll();
+
+      if (status === 200 && data.length !== 0) {
+        setOrganizationList(data);
+      }
+    } catch (error) {
+      console.warn(
+        "OrganizationEnterSubmitButton: organizationAPI showAll error",
+      );
+      console.warn(error);
+    }
+  };
+
   const onEnterOrganization = async () => {
     try {
       const { status } = await memberOrganizationAPI.register({
         code,
       });
       if (status === 201) {
+        await getOrganizationList();
         setOrganizationExist(true);
         resetOrganization();
         resetOrganizationCreationName();
