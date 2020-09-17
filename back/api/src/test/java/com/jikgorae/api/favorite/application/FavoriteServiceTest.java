@@ -9,6 +9,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -64,12 +65,12 @@ class FavoriteServiceTest {
         assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
     }
 
+    @Disabled
     @DisplayName("create 요청시 Id가 생성된다.")
     @Test
-    @Disabled
     void create() {
         when(favoriteRepository.save(any())).thenReturn(new Favorite(1L, ARTICLE1, MEMBER1));
-
+        when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         assertThat(favoriteService.create(
                 new FavoriteRequest(ARTICLE1.getId()), MEMBER1)).isEqualTo(1L);
     }

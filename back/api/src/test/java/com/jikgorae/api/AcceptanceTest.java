@@ -9,6 +9,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,9 +36,8 @@ import com.jikgorae.api.security.web.AuthorizationType;
 @Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
-    protected static final String LOCATION = "Location";
-    private static final int ID_INDEX_OF_LOCATION = 3;
     private static final String DELIMITER = "/";
+    protected static final String LOCATION = "Location";
 
     protected MockMvc mockMvc;
 
@@ -63,7 +65,8 @@ public class AcceptanceTest {
     }
 
     protected Long extractId(String location) {
-        String id = location.split(DELIMITER)[ID_INDEX_OF_LOCATION];
+        List<String> tokens = Arrays.asList(location.split(DELIMITER));
+        String id = tokens.get(tokens.size() - 1);
         return Long.parseLong(id);
     }
 
@@ -86,9 +89,8 @@ public class AcceptanceTest {
     protected AuthTokenResponse joinAndLogin(Member member) {
         memberRepository.save(member);
 
-        return AuthTokenResponse.of(member.getNickname(),
-                jwtTokenProvider.createToken(member.getKakaoId()),
-                AuthorizationType.BEARER);
+        return AuthTokenResponse.of(member.getId(), member.getNickname(), member.getAvatar(),
+                jwtTokenProvider.createToken(member.getKakaoId()), AuthorizationType.BEARER);
     }
 
     protected OrganizationResponse createOrganization(AuthTokenResponse token) throws Exception {

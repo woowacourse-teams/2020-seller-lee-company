@@ -7,14 +7,20 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
 import { useSetRecoilState } from "recoil";
-import { memberNicknameState } from "../../states/memberState";
+import {
+  memberAvatarState,
+  memberIdState,
+  memberNicknameState,
+} from "../../states/memberState";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
 }
 
 interface response {
+  id: number;
   nickname: string;
+  avatar: string;
   accessToken: string;
 }
 
@@ -29,6 +35,8 @@ export default function KakaoLoginWebView({
   const navigation = useNavigation<KakaoLoginWebViewNavigationProp>();
 
   const setMemberNicknameState = useSetRecoilState(memberNicknameState);
+  const setMemberId = useSetRecoilState(memberIdState);
+  const setMemberAvatar = useSetRecoilState(memberAvatarState);
 
   const INJECTED_JAVASCRIPT = ` (function() {
       document.getElementsByTagName('pre')[0].style.display="none";
@@ -37,8 +45,10 @@ export default function KakaoLoginWebView({
       true;`;
 
   const loginAccess = async (data: string) => {
-    const { nickname, accessToken }: response = JSON.parse(data);
+    const { id, nickname, avatar, accessToken }: response = JSON.parse(data);
+    setMemberId(id);
     setMemberNicknameState(nickname);
+    setMemberAvatar(avatar);
 
     if (accessToken) {
       toggleModal();

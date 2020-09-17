@@ -13,6 +13,9 @@ public class ChatRoomResponse {
     private ArticleInfo articleInfo;
     private Opponent opponent;
 
+    private ChatRoomResponse() {
+    }
+
     public ChatRoomResponse(Long id, ArticleInfo articleInfo,
             Opponent opponent) {
         this.id = id;

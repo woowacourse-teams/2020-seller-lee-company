@@ -7,6 +7,9 @@ public class Opponent {
     private String nickname;
     private String avatar;
 
+    private Opponent() {
+    }
+
     public Opponent(Long id, String nickname, String avatar) {
         this.id = id;
         this.nickname = nickname;

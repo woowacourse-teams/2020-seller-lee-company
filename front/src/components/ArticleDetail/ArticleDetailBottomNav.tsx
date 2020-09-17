@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import ArticleDetailFavorite from "./ArticleDetailFavorite";
 import { useRecoilValue } from "recoil";
 import { articleSelectedState } from "../../states/articleState";
@@ -12,6 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeStackParam } from "../../types/types";
 import { useSetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../../states/chatRoomState";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function ArticleDetailBottomNav() {
   const navigation = useNavigation<
@@ -57,10 +58,17 @@ export default function ArticleDetailBottomNav() {
         <ArticleDetailFavorite />
       </View>
       <View style={styles.priceContainer}>
-        {memberNickname !== author.nickname ? (
-          <Button title={"채팅하기"} onPress={() => createChat(author)} />
-        ) : undefined}
         <Text style={styles.price}>{`${insertComma(price.toString())}원`}</Text>
+      </View>
+      <View style={styles.chatContainer}>
+        {memberNickname !== author.nickname ? (
+          <MaterialCommunityIcons
+            name="chat-outline"
+            size={36}
+            color={"black"}
+            onPress={() => createChat(author)}
+          />
+        ) : undefined}
       </View>
     </View>
   );
@@ -79,9 +87,18 @@ const styles = StyleSheet.create({
     borderRightColor: theme.border,
     paddingRight: 30,
   },
-  priceContainer: {
+  chatContainer: {
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
+    borderLeftWidth: 1,
+    borderLeftColor: theme.border,
+    paddingLeft: 30,
+  },
+  priceContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    paddingRight: 20,
   },
   price: {
     fontSize: 24,

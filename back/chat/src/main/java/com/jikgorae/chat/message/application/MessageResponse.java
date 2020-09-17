@@ -11,18 +11,15 @@ public class MessageResponse {
     private String id;
     private Long senderId;
     private String senderNickname;
-    private String senderAvatar;
     private Long roomId;
     private String content;
     private LocalDateTime createdTime;
 
-    public MessageResponse(String id, Long senderId, String senderNickname, String senderAvatar, Long roomId,
-            String content,
-            LocalDateTime createdTime) {
+    public MessageResponse(String id, Long senderId, String senderNickname, Long roomId,
+            String content, LocalDateTime createdTime) {
         this.id = id;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
-        this.senderAvatar = senderAvatar;
         this.roomId = roomId;
         this.content = content;
         this.createdTime = createdTime;
@@ -30,7 +27,7 @@ public class MessageResponse {
 
     public static MessageResponse of(Message message) {
         return new MessageResponse(message.getId(), message.getSenderId(),
-                message.getSenderNickname(), message.getSenderAvatar(), message.getRoomId(), message.getContent(),
+                message.getSenderNickname(), message.getRoomId(), message.getContent(),
                 message.getCreatedTime());
     }
 
@@ -50,10 +47,6 @@ public class MessageResponse {
 
     public String getSenderNickname() {
         return senderNickname;
-    }
-
-    public String getSenderAvatar() {
-        return senderAvatar;
     }
 
     public Long getRoomId() {
