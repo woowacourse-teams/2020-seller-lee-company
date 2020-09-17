@@ -23,11 +23,22 @@ import com.jikgorae.api.security.web.AuthorizationType;
 public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
     private TokenResponse token;
 
+    /**
+     * Feature: 회원/조직 연관관계 관리
+     * <p>
+     * Scenario: 회원/조직 연관관계를 관리한다.
+     * <p>
+     * Given 조직이 등록되어 있다.
+     * Given 회원이 등록되어 있다.
+     * When 회원/조직 연관관계를 추가한다.
+     * Then 연관관계가 추가되었다.
+     *
+     */
     @DisplayName("회원/조직 연관관계 관리")
     @TestFactory
     Stream<DynamicTest> manageMemberOrganization() {
         token = joinAndLogin(MEMBER1);
-
+        
         return Stream.of(
                 dynamicTest("회원/조직 추가", () -> {
                     Long memberOrganizationId = extractId(createMemberOrganization(token));
