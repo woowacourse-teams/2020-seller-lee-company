@@ -82,7 +82,7 @@ class OrganizationControllerTest extends ControllerTest {
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("organization/get",
+                        document("organizations/get",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 requestHeaders(
