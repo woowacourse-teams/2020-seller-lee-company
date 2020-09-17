@@ -1,5 +1,5 @@
 ---
-name: 버그 이슈 템플릿
+name: Bug report template
 about: 버그 관련 이슈
 title: ''
 labels: ''
