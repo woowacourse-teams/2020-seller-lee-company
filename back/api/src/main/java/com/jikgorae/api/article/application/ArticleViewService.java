@@ -47,6 +47,11 @@ public class ArticleViewService {
         return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
     }
 
+    public Article show(Long articleId) {
+        return articleRepository.findById(articleId)
+                .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
+    }
+
     public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
             String category,
             Member loginMember) {

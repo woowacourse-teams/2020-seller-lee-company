@@ -27,25 +27,29 @@ public class Member {
 
     private Double score;
 
+    private String pushToken;
+
     protected Member() {
     }
 
-    public Member(Long id, String kakaoId, String nickname, String avatar,
-            String role, Double score) {
+    public Member(Long id, String kakaoId, String nickname, String avatar, String role,
+            Double score, String pushToken) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.avatar = avatar;
         this.role = role;
         this.score = score;
+        this.pushToken = pushToken;
     }
 
-    public Member(String kakaoId, String nickname, String avatar, String role, Double score) {
-        this(null, kakaoId, nickname, avatar, role, score);
+    public Member(String kakaoId, String nickname, String avatar, String role, Double score,
+            String pushToken) {
+        this(null, kakaoId, nickname, avatar, role, score, pushToken);
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null);
+        this(id, null, null, null, null, null, null);
     }
 
     public boolean isSameId(Member member) {
@@ -66,6 +70,10 @@ public class Member {
     public void update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;
+    }
+
+    public void updatePushToken(String pushToken) {
+
     }
 
     public void addRole(String role) {
@@ -98,5 +106,9 @@ public class Member {
 
     public Double getScore() {
         return score;
+    }
+
+    public String getPushToken() {
+        return pushToken;
     }
 }
