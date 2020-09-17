@@ -44,7 +44,7 @@ export default function KakaoLoginWebView({
     if (accessToken) {
       toggleModal();
       await DeviceStorage.storeToken(accessToken);
-      if (nickname) {
+      if (nickname === null) {
         return navigation.navigate("JoinScreen");
       }
       navigation.navigate("HomeStack");

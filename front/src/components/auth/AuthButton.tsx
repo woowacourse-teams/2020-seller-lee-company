@@ -33,7 +33,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
     if (token) {
       try {
         console.log("1");
-        const { data } = await profileAPI.join();
+        const { data } = await profileAPI.get();
         console.log("await: " + data);
         isJoinMember(data.nickname);
       } catch (error) {

@@ -21,7 +21,6 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.jikgorae.api.security.filter.JwtAuthenticationFilter;
-import com.jikgorae.api.security.handler.OAuth2FailureHandler;
 import com.jikgorae.api.security.handler.OAuth2SuccessHandler;
 import com.jikgorae.api.security.oauth2.provider.CustomOAuth2Provider;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
@@ -33,16 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
-    private final OAuth2FailureHandler oAuth2FailureHandler;
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider,
             CustomOAuth2UserService customOAuth2UserService,
-            OAuth2SuccessHandler oAuth2SuccessHandler,
-            OAuth2FailureHandler oAuth2FailureHandler) {
+            OAuth2SuccessHandler oAuth2SuccessHandler) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.customOAuth2UserService = customOAuth2UserService;
         this.oAuth2SuccessHandler = oAuth2SuccessHandler;
-        this.oAuth2FailureHandler = oAuth2FailureHandler;
     }
 
     @Override
@@ -64,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .userService(customOAuth2UserService)
                 .and()
                     .successHandler(oAuth2SuccessHandler)
-                    .failureHandler(oAuth2FailureHandler)
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         OAuth2LoginAuthenticationFilter.class);
