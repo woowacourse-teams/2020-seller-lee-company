@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jikgorae.api.member.application.MemberService;
 import com.jikgorae.api.member.application.ProfileRequest;
 import com.jikgorae.api.member.application.ProfileResponse;
@@ -31,7 +30,7 @@ public class ProfileController {
 
     @PutMapping(PROFILE_API_URI)
     public ResponseEntity<Void> update(@LoginMember Member loginMember,
-            @RequestBody ProfileRequest request) throws JsonProcessingException {
+            @RequestBody ProfileRequest request) {
         memberService.update(loginMember, request);
 
         return ResponseEntity.noContent().build();

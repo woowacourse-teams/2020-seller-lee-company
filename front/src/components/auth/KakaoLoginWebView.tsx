@@ -2,11 +2,11 @@ import React from "react";
 import { WebView } from "react-native-webview";
 import { StyleSheet, View } from "react-native";
 import { KAKAO_LOGIN_API_URI } from "../../api/api";
-import { useSetRecoilState } from "recoil/dist";
 import { DeviceStorage } from "../../auth/DeviceStorage";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
+import { useSetRecoilState } from "recoil";
 import { memberNicknameState } from "../../states/memberState";
 
 interface KakakoLoginWebViewProp {
@@ -38,14 +38,15 @@ export default function KakaoLoginWebView({
 
   const loginAccess = async (data: string) => {
     const { nickname, accessToken }: response = JSON.parse(data);
-    console.log("WebView nickname: " + nickname);
     setMemberNicknameState(nickname);
 
     if (accessToken) {
       toggleModal();
       await DeviceStorage.storeToken(accessToken);
+
       if (nickname === null) {
-        return navigation.navigate("JoinScreen");
+        navigation.navigate("JoinScreen");
+        return;
       }
       navigation.navigate("HomeStack");
     } else {

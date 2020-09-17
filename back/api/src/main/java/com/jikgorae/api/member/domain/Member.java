@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.google.common.base.Strings;
+
 @Entity
 public class Member {
     @Id
@@ -51,6 +53,14 @@ public class Member {
     public void update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;
+    }
+
+    public void addRole(String role) {
+        this.role = role;
+    }
+
+    public boolean hasNotRole() {
+        return Strings.isNullOrEmpty(role);
     }
 
     public Long getId() {
