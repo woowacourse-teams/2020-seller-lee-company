@@ -3,7 +3,6 @@ package com.jikgorae.api.evaluation.acceptance;
 import static com.jikgorae.api.fixture.EvaluationFixture.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.stream.Stream;
@@ -51,20 +50,7 @@ public class EvaluationAcceptanceTest extends AcceptanceTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andDo(print())
                 .andExpect(status().isCreated());
-
-        // @formatter:off
-        // given()
-        //         .auth().oauth2(token.getAccessToken())
-        //         .body(request)
-        //         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        // .when()
-        //         .post(API_URI+EVALUATION_URI)
-        // .then()
-        //         .log().all()
-        //         .statusCode(HttpStatus.CREATED.value());
-        // @formatter:on
     }
 
 }

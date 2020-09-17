@@ -1,3 +1,8 @@
 server:
-  port: 8000
+  port: 9000
 
+spring:
+  data:
+    mongodb:
+      port: 27017
+      database: chat

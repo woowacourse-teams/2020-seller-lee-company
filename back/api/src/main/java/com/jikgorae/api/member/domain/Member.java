@@ -1,5 +1,7 @@
 package com.jikgorae.api.member.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,6 +50,13 @@ public class Member {
 
     public boolean isNotSameId(Member member) {
         return !id.equals(member.id);
+    }
+
+    public boolean isSameNickname(String nickname) {
+        if (Objects.isNull(this.nickname)) {
+            return false;
+        }
+        return this.nickname.equals(nickname);
     }
 
     public void update(String nickname, String avatar) {

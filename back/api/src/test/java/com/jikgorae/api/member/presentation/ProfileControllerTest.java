@@ -7,9 +7,9 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.DisplayName;
@@ -41,6 +41,7 @@ class ProfileControllerTest extends ControllerTest {
                                         headerWithName("Authorization").description("회원의 토큰")
                                 ),
                                 responseFields(
+                                        fieldWithPath("id").description("회원의 아이디"),
                                         fieldWithPath("nickname").description("회원의 닉네임"),
                                         fieldWithPath("avatar").description("회원의 아바타"),
                                         fieldWithPath("score").description("회원의 정보")

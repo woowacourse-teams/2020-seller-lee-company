@@ -1,6 +1,6 @@
 package com.jikgorae.api.chatroom.application;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,12 +17,14 @@ public class ChatRoomService {
     }
 
     public Long createChatRoom(ChatRoomCreateRequest request, Member buyer) {
-        ChatRoom chatRoom = chatRoomRepository.save(new ChatRoom(request.getArticleId(), buyer, request.getSellerId()));
-        return chatRoom.getId();
-    }
+        Optional<ChatRoom> chatRoom = chatRoomRepository.findOptionalByArticleIdAndSellerIdAndBuyerId(
+                request.getArticleId(), request.getSellerId(), buyer.getId());
+        if (chatRoom.isPresent()) {
+            return chatRoom.get().getId();
+        }
 
-    public List<ChatRoomResponse> showChatRoomsOf(Long articleId) {
-        List<ChatRoom> responses = chatRoomRepository.findChatRoomsByArticleId(articleId);
-        return ChatRoomResponse.listOf(responses);
+        ChatRoom created = chatRoomRepository.save(
+                new ChatRoom(request.getArticleId(), buyer, request.getSellerId()));
+        return created.getId();
     }
 }

@@ -21,6 +21,7 @@ public class AuthController {
         this.memberService = memberService;
     }
 
+    // TODO: 2020/09/14 반환을 Boolean으로만 하지 말고 객체(Dto)로 감싸서 보내도록 수정 
     @GetMapping
     public ResponseEntity<Boolean> findNickname(@RequestParam String nickname) {
         return ResponseEntity.ok(memberService.findNickname(nickname));

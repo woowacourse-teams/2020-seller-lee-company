@@ -29,7 +29,7 @@ import {
   articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
-  articleSelectedGroupState,
+  selectedGroupsInArticleFormState,
   articleSelectedState,
   articleTitleState,
 } from "../states/articleState";
@@ -60,7 +60,7 @@ export default function ArticleFormScreen() {
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedGroup, setSelectedGroup] = useRecoilState(
-    articleSelectedGroupState,
+    selectedGroupsInArticleFormState,
   );
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,

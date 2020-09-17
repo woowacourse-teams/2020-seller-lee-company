@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Alert,
 } from "react-native";
 import colors from "../../colors";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
@@ -18,13 +18,15 @@ import moment from "moment";
 // @ts-ignore
 import { RNS3 } from "react-native-aws3";
 import { s3Secret } from "../../secret";
-import { loginIdState } from "../../states/AuthState";
 import * as Permissions from "expo-permissions";
 import { myInfoAvatarState } from "../../states/myInfoState";
-import { memberAvatarState } from "../../states/memberState";
+import {
+  memberAvatarState,
+  memberNicknameState,
+} from "../../states/memberState";
 
 export default function MyInfoAvatar() {
-  const memberId = useRecoilValue(loginIdState);
+  const memberNickname = useRecoilValue(memberNicknameState);
   const [myInfoAvatar, setMyInfoAvatar] = useRecoilState(myInfoAvatarState);
   const memberAvatar = useRecoilValue(memberAvatarState);
 
@@ -47,15 +49,18 @@ export default function MyInfoAvatar() {
       quality: 0.3,
     });
     if (!result.cancelled) {
+      const date = new Date();
+      const format = "YYYY.MM.DD_HH:mm:ss";
+      const now = moment(date).format(format);
       const file = {
         uri: result.uri,
-        name: memberId + "_" + moment.now() + ".jpeg",
+        name: memberNickname + "_" + now + ".jpeg",
         type: "image/jpeg",
       };
 
       const options = {
         keyPrefix: "images/",
-        bucket: "seller-lee-bucket",
+        bucket: "seller-lee",
         region: "ap-northeast-2",
         accessKey: s3Secret.accessKey,
         secretKey: s3Secret.secretKey,
