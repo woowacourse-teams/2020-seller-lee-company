@@ -89,9 +89,9 @@ class OrganizationControllerTest extends ControllerTest {
                                         headerWithName("Authorization").description("회원의 토큰")
                                 ),
                                 responseFields(
-                                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("조직의 id"),
-                                        fieldWithPath("name").type(JsonFieldType.STRING).description("조직의 이름"),
-                                        fieldWithPath("code").type(JsonFieldType.STRING).description("조직의 입장 코드")
+                                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("조직의 id"),
+                                        fieldWithPath("[].name").type(JsonFieldType.STRING).description("조직의 이름"),
+                                        fieldWithPath("[].code").type(JsonFieldType.STRING).description("조직의 입장 코드")
                                 )));
         // @formatter:on
     }
