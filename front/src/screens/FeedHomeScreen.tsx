@@ -22,9 +22,9 @@ import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
-import GroupList from "../components/organization/OrganizationList";
 import { selectedOrganizationInFeedsState } from "../states/organizationState";
 import { Feather } from "@expo/vector-icons";
+import OrganizationList from "../components/organization/OrganizationList";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -42,7 +42,7 @@ export default function FeedHomeScreen() {
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
-  const selectedGroup = useRecoilValue(selectedOrganizationInFeedsState);
+  const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -106,7 +106,7 @@ export default function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{selectedGroup.name}</Text>
+        <Text style={styles.title}>{selectedOrganization.name}</Text>
         <Menu>
           <MenuTrigger>
             <Feather name="chevron-down" size={24} color="grey" />
@@ -115,7 +115,7 @@ export default function FeedHomeScreen() {
             optionsContainerStyle={styles.menuOptionsContainer}
             customStyles={{ optionText: styles.menuCustomText }}
           >
-            <GroupList isGroupFiltering={true} />
+            <OrganizationList isGroupFiltering={true} />
           </MenuOptions>
         </Menu>
       </View>
