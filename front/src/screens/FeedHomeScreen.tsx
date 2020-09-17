@@ -118,7 +118,11 @@ export default function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{selectedOrganization.name}</Text>
+        <Text style={styles.title}>
+          {selectedOrganization.name !== ""
+            ? selectedOrganization.name
+            : "조직 선택"}
+        </Text>
         <Menu>
           <MenuTrigger>
             <Feather name="chevron-down" size={24} color="grey" />
@@ -170,15 +174,14 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    backgroundColor: "white",
+    alignItems: "center",
     paddingHorizontal: 30,
-    paddingTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
     flexDirection: "row",
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: theme.primary,
     paddingRight: 5,
@@ -201,6 +204,7 @@ const styles = StyleSheet.create({
   },
   menuOptionsContainer: {},
   menuCustomText: {
+    backgroundColor: "red",
     textAlign: "center",
     margin: 10,
   },

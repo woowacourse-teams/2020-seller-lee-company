@@ -5,7 +5,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import {
@@ -23,6 +22,7 @@ import MyFavoriteButton from "../components/Profile/MyFavoriteButton";
 import theme from "../colors";
 import ProfileMenu from "../components/Profile/ProfileMenu";
 import { StackNavigationProp } from "@react-navigation/stack";
+import EnterOrganizationButton from "../components/Profile/EnterOrganizationButton";
 
 type ProfileScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ProfileScreen">,
@@ -71,16 +71,8 @@ export default function ProfileScreen() {
           <View style={styles.myFavoriteButtonContainer}>
             <MyFavoriteButton />
           </View>
-          <View style={styles.myFavoriteButtonContainer}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("OrganizationHomeScreen")}
-              style={{
-                backgroundColor: "yellow",
-                aspectRatio: 2,
-              }}
-            >
-              <Text>조직 테스트</Text>
-            </TouchableOpacity>
+          <View style={styles.enterOrganizationButtonContainer}>
+            <EnterOrganizationButton />
           </View>
         </View>
       </View>
@@ -148,6 +140,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   myFavoriteButtonContainer: {
+    width: "50%",
+    padding: 10,
+  },
+  enterOrganizationButtonContainer: {
     width: "50%",
     padding: 10,
   },

@@ -352,6 +352,14 @@ export const organizationAPI = {
       },
     );
   },
+  showAll: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.organizations}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
 };
 
 interface RegisterMemberOrganization {

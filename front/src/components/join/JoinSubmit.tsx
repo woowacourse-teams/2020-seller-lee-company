@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil/dist";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
-  joinNicknameDuplicatedState,
   joinAvatarState,
   joinModalState,
+  joinNicknameDuplicatedState,
   joinNicknameState,
   joinSubmitState,
 } from "../../states/joinState";
@@ -15,6 +15,7 @@ import {
   isDuplicatedNickname,
   isValidNickname,
 } from "../../nicknameValidator";
+import { memberProfileState } from "../../states/memberState";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
@@ -28,6 +29,7 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
     joinNicknameDuplicatedState,
   );
   const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
+  const setProfile = useSetRecoilState(memberProfileState);
 
   const isValidateSubmit = () => {
     if (!joinSubmit) {
@@ -55,8 +57,9 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       });
 
       if (response.status === 204) {
-        resetJoinForm();
+        setProfile({ avatar: joinAvatar, nickname: joinNickname, score: 0 });
         setJoinModalVisible(true);
+        resetJoinForm();
       }
     } catch (error) {
       console.log(error);

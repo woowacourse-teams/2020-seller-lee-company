@@ -58,8 +58,13 @@ operation::chat-rooms/post[snippets='http-request,http-response,request-fields,r
 
 operation::organizations/create[snippets='http-request,request-headers,request-body,request-fields,http-response,response-body,response-fields']
 
+=== 회원이 가입한 조직 조회
+
+operation::organizations/get[snippets='http-request,request-headers,http-response,response-body,response-fields']
+
 == 회원 / 조직 관리
 
 === 회원 - 조직 입장
 
 operation::memberOrganization/create[snippets='http-request,request-headers,request-body,request-fields,http-response,response-headers']
+

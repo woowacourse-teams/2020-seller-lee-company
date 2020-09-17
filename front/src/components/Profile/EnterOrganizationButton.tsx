@@ -1,31 +1,30 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import {
   CompositeNavigationProp,
   useNavigation,
 } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeStackParam, RootStackParam } from "../../types/types";
 import theme from "../../colors";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { Feather } from "@expo/vector-icons";
 
-type MyFavoriteButtonNavigationProp = CompositeNavigationProp<
+type EnterOrganizationButtonNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ProfileScreen">,
   StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
-export default function MyFavoriteButton() {
-  const navigation = useNavigation<MyFavoriteButtonNavigationProp>();
-
+export default function EnterOrganizationButton() {
+  const navigation = useNavigation<EnterOrganizationButtonNavigationProp>();
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => navigation.navigate("MyFavoriteScreen")}
+        onPress={() => navigation.navigate("OrganizationHomeScreen")}
       >
-        <AntDesign name="hearto" size={22} color={theme.heart} />
+        <Feather name="users" size={22} color={theme.primary} />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>찜 목록</Text>
+          <Text style={styles.title}>조직 입장/생성</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -50,6 +49,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "bold",
-    color: theme.heart,
+    color: theme.primary,
   },
 });
