@@ -1,28 +1,20 @@
 package com.jikgorae.api.organization.acceptance;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.organization.domain.Organization.*;
-import static com.jikgorae.api.organization.presentation.OrganizationController.*;
-import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.organization.application.OrganizationResponse;
-import com.jikgorae.api.security.web.AuthorizationType;
 
 public class OrganizationAcceptanceTest extends AcceptanceTest {
     private AuthTokenResponse token;
@@ -39,12 +31,12 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
      */
     @DisplayName("조직 관리")
     @TestFactory
-    Stream<DynamicTest> manageGroup() {
+    Stream<DynamicTest> manageOrganization() {
         token = joinAndLogin(MEMBER1);
 
         return Stream.of(
                 dynamicTest("조직 생성", () -> {
-                    OrganizationResponse organizationResponse = createGroup(token);
+                    OrganizationResponse organizationResponse = createOrganization(token);
                     assertAll(
                             () -> assertThat(organizationResponse.getId()).isNotNull(),
                             () -> assertThat(organizationResponse.getName())
@@ -53,22 +45,5 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
                     );
                 })
         );
-    }
-
-    private OrganizationResponse createGroup(AuthTokenResponse token) throws Exception {
-        String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
-
-        MvcResult mvcResult = mockMvc.perform(
-                post(ORGANIZATION_API_URI)
-                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
-                                token.getAccessToken()))
-                        .content(request)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andReturn();
-
-        String json = mvcResult.getResponse().getContentAsString();
-        return objectMapper.readValue(json, OrganizationResponse.class);
     }
 }

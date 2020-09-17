@@ -8,7 +8,7 @@ import {
 import { useRecoilValue } from "recoil";
 import { HomeStackParam, RootStackParam } from "../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { selectedGroupsInArticleFormState } from "../../states/articleState";
+import { selectedOrganizationsInArticleFormState } from "../../states/articleState";
 
 type ArticleFormGroupSelectNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
@@ -23,14 +23,20 @@ export default function ArticleFormGroupSelect({
   isEditing,
 }: ArticleFormGroupSelectProp) {
   const navigation = useNavigation<ArticleFormGroupSelectNavigationProp>();
-  const selectedGroup = useRecoilValue(selectedGroupsInArticleFormState);
+  const selectedOrganization = useRecoilValue(
+    selectedOrganizationsInArticleFormState,
+  );
 
   const renderGroup = () => {
-    const groupNames = selectedGroup.map((item) => item.name).join(" | ");
+    const groupNames = selectedOrganization
+      .map((item) => item.name)
+      .join(" | ");
     if (isEditing) {
       return groupNames;
     } else {
-      return selectedGroup.length === 0 ? "조직을 선택하세요." : groupNames;
+      return selectedOrganization.length === 0
+        ? "조직을 선택하세요."
+        : groupNames;
     }
   };
 

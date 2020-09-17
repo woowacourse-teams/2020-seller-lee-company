@@ -24,6 +24,7 @@ const domain = {
   favorites: "/favorites",
   profiles: "/me",
   organizations: "/organizations",
+  memberOrganization: "/member-organizations",
 };
 
 interface ArticlesPost {
@@ -332,6 +333,25 @@ export const organizationAPI = {
     const token = await DeviceStorage.getToken();
     return await axios.post(
       `${BASE_URL}${domain.api}${domain.organizations}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+};
+
+interface RegisterMemberOrganization {
+  code: string;
+}
+
+export const memberOrganizationAPI = {
+  register: async (data: RegisterMemberOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
       data,
       {
         headers: {

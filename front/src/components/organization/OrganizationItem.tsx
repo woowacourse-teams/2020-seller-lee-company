@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
-import { selectedGroupsInArticleFormState } from "../../states/articleState";
+import { selectedOrganizationsInArticleFormState } from "../../states/articleState";
 import theme from "../../colors";
 import { Organization } from "../../types/types";
 import {
@@ -11,30 +11,31 @@ import {
 
 interface GroupItemProps {
   isGroupFiltering: boolean;
-  group: Organization;
+  organization: Organization;
 }
 
 export default function OrganizationItem({
   isGroupFiltering,
-  group,
+  organization,
 }: GroupItemProps) {
   const [
-    selectedGroupsInArticleForm,
-    setSelectedGroupsInArticleForm,
-  ] = useRecoilState(selectedGroupsInArticleFormState);
-  const [selectedGroupInFeeds, setSelectedGroupInFeeds] = useRecoilState(
-    selectedOrganizationInFeedsState,
-  );
+    selectedOrganizationsInArticleForm,
+    setSelectedOrganizationsInArticleForm,
+  ] = useRecoilState(selectedOrganizationsInArticleFormState);
+  const [
+    selectedOrganizationInFeeds,
+    setSelectedOrganizationInFeeds,
+  ] = useRecoilState(selectedOrganizationInFeedsState);
   const myGroups = useRecoilValue(organizationListState);
 
   const exist = () => {
-    return selectedGroupsInArticleForm.some(
-      (item: Organization) => item.name === group.name,
+    return selectedOrganizationsInArticleForm.some(
+      (item: Organization) => item.name === organization.name,
     );
   };
 
   const onClickFilterGroup = () => {
-    setSelectedGroupInFeeds(group);
+    setSelectedOrganizationInFeeds(organization);
   };
 
   const onClickArticleFormGroup = () => {
@@ -46,16 +47,18 @@ export default function OrganizationItem({
   };
 
   const add = () => {
-    setSelectedGroupsInArticleForm(
-      selectedGroupsInArticleForm.concat(
-        myGroups.filter((item) => item.name === group.name),
+    setSelectedOrganizationsInArticleForm(
+      selectedOrganizationsInArticleForm.concat(
+        myGroups.filter((item) => item.name === organization.name),
       ),
     );
   };
 
   const remove = () => {
-    setSelectedGroupsInArticleForm(
-      selectedGroupsInArticleForm.filter((item) => item.name !== group.name),
+    setSelectedOrganizationsInArticleForm(
+      selectedOrganizationsInArticleForm.filter(
+        (item) => item.name !== organization.name,
+      ),
     );
   };
 
@@ -63,11 +66,13 @@ export default function OrganizationItem({
     return (
       <Text
         style={
-          selectedGroupInFeeds === group ? styles.selected : styles.nonSelected
+          selectedOrganizationInFeeds === organization
+            ? styles.selected
+            : styles.nonSelected
         }
         onPress={onClickFilterGroup}
       >
-        {group.name}
+        {organization.name}
       </Text>
     );
   };
@@ -78,7 +83,7 @@ export default function OrganizationItem({
         style={exist() ? styles.selected : styles.nonSelected}
         onPress={onClickArticleFormGroup}
       >
-        {exist() ? `V ${group.name}` : `${group.name}`}
+        {exist() ? `V ${organization.name}` : `${organization.name}`}
       </Text>
     );
   };

@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useRecoilState } from "recoil";
-import { organizationEntranceCodeState } from "../../states/organizationState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  organizationExistState,
+  organizationState,
+} from "../../states/organizationState";
 import theme from "../../colors";
 
 export default function OrganizationEntranceCode() {
-  const [
-    organizationEntranceCode,
-    setOrganizationEntranceCode,
-  ] = useRecoilState(organizationEntranceCodeState);
+  const [{ code }, setOrganization] = useRecoilState(organizationState);
 
   const [isFocused, setIsFocused] = useState(false);
+  const organizationExist = useRecoilValue(organizationExistState);
 
   const getEntranceCodeColor = () => {
     if (!isFocused) {
       return "lightgrey";
     }
-    if (organizationEntranceCode.length < 6) {
+    if (code.length < 6) {
       return theme.warning;
     }
     return theme.secondary;
@@ -47,6 +48,24 @@ export default function OrganizationEntranceCode() {
     },
   });
 
+  const renderWarningMessage = () => {
+    if (!organizationExist) {
+      return (
+        <Text style={dynamicStyles.warningMessage}>
+          유효하지 않은 입장 코드입니다.
+        </Text>
+      );
+    }
+    if (isFocused && code.length < 6) {
+      return (
+        <Text style={dynamicStyles.warningMessage}>
+          6자리의 입장 코드를 입력해주세요.
+        </Text>
+      );
+    }
+    return <></>;
+  };
+
   return (
     <View style={styles.container}>
       <Text style={dynamicStyles.title}>입장 코드</Text>
@@ -65,18 +84,14 @@ export default function OrganizationEntranceCode() {
           style={styles.textInput}
           placeholder={"6자리의 입장코드를 입력해주세요"}
           keyboardType={"number-pad"}
-          onChangeText={(text) => setOrganizationEntranceCode(text)}
+          onChangeText={(text) =>
+            setOrganization({ id: 0, name: "", code: text })
+          }
           maxLength={6}
-          value={organizationEntranceCode}
+          value={code}
         />
       </View>
-      {isFocused && organizationEntranceCode.length < 6 ? (
-        <Text style={dynamicStyles.warningMessage}>
-          6자리의 입장 코드를 입력해주세요.
-        </Text>
-      ) : (
-        <></>
-      )}
+      {renderWarningMessage()}
     </View>
   );
 }

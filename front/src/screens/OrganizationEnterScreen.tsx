@@ -16,7 +16,10 @@ import { Feather } from "@expo/vector-icons";
 import OrganizationEntranceCode from "../components/organization/OrganizationEntranceCode";
 import OrganizationEnterSubmitButton from "../components/organization/OrganizationEnterSubmitButton";
 import { useResetRecoilState } from "recoil";
-import { organizationEntranceCodeState } from "../states/organizationState";
+import {
+  organizationExistState,
+  organizationState,
+} from "../states/organizationState";
 
 type OrganizationEnterScreenNavigationProp = StackNavigationProp<
   RootStackParam,
@@ -25,12 +28,12 @@ type OrganizationEnterScreenNavigationProp = StackNavigationProp<
 
 export default function OrganizationEnterScreen() {
   const navigation = useNavigation<OrganizationEnterScreenNavigationProp>();
-  const resetOrganizationEntranceCode = useResetRecoilState(
-    organizationEntranceCodeState,
-  );
+  const resetOrganization = useResetRecoilState(organizationState);
+  const resetOrganizationExist = useResetRecoilState(organizationExistState);
 
   const onBack = () => {
-    resetOrganizationEntranceCode();
+    resetOrganization();
+    resetOrganizationExist();
     navigation.goBack();
   };
 

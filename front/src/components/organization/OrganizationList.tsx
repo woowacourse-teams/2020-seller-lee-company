@@ -15,7 +15,10 @@ export default function OrganizationList({ isGroupFiltering }: GroupListProps) {
     <FlatList
       data={myGroupList}
       renderItem={({ item }) => (
-        <OrganizationItem isGroupFiltering={isGroupFiltering} group={item} />
+        <OrganizationItem
+          isGroupFiltering={isGroupFiltering}
+          organization={item}
+        />
       )}
       keyExtractor={(item, index) => `${index}`}
     />
