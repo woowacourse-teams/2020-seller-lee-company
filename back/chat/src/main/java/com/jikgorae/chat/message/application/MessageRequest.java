@@ -8,18 +8,17 @@ public class MessageRequest {
     private MessageType messageType;
     private Long senderId;
     private String senderNickname;
-    private String senderAvatar;
     private String message;
 
-    public MessageRequest() {}
+    public MessageRequest() {
+    }
 
     public MessageRequest(Long roomId, MessageType messageType, Long senderId,
-            String senderNickname, String senderAvatar, String message) {
+            String senderNickname, String message) {
         this.roomId = roomId;
         this.messageType = messageType;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
-        this.senderAvatar = senderAvatar;
         this.message = message;
     }
 
@@ -39,15 +38,11 @@ public class MessageRequest {
         return senderNickname;
     }
 
-    public String getSenderAvatar() {
-        return senderAvatar;
-    }
-
     public String getMessage() {
         return message;
     }
 
     public Message toMessage() {
-        return new Message(senderId, senderNickname, senderAvatar, roomId, message);
+        return new Message(senderId, senderNickname, roomId, message);
     }
 }

@@ -84,8 +84,7 @@ public class AcceptanceTest {
     protected TokenResponse joinAndLogin(Member member) {
         memberRepository.save(member);
 
-        return TokenResponse.of(member.getNickname(),
-                jwtTokenProvider.createToken(member.getKakaoId()),
-                AuthorizationType.BEARER);
+        return TokenResponse.of(member.getId(), member.getNickname(), member.getAvatar(),
+                jwtTokenProvider.createToken(member.getKakaoId()), AuthorizationType.BEARER);
     }
 }

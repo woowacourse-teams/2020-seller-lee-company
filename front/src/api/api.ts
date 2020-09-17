@@ -288,6 +288,17 @@ export const chatRoomAPI = {
       },
     });
   },
+  delete: async (id: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.chatRooms}/${id}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
 };
 
 export const messageAPI = {

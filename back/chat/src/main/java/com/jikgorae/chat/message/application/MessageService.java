@@ -27,11 +27,13 @@ public class MessageService {
     }
 
     public List<MessageResponse> showAllIn(Long roomId) {
-        return MessageResponse.listOf(messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
+        return MessageResponse.listOf(
+                messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
     }
 
     public MessageResponse showLastIn(Long roomId) {
         return MessageResponse.of(messageRepository.findTopByRoomIdOrderByCreatedTimeDesc(roomId)
-        .orElse(new Message("", 0L, "", "", 0L, "", LocalDateTime.of(2010, 1, 1, 1, 1, 1, 1))));
+                .orElse(new Message("", 0L, "", 0L, "",
+                        LocalDateTime.of(2010, 1, 1, 1, 1, 1, 1))));
     }
 }

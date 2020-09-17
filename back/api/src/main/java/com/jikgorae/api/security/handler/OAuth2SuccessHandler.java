@@ -47,7 +47,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         res.setStatus(HttpStatus.OK.value());
         res.getWriter()
                 .write(objectMapper.writeValueAsString(
-                        TokenResponse.of(member.getId(), member.getNickname(), token, AuthorizationType.BEARER)));
+                        TokenResponse.of(member.getId(), member.getNickname(), member.getAvatar(), token, AuthorizationType.BEARER)));
 
     }
 }
