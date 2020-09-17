@@ -1,6 +1,7 @@
 package com.jikgorae.api.article.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,10 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.jikgorae.api.common.BaseTimeEntity;
 import com.jikgorae.api.member.domain.Member;
-import com.jikgorae.api.organization.domain.Organizations;
+import com.jikgorae.api.organization.domain.Organization;
 import com.jikgorae.api.security.web.AuthorizationException;
 
 @Entity
@@ -27,6 +29,9 @@ public class Article extends BaseTimeEntity {
     private Long id;
 
     private String title;
+
+    @Transient
+    private List<Organization> organizations;
 
     @Embedded
     private Tags tags;
@@ -52,12 +57,14 @@ public class Article extends BaseTimeEntity {
     protected Article() {
     }
 
-    public Article(Long id, String title, Organizations organizations, Tags tags, Category category,
+    public Article(Long id, String title, List<Organization> organizations, Tags tags,
+            Category category,
             String contents, Long price,
             TradeState tradeState, Photos photos, Member author, LocalDateTime createdTime,
             LocalDateTime modifiedTime) {
         this.id = id;
         this.title = title;
+        this.organizations = organizations;
         this.tags = tags;
         this.category = category;
         this.contents = contents;
@@ -69,14 +76,15 @@ public class Article extends BaseTimeEntity {
         this.modifiedTime = modifiedTime;
     }
 
-    public Article(Long id, String title, Organizations organizations, Tags tags, Category category,
+    public Article(Long id, String title, List<Organization> organizations, Tags tags,
+            Category category,
             String contents, Long price,
             TradeState tradeState, Photos photos, Member author) {
         this(id, title, organizations, tags, category, contents, price, tradeState, photos, author,
                 null, null);
     }
 
-    public Article(String title, Organizations organizations, Tags tags, Category category,
+    public Article(String title, List<Organization> organizations, Tags tags, Category category,
             String contents, Long price,
             TradeState tradeState, Photos photos, Member author) {
         this(null, title, organizations, tags, category, contents, price, tradeState, photos,
@@ -109,6 +117,10 @@ public class Article extends BaseTimeEntity {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 
     public Tags getTags() {

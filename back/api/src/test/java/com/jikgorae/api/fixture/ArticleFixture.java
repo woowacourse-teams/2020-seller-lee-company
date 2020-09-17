@@ -14,13 +14,12 @@ import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.Photos;
 import com.jikgorae.api.article.domain.Tags;
 import com.jikgorae.api.article.domain.TradeState;
-import com.jikgorae.api.organization.domain.Organizations;
 
 public class ArticleFixture {
     public static final Article ARTICLE1 = new Article(
             51L,
             "title1",
-            Organizations.of(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
+            Arrays.asList(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
             Tags.of(TAG_FIXTURE1, TAG_FIXTURE2),
             Category.PC,
             "contents1",
@@ -38,7 +37,7 @@ public class ArticleFixture {
     public static final Article ARTICLE2 = new Article(
             52L,
             "title2",
-            Organizations.of(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
+            Arrays.asList(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
             Tags.of(TAG_FIXTURE3, TAG_FIXTURE4),
             Category.PC,
             "contents2",
@@ -55,7 +54,7 @@ public class ArticleFixture {
     public static final Article ARTICLE3 = new Article(
             53L,
             "title3",
-            Organizations.of(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
+            Arrays.asList(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
             new Tags(Lists.emptyList()),
             Category.PC,
             "contents3",

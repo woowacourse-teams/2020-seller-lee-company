@@ -1,6 +1,7 @@
 package com.jikgorae.api.article.application;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.Category;
@@ -8,11 +9,11 @@ import com.jikgorae.api.article.domain.Photos;
 import com.jikgorae.api.article.domain.Tags;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.member.domain.Member;
-import com.jikgorae.api.organization.domain.Organizations;
+import com.jikgorae.api.organization.domain.Organization;
 
 public class ArticleRequest {
     private String title;
-    private List<Long> organizations;
+    private List<Long> organizationIds;
     private Long price;
     private String category;
     private String contents;
@@ -22,11 +23,11 @@ public class ArticleRequest {
     private ArticleRequest() {
     }
 
-    public ArticleRequest(String title, List<Long> organizations, Long price, String category,
+    public ArticleRequest(String title, List<Long> organizationIds, Long price, String category,
             String contents,
             List<String> tags, List<String> photos) {
         this.title = title;
-        this.organizations = organizations;
+        this.organizationIds = organizationIds;
         this.price = price;
         this.category = category;
         this.contents = contents;
@@ -35,9 +36,11 @@ public class ArticleRequest {
     }
 
     public Article toArticleWithLoginMember(Member loginMember) {
+        List<Organization> organizations = organizationIds.stream().map(Organization::new)
+                .collect(Collectors.toList());
         return new Article(
                 title,
-                Organizations.of(organizations),
+                organizations,
                 Tags.of(tags),
                 Category.fromString(category),
                 contents,
@@ -51,8 +54,8 @@ public class ArticleRequest {
         return title;
     }
 
-    public List<Long> getOrganizations() {
-        return organizations;
+    public List<Long> getOrganizationIds() {
+        return organizationIds;
     }
 
     public Long getPrice() {

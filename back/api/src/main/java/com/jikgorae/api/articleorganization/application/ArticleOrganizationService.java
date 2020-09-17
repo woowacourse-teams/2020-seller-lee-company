@@ -1,10 +1,16 @@
 package com.jikgorae.api.articleorganization.application;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.articleorganization.domain.ArticleOrganizationRepository;
 import com.jikgorae.api.organization.domain.Organization;
 
+@Service
 public class ArticleOrganizationService {
     private final ArticleOrganizationRepository articleOrganizationRepository;
 
@@ -12,8 +18,11 @@ public class ArticleOrganizationService {
         this.articleOrganizationRepository = articleOrganizationRepository;
     }
 
-    public ArticleOrganization create(Article article, Organization organization) {
-        ArticleOrganization articleOrganization = new ArticleOrganization(article, organization);
-        return articleOrganizationRepository.save(articleOrganization);
+    public void create(Article article, List<Organization> organizations) {
+        List<ArticleOrganization> articleOrganizations = organizations.stream()
+                .map(organization -> new ArticleOrganization(article, organization))
+                .collect(
+                        Collectors.toList());
+        articleOrganizationRepository.saveAll(articleOrganizations);
     }
 }
