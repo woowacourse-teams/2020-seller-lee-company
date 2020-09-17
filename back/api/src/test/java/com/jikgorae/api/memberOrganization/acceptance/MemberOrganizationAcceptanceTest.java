@@ -37,13 +37,15 @@ public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
     private void createMemberOrganization(TokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_ORGANIZATION_REQUEST);
 
-        mockMvc.perform(
-                post(MEMBER_ORGANIZATION_API_URI)
-                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
-                                token.getAccessToken()))
-                        .content(request)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc
+                .perform(
+                        post(MEMBER_ORGANIZATION_API_URI)
+                                .header(AUTHORIZATION,
+                                        String.format("%s %s", AuthorizationType.BEARER,
+                                                token.getAccessToken()))
+                                .content(request)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 }
