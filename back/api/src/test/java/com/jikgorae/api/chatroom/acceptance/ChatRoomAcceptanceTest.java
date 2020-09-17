@@ -16,11 +16,11 @@ import org.springframework.http.MediaType;
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.presentation.ChatRoomController;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ChatRoomAcceptanceTest extends AcceptanceTest {
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 채팅 관리

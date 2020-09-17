@@ -1,4 +1,4 @@
-package sellerlee.back.notification;
+package com.jikgorae.api.notification;
 
 import io.github.jav.exposerversdk.PushClient;
 

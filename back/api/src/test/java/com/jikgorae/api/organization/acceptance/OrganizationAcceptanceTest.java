@@ -20,12 +20,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
-import com.jikgorae.api.member.application.TokenResponse;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class OrganizationAcceptanceTest extends AcceptanceTest {
-    private TokenResponse token;
+    private AuthTokenResponse token;
 
     /**
      * Feature: 조직 관리
@@ -55,7 +55,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
         );
     }
 
-    private OrganizationResponse createGroup(TokenResponse token) throws Exception {
+    private OrganizationResponse createGroup(AuthTokenResponse token) throws Exception {
         String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
 
         MvcResult mvcResult = mockMvc.perform(

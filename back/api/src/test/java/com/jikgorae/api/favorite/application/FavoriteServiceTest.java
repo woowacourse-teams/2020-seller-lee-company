@@ -25,14 +25,6 @@ import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
-import sellerlee.back.article.application.ArticleCardResponse;
-import sellerlee.back.article.application.ArticleViewService;
-import sellerlee.back.article.domain.Article;
-import sellerlee.back.article.domain.ArticleRepository;
-import sellerlee.back.articlefavoritecount.domain.ArticleFavoriteCountRepository;
-import sellerlee.back.favorite.domain.Favorite;
-import sellerlee.back.favorite.domain.FavoriteRepository;
-import sellerlee.back.notification.NotificationHandler;
 
 @ExtendWith(value = MockitoExtension.class)
 class FavoriteServiceTest {

@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.favorite.application.FavoriteRequest;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
-import sellerlee.back.member.application.AuthTokenResponse;
 
 public class FavoriteAcceptanceTest extends AcceptanceTest {
     private AuthTokenResponse token;

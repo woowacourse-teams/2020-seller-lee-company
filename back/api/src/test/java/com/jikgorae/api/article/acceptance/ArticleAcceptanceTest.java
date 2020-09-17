@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -24,8 +25,8 @@ import com.jikgorae.api.article.application.ArticleResponse;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
-import sellerlee.back.member.application.AuthTokenResponse;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 4L;

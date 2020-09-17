@@ -1,4 +1,4 @@
-package sellerlee.back.member.application;
+package com.jikgorae.api.member.application;
 
 public class PushTokenRequest {
     private String pushToken;

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.jikgorae.api.AcceptanceTest;
+import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class MemberAcceptanceTest extends AcceptanceTest {

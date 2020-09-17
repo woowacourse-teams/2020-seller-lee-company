@@ -1,4 +1,4 @@
-package sellerlee.back.notification;
+package com.jikgorae.api.notification;
 
 public enum NotificationType {
     FAVORITE("님이 회원님의 게시글을 찜 했습니다."),

@@ -7,20 +7,14 @@ import javax.transaction.Transactional;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import sellerlee.back.article.application.ArticleCardResponse;
-import sellerlee.back.article.application.ArticleViewService;
-import sellerlee.back.article.domain.Article;
-import sellerlee.back.favorite.domain.Favorite;
-import sellerlee.back.favorite.domain.FavoriteRepository;
-import sellerlee.back.member.domain.Member;
-import sellerlee.back.notification.NotificationEvent;
-import sellerlee.back.notification.NotificationType;
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.article.application.ArticleViewService;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.notification.NotificationEvent;
+import com.jikgorae.api.notification.NotificationType;
 
 @Service
 public class FavoriteService {

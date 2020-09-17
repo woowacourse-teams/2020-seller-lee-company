@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jikgorae.api.member.application.MemberService;
+import com.jikgorae.api.member.application.PushTokenRequest;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.core.LoginMember;
-import sellerlee.back.member.application.PushTokenRequest;
 
 @RestController
 @RequestMapping(MEMBER_API_URI)

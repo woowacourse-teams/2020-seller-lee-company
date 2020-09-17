@@ -1,4 +1,4 @@
-package sellerlee.back.notification;
+package com.jikgorae.api.notification;
 
 import java.util.ArrayList;
 import java.util.Collections;
