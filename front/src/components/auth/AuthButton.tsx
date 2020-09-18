@@ -15,7 +15,10 @@ import {
 import { loadingState } from "../../states/loadingState";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParam } from "../../types/types";
-import { organizationListState } from "../../states/organizationState";
+import {
+  noOrganizationState,
+  organizationListState,
+} from "../../states/organizationState";
 
 type AuthButtonNavigationProp = StackNavigationProp<
   RootStackParam,
@@ -34,6 +37,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
   const setMemberAvatar = useSetRecoilState(memberAvatarState);
   const setOrganizationList = useSetRecoilState(organizationListState);
   const setProfile = useSetRecoilState(memberProfileState);
+  const setNoOrganization = useSetRecoilState(noOrganizationState);
 
   const onPressButton = async () => {
     setIsLoading(true);
@@ -72,6 +76,7 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
           routes: [{ name: "HomeStack" }],
         });
       } else {
+        setNoOrganization(true);
         return navigation.navigate("OrganizationHomeScreen");
       }
     } catch (error) {

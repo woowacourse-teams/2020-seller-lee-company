@@ -21,6 +21,7 @@ import WholeChatScreen from "../../screens/WholeChatScreen";
 import ChatScreen from "../../screens/ChatScreen";
 import SelectChatScreen from "../../screens/SelectChatScreen";
 import OrganizationChoiceScreen from "../../screens/OrganizationChoiceScreen";
+import OrganizationManageScreen from "../../screens/OrganizationManageScreen";
 
 const Stack = createStackNavigator<HomeStackParam>();
 
@@ -97,6 +98,10 @@ export default function HomeStack() {
       <Stack.Screen
         name={"OrganizationChoiceScreen"}
         component={OrganizationChoiceScreen}
+      />
+      <Stack.Screen
+        name={"OrganizationManageScreen"}
+        component={OrganizationManageScreen}
       />
     </Stack.Navigator>
   );

@@ -385,4 +385,18 @@ export const memberOrganizationAPI = {
       },
     );
   },
+  delete: async (organizationId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
+      {
+        params: {
+          id: organizationId,
+        },
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
 };

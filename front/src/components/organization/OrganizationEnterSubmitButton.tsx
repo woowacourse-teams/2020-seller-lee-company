@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../colors";
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import {
+  noOrganizationState,
   organizationCreationNameState,
   organizationExistState,
   organizationListState,
@@ -33,6 +34,7 @@ export default function OrganizationEnterSubmitButton() {
   const { code } = useRecoilValue(organizationState);
 
   const setOrganizationExist = useSetRecoilState(organizationExistState);
+  const setNoOrganization = useSetRecoilState(noOrganizationState);
 
   const resetOrganization = useResetRecoilState(organizationState);
   const resetOrganizationCreationName = useResetRecoilState(
@@ -68,6 +70,7 @@ export default function OrganizationEnterSubmitButton() {
         setOrganizationExist(true);
         resetOrganization();
         resetOrganizationCreationName();
+        setNoOrganization(false);
         navigation.reset({
           index: 0,
           routes: [{ name: "HomeStack" }],

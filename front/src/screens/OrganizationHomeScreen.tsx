@@ -15,6 +15,7 @@ import { memberProfileState } from "../states/memberState";
 import OrganizationEnterButton from "../components/organization/OrganizationEnterButton";
 import OrganizationCreateButton from "../components/organization/OrganizationCreateButton";
 import { Feather } from "@expo/vector-icons";
+import { noOrganizationState } from "../states/organizationState";
 
 type OrganizationHomeScreenNavigationProp = StackNavigationProp<
   RootStackParam,
@@ -24,10 +25,12 @@ type OrganizationHomeScreenNavigationProp = StackNavigationProp<
 export default function OrganizationHomeScreen() {
   const navigation = useNavigation<OrganizationHomeScreenNavigationProp>();
   const { nickname } = useRecoilValue(memberProfileState);
+  const noOrganization = useRecoilValue(noOrganizationState);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
+      headerShown: !noOrganization,
       headerTitle: "",
       headerLeft: () => (
         <HeaderBackButton
