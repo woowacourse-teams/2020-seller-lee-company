@@ -58,4 +58,16 @@ class MemberOrganizationRegisterServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("입장 코드와 일치하는 조직이 존재하지 않습니다.");
     }
+
+    @DisplayName("이미 존재하는 조직의 입장 코드를 입력 시 해당 관계 id 반환")
+    @Test
+    void register_Exists() {
+        when(organizationRepository.findOptionalByCode(anyString())).thenReturn(
+                Optional.of(ORGANIZATION1));
+        when(memberOrganizationRepository.findOptionalByMemberAndOrganization(any(),
+                any())).thenReturn(Optional.of(MEMBER_ORGANIZATION1));
+
+        assertThat(memberOrganizationRegisterService.register(MEMBER1, MEMBER_ORGANIZATION_REQUEST))
+                .isEqualTo(MEMBER_ORGANIZATION1.getId());
+    }
 }
