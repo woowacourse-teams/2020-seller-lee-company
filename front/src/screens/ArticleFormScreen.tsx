@@ -149,7 +149,6 @@ export default function ArticleFormScreen() {
   }, [exitForm]);
 
   const onSubmit = async () => {
-    // group 추가하기
     const data = {
       title,
       price,

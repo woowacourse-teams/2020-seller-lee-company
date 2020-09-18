@@ -38,7 +38,6 @@ public class ArticleRequest {
     public Article toArticleWithLoginMember(Member loginMember) {
         return new Article(
                 title,
-                organizations,
                 Tags.of(tags),
                 Category.fromString(category),
                 contents,

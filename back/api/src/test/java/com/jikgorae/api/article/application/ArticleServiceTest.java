@@ -27,7 +27,8 @@ class ArticleServiceTest {
 
     @BeforeEach
     void setUp() {
-        articleService = new ArticleService(articleRepository, eventPublisher);
+        articleService = new ArticleService(articleRepository, eventPublisher,
+                articleOrganizationRepository);
     }
 
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
