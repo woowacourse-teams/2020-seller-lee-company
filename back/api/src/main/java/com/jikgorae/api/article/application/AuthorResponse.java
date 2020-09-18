@@ -19,7 +19,8 @@ public class AuthorResponse {
     }
 
     public static AuthorResponse of(Member member) {
-        return new AuthorResponse(member.getId(), member.getNickname(), member.getAvatar(), member.getScore());
+        return new AuthorResponse(member.getId(), member.getNickname(), member.getAvatar(),
+                member.getScore());
     }
 
     public Long getId() {

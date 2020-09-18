@@ -4,11 +4,13 @@ import static com.jikgorae.api.article.acceptance.ArticleAcceptanceTest.*;
 import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.FavoriteFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static java.util.Arrays.*;
 import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,7 @@ import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
+import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 
@@ -40,6 +43,9 @@ class ArticleViewServiceTest {
     private ArticleRepository articleRepository;
 
     @Mock
+    private ArticleOrganizationService articleOrganizationService;
+
+    @Mock
     private FavoriteRepository favoriteRepository;
 
     private ArticleViewService articleViewService;
@@ -47,21 +53,24 @@ class ArticleViewServiceTest {
     @BeforeEach
     void setUp() {
         articleViewService = new ArticleViewService(articleRepository,
-                articleFavoriteCountRepository, favoriteRepository);
+                articleFavoriteCountRepository, favoriteRepository, articleOrganizationService);
     }
 
-    @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체를 가져온다")
+    @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체와 조직 목록을 가져온다")
     @Test
     void showArticle() {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
                 .thenReturn(Optional.of(FAVORITE1));
+        when(articleOrganizationService.showByArticleId(ARTICLE1.getId())).thenReturn(Arrays.asList(
+                ARTICLE1_직고래));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
         assertThat(articleResponse.getAuthor().getNickname())
                 .isEqualTo(MEMBER1.getNickname());
+        assertThat(articleResponse.getOrganizations()).containsExactly(직고래);
     }
 
     @DisplayName("showPageByCategory()에서 마지막 글의 id와 가져올 size, category를 입력한 경우, category가 일치하며 입력한 id보다 작은 게시글 리스트 반환")

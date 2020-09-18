@@ -38,7 +38,7 @@ public class ProfileResponse {
     public String getAvatar() {
         return avatar;
     }
-    
+
     public Double getScore() {
         return score;
     }

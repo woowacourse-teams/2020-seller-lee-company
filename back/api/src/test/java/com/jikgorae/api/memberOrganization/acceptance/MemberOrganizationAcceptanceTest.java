@@ -1,6 +1,7 @@
 package com.jikgorae.api.memberOrganization.acceptance;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.memberOrganization.presentation.MemberOrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.junit.jupiter.api.DynamicTest.*;
@@ -44,7 +45,7 @@ public class MemberOrganizationAcceptanceTest extends AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageMemberOrganization() throws Exception {
         token = joinAndLogin(MEMBER1);
-        OrganizationResponse organizationResponse = createOrganization(token);
+        OrganizationResponse organizationResponse = createOrganization(token, 배달의민족_REQUEST);
 
         return Stream.of(
                 dynamicTest("회원/조직 추가", () -> {

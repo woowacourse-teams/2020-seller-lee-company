@@ -3,6 +3,7 @@ package com.jikgorae.api.article.presentation;
 import static com.jikgorae.api.article.acceptance.ArticleAcceptanceTest.*;
 import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static java.util.Collections.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -69,6 +70,9 @@ class ArticleControllerTest extends ControllerTest {
                                 ),
                                 requestFields(
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("게시글의 제목"),
+                                        fieldWithPath("organizations.[].id").type(JsonFieldType.NUMBER).description("게시글이 속한 조직의 아이디"),
+                                        fieldWithPath("organizations.[].name").type(JsonFieldType.STRING).description("게시글이 속한 조직의 이름"),
+                                        fieldWithPath("organizations.[].code").type(JsonFieldType.STRING).description("게시글이 속한 조직의 입장번호"),
                                         fieldWithPath("category").type(JsonFieldType.STRING).description("게시글의 카테고리"),
                                         fieldWithPath("contents").type(JsonFieldType.STRING).description("게시글의 내용"),
                                         fieldWithPath("price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
@@ -161,12 +165,11 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:on
     }
 
-    // TODO: 2020/08/17 문서화 테스트 복구
     @DisplayName("피드의 게시물을 상세조회 한다. 회원의 좋아요도 같이 받아온다.")
     @Test
     void showArticle() throws Exception {
         when(articleViewService.show(anyLong(), any()))
-                .thenReturn(ArticleResponse.of(ARTICLE1, true, 1));
+                .thenReturn(ArticleResponse.of(ARTICLE1, Arrays.asList(직고래), true, 1));
 
         // @formatter:off
         mockMvc
@@ -187,6 +190,9 @@ class ArticleControllerTest extends ControllerTest {
                                 responseFields(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("게시글의 제목"),
+                                        fieldWithPath("organizations.[].id").type(JsonFieldType.NUMBER).description("게시글이 속한 조직의 아이디"),
+                                        fieldWithPath("organizations.[].name").type(JsonFieldType.STRING).description("게시글이 속한 조직의 이름"),
+                                        fieldWithPath("organizations.[].code").type(JsonFieldType.STRING).description("게시글이 속한 조직의 입장번호"),
                                         fieldWithPath("categoryName").type(JsonFieldType.STRING).description("게시글의 카테고리"),
                                         fieldWithPath("contents").type(JsonFieldType.STRING).description("게시글의 내용"),
                                         fieldWithPath("price").type(JsonFieldType.NUMBER).description("게시글의 가격"),

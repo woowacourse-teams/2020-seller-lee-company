@@ -39,7 +39,7 @@ public class FavoriteService {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
         Favorite saved = favoriteRepository.save(favorite.create());
 
-        Article article = articleViewService.show(request.getArticleId());
+        Article article = articleViewService.findArticleBy(request.getArticleId());
         eventPublisher.publishEvent(
                 new NotificationEvent(
                         loginMember.getNickname(),

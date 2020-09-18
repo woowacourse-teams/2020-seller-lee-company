@@ -17,9 +17,12 @@ import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
+import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
+import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.organization.domain.Organization;
 
 @Service
 public class ArticleViewService {
@@ -28,26 +31,33 @@ public class ArticleViewService {
     private final ArticleRepository articleRepository;
     private final ArticleFavoriteCountRepository articleFavoriteCountRepository;
     private final FavoriteRepository favoriteRepository;
+    private ArticleOrganizationService articleOrganizationService;
 
     public ArticleViewService(ArticleRepository articleRepository,
             ArticleFavoriteCountRepository articleFavoriteCountRepository,
-            FavoriteRepository favoriteRepository) {
+            FavoriteRepository favoriteRepository,
+            ArticleOrganizationService articleOrganizationService) {
         this.articleRepository = articleRepository;
         this.articleFavoriteCountRepository = articleFavoriteCountRepository;
         this.favoriteRepository = favoriteRepository;
+        this.articleOrganizationService = articleOrganizationService;
     }
 
     public ArticleResponse show(Long articleId, Member loginMember) {
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
+        Article article = findArticleBy(articleId);
         Optional<Favorite> favorite = favoriteRepository.findFavoriteByArticleAndMember(article,
                 loginMember);
         long favoriteCount = favoriteRepository.countByArticle(article);
 
-        return ArticleResponse.of(article, favorite.isPresent(), favoriteCount);
+        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticleId(
+                articleId);
+        List<Organization> organizations = articleOrganizations.stream()
+                .map(ArticleOrganization::getOrganization)
+                .collect(toList());
+        return ArticleResponse.of(article, organizations, favorite.isPresent(), favoriteCount);
     }
 
-    public Article show(Long articleId) {
+    public Article findArticleBy(Long articleId) {
         return articleRepository.findById(articleId)
                 .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
     }

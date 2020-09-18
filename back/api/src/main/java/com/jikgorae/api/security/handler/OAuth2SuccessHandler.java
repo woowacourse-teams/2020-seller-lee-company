@@ -48,7 +48,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         res.setCharacterEncoding("utf-8");
         res.getWriter()
                 .write(objectMapper.writeValueAsString(
-                        AuthTokenResponse.of(member.getId(), member.getNickname(), member.getAvatar(), token, AuthorizationType.BEARER)));
+                        AuthTokenResponse.of(member.getId(), member.getNickname(),
+                                member.getAvatar(), token, AuthorizationType.BEARER)));
 
     }
 }

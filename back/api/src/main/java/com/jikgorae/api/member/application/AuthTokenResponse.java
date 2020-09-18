@@ -21,7 +21,8 @@ public class AuthTokenResponse {
         this.tokenType = tokenType;
     }
 
-    public static AuthTokenResponse of(Long id, String nickname, String avatar, String accessToken, AuthorizationType type) {
+    public static AuthTokenResponse of(Long id, String nickname, String avatar, String accessToken,
+            AuthorizationType type) {
         return new AuthTokenResponse(id, nickname, avatar, accessToken, type.toLowerCase());
     }
 

@@ -3,7 +3,7 @@ import { Organization } from "../types/types";
 export const defaultArticle = {
   id: 0,
   title: "",
-  organization: [] as Organization[],
+  organizations: [] as Organization[],
   categoryName: "",
   contents: "",
   price: 0,

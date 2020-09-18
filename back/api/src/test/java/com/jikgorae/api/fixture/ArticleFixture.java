@@ -1,5 +1,6 @@
 package com.jikgorae.api.fixture;
 
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.fixture.TagFixture.*;
 
 import java.time.LocalDateTime;
@@ -65,6 +66,7 @@ public class ArticleFixture {
 
     public static final ArticleRequest ARTICLE_REQUEST = new ArticleRequest(
             "TEST_TITLE",
+            Arrays.asList(직고래),
             10_000L,
             "디지털/가전",
             "TEST_CONTENTS",

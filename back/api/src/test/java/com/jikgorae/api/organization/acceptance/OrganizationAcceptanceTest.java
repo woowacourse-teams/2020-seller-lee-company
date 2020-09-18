@@ -1,6 +1,7 @@
 package com.jikgorae.api.organization.acceptance;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
@@ -45,7 +46,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageOrganization() throws Exception {
         token = joinAndLogin(MEMBER1);
-        OrganizationResponse organizationResponse = createOrganization(token);
+        OrganizationResponse organizationResponse = createOrganization(token, 직고래_REQUEST);
 
         return Stream.of(
                 dynamicTest("회원이 가입한 조직 조회", () -> {

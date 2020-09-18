@@ -31,6 +31,7 @@ import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
 import com.jikgorae.api.memberOrganization.application.MemberOrganizationRequest;
+import com.jikgorae.api.organization.application.OrganizationRequest;
 import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.web.AuthorizationType;
@@ -38,9 +39,8 @@ import com.jikgorae.api.security.web.AuthorizationType;
 @Sql("/truncate.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
-    private static final String DELIMITER = "/";
     protected static final String LOCATION = "Location";
-
+    private static final String DELIMITER = "/";
     protected MockMvc mockMvc;
 
     @Autowired
@@ -95,8 +95,8 @@ public class AcceptanceTest {
                 jwtTokenProvider.createToken(member.getKakaoId()), AuthorizationType.BEARER);
     }
 
-    protected OrganizationResponse createOrganization(AuthTokenResponse token) throws Exception {
-        String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
+    protected OrganizationResponse createOrganization(AuthTokenResponse token, OrganizationRequest organizationRequest) throws Exception {
+        String request = objectMapper.writeValueAsString(organizationRequest);
 
         MvcResult mvcResult = mockMvc.perform(
                 post(ORGANIZATION_API_URI)

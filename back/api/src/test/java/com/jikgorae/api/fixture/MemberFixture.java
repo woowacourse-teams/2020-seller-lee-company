@@ -4,9 +4,6 @@ import com.jikgorae.api.member.application.ProfileRequest;
 import com.jikgorae.api.member.domain.Member;
 
 public class MemberFixture {
-    private static final String MEMBER_CHANGE_PASSWORD = "1111";
-    private static final String MEMBER_CHANGE_AVATAR = "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4";
-
     public static final Member MEMBER1 =
             new Member(
                     51L,
@@ -17,7 +14,6 @@ public class MemberFixture {
                     8.0,
                     "ExponentPushToken[1234567-12345678901234]"
             );
-
     public static final Member MEMBER2 =
             new Member(
                     52L,
@@ -28,7 +24,8 @@ public class MemberFixture {
                     5.0,
                     "ExponentPushToken[1234567-12345678901234]"
             );
-
+    private static final String MEMBER_CHANGE_PASSWORD = "1111";
+    private static final String MEMBER_CHANGE_AVATAR = "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4";
     public static final ProfileRequest PROFILE_REQUEST = new ProfileRequest(MEMBER_CHANGE_PASSWORD,
             MEMBER_CHANGE_AVATAR);
 }

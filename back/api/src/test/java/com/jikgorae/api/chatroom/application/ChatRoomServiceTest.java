@@ -45,8 +45,9 @@ class ChatRoomServiceTest {
     @Test
     void createWhenExist() {
         when(chatRoomRepository.findOptionalByArticleIdAndSellerIdAndBuyerId(ARTICLE1.getId(),
-                MEMBER1.getId(), MEMBER2.getId())).thenReturn(Optional.of(new ChatRoom(1L, ARTICLE1, MEMBER1,
-                ARTICLE1.getId())));
+                MEMBER1.getId(), MEMBER2.getId())).thenReturn(
+                Optional.of(new ChatRoom(1L, ARTICLE1, MEMBER1,
+                        ARTICLE1.getId())));
 
         Long chatRoomId = chatRoomService.create(new ChatRoomCreateRequest(ARTICLE1.getId(),
                 MEMBER1.getId()), MEMBER2);

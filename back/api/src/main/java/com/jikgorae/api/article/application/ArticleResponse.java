@@ -4,10 +4,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.jikgorae.api.article.domain.Article;
+import com.jikgorae.api.organization.domain.Organization;
 
 public class ArticleResponse {
     private Long id;
     private String title;
+    private List<Organization> organizations;
     private String categoryName;
     private String contents;
     private Long price;
@@ -22,11 +24,13 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    private ArticleResponse(Long id, String title, String categoryName, String contents, Long price,
+    private ArticleResponse(Long id, String title, List<Organization> organizations,
+            String categoryName, String contents, Long price,
             String tradeState, List<String> tags, List<String> photos, AuthorResponse author,
             boolean favoriteState, long favoriteCount, String createdTime) {
         this.id = id;
         this.title = title;
+        this.organizations = organizations;
         this.categoryName = categoryName;
         this.contents = contents;
         this.price = price;
@@ -39,10 +43,12 @@ public class ArticleResponse {
         this.createdTime = createdTime;
     }
 
-    public static ArticleResponse of(Article article, boolean favoriteState, long favoriteCount) {
+    public static ArticleResponse of(Article article, List<Organization> organizations,
+            boolean favoriteState, long favoriteCount) {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),
+                organizations,
                 article.getCategory().getCategoryName(),
                 article.getContents(),
                 article.getPrice(),
@@ -62,6 +68,10 @@ public class ArticleResponse {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 
     public String getCategoryName() {

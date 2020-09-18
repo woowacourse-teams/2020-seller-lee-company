@@ -2,6 +2,7 @@ package com.jikgorae.api.article.acceptance;
 
 import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.http.HttpHeaders.*;
@@ -26,6 +27,7 @@ import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.AuthTokenResponse;
+import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
@@ -36,27 +38,26 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
     /**
      * Feature: 게시글 관리
-     * <p>
+     *
      * Scenario: 게시글을 관리한다.
-     * <p>
+     *
+     * Given 그룹이 추가되어 있다.
+     *
      * When 게시글을 등록한다.
      * Then 게시글이 추가되었다.
-     * <p>
+     *
      * When 전체 게시글을 조회한다.
      * Then 게시글이 조회된다.
      *
-     * <p>
      * When 예약중|판매중 상태 게시글을 조회한다.
      * then 게시글이 조회된다.
      *
-     * <p>
      * when 예약중으로 상태를 변경한다.
      * then 상태가 변경된다.
      *
-     * <p>
      * When 게시글을 클릭한다.
      * Then 게시글 정보와 좋아요를 응답받는다.
-     * <p>
+     *
      * When 게시글을 삭제한다.
      * Then 게시글이 삭제된다.
      */
@@ -66,7 +67,8 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     Stream<DynamicTest> manageArticle() throws Exception {
         token = joinAndLogin(MEMBER1);
 
-        // 게시글을 등록 한다.
+        OrganizationResponse 직고래 = createOrganization(token, 우아한테크코스_REQUEST);
+        // 게시글을 등록한다.
         Long articleId = extractId(createArticle(token));
         Long articleId2 = extractId(createArticle(token));
         Long articleId3 = extractId(createArticle(token));

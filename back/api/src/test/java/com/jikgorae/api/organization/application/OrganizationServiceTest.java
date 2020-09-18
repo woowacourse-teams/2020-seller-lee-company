@@ -1,6 +1,6 @@
 package com.jikgorae.api.organization.application;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.organization.domain.Organization.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,13 +33,13 @@ class OrganizationServiceTest {
     @Test
     void create() {
         when(organizationRepository.findAll()).thenReturn(Lists.emptyList());
-        when(organizationRepository.save(any())).thenReturn(ORGANIZATION1);
+        when(organizationRepository.save(any())).thenReturn(직고래);
 
-        Organization organization = organizationService.create(ORGANIZATION_REQUEST);
+        Organization organization = organizationService.create(직고래_REQUEST);
 
         assertAll(
                 () -> assertThat(organization.getId()).isNotNull(),
-                () -> assertThat(organization.getName()).isEqualTo(ORGANIZATION_NAME),
+                () -> assertThat(organization.getName()).isEqualTo(직고래_NAME),
                 () -> assertThat(organization.getCode()).hasSize(CODE_LENGTH)
         );
     }
@@ -47,9 +47,9 @@ class OrganizationServiceTest {
     @DisplayName("이미 존재하는 조직의 경우 IllegalArgumentException 예외 발생")
     @Test
     void create_Name_Exception() {
-        when(organizationRepository.findAll()).thenReturn(Lists.newArrayList(ORGANIZATION1));
+        when(organizationRepository.findAll()).thenReturn(Lists.newArrayList(직고래));
 
-        assertThatThrownBy(() -> organizationService.create(ORGANIZATION_REQUEST))
+        assertThatThrownBy(() -> organizationService.create(직고래_REQUEST))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("이미 존재하는 조직입니다.");
     }

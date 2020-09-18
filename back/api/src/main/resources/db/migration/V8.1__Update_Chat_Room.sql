@@ -8,7 +8,7 @@ create table if not exists chat_room
     foreign key (member_id) references member (member_id) on update CASCADE
 );
 
-alter table chat_room drop foreign key chat_room_ibfk_2;
+alter table chat_room drop foreign key if exists chat_room_ibfk_2;
 alter table chat_room drop column if exists member_id;
 alter table chat_room add if not exists seller_id bigint null;
 alter table chat_room add if not exists buyer_id bigint null;

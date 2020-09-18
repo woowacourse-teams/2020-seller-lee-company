@@ -36,7 +36,8 @@ public class ChatRoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody ChatRoomCreateRequest request, @LoginMember Member buyer) {
+    public ResponseEntity<Void> create(@RequestBody ChatRoomCreateRequest request,
+            @LoginMember Member buyer) {
         Long chatRoomId = chatRoomService.create(request, buyer);
 
         return ResponseEntity
@@ -46,7 +47,8 @@ public class ChatRoomController {
 
     @GetMapping
     public ResponseEntity<List<ChatRoomResponse>> showAll(@LoginMember Member member) {
-        List<ChatRoomResponse> responses = ChatRoomResponse.listOf(chatRoomDao.showAll(member), member);
+        List<ChatRoomResponse> responses = ChatRoomResponse.listOf(chatRoomDao.showAll(member),
+                member);
 
         return ResponseEntity.ok(responses);
     }
