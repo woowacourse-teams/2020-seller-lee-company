@@ -37,7 +37,7 @@ public class ArticleService {
         Article article = findById(id);
         article.update(request.toArticleWithLoginMember(loginMember));
 
-        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticle(
+        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticleId(
                 id);
         // if (articleOrganizations.size() == request.getOrganizations().size()) {
         //     request.getOrganizations()
@@ -56,6 +56,7 @@ public class ArticleService {
         if (loginMember.isNotSameId(article.getAuthor())) {
             throw new AuthorizationException("삭제할 수 있는 권한이 없습니다.");
         }
+        articleOrganizationService.deleteByArticleId(id);
         articleRepository.deleteById(id);
     }
 

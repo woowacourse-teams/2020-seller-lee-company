@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;

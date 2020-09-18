@@ -26,7 +26,11 @@ public class ArticleOrganizationService {
         articleOrganizationRepository.saveAll(articleOrganizations);
     }
 
-    public List<ArticleOrganization> showByArticle(Long articleId) {
+    public List<ArticleOrganization> showByArticleId(Long articleId) {
         return articleOrganizationRepository.findAllByArticleId(articleId);
+    }
+
+    public void deleteByArticleId(Long articleId) {
+        articleOrganizationRepository.deleteByArticleId(articleId);
     }
 }

@@ -62,7 +62,7 @@ class ArticleViewServiceTest {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
                 .thenReturn(Optional.of(FAVORITE1));
-        when(articleOrganizationService.showByArticle(ARTICLE1.getId())).thenReturn(Arrays.asList(ARTICLE1_SELLERLEE_CO));
+        when(articleOrganizationService.showByArticleId(ARTICLE1.getId())).thenReturn(Arrays.asList(ARTICLE1_SELLERLEE_CO));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 

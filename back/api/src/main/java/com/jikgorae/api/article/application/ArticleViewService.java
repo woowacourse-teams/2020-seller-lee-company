@@ -49,7 +49,7 @@ public class ArticleViewService {
                 loginMember);
         long favoriteCount = favoriteRepository.countByArticle(article);
 
-        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticle(
+        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticleId(
                 articleId);
         List<Organization> organizations = articleOrganizations.stream()
                 .map(ArticleOrganization::getOrganization)
