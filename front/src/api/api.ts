@@ -324,14 +324,30 @@ export const chatRoomAPI = {
 };
 
 export const messageAPI = {
-  showAll: async (roomId: number) => {
+  showAll: async (roomId: number, size: number, lastMessageDate: string) => {
     return await axios.get(
       `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
+      {
+        params: {
+          size,
+          lastMessageDate: lastMessageDate.slice(0, 19),
+        },
+      },
     );
   },
-  showAllInOrganization: async (organizationId: number) => {
+  showAllInOrganization: async (
+    organizationId: number,
+    size: number,
+    lastMessageDate: string,
+  ) => {
     return await axios.get(
       `${CHAT_BASE_URL}${domain.wholeChatRooms}/${organizationId}${domain.messages}`,
+      {
+        params: {
+          size,
+          lastMessageDate: lastMessageDate.slice(0, 19),
+        },
+      },
     );
   },
   showNew: async (roomId: number) => {

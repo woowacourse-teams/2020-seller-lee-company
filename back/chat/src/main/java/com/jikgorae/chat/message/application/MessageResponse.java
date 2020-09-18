@@ -12,6 +12,7 @@ public class MessageResponse {
     private String id;
     private Long senderId;
     private String senderNickname;
+    private String senderAvatar;
     private Long roomId;
     private String content;
     private LocalDateTime createdTime;
@@ -19,7 +20,20 @@ public class MessageResponse {
     public MessageResponse() {
     }
 
-    public MessageResponse(String id, Long senderId, String senderNickname, Long roomId,
+    public MessageResponse(String id, Long senderId, String senderNickname,
+            String senderAvatar, Long roomId,
+            String content, LocalDateTime createdTime) {
+        this.id = id;
+        this.senderId = senderId;
+        this.senderNickname = senderNickname;
+        this.senderAvatar = senderAvatar;
+        this.roomId = roomId;
+        this.content = content;
+        this.createdTime = createdTime;
+    }
+
+    public MessageResponse(String id, Long senderId, String senderNickname,
+            Long roomId,
             String content, LocalDateTime createdTime) {
         this.id = id;
         this.senderId = senderId;
@@ -37,7 +51,7 @@ public class MessageResponse {
 
     public static MessageResponse of(WholeMessage wholeMessage) {
         return new MessageResponse(wholeMessage.getId(), wholeMessage.getSenderId(),
-                wholeMessage.getSenderNickname(), wholeMessage.getRoomId(), wholeMessage.getContent(),
+                wholeMessage.getSenderNickname(), wholeMessage.getSenderAvatar(), wholeMessage.getRoomId(), wholeMessage.getContent(),
                 wholeMessage.getCreatedTime());
     }
 
@@ -63,6 +77,10 @@ public class MessageResponse {
 
     public String getSenderNickname() {
         return senderNickname;
+    }
+
+    public String getSenderAvatar() {
+        return senderAvatar;
     }
 
     public Long getRoomId() {

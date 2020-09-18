@@ -3,6 +3,7 @@ package com.jikgorae.chat.message.application;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.jikgorae.chat.message.domain.Message;
@@ -31,23 +32,27 @@ public class MessageService {
         return MessageResponse.of(save);
     }
 
-    public List<MessageResponse> showAll(Long roomId) {
+    public List<MessageResponse> showAll(Long roomId, int size, String lastMessageDate) {
         return MessageResponse.listOf(
-                messageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
+                messageRepository.findAllByRoomIdAndCreatedTimeIsBeforeOrderByCreatedTimeDesc(
+                        roomId, LocalDateTime.parse(lastMessageDate), PageRequest.of(0, size)));
     }
 
     public MessageResponse showLast(Long roomId) {
         return MessageResponse.of(messageRepository.findTopByRoomIdOrderByCreatedTimeDesc(roomId)
                 .orElse(new Message("", 0L, "", 0L, "",
-                        LocalDateTime.of(2010, 1, 1, 1, 1, 1, 1))));
+                        LocalDateTime.of(1, 1, 1, 1, 1, 1, 1))));
     }
 
     public MessageResponse saveToOrganization(MessageRequest request) {
-        WholeMessage save = wholeMessageRepository.save(messageRequestHandlingService.handle(request).toWholeMessage());
+        WholeMessage save = wholeMessageRepository.save(
+                messageRequestHandlingService.handle(request).toWholeMessage());
         return MessageResponse.of(save);
     }
 
-    public List<MessageResponse> showAllInOrganization(Long roomId) {
-        return MessageResponse.listOfWhole(wholeMessageRepository.findAllByRoomIdOrderByCreatedTimeDesc(roomId));
+    public List<MessageResponse> showAllInOrganization(Long organizationId, int size, String date) {
+        return MessageResponse.listOfWhole(
+                wholeMessageRepository.findAllByRoomIdAndCreatedTimeIsBeforeOrderByCreatedTimeDesc(
+                        organizationId, LocalDateTime.parse(date), PageRequest.of(0, size)));
     }
 }

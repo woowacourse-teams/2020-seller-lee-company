@@ -12,7 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 import { Bubble, GiftedChat, IMessage, Send } from "react-native-gifted-chat";
 import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
@@ -24,9 +23,7 @@ import {
   memberIdState,
 } from "../states/memberState";
 import SockJS from "sockjs-client";
-
 import ArticleCardImage from "../components/Common/ArticleCommon/ArticleCardImage";
-
 import { insertComma } from "../replacePriceWithComma";
 import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import {
@@ -38,6 +35,8 @@ import ChatTradeState from "../components/Chat/ChatTradeState";
 import { articleSelectedIdState } from "../states/articleState";
 import ChatMenu from "../components/Chat/ChatMenu";
 
+const moment = require("moment");
+require("moment-timezone");
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
 type ChatScreenNavigationProp = CompositeNavigationProp<
@@ -55,14 +54,23 @@ export default function ChatScreen() {
   const memberNickname = useRecoilValue(memberNicknameState);
   const memberAvatar = useRecoilValue(memberAvatarState);
   const setArticleId = useSetRecoilState(articleSelectedIdState);
+  const [hasMoreMessage, setHasMoreMessage] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const appendMessage = useCallback((message = []) => {
+  const pushMessage = useCallback((message = []) => {
     if (message.senderId === memberId) {
       return;
     }
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, message),
     );
+  }, []);
+
+  const appendMessage = useCallback((message = []) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(message, previousMessages),
+    );
+    setIsLoading(false);
   }, []);
 
   const receiveMessage = (response: { body: string }) => {
@@ -75,7 +83,7 @@ export default function ChatScreen() {
         nickname: receive.senderNickname,
       },
     };
-    message ? appendMessage(message) : undefined;
+    message ? pushMessage(message) : undefined;
   };
 
   useEffect(() => {
@@ -84,12 +92,17 @@ export default function ChatScreen() {
         stompClient.subscribe(`/sub/chat/rooms/${id}`, receiveMessage, {}),
       );
     };
+    initClient();
 
     const initMessages = async () => {
-      return await messageAPI.showAll(id);
+      return await messageAPI.showAll(id, 20, moment.tz("Asia/Seoul").format());
     };
-    initClient();
+
     initMessages().then((response) => {
+      if (isLoading) {
+        return;
+      }
+      setIsLoading(true);
       const messageHistory = response.data;
       appendMessage(
         messageHistory.map(
@@ -129,7 +142,7 @@ export default function ChatScreen() {
         message: sendMessages[0].text,
       }),
     );
-    appendMessage(sendMessages);
+    pushMessage(sendMessages);
   };
 
   // @ts-ignore
@@ -181,6 +194,57 @@ export default function ChatScreen() {
     navigation.navigate("ArticleDetailScreen");
   };
 
+  // @ts-ignore
+  const isCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToTop = 80;
+    return (
+      contentSize.height - layoutMeasurement.height - paddingToTop <=
+      contentOffset.y
+    );
+  };
+
+  const loadMore = async () => {
+    if (isLoading) {
+      return;
+    }
+    if (hasMoreMessage) {
+      setIsLoading(true);
+      const { data } = await messageAPI.showAll(
+        id,
+        15,
+        // @ts-ignore
+        moment(messages[messages.length - 1].createdAt)
+          .tz("Asia/Seoul")
+          .format(),
+      );
+      if (data.length === 0) {
+        setHasMoreMessage(false);
+      }
+
+      appendMessage(
+        data.map(
+          (prevMessage: {
+            id: number;
+            content: string;
+            senderId: number;
+            senderNickname: string;
+            createdTime: string;
+          }) => {
+            return {
+              _id: prevMessage.id,
+              text: prevMessage.content,
+              user: {
+                _id: prevMessage.senderId,
+                name: prevMessage.senderNickname,
+              },
+              createdAt: Date.parse(prevMessage.createdTime),
+            };
+          },
+        ),
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navigationContainer}>
@@ -213,6 +277,15 @@ export default function ChatScreen() {
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
+          listViewProps={{
+            scrollEventThrottle: 400,
+            // @ts-ignore
+            onScroll: ({ nativeEvent }) => {
+              if (isCloseToTop(nativeEvent)) {
+                loadMore();
+              }
+            },
+          }}
           placeholder={"메세지를 입력해주세요."}
           onSend={(sendMessages) => onSend(sendMessages)}
           showUserAvatar
@@ -352,18 +425,6 @@ const styles = StyleSheet.create({
   },
   bubbleContainer: {
     flex: 12,
-  },
-  userName: {
-    flex: 1,
-    padding: 7,
-  },
-  emptySpace: {
-    flex: 1,
-  },
-  profileSpace: { width: 10 },
-  avatar: {},
-  userInfoContainer: {
-    width: 50,
   },
   image: {
     height: 36,

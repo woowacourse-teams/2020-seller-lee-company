@@ -12,6 +12,7 @@ public class WholeMessage {
     private String id;
     private Long senderId;
     private String senderNickname;
+    private String senderAvatar;
     private Long roomId;
     private String content;
     @CreatedDate
@@ -20,18 +21,20 @@ public class WholeMessage {
     private WholeMessage() {
     }
 
-    public WholeMessage(String id, Long senderId, String senderNickname, Long roomId, String content,
+    public WholeMessage(String id, Long senderId, String senderNickname,
+            String senderAvatar, Long roomId, String content,
             LocalDateTime createdTime) {
         this.id = id;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
+        this.senderAvatar = senderAvatar;
         this.roomId = roomId;
         this.content = content;
         this.createdTime = createdTime;
     }
 
-    public WholeMessage(Long senderId, String senderNickname, Long roomId, String content) {
-        this(null, senderId, senderNickname, roomId, content, LocalDateTime.MIN);
+    public WholeMessage(Long senderId, String senderNickname, String senderAvatar, Long roomId, String content) {
+        this(null, senderId, senderNickname, senderAvatar, roomId, content, LocalDateTime.MIN);
     }
 
     public String getId() {
@@ -44,6 +47,10 @@ public class WholeMessage {
 
     public String getSenderNickname() {
         return senderNickname;
+    }
+
+    public String getSenderAvatar() {
+        return senderAvatar;
     }
 
     public Long getRoomId() {

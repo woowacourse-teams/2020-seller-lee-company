@@ -8,6 +8,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jikgorae.chat.message.application.MessageRequest;
 import com.jikgorae.chat.message.application.MessageResponse;
@@ -37,13 +38,13 @@ public class MessageController {
     }
 
     @GetMapping("/chat/rooms/{roomId}/messages")
-    public ResponseEntity<List<MessageResponse>> showAll(@PathVariable Long roomId) {
-        return ResponseEntity.ok(messageService.showAll(roomId));
+    public ResponseEntity<List<MessageResponse>> showAll(@PathVariable Long roomId, @RequestParam int size, @RequestParam String lastMessageDate) {
+        return ResponseEntity.ok(messageService.showAll(roomId, size, lastMessageDate));
     }
 
     @GetMapping("/chat/organizations/{organizationId}/messages")
-    public ResponseEntity<List<MessageResponse>> showAllInOrganization(@PathVariable Long organizationId) {
-        return ResponseEntity.ok(messageService.showAllInOrganization(organizationId));
+    public ResponseEntity<List<MessageResponse>> showAllInOrganization(@PathVariable Long organizationId, @RequestParam int size, @RequestParam String lastMessageDate) {
+        return ResponseEntity.ok(messageService.showAllInOrganization(organizationId, size, lastMessageDate));
     }
 
     @GetMapping("/chat/rooms/{roomId}/messages/new")
