@@ -47,7 +47,7 @@ export default function ArticleFormCategorySelect({
     >
       <Text style={styles.buttonText}>{renderCategory()}</Text>
       <Feather
-        name="chevron-down"
+        name="chevron-right"
         size={18}
         color="black"
         style={styles.selectCategoryArrowIcon}
