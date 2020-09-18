@@ -68,6 +68,10 @@ public class ArticleResponse {
         return title;
     }
 
+    public List<Organization> getOrganizations() {
+        return organizations;
+    }
+
     public String getCategoryName() {
         return categoryName;
     }

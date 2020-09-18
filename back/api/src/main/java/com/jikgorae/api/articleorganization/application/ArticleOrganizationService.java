@@ -25,4 +25,11 @@ public class ArticleOrganizationService {
                         Collectors.toList());
         articleOrganizationRepository.saveAll(articleOrganizations);
     }
+
+    public List<Organization> showByArticle(Long articleId) {
+        List<ArticleOrganization> articleOrganizations = articleOrganizationRepository.findAllByArticleId(articleId);
+        return articleOrganizations.stream()
+                .map(ArticleOrganization::getOrganization)
+                .collect(Collectors.toList());
+    }
 }
