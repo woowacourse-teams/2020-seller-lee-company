@@ -30,7 +30,7 @@ class ArticleServiceTest {
     @BeforeEach
     void setUp() {
         articleService = new ArticleService(articleRepository,
-                articleOrganizationService);
+                eventPublisher, articleOrganizationService);
     }
 
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")

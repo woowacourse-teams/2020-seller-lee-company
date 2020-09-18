@@ -2,31 +2,34 @@ package com.jikgorae.api.article.application;
 
 import java.util.NoSuchElementException;
 
-import javax.transaction.Transactional;
-
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.jikgorae.api.article.application.event.ArticleCreatedEvent;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
-import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
 
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
-    private final ArticleOrganizationService articleOrganizationService;
+    private final ApplicationEventPublisher eventPublisher;
 
     public ArticleService(ArticleRepository articleRepository,
-            ArticleOrganizationService articleOrganizationService) {
+            ApplicationEventPublisher eventPublisher) {
         this.articleRepository = articleRepository;
-        this.articleOrganizationService = articleOrganizationService;
+        this.eventPublisher = eventPublisher;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Long create(ArticleRequest request, Member loginMember) {
         Article article = articleRepository.save(request.toArticleWithLoginMember(loginMember));
-        articleOrganizationService.create(article, request.getOrganizations());
+        eventPublisher.publishEvent(
+                new ArticleCreatedEvent(article, request.getOrganizations()));
         return article.getId();
     }
 
@@ -35,8 +38,8 @@ public class ArticleService {
         Article article = findById(id);
         article.update(request.toArticleWithLoginMember(loginMember));
         // TODO: 2020/09/18 리팩토링 대상
-        articleOrganizationService.deleteByArticleId(id);
-        articleOrganizationService.create(article, request.getOrganizations());
+        //articleOrganizationService.deleteByArticleId(id);
+        //articleOrganizationService.create(article, request.getOrganizations());
     }
 
     public void deleteById(Long id, Member loginMember) {
@@ -44,7 +47,7 @@ public class ArticleService {
         if (loginMember.isNotSameId(article.getAuthor())) {
             throw new AuthorizationException("삭제할 수 있는 권한이 없습니다.");
         }
-        articleOrganizationService.deleteByArticleId(id);
+        //articleOrganizationService.deleteByArticleId(id);
         articleRepository.deleteById(id);
     }
 
