@@ -1,6 +1,6 @@
 package com.jikgorae.api.organization.presentation;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.mockito.Mockito.*;
@@ -35,7 +35,7 @@ class OrganizationControllerTest extends ControllerTest {
     void create() throws Exception {
         String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
 
-        when(organizationService.create(any())).thenReturn(ORGANIZATION1);
+        when(organizationService.create(any())).thenReturn(직고래);
 
         // @formatter:off
         mockMvc

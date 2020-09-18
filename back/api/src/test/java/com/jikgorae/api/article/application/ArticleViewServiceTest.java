@@ -62,14 +62,15 @@ class ArticleViewServiceTest {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
                 .thenReturn(Optional.of(FAVORITE1));
-        when(articleOrganizationService.showByArticleId(ARTICLE1.getId())).thenReturn(Arrays.asList(ARTICLE1_SELLERLEE_CO));
+        when(articleOrganizationService.showByArticleId(ARTICLE1.getId())).thenReturn(Arrays.asList(
+                ARTICLE1_직고래));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
         assertThat(articleResponse.getAuthor().getNickname())
                 .isEqualTo(MEMBER1.getNickname());
-        assertThat(articleResponse.getOrganizations()).containsExactly(SELLERLEE_CO);
+        assertThat(articleResponse.getOrganizations()).containsExactly(직고래);
     }
 
     @DisplayName("showPageByCategory()에서 마지막 글의 id와 가져올 size, category를 입력한 경우, category가 일치하며 입력한 id보다 작은 게시글 리스트 반환")

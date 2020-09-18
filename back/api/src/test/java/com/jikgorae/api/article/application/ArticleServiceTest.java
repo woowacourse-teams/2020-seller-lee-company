@@ -22,8 +22,10 @@ class ArticleServiceTest {
     @Mock
     private ArticleRepository articleRepository;
 
-    private ArticleService articleService;
+    @Mock
     private ArticleOrganizationService articleOrganizationService;
+
+    private ArticleService articleService;
 
     @BeforeEach
     void setUp() {

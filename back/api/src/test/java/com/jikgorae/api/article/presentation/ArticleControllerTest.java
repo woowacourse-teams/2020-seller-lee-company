@@ -169,7 +169,7 @@ class ArticleControllerTest extends ControllerTest {
     @Test
     void showArticle() throws Exception {
         when(articleViewService.show(anyLong(), any()))
-                .thenReturn(ArticleResponse.of(ARTICLE1, Arrays.asList(WOOWA_COURSE), true, 1));
+                .thenReturn(ArticleResponse.of(ARTICLE1, Arrays.asList(직고래), true, 1));
 
         // @formatter:off
         mockMvc

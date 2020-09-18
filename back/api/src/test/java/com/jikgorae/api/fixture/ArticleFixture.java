@@ -66,7 +66,7 @@ public class ArticleFixture {
 
     public static final ArticleRequest ARTICLE_REQUEST = new ArticleRequest(
             "TEST_TITLE",
-            Arrays.asList(SELLERLEE_CO, WOOWA_COURSE, HANSUNG_UNIV),
+            Arrays.asList(직고래),
             10_000L,
             "디지털/가전",
             "TEST_CONTENTS",

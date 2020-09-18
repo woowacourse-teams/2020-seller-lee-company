@@ -14,7 +14,6 @@ import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
 
 @Service
-@Transactional
 public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ArticleOrganizationService articleOrganizationService;
@@ -31,6 +30,7 @@ public class ArticleService {
         return article.getId();
     }
 
+    @Transactional
     public void update(Long id, ArticleRequest request, Member loginMember) {
         Article article = findById(id);
         article.update(request.toArticleWithLoginMember(loginMember));
@@ -53,6 +53,7 @@ public class ArticleService {
                 .orElseThrow(() -> new NoSuchElementException("게시글이 존재하지 않습니다."));
     }
 
+    @Transactional
     public void updateTradeState(Long id, TradeStateRequest request, Member member) {
         Article article = articleRepository.findByAuthorAndId(member, id)
                 .orElseThrow(() -> new IllegalArgumentException("id에 해당하는 article이 존재하지 않습니다."));
