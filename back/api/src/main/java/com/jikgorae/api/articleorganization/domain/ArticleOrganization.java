@@ -41,4 +41,8 @@ public class ArticleOrganization {
     public Organization getOrganization() {
         return organization;
     }
+
+    public void update(Organization organization) {
+        this.organization = organization;
+    }
 }

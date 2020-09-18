@@ -56,20 +56,20 @@ class ArticleViewServiceTest {
                 articleFavoriteCountRepository, favoriteRepository, articleOrganizationService);
     }
 
-    @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체를 가져온다")
+    @DisplayName("Article 와 Member 를 가져온 후 객체들를 이용해 Favorite 객체와 조직 목록을 가져온다")
     @Test
     void showArticle() {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
                 .thenReturn(Optional.of(FAVORITE1));
-        when(articleOrganizationService.showByArticle(ARTICLE1.getId())).thenReturn(Arrays.asList(WOOWA_COURSE));
+        when(articleOrganizationService.showByArticle(ARTICLE1.getId())).thenReturn(Arrays.asList(ARTICLE1_SELLERLEE_CO));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 
         assertThat(articleResponse.getId()).isEqualTo(ARTICLE1.getId());
         assertThat(articleResponse.getAuthor().getNickname())
                 .isEqualTo(MEMBER1.getNickname());
-        assertThat(articleResponse.getOrganizations()).containsExactly(WOOWA_COURSE);
+        assertThat(articleResponse.getOrganizations()).containsExactly(SELLERLEE_CO);
     }
 
     @DisplayName("showPageByCategory()에서 마지막 글의 id와 가져올 size, category를 입력한 경우, category가 일치하며 입력한 id보다 작은 게시글 리스트 반환")

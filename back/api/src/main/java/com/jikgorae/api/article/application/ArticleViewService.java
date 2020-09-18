@@ -2,7 +2,6 @@ package com.jikgorae.api.article.application;
 
 import static java.util.stream.Collectors.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -19,6 +18,7 @@ import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
+import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 import com.jikgorae.api.member.domain.Member;
@@ -35,7 +35,8 @@ public class ArticleViewService {
 
     public ArticleViewService(ArticleRepository articleRepository,
             ArticleFavoriteCountRepository articleFavoriteCountRepository,
-            FavoriteRepository favoriteRepository, ArticleOrganizationService articleOrganizationService) {
+            FavoriteRepository favoriteRepository,
+            ArticleOrganizationService articleOrganizationService) {
         this.articleRepository = articleRepository;
         this.articleFavoriteCountRepository = articleFavoriteCountRepository;
         this.favoriteRepository = favoriteRepository;
@@ -47,7 +48,12 @@ public class ArticleViewService {
         Optional<Favorite> favorite = favoriteRepository.findFavoriteByArticleAndMember(article,
                 loginMember);
         long favoriteCount = favoriteRepository.countByArticle(article);
-        List<Organization> organizations = articleOrganizationService.showByArticle(articleId);
+
+        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticle(
+                articleId);
+        List<Organization> organizations = articleOrganizations.stream()
+                .map(ArticleOrganization::getOrganization)
+                .collect(toList());
         return ArticleResponse.of(article, organizations, favorite.isPresent(), favoriteCount);
     }
 

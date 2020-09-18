@@ -1,5 +1,6 @@
 package com.jikgorae.api.article.application;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
+import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
 
@@ -34,6 +36,19 @@ public class ArticleService {
     public void update(Long id, ArticleRequest request, Member loginMember) {
         Article article = findById(id);
         article.update(request.toArticleWithLoginMember(loginMember));
+
+        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticle(
+                id);
+        // if (articleOrganizations.size() == request.getOrganizations().size()) {
+        //     request.getOrganizations()
+        //             .forEach(organization ->
+        //                     articleOrganizations.forEach(
+        //                             articleOrganization -> articleOrganization.update(organization))
+        //             );
+        // } else {
+        //
+        // }
+
     }
 
     public void deleteById(Long id, Member loginMember) {
