@@ -83,7 +83,7 @@ export default function KakaoLoginWebView({
         navigation.navigate("JoinScreen");
         return;
       }
-      navigation.navigate("HomeStack");
+      await navigateByOrganizationList();
     } else {
       console.log("not aceess token");
     }
