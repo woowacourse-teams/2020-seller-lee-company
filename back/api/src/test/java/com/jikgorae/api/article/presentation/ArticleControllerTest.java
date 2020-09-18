@@ -190,7 +190,9 @@ class ArticleControllerTest extends ControllerTest {
                                 responseFields(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("게시글의 제목"),
-                                        fieldWithPath("organizations").type(JsonFieldType.ARRAY).description("게시글이 속한 조직 목록"),
+                                        fieldWithPath("organizations.[].id").type(JsonFieldType.NUMBER).description("게시글이 속한 조직의 아이디"),
+                                        fieldWithPath("organizations.[].name").type(JsonFieldType.STRING).description("게시글이 속한 조직의 이름"),
+                                        fieldWithPath("organizations.[].code").type(JsonFieldType.STRING).description("게시글이 속한 조직의 입장번호"),
                                         fieldWithPath("categoryName").type(JsonFieldType.STRING).description("게시글의 카테고리"),
                                         fieldWithPath("contents").type(JsonFieldType.STRING).description("게시글의 내용"),
                                         fieldWithPath("price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
