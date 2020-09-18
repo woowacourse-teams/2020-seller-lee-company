@@ -14,5 +14,6 @@ public class MemberOrganizationService {
     }
 
     public void delete(Member loginMember, Long id) {
+        memberOrganizationRepository.deleteByMemberAndOrganizationId(loginMember, id);
     }
 }
