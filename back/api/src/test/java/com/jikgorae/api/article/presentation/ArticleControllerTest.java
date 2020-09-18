@@ -89,7 +89,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
-        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1, Arrays.asList(직고래.getId())))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
@@ -111,6 +111,9 @@ class ArticleControllerTest extends ControllerTest {
                                 requestParameters(
                                         parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
                                         parameterWithName("size").description("가져올 페이지의 크기(게시물 수)")
+                                ),
+                                requestFields(
+                                        fieldWithPath("organizationIds.[]").type(JsonFieldType.ARRAY).description("게시글을 조회할 조직 아이디 목록")
                                 ),
                                 responseFields(
                                         fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),

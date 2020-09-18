@@ -54,9 +54,9 @@ public class ArticleController {
     }
 
     @GetMapping(params = {"lastArticleId", "size"})
-    public ResponseEntity<List<FeedResponse>> showPage(@RequestParam Long lastArticleId,
-            @RequestParam int size, @LoginMember Member loginMember) {
-        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember);
+    public ResponseEntity<List<FeedResponse>> showPageByOrganization(@RequestParam Long lastArticleId,
+            @RequestParam int size, @LoginMember Member loginMember, @RequestBody List<Long> organizations) {
+        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember, organizations);
         return ResponseEntity.ok(responses);
     }
 

@@ -24,7 +24,8 @@ public class ArticleDao {
         this.queryFactory = queryFactory;
     }
 
-    public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember) {
+    public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember,
+            List<Long> organizations) {
         return queryFactory
                 .select(new QFeedResponse(
                         article,
