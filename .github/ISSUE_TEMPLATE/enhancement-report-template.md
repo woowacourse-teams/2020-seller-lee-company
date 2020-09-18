@@ -2,7 +2,7 @@
 name: Enhancement Report Template
 about: 기능 개선 사항 관련 템플릿
 title: ''
-labels: ''
+labels: enhancement, Report
 assignees: ''
 
 ---

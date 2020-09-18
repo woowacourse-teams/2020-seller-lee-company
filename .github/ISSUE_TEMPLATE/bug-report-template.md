@@ -2,7 +2,7 @@
 name: Bug Report Template
 about: 버그 관련 이슈
 title: ''
-labels: ''
+labels: bug, Report
 assignees: ''
 
 ---
