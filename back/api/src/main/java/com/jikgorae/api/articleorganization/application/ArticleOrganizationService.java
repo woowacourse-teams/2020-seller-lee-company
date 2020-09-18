@@ -30,6 +30,12 @@ public class ArticleOrganizationService {
         return articleOrganizationRepository.findAllByArticleId(articleId);
     }
 
+    public void update(Article article, List<Organization> organizations) {
+        // TODO: 2020/09/18 리팩토링
+        deleteByArticleId(article.getId());
+        create(article, organizations);
+    }
+
     public void deleteByArticleId(Long articleId) {
         articleOrganizationRepository.deleteByArticleId(articleId);
     }

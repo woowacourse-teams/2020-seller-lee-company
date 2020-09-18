@@ -1,6 +1,7 @@
 package com.jikgorae.api.organization.acceptance;
 
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.organization.domain.Organization.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +37,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
 
         return Stream.of(
                 dynamicTest("조직 생성", () -> {
-                    OrganizationResponse organizationResponse = createGroup(token);
+                    OrganizationResponse organizationResponse = createGroup(token, 직고래_REQUEST);
                     assertAll(
                             () -> assertThat(organizationResponse.getId()).isNotNull(),
                             () -> assertThat(organizationResponse.getName())

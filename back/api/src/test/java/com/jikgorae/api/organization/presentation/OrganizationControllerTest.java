@@ -33,7 +33,7 @@ class OrganizationControllerTest extends ControllerTest {
     @DisplayName("조직 생성 시 HTTP STATUS는 CREATE이고 랜덤한 6자리 입장 코드를 반환")
     @Test
     void create() throws Exception {
-        String request = objectMapper.writeValueAsString(ORGANIZATION_REQUEST);
+        String request = objectMapper.writeValueAsString(직고래_REQUEST);
 
         when(organizationService.create(any())).thenReturn(직고래);
 
