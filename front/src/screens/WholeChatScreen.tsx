@@ -3,7 +3,6 @@ import { useRecoilValue } from "recoil/dist";
 import { wholeChatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
-  Image,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -11,7 +10,6 @@ import {
   Text,
   View,
 } from "react-native";
-
 import { Bubble, GiftedChat, IMessage, Send } from "react-native-gifted-chat";
 import { Feather } from "@expo/vector-icons";
 import colors from "../colors";
@@ -24,13 +22,14 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { HomeStackParam, RootStackParam } from "../types/types";
-
 import {
   memberAvatarState,
   memberIdState,
   memberNicknameState,
 } from "../states/memberState";
 
+const moment = require("moment");
+require("moment-timezone");
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
 type WholeChatScreenNavigationProp = CompositeNavigationProp<
@@ -47,14 +46,23 @@ export default function WholeChatScreen() {
   const memberId = useRecoilValue(memberIdState);
   const memberNickname = useRecoilValue(memberNicknameState);
   const memberAvatar = useRecoilValue(memberAvatarState);
+  const [hasMoreMessage, setHasMoreMessage] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const appendMessage = useCallback((message = []) => {
+  const pushMessage = useCallback((message = []) => {
     if (message.senderId === memberId) {
       return;
     }
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, message),
     );
+  }, []);
+
+  const appendMessage = useCallback((message = []) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(message, previousMessages),
+    );
+    setIsLoading(false);
   }, []);
 
   const receiveMessage = (response: { body: string }) => {
@@ -65,9 +73,10 @@ export default function WholeChatScreen() {
       user: {
         _id: receive.senderId,
         nickname: receive.senderNickname,
+        avatar: receive.senderAvatar,
       },
     };
-    message ? appendMessage(message) : undefined;
+    message ? pushMessage(message) : undefined;
   };
 
   useEffect(() => {
@@ -80,13 +89,21 @@ export default function WholeChatScreen() {
         ),
       );
     };
+    initClient();
 
     const initMessages = async () => {
-      return await messageAPI.showAllInOrganization(id);
+      return await messageAPI.showAllInOrganization(
+        id,
+        20,
+        moment().tz("Asia/Seoul").format(),
+      );
     };
 
-    initClient();
     initMessages().then((response) => {
+      if (isLoading) {
+        return;
+      }
+      setIsLoading(true);
       const messageHistory = response.data;
       appendMessage(
         messageHistory.map(
@@ -95,6 +112,7 @@ export default function WholeChatScreen() {
             content: string;
             senderId: number;
             senderNickname: string;
+            senderAvatar: string;
             createdTime: string;
           }) => {
             return {
@@ -103,6 +121,7 @@ export default function WholeChatScreen() {
               user: {
                 _id: prevMessage.senderId,
                 name: prevMessage.senderNickname,
+                avatar: prevMessage.senderAvatar,
               },
               createdAt: Date.parse(prevMessage.createdTime),
             };
@@ -123,10 +142,11 @@ export default function WholeChatScreen() {
         messageType: "TALK",
         senderId: memberId,
         senderNickname: memberNickname,
+        senderAvatar: memberAvatar,
         message: sendMessages[0].text,
       }),
     );
-    appendMessage(sendMessages);
+    pushMessage(sendMessages);
   };
 
   // @ts-ignore
@@ -146,9 +166,33 @@ export default function WholeChatScreen() {
     </View>
   );
 
+  // @ts-ignore
+  const renderNickname = ({ position, previousMessage, currentMessage }) => {
+    if (position === "right") return <></>;
+    if (!previousMessage.user) {
+      return <Text style={styles.userName}>{currentMessage.user.name}</Text>;
+    }
+    const isUpdated = () =>
+      previousMessage.user._id === currentMessage.user._id &&
+      (previousMessage.user.name !== currentMessage.user.name ||
+        previousMessage.user.avatar !== currentMessage.user.avatar);
+    if (isUpdated()) {
+      previousMessage.user.name = currentMessage.user.name;
+      previousMessage.user.avatar = currentMessage.user.avatar;
+    }
+
+    const isTop = () =>
+      !previousMessage || previousMessage.user._id !== currentMessage.user._id;
+
+    if (isTop()) {
+      return <Text style={styles.userName}>{currentMessage.user.name}</Text>;
+    }
+  };
+
   const renderBubble = (props: any) => {
     return (
       <View>
+        {renderNickname(props)}
         <Bubble
           {...props}
           containerStyle={styles.bubbleContainer}
@@ -173,6 +217,59 @@ export default function WholeChatScreen() {
     );
   };
 
+  // @ts-ignore
+  const isCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToTop = 80;
+    return (
+      contentSize.height - layoutMeasurement.height - paddingToTop <=
+      contentOffset.y
+    );
+  };
+
+  const loadMore = async () => {
+    if (isLoading) {
+      return;
+    }
+    if (hasMoreMessage) {
+      setIsLoading(true);
+      const { data } = await messageAPI.showAllInOrganization(
+        id,
+        20,
+        // @ts-ignore
+        moment(messages[messages.length - 1].createdAt)
+          .tz("Asia/Seoul")
+          .format(),
+      );
+      if (data.length === 0) {
+        setHasMoreMessage(false);
+      }
+
+      appendMessage(
+        data.map(
+          (prevMessage: {
+            id: number;
+            content: string;
+            senderId: number;
+            senderNickname: string;
+            senderAvatar: string;
+            createdTime: string;
+          }) => {
+            return {
+              _id: prevMessage.id,
+              text: prevMessage.content,
+              user: {
+                _id: prevMessage.senderId,
+                name: prevMessage.senderNickname,
+                avatar: prevMessage.senderAvatar,
+              },
+              createdAt: Date.parse(prevMessage.createdTime),
+            };
+          },
+        ),
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navigationContainer}>
@@ -188,33 +285,26 @@ export default function WholeChatScreen() {
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
+          listViewProps={{
+            scrollEventThrottle: 400,
+            // @ts-ignore
+            onScroll: ({ nativeEvent }) => {
+              if (isCloseToTop(nativeEvent)) {
+                loadMore();
+              }
+            },
+          }}
           placeholder={"메세지를 입력해주세요."}
           onSend={(sendMessages) => onSend(sendMessages)}
-          showUserAvatar
           alwaysShowSend
           user={{
             _id: memberId,
             name: memberNickname,
+            avatar: memberAvatar,
           }}
-          renderUsernameOnMessage={true}
           renderSend={renderSend}
           renderLoading={renderLoading}
           renderBubble={renderBubble}
-          renderAvatar={({ position, imageStyle }) => {
-            if (position === "right") {
-              return (
-                <Image
-                  style={StyleSheet.flatten([
-                    styles.image,
-                    // @ts-ignore
-                    imageStyle[position],
-                  ])}
-                  source={{ uri: memberAvatar ? memberAvatar : undefined }}
-                  defaultSource={require("../../assets/user.png")}
-                />
-              );
-            }
-          }}
           renderAvatarOnTop={true}
           dateFormat="YYYY년 MM월 DD일"
           scrollToBottom
@@ -314,18 +404,10 @@ const styles = StyleSheet.create({
     flex: 12,
   },
   userName: {
-    flex: 1,
-    backgroundColor: "blue",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  emptySpace: {
-    flex: 1,
-  },
-  profileSpace: { width: 10 },
-  avatar: {},
-  userInfoContainer: {
-    width: 50,
+    fontSize: 16,
+    marginLeft: 5,
+    marginBottom: 10,
+    fontWeight: "bold",
   },
   image: {
     height: 36,
