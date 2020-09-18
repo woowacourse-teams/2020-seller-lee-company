@@ -11,7 +11,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { selectedOrganizationsInArticleFormState } from "../../states/articleState";
 
 type ArticleFormGroupSelectNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParam, "ArticleContentsFormScreen">,
+  StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
   StackNavigationProp<RootStackParam, "HomeStack">
 >;
 
@@ -19,7 +19,7 @@ interface ArticleFormGroupSelectProp {
   isEditing: boolean;
 }
 
-export default function ArticleFormGroupSelect({
+export default function ArticleFormOrganizationSelect({
   isEditing,
 }: ArticleFormGroupSelectProp) {
   const navigation = useNavigation<ArticleFormGroupSelectNavigationProp>();

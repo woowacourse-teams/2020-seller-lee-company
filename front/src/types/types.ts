@@ -129,6 +129,7 @@ export type HomeStackParam = {
   EvaluationScreen: undefined;
   MyInfoScreen: undefined;
   MyFavoriteScreen: undefined;
+  OrganizationManageScreen: undefined;
 };
 
 export type PostingStackParam = {

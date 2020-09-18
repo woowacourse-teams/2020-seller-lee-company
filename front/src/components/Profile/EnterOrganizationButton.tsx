@@ -20,7 +20,7 @@ export default function EnterOrganizationButton() {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => navigation.navigate("OrganizationHomeScreen")}
+        onPress={() => navigation.navigate("OrganizationManageScreen")}
       >
         <Feather name="users" size={22} color={theme.primary} />
         <View style={styles.titleContainer}>

@@ -13,7 +13,10 @@ import {
   memberNicknameState,
   memberProfileState,
 } from "../../states/memberState";
-import { organizationListState } from "../../states/organizationState";
+import {
+  noOrganizationState,
+  organizationListState,
+} from "../../states/organizationState";
 
 interface KakakoLoginWebViewProp {
   toggleModal: Function;
@@ -43,6 +46,7 @@ export default function KakaoLoginWebView({
     organizationListState,
   );
   const setProfile = useSetRecoilState(memberProfileState);
+  const setNoOrganization = useSetRecoilState(noOrganizationState);
 
   const INJECTED_JAVASCRIPT = ` (function() {
       document.getElementsByTagName('pre')[0].style.display="none";
@@ -61,6 +65,7 @@ export default function KakaoLoginWebView({
           routes: [{ name: "HomeStack" }],
         });
       }
+      setNoOrganization(true);
       return navigation.navigate("OrganizationHomeScreen");
     } catch (error) {
       console.warn("KakaoLoginWebView: organizationAPI showAll error");
@@ -83,7 +88,7 @@ export default function KakaoLoginWebView({
         navigation.navigate("JoinScreen");
         return;
       }
-      navigation.navigate("HomeStack");
+      await navigateByOrganizationList();
     } else {
       console.log("not aceess token");
     }

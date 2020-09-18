@@ -47,3 +47,18 @@ export const selectedOrganizationInFeedsState = atom({
     code: "",
   },
 });
+
+export const organizationDeleteModalState = atom({
+  key: "organizationDeleteModalState",
+  default: false,
+});
+
+export const deleteOrganizationState = atom({
+  key: "deleteOrganizationState",
+  default: <Organization>{},
+});
+
+export const noOrganizationState = atom({
+  key: "noOrganizationState",
+  default: false,
+});

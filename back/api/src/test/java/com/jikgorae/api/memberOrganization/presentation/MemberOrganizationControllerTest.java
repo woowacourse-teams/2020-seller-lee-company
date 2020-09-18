@@ -9,6 +9,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +30,7 @@ class MemberOrganizationControllerTest extends ControllerTest {
     @MockBean
     private MemberOrganizationRegisterService registerService;
 
-    @DisplayName("회원/조직 연관 관계를 생성한다.")
+    @DisplayName("회원/조직 연관관계를 생성한다.")
     @Test
     void create() throws Exception {
         String request = objectMapper.writeValueAsString(MEMBER_ORGANIZATION_REQUEST);
@@ -60,6 +61,30 @@ class MemberOrganizationControllerTest extends ControllerTest {
                                 )
                         )
                 );
+        // @formatter:on
+    }
+
+    @DisplayName("회원/조직 연관관계를 삭제한다.")
+    @Test
+    void delete_MemberOrganization() throws Exception {
+
+        // @formatter:off
+        mockMvc
+                .perform(
+                        delete(MEMBER_ORGANIZATION_API_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .param("id", String.valueOf(MEMBER_ORGANIZATION1.getId())))
+                .andExpect(status().isNoContent())
+                .andDo(
+                        document("memberOrganization/delete",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestHeaders(
+                                        headerWithName("Authorization").description("회원의 토큰")
+                                ),
+                                requestParameters(
+                                        parameterWithName("id").description("삭제할 회원/조직의 아이디")
+                                )));
         // @formatter:on
     }
 }
