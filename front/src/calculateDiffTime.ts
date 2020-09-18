@@ -11,6 +11,9 @@ export default function calculateDiffTime(createdTime: string) {
 
   if (diffDays === 1) {
     return "하루 전";
+  } else if (diffDays > 3000) {
+    // 채팅방 리스트
+    return "";
   } else if (diffDays > 1) {
     return Math.ceil(diffDays) + "일 전";
   } else if (diffHours >= 1) {

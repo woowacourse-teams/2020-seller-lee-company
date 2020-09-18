@@ -25,9 +25,9 @@ import * as Permissions from "expo-permissions";
 import { PermissionStatus } from "expo-permissions";
 import * as Notifications from "expo-notifications";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
-import GroupList from "../components/organization/OrganizationList";
 import { selectedOrganizationInFeedsState } from "../states/organizationState";
 import { Feather } from "@expo/vector-icons";
+import OrganizationList from "../components/organization/OrganizationList";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -45,7 +45,7 @@ export default function FeedHomeScreen() {
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
-  const selectedGroup = useRecoilValue(selectedOrganizationInFeedsState);
+  const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
 
   useEffect(() => {
     initFeed();
@@ -118,7 +118,11 @@ export default function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{selectedGroup.name}</Text>
+        <Text style={styles.title}>
+          {selectedOrganization.name !== ""
+            ? selectedOrganization.name
+            : "조직 선택"}
+        </Text>
         <Menu>
           <MenuTrigger>
             <Feather name="chevron-down" size={24} color="grey" />
@@ -127,7 +131,7 @@ export default function FeedHomeScreen() {
             optionsContainerStyle={styles.menuOptionsContainer}
             customStyles={{ optionText: styles.menuCustomText }}
           >
-            <GroupList isGroupFiltering={true} />
+            <OrganizationList isGroupFiltering={true} />
           </MenuOptions>
         </Menu>
       </View>
@@ -170,15 +174,14 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    backgroundColor: "white",
+    alignItems: "center",
     paddingHorizontal: 30,
-    paddingTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
     flexDirection: "row",
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: theme.primary,
     paddingRight: 5,
@@ -201,6 +204,7 @@ const styles = StyleSheet.create({
   },
   menuOptionsContainer: {},
   menuCustomText: {
+    backgroundColor: "red",
     textAlign: "center",
     margin: 10,
   },

@@ -30,9 +30,9 @@ public class ArticleDao {
                         article,
                         articleFavoriteCount.favoriteCount,
                         ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
-                                        .where(favorite.member.id.eq(loginMember.getId()),
-                                                favorite.article.id.eq(article.id))
-                                        .exists(), "favoriteState")))
+                                .where(favorite.member.id.eq(loginMember.getId()),
+                                        favorite.article.id.eq(article.id))
+                                .exists(), "favoriteState")))
                 .distinct()
                 .from(article)
                 .leftJoin(articleFavoriteCount).on(article.id.eq(articleFavoriteCount.article.id))

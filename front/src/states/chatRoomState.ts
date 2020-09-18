@@ -18,3 +18,11 @@ export const chatRoomState = atom({
     },
   },
 });
+
+export const wholeChatRoomState = atom({
+  key: "wholeChatRoomState",
+  default: {
+    id: 0,
+    name: "",
+  },
+});

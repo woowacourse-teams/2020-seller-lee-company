@@ -16,7 +16,7 @@ public class ChatRoomService {
         this.chatRoomRepository = chatRoomRepository;
     }
 
-    public Long createChatRoom(ChatRoomCreateRequest request, Member buyer) {
+    public Long create(ChatRoomCreateRequest request, Member buyer) {
         Optional<ChatRoom> chatRoom = chatRoomRepository.findOptionalByArticleIdAndSellerIdAndBuyerId(
                 request.getArticleId(), request.getSellerId(), buyer.getId());
         if (chatRoom.isPresent()) {
@@ -26,5 +26,9 @@ public class ChatRoomService {
         ChatRoom created = chatRoomRepository.save(
                 new ChatRoom(request.getArticleId(), buyer, request.getSellerId()));
         return created.getId();
+    }
+
+    public void delete(Long roomId) {
+        chatRoomRepository.deleteById(roomId);
     }
 }

@@ -3,6 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
+  Image,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -19,8 +20,8 @@ import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
 import {
   memberAvatarState,
-  memberIdState,
   memberNicknameState,
+  memberIdState,
 } from "../states/memberState";
 import SockJS from "sockjs-client";
 
@@ -35,6 +36,7 @@ import {
 import { HomeStackParam, RootStackParam } from "../types/types";
 import ChatTradeState from "../components/Chat/ChatTradeState";
 import { articleSelectedIdState } from "../states/articleState";
+import ChatMenu from "../components/Chat/ChatMenu";
 
 const Stomp = require("stompjs/lib/stomp.js").Stomp;
 
@@ -55,20 +57,31 @@ export default function ChatScreen() {
   const setArticleId = useSetRecoilState(articleSelectedIdState);
 
   const appendMessage = useCallback((message = []) => {
+    if (message.senderId === memberId) {
+      return;
+    }
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, message),
     );
   }, []);
 
   const receiveMessage = (response: { body: string }) => {
-    const message = JSON.parse(response.body);
+    const receive = JSON.parse(response.body);
+    const message = {
+      ...receive,
+      _id: receive.id,
+      user: {
+        _id: receive.senderId,
+        nickname: receive.senderNickname,
+      },
+    };
     message ? appendMessage(message) : undefined;
   };
 
   useEffect(() => {
     const initClient = () => {
       stompClient.connect({}, () =>
-        stompClient.subscribe(`/sub/api/chat/rooms/${id}`, receiveMessage, {}),
+        stompClient.subscribe(`/sub/chat/rooms/${id}`, receiveMessage, {}),
       );
     };
 
@@ -85,7 +98,6 @@ export default function ChatScreen() {
             content: string;
             senderId: number;
             senderNickname: string;
-            senderAvatar: string;
             createdTime: string;
           }) => {
             return {
@@ -94,7 +106,6 @@ export default function ChatScreen() {
               user: {
                 _id: prevMessage.senderId,
                 name: prevMessage.senderNickname,
-                avatar: prevMessage.senderAvatar,
               },
               createdAt: Date.parse(prevMessage.createdTime),
             };
@@ -115,7 +126,6 @@ export default function ChatScreen() {
         messageType: "TALK",
         senderId: memberId,
         senderNickname: memberNickname,
-        senderAvatar: memberAvatar,
         message: sendMessages[0].text,
       }),
     );
@@ -142,11 +152,6 @@ export default function ChatScreen() {
   const renderBubble = (props: any) => {
     return (
       <View>
-        {memberNickname === props.currentMessage.user.name ||
-        props.currentMessage.user.name ===
-          props.previousMessage.user?.name ? undefined : (
-          <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
-        )}
         <Bubble
           {...props}
           containerStyle={styles.bubbleContainer}
@@ -187,6 +192,7 @@ export default function ChatScreen() {
         <View style={styles.opponentContainer}>
           <Text style={styles.opponent}>{opponent.nickname}님과의 채팅</Text>
         </View>
+        <ChatMenu />
       </View>
       <TouchableOpacity style={styles.articleContainer} onPress={goToArticle}>
         <View style={styles.articleImageContainer}>
@@ -214,11 +220,41 @@ export default function ChatScreen() {
           user={{
             _id: memberId,
             name: memberNickname,
-            avatar: memberAvatar,
           }}
           renderSend={renderSend}
           renderLoading={renderLoading}
           renderBubble={renderBubble}
+          renderAvatar={({ position, imageStyle }) => {
+            if (position === "right") {
+              return (
+                <Image
+                  style={StyleSheet.flatten([
+                    styles.image,
+                    // @ts-ignore
+                    imageStyle[position],
+                  ])}
+                  source={{
+                    uri: memberAvatar === "" ? undefined : memberAvatar,
+                  }}
+                  defaultSource={require("../../assets/user.png")}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  style={StyleSheet.flatten([
+                    styles.image,
+                    // @ts-ignore
+                    imageStyle[position],
+                  ])}
+                  source={{
+                    uri: opponent.avatar === "" ? undefined : opponent.avatar,
+                  }}
+                  defaultSource={require("../../assets/user.png")}
+                />
+              );
+            }
+          }}
           renderAvatarOnTop={true}
           dateFormat="YYYY년 MM월 DD일"
           scrollToBottom
@@ -250,7 +286,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 24,
   },
   opponent: {
     fontSize: 18,
@@ -329,5 +364,10 @@ const styles = StyleSheet.create({
   avatar: {},
   userInfoContainer: {
     width: 50,
+  },
+  image: {
+    height: 36,
+    width: 36,
+    borderRadius: 18,
   },
 });

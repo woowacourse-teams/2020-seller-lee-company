@@ -12,7 +12,7 @@ export default function SelectBuyerArticleInfo({
 }: SelectBuyerArticleInfoProps) {
   return (
     <>
-      <Image style={styles.image} source={{ uri: photo }} />
+      <Image style={styles.image} source={{ uri: photo ? photo : undefined }} />
       <View style={styles.textContainer}>
         <Text style={styles.explanation}>거래한 상품</Text>
         <Text style={styles.title}>{title}</Text>

@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.jikgorae.api.article.domain.Article;
-import com.jikgorae.api.favorite.application.FavoriteCreatedEvent;
-import com.jikgorae.api.favorite.application.FavoriteRemovedEvent;
+import com.jikgorae.api.favorite.application.FavoriteCountDecreaseEvent;
+import com.jikgorae.api.favorite.application.FavoriteCountIncreaseEvent;
 import com.jikgorae.api.member.domain.Member;
 
 @Entity
@@ -44,12 +44,12 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
     }
 
     public Favorite create() {
-        this.registerEvent(new FavoriteCreatedEvent(this));
+        this.registerEvent(new FavoriteCountIncreaseEvent(this));
         return this;
     }
 
     public Favorite remove() {
-        this.registerEvent(new FavoriteRemovedEvent(this));
+        this.registerEvent(new FavoriteCountDecreaseEvent(this));
         return this;
     }
 

@@ -7,7 +7,7 @@ import { Score } from "../types/types";
 const LOCAL_SERVER_IP = "localhost";
 
 const BASE_URL = `http://${LOCAL_SERVER_IP}:8080`;
-export const CHAT_BASE_URL = `http://${LOCAL_SERVER_IP}:9000`;
+export const CHAT_BASE_URL = `http://${LOCAL_SERVER_IP}:8000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -19,11 +19,13 @@ const domain = {
   api: "/api",
   loginNotOAuth: "/login/not-oauth",
   chatRooms: "/chat/rooms",
+  wholeChatRooms: "/chat/organizations/",
   messages: "/messages",
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
   organizations: "/organizations",
+  memberOrganization: "/member-organizations",
 };
 
 interface ArticlesPost {
@@ -308,12 +310,28 @@ export const chatRoomAPI = {
       },
     });
   },
+  delete: async (id: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.chatRooms}/${id}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
 };
 
 export const messageAPI = {
   showAll: async (roomId: number) => {
     return await axios.get(
       `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
+    );
+  },
+  showAllInOrganization: async (organizationId: number) => {
+    return await axios.get(
+      `${CHAT_BASE_URL}${domain.wholeChatRooms}/${organizationId}${domain.messages}`,
     );
   },
   showNew: async (roomId: number) => {
@@ -334,6 +352,47 @@ export const organizationAPI = {
       `${BASE_URL}${domain.api}${domain.organizations}`,
       data,
       {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+  showAll: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.organizations}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+interface RegisterMemberOrganization {
+  code: string;
+}
+
+export const memberOrganizationAPI = {
+  register: async (data: RegisterMemberOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+  delete: async (organizationId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
+      {
+        params: {
+          id: organizationId,
+        },
         headers: {
           Authorization: `bearer ${token}`,
         },

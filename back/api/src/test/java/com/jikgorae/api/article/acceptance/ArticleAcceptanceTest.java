@@ -67,7 +67,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     Stream<DynamicTest> manageArticle() throws Exception {
         token = joinAndLogin(MEMBER1);
 
-        OrganizationResponse 직고래 = createGroup(token, 우아한테크코스_REQUEST);
+        OrganizationResponse 직고래 = createOrganization(token, 우아한테크코스_REQUEST);
         // 게시글을 등록한다.
         Long articleId = extractId(createArticle(token));
         Long articleId2 = extractId(createArticle(token));

@@ -31,7 +31,8 @@ public class FeedResponse {
 
     @QueryProjection
     public FeedResponse(Article article, Long favoriteCount, boolean favoriteState) {
-        this(article.getId(), article.getPrice(), favoriteCount, favoriteState, article.getTags().getTagNames(), article.getPhotos().toList());
+        this(article.getId(), article.getPrice(), favoriteCount, favoriteState,
+                article.getTags().getTagNames(), article.getPhotos().toList());
     }
 
     public static FeedResponse of(Article article, Long favoriteCount, boolean favoriteState) {

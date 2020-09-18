@@ -29,9 +29,9 @@ import {
   articlePhotosState,
   articlePriceState,
   articleSelectedCategoryState,
-  selectedGroupsInArticleFormState,
   articleSelectedState,
   articleTitleState,
+  selectedOrganizationsInArticleFormState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
 import { Article, HomeStackParam, RootStackParam } from "../types/types";
@@ -40,7 +40,7 @@ import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleFormContents from "../components/Article/ArticleFormContents";
 import { defaultArticle } from "../data/defaultArticle";
-import ArticleFormGroupSelect from "../components/Article/ArticleFormGroupSelect";
+import ArticleFormOrganizationSelect from "../components/Article/ArticleFormOrganizationSelect";
 
 type ArticleFormScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
@@ -60,7 +60,7 @@ export default function ArticleFormScreen() {
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
   const [selectedOrganization, setSelectedOrganization] = useRecoilState(
-    selectedGroupsInArticleFormState,
+    selectedOrganizationsInArticleFormState,
   );
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
@@ -258,7 +258,7 @@ export default function ArticleFormScreen() {
                 <ArticleFormTitle />
               </View>
               <View style={styles.selectCategoryContainer}>
-                <ArticleFormGroupSelect isEditing={isEditing} />
+                <ArticleFormOrganizationSelect isEditing={isEditing} />
               </View>
               <View style={styles.selectCategoryContainer}>
                 <ArticleFormCategorySelect isEditing={isEditing} />

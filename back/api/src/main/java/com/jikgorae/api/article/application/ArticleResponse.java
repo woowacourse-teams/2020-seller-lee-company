@@ -24,7 +24,8 @@ public class ArticleResponse {
     private ArticleResponse() {
     }
 
-    private ArticleResponse(Long id, String title, List<Organization> organizations, String categoryName, String contents, Long price,
+    private ArticleResponse(Long id, String title, List<Organization> organizations,
+            String categoryName, String contents, Long price,
             String tradeState, List<String> tags, List<String> photos, AuthorResponse author,
             boolean favoriteState, long favoriteCount, String createdTime) {
         this.id = id;
@@ -42,7 +43,8 @@ public class ArticleResponse {
         this.createdTime = createdTime;
     }
 
-    public static ArticleResponse of(Article article, List<Organization> organizations, boolean favoriteState, long favoriteCount) {
+    public static ArticleResponse of(Article article, List<Organization> organizations,
+            boolean favoriteState, long favoriteCount) {
         return new ArticleResponse(
                 article.getId(),
                 article.getTitle(),

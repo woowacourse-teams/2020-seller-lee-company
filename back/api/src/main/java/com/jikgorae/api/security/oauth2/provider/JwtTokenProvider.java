@@ -30,13 +30,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtTokenProvider {
+    private final MemberRepository memberRepository;
     @Value("${security.jwt.token.secret-key}")
     private String secretKey;
-
     @Value("${security.jwt.token.expire-length}")
     private long expireLength;
-
-    private final MemberRepository memberRepository;
 
     public JwtTokenProvider(
             MemberRepository memberRepository) {
@@ -74,7 +72,8 @@ public class JwtTokenProvider {
         String credential = getPayload(token);
         Member member = memberRepository.findOptionalMemberByKakaoId(credential)
                 .orElseThrow(
-                        () -> new AuthenticationCredentialsNotFoundException("존재하지 않는 회원입니다."));
+                        () -> new AuthenticationCredentialsNotFoundException(
+                                "credential error: 존재하지 않는 회원입니다."));
 
         Map<String, Object> attribute = createAttribute(member);
 

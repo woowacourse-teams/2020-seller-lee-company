@@ -14,7 +14,8 @@ public class OrganizationFixture {
             직고래_NAME);
     public static final OrganizationRequest 우아한테크코스_REQUEST = new OrganizationRequest(
             우아한테크코스_NAME);
-
+    public static final OrganizationRequest 배달의민족_REQUEST = new OrganizationRequest(
+            "배달의민족");
     public static final Organization 직고래 = new Organization(51L, 직고래_NAME,
             "423502");
     public static final Organization 우아한테크코스 = new Organization(52L, "우아한테크코스", "124838");

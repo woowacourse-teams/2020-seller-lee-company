@@ -1,7 +1,6 @@
 package com.jikgorae.api.article.application;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.Category;
@@ -23,7 +22,8 @@ public class ArticleRequest {
     private ArticleRequest() {
     }
 
-    public ArticleRequest(String title, List<Organization> organizations, Long price, String category,
+    public ArticleRequest(String title, List<Organization> organizations, Long price,
+            String category,
             String contents,
             List<String> tags, List<String> photos) {
         this.title = title;

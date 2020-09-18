@@ -8,7 +8,10 @@ interface PhotoBoxProps {
 export default function PhotoBoxInImageViewSlider({ photoURI }: PhotoBoxProps) {
   return (
     <View style={styles.imageContainer}>
-      <Image source={{ uri: photoURI ? photoURI : "" }} style={styles.image} />
+      <Image
+        source={{ uri: photoURI ? photoURI : undefined }}
+        style={styles.image}
+      />
     </View>
   );
 }

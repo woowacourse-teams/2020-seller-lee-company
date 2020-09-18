@@ -10,7 +10,7 @@ public enum NotificationType {
         this.message = message;
     }
 
-    public String concat(String sender){
+    public String concat(String sender) {
         return sender.concat(message);
     }
 }
