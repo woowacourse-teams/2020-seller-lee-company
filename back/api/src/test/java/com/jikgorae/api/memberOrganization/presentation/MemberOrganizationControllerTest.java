@@ -67,6 +67,8 @@ class MemberOrganizationControllerTest extends ControllerTest {
     @DisplayName("회원/조직 연관관계를 삭제한다.")
     @Test
     void delete_MemberOrganization() throws Exception {
+
+        // @formatter:off
         mockMvc
                 .perform(
                         delete(MEMBER_ORGANIZATION_API_URI)
@@ -83,5 +85,6 @@ class MemberOrganizationControllerTest extends ControllerTest {
                                 requestParameters(
                                         parameterWithName("id").description("삭제할 회원/조직의 아이디")
                                 )));
+        // @formatter:on
     }
 }
