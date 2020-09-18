@@ -2,6 +2,7 @@ package com.jikgorae.api.article.application;
 
 import static com.jikgorae.api.article.acceptance.ArticleAcceptanceTest.*;
 import static com.jikgorae.api.fixture.ArticleFixture.*;
+import static com.jikgorae.api.fixture.ArticleOrganizationFixture.*;
 import static com.jikgorae.api.fixture.FavoriteFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
@@ -62,8 +63,7 @@ class ArticleViewServiceTest {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
         when(favoriteRepository.findFavoriteByArticleAndMember(any(), any()))
                 .thenReturn(Optional.of(FAVORITE1));
-        when(articleOrganizationService.showByArticleId(ARTICLE1.getId())).thenReturn(Arrays.asList(
-                ARTICLE1_직고래));
+        when(articleOrganizationService.showByArticleId(ARTICLE1.getId())).thenReturn(Arrays.asList(ARTICLE1_직고래));
 
         ArticleResponse articleResponse = articleViewService.show(ARTICLE1.getId(), MEMBER1);
 

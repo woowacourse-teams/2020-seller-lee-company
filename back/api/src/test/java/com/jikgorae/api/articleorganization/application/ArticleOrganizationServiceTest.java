@@ -1,6 +1,7 @@
 package com.jikgorae.api.articleorganization.application;
 
 import static com.jikgorae.api.fixture.ArticleFixture.*;
+import static com.jikgorae.api.fixture.ArticleOrganizationFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

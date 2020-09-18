@@ -1,7 +1,6 @@
 package com.jikgorae.api;
 
 import static com.jikgorae.api.fixture.ArticleFixture.*;
-import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.memberOrganization.presentation.MemberOrganizationController.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -26,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jikgorae.api.article.application.ArticleRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.member.domain.Member;
@@ -73,7 +73,23 @@ public class AcceptanceTest {
     }
 
     protected String createArticle(AuthTokenResponse token) throws Exception {
-        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
+        String request = objectMapper.writeValueAsString(직고래_게시물_요청);
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.post(ArticleController.ARTICLE_API_URI)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        return mvcResult.getResponse().getHeader(LOCATION);
+    }
+
+    protected String createArticleToOrganization(AuthTokenResponse token, ArticleRequest articleRequest) throws Exception {
+        String request = objectMapper.writeValueAsString(articleRequest);
 
         MvcResult mvcResult = mockMvc.perform(
                 MockMvcRequestBuilders.post(ArticleController.ARTICLE_API_URI)
@@ -95,7 +111,8 @@ public class AcceptanceTest {
                 jwtTokenProvider.createToken(member.getKakaoId()), AuthorizationType.BEARER);
     }
 
-    protected OrganizationResponse createOrganization(AuthTokenResponse token, OrganizationRequest organizationRequest) throws Exception {
+    protected OrganizationResponse createOrganization(AuthTokenResponse token,
+            OrganizationRequest organizationRequest) throws Exception {
         String request = objectMapper.writeValueAsString(organizationRequest);
 
         MvcResult mvcResult = mockMvc.perform(

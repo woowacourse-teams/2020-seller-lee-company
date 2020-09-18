@@ -33,9 +33,9 @@ class MemberOrganizationControllerTest extends ControllerTest {
     @DisplayName("회원/조직 연관관계를 생성한다.")
     @Test
     void create() throws Exception {
-        String request = objectMapper.writeValueAsString(MEMBER_ORGANIZATION_REQUEST);
+        String request = objectMapper.writeValueAsString(MEMBER_직고래_REQUEST);
 
-        when(registerService.register(any(), any())).thenReturn(MEMBER_ORGANIZATION1.getId());
+        when(registerService.register(any(), any())).thenReturn(MEMBER_직고래.getId());
 
         // @formatter:off
         mockMvc
@@ -73,7 +73,7 @@ class MemberOrganizationControllerTest extends ControllerTest {
                 .perform(
                         delete(MEMBER_ORGANIZATION_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
-                                .param("id", String.valueOf(MEMBER_ORGANIZATION1.getId())))
+                                .param("id", String.valueOf(MEMBER_직고래.getId())))
                 .andExpect(status().isNoContent())
                 .andDo(
                         document("memberOrganization/delete",

@@ -1,6 +1,5 @@
 package com.jikgorae.api.organization.presentation;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -74,7 +73,7 @@ class OrganizationControllerTest extends ControllerTest {
     @Test
     void showAll() throws Exception {
         when(organizationQueryRepository.showAll(any())).thenReturn(
-                Lists.newArrayList(ORGANIZATION_RESPONSE1, ORGANIZATION_RESPONSE2));
+                Lists.newArrayList(직고래_RESPONSE, 우아한테크코스_RESPONSE));
 
         // @formatter:off
         mockMvc

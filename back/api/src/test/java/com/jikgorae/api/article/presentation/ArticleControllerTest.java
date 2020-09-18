@@ -49,7 +49,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
     void createArticle() throws Exception {
-        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
+        String request = objectMapper.writeValueAsString(직고래_게시물_요청);
 
         when(articleService.create(any(), any())).thenReturn(1L);
 
@@ -89,7 +89,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
-        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1, Arrays.asList(직고래.getId())))
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1, Arrays.asList(직고래)))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 

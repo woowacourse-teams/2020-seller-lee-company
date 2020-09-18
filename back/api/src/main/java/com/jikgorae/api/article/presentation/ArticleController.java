@@ -25,6 +25,7 @@ import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.query.ArticleDao;
 import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.organization.domain.Organization;
 import com.jikgorae.api.security.core.LoginMember;
 
 @RestController
@@ -32,6 +33,7 @@ import com.jikgorae.api.security.core.LoginMember;
 public class ArticleController {
     public static final String ARTICLE_API_URI = "/api/articles";
     public static final String TRADE_STATE_URI = "/trade-state";
+    public static final String ORGANIZATION_URI = "/organizations";
 
     private final ArticleService articleService;
     private final ArticleViewService articleViewService;
@@ -54,9 +56,12 @@ public class ArticleController {
     }
 
     @GetMapping(params = {"lastArticleId", "size"})
-    public ResponseEntity<List<FeedResponse>> showPageByOrganization(@RequestParam Long lastArticleId,
-            @RequestParam int size, @LoginMember Member loginMember, @RequestBody List<Long> organizations) {
-        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember, organizations);
+    public ResponseEntity<List<FeedResponse>> showPageByOrganization(
+            @RequestParam Long lastArticleId,
+            @RequestParam int size, @LoginMember Member loginMember,
+            @RequestBody List<Organization> organizations) {
+        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember,
+                organizations);
         return ResponseEntity.ok(responses);
     }
 

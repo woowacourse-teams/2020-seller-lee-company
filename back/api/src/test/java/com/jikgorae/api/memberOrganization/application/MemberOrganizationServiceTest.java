@@ -31,10 +31,10 @@ class MemberOrganizationServiceTest {
         doNothing().when(memberOrganizationRepository)
                 .deleteByMemberAndOrganizationId(any(), anyLong());
 
-        memberOrganizationService.delete(MEMBER1, MEMBER_ORGANIZATION1.getId());
+        memberOrganizationService.delete(MEMBER1, MEMBER_직고래.getId());
 
         verify(memberOrganizationRepository).deleteByMemberAndOrganizationId(MEMBER1,
-                MEMBER_ORGANIZATION1.getId());
+                MEMBER_직고래.getId());
     }
 
 }

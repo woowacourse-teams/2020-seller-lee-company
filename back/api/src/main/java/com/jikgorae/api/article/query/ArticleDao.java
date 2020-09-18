@@ -12,6 +12,7 @@ import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.QFeedResponse;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.member.domain.Member;
+import com.jikgorae.api.organization.domain.Organization;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -25,7 +26,7 @@ public class ArticleDao {
     }
 
     public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember,
-            List<Long> organizations) {
+            List<Organization> organizations) {
         return queryFactory
                 .select(new QFeedResponse(
                         article,
@@ -38,7 +39,7 @@ public class ArticleDao {
                 .from(article)
                 .leftJoin(articleFavoriteCount).on(article.id.eq(articleFavoriteCount.article.id))
                 .where(article.id.lt(lastArticleId), article.tradeState.eq(TradeState.ON_SALE))
-                .orderBy(article.id.desc())
+                .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();
     }
