@@ -31,20 +31,10 @@ public class MessageController {
         messagingTemplate.convertAndSend("/sub/chat/rooms/" + request.getRoomId(), response);
     }
 
-    @MessageMapping("/chat/organization/messages")
-    public void messageInOrganization(MessageRequest request) {
-        MessageResponse response = messageService.saveToOrganization(request);
-        messagingTemplate.convertAndSend("/sub/chat/organizations/" + request.getRoomId(), response);
-    }
-
     @GetMapping("/chat/rooms/{roomId}/messages")
-    public ResponseEntity<List<MessageResponse>> showAll(@PathVariable Long roomId, @RequestParam int size, @RequestParam String lastMessageDate) {
+    public ResponseEntity<List<MessageResponse>> showAll(@PathVariable Long roomId,
+            @RequestParam int size, @RequestParam String lastMessageDate) {
         return ResponseEntity.ok(messageService.showAll(roomId, size, lastMessageDate));
-    }
-
-    @GetMapping("/chat/organizations/{organizationId}/messages")
-    public ResponseEntity<List<MessageResponse>> showAllInOrganization(@PathVariable Long organizationId, @RequestParam int size, @RequestParam String lastMessageDate) {
-        return ResponseEntity.ok(messageService.showAllInOrganization(organizationId, size, lastMessageDate));
     }
 
     @GetMapping("/chat/rooms/{roomId}/messages/new")

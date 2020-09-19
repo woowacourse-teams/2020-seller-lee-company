@@ -11,8 +11,8 @@ import {
   View,
 } from "react-native";
 import theme from "../colors";
-import ChatRoomList from "../components/Chat/ChatRoomList";
-import OrganizationChatList from "../components/Chat/OrganizationChatList";
+import ChatRoomList from "../components/chat/ChatRoomList";
+import OrganizationChatList from "../components/chat/OrganizationChatList";
 
 export default function SelectChatScreen() {
   const selectChatTabs = [

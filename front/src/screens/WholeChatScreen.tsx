@@ -139,7 +139,6 @@ export default function WholeChatScreen() {
       {},
       JSON.stringify({
         roomId: id,
-        messageType: "TALK",
         senderId: memberId,
         senderNickname: memberNickname,
         senderAvatar: memberAvatar,

@@ -1,4 +1,4 @@
-package com.jikgorae.chat.message.domain;
+package com.jikgorae.chat.wholeMessage.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
