@@ -83,6 +83,16 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping(value = ORGANIZATION_URI+ "/{organizationId}", params = {"lastArticleId", "size", "category"})
+    public ResponseEntity<List<ArticleCardResponse>> showPageByCategoryAndOrganization(
+            @RequestParam Long lastArticleId,
+            @RequestParam int size, @RequestParam String category,
+            @PathVariable Long organizationId, @LoginMember Member loginMember) {
+        List<ArticleCardResponse> responses = articleDao.showPageByCategoryAndOrganization(
+                lastArticleId, size, category, organizationId, loginMember);
+        return ResponseEntity.ok(responses);
+    }
+
     @GetMapping(params = "tradeState")
     public ResponseEntity<List<ArticleCardResponse>> showByTradeState(
             @RequestParam String tradeState, @LoginMember Member loginMember) {

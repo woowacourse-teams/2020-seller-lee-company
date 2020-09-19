@@ -207,8 +207,7 @@ class ArticleControllerTest extends ControllerTest {
     @Test
     void showPageByCategoryAndOrganization() throws Exception {
         when(articleDao.showPageByCategoryAndOrganization(LAST_ARTICLE_ID, ARTICLE_SIZE,
-                직고래.getId(),
-                Category.ETC.getCategoryName(), MEMBER1))
+                Category.ETC.getCategoryName(), 직고래.getId(), MEMBER1))
                 .thenReturn(ArticleCardResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
         // @formatter:off
