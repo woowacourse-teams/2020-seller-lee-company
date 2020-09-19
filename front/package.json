@@ -25,7 +25,6 @@
     "expo-notifications": "^0.5.0",
     "expo-permissions": "~9.0.1",
     "expo-status-bar": "^1.0.2",
-    "firebase": "^7.19.0",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "react": "~16.11.0",
