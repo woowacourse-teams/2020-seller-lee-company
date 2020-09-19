@@ -115,6 +115,7 @@ export default function FeedHomeScreen() {
       },
     });
     setArticles(articles.concat(data));
+    return data;
   };
 
   const getLastArticleId = () => {

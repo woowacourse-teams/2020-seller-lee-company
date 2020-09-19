@@ -142,6 +142,19 @@ export default function CategoryHomeScreen() {
     return data;
   };
 
+  const loadFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByCategoryAndOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: getLastArticleId(),
+        size: PAGE_ARTICLE_UNIT,
+        category: category,
+      },
+    });
+    setArticles(articles.concat(data));
+    return data;
+  };
+
   const getLastArticleId = () => {
     return articles
       .map((article) => article.id)
@@ -165,7 +178,10 @@ export default function CategoryHomeScreen() {
       return;
     }
     setIsLoading(true);
-    const data = await loadFeed();
+    const data =
+      selectedOrganization.name === "전체"
+        ? await loadFeed()
+        : await loadFeedByOrganization();
     if (data.length === 0) {
       setHasAdditionalArticle(false);
     }
