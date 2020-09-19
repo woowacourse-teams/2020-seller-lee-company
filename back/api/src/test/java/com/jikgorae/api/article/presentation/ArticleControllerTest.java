@@ -134,7 +134,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_API_URI+ORGANIZATION_URI+직고래.getId())
+                        get(ARTICLE_API_URI+ORGANIZATION_URI+"/"+직고래.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
@@ -149,9 +149,6 @@ class ArticleControllerTest extends ControllerTest {
                                 requestParameters(
                                         parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
                                         parameterWithName("size").description("가져올 페이지의 크기(게시물 수)")
-                                ),
-                                requestFields(
-                                        fieldWithPath("organizationIds.[]").type(JsonFieldType.ARRAY).description("게시글을 조회할 조직 아이디 목록")
                                 ),
                                 responseFields(
                                         fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),

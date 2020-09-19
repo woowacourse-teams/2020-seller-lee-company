@@ -62,16 +62,16 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
-    //
-    // @GetMapping(params = {"lastArticleId", "size"})
-    // public ResponseEntity<List<FeedResponse>> showPageByOrganization(
-    //         @RequestParam Long lastArticleId,
-    //         @RequestParam int size, @LoginMember Member loginMember,
-    //         @RequestBody List<Organization> organizations) {
-    //     List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember
-    //     );
-    //     return ResponseEntity.ok(responses);
-    // }
+    @GetMapping(value = ORGANIZATION_URI + "/{organizationId}", params = {"lastArticleId", "size"})
+    public ResponseEntity<List<FeedResponse>> showPageByOrganization(
+            @RequestParam Long lastArticleId,
+            @RequestParam int size, @LoginMember Member loginMember,
+            @PathVariable Long organizationId) {
+        List<FeedResponse> responses = articleDao.showPageByOrganization(lastArticleId, size,
+                organizationId, loginMember
+        );
+        return ResponseEntity.ok(responses);
+    }
 
     @GetMapping(params = {"lastArticleId", "size", "category"})
     public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(
