@@ -1,5 +1,7 @@
 package com.jikgorae.chat.message.presentation;
 
+import static com.jikgorae.chat.config.WebSockConfig.*;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import com.jikgorae.chat.message.application.MessageService;
 
 @Controller
 public class MessageController {
+    public static final String DESTINATION = SUBSCRIBE + "/chat/rooms/";
+    public static final String MESSAGE_URI = "/chat/messages";
+
     private final SimpMessageSendingOperations messagingTemplate;
     private final MessageService messageService;
 
@@ -25,10 +30,10 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @MessageMapping("/chat/messages")
+    @MessageMapping(MESSAGE_URI)
     public void message(MessageRequest request) {
         MessageResponse response = messageService.save(request);
-        messagingTemplate.convertAndSend("/sub/chat/rooms/" + request.getRoomId(), response);
+        messagingTemplate.convertAndSend(DESTINATION + request.getRoomId(), response);
     }
 
     @GetMapping("/chat/rooms/{roomId}/messages")
