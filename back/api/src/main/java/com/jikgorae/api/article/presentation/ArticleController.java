@@ -60,8 +60,8 @@ public class ArticleController {
             @RequestParam Long lastArticleId,
             @RequestParam int size, @LoginMember Member loginMember,
             @RequestBody List<Organization> organizations) {
-        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember,
-                organizations);
+        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember
+        );
         return ResponseEntity.ok(responses);
     }
 

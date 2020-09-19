@@ -86,10 +86,49 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:on
     }
 
-    @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
+    @DisplayName("전체 조직의 게시글 페이지 조회 시 HTTP STATUS OK와 조직의 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
-        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1, Arrays.asList(직고래)))
+
+        //멤버가 우테코, 한성대에 가입되어있고 추가
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
+                .thenReturn(FeedResponse.listOf(Arrays.asList(우아한테크코스_게시물, 한성대학교_게시물),
+                        Arrays.asList(1L, 2L), Arrays.asList(true, false)));
+
+        // @formatter:off
+        mockMvc
+                .perform(
+                        get(ArticleController.ARTICLE_API_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
+                                .param("size", String.valueOf(ARTICLE_SIZE)))
+                .andExpect(status().isOk())
+                .andDo(
+                        document("articles/getPage",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestHeaders(
+                                        headerWithName("Authorization").description("회원의 토큰")
+                                ),
+                                requestParameters(
+                                        parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
+                                        parameterWithName("size").description("가져올 페이지의 크기(게시물 수)")
+                                ),
+                                responseFields(
+                                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
+                                        fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
+                                        fieldWithPath("[].favoriteState").type(JsonFieldType.BOOLEAN).description("게시글의 찜 여부"),
+                                        fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER).description("게시글의 찜 개수"),
+                                        fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("태그의 리스트"),
+                                        fieldWithPath("[].photos").type(JsonFieldType.ARRAY).description("사진의 리스트")
+                                )));
+        // @formatter:on
+    }
+
+    @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
+    @Test
+    void showPageByOrganization() throws Exception {
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
