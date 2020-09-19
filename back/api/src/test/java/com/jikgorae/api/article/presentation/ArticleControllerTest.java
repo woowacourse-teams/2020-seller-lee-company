@@ -89,10 +89,8 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("전체 조직의 게시글 페이지 조회 시 HTTP STATUS OK와 조직의 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
-
-        //멤버가 우테코, 한성대에 가입되어있고 추가
         when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
-                .thenReturn(FeedResponse.listOf(Arrays.asList(우아한테크코스_게시물, 한성대학교_게시물),
+                .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE1, ARTICLE2),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
         // @formatter:off
