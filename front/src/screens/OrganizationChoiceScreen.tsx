@@ -40,7 +40,7 @@ export default function OrganizationChoiceScreen() {
 
   return (
     <View style={styles.container}>
-      <OrganizationList isGroupFiltering={false} />
+      <OrganizationList isGroupFiltering={false} isFeed={false} />
     </View>
   );
 }

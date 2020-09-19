@@ -6,9 +6,13 @@ import { organizationListState } from "../../states/organizationState";
 
 interface GroupListProps {
   isGroupFiltering: boolean;
+  isFeed: boolean;
 }
 
-export default function OrganizationList({ isGroupFiltering }: GroupListProps) {
+export default function OrganizationList({
+  isGroupFiltering,
+  isFeed,
+}: GroupListProps) {
   const myGroupList = useRecoilValue(organizationListState);
   const groupListInFilter = [
     {
@@ -24,6 +28,7 @@ export default function OrganizationList({ isGroupFiltering }: GroupListProps) {
         renderItem={({ item }) => (
           <OrganizationItem
             isGroupFiltering={isGroupFiltering}
+            isFeed={isFeed}
             organization={item}
           />
         )}

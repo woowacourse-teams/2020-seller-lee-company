@@ -165,7 +165,7 @@ export default function FeedHomeScreen() {
             optionsContainerStyle={styles.menuOptionsContainer}
             customStyles={{ optionText: styles.menuCustomText }}
           >
-            <OrganizationList isGroupFiltering={true} />
+            <OrganizationList isGroupFiltering={true} isFeed={true} />
           </MenuOptions>
         </Menu>
       </View>

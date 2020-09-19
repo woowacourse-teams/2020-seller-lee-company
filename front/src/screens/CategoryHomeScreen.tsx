@@ -11,11 +11,7 @@ import {
   RootStackParam,
 } from "../types/types";
 import { articlesAPI } from "../api/api";
-import {
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-} from "recoil/dist";
+import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
   articleIsModifiedState,
   articleSelectedCategoryState,
@@ -27,7 +23,7 @@ import { categoryIcons } from "../data/categoryData";
 import theme from "../colors";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import OrganizationList from "../components/organization/OrganizationList";
-import { selectedOrganizationInFeedsState } from "../states/organizationState";
+import { selectedOrganizationInCategoryState } from "../states/organizationState";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -45,10 +41,12 @@ export default function CategoryHomeScreen() {
   const [articles, setArticles] = useState<ArticleCardProps[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const category = useRecoilValue(articleSelectedCategoryState);
-  const resetCategory = useResetRecoilState(articleSelectedCategoryState);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
-  const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
+  const selectedOrganization = useRecoilValue(
+    selectedOrganizationInCategoryState,
+  );
+  const [visibleMenu, setVisibleMenu] = useState(true);
 
   useEffect(() => {
     const applyChange = async () => {
@@ -62,6 +60,7 @@ export default function CategoryHomeScreen() {
     selectedOrganization.name === "전체"
       ? initFeed()
       : initFeedByOrganization();
+    setVisibleMenu(false);
   }, [selectedOrganization]);
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
@@ -71,8 +70,8 @@ export default function CategoryHomeScreen() {
       title: `${getCategoryIcon().icon} ${category}`,
       headerTitleAlign: "left",
       headerRight: () => (
-        <Menu>
-          <MenuTrigger>
+        <Menu opened={visibleMenu}>
+          <MenuTrigger onPress={() => setVisibleMenu(true)}>
             <Feather
               name="filter"
               size={22}
@@ -84,7 +83,7 @@ export default function CategoryHomeScreen() {
             optionsContainerStyle={styles.menuOptionsContainer}
             customStyles={{ optionText: styles.menuCustomText }}
           >
-            <OrganizationList isGroupFiltering={true} />
+            <OrganizationList isGroupFiltering={true} isFeed={false} />
           </MenuOptions>
         </Menu>
       ),
