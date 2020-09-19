@@ -59,9 +59,10 @@ export default function CategoryHomeScreen() {
   }, [isFocused]);
 
   useEffect(() => {
-    initFeed();
+    selectedOrganization.name === "전체"
+      ? initFeed()
+      : initFeedByOrganization();
   }, [selectedOrganization]);
-
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
 
@@ -116,6 +117,18 @@ export default function CategoryHomeScreen() {
       lastArticleId: Number.MAX_SAFE_INTEGER,
       size: PAGE_ARTICLE_UNIT,
       category,
+    });
+    setArticles([...data]);
+  };
+
+  const initFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByCategoryAndOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: Number.MAX_SAFE_INTEGER,
+        size: PAGE_ARTICLE_UNIT,
+        category: category,
+      },
     });
     setArticles([...data]);
   };
