@@ -87,7 +87,7 @@ export default function FeedHomeScreen() {
   const initFeedByOrganization = async () => {
     const { data } = await articlesAPI.getByOrganization({
       organizationId: selectedOrganization.id,
-      params: {
+      parameters: {
         lastArticleId: Number.MAX_SAFE_INTEGER,
         size: PAGE_ARTICLE_UNIT,
       },

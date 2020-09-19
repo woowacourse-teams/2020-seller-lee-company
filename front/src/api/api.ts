@@ -44,7 +44,7 @@ interface ArticlesGet {
 
 interface ArticlesGetByOrganization {
   organizationId: number;
-  params: ArticlesGet;
+  parameters: ArticlesGet;
 }
 
 interface ArticlesGetByTradeState {
@@ -71,10 +71,11 @@ export const articlesAPI = {
     );
   },
 
-  getByOrganization: async (params: ArticlesGetByOrganization) => {
+  getByOrganization: async (data: ArticlesGetByOrganization) => {
     const token = await DeviceStorage.getToken();
+    const params: ArticlesGet = data.parameters;
     return await axios.get(
-      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}+"/"+${params.organizationId}`,
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}/${data.organizationId}`,
       {
         params,
         headers: {

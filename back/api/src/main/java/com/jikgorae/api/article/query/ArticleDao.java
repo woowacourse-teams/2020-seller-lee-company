@@ -72,14 +72,7 @@ public class ArticleDao {
                         JPAExpressions
                                 .select(articleOrganization.article.id)
                                 .from(articleOrganization)
-                                .join(memberOrganization).on(
-                                articleOrganization.organization.eqAny(
-                                        JPAExpressions
-                                                .select(memberOrganization.organization)
-                                                .from(memberOrganization)
-                                                .where(memberOrganization.member.eq(
-                                                        loginMember))))
-                ))
+                                .where(articleOrganization.organization.id.eq(organizationId))))
                 .where(article.id.lt(lastArticleId),
                         article.tradeState.eq(TradeState.ON_SALE))
                 .orderBy(article.createdTime.desc())
