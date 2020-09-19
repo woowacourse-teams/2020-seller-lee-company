@@ -13,24 +13,23 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 
 import com.jikgorae.api.article.domain.ArticleRepository;
+import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 
 @ExtendWith(value = MockitoExtension.class)
 class ArticleServiceTest {
     @Mock
     private ArticleRepository articleRepository;
 
-    private ArticleService articleService;
-
     @Mock
-    private ApplicationEventPublisher eventPublisher;
+    private ArticleOrganizationService articleOrganizationService;
+
+    private ArticleService articleService;
 
     @BeforeEach
     void setUp() {
-        articleService = new ArticleService(articleRepository,
-                eventPublisher);
+        articleService = new ArticleService(articleRepository, articleOrganizationService);
     }
 
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
