@@ -89,7 +89,6 @@ export default function CategoryHomeScreen() {
         </Menu>
       ),
       headerLeft: () => {
-        resetCategory();
         return (
           <HeaderBackButton
             labelVisible={false}

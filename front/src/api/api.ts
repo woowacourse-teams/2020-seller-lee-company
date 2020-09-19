@@ -91,7 +91,6 @@ export const articlesAPI = {
   },
 
   getByCategory: async (params: ArticlesGetByCategory) => {
-    console.log(JSON.stringify(params));
     const token = await DeviceStorage.getToken();
     return await axios.get(
       `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}`,
@@ -109,6 +108,7 @@ export const articlesAPI = {
   ) => {
     const token = await DeviceStorage.getToken();
     const params: ArticlesGetByCategory = data.parameters;
+    console.log(JSON.stringify(params));
     return await axios.get(
       `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}/${data.organizationId}`,
       {
