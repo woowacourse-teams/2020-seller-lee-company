@@ -46,6 +46,7 @@ export default function FeedHomeScreen() {
   const isFocused = useIsFocused();
   const setIsModified = useSetRecoilState(articleIsModifiedState);
   const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
+  const [visibleMenu, setVisibleMenu] = useState(true);
 
   useEffect(() => {
     initFeed();
@@ -62,6 +63,7 @@ export default function FeedHomeScreen() {
     selectedOrganization.name === "전체"
       ? initFeed()
       : initFeedByOrganization();
+    setVisibleMenu(false);
   }, [selectedOrganization]);
 
   const requestNotificationPermission = async () => {
@@ -155,8 +157,8 @@ export default function FeedHomeScreen() {
             ? selectedOrganization.name
             : "전체"}
         </Text>
-        <Menu>
-          <MenuTrigger>
+        <Menu opened={visibleMenu}>
+          <MenuTrigger onPress={() => setVisibleMenu(true)}>
             <Feather name="chevron-down" size={24} color="grey" />
           </MenuTrigger>
           <MenuOptions
