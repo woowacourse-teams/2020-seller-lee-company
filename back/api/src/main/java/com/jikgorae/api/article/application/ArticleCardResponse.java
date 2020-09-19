@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import com.jikgorae.api.article.domain.Article;
+import com.querydsl.core.annotations.QueryProjection;
 
 public class ArticleCardResponse {
     private Long id;
@@ -32,6 +33,21 @@ public class ArticleCardResponse {
         this.favoriteCount = favoriteCount;
         this.favoriteState = favoriteState;
         this.createdTime = createdTime;
+    }
+
+    @QueryProjection
+    public ArticleCardResponse(Article article, long favoriteCount, boolean favoriteState) {
+        this(article.getId(), article.getTitle(), article.getPrice(),
+                article
+                        .getPhotos()
+                        .pickThumbnail(),
+                article
+                        .getTradeState()
+                        .getTradeStateName(),
+                favoriteCount,
+                favoriteState,
+                article.getCreatedTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+        );
     }
 
     public static ArticleCardResponse of(Article article, Long favoriteCount,

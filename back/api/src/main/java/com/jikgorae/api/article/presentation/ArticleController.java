@@ -78,7 +78,7 @@ public class ArticleController {
             @RequestParam Long lastArticleId,
             @RequestParam int size, @RequestParam String category,
             @LoginMember Member loginMember) {
-        List<ArticleCardResponse> responses = articleViewService.showPageByCategory(
+        List<ArticleCardResponse> responses = articleDao.showPageByCategory(
                 lastArticleId, size, category, loginMember);
         return ResponseEntity.ok(responses);
     }
