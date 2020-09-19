@@ -46,7 +46,6 @@ export default function CategoryHomeScreen() {
   const selectedOrganization = useRecoilValue(
     selectedOrganizationInCategoryState,
   );
-  const [visibleMenu, setVisibleMenu] = useState(true);
 
   useEffect(() => {
     const applyChange = async () => {
@@ -60,7 +59,6 @@ export default function CategoryHomeScreen() {
     selectedOrganization.name === "전체"
       ? initFeed()
       : initFeedByOrganization();
-    setVisibleMenu(false);
   }, [selectedOrganization]);
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
@@ -70,8 +68,8 @@ export default function CategoryHomeScreen() {
       title: `${getCategoryIcon().icon} ${category}`,
       headerTitleAlign: "left",
       headerRight: () => (
-        <Menu opened={visibleMenu}>
-          <MenuTrigger onPress={() => setVisibleMenu(true)}>
+        <Menu>
+          <MenuTrigger>
             <Feather
               name="filter"
               size={22}
