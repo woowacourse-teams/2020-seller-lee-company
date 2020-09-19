@@ -28,11 +28,12 @@ import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.AuthTokenResponse;
+import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
-    public static final Long LAST_ARTICLE_ID = 6L;
-    public static final int ARTICLE_SIZE = 6;
+    public static final Long LAST_ARTICLE_ID = 8L;
+    public static final int ARTICLE_SIZE = 8;
 
     private AuthTokenResponse token;
 
@@ -66,10 +67,14 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     @WithMockUser
     Stream<DynamicTest> manageArticle() throws Exception {
         token = joinAndLogin(MEMBER1);
+        //Given 조직이 등록되어 있다.
+        OrganizationResponse 우아한테크코스 = createOrganization(token, 우아한테크코스_요청);
+        OrganizationResponse 한성대학교 = createOrganization(token, 한성대학교_요청);
+        OrganizationResponse 직고래 = createOrganization(token, 직고래_요청);
 
         // Given 회원에게 조직이 등록되어 있다.
-        createMemberOrganization(createOrganization(token, 우아한테크코스_요청), token);
-        createMemberOrganization(createOrganization(token, 한성대학교_요청), token);
+        createMemberOrganization(한성대학교, token);
+        createMemberOrganization(우아한테크코스, token);
 
         // 조직을 추가한 게시글을 등록한다.
         Long 우아한테크코스_게시물 = extractId(createArticleToOrganization(token, 우아한테크코스_게시물_요청));
@@ -78,16 +83,18 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         Long 한성대학교_게시물2 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
         Long 한성대학교_게시물3 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
         Long 한성대학교_게시물4 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
+        Long 직고래_게시글 = extractId(createArticleToOrganization(token, 직고래_게시물_요청));
+        Long 직고래_게시글2 = extractId(createArticleToOrganization(token, 직고래_게시물_요청));
 
         return Stream.of(
                 dynamicTest("전체 게시글 페이지 조회", () -> {
                     List<FeedResponse> feedArticleResponses = showPage(LAST_ARTICLE_ID);
-                    assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE - 1);
+                    assertThat(feedArticleResponses.size()).isEqualTo(6);
                 }),
                 dynamicTest("조직별 게시글 페이지 조회", () -> {
                     List<FeedResponse> feedArticleResponses = showPageByOrganization(
                             LAST_ARTICLE_ID, 한성대학교.getId());
-                    assertThat(feedArticleResponses.size()).isEqualTo(3);
+                    assertThat(feedArticleResponses.size()).isEqualTo(4);
                 }),
                 dynamicTest("카테고리 별 게시글 페이지 조회", () -> {
                     List<ArticleCardResponse> feedArticleResponses = showPageByCategory(

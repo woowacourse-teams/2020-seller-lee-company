@@ -12,13 +12,13 @@ public class OrganizationFixture {
     public static final String 우아한테크코스_NAME = "우아한테크코스";
     public static final String 한성대학교_NAME = "한성대학교";
 
-    public static final OrganizationRequest 직고래_REQUEST = new OrganizationRequest(
+    public static final OrganizationRequest 직고래_요청 = new OrganizationRequest(
             직고래_NAME);
     public static final OrganizationRequest 우아한테크코스_요청 = new OrganizationRequest(
             우아한테크코스_NAME);
     public static final OrganizationRequest 한성대학교_요청 = new OrganizationRequest(
             한성대학교_NAME);
-    public static final OrganizationRequest 배달의민족_REQUEST = new OrganizationRequest(
+    public static final OrganizationRequest 배달의민족_요청 = new OrganizationRequest(
             "배달의민족");
     public static final Organization 직고래 = new Organization(51L, 직고래_NAME,
             "423502");
@@ -26,10 +26,10 @@ public class OrganizationFixture {
 
     public static final Organization 한성대학교 = new Organization(53L, 한성대학교_NAME, "012345");
 
-    public static final OrganizationResponse 직고래_RESPONSE = OrganizationResponse.of(
+    public static final OrganizationResponse 직고래_응답 = OrganizationResponse.of(
             직고래);
 
-    public static final OrganizationResponse 우아한테크코스_RESPONSE = OrganizationResponse.of(
+    public static final OrganizationResponse 우아한테크코스_응답 = OrganizationResponse.of(
             우아한테크코스);
 
 }
