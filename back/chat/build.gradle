@@ -7,6 +7,8 @@ dependencies {
     }
     // h2
     testImplementation 'com.h2database:h2'
+    // embedded mongo
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 }
 
 processResources.dependsOn('copySecret')
