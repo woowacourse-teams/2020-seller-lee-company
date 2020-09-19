@@ -4,12 +4,14 @@ import static com.jikgorae.api.article.presentation.ArticleController.*;
 import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
+import static com.jikgorae.api.fixture.TagFixture.*;
+import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
-import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,12 +25,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
+import com.jikgorae.api.article.application.ArticleRequest;
 import com.jikgorae.api.article.application.ArticleResponse;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.organization.application.OrganizationResponse;
+import com.jikgorae.api.organization.domain.Organization;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
@@ -73,18 +77,18 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         OrganizationResponse 직고래 = createOrganization(token, 직고래_요청);
 
         // Given 회원에게 조직이 등록되어 있다.
-        createMemberOrganization(한성대학교, token);
         createMemberOrganization(우아한테크코스, token);
+        createMemberOrganization(한성대학교, token);
 
         // 조직을 추가한 게시글을 등록한다.
-        Long 우아한테크코스_게시물 = extractId(createArticleToOrganization(token, 우아한테크코스_게시물_요청));
-        Long 우아한테크코스_게시물2 = extractId(createArticleToOrganization(token, 우아한테크코스_게시물_요청));
-        Long 한성대학교_게시물 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
-        Long 한성대학교_게시물2 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
-        Long 한성대학교_게시물3 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
-        Long 한성대학교_게시물4 = extractId(createArticleToOrganization(token, 한성대학교_게시물_요청));
-        Long 직고래_게시글 = extractId(createArticleToOrganization(token, 직고래_게시물_요청));
-        Long 직고래_게시글2 = extractId(createArticleToOrganization(token, 직고래_게시물_요청));
+        Long 우아한테크코스_게시물 = extractId(createArticleToOrganization(token, 우아한테크코스));
+        Long 우아한테크코스_게시물2 = extractId(createArticleToOrganization(token, 우아한테크코스));
+        Long 한성대학교_게시물 = extractId(createArticleToOrganization(token, 한성대학교));
+        Long 한성대학교_게시물2 = extractId(createArticleToOrganization(token, 한성대학교));
+        Long 한성대학교_게시물3 = extractId(createArticleToOrganization(token, 한성대학교));
+        Long 한성대학교_게시물4 = extractId(createArticleToOrganization(token, 한성대학교));
+        Long 직고래_게시글 = extractId(createArticleToOrganization(token, 직고래));
+        Long 직고래_게시글2 = extractId(createArticleToOrganization(token, 직고래));
 
         return Stream.of(
                 dynamicTest("전체 게시글 페이지 조회", () -> {
@@ -123,7 +127,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     private List<FeedResponse> showPage(Long articleId) throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI)
+                MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI + ORGANIZATION_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("lastArticleId", String.valueOf(articleId))
@@ -224,4 +228,5 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                         .content(objectMapper.writeValueAsString(tradeStateRequest)))
                 .andExpect(status().isNoContent());
     }
+
 }

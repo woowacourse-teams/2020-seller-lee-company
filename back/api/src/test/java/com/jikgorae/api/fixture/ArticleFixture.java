@@ -64,6 +64,18 @@ public class ArticleFixture {
             LocalDateTime.now()
     );
 
+    public static final ArticleRequest 배달의민족_게시물_요청 = new ArticleRequest(
+            "TEST_TITLE",
+            Arrays.asList(배달의민족),
+            10_000L,
+            "디지털/가전",
+            "TEST_CONTENTS",
+            Arrays.asList(TAG_FIXTURE1.getName(), TAG_FIXTURE2.getName()),
+            Arrays.asList(
+                    "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4",
+                    "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4"));
+
+
     public static final ArticleRequest 직고래_게시물_요청 = new ArticleRequest(
             "TEST_TITLE",
             Arrays.asList(직고래),

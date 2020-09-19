@@ -56,7 +56,8 @@ public class ArticleDao {
                 .fetch();
     }
 
-    public List<FeedResponse> showPageByOrganization(Long lastArticleId, int size, Long organizationId,
+    public List<FeedResponse> showPageByOrganization(Long lastArticleId, int size,
+            Long organizationId,
             Member loginMember) {
         return queryFactory
                 .selectDistinct(new QFeedResponse(
@@ -77,5 +78,6 @@ public class ArticleDao {
                         article.tradeState.eq(TradeState.ON_SALE))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
-                .fetch();    }
+                .fetch();
+    }
 }

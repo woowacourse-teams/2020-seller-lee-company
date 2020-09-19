@@ -17,7 +17,7 @@ import {
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI, memberAPI } from "../api/api";
-import { useRecoilState, useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -44,7 +44,7 @@ export default function FeedHomeScreen() {
   const [articles, setArticles] = useState<Feed[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
-  const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
   const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
 
   useEffect(() => {
