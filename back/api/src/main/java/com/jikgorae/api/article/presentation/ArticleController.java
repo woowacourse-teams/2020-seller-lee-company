@@ -73,7 +73,7 @@ public class ArticleController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping(params = {"lastArticleId", "size", "category"})
+    @GetMapping(value = ORGANIZATION_URI, params = {"lastArticleId", "size", "category"})
     public ResponseEntity<List<ArticleCardResponse>> showPageByCategory(
             @RequestParam Long lastArticleId,
             @RequestParam int size, @RequestParam String category,
