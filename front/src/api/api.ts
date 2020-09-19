@@ -55,12 +55,15 @@ interface ArticlesGetByCategory {
 export const articlesAPI = {
   get: async (params: ArticlesGet) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.api}${domain.articles}`, {
-      params,
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
   getByCategory: async (params: ArticlesGetByCategory) => {
     const token = await DeviceStorage.getToken();
