@@ -58,6 +58,10 @@ export default function FeedHomeScreen() {
     isFocused ? applyChange() : undefined;
   }, [isFocused]);
 
+  useEffect(() => {
+    initFeedByOrganization();
+  }, [selectedOrganization]);
+
   const requestNotificationPermission = async () => {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     if (status !== PermissionStatus.GRANTED) {
@@ -76,6 +80,17 @@ export default function FeedHomeScreen() {
     const { data } = await articlesAPI.get({
       lastArticleId: Number.MAX_SAFE_INTEGER,
       size: PAGE_ARTICLE_UNIT,
+    });
+    setArticles([...data]);
+  };
+
+  const initFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByOrganization({
+      organizationId: selectedOrganization.id,
+      params: {
+        lastArticleId: Number.MAX_SAFE_INTEGER,
+        size: PAGE_ARTICLE_UNIT,
+      },
     });
     setArticles([...data]);
   };
@@ -121,7 +136,7 @@ export default function FeedHomeScreen() {
         <Text style={styles.title}>
           {selectedOrganization.name !== ""
             ? selectedOrganization.name
-            : "조직 선택"}
+            : "전체"}
         </Text>
         <Menu>
           <MenuTrigger>

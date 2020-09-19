@@ -42,6 +42,11 @@ interface ArticlesGet {
   size: number;
 }
 
+interface ArticlesGetByOrganization {
+  organizationId: number;
+  params: ArticlesGet;
+}
+
 interface ArticlesGetByTradeState {
   tradeState: string;
 }
@@ -65,6 +70,20 @@ export const articlesAPI = {
       },
     );
   },
+
+  getByOrganization: async (params: ArticlesGetByOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}+"/"+${params.organizationId}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+
   getByCategory: async (params: ArticlesGetByCategory) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.api}${domain.articles}`, {
