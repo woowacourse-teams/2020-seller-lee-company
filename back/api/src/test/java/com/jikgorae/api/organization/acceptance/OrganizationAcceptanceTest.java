@@ -46,7 +46,7 @@ public class OrganizationAcceptanceTest extends AcceptanceTest {
     @TestFactory
     Stream<DynamicTest> manageOrganization() throws Exception {
         token = joinAndLogin(MEMBER1);
-        OrganizationResponse organizationResponse = createOrganization(token, 직고래_REQUEST);
+        OrganizationResponse organizationResponse = createOrganization(token, 직고래_요청);
 
         return Stream.of(
                 dynamicTest("회원이 가입한 조직 조회", () -> {

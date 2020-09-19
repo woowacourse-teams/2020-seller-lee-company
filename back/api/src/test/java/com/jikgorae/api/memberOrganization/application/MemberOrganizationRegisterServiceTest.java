@@ -1,8 +1,8 @@
 package com.jikgorae.api.memberOrganization.application;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.fixture.MemberOrganizationFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -38,11 +38,11 @@ class MemberOrganizationRegisterServiceTest {
     @Test
     void register() {
         when(organizationRepository.findOptionalByCode(anyString())).thenReturn(
-                Optional.of(ORGANIZATION1));
-        when(memberOrganizationRepository.save(any())).thenReturn(MEMBER_ORGANIZATION1);
+                Optional.of(직고래));
+        when(memberOrganizationRepository.save(any())).thenReturn(MEMBER_직고래);
 
         Long memberOrganizationId = memberOrganizationRegisterService.register(MEMBER1,
-                MEMBER_ORGANIZATION_REQUEST);
+                MEMBER_직고래_REQUEST);
 
         assertThat(memberOrganizationId).isEqualTo(51L);
     }
@@ -54,7 +54,7 @@ class MemberOrganizationRegisterServiceTest {
                 new IllegalArgumentException("입장 코드와 일치하는 조직이 존재하지 않습니다."));
 
         assertThatThrownBy(() -> memberOrganizationRegisterService.register(MEMBER1,
-                MEMBER_ORGANIZATION_REQUEST))
+                MEMBER_직고래_REQUEST))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("입장 코드와 일치하는 조직이 존재하지 않습니다.");
     }
@@ -63,11 +63,11 @@ class MemberOrganizationRegisterServiceTest {
     @Test
     void register_Exists() {
         when(organizationRepository.findOptionalByCode(anyString())).thenReturn(
-                Optional.of(ORGANIZATION1));
+                Optional.of(직고래));
         when(memberOrganizationRepository.findOptionalByMemberAndOrganization(any(),
-                any())).thenReturn(Optional.of(MEMBER_ORGANIZATION1));
+                any())).thenReturn(Optional.of(MEMBER_직고래));
 
-        assertThat(memberOrganizationRegisterService.register(MEMBER1, MEMBER_ORGANIZATION_REQUEST))
-                .isEqualTo(MEMBER_ORGANIZATION1.getId());
+        assertThat(memberOrganizationRegisterService.register(MEMBER1, MEMBER_직고래_REQUEST))
+                .isEqualTo(MEMBER_직고래.getId());
     }
 }

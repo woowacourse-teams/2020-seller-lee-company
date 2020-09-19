@@ -1,6 +1,7 @@
 package com.jikgorae.api.article.presentation;
 
 import static com.jikgorae.api.article.acceptance.ArticleAcceptanceTest.*;
+import static com.jikgorae.api.article.presentation.ArticleController.*;
 import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
@@ -49,14 +50,14 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("게시글 생성 시 HTTP status는 Created다.")
     @Test
     void createArticle() throws Exception {
-        String request = objectMapper.writeValueAsString(ARTICLE_REQUEST);
+        String request = objectMapper.writeValueAsString(직고래_게시물_요청);
 
         when(articleService.create(any(), any())).thenReturn(1L);
 
         // @formatter:off
         mockMvc
                 .perform(
-                        post(ArticleController.ARTICLE_API_URI)
+                        post(ARTICLE_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -86,17 +87,54 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:on
     }
 
-    @DisplayName("게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
+    @DisplayName("전체 조직의 게시글 페이지 조회 시 HTTP STATUS OK와 조직의 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
         when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
+                .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE1, ARTICLE2),
+                        Arrays.asList(1L, 2L), Arrays.asList(true, false)));
+
+        // @formatter:off
+        mockMvc
+                .perform(
+                        get(ARTICLE_API_URI+ORGANIZATION_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
+                                .param("size", String.valueOf(ARTICLE_SIZE)))
+                .andExpect(status().isOk())
+                .andDo(
+                        document("articles/getPage",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestHeaders(
+                                        headerWithName("Authorization").description("회원의 토큰")
+                                ),
+                                requestParameters(
+                                        parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
+                                        parameterWithName("size").description("가져올 페이지의 크기(게시물 수)")
+                                ),
+                                responseFields(
+                                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
+                                        fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
+                                        fieldWithPath("[].favoriteState").type(JsonFieldType.BOOLEAN).description("게시글의 찜 여부"),
+                                        fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER).description("게시글의 찜 개수"),
+                                        fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("태그의 리스트"),
+                                        fieldWithPath("[].photos").type(JsonFieldType.ARRAY).description("사진의 리스트")
+                                )));
+        // @formatter:on
+    }
+
+    @DisplayName("조직별 게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
+    @Test
+    void showPageByOrganization() throws Exception {
+        when(articleDao.showPageByOrganization(LAST_ARTICLE_ID, ARTICLE_SIZE, 직고래.getId(), MEMBER1))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ArticleController.ARTICLE_API_URI)
+                        get(ARTICLE_API_URI+ORGANIZATION_URI+"/"+직고래.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
@@ -134,7 +172,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ArticleController.ARTICLE_API_URI)
+                        get(ARTICLE_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE))
@@ -174,7 +212,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ArticleController.ARTICLE_API_URI + "/{id}", ARTICLE1.getId())
+                        get(ARTICLE_API_URI + "/{id}", ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
                 .andDo(
@@ -216,7 +254,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        delete(ArticleController.ARTICLE_API_URI + "/" + ARTICLE1.getId())
+                        delete(ARTICLE_API_URI + "/" + ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isNoContent());
         // @formatter:on
@@ -233,7 +271,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ArticleController.ARTICLE_API_URI)
+                        get(ARTICLE_API_URI)
                                 .param("tradeState", tradeState))
                 .andExpect(status().isOk());
         // @formatter:on
@@ -251,7 +289,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        put(ArticleController.ARTICLE_API_URI + "/" + MEMBER1.getId() + ArticleController.TRADE_STATE_URI)
+                        put(ARTICLE_API_URI + "/" + MEMBER1.getId() + ArticleController.TRADE_STATE_URI)
                                 .content(request)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON))

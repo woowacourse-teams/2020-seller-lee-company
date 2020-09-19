@@ -17,7 +17,7 @@ import {
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI, memberAPI } from "../api/api";
-import { useRecoilState, useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -44,7 +44,7 @@ export default function FeedHomeScreen() {
   const [articles, setArticles] = useState<Feed[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
-  const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+  const setIsModified = useSetRecoilState(articleIsModifiedState);
   const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
 
   useEffect(() => {
@@ -57,6 +57,12 @@ export default function FeedHomeScreen() {
   useEffect(() => {
     isFocused ? applyChange() : undefined;
   }, [isFocused]);
+
+  useEffect(() => {
+    selectedOrganization.name === "전체"
+      ? initFeed()
+      : initFeedByOrganization();
+  }, [selectedOrganization]);
 
   const requestNotificationPermission = async () => {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
@@ -76,6 +82,17 @@ export default function FeedHomeScreen() {
     const { data } = await articlesAPI.get({
       lastArticleId: Number.MAX_SAFE_INTEGER,
       size: PAGE_ARTICLE_UNIT,
+    });
+    setArticles([...data]);
+  };
+
+  const initFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: Number.MAX_SAFE_INTEGER,
+        size: PAGE_ARTICLE_UNIT,
+      },
     });
     setArticles([...data]);
   };
@@ -121,7 +138,7 @@ export default function FeedHomeScreen() {
         <Text style={styles.title}>
           {selectedOrganization.name !== ""
             ? selectedOrganization.name
-            : "조직 선택"}
+            : "전체"}
         </Text>
         <Menu>
           <MenuTrigger>

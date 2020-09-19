@@ -1,6 +1,5 @@
 package com.jikgorae.api.organization.presentation;
 
-import static com.jikgorae.api.fixture.GroupFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
@@ -39,7 +38,7 @@ class OrganizationControllerTest extends ControllerTest {
     @DisplayName("조직 생성 시 HTTP STATUS는 CREATE이고 랜덤한 6자리 입장 코드를 반환")
     @Test
     void create() throws Exception {
-        String request = objectMapper.writeValueAsString(직고래_REQUEST);
+        String request = objectMapper.writeValueAsString(직고래_요청);
 
         when(organizationService.create(any())).thenReturn(직고래);
 
@@ -74,7 +73,7 @@ class OrganizationControllerTest extends ControllerTest {
     @Test
     void showAll() throws Exception {
         when(organizationQueryRepository.showAll(any())).thenReturn(
-                Lists.newArrayList(ORGANIZATION_RESPONSE1, ORGANIZATION_RESPONSE2));
+                Lists.newArrayList(직고래_응답, 우아한테크코스_응답));
 
         // @formatter:off
         mockMvc
