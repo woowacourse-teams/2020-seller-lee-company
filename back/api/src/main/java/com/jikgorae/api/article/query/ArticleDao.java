@@ -37,6 +37,37 @@ public class ArticleDao {
                                 .exists(), "favoriteState")))
                 .from(article)
                 .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
+                .join(articleOrganization).on(article.eqAny(
+                        JPAExpressions
+                                .select(articleOrganization.article)
+                                .from(articleOrganization)
+                                .join(memberOrganization).on(
+                                articleOrganization.organization.eqAny(
+                                        JPAExpressions
+                                                .select(memberOrganization.organization)
+                                                .from(memberOrganization)
+                                                .where(memberOrganization.member.eq(
+                                                        loginMember))))
+                ))
+                .where(article.id.lt(lastArticleId),
+                        article.tradeState.eq(TradeState.ON_SALE))
+                .orderBy(article.createdTime.desc())
+                .limit(size)
+                .fetch();
+    }
+
+    public List<FeedResponse> showPageByOrganization(Long lastArticleId, int size, Long organizationId,
+            Member loginMember) {
+        return queryFactory
+                .selectDistinct(new QFeedResponse(
+                        article,
+                        articleFavoriteCount.favoriteCount,
+                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
+                                .where(favorite.member.eq(loginMember),
+                                        favorite.article.eq(article))
+                                .exists(), "favoriteState")))
+                .from(article)
+                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
                 .join(articleOrganization).on(article.id.eqAny(
                         JPAExpressions
                                 .select(articleOrganization.article.id)
@@ -53,6 +84,5 @@ public class ArticleDao {
                         article.tradeState.eq(TradeState.ON_SALE))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
-                .fetch();
-    }
+                .fetch();    }
 }
