@@ -58,6 +58,10 @@ export default function CategoryHomeScreen() {
     isModified ? applyChange() : undefined;
   }, [isFocused]);
 
+  useEffect(() => {
+    initFeed();
+  }, [selectedOrganization]);
+
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
 

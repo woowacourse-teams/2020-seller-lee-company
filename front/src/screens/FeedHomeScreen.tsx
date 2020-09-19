@@ -59,7 +59,9 @@ export default function FeedHomeScreen() {
   }, [isFocused]);
 
   useEffect(() => {
-    initFeedByOrganization();
+    selectedOrganization.name === "전체"
+      ? initFeed()
+      : initFeedByOrganization();
   }, [selectedOrganization]);
 
   const requestNotificationPermission = async () => {
