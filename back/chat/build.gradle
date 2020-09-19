@@ -8,3 +8,13 @@ dependencies {
     // h2
     testImplementation 'com.h2database:h2'
 }
+
+processResources.dependsOn('copySecret')
+
+task copySecret(type: Copy) {
+    from('../../seller-lee-secret/chat') {
+        include 'application-local.yml'
+        include 'application-prod.yml'
+    }
+    into 'src/main/resources'
+}
