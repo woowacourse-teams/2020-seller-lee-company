@@ -100,11 +100,16 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
                             LAST_ARTICLE_ID, 한성대학교.getId());
                     assertThat(feedArticleResponses.size()).isEqualTo(4);
                 }),
-                dynamicTest("카테고리 별 게시글 페이지 조회", () -> {
+                dynamicTest("카테고리 별 전체 게시글 페이지 조회", () -> {
                     List<ArticleCardResponse> feedArticleResponses = showPageByCategory(
                             LAST_ARTICLE_ID);
                     assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE - 1);
                 }),
+                // dynamicTest("카테고리 & 조직별 게시글 페이지 조회", () -> {
+                //     List<ArticleCardResponse> feedArticleResponses = showPageByCategory(
+                //             LAST_ARTICLE_ID);
+                //     assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE - 1);
+                // }),
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = showArticle(우아한테크코스_게시물);
                     assertThat(articleResponse.getId()).isEqualTo(우아한테크코스_게시물);
@@ -160,7 +165,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
             Exception {
 
         MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI)
+                MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI+ORGANIZATION_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("lastArticleId", String.valueOf(articleId))
