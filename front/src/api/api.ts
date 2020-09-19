@@ -57,6 +57,11 @@ interface ArticlesGetByCategory {
   category: string;
 }
 
+interface ArticlesGetByCategoryAndOrganization {
+  organizationId: number;
+  parameters: ArticlesGetByCategory;
+}
+
 export const articlesAPI = {
   get: async (params: ArticlesGet) => {
     const token = await DeviceStorage.getToken();
@@ -87,12 +92,31 @@ export const articlesAPI = {
 
   getByCategory: async (params: ArticlesGetByCategory) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.api}${domain.articles}`, {
-      params,
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
+  },
+
+  getByCategoryAndOrganization: async (
+    data: ArticlesGetByCategoryAndOrganization,
+  ) => {
+    const token = await DeviceStorage.getToken();
+    const params: ArticlesGetByCategory = data.parameters;
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}/${data.organizationId}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
   },
   getByTradeState: async (params: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();

@@ -46,6 +46,7 @@ export default function FeedHomeScreen() {
   const isFocused = useIsFocused();
   const setIsModified = useSetRecoilState(articleIsModifiedState);
   const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
+  const [visibleMenu, setVisibleMenu] = useState(true);
 
   useEffect(() => {
     initFeed();
@@ -62,6 +63,7 @@ export default function FeedHomeScreen() {
     selectedOrganization.name === "전체"
       ? initFeed()
       : initFeedByOrganization();
+    setVisibleMenu(false);
   }, [selectedOrganization]);
 
   const requestNotificationPermission = async () => {
@@ -106,6 +108,18 @@ export default function FeedHomeScreen() {
     return data;
   };
 
+  const loadFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: getLastArticleId(),
+        size: PAGE_ARTICLE_UNIT,
+      },
+    });
+    setArticles(articles.concat(data));
+    return data;
+  };
+
   const getLastArticleId = () => {
     return articles
       .map((article) => article.id)
@@ -125,7 +139,10 @@ export default function FeedHomeScreen() {
       return;
     }
     setIsLoading(true);
-    const data = await loadFeed();
+    const data =
+      selectedOrganization.name === "전체"
+        ? await loadFeed()
+        : await loadFeedByOrganization();
     if (data.length === 0) {
       setHasAdditionalArticle(false);
     }
@@ -140,15 +157,15 @@ export default function FeedHomeScreen() {
             ? selectedOrganization.name
             : "전체"}
         </Text>
-        <Menu>
-          <MenuTrigger>
+        <Menu opened={visibleMenu}>
+          <MenuTrigger onPress={() => setVisibleMenu(true)}>
             <Feather name="chevron-down" size={24} color="grey" />
           </MenuTrigger>
           <MenuOptions
             optionsContainerStyle={styles.menuOptionsContainer}
             customStyles={{ optionText: styles.menuCustomText }}
           >
-            <OrganizationList isGroupFiltering={true} />
+            <OrganizationList isGroupFiltering={true} isFeed={true} />
           </MenuOptions>
         </Menu>
       </View>

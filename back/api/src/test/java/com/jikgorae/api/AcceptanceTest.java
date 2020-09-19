@@ -1,6 +1,5 @@
 package com.jikgorae.api;
 
-import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.fixture.TagFixture.*;
 import static com.jikgorae.api.memberOrganization.presentation.MemberOrganizationController.*;

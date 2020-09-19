@@ -6,16 +6,19 @@ import theme from "../../colors";
 import { Organization } from "../../types/types";
 import {
   organizationListState,
+  selectedOrganizationInCategoryState,
   selectedOrganizationInFeedsState,
 } from "../../states/organizationState";
 
 interface GroupItemProps {
   isGroupFiltering: boolean;
+  isFeed: boolean;
   organization: Organization;
 }
 
 export default function OrganizationItem({
   isGroupFiltering,
+  isFeed,
   organization,
 }: GroupItemProps) {
   const [
@@ -26,6 +29,12 @@ export default function OrganizationItem({
     selectedOrganizationInFeeds,
     setSelectedOrganizationInFeeds,
   ] = useRecoilState(selectedOrganizationInFeedsState);
+
+  const [
+    selectedOrganizationInCategory,
+    setSelectedOrganizationInCategory,
+  ] = useRecoilState(selectedOrganizationInCategoryState);
+
   const myGroups = useRecoilValue(organizationListState);
 
   const exist = () => {
@@ -35,7 +44,9 @@ export default function OrganizationItem({
   };
 
   const onClickFilterGroup = () => {
-    setSelectedOrganizationInFeeds(organization);
+    isFeed
+      ? setSelectedOrganizationInFeeds(organization)
+      : setSelectedOrganizationInCategory(organization);
   };
 
   const onClickArticleFormGroup = () => {
@@ -62,11 +73,17 @@ export default function OrganizationItem({
     );
   };
 
+  const getSelectedItem = () => {
+    return isFeed
+      ? selectedOrganizationInFeeds
+      : selectedOrganizationInCategory;
+  };
+
   const getFilterGroupItem = () => {
     return (
       <Text
         style={
-          selectedOrganizationInFeeds === organization
+          getSelectedItem() === organization
             ? styles.selected
             : styles.nonSelected
         }

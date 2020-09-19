@@ -11,11 +11,7 @@ import {
   RootStackParam,
 } from "../types/types";
 import { articlesAPI } from "../api/api";
-import {
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-} from "recoil/dist";
+import { useRecoilState, useRecoilValue } from "recoil/dist";
 import {
   articleIsModifiedState,
   articleSelectedCategoryState,
@@ -27,7 +23,7 @@ import { categoryIcons } from "../data/categoryData";
 import theme from "../colors";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import OrganizationList from "../components/organization/OrganizationList";
-import { selectedOrganizationInFeedsState } from "../states/organizationState";
+import { selectedOrganizationInCategoryState } from "../states/organizationState";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -45,10 +41,11 @@ export default function CategoryHomeScreen() {
   const [articles, setArticles] = useState<ArticleCardProps[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const category = useRecoilValue(articleSelectedCategoryState);
-  const resetCategory = useResetRecoilState(articleSelectedCategoryState);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
-  const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
+  const selectedOrganization = useRecoilValue(
+    selectedOrganizationInCategoryState,
+  );
 
   useEffect(() => {
     const applyChange = async () => {
@@ -59,9 +56,10 @@ export default function CategoryHomeScreen() {
   }, [isFocused]);
 
   useEffect(() => {
-    initFeed();
+    selectedOrganization.name === "전체"
+      ? initFeed()
+      : initFeedByOrganization();
   }, [selectedOrganization]);
-
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
 
@@ -83,12 +81,11 @@ export default function CategoryHomeScreen() {
             optionsContainerStyle={styles.menuOptionsContainer}
             customStyles={{ optionText: styles.menuCustomText }}
           >
-            <OrganizationList isGroupFiltering={true} />
+            <OrganizationList isGroupFiltering={true} isFeed={false} />
           </MenuOptions>
         </Menu>
       ),
       headerLeft: () => {
-        resetCategory();
         return (
           <HeaderBackButton
             labelVisible={false}
@@ -120,11 +117,36 @@ export default function CategoryHomeScreen() {
     setArticles([...data]);
   };
 
+  const initFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByCategoryAndOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: Number.MAX_SAFE_INTEGER,
+        size: PAGE_ARTICLE_UNIT,
+        category: category,
+      },
+    });
+    setArticles([...data]);
+  };
+
   const loadFeed = async () => {
     const { data } = await articlesAPI.getByCategory({
       lastArticleId: getLastArticleId(),
       size: PAGE_ARTICLE_UNIT,
       category,
+    });
+    setArticles(articles.concat(data));
+    return data;
+  };
+
+  const loadFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByCategoryAndOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: getLastArticleId(),
+        size: PAGE_ARTICLE_UNIT,
+        category: category,
+      },
     });
     setArticles(articles.concat(data));
     return data;
@@ -153,7 +175,10 @@ export default function CategoryHomeScreen() {
       return;
     }
     setIsLoading(true);
-    const data = await loadFeed();
+    const data =
+      selectedOrganization.name === "전체"
+        ? await loadFeed()
+        : await loadFeedByOrganization();
     if (data.length === 0) {
       setHasAdditionalArticle(false);
     }

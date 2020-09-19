@@ -10,8 +10,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.article.application.FeedResponse;
+import com.jikgorae.api.article.application.QArticleCardResponse;
 import com.jikgorae.api.article.application.QFeedResponse;
+import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.member.domain.Member;
 import com.querydsl.core.types.ExpressionUtils;
@@ -76,6 +79,64 @@ public class ArticleDao {
                                 .where(articleOrganization.organization.id.eq(organizationId))))
                 .where(article.id.lt(lastArticleId),
                         article.tradeState.eq(TradeState.ON_SALE))
+                .orderBy(article.createdTime.desc())
+                .limit(size)
+                .fetch();
+    }
+
+    public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
+            String category, Member loginMember) {
+        return queryFactory
+                .selectDistinct(new QArticleCardResponse(
+                        article,
+                        articleFavoriteCount.favoriteCount,
+                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
+                                .where(favorite.member.eq(loginMember),
+                                        favorite.article.eq(article))
+                                .exists(), "favoriteState")))
+                .from(article)
+                .join(articleOrganization).on(article.eqAny(
+                        JPAExpressions
+                                .select(articleOrganization.article)
+                                .from(articleOrganization)
+                                .join(memberOrganization).on(
+                                articleOrganization.organization.eqAny(
+                                        JPAExpressions
+                                                .select(memberOrganization.organization)
+                                                .from(memberOrganization)
+                                                .where(memberOrganization.member.eq(
+                                                        loginMember))))
+                ))
+                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
+                .where(article.id.lt(lastArticleId),
+                        article.tradeState.eq(TradeState.ON_SALE),
+                        article.category.eq(Category.fromString(category)))
+                .orderBy(article.createdTime.desc())
+                .limit(size)
+                .fetch();
+    }
+
+    public List<ArticleCardResponse> showPageByCategoryAndOrganization(Long lastArticleId,
+            int size, String category, Long organizationId, Member loginMember) {
+        return queryFactory
+                .selectDistinct(new QArticleCardResponse(
+                        article,
+                        articleFavoriteCount.favoriteCount,
+                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
+                                .where(favorite.member.eq(loginMember),
+                                        favorite.article.eq(article))
+                                .exists(), "favoriteState")))
+                .from(article)
+                .join(articleOrganization).on(article.eqAny(
+                        JPAExpressions
+                                .select(articleOrganization.article)
+                                .from(articleOrganization)
+                                .where(articleOrganization.organization.id.eq(organizationId))
+                ))
+                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
+                .where(article.id.lt(lastArticleId),
+                        article.tradeState.eq(TradeState.ON_SALE),
+                        article.category.eq(Category.fromString(category)))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();

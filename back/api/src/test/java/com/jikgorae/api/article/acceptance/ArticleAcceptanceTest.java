@@ -1,17 +1,14 @@
 package com.jikgorae.api.article.acceptance;
 
 import static com.jikgorae.api.article.presentation.ArticleController.*;
-import static com.jikgorae.api.fixture.ArticleFixture.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
-import static com.jikgorae.api.fixture.TagFixture.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,19 +22,18 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
-import com.jikgorae.api.article.application.ArticleRequest;
 import com.jikgorae.api.article.application.ArticleResponse;
 import com.jikgorae.api.article.application.FeedResponse;
 import com.jikgorae.api.article.application.TradeStateRequest;
 import com.jikgorae.api.article.presentation.ArticleController;
 import com.jikgorae.api.member.application.AuthTokenResponse;
 import com.jikgorae.api.organization.application.OrganizationResponse;
-import com.jikgorae.api.organization.domain.Organization;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ArticleAcceptanceTest extends AcceptanceTest {
     public static final Long LAST_ARTICLE_ID = 8L;
     public static final int ARTICLE_SIZE = 8;
+    public static final int TOTAL_ORGANIZATION_ARTICLE_COUNT = 6;
 
     private AuthTokenResponse token;
 
@@ -93,17 +89,24 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         return Stream.of(
                 dynamicTest("전체 게시글 페이지 조회", () -> {
                     List<FeedResponse> feedArticleResponses = showPage(LAST_ARTICLE_ID);
-                    assertThat(feedArticleResponses.size()).isEqualTo(6);
+                    assertThat(feedArticleResponses.size()).isEqualTo(
+                            TOTAL_ORGANIZATION_ARTICLE_COUNT);
                 }),
                 dynamicTest("조직별 게시글 페이지 조회", () -> {
                     List<FeedResponse> feedArticleResponses = showPageByOrganization(
                             LAST_ARTICLE_ID, 한성대학교.getId());
                     assertThat(feedArticleResponses.size()).isEqualTo(4);
                 }),
-                dynamicTest("카테고리 별 게시글 페이지 조회", () -> {
+                dynamicTest("카테고리 별 전체 게시글 페이지 조회", () -> {
                     List<ArticleCardResponse> feedArticleResponses = showPageByCategory(
                             LAST_ARTICLE_ID);
-                    assertThat(feedArticleResponses.size()).isEqualTo(ARTICLE_SIZE - 1);
+                    assertThat(feedArticleResponses.size()).isEqualTo(
+                            TOTAL_ORGANIZATION_ARTICLE_COUNT);
+                }),
+                dynamicTest("카테고리 & 조직별 게시글 페이지 조회", () -> {
+                    List<ArticleCardResponse> feedArticleResponses = showPageByCategoryAndOrganization(
+                            LAST_ARTICLE_ID, 한성대학교.getId());
+                    assertThat(feedArticleResponses.size()).isEqualTo(4);
                 }),
                 dynamicTest("게시글 상세 조회", () -> {
                     ArticleResponse articleResponse = showArticle(우아한테크코스_게시물);
@@ -160,12 +163,32 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
             Exception {
 
         MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI)
+                MockMvcRequestBuilders.get(ArticleController.ARTICLE_API_URI + ORGANIZATION_URI)
                         .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
                                 token.getAccessToken()))
                         .param("lastArticleId", String.valueOf(articleId))
                         .param("size", String.valueOf(ARTICLE_SIZE))
-                        .param("category", 직고래_게시물_요청.getCategory()))
+                        .param("category", "디지털/가전"))
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+
+        return objectMapper.readValue(json, objectMapper.getTypeFactory()
+                .constructCollectionType(List.class, ArticleResponse.class));
+    }
+
+    private List<ArticleCardResponse> showPageByCategoryAndOrganization(Long articleId,
+            Long organizationId) throws
+            Exception {
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders.get(
+                        ArticleController.ARTICLE_API_URI + ORGANIZATION_URI + "/" + organizationId)
+                        .header(AUTHORIZATION, String.format("%s %s", AuthorizationType.BEARER,
+                                token.getAccessToken()))
+                        .param("lastArticleId", String.valueOf(articleId))
+                        .param("size", String.valueOf(ARTICLE_SIZE))
+                        .param("category", "디지털/가전"))
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();

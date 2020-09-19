@@ -48,6 +48,15 @@ export const selectedOrganizationInFeedsState = atom({
   },
 });
 
+export const selectedOrganizationInCategoryState = atom({
+  key: "selectedOrganizationInCategoryState",
+  default: <Organization>{
+    id: 0,
+    name: "",
+    code: "",
+  },
+});
+
 export const organizationDeleteModalState = atom({
   key: "organizationDeleteModalState",
   default: false,

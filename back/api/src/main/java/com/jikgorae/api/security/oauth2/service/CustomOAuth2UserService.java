@@ -49,7 +49,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String role = iterator.next().getAuthority();
         ifPresentOrElse(memberRepository.findOptionalMemberByKakaoId(kakaoId),
                 member -> member.addRole(role),
-                () -> memberRepository.save(new Member(kakaoId, null, null, role, null, "임시값"))
+                () -> memberRepository.save(new Member(kakaoId, null, null, role, null, null))
         );
 
         return new DefaultOAuth2User(

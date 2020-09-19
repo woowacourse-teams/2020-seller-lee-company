@@ -164,7 +164,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("카테고리별 게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPageByCategory() throws Exception {
-        when(articleViewService.showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE,
+        when(articleDao.showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE,
                 Category.ETC.getCategoryName(), MEMBER1))
                 .thenReturn(ArticleCardResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
@@ -172,7 +172,48 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_API_URI)
+                        get(ARTICLE_API_URI+ORGANIZATION_URI)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
+                                .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
+                                .param("size", String.valueOf(ARTICLE_SIZE))
+                                .param("category", Category.ETC.getCategoryName()))
+                .andExpect(status().isOk())
+                .andDo(
+                        document("articles/getPageByCategory",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestHeaders(
+                                        headerWithName("Authorization").description("회원의 토큰")
+                                ),
+                                requestParameters(
+                                        parameterWithName("lastArticleId").description("마지막 게시글의 ID"),
+                                        parameterWithName("size").description("가져올 페이지의 크기(게시물 수)"),
+                                        parameterWithName("category").description("가져올 페이지의 카테고리")
+                                ),
+                                responseFields(
+                                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
+                                        fieldWithPath("[].title").type(JsonFieldType.STRING).description("게시글의 제목"),
+                                        fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
+                                        fieldWithPath("[].thumbnail").type(JsonFieldType.STRING).description("게시글의 대표 사진"),
+                                        fieldWithPath("[].tradeState").type(JsonFieldType.STRING).description("게시글의 거래 상태"),
+                                        fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER).description("게시글의 찜 개수"),
+                                        fieldWithPath("[].favoriteState").type(JsonFieldType.BOOLEAN).description("게시글의 찜 여부"),
+                                        fieldWithPath("[].createdTime").type(JsonFieldType.STRING).description("게시글의 생성 시간")
+                                )));
+        // @formatter:on
+    }
+
+    @DisplayName("카테고리와 조직별 게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
+    @Test
+    void showPageByCategoryAndOrganization() throws Exception {
+        when(articleDao.showPageByCategoryAndOrganization(LAST_ARTICLE_ID, ARTICLE_SIZE,
+                Category.ETC.getCategoryName(), 직고래.getId(), MEMBER1))
+                .thenReturn(ArticleCardResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
+                        Arrays.asList(1L, 2L), Arrays.asList(true, false)));
+        // @formatter:off
+        mockMvc
+                .perform(
+                        get(ARTICLE_API_URI+ORGANIZATION_URI+"/"+직고래.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE))
