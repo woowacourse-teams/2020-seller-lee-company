@@ -18,7 +18,9 @@ public class MessageService {
     }
 
     public MessageResponse save(MessageRequest request) {
-        Message save = messageRepository.save(request.toMessage());
+        Message message = request.toMessage();
+        Message save = messageRepository.save(message.send());
+
         return MessageResponse.of(save);
     }
 

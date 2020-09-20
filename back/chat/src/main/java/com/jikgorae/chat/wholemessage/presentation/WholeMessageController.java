@@ -1,4 +1,4 @@
-package com.jikgorae.chat.wholeMessage.presentation;
+package com.jikgorae.chat.wholemessage.presentation;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jikgorae.chat.wholeMessage.application.WholeMessageRequest;
-import com.jikgorae.chat.wholeMessage.application.WholeMessageResponse;
-import com.jikgorae.chat.wholeMessage.application.WholeMessageService;
+import com.jikgorae.chat.wholemessage.application.WholeMessageRequest;
+import com.jikgorae.chat.wholemessage.application.WholeMessageResponse;
+import com.jikgorae.chat.wholemessage.application.WholeMessageService;
 
 @Controller
 public class WholeMessageController {
