@@ -1,4 +1,4 @@
-package com.jikgorae.api.notification;
+package com.jikgorae.api.notification.domain;
 
 public enum NotificationType {
     FAVORITE("님이 회원님의 게시글을 찜 했습니다."),

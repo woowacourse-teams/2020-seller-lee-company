@@ -4,10 +4,10 @@ import org.springframework.context.ApplicationEvent;
 
 import com.jikgorae.api.favorite.domain.Favorite;
 
-public class FavoriteCountIncreaseEvent extends ApplicationEvent {
+public class FavoriteCreatedEvent extends ApplicationEvent {
     private final Favorite favorite;
 
-    public FavoriteCountIncreaseEvent(Object source) {
+    public FavoriteCreatedEvent(Object source) {
         super(source);
         favorite = (Favorite)source;
     }

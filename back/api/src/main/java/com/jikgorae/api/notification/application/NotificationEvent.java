@@ -1,23 +1,18 @@
-package com.jikgorae.api.notification;
+package com.jikgorae.api.notification.application;
 
-import io.github.jav.exposerversdk.PushClient;
+import com.jikgorae.api.notification.domain.NotificationType;
+import com.jikgorae.api.notification.domain.PushToken;
 
 public class NotificationEvent {
     private final String senderNickname;
-    private final String pushToken;
+    private final PushToken pushToken;
     private final NotificationType notificationType;
 
     public NotificationEvent(String senderNickname, String pushToken,
             NotificationType notificationType) {
         this.senderNickname = senderNickname;
-        validatePushToken(pushToken);
-        this.pushToken = pushToken;
+        this.pushToken = new PushToken(pushToken);
         this.notificationType = notificationType;
-    }
-
-    private void validatePushToken(String pushToken) {
-        if (!PushClient.isExponentPushToken(pushToken))
-            throw new IllegalArgumentException("토큰이 유효하지 않습니다. : " + pushToken);
     }
 
     public String makeMessage() {
@@ -28,7 +23,7 @@ public class NotificationEvent {
         return senderNickname;
     }
 
-    public String getPushToken() {
+    public PushToken getPushToken() {
         return pushToken;
     }
 

@@ -2,10 +2,9 @@ package com.jikgorae.api.favorite.application;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.article.application.ArticleViewService;
@@ -13,8 +12,8 @@ import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 import com.jikgorae.api.member.domain.Member;
-import com.jikgorae.api.notification.NotificationEvent;
-import com.jikgorae.api.notification.NotificationType;
+import com.jikgorae.api.notification.application.NotificationEvent;
+import com.jikgorae.api.notification.domain.NotificationType;
 
 @Service
 public class FavoriteService {
@@ -49,9 +48,9 @@ public class FavoriteService {
     }
 
     @Transactional
-    public void remove(FavoriteRequest request, Member loginMember) {
+    public void delete(FavoriteRequest request, Member loginMember) {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
-        favoriteRepository.save(favorite.remove());
+        favoriteRepository.save(favorite.delete());
         favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(),
                 request.getArticleId());
     }

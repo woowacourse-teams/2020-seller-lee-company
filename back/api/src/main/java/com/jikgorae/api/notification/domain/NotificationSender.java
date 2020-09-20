@@ -1,13 +1,13 @@
-package com.jikgorae.api.notification;
+package com.jikgorae.api.notification.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import com.jikgorae.api.notification.application.NotificationEvent;
 import io.github.jav.exposerversdk.ExpoPushMessage;
 import io.github.jav.exposerversdk.ExpoPushTicket;
 import io.github.jav.exposerversdk.PushClient;
@@ -18,9 +18,8 @@ import io.github.jav.exposerversdk.PushClientException;
  * @see <a href="https://github.com/jav/expo-server-sdk-java">expo-server-sdk</a>
  */
 @Component
-public class NotificationHandler {
-    @EventListener
-    public void handle(NotificationEvent event) {
+public class NotificationSender {
+    public void send(NotificationEvent event) {
         try {
             sendMessage(event);
         } catch (PushClientException e) {
@@ -40,7 +39,7 @@ public class NotificationHandler {
     }
 
     private ExpoPushMessage getExpoPushMessage(NotificationEvent event) {
-        ExpoPushMessage expoPushMessage = new ExpoPushMessage(event.getPushToken());
+        ExpoPushMessage expoPushMessage = new ExpoPushMessage(event.getPushToken().getToken());
         expoPushMessage.setBody(event.makeMessage());
         return expoPushMessage;
     }

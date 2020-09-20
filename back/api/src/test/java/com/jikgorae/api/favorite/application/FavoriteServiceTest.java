@@ -81,7 +81,7 @@ class FavoriteServiceTest {
     @DisplayName("cancel 요청시 repository에 delete를 요청한다.")
     @Test
     void cancel() {
-        favoriteService.remove(new FavoriteRequest(ARTICLE1.getId()), MEMBER1);
+        favoriteService.delete(new FavoriteRequest(ARTICLE1.getId()), MEMBER1);
 
         verify(favoriteRepository).deleteByMemberIdAndArticleId(ARTICLE1.getId(), MEMBER1.getId());
     }

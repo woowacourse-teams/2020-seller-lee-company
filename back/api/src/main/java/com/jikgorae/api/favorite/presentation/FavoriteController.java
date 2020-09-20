@@ -50,7 +50,7 @@ public class FavoriteController {
     @DeleteMapping
     public ResponseEntity<Void> remove(@RequestBody FavoriteRequest request,
             @LoginMember Member loginMember) {
-        favoriteService.remove(request, loginMember);
+        favoriteService.delete(request, loginMember);
 
         return ResponseEntity
                 .noContent()
