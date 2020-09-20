@@ -17,14 +17,11 @@ import com.jikgorae.api.member.domain.Member;
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
     private final ArticleViewService articleViewService;
-    private final ApplicationEventPublisher eventPublisher;
 
     public FavoriteService(FavoriteRepository favoriteRepository,
-            ArticleViewService articleViewService,
-            ApplicationEventPublisher eventPublisher) {
+            ArticleViewService articleViewService) {
         this.favoriteRepository = favoriteRepository;
         this.articleViewService = articleViewService;
-        this.eventPublisher = eventPublisher;
     }
 
     public List<ArticleCardResponse> showFavorites(Member member) {

@@ -9,13 +9,17 @@ import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountSer
 public class FavoriteCreatedListener
         implements ApplicationListener<FavoriteCreatedEvent> {
     private final ArticleFavoriteCountService articleFavoriteCountService;
+    private final FavoriteNotificationService favoriteNotificationService;
 
-    public FavoriteCreatedListener(ArticleFavoriteCountService articleFavoriteCountService) {
+    public FavoriteCreatedListener(ArticleFavoriteCountService articleFavoriteCountService,
+            FavoriteNotificationService favoriteNotificationService) {
         this.articleFavoriteCountService = articleFavoriteCountService;
+        this.favoriteNotificationService = favoriteNotificationService;
     }
 
     @Override
     public void onApplicationEvent(FavoriteCreatedEvent event) {
         articleFavoriteCountService.increase(event.getFavorite().getArticle());
+        favoriteNotificationService.send(event);
     }
 }
