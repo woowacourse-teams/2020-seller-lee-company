@@ -73,7 +73,7 @@ public class Member {
     }
 
     public void updatePushToken(String pushToken) {
-
+        this.pushToken = pushToken;
     }
 
     public void addRole(String role) {

@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import io.github.jav.exposerversdk.ExpoPushMessage;
 import io.github.jav.exposerversdk.ExpoPushTicket;
@@ -19,7 +19,7 @@ import io.github.jav.exposerversdk.PushClientException;
  */
 @Component
 public class NotificationHandler {
-    @EventListener
+    @TransactionalEventListener(classes = NotificationEvent.class)
     public void handle(NotificationEvent event) {
         try {
             sendMessage(event);
