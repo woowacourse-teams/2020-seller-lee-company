@@ -50,12 +50,22 @@ export default function WholeChatScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const pushMessage = useCallback((message = []) => {
-    if (message.senderId === memberId) {
-      return;
-    }
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, message),
-    );
+    const received = JSON.parse(message.body);
+    const user = {
+      _id: received.senderId,
+      name: received.senderNickname,
+      avatar: received.senderAvatar,
+    };
+    const newMessage: IMessage = {
+      _id: received.id,
+      text: received.content,
+      user,
+      createdAt: received.createdTime,
+    };
+    setMessages((previousMessages) => {
+      // @ts-ignore
+      return GiftedChat.append(previousMessages, newMessage);
+    });
   }, []);
 
   const appendMessage = useCallback((message = []) => {
@@ -65,69 +75,24 @@ export default function WholeChatScreen() {
     setIsLoading(false);
   }, []);
 
-  const receiveMessage = (response: { body: string }) => {
-    const receive = JSON.parse(response.body);
-    const message = {
-      ...receive,
-      _id: receive.id,
-      user: {
-        _id: receive.senderId,
-        nickname: receive.senderNickname,
-        avatar: receive.senderAvatar,
-      },
-    };
-    message ? pushMessage(message) : undefined;
-  };
-
   useEffect(() => {
-    const initClient = () => {
-      stompClient.connect({}, () =>
-        stompClient.subscribe(
-          `/sub/chat/organizations/${id}`,
-          receiveMessage,
-          {},
-        ),
-      );
-    };
-    initClient();
+    stompClient.connect({}, () =>
+      stompClient.subscribe(`/sub/chat/organizations/${id}`, pushMessage, {}),
+    );
 
-    const initMessages = async () => {
-      return await messageAPI.showAllInOrganization(
+    const initMessages = async () =>
+      await messageAPI.showAllInOrganization(
         id,
         20,
         moment().tz("Asia/Seoul").format(),
       );
-    };
 
     initMessages().then((response) => {
       if (isLoading) {
         return;
       }
       setIsLoading(true);
-      const messageHistory = response.data;
-      appendMessage(
-        messageHistory.map(
-          (prevMessage: {
-            id: number;
-            content: string;
-            senderId: number;
-            senderNickname: string;
-            senderAvatar: string;
-            createdTime: string;
-          }) => {
-            return {
-              _id: prevMessage.id,
-              text: prevMessage.content,
-              user: {
-                _id: prevMessage.senderId,
-                name: prevMessage.senderNickname,
-                avatar: prevMessage.senderAvatar,
-              },
-              createdAt: Date.parse(prevMessage.createdTime),
-            };
-          },
-        ),
-      );
+      appendMessage(response);
     });
 
     return () => stompClient && stompClient.disconnect();
@@ -145,7 +110,6 @@ export default function WholeChatScreen() {
         message: sendMessages[0].text,
       }),
     );
-    pushMessage(sendMessages);
   };
 
   // @ts-ignore
@@ -231,7 +195,7 @@ export default function WholeChatScreen() {
     }
     if (hasMoreMessage) {
       setIsLoading(true);
-      const { data } = await messageAPI.showAllInOrganization(
+      const receive = await messageAPI.showAllInOrganization(
         id,
         20,
         // @ts-ignore
@@ -239,33 +203,10 @@ export default function WholeChatScreen() {
           .tz("Asia/Seoul")
           .format(),
       );
-      if (data.length === 0) {
+      if (receive.length === 0) {
         setHasMoreMessage(false);
       }
-
-      appendMessage(
-        data.map(
-          (prevMessage: {
-            id: number;
-            content: string;
-            senderId: number;
-            senderNickname: string;
-            senderAvatar: string;
-            createdTime: string;
-          }) => {
-            return {
-              _id: prevMessage.id,
-              text: prevMessage.content,
-              user: {
-                _id: prevMessage.senderId,
-                name: prevMessage.senderNickname,
-                avatar: prevMessage.senderAvatar,
-              },
-              createdAt: Date.parse(prevMessage.createdTime),
-            };
-          },
-        ),
-      );
+      appendMessage(receive);
     }
   };
 

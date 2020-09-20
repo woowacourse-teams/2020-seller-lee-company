@@ -372,7 +372,7 @@ export const chatRoomAPI = {
 
 export const messageAPI = {
   showAll: async (roomId: number, size: number, lastMessageDate: string) => {
-    return await axios.get(
+    const { data } = await axios.get(
       `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
       {
         params: {
@@ -381,19 +381,59 @@ export const messageAPI = {
         },
       },
     );
+    return data.map(
+      (prevMessage: {
+        id: number;
+        content: string;
+        senderId: number;
+        senderNickname: string;
+        createdTime: string;
+      }) => {
+        return {
+          _id: prevMessage.id,
+          text: prevMessage.content,
+          user: {
+            _id: prevMessage.senderId,
+            name: prevMessage.senderNickname,
+          },
+          createdAt: Date.parse(prevMessage.createdTime),
+        };
+      },
+    );
   },
   showAllInOrganization: async (
     organizationId: number,
     size: number,
     lastMessageDate: string,
   ) => {
-    return await axios.get(
+    const { data } = await axios.get(
       `${CHAT_BASE_URL}${domain.wholeChatRooms}/${organizationId}${domain.messages}`,
       {
         params: {
           size,
           lastMessageDate: lastMessageDate.slice(0, 19),
         },
+      },
+    );
+    return data.map(
+      (prevMessage: {
+        id: number;
+        content: string;
+        senderId: number;
+        senderNickname: string;
+        senderAvatar: string;
+        createdTime: string;
+      }) => {
+        return {
+          _id: prevMessage.id,
+          text: prevMessage.content,
+          user: {
+            _id: prevMessage.senderId,
+            name: prevMessage.senderNickname,
+            avatar: prevMessage.senderAvatar,
+          },
+          createdAt: Date.parse(prevMessage.createdTime),
+        };
       },
     );
   },
