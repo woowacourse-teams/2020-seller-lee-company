@@ -7,6 +7,10 @@ dependencies {
     }
     // h2
     testImplementation 'com.h2database:h2'
+    // embedded mongo
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    // rest assured
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
 }
 
 processResources.dependsOn('copySecret')

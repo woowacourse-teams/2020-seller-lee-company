@@ -31,9 +31,9 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { HomeStackParam, RootStackParam } from "../types/types";
-import ChatTradeState from "../components/Chat/ChatTradeState";
+import ChatTradeState from "../components/chat/ChatTradeState";
 import { articleSelectedIdState } from "../states/articleState";
-import ChatMenu from "../components/Chat/ChatMenu";
+import ChatMenu from "../components/chat/ChatMenu";
 
 const moment = require("moment");
 require("moment-timezone");
@@ -136,7 +136,6 @@ export default function ChatScreen() {
       {},
       JSON.stringify({
         roomId: id,
-        messageType: "TALK",
         senderId: memberId,
         senderNickname: memberNickname,
         message: sendMessages[0].text,
