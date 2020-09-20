@@ -4,9 +4,8 @@ import static org.springframework.data.util.Optionals.*;
 
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;

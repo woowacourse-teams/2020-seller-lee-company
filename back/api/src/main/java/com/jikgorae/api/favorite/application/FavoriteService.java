@@ -2,10 +2,10 @@ package com.jikgorae.api.favorite.application;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.article.application.ArticleViewService;

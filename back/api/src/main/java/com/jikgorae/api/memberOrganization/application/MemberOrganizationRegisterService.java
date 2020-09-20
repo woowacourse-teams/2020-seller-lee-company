@@ -2,9 +2,8 @@ package com.jikgorae.api.memberOrganization.application;
 
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.memberOrganization.domain.MemberOrganization;
