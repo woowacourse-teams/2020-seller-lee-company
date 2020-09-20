@@ -1,7 +1,9 @@
 package com.jikgorae.common.notification.domain;
 
-public interface NotificationService {
-    String makeMessage(Long articleId);
+import org.springframework.context.ApplicationEvent;
 
-    PushToken getToken(Long memberId);
+public interface NotificationService {
+    String makeMessage(ApplicationEvent applicationEvent);
+
+    PushToken getToken(ApplicationEvent applicationEvent);
 }
