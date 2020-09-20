@@ -1,4 +1,4 @@
-package com.jikgorae.chat.message;
+package com.jikgorae.chat;
 
 import static com.jikgorae.chat.config.WebSockConfig.*;
 import static java.util.Collections.*;
@@ -25,6 +25,8 @@ import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AcceptanceTest {
@@ -45,6 +47,7 @@ public class AcceptanceTest {
 
     @BeforeEach
     void setUp() throws InterruptedException, ExecutionException, TimeoutException {
+        RestAssured.port = port;
         stompClient = new WebSocketStompClient(new SockJsClient(
                 singletonList(new WebSocketTransport(new StandardWebSocketClient()))));
         blockingQueue = new LinkedBlockingDeque<>();
@@ -63,5 +66,9 @@ public class AcceptanceTest {
         public void handleFrame(StompHeaders stompHeaders, Object o) {
             blockingQueue.offer(new String((byte[])o));
         }
+    }
+
+    protected static RequestSpecification given() {
+        return RestAssured.given().log().all();
     }
 }

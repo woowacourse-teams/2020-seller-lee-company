@@ -16,6 +16,10 @@ import com.jikgorae.chat.wholeMessage.application.WholeMessageService;
 
 @Controller
 public class WholeMessageController {
+    public static final String DESTINATION_OF_ORGANIZATION = "/sub/chat/organizations/";
+    public static final String WHOLE_MESSAGE_URI = "/chat/organization/messages";
+    public static final String WHOLE_MESSAGE_REST_URI = "/chat/organizations/{organizationId}/messages";
+
     private final SimpMessageSendingOperations messagingTemplate;
     private final WholeMessageService wholeMessageService;
 
@@ -25,14 +29,14 @@ public class WholeMessageController {
         this.wholeMessageService = wholeMessageService;
     }
 
-    @MessageMapping("/chat/organization/messages")
+    @MessageMapping(WHOLE_MESSAGE_URI)
     public void message(WholeMessageRequest request) {
         WholeMessageResponse response = wholeMessageService.save(request);
-        messagingTemplate.convertAndSend("/sub/chat/organizations/" + request.getRoomId(),
+        messagingTemplate.convertAndSend(DESTINATION_OF_ORGANIZATION + request.getRoomId(),
                 response);
     }
 
-    @GetMapping("/chat/organizations/{organizationId}/messages")
+    @GetMapping(WHOLE_MESSAGE_REST_URI)
     public ResponseEntity<List<WholeMessageResponse>> showAll(@PathVariable Long organizationId,
             @RequestParam int size, @RequestParam String lastMessageDate) {
         return ResponseEntity.ok(
