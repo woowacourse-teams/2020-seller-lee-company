@@ -1,5 +1,6 @@
-package com.jikgorae.api.notification;
+package com.jikgorae.api.notification.application;
 
+import com.jikgorae.api.notification.domain.NotificationType;
 import com.jikgorae.api.notification.domain.PushToken;
 
 public class NotificationEvent {

@@ -13,8 +13,8 @@ import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 import com.jikgorae.api.member.domain.Member;
-import com.jikgorae.api.notification.NotificationEvent;
-import com.jikgorae.api.notification.NotificationType;
+import com.jikgorae.api.notification.application.NotificationEvent;
+import com.jikgorae.api.notification.domain.NotificationType;
 
 @Service
 public class FavoriteService {

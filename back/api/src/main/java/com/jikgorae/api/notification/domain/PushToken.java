@@ -10,20 +10,23 @@ public class PushToken {
         this.token = token;
     }
 
-    private boolean validateToken(String token) {
+    private void validateToken(String token) {
+        if (Objects.isNull(token)) {
+            throw new IllegalArgumentException("토큰이 null 입니다.");
+        }
         String prefixA = "ExponentPushToken[";
         String prefixB = "ExpoPushToken[";
         String postfix = "]";
         String regex = "[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}";
 
         if (token.matches(regex))
-            return true;
+            return;
         if (!token.endsWith(postfix))
-            return false;
+            return;
         if (token.startsWith(prefixA))
-            return true;
+            return;
         if (token.startsWith(prefixB))
-            return true;
+            return;
         throw new IllegalArgumentException("토큰이 유효하지 않습니다. : " + token);
     }
 
