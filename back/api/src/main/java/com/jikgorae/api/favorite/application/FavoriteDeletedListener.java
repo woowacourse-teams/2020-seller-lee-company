@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountService;
 
 @Component
-public class FavoriteCountIncreaseListener
-        implements ApplicationListener<FavoriteCountIncreaseEvent> {
+public class FavoriteDeletedListener
+        implements ApplicationListener<FavoriteDeletedEvent> {
     private final ArticleFavoriteCountService articleFavoriteCountService;
 
-    public FavoriteCountIncreaseListener(ArticleFavoriteCountService articleFavoriteCountService) {
+    public FavoriteDeletedListener(ArticleFavoriteCountService articleFavoriteCountService) {
         this.articleFavoriteCountService = articleFavoriteCountService;
     }
 
     @Override
-    public void onApplicationEvent(FavoriteCountIncreaseEvent event) {
-        articleFavoriteCountService.increase(event.getFavorite().getArticle());
+    public void onApplicationEvent(FavoriteDeletedEvent event) {
+        articleFavoriteCountService.decrease(event.getFavorite().getArticle());
     }
 }

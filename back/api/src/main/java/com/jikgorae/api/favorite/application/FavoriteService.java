@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jikgorae.api.article.application.ArticleCardResponse;
@@ -49,9 +48,9 @@ public class FavoriteService {
     }
 
     @Transactional
-    public void remove(FavoriteRequest request, Member loginMember) {
+    public void delete(FavoriteRequest request, Member loginMember) {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
-        favoriteRepository.save(favorite.remove());
+        favoriteRepository.save(favorite.delete());
         favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(),
                 request.getArticleId());
     }

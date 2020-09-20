@@ -94,6 +94,6 @@ class FavoriteControllerTest extends ControllerTest {
                 .andExpect(status().isNoContent());
         // @formatter:on
 
-        verify(favoriteService).remove(any(), any());
+        verify(favoriteService).delete(any(), any());
     }
 }
