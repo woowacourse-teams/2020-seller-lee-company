@@ -1,0 +1,10 @@
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    // spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework:spring-tx'
+    // expo server
+    implementation 'io.github.jav:expo-server-sdk:1.1.0'
+}

@@ -1,9 +1,9 @@
-package com.jikgorae.api.notification.application;
+package com.jikgorae.common.notification.application;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import com.jikgorae.api.notification.domain.NotificationSender;
+import com.jikgorae.common.notification.domain.NotificationSender;
 
 @Component
 public class NotificationEventListener {

@@ -1,7 +1,7 @@
-package com.jikgorae.api.notification.application;
+package com.jikgorae.common.notification.application;
 
-import com.jikgorae.api.notification.domain.NotificationType;
-import com.jikgorae.api.notification.domain.PushToken;
+import com.jikgorae.common.notification.domain.NotificationType;
+import com.jikgorae.common.notification.domain.PushToken;
 
 public class NotificationEvent {
     private final String senderNickname;

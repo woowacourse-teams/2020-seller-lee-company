@@ -1,4 +1,4 @@
-package com.jikgorae.api.notification.domain;
+package com.jikgorae.common.notification.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Component;
 
-import com.jikgorae.api.notification.application.NotificationEvent;
+import com.jikgorae.common.notification.application.NotificationEvent;
 import io.github.jav.exposerversdk.ExpoPushMessage;
 import io.github.jav.exposerversdk.ExpoPushTicket;
 import io.github.jav.exposerversdk.PushClient;
