@@ -40,7 +40,7 @@ public class NotificationHandler {
     }
 
     private ExpoPushMessage getExpoPushMessage(NotificationEvent event) {
-        ExpoPushMessage expoPushMessage = new ExpoPushMessage(event.getPushToken());
+        ExpoPushMessage expoPushMessage = new ExpoPushMessage(event.getPushToken().getToken());
         expoPushMessage.setBody(event.makeMessage());
         return expoPushMessage;
     }
