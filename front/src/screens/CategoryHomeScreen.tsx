@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import {
   CompositeNavigationProp,
@@ -46,6 +46,7 @@ export default function CategoryHomeScreen() {
   const selectedOrganization = useRecoilValue(
     selectedOrganizationInCategoryState,
   );
+  const [visibleMenu, setVisibleMenu] = useState(false);
 
   useEffect(() => {
     const applyChange = async () => {
@@ -63,28 +64,11 @@ export default function CategoryHomeScreen() {
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: `${getCategoryIcon().icon} ${category}`,
       headerTitleAlign: "left",
-      headerRight: () => (
-        <Menu>
-          <MenuTrigger>
-            <Feather
-              name="filter"
-              size={22}
-              color={"Darkgrey"}
-              style={styles.filterIcon}
-            />
-          </MenuTrigger>
-          <MenuOptions
-            optionsContainerStyle={styles.menuOptionsContainer}
-            customStyles={{ optionText: styles.menuCustomText }}
-          >
-            <OrganizationList isGroupFiltering={true} isFeed={false} />
-          </MenuOptions>
-        </Menu>
-      ),
+      headerRight: () => getHeaderRight(),
       headerLeft: () => {
         return (
           <HeaderBackButton
@@ -103,6 +87,37 @@ export default function CategoryHomeScreen() {
       },
     });
   }, [navigation]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => getHeaderRight(),
+    });
+  }, [visibleMenu]);
+
+  useEffect(() => {
+    setVisibleMenu(false);
+  }, [selectedOrganization]);
+
+  const getHeaderRight = () => {
+    return (
+      <Menu opened={visibleMenu}>
+        <MenuTrigger onPress={() => setVisibleMenu(true)}>
+          <Feather
+            name="filter"
+            size={22}
+            color="#333"
+            style={styles.filterIcon}
+          />
+        </MenuTrigger>
+        <MenuOptions
+          optionsContainerStyle={styles.menuOptionsContainer}
+          customStyles={{ optionText: styles.menuCustomText }}
+        >
+          <OrganizationList isGroupFiltering={true} isFeed={false} />
+        </MenuOptions>
+      </Menu>
+    );
+  };
 
   useEffect(() => {
     initFeed();
