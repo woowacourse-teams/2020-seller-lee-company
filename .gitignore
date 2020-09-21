@@ -39,6 +39,10 @@ back/chat/out/
 back/chat/build/
 back/chat/src/main/resources/application-*.yml
 
+# common
+back/common/build/
+back/common/out/
+
 ### STS ###
 back/.apt_generated
 back/.classpath

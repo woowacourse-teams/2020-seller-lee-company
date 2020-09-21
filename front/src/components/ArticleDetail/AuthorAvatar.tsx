@@ -13,6 +13,7 @@ export default function AuthorAvatar({ avatar }: AuthorAvatarProps) {
         source={{
           uri: avatar ? avatar : "",
         }}
+        defaultSource={require("../../../assets/user.png")}
       />
     </View>
   );

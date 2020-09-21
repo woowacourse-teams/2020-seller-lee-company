@@ -1,6 +1,6 @@
 package com.jikgorae.chat.wholemessage.fixture;
 
-import com.jikgorae.chat.wholeMessage.application.WholeMessageRequest;
+import com.jikgorae.chat.wholemessage.application.WholeMessageRequest;
 
 public class WholeMessageFixture {
     public static WholeMessageRequest requestOf(Long roomId) {

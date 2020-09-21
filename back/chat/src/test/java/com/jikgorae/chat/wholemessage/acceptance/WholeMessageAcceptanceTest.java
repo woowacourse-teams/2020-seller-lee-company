@@ -1,7 +1,7 @@
 package com.jikgorae.chat.wholemessage.acceptance;
 
 import static com.jikgorae.chat.config.WebSockConfig.*;
-import static com.jikgorae.chat.wholeMessage.presentation.WholeMessageController.*;
+import static com.jikgorae.chat.wholemessage.presentation.WholeMessageController.*;
 import static java.util.concurrent.TimeUnit.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
@@ -17,8 +17,8 @@ import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jikgorae.chat.AcceptanceTest;
-import com.jikgorae.chat.wholeMessage.application.WholeMessageRequest;
-import com.jikgorae.chat.wholeMessage.application.WholeMessageResponse;
+import com.jikgorae.chat.wholemessage.application.WholeMessageRequest;
+import com.jikgorae.chat.wholemessage.application.WholeMessageResponse;
 import com.jikgorae.chat.wholemessage.fixture.WholeMessageFixture;
 
 public class WholeMessageAcceptanceTest extends AcceptanceTest {

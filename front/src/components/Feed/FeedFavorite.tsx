@@ -61,7 +61,7 @@ export default function FeedFavorite({
           transform: [{ scale: springValue }],
         }}
       />
-      <Text style={styles.text}>{favoriteCount}</Text>
+      <Text style={styles.text}>{favoriteCount ? favoriteCount : 0}</Text>
     </TouchableOpacity>
   );
 }

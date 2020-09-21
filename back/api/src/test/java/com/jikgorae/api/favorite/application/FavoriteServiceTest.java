@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.article.application.ArticleViewService;
@@ -43,16 +42,13 @@ class FavoriteServiceTest {
 
     private FavoriteService favoriteService;
 
-    private ApplicationEventPublisher eventPublisher;
-
     private ArticleOrganizationService articleOrganizationService;
 
     @BeforeEach
     void setUp() {
         articleViewService = new ArticleViewService(articleRepository,
                 articleFavoriteCountRepository, favoriteRepository, articleOrganizationService);
-        favoriteService = new FavoriteService(favoriteRepository, articleViewService,
-                eventPublisher);
+        favoriteService = new FavoriteService(favoriteRepository, articleViewService);
     }
 
     @DisplayName("Member가 찜하고 있는 게시글 반환")

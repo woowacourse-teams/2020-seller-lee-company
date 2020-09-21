@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.jikgorae.chat.message.domain.Message;
-import com.jikgorae.chat.wholeMessage.domain.WholeMessage;
 
 public class MessageResponse {
     private String id;
@@ -31,13 +30,17 @@ public class MessageResponse {
     public static MessageResponse of(Message message) {
         return new MessageResponse(message.getId(), message.getSenderId(),
                 message.getSenderNickname(), message.getRoomId(), message.getContent(),
-                message.getCreatedTime());
+                message.getCreatedTime().minusHours(9L));
     }
 
     public static List<MessageResponse> listOf(List<Message> messages) {
         return messages.stream()
                 .map(MessageResponse::of)
                 .collect(toList());
+    }
+
+    public void adjustTime() {
+        this.createdTime = createdTime.plusHours(9L);
     }
 
     public String getId() {

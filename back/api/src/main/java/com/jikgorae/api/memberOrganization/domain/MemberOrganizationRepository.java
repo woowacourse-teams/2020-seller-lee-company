@@ -1,7 +1,5 @@
 package com.jikgorae.api.memberOrganization.domain;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +11,5 @@ public interface MemberOrganizationRepository extends JpaRepository<MemberOrgani
     @Transactional
     void deleteByMemberAndOrganizationId(Member member, Long id);
 
-    Optional<MemberOrganization> findOptionalByMemberAndOrganization(Member member,
-            Organization organization);
+    boolean existsByMemberAndOrganization(Member member, Organization organization);
 }

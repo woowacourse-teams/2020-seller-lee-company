@@ -279,6 +279,7 @@ export default function ArticleFormScreen() {
         <TouchableOpacity
           style={dynamicStyles.createButtonContainer}
           onPress={onSubmit}
+          disabled={incompleteCriticalItems()}
         >
           <Text style={styles.submitText}>완료</Text>
         </TouchableOpacity>
