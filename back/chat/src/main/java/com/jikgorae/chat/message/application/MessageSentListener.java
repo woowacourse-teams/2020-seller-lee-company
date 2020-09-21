@@ -1,10 +1,12 @@
 package com.jikgorae.chat.message.application;
 
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
 import com.jikgorae.common.notification.domain.PushToken;
 import com.jikgorae.common.notification.infra.NotificationSupport;
 
+@Component
 public class MessageSentListener implements ApplicationListener<MessageSentEvent> {
     private final MessageNotificationService messageNotificationService;
     private final NotificationSupport notificationSupport;
