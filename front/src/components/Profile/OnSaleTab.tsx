@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useRecoilValue } from "recoil/dist";
 import { articleSalesHistoryState } from "../../states/articleState";
 import SalesHistoryItem from "./SalesHistoryItem";
@@ -9,15 +9,19 @@ export default function OnSaleTab() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={articles}
-        renderItem={({ item }) => (
-          <View style={styles.salesHistoryItemContainer}>
-            <SalesHistoryItem isCompletedTab={false} article={item} />
-          </View>
-        )}
-        keyExtractor={(item, index) => `${index}`}
-      />
+      {articles.length !== 0 ? (
+        <FlatList
+          data={articles}
+          renderItem={({ item }) => (
+            <View style={styles.salesHistoryItemContainer}>
+              <SalesHistoryItem isCompletedTab={false} article={item} />
+            </View>
+          )}
+          keyExtractor={(item, index) => `${index}`}
+        />
+      ) : (
+        <Text style={styles.text}>판매중이 비어있어요.</Text>
+      )}
     </View>
   );
 }
@@ -30,5 +34,11 @@ const styles = StyleSheet.create({
   },
   salesHistoryItemContainer: {
     marginBottom: 10,
+  },
+  text: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+    color: "#777",
   },
 });

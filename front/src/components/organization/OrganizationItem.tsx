@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRecoilState, useRecoilValue } from "recoil/dist";
 import { selectedOrganizationsInArticleFormState } from "../../states/articleState";
 import theme from "../../colors";
@@ -9,6 +9,7 @@ import {
   selectedOrganizationInCategoryState,
   selectedOrganizationInFeedsState,
 } from "../../states/organizationState";
+import { Feather } from "@expo/vector-icons";
 
 interface GroupItemProps {
   isGroupFiltering: boolean;
@@ -73,35 +74,41 @@ export default function OrganizationItem({
     );
   };
 
+  const getFilterGroupItem = () => {
+    return (
+      <View>
+        <Text
+          style={
+            getSelectedItem() === organization
+              ? styles.selected
+              : styles.nonSelected
+          }
+          onPress={onClickFilterGroup}
+        >
+          {organization.name}
+        </Text>
+      </View>
+    );
+  };
+
   const getSelectedItem = () => {
     return isFeed
       ? selectedOrganizationInFeeds
       : selectedOrganizationInCategory;
   };
 
-  const getFilterGroupItem = () => {
-    return (
-      <Text
-        style={
-          getSelectedItem() === organization
-            ? styles.selected
-            : styles.nonSelected
-        }
-        onPress={onClickFilterGroup}
-      >
-        {organization.name}
-      </Text>
-    );
-  };
-
   const getArticleFormGroupItem = () => {
     return (
-      <Text
-        style={exist() ? styles.selected : styles.nonSelected}
-        onPress={onClickArticleFormGroup}
-      >
-        {exist() ? `V ${organization.name}` : `${organization.name}`}
-      </Text>
+      <TouchableOpacity onPress={onClickArticleFormGroup}>
+        {exist() ? (
+          <View style={styles.checkedContainer}>
+            <Feather name="check" size={16} color={theme.primary} />
+            <Text style={styles.selected}> {organization.name}</Text>
+          </View>
+        ) : (
+          <Text style={styles.nonSelected}>{organization.name}</Text>
+        )}
+      </TouchableOpacity>
     );
   };
 
@@ -119,6 +126,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
+  },
+  checkedContainer: {
+    flexDirection: "row",
   },
   selected: {
     fontSize: 16,
