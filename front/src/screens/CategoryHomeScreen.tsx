@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  StyleSheet,
+  View,
+} from "react-native";
 import {
   CompositeNavigationProp,
   useIsFocused,
@@ -109,6 +115,16 @@ export default function CategoryHomeScreen() {
   useEffect(() => {
     setVisibleMenu(false);
   }, [selectedOrganization]);
+
+  const onPressBackButton = () => {
+    setVisibleMenu(false);
+    return false;
+  };
+
+  const backHandler = BackHandler.addEventListener(
+    "hardwareBackPress",
+    onPressBackButton,
+  );
 
   const getHeaderRight = () => {
     return (

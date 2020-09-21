@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  BackHandler,
   FlatList,
   Platform,
   SafeAreaView,
@@ -65,6 +66,16 @@ export default function FeedHomeScreen() {
     initFeed();
     setVisibleMenu(false);
   }, [selectedOrganization]);
+
+  const onPressBackButton = () => {
+    setVisibleMenu(false);
+    return false;
+  };
+
+  const backHandler = BackHandler.addEventListener(
+    "hardwareBackPress",
+    onPressBackButton,
+  );
 
   const requestNotificationPermission = async () => {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
