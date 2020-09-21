@@ -17,7 +17,7 @@ import {
 import { Feed, HomeStackParam, RootStackParam } from "../types/types";
 import FeedArticleCard from "../components/Feed/FeedArticleCard";
 import { articlesAPI, memberAPI } from "../api/api";
-import { useRecoilValue, useSetRecoilState } from "recoil/dist";
+import { useRecoilState, useSetRecoilState } from "recoil/dist";
 import { articleIsModifiedState } from "../states/articleState";
 import theme from "../colors";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -45,11 +45,13 @@ export default function FeedHomeScreen() {
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const isFocused = useIsFocused();
   const setIsModified = useSetRecoilState(articleIsModifiedState);
-  const selectedOrganization = useRecoilValue(selectedOrganizationInFeedsState);
-  const [visibleMenu, setVisibleMenu] = useState(true);
+  const [selectedOrganization, setSelectedOrganization] = useRecoilState(
+    selectedOrganizationInFeedsState,
+  );
+  const [visibleMenu, setVisibleMenu] = useState(false);
 
   useEffect(() => {
-    initFeed();
+    initFeedAllOrganization();
     requestNotificationPermission();
   }, []);
 
@@ -60,9 +62,7 @@ export default function FeedHomeScreen() {
   }, [isFocused]);
 
   useEffect(() => {
-    selectedOrganization.name === "전체"
-      ? initFeed()
-      : initFeedByOrganization();
+    initFeed();
     setVisibleMenu(false);
   }, [selectedOrganization]);
 
@@ -80,7 +80,13 @@ export default function FeedHomeScreen() {
     setIsModified(false);
   };
 
-  const initFeed = async () => {
+  function initFeed() {
+    selectedOrganization.name === "전체"
+      ? initFeedAllOrganization()
+      : initFeedByOrganization();
+  }
+
+  const initFeedAllOrganization = async () => {
     const { data } = await articlesAPI.get({
       lastArticleId: Number.MAX_SAFE_INTEGER,
       size: PAGE_ARTICLE_UNIT,
@@ -99,7 +105,7 @@ export default function FeedHomeScreen() {
     setArticles([...data]);
   };
 
-  const loadFeed = async () => {
+  const loadFeedAllOrganization = async () => {
     const { data } = await articlesAPI.get({
       lastArticleId: getLastArticleId(),
       size: PAGE_ARTICLE_UNIT,
@@ -129,7 +135,7 @@ export default function FeedHomeScreen() {
 
   const onRefresh = async () => {
     setIsRefreshing(true);
-    await initFeed();
+    initFeed();
     setHasAdditionalArticle(true);
     setIsRefreshing(false);
   };
@@ -141,7 +147,7 @@ export default function FeedHomeScreen() {
     setIsLoading(true);
     const data =
       selectedOrganization.name === "전체"
-        ? await loadFeed()
+        ? await loadFeedAllOrganization()
         : await loadFeedByOrganization();
     if (data.length === 0) {
       setHasAdditionalArticle(false);
@@ -149,14 +155,22 @@ export default function FeedHomeScreen() {
     setIsLoading(false);
   };
 
+  const setTitle = () => {
+    if (selectedOrganization.name !== "") {
+      return selectedOrganization.name;
+    }
+    setSelectedOrganization({
+      id: 0,
+      name: "전체",
+      code: "000000",
+    });
+    return selectedOrganization.name;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>
-          {selectedOrganization.name !== ""
-            ? selectedOrganization.name
-            : "전체"}
-        </Text>
+        <Text style={styles.title}>{setTitle()}</Text>
         <Menu opened={visibleMenu}>
           <MenuTrigger onPress={() => setVisibleMenu(true)}>
             <Feather name="chevron-down" size={24} color="grey" />
