@@ -4,6 +4,7 @@ import theme from "../../colors";
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import {
   noOrganizationState,
+  organizationAlreadyRegisteredState,
   organizationCreationNameState,
   organizationExistState,
   organizationListState,
@@ -31,6 +32,9 @@ export default function OrganizationEnterSubmitButton() {
   >();
 
   const setOrganizationList = useSetRecoilState(organizationListState);
+  const setOrganizationAlreadyRegistered = useSetRecoilState(
+    organizationAlreadyRegisteredState,
+  );
   const { code } = useRecoilValue(organizationState);
 
   const setOrganizationExist = useSetRecoilState(organizationExistState);
@@ -65,20 +69,23 @@ export default function OrganizationEnterSubmitButton() {
       const { status } = await memberOrganizationAPI.register({
         code,
       });
+
       if (status === 201) {
         await getOrganizationList();
         setOrganizationExist(true);
         resetOrganization();
         resetOrganizationCreationName();
         setNoOrganization(false);
+        setOrganizationAlreadyRegistered(false);
         navigation.reset({
           index: 0,
           routes: [{ name: "HomeStack" }],
         });
       }
     } catch (e) {
-      setOrganizationExist(false);
       resetOrganization();
+      setOrganizationExist(false);
+      setOrganizationAlreadyRegistered(true);
       console.warn("=== OrganizationEnterSubmitButton Error ===");
       console.warn(e);
     }
