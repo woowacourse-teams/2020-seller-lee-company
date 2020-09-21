@@ -57,6 +57,11 @@ public class ArticleViewService {
         return ArticleResponse.of(article, organizations, favorite.isPresent(), favoriteCount);
     }
 
+    public Article show(Long articleId) {
+        return articleRepository.findById(articleId)
+                .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
+    }
+
     public Article findArticleBy(Long articleId) {
         return articleRepository.findById(articleId)
                 .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));

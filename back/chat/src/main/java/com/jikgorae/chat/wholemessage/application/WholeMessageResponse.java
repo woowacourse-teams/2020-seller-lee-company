@@ -1,11 +1,11 @@
-package com.jikgorae.chat.wholeMessage.application;
+package com.jikgorae.chat.wholemessage.application;
 
 import static java.util.stream.Collectors.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.jikgorae.chat.wholeMessage.domain.WholeMessage;
+import com.jikgorae.chat.wholemessage.domain.WholeMessage;
 
 public class WholeMessageResponse {
     private String id;

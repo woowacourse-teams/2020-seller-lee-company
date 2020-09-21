@@ -100,7 +100,8 @@ class ChatRoomControllerTest extends ControllerTest {
                                         fieldWithPath("[].articleInfo.tradeState").description("게시글 판매 상태").type(JsonFieldType.STRING),
                                         fieldWithPath("[].opponent.id").description("상대방 아이디").type(JsonFieldType.NUMBER),
                                         fieldWithPath("[].opponent.nickname").description("상대방 닉네임").type(JsonFieldType.STRING),
-                                        fieldWithPath("[].opponent.avatar").description("상대방 아바타 이미지 url").type(JsonFieldType.STRING)
+                                        fieldWithPath("[].opponent.avatar").description("상대방 아바타 이미지 url").type(JsonFieldType.STRING),
+                                        fieldWithPath("[].opponent.pushToken").description("상대방 Push 알림 토큰").type(JsonFieldType.STRING)
                                 )));
         // @formatter:on
     }

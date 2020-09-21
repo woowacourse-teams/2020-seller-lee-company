@@ -31,6 +31,7 @@ interface ChatRoomItemProps {
       id: number;
       nickname: string;
       avatar: string;
+      pushToken: string;
     };
   };
   newMessage: {

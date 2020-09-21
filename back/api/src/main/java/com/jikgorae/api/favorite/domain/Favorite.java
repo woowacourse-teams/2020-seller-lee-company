@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.jikgorae.api.article.domain.Article;
-import com.jikgorae.api.favorite.application.FavoriteDeletedEvent;
 import com.jikgorae.api.favorite.application.FavoriteCreatedEvent;
+import com.jikgorae.api.favorite.application.FavoriteDeletedEvent;
 import com.jikgorae.api.member.domain.Member;
 
 @Entity
