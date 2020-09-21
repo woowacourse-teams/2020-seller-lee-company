@@ -29,7 +29,7 @@ export default function ValidateMessage({
       );
     }
   } else {
-    if (isBlank(nickname)) {
+    if (isBlank(nickname) || isValidNickname(nickname)) {
       validateMessage = <Text style={styles.emptySpace}>.</Text>;
     }
     if (!isBlank(nickname) && !isValidNickname(nickname)) {
