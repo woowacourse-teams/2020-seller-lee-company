@@ -11,7 +11,11 @@ import {
   RootStackParam,
 } from "../types/types";
 import { articlesAPI } from "../api/api";
-import { useRecoilState, useRecoilValue } from "recoil/dist";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+} from "recoil/dist";
 import {
   articleIsModifiedState,
   articleSelectedCategoryState,
@@ -47,6 +51,9 @@ export default function CategoryHomeScreen() {
     selectedOrganizationInCategoryState,
   );
   const [visibleMenu, setVisibleMenu] = useState(false);
+  const resetSelectedOrganization = useResetRecoilState(
+    selectedOrganizationInCategoryState,
+  );
 
   useEffect(() => {
     const applyChange = async () => {
@@ -64,6 +71,11 @@ export default function CategoryHomeScreen() {
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
 
+  const goBack = () => {
+    resetSelectedOrganization();
+    navigation.goBack();
+  };
+
   useEffect(() => {
     navigation.setOptions({
       title: `${getCategoryIcon().icon} ${category}`,
@@ -73,7 +85,7 @@ export default function CategoryHomeScreen() {
         return (
           <HeaderBackButton
             labelVisible={false}
-            onPress={navigation.goBack}
+            onPress={goBack}
             backImage={() => (
               <Feather name="chevron-left" size={24} color="black" />
             )}
