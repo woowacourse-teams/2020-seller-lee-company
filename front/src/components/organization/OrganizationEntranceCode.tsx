@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  organizationAlreadyRegisteredState,
   organizationExistState,
   organizationState,
 } from "../../states/organizationState";
@@ -13,6 +14,9 @@ export default function OrganizationEntranceCode() {
 
   const [isFocused, setIsFocused] = useState(false);
   const organizationExist = useRecoilValue(organizationExistState);
+  const organizationAlreadyRegistered = useRecoilValue(
+    organizationAlreadyRegisteredState,
+  );
 
   const getEntranceCodeColor = () => {
     if (!isFocused) {
@@ -53,6 +57,13 @@ export default function OrganizationEntranceCode() {
       return (
         <Text style={dynamicStyles.warningMessage}>
           유효하지 않은 입장 코드입니다.
+        </Text>
+      );
+    }
+    if (organizationAlreadyRegistered) {
+      return (
+        <Text style={dynamicStyles.warningMessage}>
+          이미 가입한 조직입니다.
         </Text>
       );
     }

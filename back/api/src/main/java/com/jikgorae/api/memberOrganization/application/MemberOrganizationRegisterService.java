@@ -1,7 +1,5 @@
 package com.jikgorae.api.memberOrganization.application;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +25,9 @@ public class MemberOrganizationRegisterService {
     public Long register(Member loginMember, MemberOrganizationRequest request) {
         Organization organization = organizationRepository.findOptionalByCode(request.getCode())
                 .orElseThrow(() -> new IllegalArgumentException("입장 코드와 일치하는 조직이 존재하지 않습니다."));
-        Optional<MemberOrganization> memberOrganization = memberOrganizationRepository.findOptionalByMemberAndOrganization(
-                loginMember, organization);
 
-        if (memberOrganization.isPresent()) {
-            return memberOrganization.get().getId();
+        if (memberOrganizationRepository.existsByMemberAndOrganization(loginMember, organization)) {
+            throw new IllegalArgumentException("이미 존재하는 조직입니다.");
         }
 
         MemberOrganization persistMemberOrganization = memberOrganizationRepository.save(

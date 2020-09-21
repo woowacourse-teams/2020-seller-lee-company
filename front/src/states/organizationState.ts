@@ -71,3 +71,8 @@ export const noOrganizationState = atom({
   key: "noOrganizationState",
   default: false,
 });
+
+export const organizationAlreadyRegisteredState = atom({
+  key: "organizationAlreadyRegisteredState",
+  default: false,
+});
