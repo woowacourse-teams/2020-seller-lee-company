@@ -26,7 +26,7 @@ export default function MyInfoModal() {
 
   const onPressCloseButton = () => {
     setMyInfoModalState(false);
-    navigation.navigate("ProfileScreen");
+    navigation.goBack();
   };
 
   return (

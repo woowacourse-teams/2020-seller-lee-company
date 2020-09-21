@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import {
   CompositeNavigationProp,
   useNavigation,
@@ -57,11 +57,15 @@ export default function PurchaseHistoryScreen() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={tradeArticles}
-        renderItem={({ item }) => <PurchaseHistoryItem article={item} />}
-        keyExtractor={(item, index) => `${index}`}
-      />
+      {tradeArticles.length !== 0 ? (
+        <FlatList
+          data={tradeArticles}
+          renderItem={({ item }) => <PurchaseHistoryItem article={item} />}
+          keyExtractor={(item, index) => `${index}`}
+        />
+      ) : (
+        <Text style={styles.text}>구매 내역이 비어있어요.</Text>
+      )}
     </View>
   );
 }
@@ -69,5 +73,11 @@ export default function PurchaseHistoryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  text: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+    color: "#777",
   },
 });
