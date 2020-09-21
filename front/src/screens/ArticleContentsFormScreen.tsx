@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   form: {
+    flex: 1,
     fontSize: 18,
   },
 });
