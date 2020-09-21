@@ -37,7 +37,6 @@ export default function FeedArticleCard({
 }: Feed) {
   const navigation = useNavigation<FeedArticleCardNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
-
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
   );
