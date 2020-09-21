@@ -67,14 +67,12 @@ export default function FeedHomeScreen() {
   }, [selectedOrganization]);
 
   const requestNotificationPermission = async () => {
-    console.warn("hello");
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     if (status !== PermissionStatus.GRANTED) {
       return;
     }
 
     const pushToken = (await Notifications.getExpoPushTokenAsync()).data;
-    console.warn("pushToken: " + pushToken);
 
     if (Platform.OS === "android") {
       await Notifications.setNotificationChannelAsync("default", {
