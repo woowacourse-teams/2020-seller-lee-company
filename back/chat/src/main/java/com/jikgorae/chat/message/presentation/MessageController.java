@@ -10,7 +10,6 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jikgorae.chat.message.application.MessageRequest;
@@ -36,6 +35,7 @@ public class MessageController {
     @MessageMapping(MESSAGE_URI)
     public void message(MessageRequest request) {
         MessageResponse response = messageService.save(request);
+        response.adjustTime();
         messagingTemplate.convertAndSend(DESTINATION + request.getRoomId(), response);
     }
 
