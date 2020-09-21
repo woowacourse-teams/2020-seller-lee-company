@@ -8,8 +8,7 @@ import com.jikgorae.common.notification.domain.PushToken;
 import com.jikgorae.common.notification.infra.NotificationSupport;
 
 @Component
-public class FavoriteCreatedListener
-        implements ApplicationListener<FavoriteCreatedEvent> {
+public class FavoriteCreatedListener implements ApplicationListener<FavoriteCreatedEvent> {
     private final ArticleFavoriteCountService articleFavoriteCountService;
     private final FavoriteNotificationService favoriteNotificationService;
     private final NotificationSupport notificationSupport;
