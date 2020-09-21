@@ -44,13 +44,17 @@ public class WholeMessageResponse {
         return new WholeMessageResponse(wholeMessage.getId(), wholeMessage.getSenderId(),
                 wholeMessage.getSenderNickname(), wholeMessage.getSenderAvatar(),
                 wholeMessage.getRoomId(), wholeMessage.getContent(),
-                wholeMessage.getCreatedTime());
+                wholeMessage.getCreatedTime().minusHours(9L));
     }
 
     public static List<WholeMessageResponse> listOf(List<WholeMessage> messages) {
         return messages.stream()
                 .map(WholeMessageResponse::of)
                 .collect(toList());
+    }
+
+    public void adjustTime() {
+        this.createdTime = createdTime.plusHours(9L);
     }
 
     public String getId() {
