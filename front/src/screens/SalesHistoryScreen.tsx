@@ -10,7 +10,7 @@ import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import OnSaleTab from "../components/Profile/OnSaleTab";
 import CompletedTab from "../components/Profile/CompletedTab";
-import { useSetRecoilState } from "recoil/dist";
+import { useResetRecoilState, useSetRecoilState } from "recoil/dist";
 import { articleSalesHistoryState } from "../states/articleState";
 import { articlesAPI } from "../api/api";
 import { HomeStackParam, RootStackParam } from "../types/types";
@@ -38,6 +38,9 @@ export default function SalesHistoryScreen() {
   const [index, setIndex] = useState(0);
   const [routes] = useState(salesHistoryTabs);
   const setSalesHistoryArticles = useSetRecoilState(articleSalesHistoryState);
+  const resetSalesHistoryArticles = useResetRecoilState(
+    articleSalesHistoryState,
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,7 +49,7 @@ export default function SalesHistoryScreen() {
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
-          onPress={navigation.goBack}
+          onPress={navigation.popToTop}
           backImage={() => (
             <Feather name="chevron-left" size={24} color="black" />
           )}
@@ -81,6 +84,7 @@ export default function SalesHistoryScreen() {
   };
 
   const getArticles = async (tradeState: string) => {
+    resetSalesHistoryArticles();
     const { data } = await articlesAPI.getByTradeState({ tradeState });
     setSalesHistoryArticles(data);
   };
