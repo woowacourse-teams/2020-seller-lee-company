@@ -103,7 +103,7 @@ export default function FeedHomeScreen() {
     setArticles([...data]);
   };
 
-  const loadFeed = async () => {
+  const loadFeedAllOrganization = async () => {
     const { data } = await articlesAPI.get({
       lastArticleId: getLastArticleId(),
       size: PAGE_ARTICLE_UNIT,
@@ -133,7 +133,7 @@ export default function FeedHomeScreen() {
 
   const onRefresh = async () => {
     setIsRefreshing(true);
-    await initFeedAllOrganization();
+    initFeed();
     setHasAdditionalArticle(true);
     setIsRefreshing(false);
   };
@@ -145,7 +145,7 @@ export default function FeedHomeScreen() {
     setIsLoading(true);
     const data =
       selectedOrganization.name === "전체"
-        ? await loadFeed()
+        ? await loadFeedAllOrganization()
         : await loadFeedByOrganization();
     if (data.length === 0) {
       setHasAdditionalArticle(false);
