@@ -53,7 +53,7 @@ public class ArticleDao {
                                                         loginMember))))
                 ))
                 .where(article.id.lt(lastArticleId),
-                        article.tradeState.eq(TradeState.ON_SALE))
+                        article.tradeState.ne(TradeState.COMPLETED))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();
@@ -78,7 +78,7 @@ public class ArticleDao {
                                 .from(articleOrganization)
                                 .where(articleOrganization.organization.id.eq(organizationId))))
                 .where(article.id.lt(lastArticleId),
-                        article.tradeState.eq(TradeState.ON_SALE))
+                        article.tradeState.ne(TradeState.COMPLETED))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();
@@ -109,7 +109,7 @@ public class ArticleDao {
                 ))
                 .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
                 .where(article.id.lt(lastArticleId),
-                        article.tradeState.eq(TradeState.ON_SALE),
+                        article.tradeState.ne(TradeState.COMPLETED),
                         article.category.eq(Category.fromString(category)))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
@@ -135,7 +135,7 @@ public class ArticleDao {
                 ))
                 .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
                 .where(article.id.lt(lastArticleId),
-                        article.tradeState.eq(TradeState.ON_SALE),
+                        article.tradeState.ne(TradeState.COMPLETED),
                         article.category.eq(Category.fromString(category)))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
