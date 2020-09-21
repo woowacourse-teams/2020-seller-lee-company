@@ -15,6 +15,7 @@ export const chatRoomState = atom({
       id: 0,
       nickname: "",
       avatar: "",
+      pushToken: "",
     },
   },
 });

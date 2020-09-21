@@ -15,7 +15,11 @@ import {
   isDuplicatedNickname,
   isValidNickname,
 } from "../../nicknameValidator";
-import { memberProfileState } from "../../states/memberState";
+import {
+  memberAvatarState,
+  memberNicknameState,
+  memberProfileState,
+} from "../../states/memberState";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
@@ -30,6 +34,8 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
   );
   const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
   const setProfile = useSetRecoilState(memberProfileState);
+  const setNickname = useSetRecoilState(memberNicknameState);
+  const setAvatar = useSetRecoilState(memberAvatarState);
 
   const isValidateSubmit = () => {
     if (!joinSubmit) {
@@ -59,6 +65,8 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       if (response.status === 204) {
         setProfile({ avatar: joinAvatar, nickname: joinNickname, score: 0 });
         setJoinModalVisible(true);
+        setNickname(joinNickname);
+        setAvatar(joinAvatar);
         resetJoinForm();
       }
     } catch (error) {

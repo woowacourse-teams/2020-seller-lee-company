@@ -21,7 +21,7 @@ public class MessageNotificationService implements NotificationService {
 
     @Override
     public PushToken getToken(ApplicationEvent applicationEvent) {
-        // TODO: 2020/09/21 멤버 정보를 조회 해와야한다.
-        return null;
+        MessageSentEvent event = (MessageSentEvent)applicationEvent;
+        return new PushToken(event.getPushToken());
     }
 }

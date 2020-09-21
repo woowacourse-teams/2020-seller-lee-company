@@ -47,6 +47,7 @@ export default function ArticleDetailBottomNav() {
         avatar: author.avatar,
         id: author.id,
         nickname: author.nickname,
+        pushToken: author.pushToken,
       },
     });
     navigation.navigate("ChatScreen");

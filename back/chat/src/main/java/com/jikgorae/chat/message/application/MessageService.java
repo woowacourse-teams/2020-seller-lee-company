@@ -19,7 +19,8 @@ public class MessageService {
 
     public MessageResponse save(MessageRequest request) {
         Message message = request.toMessage();
-        Message save = messageRepository.save(message.send());
+        // TODO: 2020/09/21 Member가 모듈로 분리 될때 토큰을 멤버 DB에서 조회해온다.
+        Message save = messageRepository.save(message.send(request.getPushToken()));
 
         return MessageResponse.of(save);
     }

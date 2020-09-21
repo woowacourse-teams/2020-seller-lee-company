@@ -37,8 +37,8 @@ public class Message extends AbstractAggregateRoot<Message> {
         this(null, senderId, senderNickname, roomId, content, LocalDateTime.MIN);
     }
 
-    public Message send() {
-        this.registerEvent(new MessageSentEvent(this));
+    public Message send(String pushToken) {
+        this.registerEvent(new MessageSentEvent(this, pushToken));
         return this;
     }
 
