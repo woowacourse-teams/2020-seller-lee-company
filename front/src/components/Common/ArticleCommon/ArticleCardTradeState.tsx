@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import colors from "../../../colors";
 import theme from "../../../colors";
 
@@ -39,21 +39,21 @@ export default function ArticleCardTradeState({
 
 const styles = StyleSheet.create({
   tradeOnSaleContainer: {
-    aspectRatio: 5 / 3,
+    paddingHorizontal: 5,
     backgroundColor: theme.primary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeReservedContainer: {
-    aspectRatio: 5 / 3,
+    paddingHorizontal: 5,
     backgroundColor: theme.secondary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeCompletedContainer: {
-    aspectRatio: 2,
+    paddingHorizontal: 5,
     backgroundColor: "lightgrey",
     borderRadius: 10,
     justifyContent: "center",

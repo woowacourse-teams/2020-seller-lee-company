@@ -20,6 +20,7 @@ import {
   memberNicknameState,
   memberProfileState,
 } from "../../states/memberState";
+import { noOrganizationState } from "../../states/organizationState";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
@@ -33,6 +34,7 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
     joinNicknameDuplicatedState,
   );
   const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
+  const setNoOrganization = useSetRecoilState(noOrganizationState);
   const setProfile = useSetRecoilState(memberProfileState);
   const setNickname = useSetRecoilState(memberNicknameState);
   const setAvatar = useSetRecoilState(memberAvatarState);
@@ -65,6 +67,7 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       if (response.status === 204) {
         setProfile({ avatar: joinAvatar, nickname: joinNickname, score: 0 });
         setJoinModalVisible(true);
+        setNoOrganization(true);
         setNickname(joinNickname);
         setAvatar(joinAvatar);
         resetJoinForm();
