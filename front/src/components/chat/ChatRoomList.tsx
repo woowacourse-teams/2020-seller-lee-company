@@ -20,6 +20,7 @@ export default function ChatRoomList() {
           id: 0,
           nickname: "",
           avatar: "",
+          pushToken: "",
         },
       },
       newMessage: {

@@ -1,6 +1,6 @@
-package com.jikgorae.chat.wholeMessage.application;
+package com.jikgorae.chat.wholemessage.application;
 
-import com.jikgorae.chat.wholeMessage.domain.WholeMessage;
+import com.jikgorae.chat.wholemessage.domain.WholeMessage;
 
 public class WholeMessageRequest {
     private Long roomId;

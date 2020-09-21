@@ -22,3 +22,15 @@ subprojects {
         mavenCentral()
     }
 }
+
+project(':api') {
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project(':chat') {
+    dependencies {
+        compile project(':common')
+    }
+}

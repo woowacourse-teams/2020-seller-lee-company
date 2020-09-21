@@ -17,6 +17,7 @@ export const defaultArticle = {
     avatar: "",
     score: 0,
     validated: false,
+    pushToken: "",
   },
   favoriteState: false,
   favoriteCount: 0,

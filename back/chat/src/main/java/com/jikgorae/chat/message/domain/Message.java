@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.jikgorae.chat.message.application.MessageSentEvent;
+
 @Document
-public class Message {
+public class Message extends AbstractAggregateRoot<Message> {
     @Id
     private String id;
     private Long senderId;
@@ -32,6 +35,11 @@ public class Message {
 
     public Message(Long senderId, String senderNickname, Long roomId, String content) {
         this(null, senderId, senderNickname, roomId, content, LocalDateTime.MIN);
+    }
+
+    public Message send(String pushToken) {
+        this.registerEvent(new MessageSentEvent(this, pushToken));
+        return this;
     }
 
     public String getId() {

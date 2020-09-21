@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.jikgorae.chat.message.domain.Message;
-import com.jikgorae.chat.wholeMessage.domain.WholeMessage;
 
 public class MessageResponse {
     private String id;

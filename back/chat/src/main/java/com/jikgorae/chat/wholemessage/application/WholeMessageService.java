@@ -1,4 +1,4 @@
-package com.jikgorae.chat.wholeMessage.application;
+package com.jikgorae.chat.wholemessage.application;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.jikgorae.chat.wholeMessage.domain.WholeMessage;
-import com.jikgorae.chat.wholeMessage.domain.WholeMessageRepository;
+import com.jikgorae.chat.wholemessage.domain.WholeMessage;
+import com.jikgorae.chat.wholemessage.domain.WholeMessageRepository;
 
 @Service
 public class WholeMessageService {

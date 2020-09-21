@@ -144,7 +144,6 @@ export default function ArticleDetailScreen() {
 
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
-    console.log(data);
     setPhotos(data.photos);
     setArticleSelected({
       ...data,

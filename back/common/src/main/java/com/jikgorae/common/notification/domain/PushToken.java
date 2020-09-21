@@ -1,4 +1,4 @@
-package com.jikgorae.api.notification.domain;
+package com.jikgorae.common.notification.domain;
 
 import java.util.Objects;
 
