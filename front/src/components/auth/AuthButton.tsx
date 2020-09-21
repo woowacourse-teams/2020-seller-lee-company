@@ -89,8 +89,8 @@ export default function AuthButton({ toggleModal }: AuthButtonProps) {
     <TouchableOpacity style={styles.container} onPress={onPressButton}>
       <View style={styles.contentContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>카카오톡으로</Text>
-          <Text style={styles.title}>시작하기</Text>
+          <Text style={styles.title}>카카오톡으로 시작</Text>
+          {/*<Text style={styles.title}>시작하기</Text>*/}
         </View>
         <Entypo name="controller-play" size={14} color={"white"} />
       </View>

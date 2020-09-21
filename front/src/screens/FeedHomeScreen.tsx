@@ -67,11 +67,23 @@ export default function FeedHomeScreen() {
   }, [selectedOrganization]);
 
   const requestNotificationPermission = async () => {
+    console.warn("hello");
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     if (status !== PermissionStatus.GRANTED) {
       return;
     }
+
     const pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+    console.warn("pushToken: " + pushToken);
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
     await memberAPI.putByPushToken({ pushToken });
   };
 
