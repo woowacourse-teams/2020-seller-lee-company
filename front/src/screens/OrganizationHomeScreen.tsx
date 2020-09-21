@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Platform,
   SafeAreaView,
@@ -27,7 +27,7 @@ export default function OrganizationHomeScreen() {
   const { nickname } = useRecoilValue(memberProfileState);
   const noOrganization = useRecoilValue(noOrganizationState);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
       headerShown: !noOrganization,
@@ -47,7 +47,7 @@ export default function OrganizationHomeScreen() {
         aspectRatio: 1,
       },
     });
-  }, [navigation]);
+  }, [navigation, noOrganization]);
 
   return (
     <SafeAreaView style={styles.container}>
