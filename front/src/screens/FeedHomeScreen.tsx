@@ -49,7 +49,7 @@ export default function FeedHomeScreen() {
   const [visibleMenu, setVisibleMenu] = useState(true);
 
   useEffect(() => {
-    initFeed();
+    initFeedAllOrganization();
     requestNotificationPermission();
   }, []);
 
@@ -59,10 +59,14 @@ export default function FeedHomeScreen() {
     isFocused ? applyChange() : undefined;
   }, [isFocused]);
 
-  useEffect(() => {
+  function initFeed() {
     selectedOrganization.name === "전체"
-      ? initFeed()
+      ? initFeedAllOrganization()
       : initFeedByOrganization();
+  }
+
+  useEffect(() => {
+    initFeed();
     setVisibleMenu(false);
   }, [selectedOrganization]);
 
@@ -80,7 +84,7 @@ export default function FeedHomeScreen() {
     setIsModified(false);
   };
 
-  const initFeed = async () => {
+  const initFeedAllOrganization = async () => {
     const { data } = await articlesAPI.get({
       lastArticleId: Number.MAX_SAFE_INTEGER,
       size: PAGE_ARTICLE_UNIT,
@@ -129,7 +133,7 @@ export default function FeedHomeScreen() {
 
   const onRefresh = async () => {
     setIsRefreshing(true);
-    await initFeed();
+    await initFeedAllOrganization();
     setHasAdditionalArticle(true);
     setIsRefreshing(false);
   };
