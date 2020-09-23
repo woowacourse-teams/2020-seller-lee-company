@@ -53,7 +53,7 @@ public class ArticleOrganizationServiceTest {
     @DisplayName("ArticleOrganization 생성")
     @Test
     void deleteByArticleId() {
-        articleOrganizationService.deleteByArticleId(ARTICLE1.getId());
-        verify(articleOrganizationRepository).deleteByArticleId(ARTICLE1.getId());
+        articleOrganizationService.deleteAllByArticleId(ARTICLE1.getId());
+        verify(articleOrganizationRepository).deleteAllByArticleId(ARTICLE1.getId());
     }
 }

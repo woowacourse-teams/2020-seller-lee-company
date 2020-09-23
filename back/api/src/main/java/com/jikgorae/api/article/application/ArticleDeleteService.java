@@ -29,10 +29,10 @@ public class ArticleDeleteService {
     }
 
     public void delete(Long id) {
-        articleOrganizationService.deleteByArticleId(id);
+        articleOrganizationService.deleteAllByArticleId(id);
         articleFavoriteCountService.deleteByArticleId(id);
-        chatRoomService.deleteByArticleId(id);
-        favoriteService.deleteByArticleId(id);
+        chatRoomService.deleteAllByArticleId(id);
+        favoriteService.deleteAllByArticleId(id);
         articleRepository.deleteById(id);
     }
 }

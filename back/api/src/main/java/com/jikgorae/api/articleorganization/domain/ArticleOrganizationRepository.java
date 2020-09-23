@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ArticleOrganizationRepository extends JpaRepository<ArticleOrganization, Long> {
     List<ArticleOrganization> findAllByArticleId(Long articleId);
 
-    void deleteByArticleId(Long articleId);
+    void deleteAllByArticleId(Long articleId);
 }
