@@ -27,14 +27,14 @@ class ArticleServiceTest {
     private ArticleOrganizationService articleOrganizationService;
 
     @Mock
-    private ArticleFavoriteCountService articleFavoriteCountService;
+    private ArticleDeleteService articleDeleteService;
 
     private ArticleService articleService;
 
     @BeforeEach
     void setUp() {
         articleService = new ArticleService(articleRepository, articleOrganizationService,
-                articleFavoriteCountService);
+                articleDeleteService);
     }
 
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
@@ -66,8 +66,7 @@ class ArticleServiceTest {
 
         articleService.deleteById(ARTICLE1.getId(), MEMBER1);
 
-        verify(articleRepository).deleteById(ARTICLE1.getId());
-        verify(articleFavoriteCountService).deleteByArticleId(ARTICLE1.getId());
+        verify(articleDeleteService).delete(ARTICLE1.getId());
     }
 
     @DisplayName("tradeState를 변경함")

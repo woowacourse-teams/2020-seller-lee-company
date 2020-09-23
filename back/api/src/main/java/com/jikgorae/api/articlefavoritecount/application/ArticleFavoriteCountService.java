@@ -41,7 +41,6 @@ public class ArticleFavoriteCountService {
         persist.ifPresent(ArticleFavoriteCount::decrease);
     }
 
-    @Transactional
     public void deleteByArticleId(Long id) {
         articleFavoriteCountRepository
                 .findByArticleId(id)
