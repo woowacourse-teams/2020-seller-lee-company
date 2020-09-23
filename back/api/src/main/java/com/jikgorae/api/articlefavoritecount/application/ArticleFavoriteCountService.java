@@ -42,9 +42,6 @@ public class ArticleFavoriteCountService {
     }
 
     public void deleteByArticleId(Long id) {
-        articleFavoriteCountRepository
-                .findByArticleId(id)
-                .ifPresent(articleFavoriteCount ->
-                        articleFavoriteCountRepository.deleteByArticleId(id));
+        articleFavoriteCountRepository.deleteByArticleId(id);
     }
 }
