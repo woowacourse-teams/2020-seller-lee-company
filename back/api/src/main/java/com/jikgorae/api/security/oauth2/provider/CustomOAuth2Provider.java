@@ -23,7 +23,7 @@ public enum CustomOAuth2Provider {
 
     public static final String AUTHORIZATION_URI = "https://kauth.kakao.com/oauth/authorize";
     private static final String DEPLOY_SERVER = "http://15.164.125.244:8080";
-    // private static final String QA_SERVER = "http://192.168.25.5:8080";
+    //private static final String QA_SERVER = "http://192.168.0.7:8080";
     public static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
     public static final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
     public static final String UPDATE_PROFILE_URI = "https://kapi.kakao.com/v1/user/update_profile";
