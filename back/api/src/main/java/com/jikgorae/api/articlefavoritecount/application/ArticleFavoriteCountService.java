@@ -40,4 +40,12 @@ public class ArticleFavoriteCountService {
                 article);
         persist.ifPresent(ArticleFavoriteCount::decrease);
     }
+
+    @Transactional
+    public void deleteByArticleId(Long id) {
+        articleFavoriteCountRepository
+                .findByArticleId(id)
+                .ifPresent(articleFavoriteCount ->
+                        articleFavoriteCountRepository.deleteByArticleId(id));
+    }
 }
