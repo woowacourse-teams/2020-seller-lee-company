@@ -8,6 +8,8 @@ import java.util.List;
 import com.jikgorae.chat.message.domain.Message;
 
 public class MessageResponse {
+    private static final long GAP_OF_KST_AND_UTC = 9L;
+
     private String id;
     private Long senderId;
     private String senderNickname;
@@ -18,7 +20,8 @@ public class MessageResponse {
     public MessageResponse() {
     }
 
-    public MessageResponse(String id, Long senderId, String senderNickname, Long roomId, String content, LocalDateTime createdTime) {
+    public MessageResponse(String id, Long senderId, String senderNickname, Long roomId,
+            String content, LocalDateTime createdTime) {
         this.id = id;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
@@ -30,7 +33,7 @@ public class MessageResponse {
     public static MessageResponse of(Message message) {
         return new MessageResponse(message.getId(), message.getSenderId(),
                 message.getSenderNickname(), message.getRoomId(), message.getContent(),
-                message.getCreatedTime().minusHours(9L));
+                message.getCreatedTime().minusHours(GAP_OF_KST_AND_UTC));
     }
 
     public static List<MessageResponse> listOf(List<Message> messages) {
@@ -39,8 +42,9 @@ public class MessageResponse {
                 .collect(toList());
     }
 
-    public void adjustTime() {
-        this.createdTime = createdTime.plusHours(9L);
+    public MessageResponse adjustTime() {
+        return new MessageResponse(id, senderId, senderNickname, roomId, content,
+                createdTime.plusHours(GAP_OF_KST_AND_UTC));
     }
 
     public String getId() {
