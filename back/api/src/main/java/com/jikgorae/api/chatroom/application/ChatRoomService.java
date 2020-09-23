@@ -31,4 +31,11 @@ public class ChatRoomService {
     public void delete(Long roomId) {
         chatRoomRepository.deleteById(roomId);
     }
+
+    public void deleteByArticleId(Long id) {
+        chatRoomRepository
+                .findByArticleId(id)
+                .ifPresent(articleFavoriteCount ->
+                        chatRoomRepository.deleteByArticleId(id));
+    }
 }

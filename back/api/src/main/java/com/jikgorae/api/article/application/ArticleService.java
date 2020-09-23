@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
-import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountService;
 import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
@@ -17,14 +16,14 @@ import com.jikgorae.api.security.web.AuthorizationException;
 public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ArticleOrganizationService articleOrganizationService;
-    private final ArticleFavoriteCountService articleFavoriteCountService;
+    private final ArticleDeleteService articleDeleteService;
 
     public ArticleService(ArticleRepository articleRepository,
             ArticleOrganizationService articleOrganizationService,
-            ArticleFavoriteCountService articleFavoriteCountService) {
+            ArticleDeleteService articleDeleteService) {
         this.articleRepository = articleRepository;
         this.articleOrganizationService = articleOrganizationService;
-        this.articleFavoriteCountService = articleFavoriteCountService;
+        this.articleDeleteService = articleDeleteService;
     }
 
     @Transactional
@@ -47,9 +46,7 @@ public class ArticleService {
         if (loginMember.isNotSameId(article.getAuthor())) {
             throw new AuthorizationException("삭제할 수 있는 권한이 없습니다.");
         }
-        articleOrganizationService.deleteByArticleId(id);
-        articleFavoriteCountService.deleteByArticleId(id);
-        articleRepository.deleteById(id);
+        articleDeleteService.delete(id);
     }
 
     private Article findById(Long id) {

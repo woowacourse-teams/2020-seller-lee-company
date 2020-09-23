@@ -42,4 +42,11 @@ public class FavoriteService {
         favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(),
                 request.getArticleId());
     }
+
+    public void deleteByArticleId(Long id) {
+        favoriteRepository
+                .findByArticleId(id)
+                .ifPresent(articleFavoriteCount ->
+                        favoriteRepository.deleteByArticleId(id));
+    }
 }
