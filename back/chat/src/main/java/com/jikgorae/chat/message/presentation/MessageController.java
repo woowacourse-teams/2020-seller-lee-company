@@ -35,8 +35,7 @@ public class MessageController {
     @MessageMapping(MESSAGE_URI)
     public void message(MessageRequest request) {
         MessageResponse response = messageService.save(request);
-        response.adjustTime();
-        messagingTemplate.convertAndSend(DESTINATION + request.getRoomId(), response);
+        messagingTemplate.convertAndSend(DESTINATION + request.getRoomId(), response.adjustTime());
     }
 
     @GetMapping(MESSAGE_REST_URI)
@@ -47,6 +46,7 @@ public class MessageController {
 
     @GetMapping(MESSAGE_REST_URI + NEW)
     public ResponseEntity<MessageResponse> showLast(@PathVariable Long roomId) {
-        return ResponseEntity.ok(messageService.showLast(roomId));
+        MessageResponse response = messageService.showLast(roomId);
+        return ResponseEntity.ok(response.adjustTime());
     }
 }
