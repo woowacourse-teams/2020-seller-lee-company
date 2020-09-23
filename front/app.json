@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "직고래",
-    "slug": "jikgorae-201",
+    "slug": "jikgorae",
     "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/app_icon.png",
