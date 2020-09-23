@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.jikgorae.api.article.domain.ArticleRepository;
+import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountService;
 import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 
 @ExtendWith(value = MockitoExtension.class)
@@ -25,11 +26,15 @@ class ArticleServiceTest {
     @Mock
     private ArticleOrganizationService articleOrganizationService;
 
+    @Mock
+    private ArticleFavoriteCountService articleFavoriteCountService;
+
     private ArticleService articleService;
 
     @BeforeEach
     void setUp() {
-        articleService = new ArticleService(articleRepository, articleOrganizationService);
+        articleService = new ArticleService(articleRepository, articleOrganizationService,
+                articleFavoriteCountService);
     }
 
     @DisplayName("게시글 생성 메서드 호출 시 게시글 생성")
@@ -62,6 +67,7 @@ class ArticleServiceTest {
         articleService.deleteById(ARTICLE1.getId(), MEMBER1);
 
         verify(articleRepository).deleteById(ARTICLE1.getId());
+        verify(articleFavoriteCountService).deleteByArticleId(ARTICLE1.getId());
     }
 
     @DisplayName("tradeState를 변경함")

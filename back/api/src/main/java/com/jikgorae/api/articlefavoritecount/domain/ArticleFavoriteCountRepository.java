@@ -11,4 +11,8 @@ public interface ArticleFavoriteCountRepository extends JpaRepository<ArticleFav
     Optional<ArticleFavoriteCount> findByArticle(Article article);
 
     List<ArticleFavoriteCount> findAllByArticleInOrderByArticle(List<Article> article);
+
+    void deleteByArticleId(Long articleId);
+
+    Optional<ArticleFavoriteCount> findByArticleId(Long articleId);
 }
