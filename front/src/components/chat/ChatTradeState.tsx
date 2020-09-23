@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../../colors";
+import colors from "../../colors";
 
 export default function ChatTradeState({ tradeState }: { tradeState: string }) {
   const getContainerStyleByTradeState = () => {
@@ -22,54 +23,43 @@ export default function ChatTradeState({ tradeState }: { tradeState: string }) {
     }
     return styles.tradeCompletedText;
   };
+
   return (
-    <View style={styles.container}>
-      <View style={getContainerStyleByTradeState()}>
-        <Text style={getTextStyleByTradeState()}>{tradeState}</Text>
-      </View>
+    <View style={getContainerStyleByTradeState()}>
+      <Text style={getTextStyleByTradeState()}>{tradeState}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-start",
-  },
   tradeOnSaleContainer: {
-    flex: 1,
-    marginTop: 5,
-    aspectRatio: 5 / 3,
+    paddingHorizontal: 10,
     backgroundColor: theme.primary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeReservedContainer: {
-    flex: 1,
-    marginTop: 5,
-    aspectRatio: 5 / 3,
+    paddingHorizontal: 10,
     backgroundColor: theme.secondary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeCompletedContainer: {
-    flex: 1,
-    marginTop: 5,
-    aspectRatio: 5 / 3,
+    paddingHorizontal: 10,
     backgroundColor: "lightgrey",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeOnSaleText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
     color: "white",
   },
   tradeReservedText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
     color: "white",
   },
@@ -77,5 +67,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     color: "grey",
+  },
+  containerOfOnSale: {
+    flex: 1,
+    backgroundColor: colors.primary,
+    width: 45,
+    height: 25,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 3,
+  },
+  containerOfNotOnSale: {
+    flex: 1,
+    backgroundColor: "lightgrey",
+    width: 60,
+    height: 25,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 3,
+  },
+  tradeStateOfOnSale: {
+    color: "white",
+    fontSize: 13,
+    fontWeight: "500",
+  },
+  tradeStateOfNotOnSale: {
+    fontSize: 13,
+    color: "rgb(110,110,110)",
   },
 });

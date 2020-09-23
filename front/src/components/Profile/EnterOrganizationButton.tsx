@@ -24,7 +24,7 @@ export default function EnterOrganizationButton() {
       >
         <Feather name="users" size={22} color={theme.primary} />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>조직 입장/생성</Text>
+          <Text style={styles.title}>조직 관리</Text>
         </View>
       </TouchableOpacity>
     </View>

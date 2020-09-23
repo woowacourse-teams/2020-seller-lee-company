@@ -1,12 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
   Image,
-  Platform,
-  SafeAreaView,
-  StatusBar,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,8 +22,8 @@ import theme from "../colors";
 import { CHAT_BASE_URL, messageAPI } from "../api/api";
 import {
   memberAvatarState,
-  memberNicknameState,
   memberIdState,
+  memberNicknameState,
 } from "../states/memberState";
 import SockJS from "sockjs-client";
 import ArticleCardImage from "../components/Common/ArticleCommon/ArticleCardImage";
@@ -56,6 +59,33 @@ export default function ChatScreen() {
   const setArticleId = useSetRecoilState(articleSelectedIdState);
   const [hasMoreMessage, setHasMoreMessage] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `${opponent.nickname}님과의 채팅`,
+      headerTitleAlign: "left",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => (
+            <Feather name="chevron-left" size={24} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
+      headerRight: () => <ChatMenu />,
+      headerRightContainerStyle: {
+        aspectRatio: 1,
+        justifyContents: "center",
+        alignItems: "center",
+      },
+    });
+  }, [navigation]);
 
   const pushMessage = useCallback((message = []) => {
     const received = JSON.parse(message.body);
@@ -118,10 +148,8 @@ export default function ChatScreen() {
   // @ts-ignore
   const renderSend = (props) => {
     return (
-      <Send {...props}>
-        <View style={styles.sendingContainer}>
-          <Feather name="send" size={28} color={colors.primary} />
-        </View>
+      <Send {...props} containerStyle={styles.sendContainer}>
+        <Feather name="send" size={28} color={colors.primary} />
       </Send>
     );
   };
@@ -195,24 +223,15 @@ export default function ChatScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.navigationContainer}>
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={navigation.goBack}
-          backImage={() => <Feather name="chevron-left" size={24} />}
-        />
-        <View style={styles.opponentContainer}>
-          <Text style={styles.opponent}>{opponent.nickname}님과의 채팅</Text>
-        </View>
-        <ChatMenu />
-      </View>
+    <KeyboardAvoidingView style={styles.container}>
       <TouchableOpacity style={styles.articleContainer} onPress={goToArticle}>
         <View style={styles.articleImageContainer}>
           <ArticleCardImage thumbnail={articleInfo.thumbnail} />
         </View>
         <View style={styles.articleInfoContainer}>
-          <Text style={styles.articleTitle}>{articleInfo.title}</Text>
+          <View style={styles.articleTitleContainer}>
+            <Text style={styles.articleTitle}>{articleInfo.title}</Text>
+          </View>
           <View style={styles.articlePriceAndTradeStateContainer}>
             <ChatTradeState tradeState={articleInfo.tradeState} />
             <View style={styles.articlePriceContainer}>
@@ -284,9 +303,10 @@ export default function ChatScreen() {
             <Feather name="chevron-down" size={28} color={colors.primary} />
           )}
           parsePatterns={(linkStyle) => [{ type: "phone", style: linkStyle }]}
+          maxInputLength={150}
         />
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -294,15 +314,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
-  },
-  navigationContainer: {
-    flex: 0.8,
-    flexDirection: "row",
-    backgroundColor: "white",
-    paddingHorizontal: 25,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.border,
   },
   opponentContainer: {
     flex: 1,
@@ -310,14 +321,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   opponent: {
-    fontSize: 18,
+    fontSize: 16,
     color: "black",
   },
   articleContainer: {
-    flex: 1.8,
+    aspectRatio: 4,
     flexDirection: "row",
     backgroundColor: "rgb(250,250,250)",
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: theme.border,
   },
@@ -325,30 +336,33 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 15,
+    marginVertical: 10,
   },
   articleInfoContainer: {
     flex: 1,
-    paddingHorizontal: 30,
-    paddingVertical: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    justifyContent: "space-between",
+  },
+  articleTitleContainer: {
+    justifyContent: "flex-start",
   },
   articleTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: "black",
   },
   articlePriceAndTradeStateContainer: {
-    flex: 1,
+    aspectRatio: 8,
     flexDirection: "row",
+    justifyContent: "space-between",
   },
   articlePriceContainer: {
-    flex: 1,
-    flexDirection: "row",
     alignItems: "flex-end",
-    justifyContent: "flex-end",
+    justifyContent: "center",
   },
   articlePrice: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: theme.others,
   },
@@ -360,12 +374,10 @@ const styles = StyleSheet.create({
   chatContainer: {
     flex: 12,
   },
-  sendingContainer: {
+  sendContainer: {
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 5,
-    marginRight: 5,
   },
   loadingContainer: {
     flex: 12,

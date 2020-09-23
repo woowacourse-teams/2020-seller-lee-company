@@ -191,10 +191,12 @@ export default function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{setTitle()}</Text>
         <Menu opened={visibleMenu}>
           <MenuTrigger onPress={() => setVisibleMenu(true)}>
-            <Feather name="chevron-down" size={24} color="grey" />
+            <View style={styles.menuContainer}>
+              <Text style={styles.title}>{setTitle()}</Text>
+              <Feather name="chevron-down" size={24} color="grey" />
+            </View>
           </MenuTrigger>
           <MenuOptions
             optionsContainerStyle={styles.menuOptionsContainer}
@@ -270,6 +272,10 @@ const styles = StyleSheet.create({
   feedArticleCardContainer: {
     backgroundColor: "transparent",
     marginBottom: 15,
+  },
+  menuContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
   menuOptionsContainer: {},
   menuCustomText: {

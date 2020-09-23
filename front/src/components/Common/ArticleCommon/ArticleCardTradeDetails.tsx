@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   createTime: {
-    marginLeft: 5,
-    fontSize: 12,
+    marginLeft: 10,
+    fontSize: 13,
+    color: "gray",
   },
 });
