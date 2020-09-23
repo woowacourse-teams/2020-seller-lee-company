@@ -29,6 +29,7 @@ import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import { selectedOrganizationInFeedsState } from "../states/organizationState";
 import { Feather } from "@expo/vector-icons";
 import OrganizationList from "../components/organization/OrganizationList";
+import Constants from "expo-constants";
 
 type FeedHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -78,15 +79,28 @@ export default function FeedHomeScreen() {
   );
 
   const requestNotificationPermission = async () => {
-    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    if (status !== PermissionStatus.GRANTED) {
-      return;
+    let pushToken;
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS,
+      );
+      let finalStatus = existingStatus;
+      if (existingStatus !== PermissionStatus.GRANTED) {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS,
+        );
+        finalStatus = status;
+      }
+      if (finalStatus !== PermissionStatus.GRANTED) {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(pushToken);
     }
 
-    const pushToken = (await Notifications.getExpoPushTokenAsync()).data;
-
     if (Platform.OS === "android") {
-      await Notifications.setNotificationChannelAsync("default", {
+      Notifications.setNotificationChannelAsync("default", {
         name: "default",
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
