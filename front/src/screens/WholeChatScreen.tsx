@@ -1,11 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useRecoilValue } from "recoil/dist";
 import { wholeChatRoomState } from "../states/chatRoomState";
 import {
   ActivityIndicator,
-  Platform,
-  SafeAreaView,
-  StatusBar,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   View,
@@ -48,6 +51,27 @@ export default function WholeChatScreen() {
   const memberAvatar = useRecoilValue(memberAvatarState);
   const [hasMoreMessage, setHasMoreMessage] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `${name}`,
+      headerTitleAlign: "left",
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={false}
+          onPress={navigation.goBack}
+          backImage={() => (
+            <Feather name="chevron-left" size={24} color="black" />
+          )}
+        />
+      ),
+      headerLeftContainerStyle: {
+        alignItems: "center",
+        justifyContents: "center",
+        aspectRatio: 1,
+      },
+    });
+  }, [navigation]);
 
   const pushMessage = useCallback((message = []) => {
     const received = JSON.parse(message.body);
@@ -115,10 +139,8 @@ export default function WholeChatScreen() {
   // @ts-ignore
   const renderSend = (props) => {
     return (
-      <Send {...props}>
-        <View style={styles.sendingContainer}>
-          <Feather name="send" size={28} color={colors.primary} />
-        </View>
+      <Send {...props} containerStyle={styles.sendContainer}>
+        <Feather name="send" size={28} color={colors.primary} />
       </Send>
     );
   };
@@ -211,17 +233,7 @@ export default function WholeChatScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.navigationContainer}>
-        <HeaderBackButton
-          labelVisible={false}
-          onPress={navigation.goBack}
-          backImage={() => <Feather name="chevron-left" size={24} />}
-        />
-        <View style={styles.opponentContainer}>
-          <Text style={styles.opponent}>{name}</Text>
-        </View>
-      </View>
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.chatContainer}>
         <GiftedChat
           messages={messages}
@@ -254,7 +266,7 @@ export default function WholeChatScreen() {
           parsePatterns={(linkStyle) => [{ type: "phone", style: linkStyle }]}
         />
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -262,7 +274,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
   },
   navigationContainer: {
     flex: 0.8,
@@ -328,12 +339,10 @@ const styles = StyleSheet.create({
   chatContainer: {
     flex: 12,
   },
-  sendingContainer: {
+  sendContainer: {
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 5,
-    marginRight: 5,
   },
   loadingContainer: {
     flex: 12,

@@ -12,7 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeStackParam } from "../../types/types";
 import { useSetRecoilState } from "recoil/dist";
 import { chatRoomState } from "../../states/chatRoomState";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function ArticleDetailBottomNav() {
   const navigation = useNavigation<
@@ -58,18 +58,21 @@ export default function ArticleDetailBottomNav() {
       <View style={styles.favoriteContainer}>
         <ArticleDetailFavorite />
       </View>
-      <View style={styles.priceContainer}>
-        <Text style={styles.price}>{`${insertComma(price.toString())}원`}</Text>
-      </View>
-      <View style={styles.chatContainer}>
-        {memberNickname !== author.nickname ? (
-          <MaterialCommunityIcons
-            name="chat-outline"
-            size={36}
-            color={"black"}
+
+      {memberNickname !== author.nickname ? (
+        <View style={styles.chatContainer}>
+          <AntDesign
+            name="message1"
+            size={30}
+            color="black"
             onPress={() => createChat(author)}
           />
-        ) : undefined}
+        </View>
+      ) : (
+        <></>
+      )}
+      <View style={styles.priceContainer}>
+        <Text style={styles.price}>{`${insertComma(price.toString())}원`}</Text>
       </View>
     </View>
   );
@@ -86,25 +89,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRightWidth: 1,
     borderRightColor: theme.border,
-    paddingRight: 30,
+    paddingRight: 20,
   },
   chatContainer: {
     justifyContent: "center",
     alignItems: "flex-end",
-    borderLeftWidth: 1,
-    borderLeftColor: theme.border,
-    paddingLeft: 30,
+    borderRightWidth: 1,
+    borderRightColor: theme.border,
+    paddingHorizontal: 20,
   },
   priceContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "flex-end",
-    paddingRight: 20,
   },
   price: {
     fontSize: 24,
     fontWeight: "bold",
-    textAlign: "center",
+    textAlign: "right",
     color: theme.others,
   },
 });

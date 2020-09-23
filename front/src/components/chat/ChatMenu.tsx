@@ -34,7 +34,7 @@ export default function ChatMenu() {
   };
 
   return (
-    <Menu style={styles.container}>
+    <Menu>
       <MenuTrigger>
         <Feather name="more-vertical" size={24} color={"black"} />
       </MenuTrigger>
@@ -49,11 +49,8 @@ export default function ChatMenu() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 5,
-  },
   menuOptions: {
-    width: 100,
+    width: 80,
   },
   menuCustomStyle: {
     textAlign: "center",

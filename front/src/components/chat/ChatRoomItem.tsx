@@ -101,36 +101,35 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    padding: 15,
   },
   opponentContainer: {
     flex: 5,
     alignItems: "flex-start",
+    justifyContent: "space-between",
+    paddingVertical: 15,
   },
   opponentTopContainer: {
     flexDirection: "row",
+    alignItems: "center",
   },
   opponentNickname: {
-    paddingVertical: 10,
     fontSize: 16,
     color: "black",
     fontWeight: "bold",
   },
   diffTime: {
-    paddingVertical: 11,
-    paddingHorizontal: 10,
+    paddingLeft: 10,
     fontSize: 14,
     color: "rgb(80,80,80)",
   },
   lastMessage: {
-    paddingVertical: 5,
-    fontSize: 16,
+    fontSize: 18,
     color: "rgb(80,80,80)",
   },
   articleThumbnailContainer: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 20,
+    padding: 20,
   },
 });
