@@ -29,7 +29,10 @@ export default function LoginVerifyModal() {
     setLoginTrialState(false);
 
     if (state === "JOIN") {
-      navigation.navigate("HomeStack");
+      return navigation.reset({
+        index: 0,
+        routes: [{ name: "HomeStack" }],
+      });
     }
   };
 

@@ -20,7 +20,7 @@ import { articleSelectedIdState } from "../../states/articleState";
 import MaskedView from "@react-native-community/masked-view";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-const ANIMATE_START_VALUE = 0.93;
+const ANIMATE_START_VALUE = 0.98;
 
 type FeedArticleCardNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "FeedHomeScreen">,
@@ -37,7 +37,6 @@ export default function FeedArticleCard({
 }: Feed) {
   const navigation = useNavigation<FeedArticleCardNavigationProp>();
   const setArticleSelectedId = useSetRecoilState(articleSelectedIdState);
-
   const AnimateTouchableWithoutFeedback = Animated.createAnimatedComponent(
     TouchableWithoutFeedback,
   );

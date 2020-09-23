@@ -1,0 +1,121 @@
+// QueryDSL Version
+def queryDSLVersion = '4.2.2'
+// QueryDSL PATH
+def generated = "src/main/generated"
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    // spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    // queryDSL
+    implementation "com.querydsl:querydsl-core:${queryDSLVersion}"
+    implementation "com.querydsl:querydsl-jpa:${queryDSLVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDSLVersion}"
+    annotationProcessor(
+            "com.querydsl:querydsl-apt:${queryDSLVersion}:jpa",
+            "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final",
+            "javax.annotation:javax.annotation-api",
+    )
+
+    // expo server
+    implementation 'io.github.jav:expo-server-sdk:1.1.0'
+    // documentation
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    // httpClientBuilder
+    implementation 'org.apache.httpcomponents:httpclient:4.5'
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    // apache
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    // flyway
+    implementation 'org.flywaydb:flyway-core'
+    // mariaDB
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    // h2
+    testImplementation 'com.h2database:h2'
+    // rest assured
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
+    // security test
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+    file(generated).deleteDir()
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+processResources.dependsOn('copyDatabaseSecret')
+
+task copyDatabaseSecret {
+    dependsOn 'copyDatabaseSecretMain'
+    dependsOn 'copyDatabaseSecretTest'
+}
+
+task copyDatabaseSecretMain(type: Copy) {
+    from('../../seller-lee-secret') {
+        include 'application-common.yml'
+        include 'application-security.yml'
+        include 'application-dev.yml'
+        include 'application-local.yml'
+        include 'application-prod.yml'
+    }
+    into 'src/main/resources'
+}
+
+task copyDatabaseSecretTest(type: Copy) {
+    from('../../seller-lee-secret') {
+        include 'application-security.yml'
+    }
+    into 'src/test/resources'
+}
+

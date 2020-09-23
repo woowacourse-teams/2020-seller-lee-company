@@ -25,6 +25,7 @@ export interface Feed {
 export interface Article {
   id: number;
   title: string;
+  organizations: Organization[];
   categoryName: string;
   price: number;
   contents: string;
@@ -78,13 +79,26 @@ export interface ModalVisibleProps {
   modalVisible: boolean;
 }
 
+export interface Organization {
+  id: number;
+  name: string;
+  code: string;
+}
+
 // **********************************************************************
 // ************************** Navigation Params *************************
 // **********************************************************************
 
 export type RootStackParam = {
+  // 로그인, 회원가입
   TeaserScreen: undefined;
   JoinScreen: undefined;
+  // 조직 화면
+  OrganizationHomeScreen: undefined;
+  OrganizationEnterScreen: undefined;
+  OrganizationCreateScreen: undefined;
+  OrganizationCreateCompleteScreen: undefined;
+  // 홈 화면
   HomeStack: undefined;
 };
 
@@ -102,8 +116,11 @@ export type HomeStackParam = {
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  OrganizationChoiceScreen: undefined;
   /* 채팅 스크린 */
+  SelectChatScreen: undefined;
   ChatScreen: undefined;
+  WholeChatScreen: undefined;
   /* 프로필 스크린 */
   ProfileScreen: undefined;
   SalesHistoryScreen: undefined;
@@ -112,18 +129,20 @@ export type HomeStackParam = {
   EvaluationScreen: undefined;
   MyInfoScreen: undefined;
   MyFavoriteScreen: undefined;
+  OrganizationManageScreen: undefined;
 };
 
 export type PostingStackParam = {
   ArticleFormScreen: undefined;
   ArticleContentsFormScreen: undefined;
   CategoryChoiceScreen: undefined;
+  OrganizationChoiceScreen: undefined;
 };
 
 export type HomeTabParam = {
   FeedHomeScreen: undefined;
   CategoryHomeSelectedScreen: undefined;
   PostingStack: undefined;
-  ChatScreen: undefined;
+  SelectChatScreen: undefined;
   ProfileScreen: undefined;
 };

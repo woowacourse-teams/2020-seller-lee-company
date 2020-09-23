@@ -34,6 +34,13 @@ export default function SalesHistoryItem({
     }
   };
 
+  const onClickTradeStateByCompleted = async (tradeStateProp: string) => {
+    await articlesAPI.putByTradeState(id, { tradeState: tradeStateProp });
+    if (tradeStateProp === "ON_SALE") {
+      setArticles(articles.filter((article) => article.id !== id));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.articleContainer}>
@@ -49,17 +56,27 @@ export default function SalesHistoryItem({
         />
       </View>
       {isCompletedTab ? (
-        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.5}>
-          <Text style={styles.buttonText}>작성한 후기 보기</Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          activeOpacity={0.5}
+          onPress={() => onClickTradeStateByCompleted("ON_SALE")}
+        >
+          <Text style={styles.buttonText}>판매중</Text>
         </TouchableOpacity>
       ) : (
         <View style={styles.halfContainer}>
           <TouchableOpacity
             style={styles.buttonHalfContainer}
             activeOpacity={0.5}
-            onPress={() => onClickTradeState("RESERVATION")}
+            onPress={() =>
+              onClickTradeState(
+                tradeState === "판매중" ? "RESERVED" : "ON_SALE",
+              )
+            }
           >
-            <Text style={styles.buttonText}>예약중</Text>
+            <Text style={styles.buttonText}>
+              {tradeState === "예약중" ? "판매중" : "예약중"}
+            </Text>
           </TouchableOpacity>
           <View style={styles.divider} />
           <TouchableOpacity

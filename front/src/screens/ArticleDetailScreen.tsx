@@ -15,7 +15,12 @@ import {
   MenuOptions,
   MenuTrigger,
 } from "react-native-popup-menu";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil/dist";
 import { Feather } from "@expo/vector-icons";
 import ArticleAuthor from "../components/Article/ArticleAuthor";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
@@ -52,6 +57,7 @@ export default function ArticleDetailScreen() {
   const setIsModified = useSetRecoilState(articleIsModifiedState);
   const setIsEditing = useSetRecoilState(articleIsEditingState);
   const setModalVisible = useSetRecoilState(articleDetailModalState);
+  const resetArticle = useResetRecoilState(articleSelectedState);
 
   const [currentY, setCurrentY] = useState(0);
   const [photos, setPhotos] = useState([]);
@@ -122,7 +128,10 @@ export default function ArticleDetailScreen() {
       headerLeft: () => (
         <HeaderBackButton
           labelVisible={false}
-          onPress={navigation.goBack}
+          onPress={() => {
+            resetArticle();
+            navigation.goBack();
+          }}
           backImage={() => (
             <Feather
               name="chevron-left"
@@ -145,7 +154,9 @@ export default function ArticleDetailScreen() {
   const getArticle = async () => {
     const { data } = await articleDetailAPI.get(articleId);
     setPhotos(data.photos);
-    setArticleSelected(data);
+    setArticleSelected({
+      ...data,
+    });
   };
 
   useEffect(() => {

@@ -1,0 +1,24 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    // h2
+    testImplementation 'com.h2database:h2'
+    // embedded mongo
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    // rest assured
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
+}
+
+processResources.dependsOn('copySecret')
+
+task copySecret(type: Copy) {
+    from('../../seller-lee-secret/chat') {
+        include 'application-local.yml'
+        include 'application-prod.yml'
+    }
+    into 'src/main/resources'
+}

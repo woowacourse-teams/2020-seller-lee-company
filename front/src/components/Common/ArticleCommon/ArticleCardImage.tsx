@@ -8,7 +8,10 @@ interface ArticleCardImageProps {
 export default function ArticleCardImage({ thumbnail }: ArticleCardImageProps) {
   return (
     <View style={styles.imageContainer}>
-      <Image style={styles.image} source={{ uri: thumbnail }} />
+      <Image
+        style={styles.image}
+        source={{ uri: thumbnail ? thumbnail : undefined }}
+      />
     </View>
   );
 }

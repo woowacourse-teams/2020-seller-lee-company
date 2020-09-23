@@ -14,8 +14,10 @@ import ValidateIcon from "../auth/ValidateIcon";
 
 export default function JoinNicknameForm() {
   const nicknameDuplicatedState = useRecoilValue(joinNicknameDuplicatedState);
-  const duplicatedState = useRecoilValue(joinNicknameDuplicatedState);
 
+  const [duplicatedState, setDuplicatedState] = useRecoilState(
+    joinNicknameDuplicatedState,
+  );
   const [focusTextInputState, setFocusTextInputState] = useState(false);
   const [joinNickname, setJoinNickname] = useRecoilState(joinNicknameState);
   const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
@@ -68,6 +70,7 @@ export default function JoinNicknameForm() {
           onBlur={() => setFocusTextInputState(false)}
           onChangeText={(text) => {
             setJoinSubmit(false);
+            setDuplicatedState(false);
             setJoinNickname(text);
           }}
           style={styles.nicknameForm}

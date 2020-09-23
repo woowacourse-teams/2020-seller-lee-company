@@ -23,7 +23,7 @@ export default function MyFavoriteButton() {
         style={styles.buttonContainer}
         onPress={() => navigation.navigate("MyFavoriteScreen")}
       >
-        <AntDesign name="hearto" size={24} color={theme.heart} />
+        <AntDesign name="hearto" size={22} color={theme.heart} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>찜 목록</Text>
         </View>

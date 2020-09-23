@@ -1,6 +1,9 @@
+import { Organization } from "../types/types";
+
 export const defaultArticle = {
   id: 0,
   title: "",
+  organizations: [] as Organization[],
   categoryName: "",
   contents: "",
   price: 0,
@@ -14,6 +17,7 @@ export const defaultArticle = {
     avatar: "",
     score: 0,
     validated: false,
+    pushToken: "",
   },
   favoriteState: false,
   favoriteCount: 0,

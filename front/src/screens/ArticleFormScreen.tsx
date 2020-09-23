@@ -31,6 +31,7 @@ import {
   articleSelectedCategoryState,
   articleSelectedState,
   articleTitleState,
+  selectedOrganizationsInArticleFormState,
 } from "../states/articleState";
 import { tagsState } from "../states/TagState";
 import { Article, HomeStackParam, RootStackParam } from "../types/types";
@@ -39,6 +40,7 @@ import { articlesAPI } from "../api/api";
 import ArticleFormCategorySelect from "../components/Article/ArticleFormCategorySelect";
 import ArticleFormContents from "../components/Article/ArticleFormContents";
 import { defaultArticle } from "../data/defaultArticle";
+import ArticleFormOrganizationSelect from "../components/Article/ArticleFormOrganizationSelect";
 
 type ArticleFormScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "ArticleFormScreen">,
@@ -57,6 +59,9 @@ export default function ArticleFormScreen() {
   const [exitForm, setExitForm] = useRecoilState(articleFormExitState);
   const [photos, setPhotos] = useRecoilState(articlePhotosState);
   const [title, setTitle] = useRecoilState(articleTitleState);
+  const [selectedOrganization, setSelectedOrganization] = useRecoilState(
+    selectedOrganizationsInArticleFormState,
+  );
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     articleSelectedCategoryState,
   );
@@ -94,6 +99,7 @@ export default function ArticleFormScreen() {
         title !== originArticle.title ||
         price !== originArticle.price ||
         contents !== originArticle.contents ||
+        selectedOrganization.length !== originArticle.organizations.length ||
         selectedCategory !== originArticle.categoryName ||
         tags.length !== originArticle.tags.length
       );
@@ -103,6 +109,7 @@ export default function ArticleFormScreen() {
       title !== "" ||
       price !== 0 ||
       contents !== "" ||
+      selectedOrganization.length !== 0 ||
       selectedCategory !== "" ||
       tags.length !== 0
     );
@@ -114,6 +121,7 @@ export default function ArticleFormScreen() {
       title === "" ||
       price === 0 ||
       contents === "" ||
+      selectedOrganization.length === 0 ||
       selectedCategory === "" ||
       tags.length === 0
     );
@@ -144,6 +152,7 @@ export default function ArticleFormScreen() {
     const data = {
       title,
       price,
+      organizations: selectedOrganization,
       category: selectedCategory,
       contents,
       tags,
@@ -155,6 +164,7 @@ export default function ArticleFormScreen() {
             ...editingArticle,
             title: data.title,
             price: data.price,
+            organizations: data.organizations,
             categoryName: data.category,
             contents: data.contents,
             tags: data.tags,
@@ -171,6 +181,7 @@ export default function ArticleFormScreen() {
     setArticle(target);
     setPhotos(target.photos);
     setTitle(target.title);
+    setSelectedOrganization(target.organizations);
     setSelectedCategory(target.categoryName);
     setPrice(target.price);
     setContents(target.contents);
@@ -247,6 +258,9 @@ export default function ArticleFormScreen() {
                 <ArticleFormTitle />
               </View>
               <View style={styles.selectCategoryContainer}>
+                <ArticleFormOrganizationSelect isEditing={isEditing} />
+              </View>
+              <View style={styles.selectCategoryContainer}>
                 <ArticleFormCategorySelect isEditing={isEditing} />
               </View>
               <View style={styles.priceFormContainer}>
@@ -265,6 +279,7 @@ export default function ArticleFormScreen() {
         <TouchableOpacity
           style={dynamicStyles.createButtonContainer}
           onPress={onSubmit}
+          disabled={incompleteCriticalItems()}
         >
           <Text style={styles.submitText}>완료</Text>
         </TouchableOpacity>

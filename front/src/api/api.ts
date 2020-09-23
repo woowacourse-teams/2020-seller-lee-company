@@ -2,10 +2,12 @@ import axios from "axios";
 import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
-const DEPLOY_SERVER = "http://15.164.125.244:8080";
-//const LOCAL_SERVER = "http://localhost:8080";
-//const QA_SERVER = "http://192.168.0.7:8080";
-const BASE_URL = DEPLOY_SERVER;
+const DEPLOY_SERVER_IP = "15.164.125.244";
+//const QA_SERVER_IP = "192.168.0.7";
+// const LOCAL_SERVER_IP = "localhost";
+
+const BASE_URL = `http://${DEPLOY_SERVER_IP}:8080`;
+export const CHAT_BASE_URL = `http://52.78.146.22:8000`;
 
 export const KAKAO_LOGIN_API_URI = `${BASE_URL}/oauth2/authorization/kakao`;
 
@@ -16,10 +18,14 @@ const domain = {
   trades: "/trades",
   api: "/api",
   loginNotOAuth: "/login/not-oauth",
-  chatRoom: "/chat-rooms",
+  chatRooms: "/chat/rooms",
+  wholeChatRooms: "/chat/organizations/",
+  messages: "/messages",
   evaluation: "/evaluations",
   favorites: "/favorites",
   profiles: "/me",
+  organizations: "/organizations",
+  memberOrganization: "/member-organizations",
 };
 
 interface ArticlesPost {
@@ -36,6 +42,11 @@ interface ArticlesGet {
   size: number;
 }
 
+interface ArticlesGetByOrganization {
+  organizationId: number;
+  parameters: ArticlesGet;
+}
+
 interface ArticlesGetByTradeState {
   tradeState: string;
 }
@@ -46,24 +57,66 @@ interface ArticlesGetByCategory {
   category: string;
 }
 
+interface ArticlesGetByCategoryAndOrganization {
+  organizationId: number;
+  parameters: ArticlesGetByCategory;
+}
+
 export const articlesAPI = {
   get: async (params: ArticlesGet) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.api}${domain.articles}`, {
-      params,
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
   },
+
+  getByOrganization: async (data: ArticlesGetByOrganization) => {
+    const token = await DeviceStorage.getToken();
+    const params: ArticlesGet = data.parameters;
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}/${data.organizationId}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+
   getByCategory: async (params: ArticlesGetByCategory) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.api}${domain.articles}`, {
-      params,
-      headers: {
-        Authorization: `bearer ${token}`,
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    });
+    );
+  },
+
+  getByCategoryAndOrganization: async (
+    data: ArticlesGetByCategoryAndOrganization,
+  ) => {
+    const token = await DeviceStorage.getToken();
+    const params: ArticlesGetByCategory = data.parameters;
+    return await axios.get(
+      `${BASE_URL}${domain.api}${domain.articles}${domain.organizations}/${data.organizationId}`,
+      {
+        params,
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
   },
   getByTradeState: async (params: ArticlesGetByTradeState) => {
     const token = await DeviceStorage.getToken();
@@ -141,32 +194,25 @@ interface VerifyNickname {
   nickname: string;
 }
 
-//todo 여기부터
-interface MemberLogin {
-  nickname: string;
-  password: string;
+interface MemberPutByPushToken {
+  pushToken: string | undefined;
 }
-
-interface MemberJoin {
-  nickname: string;
-  password: string;
-  avatar: string;
-}
-
-//todo 여기까지
 
 export const memberAPI = {
-  //todo 여기부터
-  login: async (data: MemberLogin) =>
-    await axios.post(`${BASE_URL}${domain.loginNotOAuth}`, data),
-  join: async (data: MemberJoin) =>
-    await axios.post(`${BASE_URL}${domain.members}`, data),
   findNickname: async (params: VerifyNickname) => {
     const token = await DeviceStorage.getToken();
     return await axios.get(`${BASE_URL}${domain.api}${domain.members}`, {
       params,
       headers: {
         Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  putByPushToken: async (data: MemberPutByPushToken) => {
+    const authToken = await DeviceStorage.getToken();
+    return await axios.put(`${BASE_URL}${domain.api}${domain.members}`, data, {
+      headers: {
+        Authorization: `bearer ${authToken}`,
       },
     });
   },
@@ -225,6 +271,14 @@ export const favoriteAPI = {
       },
     );
   },
+  getPush: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.favorites}/push`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
   delete: async (data: FavoriteDelete) => {
     const token = await DeviceStorage.getToken();
     return await axios.delete(`${BASE_URL}${domain.api}${domain.favorites}`, {
@@ -266,10 +320,27 @@ export const evaluationAPI = {
   },
 };
 
+interface CreateChatRoom {
+  articleId: number;
+  sellerId: number;
+}
+
 export const chatRoomAPI = {
+  create: async (data: CreateChatRoom) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.chatRooms}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
   getBuyers: async (articleId: number) => {
     const token = await DeviceStorage.getToken();
-    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRoom}`, {
+    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRooms}`, {
       params: {
         articleId,
       },
@@ -277,5 +348,158 @@ export const chatRoomAPI = {
         Authorization: `bearer ${token}`,
       },
     });
+  },
+  showAllByLoginMember: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.chatRooms}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+  delete: async (id: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.chatRooms}/${id}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+};
+
+export const messageAPI = {
+  showAll: async (roomId: number, size: number, lastMessageDate: string) => {
+    const { data } = await axios.get(
+      `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}`,
+      {
+        params: {
+          size,
+          lastMessageDate: lastMessageDate.slice(0, 19),
+        },
+      },
+    );
+    return data.map(
+      (prevMessage: {
+        id: number;
+        content: string;
+        senderId: number;
+        senderNickname: string;
+        createdTime: string;
+      }) => {
+        return {
+          _id: prevMessage.id,
+          text: prevMessage.content,
+          user: {
+            _id: prevMessage.senderId,
+            name: prevMessage.senderNickname,
+          },
+          createdAt: Date.parse(prevMessage.createdTime),
+        };
+      },
+    );
+  },
+  showAllInOrganization: async (
+    organizationId: number,
+    size: number,
+    lastMessageDate: string,
+  ) => {
+    const { data } = await axios.get(
+      `${CHAT_BASE_URL}${domain.wholeChatRooms}/${organizationId}${domain.messages}`,
+      {
+        params: {
+          size,
+          lastMessageDate: lastMessageDate.slice(0, 19),
+        },
+      },
+    );
+    return data.map(
+      (prevMessage: {
+        id: number;
+        content: string;
+        senderId: number;
+        senderNickname: string;
+        senderAvatar: string;
+        createdTime: string;
+      }) => {
+        return {
+          _id: prevMessage.id,
+          text: prevMessage.content,
+          user: {
+            _id: prevMessage.senderId,
+            name: prevMessage.senderNickname,
+            avatar: prevMessage.senderAvatar,
+          },
+          createdAt: Date.parse(prevMessage.createdTime),
+        };
+      },
+    );
+  },
+  showNew: async (roomId: number) => {
+    return await axios.get(
+      `${CHAT_BASE_URL}${domain.chatRooms}/${roomId}${domain.messages}/new`,
+    );
+  },
+};
+
+interface CreateOrganization {
+  name: string;
+}
+
+export const organizationAPI = {
+  create: async (data: CreateOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.organizations}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+  showAll: async () => {
+    const token = await DeviceStorage.getToken();
+    return await axios.get(`${BASE_URL}${domain.api}${domain.organizations}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+  },
+};
+
+interface RegisterMemberOrganization {
+  code: string;
+}
+
+export const memberOrganizationAPI = {
+  register: async (data: RegisterMemberOrganization) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.post(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
+      data,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+  },
+  delete: async (organizationId: number) => {
+    const token = await DeviceStorage.getToken();
+    return await axios.delete(
+      `${BASE_URL}${domain.api}${domain.memberOrganization}`,
+      {
+        params: {
+          id: organizationId,
+        },
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
   },
 };

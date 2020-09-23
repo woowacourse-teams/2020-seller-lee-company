@@ -20,6 +20,8 @@ export default function ArticleFormTitle() {
 
 const styles = StyleSheet.create({
   form: {
+    flex: 1,
+    width: "100%",
     fontSize: 18,
   },
 });

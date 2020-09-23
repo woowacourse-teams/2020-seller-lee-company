@@ -1,5 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  BackHandler,
+  FlatList,
+  StyleSheet,
+  View,
+} from "react-native";
 import {
   CompositeNavigationProp,
   useIsFocused,
@@ -25,6 +31,9 @@ import { HeaderBackButton, StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { categoryIcons } from "../data/categoryData";
 import theme from "../colors";
+import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
+import OrganizationList from "../components/organization/OrganizationList";
+import { selectedOrganizationInCategoryState } from "../states/organizationState";
 
 type CategoryHomeScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeStackParam, "CategoryHomeScreen">,
@@ -42,9 +51,15 @@ export default function CategoryHomeScreen() {
   const [articles, setArticles] = useState<ArticleCardProps[]>([]);
   const [hasAdditionalArticle, setHasAdditionalArticle] = useState(true);
   const category = useRecoilValue(articleSelectedCategoryState);
-  const resetCategory = useResetRecoilState(articleSelectedCategoryState);
   const isFocused = useIsFocused();
   const [isModified, setIsModified] = useRecoilState(articleIsModifiedState);
+  const selectedOrganization = useRecoilValue(
+    selectedOrganizationInCategoryState,
+  );
+  const [visibleMenu, setVisibleMenu] = useState(false);
+  const resetSelectedOrganization = useResetRecoilState(
+    selectedOrganizationInCategoryState,
+  );
 
   useEffect(() => {
     const applyChange = async () => {
@@ -54,20 +69,29 @@ export default function CategoryHomeScreen() {
     isModified ? applyChange() : undefined;
   }, [isFocused]);
 
+  useEffect(() => {
+    selectedOrganization.name === "전체"
+      ? initFeed()
+      : initFeedByOrganization();
+  }, [selectedOrganization]);
   const getCategoryIcon = () =>
     categoryIcons.filter((value) => value.category === category)[0];
 
-  useLayoutEffect(() => {
+  const goBack = () => {
+    resetSelectedOrganization();
+    navigation.goBack();
+  };
+
+  useEffect(() => {
     navigation.setOptions({
       title: `${getCategoryIcon().icon} ${category}`,
       headerTitleAlign: "left",
-      headerRight: () => <></>,
+      headerRight: () => getHeaderRight(),
       headerLeft: () => {
-        resetCategory();
         return (
           <HeaderBackButton
             labelVisible={false}
-            onPress={navigation.goBack}
+            onPress={goBack}
             backImage={() => (
               <Feather name="chevron-left" size={24} color="black" />
             )}
@@ -83,6 +107,47 @@ export default function CategoryHomeScreen() {
   }, [navigation]);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => getHeaderRight(),
+    });
+  }, [visibleMenu]);
+
+  useEffect(() => {
+    setVisibleMenu(false);
+  }, [selectedOrganization]);
+
+  const onPressBackButton = () => {
+    setVisibleMenu(false);
+    return false;
+  };
+
+  const backHandler = BackHandler.addEventListener(
+    "hardwareBackPress",
+    onPressBackButton,
+  );
+
+  const getHeaderRight = () => {
+    return (
+      <Menu opened={visibleMenu}>
+        <MenuTrigger onPress={() => setVisibleMenu(true)}>
+          <Feather
+            name="filter"
+            size={22}
+            color="#333"
+            style={styles.filterIcon}
+          />
+        </MenuTrigger>
+        <MenuOptions
+          optionsContainerStyle={styles.menuOptionsContainer}
+          customStyles={{ optionText: styles.menuCustomText }}
+        >
+          <OrganizationList isGroupFiltering={true} isFeed={false} />
+        </MenuOptions>
+      </Menu>
+    );
+  };
+
+  useEffect(() => {
     initFeed();
   }, []);
 
@@ -95,11 +160,36 @@ export default function CategoryHomeScreen() {
     setArticles([...data]);
   };
 
+  const initFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByCategoryAndOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: Number.MAX_SAFE_INTEGER,
+        size: PAGE_ARTICLE_UNIT,
+        category: category,
+      },
+    });
+    setArticles([...data]);
+  };
+
   const loadFeed = async () => {
     const { data } = await articlesAPI.getByCategory({
       lastArticleId: getLastArticleId(),
       size: PAGE_ARTICLE_UNIT,
       category,
+    });
+    setArticles(articles.concat(data));
+    return data;
+  };
+
+  const loadFeedByOrganization = async () => {
+    const { data } = await articlesAPI.getByCategoryAndOrganization({
+      organizationId: selectedOrganization.id,
+      parameters: {
+        lastArticleId: getLastArticleId(),
+        size: PAGE_ARTICLE_UNIT,
+        category: category,
+      },
     });
     setArticles(articles.concat(data));
     return data;
@@ -128,7 +218,10 @@ export default function CategoryHomeScreen() {
       return;
     }
     setIsLoading(true);
-    const data = await loadFeed();
+    const data =
+      selectedOrganization.name === "전체"
+        ? await loadFeed()
+        : await loadFeedByOrganization();
     if (data.length === 0) {
       setHasAdditionalArticle(false);
     }
@@ -174,5 +267,15 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomColor: theme.border,
     borderBottomWidth: 1,
+  },
+  filterIcon: {
+    marginRight: 15,
+  },
+  menuOptionsContainer: {
+    width: 150,
+  },
+  menuCustomText: {
+    textAlign: "center",
+    margin: 10,
   },
 });

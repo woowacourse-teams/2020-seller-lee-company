@@ -22,10 +22,26 @@ back/.DS_Store
 
 # back
 back/.gradle
-back/build/
+
+# api
+back/api/.gradle
+back/api/out/
+back/api/build/
 back/!gradle/wrapper/gradle-wrapper.jar
-back/!**/src/main/**
-back/!**/src/test/**
+back/api/!**/src/main/**
+back/api/!**/src/test/**
+back/api/src/main/resources/application-*.yml
+back/api/src/test/resources/application-*.yml
+back/api/src/main/generated
+
+# chat
+back/chat/out/
+back/chat/build/
+back/chat/src/main/resources/application-*.yml
+
+# common
+back/common/build/
+back/common/out/
 
 ### STS ###
 back/.apt_generated
@@ -53,5 +69,8 @@ back/out/
 ### VS Code ###
 .vscode/
 .idea/
-/back/src/main/resources/application-*.yml
-/back/src/test/resources/application-*.yml
+/back/api/src/main/resources/application-*.yml
+/back/api/src/test/resources/application-*.yml
+/back/api/src/main/generated
+
+/back/chat/src/main/resources/application-*.yml

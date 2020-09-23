@@ -79,8 +79,8 @@ export default function MyInfoScreen() {
     await profileAPI.put({ nickname: myInfoNickname, avatar: myInfoAvatar });
     setMemberNickname(myInfoNickname);
     setMemberAvatar(myInfoAvatar);
-    resetForm();
     setMyInfoModalState(true);
+    resetForm();
   };
 
   const resetForm = () => {

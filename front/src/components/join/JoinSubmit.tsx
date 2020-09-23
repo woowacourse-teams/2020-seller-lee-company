@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil/dist";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil/dist";
 import {
-  joinNicknameDuplicatedState,
   joinAvatarState,
   joinModalState,
+  joinNicknameDuplicatedState,
   joinNicknameState,
   joinSubmitState,
 } from "../../states/joinState";
@@ -15,6 +15,12 @@ import {
   isDuplicatedNickname,
   isValidNickname,
 } from "../../nicknameValidator";
+import {
+  memberAvatarState,
+  memberNicknameState,
+  memberProfileState,
+} from "../../states/memberState";
+import { noOrganizationState } from "../../states/organizationState";
 
 interface JoinSubmitProps {
   resetJoinForm: Function;
@@ -28,6 +34,10 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
     joinNicknameDuplicatedState,
   );
   const [joinSubmit, setJoinSubmit] = useRecoilState(joinSubmitState);
+  const setNoOrganization = useSetRecoilState(noOrganizationState);
+  const setProfile = useSetRecoilState(memberProfileState);
+  const setNickname = useSetRecoilState(memberNicknameState);
+  const setAvatar = useSetRecoilState(memberAvatarState);
 
   const isValidateSubmit = () => {
     if (!joinSubmit) {
@@ -55,8 +65,12 @@ export default function JoinSubmit({ resetJoinForm }: JoinSubmitProps) {
       });
 
       if (response.status === 204) {
-        resetJoinForm();
+        setProfile({ avatar: joinAvatar, nickname: joinNickname, score: 0 });
         setJoinModalVisible(true);
+        setNoOrganization(true);
+        setNickname(joinNickname);
+        setAvatar(joinAvatar);
+        resetJoinForm();
       }
     } catch (error) {
       console.log(error);

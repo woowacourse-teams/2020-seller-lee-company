@@ -77,7 +77,7 @@ export default function MyInfoAvatar() {
       <View style={styles.imageContainer}>
         <Image
           style={styles.avatar}
-          source={{ uri: myInfoAvatar }}
+          source={{ uri: myInfoAvatar ? myInfoAvatar : undefined }}
           defaultSource={require("../../../assets/user.png")}
         />
       </View>
