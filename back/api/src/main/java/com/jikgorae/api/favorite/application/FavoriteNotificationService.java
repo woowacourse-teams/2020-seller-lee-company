@@ -36,7 +36,7 @@ public class FavoriteNotificationService implements NotificationService {
     @Override
     public PushToken getToken(ApplicationEvent applicationEvent) {
         FavoriteCreatedEvent event = (FavoriteCreatedEvent)applicationEvent;
-        Member member = memberRepository.findById(event.getFavorite().getMember().getId())
+        Member member = memberRepository.findById(event.getFavorite().getArticle().getAuthor().getId())
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 회원입니다."));
         return new PushToken(member.getPushToken());
     }
