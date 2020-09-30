@@ -32,7 +32,11 @@ public class WholeMessageController {
     @MessageMapping(WHOLE_MESSAGE_URI)
     public void message(WholeMessageRequest request) {
         WholeMessageResponse response = wholeMessageService.save(request);
-        messagingTemplate.convertAndSend(DESTINATION_OF_ORGANIZATION + request.getRoomId(), response.adjustTime());
+        send(request.getRoomId(), response.adjustTime());
+    }
+
+    private synchronized void send(Long roomId, WholeMessageResponse response) {
+        messagingTemplate.convertAndSend(DESTINATION_OF_ORGANIZATION + roomId, response);
     }
 
     @GetMapping(WHOLE_MESSAGE_REST_URI)
