@@ -7,17 +7,18 @@ public class MessageRequest {
     private Long senderId;
     private String senderNickname;
     private String message;
-    // TODO: 2020/09/23 pushToken 이슈 해결시, pushToken 추가
+    private String pushToken;
 
     public MessageRequest() {
     }
 
     public MessageRequest(Long roomId, Long senderId,
-            String senderNickname, String message) {
+            String senderNickname, String message, String pushToken) {
         this.roomId = roomId;
         this.senderId = senderId;
         this.senderNickname = senderNickname;
         this.message = message;
+        this.pushToken = pushToken;
     }
 
     public Message toMessage() {
@@ -38,5 +39,9 @@ public class MessageRequest {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getPushToken() {
+        return pushToken;
     }
 }
