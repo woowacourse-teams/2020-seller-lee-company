@@ -2,6 +2,7 @@ package com.jikgorae.api.favorite.application;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountService;
 import com.jikgorae.common.notification.domain.PushToken;
@@ -24,6 +25,10 @@ public class FavoriteCreatedListener implements ApplicationListener<FavoriteCrea
     @Override
     public void onApplicationEvent(FavoriteCreatedEvent event) {
         articleFavoriteCountService.increase(event.getFavorite().getArticle());
+    }
+
+    @TransactionalEventListener
+    public void doAfterFavoriteCreatedEvent(FavoriteCreatedEvent event) {
         sendNotification(event);
     }
 

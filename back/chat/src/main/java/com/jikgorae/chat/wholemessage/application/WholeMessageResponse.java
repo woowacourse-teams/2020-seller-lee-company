@@ -8,6 +8,8 @@ import java.util.List;
 import com.jikgorae.chat.wholemessage.domain.WholeMessage;
 
 public class WholeMessageResponse {
+    private static final long GAP_OF_KST_AND_UTC = 9L;
+
     private String id;
     private Long senderId;
     private String senderNickname;
@@ -30,21 +32,11 @@ public class WholeMessageResponse {
         this.createdTime = createdTime;
     }
 
-    public WholeMessageResponse(String id, Long senderId, String senderNickname, Long roomId,
-            String content, LocalDateTime createdTime) {
-        this.id = id;
-        this.senderId = senderId;
-        this.senderNickname = senderNickname;
-        this.roomId = roomId;
-        this.content = content;
-        this.createdTime = createdTime;
-    }
-
     public static WholeMessageResponse of(WholeMessage wholeMessage) {
         return new WholeMessageResponse(wholeMessage.getId(), wholeMessage.getSenderId(),
                 wholeMessage.getSenderNickname(), wholeMessage.getSenderAvatar(),
                 wholeMessage.getRoomId(), wholeMessage.getContent(),
-                wholeMessage.getCreatedTime().minusHours(9L));
+                wholeMessage.getCreatedTime().minusHours(GAP_OF_KST_AND_UTC));
     }
 
     public static List<WholeMessageResponse> listOf(List<WholeMessage> messages) {
@@ -53,8 +45,9 @@ public class WholeMessageResponse {
                 .collect(toList());
     }
 
-    public void adjustTime() {
-        this.createdTime = createdTime.plusHours(9L);
+    public WholeMessageResponse adjustTime() {
+        return new WholeMessageResponse(id, senderId, senderNickname, senderAvatar, roomId, content,
+                createdTime.plusHours(GAP_OF_KST_AND_UTC));
     }
 
     public String getId() {

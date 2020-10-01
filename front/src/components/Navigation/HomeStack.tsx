@@ -62,20 +62,8 @@ export default function HomeStack() {
         component={CategoryHomeScreen}
       />
       <Stack.Screen name={"SelectChatScreen"} component={SelectChatScreen} />
-      <Stack.Screen
-        name={"ChatScreen"}
-        component={ChatScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name={"WholeChatScreen"}
-        component={WholeChatScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen name={"ChatScreen"} component={ChatScreen} />
+      <Stack.Screen name={"WholeChatScreen"} component={WholeChatScreen} />
       <Stack.Screen
         name={"ProfileScreen"}
         component={ProfileScreen}

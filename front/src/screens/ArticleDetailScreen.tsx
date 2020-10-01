@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   articleContentContainer: {
     backgroundColor: "white",
     marginTop: -30,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
@@ -229,8 +229,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: theme.border,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
   },
   chatButtonContainer: {
     flex: 1,

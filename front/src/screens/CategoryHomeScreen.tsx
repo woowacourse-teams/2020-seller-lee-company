@@ -131,9 +131,9 @@ export default function CategoryHomeScreen() {
       <Menu opened={visibleMenu}>
         <MenuTrigger onPress={() => setVisibleMenu(true)}>
           <Feather
-            name="filter"
-            size={22}
-            color="#333"
+            name="sliders"
+            size={24}
+            color="black"
             style={styles.filterIcon}
           />
         </MenuTrigger>

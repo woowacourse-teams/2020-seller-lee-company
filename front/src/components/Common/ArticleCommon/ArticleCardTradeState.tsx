@@ -39,21 +39,21 @@ export default function ArticleCardTradeState({
 
 const styles = StyleSheet.create({
   tradeOnSaleContainer: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     backgroundColor: theme.primary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeReservedContainer: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     backgroundColor: theme.secondary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   tradeCompletedContainer: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     backgroundColor: "lightgrey",
     borderRadius: 10,
     justifyContent: "center",

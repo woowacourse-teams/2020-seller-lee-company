@@ -37,6 +37,9 @@ export default function ProfileScreen() {
     navigation.setOptions({
       headerShown: false,
     });
+  }, [navigation]);
+
+  useEffect(() => {
     getProfile();
   }, []);
 

@@ -2,7 +2,7 @@
   "expo": {
     "name": "직고래",
     "slug": "jikgorae",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/app_icon.png",
     "splash": {
@@ -18,12 +18,8 @@
     "android": {
       "package": "com.sellerleecompany.jikgorae",
       "softwareKeyboardLayoutMode": "pan",
-      "versionCode": 4
-    },
-    "ios": {
-      "bundleIdentifier": "com.sellerleecompany.jikgorae",
-      "supportsTablet": true,
-      "buildNumber": "2.0.0"
+      "versionCode": 6,
+      "useNextNotificationsApi": true
     },
     "web": {
       "favicon": "./assets/app_icon.png"
