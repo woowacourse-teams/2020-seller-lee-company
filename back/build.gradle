@@ -15,11 +15,74 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.asciidoctor.convert'
+    apply plugin: 'jacoco'
 
     sourceCompatibility = '1.8'
 
     repositories {
         mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+        finalizedBy 'jacocoTestReport'
+    }
+
+    jacoco {
+        toolVersion = '0.8.6'
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled true
+            csv.enabled true
+            xml.enabled false
+        }
+
+        def Qdomains = []
+
+        for (qPattern in '**/QA'..'**/QZ') { // qPattern = '*.QA', '*.QB', ... '*.QZ'
+            Qdomains.add(qPattern + '*')
+        }
+
+        afterEvaluate {
+            classDirectories.setFrom(
+                    files(classDirectories.files.collect {
+                        fileTree(dir: it, excludes: [] + Qdomains)
+                    })
+            )
+        }
+
+        finalizedBy 'jacocoTestCoverageVerification'
+    }
+
+    jacocoTestCoverageVerification {
+        def Qdomains = []
+
+        for (qPattern in '*.QA'..'*.QZ') { // qPattern = '*.QA', '*.QB', ... '*.QZ'
+            Qdomains.add(qPattern + '*')
+        }
+
+        violationRules {
+            rule {
+                enabled = true
+                element = 'CLASS'
+
+                limit {
+                    counter = 'LINE'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.00
+                }
+
+                limit {
+                    counter = 'BRANCH'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.00
+                }
+
+                excludes = [] + Qdomains
+            }
+        }
     }
 }
 

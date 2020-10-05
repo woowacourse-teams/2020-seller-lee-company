@@ -58,12 +58,8 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
-test {
-    useJUnitPlatform()
-}
-
 sourceSets {
-    main.java.srcDirs += [ generated ]
+    main.java.srcDirs += [generated]
 }
 
 tasks.withType(JavaCompile) {
