@@ -17,13 +17,16 @@ import com.jikgorae.api.article.application.QFeedResponse;
 import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.member.domain.Member;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Component
 public class ArticleDao {
+    public static final String FAVORITE_STATE = "favoriteState";
     private final JPAQueryFactory queryFactory;
 
     public ArticleDao(JPAQueryFactory queryFactory) {
@@ -36,19 +39,11 @@ public class ArticleDao {
                 .selectDistinct(new QFeedResponse(
                         article,
                         articleFavoriteCount.favoriteCount,
-                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
-                                .where(favorite.member.eq(loginMember),
-                                        favorite.article.eq(article))
-                                .exists(), "favoriteState")))
+                        getFavoriteState(loginMember)))
                 .from(article)
-                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
-                .join(articleOrganization).on(article.eqAny(
-                        JPAExpressions
-                                .select(articleOrganization.article)
-                                .from(articleOrganization)
-                                .where(eqOrganization(organizationId, loginMember))))
-                .where(article.id.lt(lastArticleId),
-                        article.tradeState.ne(TradeState.COMPLETED))
+                .join(articleOrganization).on(equalAnyArticle(loginMember, organizationId))
+                .leftJoin(articleFavoriteCount).on(equalArticle())
+                .where(lessThanArticleId(lastArticleId), isOnSale())
                 .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();
@@ -60,26 +55,40 @@ public class ArticleDao {
                 .selectDistinct(new QArticleCardResponse(
                         article,
                         articleFavoriteCount.favoriteCount,
-                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
-                                .where(favorite.member.eq(loginMember),
-                                        favorite.article.eq(article))
-                                .exists(), "favoriteState")))
+                        getFavoriteState(loginMember)))
                 .from(article)
-                .join(articleOrganization).on(article.eqAny(
-                        JPAExpressions
-                                .select(articleOrganization.article)
-                                .from(articleOrganization)
-                                .where(eqOrganization(organizationId, loginMember))))
-                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
-                .where(article.id.lt(lastArticleId),
-                        article.tradeState.ne(TradeState.COMPLETED),
-                        article.category.eq(Category.fromString(category)))
+                .join(articleOrganization).on(equalAnyArticle(loginMember, organizationId))
+                .leftJoin(articleFavoriteCount).on(equalArticle())
+                .where(lessThanArticleId(lastArticleId), isOnSale(), equalCategory(category))
                 .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();
     }
 
-    private Predicate eqOrganization(Long organizationId,
+    private BooleanExpression equalArticle() {
+        return article.eq(articleFavoriteCount.article);
+    }
+
+    private BooleanExpression lessThanArticleId(Long lastArticleId) {
+        return article.id.lt(lastArticleId);
+    }
+
+    private Expression<Boolean> getFavoriteState(Member loginMember) {
+        return ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
+                .where(favorite.member.eq(loginMember),
+                        favorite.article.eq(article))
+                .exists(), FAVORITE_STATE);
+    }
+
+    private BooleanExpression equalAnyArticle(Member loginMember, Long organizationId) {
+        return article.eqAny(
+                JPAExpressions
+                        .select(articleOrganization.article)
+                        .from(articleOrganization)
+                        .where(equalOrganization(organizationId, loginMember)));
+    }
+
+    private Predicate equalOrganization(Long organizationId,
             Member loginMember) {
         if (organizationId == null) {
             return articleOrganization.organization.eqAny(
@@ -90,5 +99,13 @@ public class ArticleDao {
                                     loginMember)));
         }
         return articleOrganization.organization.id.eq(organizationId);
+    }
+
+    private BooleanExpression isOnSale() {
+        return article.tradeState.ne(TradeState.COMPLETED);
+    }
+
+    private BooleanExpression equalCategory(String category) {
+        return article.category.eq(Category.fromString(category));
     }
 }
