@@ -33,6 +33,7 @@ public class ArticleController {
     public static final String ARTICLE_API_URI = "/api/articles";
     public static final String TRADE_STATE_URI = "/trade-state";
     public static final String ORGANIZATION_URI = "/organizations";
+    public static final Long ALL_ORGANIZATION = null;
 
     private final ArticleService articleService;
     private final ArticleViewService articleViewService;
@@ -58,7 +59,8 @@ public class ArticleController {
     public ResponseEntity<List<FeedResponse>> showPage(
             @RequestParam Long lastArticleId,
             @RequestParam int size, @LoginMember Member loginMember) {
-        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember);
+        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size, loginMember,
+                ALL_ORGANIZATION);
         return ResponseEntity.ok(responses);
     }
 
@@ -67,8 +69,8 @@ public class ArticleController {
             @RequestParam Long lastArticleId,
             @RequestParam int size, @LoginMember Member loginMember,
             @PathVariable Long organizationId) {
-        List<FeedResponse> responses = articleDao.showPageByOrganization(lastArticleId, size,
-                organizationId, loginMember
+        List<FeedResponse> responses = articleDao.showPage(lastArticleId, size,
+                loginMember, organizationId
         );
         return ResponseEntity.ok(responses);
     }
@@ -79,7 +81,7 @@ public class ArticleController {
             @RequestParam int size, @RequestParam String category,
             @LoginMember Member loginMember) {
         List<ArticleCardResponse> responses = articleDao.showPageByCategory(
-                lastArticleId, size, category, loginMember);
+                lastArticleId, size, category, loginMember, ALL_ORGANIZATION);
         return ResponseEntity.ok(responses);
     }
 
@@ -89,8 +91,8 @@ public class ArticleController {
             @RequestParam Long lastArticleId,
             @RequestParam int size, @RequestParam String category,
             @PathVariable Long organizationId, @LoginMember Member loginMember) {
-        List<ArticleCardResponse> responses = articleDao.showPageByCategoryAndOrganization(
-                lastArticleId, size, category, organizationId, loginMember);
+        List<ArticleCardResponse> responses = articleDao.showPageByCategory(
+                lastArticleId, size, category, loginMember, organizationId);
         return ResponseEntity.ok(responses);
     }
 
