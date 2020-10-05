@@ -90,7 +90,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("전체 조직의 게시글 페이지 조회 시 HTTP STATUS OK와 조직의 페이지 별 게시글 반환")
     @Test
     void showPage() throws Exception {
-        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1))
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1, ALL_ORGANIZATION))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE1, ARTICLE2),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
@@ -127,7 +127,7 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("조직별 게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPageByOrganization() throws Exception {
-        when(articleDao.showPageByOrganization(LAST_ARTICLE_ID, ARTICLE_SIZE, 직고래.getId(), MEMBER1))
+        when(articleDao.showPage(LAST_ARTICLE_ID, ARTICLE_SIZE, MEMBER1, 직고래.getId()))
                 .thenReturn(FeedResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
@@ -165,7 +165,7 @@ class ArticleControllerTest extends ControllerTest {
     @Test
     void showPageByCategory() throws Exception {
         when(articleDao.showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE,
-                Category.ETC.getCategoryName(), MEMBER1))
+                Category.ETC.getCategoryName(), MEMBER1, ALL_ORGANIZATION))
                 .thenReturn(ArticleCardResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
 
@@ -206,8 +206,8 @@ class ArticleControllerTest extends ControllerTest {
     @DisplayName("카테고리와 조직별 게시글 페이지 조회 시 HTTP STATUS OK와 페이지 별 게시글 반환")
     @Test
     void showPageByCategoryAndOrganization() throws Exception {
-        when(articleDao.showPageByCategoryAndOrganization(LAST_ARTICLE_ID, ARTICLE_SIZE,
-                Category.ETC.getCategoryName(), 직고래.getId(), MEMBER1))
+        when(articleDao.showPageByCategory(LAST_ARTICLE_ID, ARTICLE_SIZE,
+                Category.ETC.getCategoryName(), MEMBER1, 직고래.getId()))
                 .thenReturn(ArticleCardResponse.listOf(Arrays.asList(ARTICLE2, ARTICLE1),
                         Arrays.asList(1L, 2L), Arrays.asList(true, false)));
         // @formatter:off
@@ -338,3 +338,4 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:on
     }
 }
+
