@@ -18,6 +18,7 @@ import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.member.domain.Member;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -29,7 +30,8 @@ public class ArticleDao {
         this.queryFactory = queryFactory;
     }
 
-    public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember) {
+    public List<FeedResponse> showPage(Long lastArticleId, int size, Member loginMember,
+            Long organizationId) {
         return queryFactory
                 .selectDistinct(new QFeedResponse(
                         article,
@@ -44,39 +46,7 @@ public class ArticleDao {
                         JPAExpressions
                                 .select(articleOrganization.article)
                                 .from(articleOrganization)
-                                .join(memberOrganization).on(
-                                articleOrganization.organization.eqAny(
-                                        JPAExpressions
-                                                .select(memberOrganization.organization)
-                                                .from(memberOrganization)
-                                                .where(memberOrganization.member.eq(
-                                                        loginMember))))
-                ))
-                .where(article.id.lt(lastArticleId),
-                        article.tradeState.ne(TradeState.COMPLETED))
-                .orderBy(article.createdTime.desc())
-                .limit(size)
-                .fetch();
-    }
-
-    public List<FeedResponse> showPageByOrganization(Long lastArticleId, int size,
-            Long organizationId,
-            Member loginMember) {
-        return queryFactory
-                .selectDistinct(new QFeedResponse(
-                        article,
-                        articleFavoriteCount.favoriteCount,
-                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
-                                .where(favorite.member.eq(loginMember),
-                                        favorite.article.eq(article))
-                                .exists(), "favoriteState")))
-                .from(article)
-                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
-                .join(articleOrganization).on(article.id.eqAny(
-                        JPAExpressions
-                                .select(articleOrganization.article.id)
-                                .from(articleOrganization)
-                                .where(articleOrganization.organization.id.eq(organizationId))))
+                                .where(eqOrganization(organizationId, loginMember))))
                 .where(article.id.lt(lastArticleId),
                         article.tradeState.ne(TradeState.COMPLETED))
                 .orderBy(article.createdTime.desc())
@@ -85,7 +55,7 @@ public class ArticleDao {
     }
 
     public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
-            String category, Member loginMember) {
+            String category, Member loginMember, Long organizationId) {
         return queryFactory
                 .selectDistinct(new QArticleCardResponse(
                         article,
@@ -99,14 +69,7 @@ public class ArticleDao {
                         JPAExpressions
                                 .select(articleOrganization.article)
                                 .from(articleOrganization)
-                                .join(memberOrganization).on(
-                                articleOrganization.organization.eqAny(
-                                        JPAExpressions
-                                                .select(memberOrganization.organization)
-                                                .from(memberOrganization)
-                                                .where(memberOrganization.member.eq(
-                                                        loginMember))))
-                ))
+                                .where(eqOrganization(organizationId, loginMember))))
                 .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
                 .where(article.id.lt(lastArticleId),
                         article.tradeState.ne(TradeState.COMPLETED),
@@ -116,29 +79,16 @@ public class ArticleDao {
                 .fetch();
     }
 
-    public List<ArticleCardResponse> showPageByCategoryAndOrganization(Long lastArticleId,
-            int size, String category, Long organizationId, Member loginMember) {
-        return queryFactory
-                .selectDistinct(new QArticleCardResponse(
-                        article,
-                        articleFavoriteCount.favoriteCount,
-                        ExpressionUtils.as(JPAExpressions.selectFrom(favorite)
-                                .where(favorite.member.eq(loginMember),
-                                        favorite.article.eq(article))
-                                .exists(), "favoriteState")))
-                .from(article)
-                .join(articleOrganization).on(article.eqAny(
-                        JPAExpressions
-                                .select(articleOrganization.article)
-                                .from(articleOrganization)
-                                .where(articleOrganization.organization.id.eq(organizationId))
-                ))
-                .leftJoin(articleFavoriteCount).on(article.eq(articleFavoriteCount.article))
-                .where(article.id.lt(lastArticleId),
-                        article.tradeState.ne(TradeState.COMPLETED),
-                        article.category.eq(Category.fromString(category)))
-                .orderBy(article.createdTime.desc())
-                .limit(size)
-                .fetch();
+    private Predicate eqOrganization(Long organizationId,
+            Member loginMember) {
+        if (organizationId == null) {
+            return articleOrganization.organization.eqAny(
+                    JPAExpressions
+                            .select(memberOrganization.organization)
+                            .from(memberOrganization)
+                            .where(memberOrganization.member.eq(
+                                    loginMember)));
+        }
+        return articleOrganization.organization.id.eq(organizationId);
     }
 }
