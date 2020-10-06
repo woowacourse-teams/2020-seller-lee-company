@@ -253,3 +253,4 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     }
 
 }
+
