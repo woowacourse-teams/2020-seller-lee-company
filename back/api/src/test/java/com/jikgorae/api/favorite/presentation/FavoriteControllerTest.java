@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
@@ -42,7 +43,7 @@ class FavoriteControllerTest extends ControllerTest {
                         get(FavoriteController.FAVORITE_API_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
                 .andExpect(status().isOk())
-                .andDo(document("articles/favorites",
+                .andDo(document("favorites",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -76,7 +77,16 @@ class FavoriteControllerTest extends ControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
                 .andExpect(header().exists(HttpHeaders.LOCATION))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(document("favorites/create",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(AUTHORIZATION).description("회원의 토큰")
+                        ),
+                        requestFields(
+                                fieldWithPath("articleId").type(JsonFieldType.NUMBER).description("게시글의 ID")
+                        )));
     }
 
     @DisplayName("찜 취소를 요청 하면 Status OK를 반환한다.")
@@ -91,7 +101,16 @@ class FavoriteControllerTest extends ControllerTest {
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(request))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent())
+                .andDo(document("favorites/delete",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(AUTHORIZATION).description("회원의 토큰")
+                        ),
+                        requestFields(
+                                fieldWithPath("articleId").type(JsonFieldType.NUMBER).description("게시글의 ID")
+                        )));
         // @formatter:on
 
         verify(favoriteService).delete(any(), any());

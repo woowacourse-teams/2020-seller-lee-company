@@ -3,6 +3,9 @@ package com.jikgorae.api.member.presentation;
 import static com.jikgorae.api.member.presentation.AuthController.*;
 import static com.jikgorae.api.security.oauth2.authentication.AuthorizationExtractor.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,7 +37,13 @@ class AuthControllerTest extends ControllerTest {
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("nickname","lxxjn0"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(document("auth/findNickname",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(AUTHORIZATION).description("회원의 토큰")
+                        )));
         // @formatter:on
     }
 }
