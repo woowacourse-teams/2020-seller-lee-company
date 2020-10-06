@@ -1,3 +1,5 @@
+apply plugin: 'org.asciidoctor.convert'
+
 // QueryDSL Version
 def queryDSLVersion = '4.2.2'
 // QueryDSL PATH
@@ -70,13 +72,6 @@ clean.doLast {
     file(generated).deleteDir()
 }
 
-bootJar {
-    dependsOn asciidoctor
-    from("${asciidoctor.outputDir}/html5") {
-        into 'static/docs'
-    }
-}
-
 ext {
     snippetsDir = file('build/generated-snippets')
 }
@@ -88,6 +83,13 @@ test {
 asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
 }
 
 processResources.dependsOn('copyDatabaseSecret')
@@ -114,4 +116,3 @@ task copyDatabaseSecretTest(type: Copy) {
     }
     into 'src/test/resources'
 }
-

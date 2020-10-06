@@ -134,7 +134,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_API_URI+ORGANIZATION_URI+"/"+직고래.getId())
+                        get(ARTICLE_API_URI + ORGANIZATION_URI + "/" + 직고래.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE)))
@@ -172,7 +172,7 @@ class ArticleControllerTest extends ControllerTest {
         // @formatter:off
         mockMvc
                 .perform(
-                        get(ARTICLE_API_URI+ORGANIZATION_URI)
+                        get(ARTICLE_API_URI + ORGANIZATION_URI)
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER)
                                 .param("lastArticleId", String.valueOf(LAST_ARTICLE_ID))
                                 .param("size", String.valueOf(ARTICLE_SIZE))
@@ -297,7 +297,14 @@ class ArticleControllerTest extends ControllerTest {
                 .perform(
                         delete(ARTICLE_API_URI + "/" + ARTICLE1.getId())
                                 .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent())
+                .andDo(
+                    document("articles/delete",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("회원의 토큰")
+                        )));
         // @formatter:on
     }
 
@@ -313,8 +320,26 @@ class ArticleControllerTest extends ControllerTest {
         mockMvc
                 .perform(
                         get(ARTICLE_API_URI)
-                                .param("tradeState", tradeState))
-                .andExpect(status().isOk());
+                                .param("tradeState", tradeState)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
+                .andExpect(status().isOk())
+        .andDo(
+            document("articles/showByTradeState",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                        headerWithName("Authorization").description("회원의 토큰")
+                ),
+                responseFields(
+                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("게시글의 ID"),
+                        fieldWithPath("[].title").type(JsonFieldType.STRING).description("게시글의 제목"),
+                        fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("게시글의 가격"),
+                        fieldWithPath("[].thumbnail").type(JsonFieldType.STRING).description("게시글의 대표 사진"),
+                        fieldWithPath("[].tradeState").type(JsonFieldType.STRING).description("게시글의 거래 상태"),
+                        fieldWithPath("[].favoriteCount").type(JsonFieldType.NUMBER).description("게시글의 찜 개수"),
+                        fieldWithPath("[].favoriteState").type(JsonFieldType.BOOLEAN).description("게시글의 찜 여부"),
+                        fieldWithPath("[].createdTime").type(JsonFieldType.STRING).description("게시글의 생성 시간")
+                )));
         // @formatter:on
     }
 
@@ -333,8 +358,16 @@ class ArticleControllerTest extends ControllerTest {
                         put(ARTICLE_API_URI + "/" + MEMBER1.getId() + ArticleController.TRADE_STATE_URI)
                                 .content(request)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header(AUTHORIZATION, TEST_AUTHORIZATION_HEADER))
+                .andExpect(status().isNoContent())
+        .andDo(
+            document("articles/updateTradeState",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                        headerWithName("Authorization").description("회원의 토큰")
+                )));
         // @formatter:on
     }
 }

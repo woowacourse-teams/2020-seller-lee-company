@@ -1,0 +1,96 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:toc: preamble
+:toc-title: 목차
+:toclevels: 2
+:doctitle: 직고래 API
+
+[[resources-articles]]
+== 게시글 관리
+
+=== 게시글 생성
+
+operation::articles/post[snippets='http-request,request-fields,request-headers,http-response']
+
+=== 게시글 페이지 조회
+
+operation::articles/getPage[snippets='http-request,request-headers,request-parameters,http-response,response-fields']
+
+=== 게시글 카테고리 별 조회
+
+operation::articles/getPageByCategory[snippets='http-request,request-headers,request-parameters,http-response,response-fields']
+
+=== 게시글 상세 조회
+
+operation::articles/get[snippets='http-request,request-headers,path-parameters,http-response,response-fields']
+
+=== 게시글 판매 상태별 조회
+
+operation::articles/showByTradeState[snippets='http-request,request-headers,http-response,response-fields,response-fields']
+
+=== 게시글 판매 상태 변경
+
+operation::articles/updateTradeState[snippets='http-request,request-headers,http-response']
+
+== 찜 관리
+
+=== 찜 목록
+
+operation::favorites[snippets='http-request,request-headers,http-response,response-fields']
+
+=== 찜 생성
+
+operation::favorites/create[snippets='http-request,request-headers,request-fields,http-response']
+
+=== 찜 삭제
+
+operation::favorites/delete[snippets='http-request,request-headers,http-response']
+
+== 조직 관리
+
+=== 조직 생성
+
+operation::organizations/create[snippets='http-request,request-headers,request-fields,http-response,response-fields']
+
+=== 회원이 가입한 조직 조회
+
+operation::organizations/get[snippets='http-request,request-headers,http-response,response-fields']
+
+== 회원 / 조직 관리
+
+=== 회원 - 조직 입장
+
+operation::memberOrganization/create[snippets='http-request,request-headers,request-fields,http-response']
+
+=== 회원 - 조직 삭제
+
+operation::memberOrganization/delete[snippets='http-request,request-headers,http-response']
+
+== 채팅방 관리
+
+=== 채팅방 생성
+
+operation::chat/rooms/post[snippets='http-request,request-headers,request-fields,http-response']
+
+=== 채팅방 조회
+
+operation::chat/rooms/get[snippets='http-request,request-headers,http-response,response-fields']
+
+=== 채팅방 삭제
+
+operation::chat/rooms/delete[snippets='http-request,request-headers,http-response']
+
+== 회원 관리
+
+=== 회원 정보 수정
+
+operation::me/put[snippets='http-request,request-headers,request-fields,http-response']
+
+=== 회원 정보 조회
+
+operation::me/get[snippets='http-request,request-headers,http-response,response-fields']
+
+=== 회원 닉네임 조회
+
+operation::auth/findNickname[snippets='http-request,request-headers,http-response']
