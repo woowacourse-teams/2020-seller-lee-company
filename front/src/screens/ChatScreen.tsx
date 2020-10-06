@@ -140,7 +140,7 @@ export default function ChatScreen() {
         senderId: memberId,
         senderNickname: memberNickname,
         message: sendMessages[0].text,
-        pushToken: opponent.pushToken,
+        pushToken: opponent.pushToken ? opponent.pushToken : "",
       }),
     );
   };
