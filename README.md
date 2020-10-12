@@ -14,8 +14,8 @@
 
 <p align="center">
   <a target="_blank" href="https://www.youtube.com/watch?v=IZWhBI0Tk2c">
-    <img src="images/jikgoraeThumnail.png" width="50%" height="50%">
-    <div>(클릭하면 영상을 실행할 수 있습니다)</div>
+    <img src="images/youtube.png" width="50%" height="50%">
+    <p align="center">(클릭하면 영상을 실행할 수 있습니다)</p>
   </a>
 </p>
 
