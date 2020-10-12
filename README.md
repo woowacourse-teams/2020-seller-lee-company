@@ -10,6 +10,8 @@
 [![Blogger](http://img.shields.io/badge/-Devlog-395FC1?style=flat&logo=dev.to&logoColor=white&link=https://seller-lee.github.io)](https://seller-lee.github.io/)
 [![Google Play](http://img.shields.io/badge/-Google%20Play-414141?style=flat&logo=Google%20play&link=https://play.google.com/store/apps/details?id=com.sellerleecompany.jikgorae&hl=en_US)](https://play.google.com/store/apps/details?id=com.sellerleecompany.jikgorae&hl=en_US)
 
+<br/>
+
 ## 🐳 직고래 이야기
 
 <p align="center">
@@ -18,6 +20,8 @@
     <p align="center">(클릭하면 영상을 실행할 수 있습니다)</p>
   </a>
 </p>
+
+<br/>
 
 ## 직고래는 따듯한 교류가 있는 조직 벼룩시장을 꿈꾸고 있어요.
 
@@ -29,13 +33,19 @@
 
 **더 끈끈한 조직 문화를 만들어내는 지름길, 직고래를 이용해보세요.**
 
+<br/>
+
 ## 기술 스택
 
 ![stack](images/stack.png)
 
+<br/>
+
 ## 프로젝트 아키텍처
 
 ![project_architectures](images/project_architectures.png)
+
+<br/>
 
 ## CI/CD
 
