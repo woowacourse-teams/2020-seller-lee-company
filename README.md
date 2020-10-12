@@ -57,5 +57,5 @@
 ## 🏠 팀소개
 
 |![subway](images/subway.png)|![tto](images/tto.png)|![stitch](images/stitch.png)|![kouz](images/kouz.png)|![turtle](images/turtle.png)|
-|:---:|
+|:---:|:---:|:---:|:---:|:---:|
 |[Github](https://github.com/joseph415)|[Github](https://github.com/jnsorn)|[Github](https://github.com/lxxjn0)|[Github](https://github.com/kouz95)|[Github](https://github.com/begaonnuri)|
