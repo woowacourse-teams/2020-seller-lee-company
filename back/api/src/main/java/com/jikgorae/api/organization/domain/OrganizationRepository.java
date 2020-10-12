@@ -6,4 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
     Optional<Organization> findOptionalByCode(String code);
+
+    boolean existsByName(String name);
+
+    boolean existsByCode(String code);
 }
