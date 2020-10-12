@@ -9,6 +9,9 @@
 [![demo page](http://img.shields.io/badge/-Demo%20Page-0F9D58?style=flat&logo=Google%20Sheets&logoColor=white&link=https://sites.google.com/woowahan.com/wooteco-demo/%EC%A7%81%EA%B3%A0%EB%9E%98)](https://sites.google.com/woowahan.com/wooteco-demo/%EC%A7%81%EA%B3%A0%EB%9E%98)
 [![Blogger](http://img.shields.io/badge/-Devlog-395FC1?style=flat&logo=dev.to&logoColor=white&link=https://seller-lee.github.io)](https://seller-lee.github.io/)
 [![Google Play](http://img.shields.io/badge/-Google%20Play-414141?style=flat&logo=Google%20play&link=https://play.google.com/store/apps/details?id=com.sellerleecompany.jikgorae&hl=en_US)](https://play.google.com/store/apps/details?id=com.sellerleecompany.jikgorae&hl=en_US)
+![release](https://img.shields.io/github/v/release/woowacourse-teams/2020-seller-lee-company?color=skyblue)
+![last commit](https://img.shields.io/github/last-commit/woowacourse-teams/2020-seller-lee-company)
+![most language](https://img.shields.io/github/languages/top/woowacourse-teams/2020-seller-lee-company)
 
 <br/>
 
