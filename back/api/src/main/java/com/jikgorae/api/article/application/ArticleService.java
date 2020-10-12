@@ -8,28 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.TradeState;
-import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
 
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
-    private final ArticleOrganizationService articleOrganizationService;
     private final ArticleDeleteService articleDeleteService;
 
     public ArticleService(ArticleRepository articleRepository,
-            ArticleOrganizationService articleOrganizationService,
             ArticleDeleteService articleDeleteService) {
         this.articleRepository = articleRepository;
-        this.articleOrganizationService = articleOrganizationService;
         this.articleDeleteService = articleDeleteService;
     }
 
     @Transactional
     public Long create(ArticleRequest request, Member loginMember) {
         Article article = articleRepository.save(request.toArticleWithLoginMember(loginMember));
-        articleOrganizationService.create(article, request.getOrganizations());
         return article.getId();
     }
 
@@ -37,7 +32,6 @@ public class ArticleService {
     public void update(Long id, ArticleRequest request, Member loginMember) {
         Article article = findById(id);
         article.update(request.toArticleWithLoginMember(loginMember));
-        articleOrganizationService.update(article, request.getOrganizations());
     }
 
     @Transactional

@@ -1,12 +1,14 @@
 package com.jikgorae.api.article.application;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.Photos;
 import com.jikgorae.api.article.domain.Tags;
 import com.jikgorae.api.article.domain.TradeState;
+import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.organization.domain.Organization;
 
@@ -44,7 +46,11 @@ public class ArticleRequest {
                 price,
                 TradeState.ON_SALE,
                 new Photos(photos),
-                loginMember);
+                loginMember,
+                organizations.stream()
+                        .map(ArticleOrganization::new)
+                        .collect(Collectors.toList())
+        );
     }
 
     public String getTitle() {

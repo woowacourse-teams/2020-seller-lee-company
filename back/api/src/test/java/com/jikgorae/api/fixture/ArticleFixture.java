@@ -14,6 +14,7 @@ import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.Photos;
 import com.jikgorae.api.article.domain.Tags;
 import com.jikgorae.api.article.domain.TradeState;
+import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 
 public class ArticleFixture {
     public static final Article ARTICLE1 = new Article(
@@ -29,6 +30,7 @@ public class ArticleFixture {
                     "https://avatars1.githubusercontent.com/u/48052622?s=400&u=a6aefc01e1ed6d8407e868a66227716d1813182b&v=4",
                     "https://avatars2.githubusercontent.com/u/39271364?s=400&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4"),
             MemberFixture.MEMBER1,
+            Arrays.asList(new ArticleOrganization(직고래)),
             LocalDateTime.now(),
             LocalDateTime.now()
     );
@@ -45,6 +47,7 @@ public class ArticleFixture {
                     "https://avatars2.githubusercontent.com/u/31095063?s=400&u=e10e5d42924c8443b43faf9e943ff8aa73d6c79d&v=4",
                     "https://avatars3.githubusercontent.com/u/52931057?s=400&u=e1a3a103fc54a423fd56ab6fafce748d360f3336&v=4"),
             MemberFixture.MEMBER1,
+            Arrays.asList(new ArticleOrganization(직고래)),
             LocalDateTime.now(),
             LocalDateTime.now()
     );
@@ -60,6 +63,7 @@ public class ArticleFixture {
             Photos.of(
                     "https://avatars0.githubusercontent.com/u/53935703?s=400&u=a341d3951da813dca6ec6652c6d1f1d38aa1e42d&v=4"),
             MemberFixture.MEMBER1,
+            Arrays.asList(new ArticleOrganization(직고래)),
             LocalDateTime.now(),
             LocalDateTime.now()
     );
@@ -120,6 +124,7 @@ public class ArticleFixture {
                     "https://avatars2.githubusercontent.com/u/31095063?s=400&u=e10e5d42924c8443b43faf9e943ff8aa73d6c79d&v=4",
                     "https://avatars3.githubusercontent.com/u/52931057?s=400&u=e1a3a103fc54a423fd56ab6fafce748d360f3336&v=4"),
             MemberFixture.MEMBER1,
+            Arrays.asList(new ArticleOrganization(한성대학교)),
             LocalDateTime.now(),
             LocalDateTime.now());
 
@@ -135,6 +140,7 @@ public class ArticleFixture {
                     "https://avatars2.githubusercontent.com/u/31095063?s=400&u=e10e5d42924c8443b43faf9e943ff8aa73d6c79d&v=4",
                     "https://avatars3.githubusercontent.com/u/52931057?s=400&u=e1a3a103fc54a423fd56ab6fafce748d360f3336&v=4"),
             MemberFixture.MEMBER1,
+            Arrays.asList(new ArticleOrganization(우아한테크코스)),
             LocalDateTime.now(),
             LocalDateTime.now());
 }

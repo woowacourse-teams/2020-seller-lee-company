@@ -15,16 +15,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.jikgorae.api.article.domain.ArticleRepository;
-import com.jikgorae.api.articlefavoritecount.application.ArticleFavoriteCountService;
-import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 
 @ExtendWith(value = MockitoExtension.class)
 class ArticleServiceTest {
     @Mock
     private ArticleRepository articleRepository;
-
-    @Mock
-    private ArticleOrganizationService articleOrganizationService;
 
     @Mock
     private ArticleDeleteService articleDeleteService;
@@ -33,7 +28,7 @@ class ArticleServiceTest {
 
     @BeforeEach
     void setUp() {
-        articleService = new ArticleService(articleRepository, articleOrganizationService,
+        articleService = new ArticleService(articleRepository,
                 articleDeleteService);
     }
 

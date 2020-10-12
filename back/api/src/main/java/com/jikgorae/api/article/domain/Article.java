@@ -1,6 +1,7 @@
 package com.jikgorae.api.article.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.common.BaseTimeEntity;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.web.AuthorizationException;
@@ -49,13 +52,17 @@ public class Article extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member author;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_id")
+    private List<ArticleOrganization> articleOrganizations;
+
     protected Article() {
     }
 
     public Article(Long id, String title, Tags tags,
             Category category,
             String contents, Long price,
-            TradeState tradeState, Photos photos, Member author, LocalDateTime createdTime,
+            TradeState tradeState, Photos photos, Member author, List<ArticleOrganization> articleOrganizations, LocalDateTime createdTime,
             LocalDateTime modifiedTime) {
         this.id = id;
         this.title = title;
@@ -66,6 +73,7 @@ public class Article extends BaseTimeEntity {
         this.tradeState = tradeState;
         this.photos = photos;
         this.author = author;
+        this.articleOrganizations = articleOrganizations;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
     }
@@ -73,20 +81,20 @@ public class Article extends BaseTimeEntity {
     public Article(Long id, String title, Tags tags,
             Category category,
             String contents, Long price,
-            TradeState tradeState, Photos photos, Member author) {
-        this(id, title, tags, category, contents, price, tradeState, photos, author,
+            TradeState tradeState, Photos photos, Member author, List<ArticleOrganization> articleOrganizations) {
+        this(id, title, tags, category, contents, price, tradeState, photos, author, articleOrganizations,
                 null, null);
     }
 
     public Article(String title, Tags tags, Category category,
             String contents, Long price,
-            TradeState tradeState, Photos photos, Member author) {
+            TradeState tradeState, Photos photos, Member author, List<ArticleOrganization> articleOrganizations) {
         this(null, title, tags, category, contents, price, tradeState, photos,
-                author);
+                author, articleOrganizations);
     }
 
     public Article(Long id) {
-        this(id, null, null, null, null, null, null, null, null);
+        this(id, null, null, null, null, null, null, null, null, null);
     }
 
     public void update(Article article) {
@@ -99,6 +107,7 @@ public class Article extends BaseTimeEntity {
         contents = article.contents;
         tags = article.tags;
         photos = article.photos;
+        articleOrganizations = article.articleOrganizations;
     }
 
     public void updateTradeState(TradeState tradeState) {
@@ -139,5 +148,9 @@ public class Article extends BaseTimeEntity {
 
     public Member getAuthor() {
         return author;
+    }
+
+    public List<ArticleOrganization> getArticleOrganizations() {
+        return articleOrganizations;
     }
 }

@@ -17,7 +17,6 @@ import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.TradeState;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
-import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 import com.jikgorae.api.articleorganization.domain.ArticleOrganization;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
@@ -31,16 +30,13 @@ public class ArticleViewService {
     private final ArticleRepository articleRepository;
     private final ArticleFavoriteCountRepository articleFavoriteCountRepository;
     private final FavoriteRepository favoriteRepository;
-    private ArticleOrganizationService articleOrganizationService;
 
     public ArticleViewService(ArticleRepository articleRepository,
             ArticleFavoriteCountRepository articleFavoriteCountRepository,
-            FavoriteRepository favoriteRepository,
-            ArticleOrganizationService articleOrganizationService) {
+            FavoriteRepository favoriteRepository) {
         this.articleRepository = articleRepository;
         this.articleFavoriteCountRepository = articleFavoriteCountRepository;
         this.favoriteRepository = favoriteRepository;
-        this.articleOrganizationService = articleOrganizationService;
     }
 
     public ArticleResponse show(Long articleId, Member loginMember) {
@@ -49,8 +45,7 @@ public class ArticleViewService {
                 loginMember);
         long favoriteCount = favoriteRepository.countByArticle(article);
 
-        List<ArticleOrganization> articleOrganizations = articleOrganizationService.showByArticleId(
-                articleId);
+        List<ArticleOrganization> articleOrganizations = article.getArticleOrganizations();
         List<Organization> organizations = articleOrganizations.stream()
                 .map(ArticleOrganization::getOrganization)
                 .collect(toList());

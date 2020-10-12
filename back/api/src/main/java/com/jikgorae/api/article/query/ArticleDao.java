@@ -41,12 +41,28 @@ public class ArticleDao {
                         articleFavoriteCount.favoriteCount,
                         getFavoriteState(loginMember)))
                 .from(article)
-                .join(articleOrganization).on(equalAnyArticle(loginMember, organizationId))
+                .where(article.articleOrganizations.any().eqAny(
+                        JPAExpressions.selectFrom(articleOrganization)
+                                .where(equalOrganization(organizationId, loginMember))))
                 .leftJoin(articleFavoriteCount).on(equalArticle())
                 .where(lessThanArticleId(lastArticleId), isOnSale())
                 .orderBy(article.createdTime.desc())
                 .limit(size)
                 .fetch();
+    }
+
+    private Predicate equalOrganization(Long organizationId,
+            Member loginMember) {
+        if (organizationId == null) {
+            //전체 조직 조회
+            return articleOrganization.organization.eqAny(
+                    JPAExpressions
+                            .select(memberOrganization.organization)
+                            .from(memberOrganization)
+                            .where(memberOrganization.member.eq(
+                                    loginMember)));
+        }
+        return articleOrganization.organization.id.eq(organizationId);
     }
 
     public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
@@ -57,7 +73,9 @@ public class ArticleDao {
                         articleFavoriteCount.favoriteCount,
                         getFavoriteState(loginMember)))
                 .from(article)
-                .join(articleOrganization).on(equalAnyArticle(loginMember, organizationId))
+                .where(article.articleOrganizations.any().eqAny(
+                        JPAExpressions.selectFrom(articleOrganization)
+                                .where(equalOrganization(organizationId, loginMember))))
                 .leftJoin(articleFavoriteCount).on(equalArticle())
                 .where(lessThanArticleId(lastArticleId), isOnSale(), equalCategory(category))
                 .orderBy(article.createdTime.desc())
@@ -78,27 +96,6 @@ public class ArticleDao {
                 .where(favorite.member.eq(loginMember),
                         favorite.article.eq(article))
                 .exists(), FAVORITE_STATE);
-    }
-
-    private BooleanExpression equalAnyArticle(Member loginMember, Long organizationId) {
-        return article.eqAny(
-                JPAExpressions
-                        .select(articleOrganization.article)
-                        .from(articleOrganization)
-                        .where(equalOrganization(organizationId, loginMember)));
-    }
-
-    private Predicate equalOrganization(Long organizationId,
-            Member loginMember) {
-        if (organizationId == null) {
-            return articleOrganization.organization.eqAny(
-                    JPAExpressions
-                            .select(memberOrganization.organization)
-                            .from(memberOrganization)
-                            .where(memberOrganization.member.eq(
-                                    loginMember)));
-        }
-        return articleOrganization.organization.id.eq(organizationId);
     }
 
     private BooleanExpression isOnSale() {

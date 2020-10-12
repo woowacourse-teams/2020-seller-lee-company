@@ -23,7 +23,6 @@ import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.article.application.ArticleViewService;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
-import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
 import com.jikgorae.api.favorite.domain.Favorite;
 import com.jikgorae.api.favorite.domain.FavoriteRepository;
 
@@ -42,12 +41,10 @@ class FavoriteServiceTest {
 
     private FavoriteService favoriteService;
 
-    private ArticleOrganizationService articleOrganizationService;
-
     @BeforeEach
     void setUp() {
         articleViewService = new ArticleViewService(articleRepository,
-                articleFavoriteCountRepository, favoriteRepository, articleOrganizationService);
+                articleFavoriteCountRepository, favoriteRepository);
         favoriteService = new FavoriteService(favoriteRepository, articleViewService);
     }
 
