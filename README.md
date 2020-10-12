@@ -26,7 +26,7 @@
 
 <br/>
 
-## 직고래는 따듯한 교류가 있는 조직 벼룩시장을 꿈꾸고 있어요.
+## 🥰 직고래는 따듯한 교류가 있는 조직 벼룩시장을 꿈꾸고 있어요.
 
 아무리 사소한 물건이라도 직고래를 이용하면 문제없어요.
 
@@ -38,18 +38,24 @@
 
 <br/>
 
-## 기술 스택
+## 🛠 기술 스택
 
 ![stack](images/stack.png)
 
 <br/>
 
-## 프로젝트 아키텍처
+## 🏗 프로젝트 아키텍처
 
 ![project_architectures](images/project_architectures.png)
 
 <br/>
 
-## CI/CD
+## 📲 CI/CD
 
 ![CICD](images/CICD.png)
+
+## 🏠 팀소개
+
+|![subway](images/subway.png)|![tto](images/tto.png)|![stitch](images/stitch.png)|![kouz](images/kouz.png)|![turtle](images/turtle.png)|
+|:---:|
+|[Github](https://github.com/joseph415)|[Github](https://github.com/jnsorn)|[Github](https://github.com/lxxjn0)|[Github](https://github.com/kouz95)|[Github](https://github.com/begaonnuri)|
