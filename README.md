@@ -54,6 +54,8 @@
 
 ![CICD](images/CICD.png)
 
+<br/>
+
 ## 🏠 팀소개
 
 |![subway](images/subway.png)|![tto](images/tto.png)|![stitch](images/stitch.png)|![kouz](images/kouz.png)|![turtle](images/turtle.png)|
