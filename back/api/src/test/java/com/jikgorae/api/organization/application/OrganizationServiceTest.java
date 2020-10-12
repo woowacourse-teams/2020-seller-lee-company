@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +31,8 @@ class OrganizationServiceTest {
     @DisplayName("조직 생성 메서드 호출 시 동일한 이름의 조직이 존재하는지 확인 후 생성 코드를 포함하여 생성")
     @Test
     void create() {
-        when(organizationRepository.findAll()).thenReturn(Lists.emptyList());
+        when(organizationRepository.existsByName(anyString())).thenReturn(false);
+        when(organizationRepository.existsByCode(anyString())).thenReturn(false);
         when(organizationRepository.save(any())).thenReturn(직고래);
 
         Organization organization = organizationService.create(직고래_요청);
@@ -47,7 +47,7 @@ class OrganizationServiceTest {
     @DisplayName("이미 존재하는 조직의 경우 IllegalArgumentException 예외 발생")
     @Test
     void create_Name_Exception() {
-        when(organizationRepository.findAll()).thenReturn(Lists.newArrayList(직고래));
+        when(organizationRepository.existsByName(anyString())).thenReturn(true);
 
         assertThatThrownBy(() -> organizationService.create(직고래_요청))
                 .isInstanceOf(IllegalArgumentException.class)
