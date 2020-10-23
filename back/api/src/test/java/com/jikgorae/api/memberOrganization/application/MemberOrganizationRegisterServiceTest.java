@@ -66,7 +66,7 @@ class MemberOrganizationRegisterServiceTest {
 
     @DisplayName("이미 존재하는 조직의 입장 코드를 입력 시 예외 발생")
     @Test
-    void register_Exists() {
+    void register_MemberOrganizationAlreadyExistException() {
         when(organizationRepository.findOptionalByCode(anyString())).thenReturn(Optional.of(직고래));
         when(memberOrganizationRepository.existsByMemberAndOrganization(any(), any()))
                 .thenReturn(true);
