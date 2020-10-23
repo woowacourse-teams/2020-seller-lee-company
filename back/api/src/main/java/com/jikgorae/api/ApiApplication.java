@@ -17,5 +17,4 @@ public class ApiApplication {
     void init() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
     }
-
 }
