@@ -17,7 +17,7 @@ import com.jikgorae.api.organization.application.OrganizationRequest;
 import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.organization.application.OrganizationService;
 import com.jikgorae.api.organization.domain.Organization;
-import com.jikgorae.api.organization.query.OrganizationQueryRepository;
+import com.jikgorae.api.organization.query.OrganizationDao;
 import com.jikgorae.api.security.core.LoginMember;
 
 @RestController
@@ -26,17 +26,17 @@ public class OrganizationController {
     public static final String ORGANIZATION_API_URI = "/api/organizations";
 
     private final OrganizationService organizationService;
-    private final OrganizationQueryRepository organizationQueryRepository;
+    private final OrganizationDao organizationDao;
 
     public OrganizationController(OrganizationService organizationService,
-            OrganizationQueryRepository organizationQueryRepository) {
+            OrganizationDao organizationDao) {
         this.organizationService = organizationService;
-        this.organizationQueryRepository = organizationQueryRepository;
+        this.organizationDao = organizationDao;
     }
 
     @GetMapping
     public ResponseEntity<List<OrganizationResponse>> showAll(@LoginMember Member loginMember) {
-        List<OrganizationResponse> responses = organizationQueryRepository.showAll(loginMember);
+        List<OrganizationResponse> responses = organizationDao.showAll(loginMember);
         return ResponseEntity
                 .ok()
                 .body(responses);
