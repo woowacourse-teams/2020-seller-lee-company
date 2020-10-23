@@ -81,4 +81,12 @@ class FavoriteServiceTest {
 
         verify(favoriteRepository).deleteByMemberIdAndArticleId(ARTICLE1.getId(), MEMBER1.getId());
     }
+
+    @DisplayName("게시글에 해당되는 찜을 삭제한다.")
+    @Test
+    void deleteAllByArticleId() {
+        favoriteService.deleteAllByArticleId(anyLong());
+
+        verify(favoriteRepository).deleteAllByArticleId(anyLong());
+    }
 }
