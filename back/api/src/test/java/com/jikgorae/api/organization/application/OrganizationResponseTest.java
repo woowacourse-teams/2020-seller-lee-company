@@ -17,6 +17,8 @@ class OrganizationResponseTest {
                 "123456");
 
         assertAll(
+                () -> assertThat(organizationResponse.equals(organizationResponse)).isTrue(),
+                () -> assertThat(organizationResponse.equals(null)).isFalse(),
                 () -> assertThat(organizationResponse.equals(same)).isTrue(),
                 () -> assertThat(organizationResponse.equals(different)).isFalse()
         );
