@@ -12,10 +12,10 @@ import com.jikgorae.api.organization.application.QOrganizationResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class OrganizationQueryRepository {
+public class OrganizationDao {
     private final JPAQueryFactory queryFactory;
 
-    public OrganizationQueryRepository(JPAQueryFactory queryFactory) {
+    public OrganizationDao(JPAQueryFactory queryFactory) {
         this.queryFactory = queryFactory;
     }
 

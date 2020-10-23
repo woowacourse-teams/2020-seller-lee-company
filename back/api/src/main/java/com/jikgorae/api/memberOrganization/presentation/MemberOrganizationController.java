@@ -36,7 +36,6 @@ public class MemberOrganizationController {
     public ResponseEntity<Void> create(@LoginMember Member loginMember,
             @RequestBody MemberOrganizationRequest request) {
         Long memberOrganizationId = registerService.register(loginMember, request);
-
         return ResponseEntity
                 .created(URI.create(MEMBER_ORGANIZATION_API_URI + "/" + memberOrganizationId))
                 .build();
@@ -45,7 +44,6 @@ public class MemberOrganizationController {
     @DeleteMapping(params = "id")
     public ResponseEntity<Void> delete(@LoginMember Member loginMember, @RequestParam Long id) {
         service.delete(loginMember, id);
-
         return ResponseEntity
                 .noContent()
                 .build();

@@ -22,7 +22,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.organization.application.OrganizationService;
 import com.jikgorae.api.organization.domain.OrganizationRepository;
-import com.jikgorae.api.organization.query.OrganizationQueryRepository;
+import com.jikgorae.api.organization.query.OrganizationDao;
 
 @WebMvcTest(controllers = OrganizationController.class)
 class OrganizationControllerTest extends ControllerTest {
@@ -33,7 +33,7 @@ class OrganizationControllerTest extends ControllerTest {
     private OrganizationRepository organizationRepository;
 
     @MockBean
-    private OrganizationQueryRepository organizationQueryRepository;
+    private OrganizationDao organizationDao;
 
     @DisplayName("조직 생성 시 HTTP STATUS는 CREATE이고 랜덤한 6자리 입장 코드를 반환")
     @Test
@@ -72,7 +72,7 @@ class OrganizationControllerTest extends ControllerTest {
     @DisplayName("회원이 가입한 조직을 조회 시 HTTP STATUS는 OK이고 가입한 조직을 반환")
     @Test
     void showAll() throws Exception {
-        when(organizationQueryRepository.showAll(any())).thenReturn(
+        when(organizationDao.showAll(any())).thenReturn(
                 Lists.newArrayList(직고래_응답, 우아한테크코스_응답));
 
         // @formatter:off
