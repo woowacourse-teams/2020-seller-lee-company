@@ -3,7 +3,7 @@ package com.jikgorae.api.memberOrganization.application;
 import static com.jikgorae.api.fixture.MemberFixture.*;
 import static com.jikgorae.api.fixture.MemberOrganizationFixture.*;
 import static com.jikgorae.api.fixture.OrganizationFixture.*;
-import static com.jikgorae.api.memberOrganization.exception.MemberOrganizationNotFoundException.*;
+import static com.jikgorae.api.memberOrganization.exception.MemberOrganizationAlreadyExistException.*;
 import static com.jikgorae.api.organization.exception.OrganizationNotFoundException.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.jikgorae.api.memberOrganization.domain.MemberOrganizationRepository;
-import com.jikgorae.api.memberOrganization.exception.MemberOrganizationNotFoundException;
+import com.jikgorae.api.memberOrganization.exception.MemberOrganizationAlreadyExistException;
 import com.jikgorae.api.organization.domain.OrganizationRepository;
 import com.jikgorae.api.organization.exception.OrganizationNotFoundException;
 
@@ -54,7 +54,7 @@ class MemberOrganizationRegisterServiceTest {
 
     @DisplayName("존재하지 않는 입장 코드를 입력시 예외 발생")
     @Test
-    void register_Exception() {
+    void register_OrganizationNotFoundException() {
         when(organizationRepository.findOptionalByCode(anyString()))
                 .thenThrow(new OrganizationNotFoundException(ILLEGAL_ORGANIZATION_CODE));
 
@@ -73,7 +73,7 @@ class MemberOrganizationRegisterServiceTest {
 
         assertThatThrownBy(
                 () -> memberOrganizationRegisterService.register(MEMBER1, MEMBER_직고래_REQUEST))
-                .isInstanceOf(MemberOrganizationNotFoundException.class)
+                .isInstanceOf(MemberOrganizationAlreadyExistException.class)
                 .hasMessage(ALREADY_JOINT_ORGANIZATION);
     }
 }
