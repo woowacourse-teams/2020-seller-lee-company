@@ -19,7 +19,8 @@
       "package": "com.sellerleecompany.jikgorae",
       "softwareKeyboardLayoutMode": "pan",
       "versionCode": 6,
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "googleServicesFile": "../seller-lee-secret/firebase/google-services.json"
     },
     "web": {
       "favicon": "./assets/app_icon.png"

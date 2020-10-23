@@ -96,7 +96,7 @@ export default function FeedHomeScreen() {
         return;
       }
       pushToken = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(pushToken);
+      console.log("pushToken : ", pushToken);
     }
 
     if (Platform.OS === "android") {
