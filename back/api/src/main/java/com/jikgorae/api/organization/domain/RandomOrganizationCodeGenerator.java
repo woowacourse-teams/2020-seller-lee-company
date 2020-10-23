@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Primary
 @Component
 public class RandomOrganizationCodeGenerator implements OrganizationCodeGenerator {
-    public static final int CODE_LENGTH = 6;
     private static final int RANDOM_NUMBER_ORIGIN = 0;
     private static final int RANDOM_NUMBER_BOUND = 10;
 

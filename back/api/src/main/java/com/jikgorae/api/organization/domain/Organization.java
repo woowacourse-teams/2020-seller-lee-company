@@ -8,8 +8,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Organization {
-    public static final int CODE_LENGTH = 6;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "organization_id")
@@ -27,11 +25,7 @@ public class Organization {
         this.name = name;
         this.code = code;
     }
-
-    public Organization(Long id) {
-        this(id, null, null);
-    }
-
+    
     public Organization(String name, String code) {
         this(null, name, code);
     }
