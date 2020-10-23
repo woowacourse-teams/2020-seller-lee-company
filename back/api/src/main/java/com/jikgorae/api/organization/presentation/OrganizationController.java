@@ -37,7 +37,6 @@ public class OrganizationController {
     @GetMapping
     public ResponseEntity<List<OrganizationResponse>> showAll(@LoginMember Member loginMember) {
         List<OrganizationResponse> responses = organizationQueryRepository.showAll(loginMember);
-
         return ResponseEntity
                 .ok()
                 .body(responses);
@@ -46,7 +45,6 @@ public class OrganizationController {
     @PostMapping
     public ResponseEntity<OrganizationResponse> create(@RequestBody OrganizationRequest request) {
         Organization organization = organizationService.create(request);
-
         return ResponseEntity
                 .created(URI.create(ORGANIZATION_API_URI + "/" + organization.getId()))
                 .body(OrganizationResponse.of(organization));
