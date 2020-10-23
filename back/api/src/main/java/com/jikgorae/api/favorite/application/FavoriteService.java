@@ -30,16 +30,14 @@ public class FavoriteService {
     @Transactional
     public Long create(FavoriteRequest request, Member loginMember) {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
-        Favorite saved = favoriteRepository.save(favorite.create());
-        return saved.getId();
+        return favoriteRepository.save(favorite.create()).getId();
     }
 
     @Transactional
     public void delete(FavoriteRequest request, Member loginMember) {
         Favorite favorite = new Favorite(new Article(request.getArticleId()), loginMember);
         favoriteRepository.save(favorite.delete());
-        favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(),
-                request.getArticleId());
+        favoriteRepository.deleteByMemberIdAndArticleId(loginMember.getId(), request.getArticleId());
     }
 
     public void deleteAllByArticleId(Long id) {

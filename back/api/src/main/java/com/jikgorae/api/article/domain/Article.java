@@ -1,8 +1,9 @@
 package com.jikgorae.api.article.domain;
 
+import static java.util.Objects.*;
+
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -52,9 +53,7 @@ public class Article extends BaseTimeEntity {
     protected Article() {
     }
 
-    public Article(Long id, String title, Tags tags,
-            Category category,
-            String contents, Long price,
+    public Article(Long id, String title, Tags tags, Category category, String contents, Long price,
             TradeState tradeState, Photos photos, Member author, LocalDateTime createdTime,
             LocalDateTime modifiedTime) {
         this.id = id;
@@ -70,9 +69,7 @@ public class Article extends BaseTimeEntity {
         this.modifiedTime = modifiedTime;
     }
 
-    public Article(Long id, String title, Tags tags,
-            Category category,
-            String contents, Long price,
+    public Article(Long id, String title, Tags tags, Category category, String contents, Long price,
             TradeState tradeState, Photos photos, Member author) {
         this(id, title, tags, category, contents, price, tradeState, photos, author,
                 null, null);
@@ -81,12 +78,12 @@ public class Article extends BaseTimeEntity {
     public Article(String title, Tags tags, Category category,
             String contents, Long price,
             TradeState tradeState, Photos photos, Member author) {
-        this(null, title, tags, category, contents, price, tradeState, photos,
-                author);
+        this(null, title, tags, category, contents, price, tradeState, photos, author);
     }
 
     public Article(Long id) {
         this(id, null, null, null, null, null, null, null, null);
+        requireNonNull(id);
     }
 
     public void update(Article article) {
