@@ -9,7 +9,7 @@ public class ExceptionResponse {
         this.errorMessage = errorMessage;
     }
 
-    public static ExceptionResponse of(Class<Exception> exceptionClass, String errorMessage) {
-        return new ExceptionResponse(exceptionClass.getSimpleName(), errorMessage);
+    public static ExceptionResponse of(Exception exception) {
+        return new ExceptionResponse(exception.getClass().getSimpleName(), exception.getMessage());
     }
 }
