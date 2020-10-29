@@ -1,23 +1,25 @@
 package com.jikgorae.api.organization.application;
 
-import static com.jikgorae.api.organization.domain.Organization.*;
-import static java.util.stream.Collectors.*;
-
-import java.util.Random;
+import static com.jikgorae.api.organization.exception.OrganizationAlreadyExistsException.*;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
 import com.jikgorae.api.organization.domain.Organization;
+import com.jikgorae.api.organization.domain.OrganizationCodeGenerator;
 import com.jikgorae.api.organization.domain.OrganizationRepository;
+import com.jikgorae.api.organization.exception.OrganizationAlreadyExistsException;
 
 @Service
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
+    private final OrganizationCodeGenerator organizationCodeGenerator;
 
-    public OrganizationService(OrganizationRepository organizationRepository) {
+    public OrganizationService(OrganizationRepository organizationRepository,
+            OrganizationCodeGenerator organizationCodeGenerator) {
         this.organizationRepository = organizationRepository;
+        this.organizationCodeGenerator = organizationCodeGenerator;
     }
 
     @Transactional
@@ -25,23 +27,18 @@ public class OrganizationService {
         String groupName = request.getName();
 
         if (organizationRepository.existsByName(request.getName())) {
-            throw new IllegalArgumentException("이미 존재하는 조직입니다.");
+            throw new OrganizationAlreadyExistsException(ALREADY_EXISTS_ORGANIZATION_NAME);
         }
 
-        return organizationRepository.save(
-                new Organization(groupName, generateCode()));
+        return organizationRepository.save(new Organization(groupName, generateCode()));
     }
 
     private String generateCode() {
         String code;
-
         do {
-            code = new Random().ints(0, 10)
-                    .limit(CODE_LENGTH)
-                    .mapToObj(String::valueOf)
-                    .collect(joining());
+            code = organizationCodeGenerator.generate();
+            System.out.println(code);
         } while (organizationRepository.existsByCode(code));
-
         return code;
     }
 }

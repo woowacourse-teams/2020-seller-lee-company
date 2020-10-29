@@ -13,7 +13,7 @@ public class OrganizationResponse {
     private OrganizationResponse() {
     }
 
-    public OrganizationResponse(Long id, String name, String code) {
+    OrganizationResponse(Long id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
