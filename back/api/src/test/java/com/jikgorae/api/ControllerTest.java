@@ -20,6 +20,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.api.security.filter.JwtAuthenticationFilter;
 import com.jikgorae.api.security.handler.OAuth2SuccessHandler;
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 import com.jikgorae.api.security.oauth2.service.CustomOAuth2UserService;
@@ -53,8 +54,12 @@ public class ControllerTest {
     @BeforeEach
     protected void setUp(WebApplicationContext webApplicationContext,
             RestDocumentationContextProvider restDocumentation) {
+        JwtAuthenticationFilter jwtAuthenticationFilter = (JwtAuthenticationFilter)webApplicationContext
+                .getBean("jwtAuthenticationFilter");
+
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
+                .addFilter(jwtAuthenticationFilter)
                 .apply(documentationConfiguration(restDocumentation))
                 .alwaysDo(print())
                 .build();
