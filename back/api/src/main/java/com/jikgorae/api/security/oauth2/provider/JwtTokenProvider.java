@@ -109,7 +109,7 @@ public class JwtTokenProvider {
 
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            return false;
+            throw new AuthenticationCredentialsNotFoundException("유효하지 않는 토큰입니다.");
         }
     }
 }

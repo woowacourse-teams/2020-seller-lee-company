@@ -15,10 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.jikgorae.api.security.oauth2.provider.JwtTokenProvider;
 
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     private final JwtTokenProvider jwtTokenProvider;
