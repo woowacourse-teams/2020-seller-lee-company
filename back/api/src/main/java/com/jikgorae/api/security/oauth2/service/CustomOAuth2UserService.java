@@ -18,18 +18,19 @@ import com.jikgorae.api.member.domain.MemberRepository;
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
-    private final GettingOAuth2UserService gettingOAuth2UserService;
+    private final GettingDefaultOAuth2UserService gettingDefaultOAuth2UserService;
 
     public CustomOAuth2UserService(
-            MemberRepository memberRepository, GettingOAuth2UserService gettingOAuth2UserService) {
+            MemberRepository memberRepository,
+            GettingDefaultOAuth2UserService gettingDefaultOAuth2UserService) {
         this.memberRepository = memberRepository;
-        this.gettingOAuth2UserService = gettingOAuth2UserService;
+        this.gettingDefaultOAuth2UserService = gettingDefaultOAuth2UserService;
     }
 
     @Transactional
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User oAuth2User = gettingOAuth2UserService.loadUser(userRequest);
+        OAuth2User oAuth2User = gettingDefaultOAuth2UserService.loadUser(userRequest);
 
         String kakaoId = oAuth2User.getName();
         Iterator<? extends GrantedAuthority> iterator = (oAuth2User.getAuthorities()).iterator();
