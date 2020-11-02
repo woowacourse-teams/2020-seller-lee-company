@@ -32,16 +32,14 @@ public class WholeMessageController {
     @MessageMapping(WHOLE_MESSAGE_URI)
     public void message(WholeMessageRequest request) {
         WholeMessageResponse response = wholeMessageService.save(request);
-        send(request.getRoomId(), response.adjustTime());
-    }
-
-    private synchronized void send(Long roomId, WholeMessageResponse response) {
-        messagingTemplate.convertAndSend(DESTINATION_OF_ORGANIZATION + roomId, response);
+        messagingTemplate.convertAndSend(DESTINATION_OF_ORGANIZATION + request.getRoomId(),
+                response.adjustTime());
     }
 
     @GetMapping(WHOLE_MESSAGE_REST_URI)
     public ResponseEntity<List<WholeMessageResponse>> showAll(@PathVariable Long organizationId,
             @RequestParam int size, @RequestParam String lastMessageDate) {
-        return ResponseEntity.ok(wholeMessageService.showAll(organizationId, size, lastMessageDate));
+        return ResponseEntity.ok(
+                wholeMessageService.showAll(organizationId, size, lastMessageDate));
     }
 }

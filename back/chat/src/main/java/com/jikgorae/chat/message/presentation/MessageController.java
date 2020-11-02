@@ -35,11 +35,7 @@ public class MessageController {
     @MessageMapping(MESSAGE_URI)
     public void message(MessageRequest request) {
         MessageResponse response = messageService.save(request);
-        send(request.getRoomId(), response.adjustTime());
-    }
-
-    private synchronized void send(Long roomId, MessageResponse response) {
-        messagingTemplate.convertAndSend(DESTINATION + roomId, response);
+        messagingTemplate.convertAndSend(DESTINATION + request.getRoomId(), response.adjustTime());
     }
 
     @GetMapping(MESSAGE_REST_URI)
