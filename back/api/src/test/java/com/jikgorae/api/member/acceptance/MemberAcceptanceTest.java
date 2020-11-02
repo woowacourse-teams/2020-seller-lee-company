@@ -41,7 +41,8 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                             boolean isFound = findNickname(token);
                             assertThat(isFound).isEqualTo(true);
                         }
-                ));
+                )
+        );
     }
 
     private Boolean findNickname(AuthTokenResponse token) throws Exception {
