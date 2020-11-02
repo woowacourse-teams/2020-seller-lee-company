@@ -89,25 +89,6 @@ public class ArticleViewService {
         return ArticleCardResponse.listOf(articles, favoriteCounts, favoriteStates);
     }
 
-    public List<ArticleCardResponse> showFavorites(Member member) {
-        List<Favorite> favorites = favoriteRepository.findAllByMemberId(member.getId());
-
-        List<Long> favoriteArticleIds = favorites.stream()
-                .map(Favorite::getArticle)
-                .map(Article::getId)
-                .collect(toList());
-
-        List<Article> favoriteArticles = articleRepository.findAllById(favoriteArticleIds);
-
-        Map<Article, Long> articleAndFavoriteCount = toArticleAndFavoriteCount(favoriteArticles);
-        List<Long> favoriteCounts = toFavoriteCounts(favoriteArticles, articleAndFavoriteCount);
-        List<Boolean> favoriteStates = IntStream.range(0, favoriteArticles.size())
-                .mapToObj(i -> Boolean.TRUE)
-                .collect(toList());
-
-        return ArticleCardResponse.listOf(favoriteArticles, favoriteCounts, favoriteStates);
-    }
-
     private Map<Article, Long> toArticleAndFavoriteCount(List<Article> articles) {
         return articleFavoriteCountRepository
                 .findAllByArticleInOrderByArticle(articles).stream()

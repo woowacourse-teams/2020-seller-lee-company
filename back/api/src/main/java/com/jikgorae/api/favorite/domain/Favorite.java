@@ -1,5 +1,7 @@
 package com.jikgorae.api.favorite.domain;
 
+import static java.util.Objects.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +43,8 @@ public class Favorite extends AbstractAggregateRoot<Favorite> {
 
     public Favorite(Article article, Member member) {
         this(null, article, member);
+        requireNonNull(article);
+        requireNonNull(member);
     }
 
     public Favorite create() {

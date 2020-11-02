@@ -66,7 +66,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
     @TestFactory
     @WithMockUser
     Stream<DynamicTest> manageArticle() throws Exception {
-        token = joinAndLogin(MEMBER1);
+        token = joinAndLogin(MEMBER3);
         //Given 조직이 등록되어 있다.
         OrganizationResponse 우아한테크코스 = createOrganization(token, 우아한테크코스_요청);
         OrganizationResponse 한성대학교 = createOrganization(token, 한성대학교_요청);
@@ -77,14 +77,14 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
         createMemberOrganization(한성대학교, token);
 
         // 조직을 추가한 게시글을 등록한다.
-        Long 우아한테크코스_게시물 = extractId(createArticleToOrganization(token, 우아한테크코스));
-        Long 우아한테크코스_게시물2 = extractId(createArticleToOrganization(token, 우아한테크코스));
-        Long 한성대학교_게시물 = extractId(createArticleToOrganization(token, 한성대학교));
-        Long 한성대학교_게시물2 = extractId(createArticleToOrganization(token, 한성대학교));
-        Long 한성대학교_게시물3 = extractId(createArticleToOrganization(token, 한성대학교));
-        Long 한성대학교_게시물4 = extractId(createArticleToOrganization(token, 한성대학교));
-        Long 직고래_게시글 = extractId(createArticleToOrganization(token, 직고래));
-        Long 직고래_게시글2 = extractId(createArticleToOrganization(token, 직고래));
+        Long 우아한테크코스_게시물 = extractId(createArticle(token, 우아한테크코스));
+        Long 우아한테크코스_게시물2 = extractId(createArticle(token, 우아한테크코스));
+        Long 한성대학교_게시물 = extractId(createArticle(token, 한성대학교));
+        Long 한성대학교_게시물2 = extractId(createArticle(token, 한성대학교));
+        Long 한성대학교_게시물3 = extractId(createArticle(token, 한성대학교));
+        Long 한성대학교_게시물4 = extractId(createArticle(token, 한성대학교));
+        Long 직고래_게시글 = extractId(createArticle(token, 직고래));
+        Long 직고래_게시글2 = extractId(createArticle(token, 직고래));
 
         return Stream.of(
                 dynamicTest("전체 게시글 페이지 조회", () -> {
@@ -144,6 +144,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 
     private List<FeedResponse> showPageByOrganization(Long articleId,
             Long organizationId) throws Exception {
+
 
         MvcResult mvcResult = mockMvc.perform(
                 MockMvcRequestBuilders.get(

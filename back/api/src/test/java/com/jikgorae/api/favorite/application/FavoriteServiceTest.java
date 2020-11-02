@@ -35,43 +35,19 @@ class FavoriteServiceTest {
     @Mock
     private ArticleRepository articleRepository;
 
-    @Mock
-    private ArticleFavoriteCountRepository articleFavoriteCountRepository;
-
-    private ArticleViewService articleViewService;
-
     private FavoriteService favoriteService;
-
-    private ArticleOrganizationService articleOrganizationService;
 
     @BeforeEach
     void setUp() {
-        articleViewService = new ArticleViewService(articleRepository,
-                articleFavoriteCountRepository, favoriteRepository, articleOrganizationService);
-        favoriteService = new FavoriteService(favoriteRepository, articleViewService);
+        favoriteService = new FavoriteService(favoriteRepository);
     }
 
-    @DisplayName("Member가 찜하고 있는 게시글 반환")
-    @Test
-    void showFavorites() {
-        when(favoriteRepository.findAllByMemberId(MEMBER1.getId())).thenReturn(
-                singletonList(FAVORITE1));
-        when(articleRepository.findAllById(singletonList(FAVORITE1.getId()))).thenReturn(
-                singletonList(ARTICLE1));
-
-        List<ArticleCardResponse> responses = favoriteService.showFavorites(MEMBER1);
-
-        assertThat(responses.get(0).getId()).isEqualTo(ARTICLE1.getId());
-    }
-
-    @Disabled
     @DisplayName("create 요청시 Id가 생성된다.")
     @Test
     void create() {
         when(favoriteRepository.save(any())).thenReturn(new Favorite(1L, ARTICLE1, MEMBER1));
-        when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
-        assertThat(favoriteService.create(
-                new FavoriteRequest(ARTICLE1.getId()), MEMBER1)).isEqualTo(1L);
+        assertThat(favoriteService.create(new FavoriteRequest(ARTICLE1.getId()), MEMBER1))
+                .isEqualTo(1L);
     }
 
     @DisplayName("cancel 요청시 repository에 delete를 요청한다.")
@@ -80,5 +56,13 @@ class FavoriteServiceTest {
         favoriteService.delete(new FavoriteRequest(ARTICLE1.getId()), MEMBER1);
 
         verify(favoriteRepository).deleteByMemberIdAndArticleId(ARTICLE1.getId(), MEMBER1.getId());
+    }
+
+    @DisplayName("게시글에 해당되는 찜을 삭제한다.")
+    @Test
+    void deleteAllByArticleId() {
+        favoriteService.deleteAllByArticleId(anyLong());
+
+        verify(favoriteRepository).deleteAllByArticleId(anyLong());
     }
 }

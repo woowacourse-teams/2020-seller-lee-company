@@ -24,6 +24,16 @@ public class MemberFixture {
                     5.0,
                     "ExponentPushToken[1234567-12345678901234]"
             );
+    public static final Member MEMBER3 =
+            new Member(
+                    53L,
+                    "53L",
+                    "kouz",
+                    "https://avatars2.githubusercontent.com/u/39271364?s=400&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4",
+                    "ROLE_USER",
+                    5.0,
+                    "ExponentPushToken[1234567-12345678901254]"
+            );
     private static final String MEMBER_CHANGE_PASSWORD = "1111";
     private static final String MEMBER_CHANGE_AVATAR = "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4";
     public static final ProfileRequest PROFILE_REQUEST = new ProfileRequest(MEMBER_CHANGE_PASSWORD,
