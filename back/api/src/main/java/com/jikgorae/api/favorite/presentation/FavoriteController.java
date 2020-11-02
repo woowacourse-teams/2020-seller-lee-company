@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.favorite.application.FavoriteRequest;
 import com.jikgorae.api.favorite.application.FavoriteService;
+import com.jikgorae.api.favorite.query.FavoriteDao;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.security.core.LoginMember;
 
@@ -25,15 +26,18 @@ public class FavoriteController {
     public static final String FAVORITE_API_URI = "/api/favorites";
 
     private final FavoriteService favoriteService;
+    private final FavoriteDao favoriteDao;
 
-    public FavoriteController(FavoriteService favoriteService) {
+    public FavoriteController(FavoriteService favoriteService,
+            FavoriteDao favoriteDao) {
         this.favoriteService = favoriteService;
+        this.favoriteDao = favoriteDao;
     }
 
     @GetMapping
     public ResponseEntity<List<ArticleCardResponse>> showFavorites(
             @LoginMember Member loginMember) {
-        List<ArticleCardResponse> responses = favoriteService.showFavorites(loginMember);
+        List<ArticleCardResponse> responses = favoriteDao.showFavorites(loginMember);
         return ResponseEntity.ok(responses);
     }
 

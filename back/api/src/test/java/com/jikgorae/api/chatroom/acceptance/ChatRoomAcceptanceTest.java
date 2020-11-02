@@ -2,6 +2,7 @@ package com.jikgorae.api.chatroom.acceptance;
 
 import static com.jikgorae.api.chatroom.presentation.ChatRoomController.*;
 import static com.jikgorae.api.fixture.MemberFixture.*;
+import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.*;
 import static org.springframework.http.HttpHeaders.*;
@@ -20,6 +21,7 @@ import com.jikgorae.api.AcceptanceTest;
 import com.jikgorae.api.chatroom.application.ChatRoomCreateRequest;
 import com.jikgorae.api.chatroom.application.ChatRoomResponse;
 import com.jikgorae.api.member.application.AuthTokenResponse;
+import com.jikgorae.api.organization.application.OrganizationResponse;
 import com.jikgorae.api.security.web.AuthorizationType;
 
 public class ChatRoomAcceptanceTest extends AcceptanceTest {
@@ -42,8 +44,9 @@ public class ChatRoomAcceptanceTest extends AcceptanceTest {
     @DisplayName("채팅방 관리")
     @TestFactory
     Stream<DynamicTest> manageChatRoom() throws Exception {
-        token = joinAndLogin(MEMBER1);
-        Long articleId = extractId(createArticle(token));
+        token = joinAndLogin(MEMBER2);
+        OrganizationResponse organization = createOrganization(token, 배달의민족_요청);
+        Long articleId = extractId(createArticle(token, organization));
 
         Long chatRoomId = extractId(createChatRoom(articleId));
 

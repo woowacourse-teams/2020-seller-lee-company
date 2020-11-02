@@ -24,16 +24,19 @@ import com.jikgorae.api.ControllerTest;
 import com.jikgorae.api.article.application.ArticleCardResponse;
 import com.jikgorae.api.favorite.application.FavoriteRequest;
 import com.jikgorae.api.favorite.application.FavoriteService;
+import com.jikgorae.api.favorite.query.FavoriteDao;
 
 @WebMvcTest(controllers = FavoriteController.class)
 class FavoriteControllerTest extends ControllerTest {
     @MockBean
     private FavoriteService favoriteService;
+    @MockBean
+    private FavoriteDao favoriteDao;
 
     @DisplayName("찜 목록 조회 시 찜하고 있는 게시글과 Status OK 반환")
     @Test
     void showFavorites() throws Exception {
-        when(favoriteService.showFavorites(any())).thenReturn(
+        when(favoriteDao.showFavorites(any())).thenReturn(
                 ArticleCardResponse.listOf(singletonList(ARTICLE1), singletonList(1L),
                         singletonList(true)));
 

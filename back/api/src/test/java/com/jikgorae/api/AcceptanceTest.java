@@ -74,11 +74,7 @@ public class AcceptanceTest {
         return Long.parseLong(id);
     }
 
-    protected String createArticle(AuthTokenResponse token) throws Exception {
-        return createArticleToOrganization(token, createOrganization(token, 배달의민족_요청));
-    }
-
-    protected String createArticleToOrganization(AuthTokenResponse token,
+    protected String createArticle(AuthTokenResponse token,
             OrganizationResponse organizationResponse) throws Exception {
         ArticleRequest articleRequest = new ArticleRequest(
                 "TEST_TITLE",

@@ -15,16 +15,9 @@ import com.jikgorae.api.member.domain.Member;
 @Service
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
-    private final ArticleViewService articleViewService;
 
-    public FavoriteService(FavoriteRepository favoriteRepository,
-            ArticleViewService articleViewService) {
+    public FavoriteService(FavoriteRepository favoriteRepository) {
         this.favoriteRepository = favoriteRepository;
-        this.articleViewService = articleViewService;
-    }
-
-    public List<ArticleCardResponse> showFavorites(Member member) {
-        return articleViewService.showFavorites(member);
     }
 
     @Transactional

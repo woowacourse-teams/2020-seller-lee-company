@@ -27,6 +27,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 @Component
 public class ArticleDao {
     public static final String FAVORITE_STATE = "favoriteState";
+
     private final JPAQueryFactory queryFactory;
 
     public ArticleDao(JPAQueryFactory queryFactory) {
