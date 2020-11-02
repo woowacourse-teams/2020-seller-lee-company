@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 class MemberTest {
     @Test
@@ -37,5 +39,12 @@ class MemberTest {
         String nickname = "lxxjn0";
         Member member = new Member(51L, "", nickname, null, null, null, null);
         assertThat(member.isSameNickname(nickname)).isTrue();
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void hasNickname(String nickname) {
+        Member member = new Member(51L, null, nickname, null, null, null, null);
+        assertThat(member.hasNotNickname()).isTrue();
     }
 }

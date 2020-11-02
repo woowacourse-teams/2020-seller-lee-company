@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.jikgorae.api.member.domain.MemberRepository;
+import com.jikgorae.common.notification.domain.PushToken;
 
 @ExtendWith(value = MockitoExtension.class)
 class MemberServiceTest {
@@ -40,11 +41,19 @@ class MemberServiceTest {
 
     @DisplayName("본인 이외의 중복된 닉네임 수정 요청 시 Exception 발생")
     @Test
-    void ThrowExceptionUpdate() {
+    void ThrowUpdateException() {
         when(memberRepository.findOptionalMemberByNickname(anyString())).thenReturn(
                 Optional.of(MEMBER2));
 
         assertThatThrownBy(() -> memberService.update(MEMBER2, PROFILE_REQUEST)).isInstanceOf(
                 IllegalArgumentException.class);
+    }
+
+    @DisplayName("알림토큰 수정 요청 시 회원이 갖고 있는 알림토큰 정보 수정")
+    @Test
+    void updatePushToken() {
+        memberService.updatePushToken(MEMBER1, PUSH_TOKEN_REQUEST);
+
+        assertThat(MEMBER1.getPushToken()).isEqualTo(PUSH_TOKEN_REQUEST.getPushToken());
     }
 }

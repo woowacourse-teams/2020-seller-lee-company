@@ -1,6 +1,7 @@
 package com.jikgorae.api.fixture;
 
 import com.jikgorae.api.member.application.ProfileRequest;
+import com.jikgorae.api.member.application.PushTokenRequest;
 import com.jikgorae.api.member.domain.Member;
 
 public class MemberFixture {
@@ -38,4 +39,5 @@ public class MemberFixture {
     private static final String MEMBER_CHANGE_AVATAR = "https://avatars2.githubusercontent.com/u/39271364?s=460&u=be1f013910aa0af5338022bd65811e0204746f9a&v=4";
     public static final ProfileRequest PROFILE_REQUEST = new ProfileRequest(MEMBER_CHANGE_PASSWORD,
             MEMBER_CHANGE_AVATAR);
+    public static final PushTokenRequest PUSH_TOKEN_REQUEST = new PushTokenRequest("ExponentPushToken[7654321-43210987654321]");
 }
