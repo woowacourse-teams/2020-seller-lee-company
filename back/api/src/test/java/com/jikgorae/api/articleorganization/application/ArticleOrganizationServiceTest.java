@@ -56,4 +56,11 @@ public class ArticleOrganizationServiceTest {
         articleOrganizationService.deleteAllByArticleId(ARTICLE1.getId());
         verify(articleOrganizationRepository).deleteAllByArticleId(ARTICLE1.getId());
     }
+
+    @DisplayName("ArticleOrganization 삭제")
+    @Test
+    void deleteAllByArticleId() {
+        articleOrganizationService.deleteAllByArticleId(ARTICLE1.getId());
+        verify(articleOrganizationRepository).deleteAllByArticleId(ARTICLE1.getId());
+    }
 }

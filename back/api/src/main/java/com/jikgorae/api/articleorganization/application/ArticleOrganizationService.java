@@ -31,7 +31,6 @@ public class ArticleOrganizationService {
     }
 
     public void update(Article article, List<Organization> organizations) {
-        // TODO: 2020/09/18 리팩토링
         deleteAllByArticleId(article.getId());
         create(article, organizations);
     }

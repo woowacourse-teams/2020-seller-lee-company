@@ -34,15 +34,7 @@ public class ArticleOrganization {
         this.organization = organization;
     }
 
-    public Article getArticle() {
-        return article;
-    }
-
     public Organization getOrganization() {
         return organization;
-    }
-
-    public void update(Organization organization) {
-        this.organization = organization;
     }
 }
