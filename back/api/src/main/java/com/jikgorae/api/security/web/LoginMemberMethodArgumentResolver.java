@@ -38,11 +38,7 @@ public class LoginMemberMethodArgumentResolver implements HandlerMethodArgumentR
         if (StringUtils.isBlank(kakaoId)) {
             return new AuthenticationMemberException("인증된 사용자가 존재하지 않습니다.");
         }
-        try {
-            return memberRepository.findOptionalMemberByKakaoId(kakaoId)
-                    .orElseThrow(() -> new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
-        } catch (Exception e) {
-            throw new IllegalLoginException("비정상적인 로그인입니다.");
-        }
+        return memberRepository.findOptionalMemberByKakaoId(kakaoId)
+                .orElseThrow(() -> new IllegalLoginException("닉네임이 일치하는 회원이 존재하지 않습니다."));
     }
 }

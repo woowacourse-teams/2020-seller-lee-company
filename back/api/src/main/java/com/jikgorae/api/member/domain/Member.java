@@ -67,6 +67,10 @@ public class Member {
         return this.nickname.equals(nickname);
     }
 
+    public boolean hasNotNickname() {
+        return Objects.isNull(nickname) || nickname.isEmpty();
+    }
+
     public void update(String nickname, String avatar) {
         this.nickname = nickname;
         this.avatar = avatar;
