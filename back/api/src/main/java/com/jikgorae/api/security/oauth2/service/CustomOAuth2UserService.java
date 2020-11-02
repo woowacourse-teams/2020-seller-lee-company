@@ -2,17 +2,12 @@ package com.jikgorae.api.security.oauth2.service;
 
 import static org.springframework.data.util.Optionals.*;
 
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,28 +18,22 @@ import com.jikgorae.api.member.domain.MemberRepository;
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
+    private final GettingDefaultOAuth2UserService gettingDefaultOAuth2UserService;
 
     public CustomOAuth2UserService(
-            MemberRepository memberRepository) {
+            MemberRepository memberRepository,
+            GettingDefaultOAuth2UserService gettingDefaultOAuth2UserService) {
         this.memberRepository = memberRepository;
+        this.gettingDefaultOAuth2UserService = gettingDefaultOAuth2UserService;
     }
 
     @Transactional
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService delegate = new DefaultOAuth2UserService();
-        OAuth2User oAuth2User = delegate.loadUser(userRequest);
-        String userNameAttributeName = userRequest.getClientRegistration()
-                .getProviderDetails()
-                .getUserInfoEndpoint()
-                .getUserNameAttributeName();
+        OAuth2User oAuth2User = gettingDefaultOAuth2UserService.loadUser(userRequest);
 
         String kakaoId = oAuth2User.getName();
         Iterator<? extends GrantedAuthority> iterator = (oAuth2User.getAuthorities()).iterator();
-
-        if (!iterator.hasNext()) {
-            throw new NoSuchElementException("no granted authorities");
-        }
 
         String role = iterator.next().getAuthority();
         ifPresentOrElse(memberRepository.findOptionalMemberByKakaoId(kakaoId),
@@ -52,9 +41,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 () -> memberRepository.save(new Member(kakaoId, null, null, role, null, null))
         );
 
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(role)),
-                oAuth2User.getAttributes(),
-                userNameAttributeName);
+        return oAuth2User;
     }
 }
