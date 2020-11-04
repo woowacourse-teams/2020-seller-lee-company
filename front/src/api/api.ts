@@ -3,7 +3,7 @@ import { DeviceStorage } from "../auth/DeviceStorage";
 import { Score } from "../types/types";
 
 const DEPLOY_SERVER_IP = "15.164.125.244";
-// const QA_SERVER_IP = "192.168.25.5";
+// const QA_SERVER_IP = "192.168.4.179";
 // const LOCAL_SERVER_IP = "localhost";
 
 const BASE_URL = `http://${DEPLOY_SERVER_IP}:8080`;
