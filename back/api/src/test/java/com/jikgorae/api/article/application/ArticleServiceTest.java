@@ -61,7 +61,7 @@ class ArticleServiceTest {
 
     @DisplayName("게시글 삭제 메서드 호출 시 게시글 삭제")
     @Test
-    void deleteArticle() {
+    void deleteById() {
         when(articleRepository.findById(ARTICLE1.getId())).thenReturn(Optional.of(ARTICLE1));
 
         articleService.deleteById(ARTICLE1.getId(), MEMBER1);

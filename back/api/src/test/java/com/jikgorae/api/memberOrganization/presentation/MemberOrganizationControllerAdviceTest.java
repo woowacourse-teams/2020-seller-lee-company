@@ -28,7 +28,7 @@ import com.jikgorae.api.memberOrganization.exception.MemberOrganizationAlreadyEx
 import com.jikgorae.api.organization.exception.OrganizationNotFoundException;
 
 @WebMvcTest(MemberOrganizationController.class)
-class MemberOrganizationAdviceControllerTest extends ControllerTest {
+class MemberOrganizationControllerAdviceTest extends ControllerTest {
     @MockBean
     private MemberOrganizationService service;
 

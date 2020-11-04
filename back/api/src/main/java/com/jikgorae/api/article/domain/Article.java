@@ -1,5 +1,6 @@
 package com.jikgorae.api.article.domain;
 
+import static com.jikgorae.api.article.exception.AuthorizationException.*;
 import static java.util.Objects.*;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ import javax.persistence.ManyToOne;
 
 import com.jikgorae.api.common.BaseTimeEntity;
 import com.jikgorae.api.member.domain.Member;
-import com.jikgorae.api.security.web.AuthorizationException;
+import com.jikgorae.api.article.exception.AuthorizationException;
 
 @Entity
 public class Article extends BaseTimeEntity {
@@ -88,7 +89,8 @@ public class Article extends BaseTimeEntity {
 
     public void update(Article article) {
         if (author.isNotSameId(article.author)) {
-            throw new AuthorizationException("수정할 수 있는 권한이 없습니다.");
+            throw new AuthorizationException(UNAUTHORIZED_TO_UPDATE, article.getId(),
+                    author.getId());
         }
         title = article.title;
         price = article.price;
@@ -138,3 +140,4 @@ public class Article extends BaseTimeEntity {
         return author;
     }
 }
+

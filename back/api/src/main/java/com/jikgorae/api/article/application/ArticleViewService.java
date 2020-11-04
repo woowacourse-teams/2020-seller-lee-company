@@ -4,9 +4,7 @@ import static java.util.stream.Collectors.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,7 @@ import com.jikgorae.api.article.domain.Article;
 import com.jikgorae.api.article.domain.ArticleRepository;
 import com.jikgorae.api.article.domain.Category;
 import com.jikgorae.api.article.domain.TradeState;
+import com.jikgorae.api.article.exception.ArticleNotFoundException;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCount;
 import com.jikgorae.api.articlefavoritecount.domain.ArticleFavoriteCountRepository;
 import com.jikgorae.api.articleorganization.application.ArticleOrganizationService;
@@ -31,7 +30,7 @@ public class ArticleViewService {
     private final ArticleRepository articleRepository;
     private final ArticleFavoriteCountRepository articleFavoriteCountRepository;
     private final FavoriteRepository favoriteRepository;
-    private ArticleOrganizationService articleOrganizationService;
+    private final ArticleOrganizationService articleOrganizationService;
 
     public ArticleViewService(ArticleRepository articleRepository,
             ArticleFavoriteCountRepository articleFavoriteCountRepository,
@@ -59,12 +58,12 @@ public class ArticleViewService {
 
     public Article show(Long articleId) {
         return articleRepository.findById(articleId)
-                .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new ArticleNotFoundException(articleId));
     }
 
     public Article findArticleBy(Long articleId) {
         return articleRepository.findById(articleId)
-                .orElseThrow(() -> new NoSuchElementException("조회할 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new ArticleNotFoundException(articleId));
     }
 
     public List<ArticleCardResponse> showPageByCategory(Long lastArticleId, int size,
@@ -127,3 +126,4 @@ public class ArticleViewService {
         return toArticleCardResponses(loginMember, articles);
     }
 }
+

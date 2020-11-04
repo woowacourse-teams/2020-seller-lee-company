@@ -110,3 +110,4 @@ public class ArticleDao {
         return article.category.eq(Category.fromString(category));
     }
 }
+
