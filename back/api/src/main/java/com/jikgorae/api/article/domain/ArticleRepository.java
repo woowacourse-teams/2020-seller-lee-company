@@ -10,13 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.jikgorae.api.member.domain.Member;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    Page<Article> findByIdLessThanAndTradeStateOrderByIdDesc(Long lastArticleId,
-            TradeState tradeState, Pageable pageRequest);
-
     Page<Article> findByIdLessThanAndCategoryOrderByIdDesc(Long lastArticleId, Category category,
             Pageable pageRequest);
-
-    List<Article> findAllByTradeState(TradeState tradeState);
 
     Optional<Article> findByAuthorAndId(Member author, Long id);
 
@@ -24,3 +19,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findAllByAuthorAndTradeState(Member author, TradeState tradeState);
 }
+
+

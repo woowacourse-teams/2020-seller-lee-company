@@ -13,15 +13,6 @@ public enum TradeState {
         this.tradeState = tradeState;
     }
 
-    public static TradeState fromString(String tradeState) {
-        return Arrays.stream(values())
-                .filter(v -> v.tradeState.equals(tradeState))
-                .findFirst()
-                .orElseThrow(() ->
-                        new IllegalArgumentException(
-                                String.format("잘못된 TradeState : %s.", tradeState)));
-    }
-
     public boolean isCompleted() {
         return this == COMPLETED;
     }
@@ -30,3 +21,4 @@ public enum TradeState {
         return tradeState;
     }
 }
+
