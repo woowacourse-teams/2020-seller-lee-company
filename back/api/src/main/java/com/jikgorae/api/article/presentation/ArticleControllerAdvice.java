@@ -13,19 +13,19 @@ import com.jikgorae.api.common.exception.ExceptionResponse;
 public class ArticleControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ArticleNotFoundException.class)
-    public ExceptionResponse handleNotFound(ArticleNotFoundException exception) {
+    public ExceptionResponse handleArticleNotFoundException(ArticleNotFoundException exception) {
         return ExceptionResponse.of(exception);
    }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AuthorizationException.class)
-    public ExceptionResponse handleUnAuthorization(AuthorizationException exception) {
+    public ExceptionResponse handleAuthorizationException(AuthorizationException exception) {
         return ExceptionResponse.of(exception);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ExceptionResponse defaultException(Exception exception) {
+    public ExceptionResponse handleGlobalException(Exception exception) {
         return ExceptionResponse.of(exception);
     }
 }
