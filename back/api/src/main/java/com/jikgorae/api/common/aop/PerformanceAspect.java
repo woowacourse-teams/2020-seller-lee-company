@@ -11,7 +11,7 @@ import org.springframework.util.StopWatch;
 
 @Component
 @Aspect
-@Profile("!test")
+@Profile("dev")
 public class PerformanceAspect {
     private static final Logger logger = LoggerFactory.getLogger(PerformanceAspect.class);
 
