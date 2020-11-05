@@ -15,7 +15,7 @@ dependencies {
 
 sonarqube {
     properties {
-        property 'sonar.exclusions', '**/*Test*.*, **/Q*.java, **/*Doc*.java, **/*.html'
+        property 'sonar.exclusions', '**/test/**/*, **/Q*.java, **/*Doc*.java, **/resources/**/*'
     }
 }
 
