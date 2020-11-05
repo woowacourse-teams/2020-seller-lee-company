@@ -8,8 +8,8 @@ node {
     stage('SonarQube analysis') {
       withSonarQubeEnv('SonarQube') {
         sh 'cd back && ./gradlew --info sonarqube' +
-        ' -Dsonar.projectKey=Jikgorae-${GIT_LOCAL_BRANCH}' + env.BRANCH_NAME +
-        ' -Dsonar.projectName=Jikgorae-${GIT_LOCAL_BRANCH} '
+        ' -Dsonar.projectKey=Jikgorae-' + env.BRANCH_NAME +
+        ' -Dsonar.projectName=Jikgorae-' + env.BRANCH_NAME
       }
     }
 }
