@@ -35,7 +35,6 @@ public class ProfileController {
     public ResponseEntity<Void> update(@LoginMember Member loginMember,
             @RequestBody ProfileRequest request) {
         memberService.update(loginMember, request);
-
         return ResponseEntity.noContent().build();
     }
 }

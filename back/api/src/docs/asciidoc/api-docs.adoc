@@ -94,3 +94,22 @@ operation::me/get[snippets='http-request,request-headers,http-response,response-
 === 회원 닉네임 조회
 
 operation::auth/findNickname[snippets='http-request,request-headers,http-response']
+
+== 예외
+
+=== 잘못된 요청이 들어온 경우 (Bad Request)
+
+==== 1. 존재하지 않는 게시글에 대한 요청
+operation::exception/illegalArgumentException/articleNotFoundException[snippets='http-request,http-response']
+
+==== 2. 존재하지 않는 조직에 대한 요청
+operation::exception/illegalArgumentException/organizationNotFoundException[snippets='http-request,http-response']
+
+==== 3. 이미 존재하는 조직에 대한 요청
+operation::exception/illegalArgumentException/memberOrganizationAlreadyExistsException[snippets='http-request,http-response']
+
+=== 권한이 없는 경우 (Unauthorized)
+operation::exception/unauthorizedException/[snippets='http-request,http-response']
+
+=== 예기치 못한 에러가 발생한 경우 (Internal Server Error)
+operation::exception/globalException/[snippets='http-request,http-response']

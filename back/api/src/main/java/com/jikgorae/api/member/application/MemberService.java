@@ -1,9 +1,11 @@
 package com.jikgorae.api.member.application;
 
+import static com.jikgorae.api.member.domain.IllegalProfileException.*;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jikgorae.api.member.domain.IllegalJoinException;
+import com.jikgorae.api.member.domain.IllegalProfileException;
 import com.jikgorae.api.member.domain.Member;
 import com.jikgorae.api.member.domain.MemberRepository;
 
@@ -30,9 +32,9 @@ public class MemberService {
 
     private void throwUpdateException(Member loginMember) {
         if (loginMember.hasNotNickname()) {
-            throw new IllegalJoinException("중복된 이름으로 회원가입 할 수 없습니다.");
+            throw new IllegalProfileException(DUPLICATED_NAME_TO_JOIN);
         }
-        throw new IllegalArgumentException("중복된 이름으로 변경할 수 없습니다.");
+        throw new IllegalProfileException(DUPLICATED_NAME_TO_UPDATE);
     }
 
     @Transactional
