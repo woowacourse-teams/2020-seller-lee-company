@@ -13,12 +13,6 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
 }
 
-sonarqube {
-    properties {
-        property 'sonar.exclusions', '**/test/**/*, **/Q*.java, **/*Doc*.java, **/resources/**/*'
-    }
-}
-
 processResources.dependsOn('copySecret')
 
 task copySecret(type: Copy) {
