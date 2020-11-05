@@ -88,7 +88,7 @@ asciidoctor {
 
 sonarqube {
     properties {
-        property "sonar.exclusions", "**/*Test*.*, **/Q*.java, **/*Doc*.java, **/resources"
+        property "sonar.exclusions", "**/*Test*.*, **/Q*.java, **/*Doc*.java, **/*.html"
     }
 }
 
