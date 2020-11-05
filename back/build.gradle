@@ -34,8 +34,8 @@ subprojects {
     jacocoTestReport {
         reports {
             html.enabled true
-            csv.enabled true
-            xml.enabled false
+            csv.enabled false
+            xml.enabled true
         }
 
         def Qdomains = []
