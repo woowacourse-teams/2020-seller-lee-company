@@ -89,6 +89,7 @@ subprojects {
     sonarqube {
         properties {
             property 'sonar.host.url', 'http://3.34.93.68:8000'
+            property 'sonar.login', '2d596d0d5e2aaf340e31fe15be097a5d679244c6'
             property 'sonar.sources', 'src'
             property 'sonar.language', 'java'
             property 'sonar.projectVersion', '1.1.0-SNAPSHOT'
