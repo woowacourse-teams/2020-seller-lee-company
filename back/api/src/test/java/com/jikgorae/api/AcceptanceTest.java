@@ -1,6 +1,5 @@
 package com.jikgorae.api;
 
-import static com.jikgorae.api.fixture.OrganizationFixture.*;
 import static com.jikgorae.api.fixture.TagFixture.*;
 import static com.jikgorae.api.memberOrganization.presentation.MemberOrganizationController.*;
 import static com.jikgorae.api.organization.presentation.OrganizationController.*;
@@ -43,6 +42,7 @@ import com.jikgorae.api.security.web.AuthorizationType;
 public class AcceptanceTest {
     protected static final String LOCATION = "Location";
     private static final String DELIMITER = "/";
+
     protected MockMvc mockMvc;
 
     @Autowired
