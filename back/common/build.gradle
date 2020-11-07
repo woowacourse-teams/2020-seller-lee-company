@@ -8,9 +8,3 @@ dependencies {
     // expo server
     implementation 'io.github.jav:expo-server-sdk:1.1.0'
 }
-
-sonarqube {
-    properties {
-        property "sonar.exclusions", "**/*Test*.*, **/Q*.java, **/*Doc*.java, **/*.html"
-    }
-}

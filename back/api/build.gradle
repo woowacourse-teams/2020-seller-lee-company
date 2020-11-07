@@ -90,12 +90,6 @@ asciidoctor {
     dependsOn test
 }
 
-sonarqube {
-    properties {
-        property "sonar.exclusions", "**/*Test*.*, **/Q*.java, **/*Doc*.java, **/*.html"
-    }
-}
-
 bootJar {
     dependsOn asciidoctor
     from("${asciidoctor.outputDir}/html5") {
