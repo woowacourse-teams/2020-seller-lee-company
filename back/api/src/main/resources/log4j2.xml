@@ -2,7 +2,7 @@
 <Configuration status="info" monitorInterval="30">
     <Properties>
         <Property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Property>
-        <Property name="BASE_DIR">/Users/woowahans/Desktop/sellerlee/log</Property>
+        <!--        <Property name="BASE_DIR">/Users/*/Desktop/sellerlee/log</Property>-->
     </Properties>
 
     <Appenders>
@@ -14,12 +14,12 @@
                      filePattern="${BASE_DIR}/bootdemo.%d{yyyyMMdd}.log">
             <PatternLayout pattern="${LOG_FORMAT}"/>
             <Policies>
-                <TimeBasedTriggeringPolicy />
+                <TimeBasedTriggeringPolicy/>
             </Policies>
             <DefaultRolloverStrategy>
                 <Delete basePath="${BASE_DIR}">
-                    <IfFileName glob="*.log" />
-                    <IfLastModified age="30d" />
+                    <IfFileName glob="*.log"/>
+                    <IfLastModified age="30d"/>
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingFile>
@@ -28,7 +28,7 @@
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="File" />
+            <AppenderRef ref="File"/>
         </Root>
     </Loggers>
 </Configuration>
