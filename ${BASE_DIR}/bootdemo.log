@@ -1,0 +1,505 @@
+2020-11-14 19:58:23 WARN InetAddress.getLocalHost().getHostName() took 5003 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2020-11-14 19:58:18 INFO Starting ApiApplication on jeong-eunseog-ui-MacBook-Pro.local with PID 5110 (/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main started by jeong-eunseog in /Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company)
+2020-11-14 19:58:28 INFO The following profiles are active: local,common,security
+2020-11-14 19:58:30 INFO Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-14 19:58:30 INFO Finished Spring Data repository scanning in 112ms. Found 9 JPA repository interfaces.
+2020-11-14 19:58:31 INFO Tomcat initialized with port(s): 8081 (http)
+2020-11-14 19:58:31 INFO Initializing ProtocolHandler ["http-nio-8081"]
+2020-11-14 19:58:31 INFO Starting service [Tomcat]
+2020-11-14 19:58:31 INFO Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-11-14 19:58:31 INFO Initializing Spring embedded WebApplicationContext
+2020-11-14 19:58:31 INFO Root WebApplicationContext: initialization completed in 2348 ms
+2020-11-14 19:58:31 INFO Flyway Community Edition 6.4.4 by Redgate
+2020-11-14 19:58:31 INFO HikariPool-1 - Starting...
+2020-11-14 19:58:31 INFO HikariPool-1 - Start completed.
+2020-11-14 19:58:31 INFO Database: jdbc:mariadb://localhost:3306/sl_db (MariaDB 10.5)
+2020-11-14 19:58:31 WARN Flyway upgrade recommended: MariaDB 10.5 is newer than this version of Flyway and support has not been tested. The latest supported version of MariaDB is 10.4.
+2020-11-14 19:58:31 INFO Successfully validated 17 migrations (execution time 00:00.123s)
+2020-11-14 19:58:32 INFO Current version of schema `sl_db`: 11.1
+2020-11-14 19:58:32 INFO Schema `sl_db` is up to date. No migration necessary.
+2020-11-14 19:58:32 INFO Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-14 19:58:32 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-14 19:58:32 INFO HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-11-14 19:58:32 INFO HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-14 19:58:32 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-14 19:58:32 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-14 19:58:33 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-14 19:58:33 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 19:58:33 INFO Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@239f017e, org.springframework.security.web.context.SecurityContextPersistenceFilter@53e76c11, org.springframework.security.web.header.HeaderWriterFilter@1cfc2538, org.springframework.security.web.csrf.CsrfFilter@77dba4cd, org.springframework.security.web.authentication.logout.LogoutFilter@7cf78c85, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@939ff41, com.jikgorae.api.security.filter.JwtAuthenticationFilter@38cedb7d, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@56476c16, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e4e8fdf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6bee793f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@772caabe, org.springframework.security.web.session.SessionManagementFilter@5d342959, org.springframework.security.web.access.ExceptionTranslationFilter@3451f01d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3330f3ad]
+2020-11-14 19:58:33 DEBUG ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-11-14 19:58:33 DEBUG 29 mappings in 'requestMappingHandlerMapping'
+2020-11-14 19:58:33 INFO Adding welcome page: class path resource [static/index.html]
+2020-11-14 19:58:33 DEBUG Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-11-14 19:58:33 DEBUG ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-11-14 19:58:33 INFO Starting ProtocolHandler ["http-nio-8081"]
+2020-11-14 19:58:34 INFO Tomcat started on port(s): 8081 (http) with context path ''
+2020-11-14 19:58:34 INFO Triggering deferred initialization of Spring Data repositories…
+2020-11-14 19:58:34 INFO Spring Data repositories initialized!
+2020-11-14 19:58:34 INFO Started ApiApplication in 30.959 seconds (JVM running for 42.259)
+2020-11-14 20:00:09 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-11-14 20:00:09 INFO Initializing Servlet 'dispatcherServlet'
+2020-11-14 20:00:09 DEBUG Detected StandardServletMultipartResolver
+2020-11-14 20:00:09 DEBUG enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-11-14 20:00:09 INFO Completed initialization in 26 ms
+2020-11-14 20:00:09 DEBUG GET "/", parameters={}
+2020-11-14 20:00:09 DEBUG Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2020-11-14 20:00:09 DEBUG View name 'forward:', model {}
+2020-11-14 20:00:09 DEBUG Forwarding to [index.html]
+2020-11-14 20:00:09 DEBUG "FORWARD" dispatch for GET "/index.html", parameters={}
+2020-11-14 20:00:09 DEBUG Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-11-14 20:00:09 DEBUG Exiting from "FORWARD" dispatch, status 200
+2020-11-14 20:00:09 DEBUG Completed 200 OK
+2020-11-14 20:00:09 WARN Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [140] milliseconds.
+2020-11-14 20:00:10 DEBUG GET "/", parameters={}
+2020-11-14 20:00:10 DEBUG Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2020-11-14 20:00:10 DEBUG View name 'forward:', model {}
+2020-11-14 20:00:10 DEBUG Forwarding to [index.html]
+2020-11-14 20:00:10 DEBUG "FORWARD" dispatch for GET "/index.html", parameters={}
+2020-11-14 20:00:10 DEBUG Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-11-14 20:00:10 DEBUG Exiting from "FORWARD" dispatch, status 200
+2020-11-14 20:00:10 DEBUG Completed 200 OK
+2020-11-14 20:00:26 DEBUG GET "/", parameters={}
+2020-11-14 20:00:26 DEBUG Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2020-11-14 20:00:26 DEBUG View name 'forward:', model {}
+2020-11-14 20:00:26 DEBUG Forwarding to [index.html]
+2020-11-14 20:00:26 DEBUG "FORWARD" dispatch for GET "/index.html", parameters={}
+2020-11-14 20:00:26 DEBUG Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-11-14 20:00:26 DEBUG Exiting from "FORWARD" dispatch, status 200
+2020-11-14 20:00:26 DEBUG Completed 200 OK
+2020-11-14 20:00:31 DEBUG GET "/server-status", parameters={}
+2020-11-14 20:00:31 DEBUG Mapped to com.jikgorae.api.ServerStatusController#status()
+2020-11-14 20:00:31 DEBUG Using 'text/html', given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] and supported [text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
+2020-11-14 20:00:31 DEBUG Writing [""]
+2020-11-14 20:00:31 DEBUG Completed 200 OK
+2020-11-14 20:02:40 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:02:40 INFO Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:02:40 INFO HikariPool-1 - Shutdown initiated...
+2020-11-14 20:02:40 INFO HikariPool-1 - Shutdown completed.
+2020-11-14 20:04:19 WARN InetAddress.getLocalHost().getHostName() took 5002 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2020-11-14 20:04:14 INFO Starting ApiApplication on jeong-eunseog-ui-MacBook-Pro.local with PID 5459 (/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main started by jeong-eunseog in /Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company)
+2020-11-14 20:04:24 INFO The following profiles are active: local,common,security
+2020-11-14 20:04:25 INFO Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-14 20:04:25 INFO Finished Spring Data repository scanning in 110ms. Found 9 JPA repository interfaces.
+2020-11-14 20:04:26 INFO Tomcat initialized with port(s): 8080 (http)
+2020-11-14 20:04:26 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:04:26 INFO Starting service [Tomcat]
+2020-11-14 20:04:26 INFO Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-11-14 20:04:26 INFO Initializing Spring embedded WebApplicationContext
+2020-11-14 20:04:26 INFO Root WebApplicationContext: initialization completed in 1881 ms
+2020-11-14 20:04:26 INFO Flyway Community Edition 6.4.4 by Redgate
+2020-11-14 20:04:26 INFO HikariPool-1 - Starting...
+2020-11-14 20:04:27 INFO HikariPool-1 - Start completed.
+2020-11-14 20:04:27 INFO Database: jdbc:mariadb://localhost:3306/sl_db (MariaDB 10.5)
+2020-11-14 20:04:27 WARN Flyway upgrade recommended: MariaDB 10.5 is newer than this version of Flyway and support has not been tested. The latest supported version of MariaDB is 10.4.
+2020-11-14 20:04:27 INFO Successfully validated 17 migrations (execution time 00:00.053s)
+2020-11-14 20:04:27 INFO Current version of schema `sl_db`: 11.1
+2020-11-14 20:04:27 INFO Schema `sl_db` is up to date. No migration necessary.
+2020-11-14 20:04:27 INFO Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:04:27 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-14 20:04:27 INFO HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-11-14 20:04:27 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-14 20:04:27 INFO HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-14 20:04:27 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-14 20:04:28 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-14 20:04:28 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:04:29 INFO Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@777d0bc3, org.springframework.security.web.context.SecurityContextPersistenceFilter@2c991465, org.springframework.security.web.header.HeaderWriterFilter@34b87182, org.springframework.security.web.csrf.CsrfFilter@58606c91, org.springframework.security.web.authentication.logout.LogoutFilter@43b5021c, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@60c1663c, com.jikgorae.api.security.filter.JwtAuthenticationFilter@3178219a, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3d0cac1f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f973a14, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53e76c11, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d85fb64, org.springframework.security.web.session.SessionManagementFilter@2740e316, org.springframework.security.web.access.ExceptionTranslationFilter@1e0fdb2f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6d099323]
+2020-11-14 20:04:29 DEBUG ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-11-14 20:04:29 DEBUG 29 mappings in 'requestMappingHandlerMapping'
+2020-11-14 20:04:29 INFO Adding welcome page: class path resource [static/index.html]
+2020-11-14 20:04:29 DEBUG Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-11-14 20:04:29 DEBUG ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-11-14 20:04:29 INFO Starting ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:04:29 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-14 20:04:29 INFO Triggering deferred initialization of Spring Data repositories…
+2020-11-14 20:04:30 INFO Spring Data repositories initialized!
+2020-11-14 20:04:30 INFO Started ApiApplication in 31.253 seconds (JVM running for 43.341)
+2020-11-14 20:04:40 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-11-14 20:04:40 INFO Initializing Servlet 'dispatcherServlet'
+2020-11-14 20:04:40 DEBUG Detected StandardServletMultipartResolver
+2020-11-14 20:04:40 DEBUG enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-11-14 20:04:40 INFO Completed initialization in 9 ms
+2020-11-14 20:04:40 DEBUG GET "/server-status", parameters={}
+2020-11-14 20:04:40 DEBUG Mapped to com.jikgorae.api.ServerStatusController#status()
+2020-11-14 20:04:40 DEBUG Using 'text/html', given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] and supported [text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
+2020-11-14 20:04:40 DEBUG Writing [""]
+2020-11-14 20:04:40 DEBUG Completed 200 OK
+2020-11-14 20:05:02 DEBUG GET "/", parameters={}
+2020-11-14 20:05:02 DEBUG Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2020-11-14 20:05:02 DEBUG View name 'forward:', model {}
+2020-11-14 20:05:02 DEBUG Forwarding to [index.html]
+2020-11-14 20:05:02 DEBUG "FORWARD" dispatch for GET "/index.html", parameters={}
+2020-11-14 20:05:02 DEBUG Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-11-14 20:05:02 DEBUG Exiting from "FORWARD" dispatch, status 200
+2020-11-14 20:05:02 DEBUG Completed 200 OK
+2020-11-14 20:05:02 DEBUG GET "/server-status", parameters={}
+2020-11-14 20:05:02 DEBUG Mapped to com.jikgorae.api.ServerStatusController#status()
+2020-11-14 20:05:02 DEBUG Using 'text/html', given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] and supported [text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
+2020-11-14 20:05:02 DEBUG Writing [""]
+2020-11-14 20:05:02 DEBUG Completed 200 OK
+2020-11-14 20:09:48 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:09:48 INFO Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:09:48 INFO HikariPool-1 - Shutdown initiated...
+2020-11-14 20:09:48 INFO HikariPool-1 - Shutdown completed.
+2020-11-14 20:10:24 WARN InetAddress.getLocalHost().getHostName() took 5001 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2020-11-14 20:10:19 INFO Starting ApiApplication on jeong-eunseog-ui-MacBook-Pro.local with PID 5487 (/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main started by jeong-eunseog in /Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company)
+2020-11-14 20:10:29 INFO The following profiles are active: local,common,security
+2020-11-14 20:10:29 INFO Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-14 20:10:29 INFO Finished Spring Data repository scanning in 88ms. Found 9 JPA repository interfaces.
+2020-11-14 20:10:30 INFO Tomcat initialized with port(s): 8080 (http)
+2020-11-14 20:10:30 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:10:30 INFO Starting service [Tomcat]
+2020-11-14 20:10:30 INFO Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-11-14 20:10:30 INFO Initializing Spring embedded WebApplicationContext
+2020-11-14 20:10:30 INFO Root WebApplicationContext: initialization completed in 1455 ms
+2020-11-14 20:10:30 INFO Flyway Community Edition 6.4.4 by Redgate
+2020-11-14 20:10:30 INFO HikariPool-1 - Starting...
+2020-11-14 20:10:30 INFO HikariPool-1 - Start completed.
+2020-11-14 20:10:30 INFO Database: jdbc:mariadb://localhost:3306/sl_db (MariaDB 10.5)
+2020-11-14 20:10:30 WARN Flyway upgrade recommended: MariaDB 10.5 is newer than this version of Flyway and support has not been tested. The latest supported version of MariaDB is 10.4.
+2020-11-14 20:10:30 INFO Successfully validated 17 migrations (execution time 00:00.040s)
+2020-11-14 20:10:30 INFO Current version of schema `sl_db`: 11.1
+2020-11-14 20:10:30 INFO Schema `sl_db` is up to date. No migration necessary.
+2020-11-14 20:10:30 INFO Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:10:30 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-14 20:10:31 INFO HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-11-14 20:10:31 INFO HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-14 20:10:31 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-14 20:10:31 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-14 20:10:31 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-14 20:10:32 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:10:32 INFO Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@49a6f486, org.springframework.security.web.context.SecurityContextPersistenceFilter@6d2a2560, org.springframework.security.web.header.HeaderWriterFilter@5034f5dd, org.springframework.security.web.csrf.CsrfFilter@16a5eb6d, org.springframework.security.web.authentication.logout.LogoutFilter@1e95b653, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5b9499fe, com.jikgorae.api.security.filter.JwtAuthenticationFilter@14fded9d, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3eb3232b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3811510, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1084f78c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@bc6288b, org.springframework.security.web.session.SessionManagementFilter@6a916402, org.springframework.security.web.access.ExceptionTranslationFilter@53c1179a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3a4ab7f7]
+2020-11-14 20:10:32 DEBUG ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-11-14 20:10:32 DEBUG 29 mappings in 'requestMappingHandlerMapping'
+2020-11-14 20:10:32 INFO Adding welcome page: class path resource [static/index.html]
+2020-11-14 20:10:32 DEBUG Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-11-14 20:10:32 DEBUG ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-11-14 20:10:33 INFO Starting ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:10:33 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-14 20:10:33 INFO Triggering deferred initialization of Spring Data repositories…
+2020-11-14 20:10:33 INFO Spring Data repositories initialized!
+2020-11-14 20:10:33 INFO Started ApiApplication in 30.015 seconds (JVM running for 41.055)
+2020-11-14 20:11:16 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:11:16 INFO Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:11:16 INFO HikariPool-1 - Shutdown initiated...
+2020-11-14 20:11:16 INFO HikariPool-1 - Shutdown completed.
+2020-11-14 20:11:58 WARN InetAddress.getLocalHost().getHostName() took 5006 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2020-11-14 20:11:53 INFO Starting ApiApplication on jeong-eunseog-ui-MacBook-Pro.local with PID 5495 (/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main started by jeong-eunseog in /Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company)
+2020-11-14 20:12:03 INFO The following profiles are active: local,common,security
+2020-11-14 20:12:05 INFO Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-14 20:12:05 INFO Finished Spring Data repository scanning in 207ms. Found 9 JPA repository interfaces.
+2020-11-14 20:12:07 INFO Tomcat initialized with port(s): 8080 (http)
+2020-11-14 20:12:07 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:12:07 INFO Starting service [Tomcat]
+2020-11-14 20:12:07 INFO Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-11-14 20:12:14 INFO Initializing Spring embedded WebApplicationContext
+2020-11-14 20:12:14 INFO Root WebApplicationContext: initialization completed in 10078 ms
+2020-11-14 20:12:14 INFO Flyway Community Edition 6.4.4 by Redgate
+2020-11-14 20:12:14 INFO HikariPool-1 - Starting...
+2020-11-14 20:12:15 INFO HikariPool-1 - Start completed.
+2020-11-14 20:12:15 INFO Database: jdbc:mariadb://localhost:3306/sl_db (MariaDB 10.5)
+2020-11-14 20:12:15 WARN Flyway upgrade recommended: MariaDB 10.5 is newer than this version of Flyway and support has not been tested. The latest supported version of MariaDB is 10.4.
+2020-11-14 20:12:15 INFO Successfully validated 17 migrations (execution time 00:00.086s)
+2020-11-14 20:12:15 INFO Current version of schema `sl_db`: 11.1
+2020-11-14 20:12:15 INFO Schema `sl_db` is up to date. No migration necessary.
+2020-11-14 20:12:15 INFO Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:12:15 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-14 20:12:15 INFO HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-11-14 20:12:16 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-14 20:12:16 INFO HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-14 20:12:16 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-14 20:12:18 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-14 20:12:18 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:12:22 INFO Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@685d7ba5, org.springframework.security.web.context.SecurityContextPersistenceFilter@37d699a1, org.springframework.security.web.header.HeaderWriterFilter@589fb74d, org.springframework.security.web.csrf.CsrfFilter@1510b9a2, org.springframework.security.web.authentication.logout.LogoutFilter@7d66a126, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@4b4a2fa8, com.jikgorae.api.security.filter.JwtAuthenticationFilter@16d41725, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6b16de91, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@8eb6f9a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6c07add6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b6c2be6, org.springframework.security.web.session.SessionManagementFilter@7de147e9, org.springframework.security.web.access.ExceptionTranslationFilter@5db0003d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@60b1ff3b]
+2020-11-14 20:12:27 DEBUG ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-11-14 20:12:27 DEBUG 29 mappings in 'requestMappingHandlerMapping'
+2020-11-14 20:12:27 INFO Adding welcome page: class path resource [static/index.html]
+2020-11-14 20:12:28 DEBUG Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-11-14 20:12:28 DEBUG ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-11-14 20:12:30 INFO Starting ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:12:30 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-14 20:12:30 INFO Triggering deferred initialization of Spring Data repositories…
+2020-11-14 20:12:36 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-11-14 20:12:36 INFO Initializing Servlet 'dispatcherServlet'
+2020-11-14 20:12:36 DEBUG Detected StandardServletMultipartResolver
+2020-11-14 20:12:36 DEBUG enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-11-14 20:12:36 INFO Completed initialization in 91 ms
+2020-11-14 20:12:44 DEBUG GET "/server-status", parameters={}
+2020-11-14 20:12:44 DEBUG Mapped to com.jikgorae.api.ServerStatusController#status()
+2020-11-14 20:22:19 WARN HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m4s400ms).
+2020-11-14 20:24:51 WARN InetAddress.getLocalHost().getHostName() took 5001 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2020-11-14 20:24:46 INFO Starting ApiApplication on jeong-eunseog-ui-MacBook-Pro.local with PID 5579 (/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main started by jeong-eunseog in /Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company)
+2020-11-14 20:24:56 INFO The following profiles are active: set1
+2020-11-14 20:24:57 INFO Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-14 20:24:57 INFO Finished Spring Data repository scanning in 156ms. Found 9 JPA repository interfaces.
+2020-11-14 20:24:58 INFO Tomcat initialized with port(s): 8080 (http)
+2020-11-14 20:24:58 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:24:58 INFO Starting service [Tomcat]
+2020-11-14 20:24:58 INFO Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-11-14 20:24:58 INFO Initializing Spring embedded WebApplicationContext
+2020-11-14 20:24:58 INFO Root WebApplicationContext: initialization completed in 2461 ms
+2020-11-14 20:24:58 ERROR Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main/com/jikgorae/api/security/filter/JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtTokenProvider': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.jwt.token.secret-key' in value "${security.jwt.token.secret-key}"
+2020-11-14 20:24:58 INFO Stopping service [Tomcat]
+2020-11-14 20:24:58 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2020-11-14 20:24:58 INFO 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-11-14 20:24:59 ERROR Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:161) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:545) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at com.jikgorae.api.ApiApplication.main(ApiApplication.java:13) [main/:?]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:142) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:437) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:191) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:178) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:158) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	... 9 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main/com/jikgorae/api/security/filter/JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtTokenProvider': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.jwt.token.secret-key' in value "${security.jwt.token.secret-key}"
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:797) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:227) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:255) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:229) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:53) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5128) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_251]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_251]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[?:1.8.0_251]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:841) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_251]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_251]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[?:1.8.0_251]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:421) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:930) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:468) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:437) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:191) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:178) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:158) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	... 9 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtTokenProvider': Injection of autowired dependencies failed; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'security.jwt.token.secret-key' in value "${security.jwt.token.secret-key}"
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:405) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1304) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1224) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:884) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:227) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:255) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:229) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:53) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5128) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_251]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_251]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[?:1.8.0_251]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:841) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_251]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_251]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[?:1.8.0_251]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:421) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:930) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:468) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:437) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:191) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:178) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:158) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	... 9 more
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'security.jwt.token.secret-key' in value "${security.jwt.token.secret-key}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:178) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:124) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:175) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:912) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1245) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1224) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1304) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1224) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:884) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:227) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:255) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:229) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:53) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5128) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_251]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_251]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[?:1.8.0_251]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:841) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_251]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_251]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[?:1.8.0_251]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:421) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:930) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:468) ~[tomcat-embed-core-9.0.36.jar:9.0.36]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:437) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:191) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:178) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:158) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	... 9 more
+2020-11-14 20:41:05 WARN InetAddress.getLocalHost().getHostName() took 5002 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2020-11-14 20:41:00 INFO Starting ApiApplication on jeong-eunseog-ui-MacBook-Pro.local with PID 5667 (/Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company/back/api/build/classes/java/main started by jeong-eunseog in /Users/jeong-eunseog/Desktop/jetBrain/intellij/woowacourse/Lv3/2020-seller-lee-company)
+2020-11-14 20:41:10 INFO The following profiles are active: set1,local,common,security
+2020-11-14 20:41:11 INFO Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-14 20:41:11 INFO Finished Spring Data repository scanning in 125ms. Found 9 JPA repository interfaces.
+2020-11-14 20:41:12 INFO Tomcat initialized with port(s): 8080 (http)
+2020-11-14 20:41:12 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:41:12 INFO Starting service [Tomcat]
+2020-11-14 20:41:12 INFO Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-11-14 20:41:12 INFO Initializing Spring embedded WebApplicationContext
+2020-11-14 20:41:12 INFO Root WebApplicationContext: initialization completed in 2184 ms
+2020-11-14 20:41:12 INFO Flyway Community Edition 6.4.4 by Redgate
+2020-11-14 20:41:12 INFO HikariPool-1 - Starting...
+2020-11-14 20:41:12 INFO HikariPool-1 - Start completed.
+2020-11-14 20:41:12 INFO Database: jdbc:mariadb://localhost:3306/sl_db (MariaDB 10.5)
+2020-11-14 20:41:12 WARN Flyway upgrade recommended: MariaDB 10.5 is newer than this version of Flyway and support has not been tested. The latest supported version of MariaDB is 10.4.
+2020-11-14 20:41:12 INFO Successfully validated 17 migrations (execution time 00:00.065s)
+2020-11-14 20:41:12 INFO Current version of schema `sl_db`: 11.1
+2020-11-14 20:41:12 INFO Schema `sl_db` is up to date. No migration necessary.
+2020-11-14 20:41:13 INFO Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:41:13 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-14 20:41:13 INFO HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-11-14 20:41:13 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-14 20:41:13 INFO HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-14 20:41:13 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-14 20:41:15 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-14 20:41:15 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:41:15 INFO Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@27358a19, org.springframework.security.web.context.SecurityContextPersistenceFilter@4044589a, org.springframework.security.web.header.HeaderWriterFilter@36ad5f2a, org.springframework.security.web.csrf.CsrfFilter@aca3c85, org.springframework.security.web.authentication.logout.LogoutFilter@6e807e2, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@49653791, com.jikgorae.api.security.filter.JwtAuthenticationFilter@8077c97, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@7b377a53, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@216f01, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@120350eb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22865072, org.springframework.security.web.session.SessionManagementFilter@55c50f52, org.springframework.security.web.access.ExceptionTranslationFilter@1002d192, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@f95d64d]
+2020-11-14 20:41:16 DEBUG ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-11-14 20:41:16 DEBUG 29 mappings in 'requestMappingHandlerMapping'
+2020-11-14 20:41:16 INFO Adding welcome page: class path resource [static/index.html]
+2020-11-14 20:41:16 DEBUG Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-11-14 20:41:16 DEBUG ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-11-14 20:41:16 INFO Starting ProtocolHandler ["http-nio-8080"]
+2020-11-14 20:41:16 INFO Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-14 20:41:16 INFO Triggering deferred initialization of Spring Data repositories…
+2020-11-14 20:41:17 INFO Spring Data repositories initialized!
+2020-11-14 20:41:17 INFO Started ApiApplication in 32.506 seconds (JVM running for 44.121)
+2020-11-14 20:41:25 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-11-14 20:41:25 INFO Initializing Servlet 'dispatcherServlet'
+2020-11-14 20:41:25 DEBUG Detected StandardServletMultipartResolver
+2020-11-14 20:41:25 DEBUG enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-11-14 20:41:25 INFO Completed initialization in 11 ms
+2020-11-14 20:41:25 DEBUG GET "/server-status", parameters={}
+2020-11-14 20:41:25 DEBUG Mapped to com.jikgorae.api.ServerStatusController#status()
+2020-11-14 20:44:04 WARN HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m51s544ms).
+2020-11-14 20:44:04 DEBUG Using 'text/html', given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] and supported [text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
+2020-11-14 20:44:04 DEBUG Writing ["set1"]
+2020-11-14 20:44:04 DEBUG Completed 200 OK
+2020-11-14 20:44:04 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-11-14 20:44:04 INFO Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-14 20:44:04 INFO HikariPool-1 - Shutdown initiated...
+2020-11-14 20:44:04 INFO HikariPool-1 - Shutdown completed.

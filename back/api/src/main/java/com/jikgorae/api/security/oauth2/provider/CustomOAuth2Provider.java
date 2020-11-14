@@ -22,7 +22,7 @@ public enum CustomOAuth2Provider {
     };
 
     public static final String AUTHORIZATION_URI = "https://kauth.kakao.com/oauth/authorize";
-    private static final String DEPLOY_SERVER = "https://sellerlee.tk";
+    private static final String DEPLOY_SERVER = "https://sellerlee.ml";
     // private static final String QA_SERVER = "http://192.168.4.179:8080";
     public static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
     public static final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
