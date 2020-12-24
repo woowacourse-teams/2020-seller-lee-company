@@ -11,11 +11,14 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.BatchSize;
+
 @Embeddable
 public class Tags {
     @ElementCollection
     @CollectionTable(name = "tag",
             joinColumns = @JoinColumn(name = "article_id"))
+    @BatchSize(size = 100)
     private List<Tag> tags;
 
     protected Tags() {

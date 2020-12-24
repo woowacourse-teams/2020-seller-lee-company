@@ -11,6 +11,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.BatchSize;
+
 @Embeddable
 public class Photos {
     private static final int THUMBNAIL_INDEX = 0;
@@ -18,6 +20,7 @@ public class Photos {
     @ElementCollection
     @CollectionTable(name = "photo",
             joinColumns = @JoinColumn(name = "article_id"))
+    @BatchSize(size = 100)
     private List<String> photos;
 
     protected Photos() {
